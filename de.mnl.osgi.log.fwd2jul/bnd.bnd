@@ -1,0 +1,11 @@
+-buildpath: \
+        osgi.cmpn;version=4.3.1,\
+        osgi.core;version=4.3.1
+Private-Package: de.mnl.osgi.log.fwd2jul
+Bundle-Name: OSGi-Log2JUL
+Bundle-Description: Write messages logged with an OSGi log service to java.util.logging. 
+Bundle-Category: util
+Bundle-Copyright: Michael N. Lipp (C) 2016
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Bundle-Version: 1.0.0
+Bundle-Activator: de.mnl.osgi.log.fwd2jul.Activator
