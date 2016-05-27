@@ -1,5 +1,2 @@
-/_site/
-/.gradle/
-/reports/
-/generated/
-
+.gradle/
+.metadata
