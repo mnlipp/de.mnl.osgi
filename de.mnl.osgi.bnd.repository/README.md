@@ -29,7 +29,11 @@ The definition follows the pattern described in the
 that the paths in the `path:` directive are relative to the bnd workspace,
 so the `${workspace}/` can be omitted. The `path:` includes the plugin
 itself and a library from bnd that is not in the default classpath
-that bnd creates for plugins.
+used by bnd for plugins. The latest version of this plugin can be
+obtained from the 
+[release directory](https://github.com/mnlipp/de.mnl.osgi/tree/master/cnf/release/de.mnl.osgi.bnd.repository)
+on github. The bnd library can be downloaded from Maven Central or
+copied from the eclipse plugins directory.
 
 The `name` property defaults to `OssSonatype`, the `server` property 
 to `https://oss.sonatype.org`.
