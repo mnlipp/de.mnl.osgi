@@ -2,7 +2,7 @@ Bundle-Name: Bnd Nexus Search Plugin
 Bundle-Category: util
 Bundle-Copyright: Michael N. Lipp (C) 2017
 Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
-Bundle-Version: 0.0.0-${tstamp}
+Bundle-Version: 0.0.2-${tstamp}
 Export-Package: de.mnl.osgi.bnd.repository.maven.provider;bnd-plugins=true
 
 -buildpath: \
