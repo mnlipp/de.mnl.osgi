@@ -3,7 +3,11 @@
 ## NexusSearchRepositoryProvider
 
 A plugin for the [bnd](http://bnd.bndtools.org/) tool that provides
-the results of a Nexus search as an OSGi repository.
+the results of a Nexus search as an OSGi repository. It uses the
+REST services as defined 
+[here](https://oss.sonatype.org/nexus-restlet1x-plugin/default/docs/index.html)
+and
+[here](https://repository.sonatype.org/nexus-indexer-lucene-plugin/default/docs/rest.html).
 
 The bnd tool comes with a plugin that provides the results from 
 [searching Maven Central](http://bnd.bndtools.org/plugins/pomrepo.html). This,
