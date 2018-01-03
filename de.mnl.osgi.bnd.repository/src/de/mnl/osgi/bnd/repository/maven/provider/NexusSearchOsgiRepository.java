@@ -268,43 +268,50 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 		 */
 		@Override
 		public Void call() throws Exception {
-			POM pom = mavenRepository.getPom(revision);
-			if (pom != null) {
-				// Get pom and add all dependencies as to be processed.
-				Map<Program, Dependency> deps = null;
-				try {
-					deps = pom.getDependencies(EnumSet.of(MavenScope.compile, MavenScope.runtime), false);
-					synchronized (NexusSearchOsgiRepository.this) {
-						for (Map.Entry<Program, Dependency> entry : deps.entrySet()) {
-							Revision rev = entry.getKey().version(entry.getValue().version);
-							if (!toBeProcessed.contains(rev) && !processing.contains(rev) 
-									&& !processed.contains(rev)) {
-								toBeProcessed.add(rev);
-								logger.debug("Added as dependency {}", rev);
-							}
-							NexusSearchOsgiRepository.this.notifyAll();
-						}
+			try {
+				POM pom = mavenRepository.getPom(revision);
+				if (pom != null) {
+					// Get pom and add all dependencies as to be processed.
+					addDependencies(pom);
+				}
+				// Get and add this revision's OSGi information
+				Archive archive = mavenRepository.getResolvedArchive(revision, "jar", "");
+				if (archive != null) {
+					Resource resource = parseResource(archive);
+					if (resource != null) {
+						collectedResources.add(resource);
 					}
-				} catch (Exception e) {
-					logger.error("Failed to get POM of " + revision + ".", e);
-					return null;
+				}
+				return null;
+			} finally {
+				// We're done witht his revision.
+				synchronized (NexusSearchOsgiRepository.this) {
+					processing.remove(revision);
+					processed.add(revision);
+					NexusSearchOsgiRepository.this.notifyAll();
 				}
 			}
-			// Get and add this revision's OSGi information
-			Archive archive = mavenRepository.getResolvedArchive(revision, "jar", "");
-			if (archive != null) {
-				Resource resource = parseResource(archive);
-				if (resource != null) {
-					collectedResources.add(resource);
+		}
+
+		private void addDependencies(POM pom) {
+			Map<Program, Dependency> deps = null;
+			try {
+				deps = pom.getDependencies(EnumSet.of(
+						MavenScope.compile, MavenScope.runtime), false);
+				synchronized (NexusSearchOsgiRepository.this) {
+					for (Map.Entry<Program, Dependency> entry : deps.entrySet()) {
+						Revision rev = entry.getKey().version(entry.getValue().version);
+						if (!toBeProcessed.contains(rev) && !processing.contains(rev) 
+								&& !processed.contains(rev)) {
+							toBeProcessed.add(rev);
+							logger.debug("Added as dependency {}", rev);
+						}
+						NexusSearchOsgiRepository.this.notifyAll();
+					}
 				}
+			} catch (Exception e) {
+				logger.error("Failed to get POM of " + revision + ".", e);
 			}
-			// We're done witht his revision.
-			synchronized (NexusSearchOsgiRepository.this) {
-				processing.remove(revision);
-				processed.add(revision);
-				NexusSearchOsgiRepository.this.notifyAll();
-			}
-			return null;
 		}
 	}
 	
