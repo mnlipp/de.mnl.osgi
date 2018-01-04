@@ -334,7 +334,10 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 	 * 
 	 * @return
 	 */
-	public MavenRepository mavenRepository() {
+	public MavenRepository mavenRepository() throws Exception {
+		if (mavenRepository == null) {
+			refresh();
+		}
 		return mavenRepository;
 	}
 
