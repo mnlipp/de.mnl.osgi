@@ -118,10 +118,13 @@ public class NexusSearchRepositoryProvider extends BaseRepository
 		Workspace workspace = registry.getPlugin(Workspace.class);
 		HttpClient client = registry.getPlugin(HttpClient.class);
 		File obrIndexFile = workspace.getFile(getLocation());
+		File mvnReposFile = workspace.getFile(
+				"cnf/cache/nexus-search-" + name + "-repositories.xml");
 		File localRepo = IO.getFile(configuration.local(MAVEN_REPO_LOCAL));
 		try {
 			osgiRepository = new NexusSearchOsgiRepository(
-					name, server, localRepo, obrIndexFile, queryString, reporter, client);
+					name, server, localRepo, obrIndexFile, mvnReposFile, 
+					queryString, reporter, client);
 			bridge = new BridgeRepository(osgiRepository);
 		} catch (Exception e) {
 			throw new RuntimeException(e);

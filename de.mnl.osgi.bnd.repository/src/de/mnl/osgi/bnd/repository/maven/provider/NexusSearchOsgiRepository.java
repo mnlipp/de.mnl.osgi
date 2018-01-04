@@ -21,6 +21,8 @@ package de.mnl.osgi.bnd.repository.maven.provider;
 import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapability;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,6 +34,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamWriter;
+import javax.xml.stream.events.XMLEvent;
 
 import org.osgi.resource.Resource;
 import org.osgi.service.repository.Repository;
@@ -67,6 +76,7 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 	private URL server;
 	private File localRepo = null;
 	private File obrIndexFile;
+	private File mvnReposFile;
 	private String queryString;
 	private Reporter reporter;
 	private HttpClient client; 
@@ -87,23 +97,61 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 	 * @param client an HTTP client for obtaining information from the Nexus server
 	 */
 	public NexusSearchOsgiRepository (String name, URL server, File localRepo, 
-			File obrIndexFile, String queryString, Reporter reporter, HttpClient client)
+			File obrIndexFile, File mvnResposFile, 
+			String queryString, Reporter reporter, HttpClient client)
 			throws Exception {
 		this.name = name;
 		this.server = server;
 		this.localRepo = localRepo;
 		this.obrIndexFile = obrIndexFile;
+		this.mvnReposFile = mvnResposFile;
 		this.queryString = queryString;
 		this.reporter = reporter;
 		this.client = client;
 		
 		// Read results from previous execution.
+		mavenRepository = restoreRepository();
 		if (location().isFile()) {
 			try (XMLResourceParser parser = new XMLResourceParser(location())) {
 				List<Resource> resources = parser.parse();
 				addAll(resources);
 			}
 		}
+	}
+
+	private MavenRepository restoreRepository() throws Exception {
+		if (!mvnReposFile.exists()) {
+			return null;
+		}
+		List<MavenBackingRepository> releaseBackers = new ArrayList<>();
+		List<MavenBackingRepository> snapshotBackers = new ArrayList<>();
+		List<MavenBackingRepository> backers = null;
+		XMLEventReader xmlIn = XMLInputFactory.newFactory().createXMLEventReader(
+				new FileInputStream(mvnReposFile));
+		while (xmlIn.hasNext()) {
+			XMLEvent event = xmlIn.nextEvent();
+			if (event.getEventType() != XMLStreamConstants.START_ELEMENT) {
+				continue;
+			}
+			switch(event.asStartElement().getName().getLocalPart()) {
+			case "releaseUrls":
+				backers = releaseBackers;
+				break;
+			case "snapshotUrls":
+				backers = snapshotBackers;
+				break;
+			case "url":
+				do {
+					event = xmlIn.nextEvent();
+				} while (event.getEventType() != XMLStreamConstants.CHARACTERS);
+				backers.addAll(MavenBackingRepository.create(
+						event.asCharacters().getData(), reporter, localRepo, client));
+				break;
+			}
+		}
+		xmlIn.close();
+		return new MavenRepository(localRepo, name, 
+				releaseBackers, snapshotBackers, Processor.getExecutor(), reporter, null);
 	}
 
 	/**
@@ -142,7 +190,7 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 		// Repository information is obtained from both querying the repositories
 		// (provides information about existing repositories) and from executing
 		// the query (provides information about actually used repositories).
-		createMavenRepository(parser);
+		mavenRepository = createMavenRepository(parser);
 		Set<Resource> collectedResources = Collections.newSetFromMap(new ConcurrentHashMap<>());
 		synchronized (this) {
 			while (true) {
@@ -231,19 +279,39 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 		}
 	}
 
-	private void createMavenRepository(NexusSearchNGResponseParser parser) throws Exception {
+	private MavenRepository createMavenRepository(
+			NexusSearchNGResponseParser parser) throws Exception {
 		// Create repository from URLs
+		XMLStreamWriter xmlOut = XMLOutputFactory.newFactory().createXMLStreamWriter(
+				new FileOutputStream(mvnReposFile));
+		xmlOut.writeStartDocument();
+		xmlOut.writeStartElement("repositories");
+		xmlOut.writeStartElement("repository");
+		xmlOut.writeStartElement("releaseUrls");
 		List<MavenBackingRepository> releaseBackers = new ArrayList<>();
 		for (URL repoUrl: parser.releaseRepositories()) {
+			xmlOut.writeStartElement("url");
+			xmlOut.writeCharacters(repoUrl.toString());
+			xmlOut.writeEndElement();
 			releaseBackers.addAll(MavenBackingRepository.create(
 					repoUrl.toString(), reporter, localRepo, client));
 		}
+		xmlOut.writeEndElement();
+		xmlOut.writeStartElement("snapshotUrls");
 		List<MavenBackingRepository> snapshotBackers = new ArrayList<>();
 		for (URL repoUrl: parser.snapshotRepositories()) {
+			xmlOut.writeStartElement("url");
+			xmlOut.writeCharacters(repoUrl.toString());
+			xmlOut.writeEndElement();
 			snapshotBackers.addAll(MavenBackingRepository.create(
 					repoUrl.toString(), reporter, localRepo, client));
 		}
-		mavenRepository = new MavenRepository(localRepo, name, 
+		xmlOut.writeEndElement();
+		xmlOut.writeEndElement();
+		xmlOut.writeEndElement();
+		xmlOut.writeEndDocument();
+		xmlOut.close();
+		return new MavenRepository(localRepo, name, 
 				releaseBackers, snapshotBackers,
 				Processor.getExecutor(), reporter, null);
 	}
@@ -340,5 +408,4 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 		}
 		return mavenRepository;
 	}
-
 }
