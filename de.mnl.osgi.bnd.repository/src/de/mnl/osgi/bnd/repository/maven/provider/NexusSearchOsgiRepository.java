@@ -109,9 +109,12 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 		this.reporter = reporter;
 		this.client = client;
 		
-		// Read results from previous execution.
+		// load results from previous execution.
 		mavenRepository = restoreRepository();
-		if (location().isFile()) {
+		if (mavenRepository == null 
+				|| !location().exists() || !location().isFile()) {
+			refresh();
+		} else {
 			try (XMLResourceParser parser = new XMLResourceParser(location())) {
 				List<Resource> resources = parser.parse();
 				addAll(resources);
