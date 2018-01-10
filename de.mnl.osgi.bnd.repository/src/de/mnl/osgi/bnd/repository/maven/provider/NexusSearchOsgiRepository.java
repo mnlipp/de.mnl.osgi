@@ -62,6 +62,8 @@ import aQute.maven.api.Revision;
 import aQute.maven.api.IPom.Dependency;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.maven.provider.MavenRepository;
+import aQute.maven.provider.MetadataParser;
+import aQute.maven.provider.MetadataParser.RevisionMetadata;
 import aQute.service.reporter.Reporter;
 
 /**
@@ -81,7 +83,7 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 	private String queryString;
 	private Reporter reporter;
 	private HttpClient client; 
-	private IMavenRepo mavenRepository;
+	private MavenRepository mavenRepository;
 	private Set<Revision> toBeProcessed = new HashSet<>();
 	private Set<Revision> processing = new HashSet<>();
 	private Set<Revision> processed = new HashSet<>();
@@ -123,7 +125,7 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 		}
 	}
 
-	private IMavenRepo restoreRepository() throws Exception {
+	private MavenRepository restoreRepository() throws Exception {
 		if (!mvnReposFile.exists()) {
 			return null;
 		}
@@ -283,7 +285,7 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 		}
 	}
 
-	private IMavenRepo createMavenRepository(
+	private MavenRepository createMavenRepository(
 			NexusSearchNGResponseParser parser) throws Exception {
 		// Create repository from URLs
 		XMLStreamWriter xmlOut = XMLOutputFactory.newFactory().createXMLStreamWriter(
@@ -344,6 +346,26 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 				// Get and add this revision's OSGi information (refreshes snapshots)
 				Archive archive = mavenRepository.getResolvedArchive(revision, "jar", "");
 				if (archive != null) {
+					if (archive.isSnapshot()) {
+						for (MavenBackingRepository mbr : mavenRepository.getSnapshotRepositories()) {
+							if (mbr.getVersion(archive.getRevision()) != null) {
+								// Found backing repository
+								File metaFile = mavenRepository.toLocalFile(
+										revision.metadata(mbr.getId()));
+								RevisionMetadata metaData = MetadataParser.parseRevisionMetadata(
+										metaFile);
+								File archiveFile = mavenRepository.toLocalFile(archive);
+								if (archiveFile.lastModified() < metaData.lastUpdated) {
+									archiveFile.delete();
+								}
+								File pomFile = mavenRepository.toLocalFile(archive.getPomArchive());
+								if (pomFile.lastModified() < metaData.lastUpdated) {
+									pomFile.delete();
+								}
+								break;
+							}
+						}
+					}
 					// Get POM for dependencies
 					IPom pom = mavenRepository.getPom(archive.getRevision());
 					if (pom != null) {
