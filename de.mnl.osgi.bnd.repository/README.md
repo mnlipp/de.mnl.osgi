@@ -14,7 +14,7 @@ The bnd tool comes with a plugin that provides the results from
 however, does not allow you to easily access uploaded snapshots of
 bundles under development. (Details about *why* you need such plugins
 in the first place can be found 
-[here](http://mnlipp.github.io/osgi-getting-started/Repositories.html).
+[here](http://mnlipp.github.io/osgi-getting-started/Repositories.html)).
 
 Here's a sample configuration of the plugin:
 
