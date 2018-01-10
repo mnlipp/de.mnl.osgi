@@ -27,8 +27,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,13 +54,14 @@ import aQute.bnd.osgi.repository.XMLResourceGenerator;
 import aQute.bnd.osgi.repository.XMLResourceParser;
 import aQute.bnd.osgi.resource.ResourceBuilder;
 import aQute.maven.api.Archive;
+import aQute.maven.api.IMavenRepo;
+import aQute.maven.api.IPom;
 import aQute.maven.api.MavenScope;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.api.IPom.Dependency;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.maven.provider.MavenRepository;
-import aQute.maven.provider.POM;
 import aQute.service.reporter.Reporter;
 
 /**
@@ -80,7 +81,7 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 	private String queryString;
 	private Reporter reporter;
 	private HttpClient client; 
-	private MavenRepository mavenRepository;
+	private IMavenRepo mavenRepository;
 	private Set<Revision> toBeProcessed = new HashSet<>();
 	private Set<Revision> processing = new HashSet<>();
 	private Set<Revision> processed = new HashSet<>();
@@ -122,7 +123,7 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 		}
 	}
 
-	private MavenRepository restoreRepository() throws Exception {
+	private IMavenRepo restoreRepository() throws Exception {
 		if (!mvnReposFile.exists()) {
 			return null;
 		}
@@ -282,7 +283,7 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 		}
 	}
 
-	private MavenRepository createMavenRepository(
+	private IMavenRepo createMavenRepository(
 			NexusSearchNGResponseParser parser) throws Exception {
 		// Create repository from URLs
 		XMLStreamWriter xmlOut = XMLOutputFactory.newFactory().createXMLStreamWriter(
@@ -340,14 +341,15 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 		@Override
 		public Void call() throws Exception {
 			try {
-				POM pom = mavenRepository.getPom(revision);
-				if (pom != null) {
-					// Get pom and add all dependencies as to be processed.
-					addDependencies(pom);
-				}
-				// Get and add this revision's OSGi information
+				// Get and add this revision's OSGi information (refreshes snapshots)
 				Archive archive = mavenRepository.getResolvedArchive(revision, "jar", "");
 				if (archive != null) {
+					// Get POM for dependencies
+					IPom pom = mavenRepository.getPom(archive.getRevision());
+					if (pom != null) {
+						// Get pom and add all dependencies as to be processed.
+						addDependencies(pom);
+					}
 					Resource resource = parseResource(archive);
 					if (resource != null) {
 						collectedResources.add(resource);
@@ -364,11 +366,11 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 			}
 		}
 
-		private void addDependencies(POM pom) {
-			Map<Program, Dependency> deps = null;
+		private void addDependencies(IPom pom) {
 			try {
-				deps = pom.getDependencies(EnumSet.of(
-						MavenScope.compile, MavenScope.runtime), false);
+				Map<Program,Dependency> deps = new LinkedHashMap<>();
+				deps.putAll(pom.getDependencies(MavenScope.compile, false));
+				deps.putAll(pom.getDependencies(MavenScope.runtime, false));
 				synchronized (NexusSearchOsgiRepository.this) {
 					for (Map.Entry<Program, Dependency> entry : deps.entrySet()) {
 						Revision rev = entry.getKey().version(entry.getValue().version);
@@ -405,7 +407,7 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 	 * 
 	 * @return
 	 */
-	public MavenRepository mavenRepository() throws Exception {
+	public IMavenRepo mavenRepository() throws Exception {
 		if (mavenRepository == null) {
 			refresh();
 		}
