@@ -27,7 +27,9 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +55,8 @@ import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.bnd.osgi.repository.XMLResourceGenerator;
 import aQute.bnd.osgi.repository.XMLResourceParser;
 import aQute.bnd.osgi.resource.ResourceBuilder;
+import aQute.bnd.version.MavenVersionRange;
+import aQute.bnd.version.Version;
 import aQute.maven.api.Archive;
 import aQute.maven.api.IMavenRepo;
 import aQute.maven.api.IPom;
@@ -395,18 +399,82 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 				deps.putAll(pom.getDependencies(MavenScope.runtime, false));
 				synchronized (NexusSearchOsgiRepository.this) {
 					for (Map.Entry<Program, Dependency> entry : deps.entrySet()) {
-						Revision rev = entry.getKey().version(entry.getValue().version);
-						if (!toBeProcessed.contains(rev) && !processing.contains(rev) 
-								&& !processed.contains(rev)) {
-							toBeProcessed.add(rev);
-							logger.debug("Added as dependency {}", rev);
+						bindToVersion(entry.getValue());
+						try {
+							Revision rev = entry.getValue().getRevision();
+							if (!toBeProcessed.contains(rev) && !processing.contains(rev) 
+									&& !processed.contains(rev)) {
+								toBeProcessed.add(rev);
+								logger.debug("Added as dependency {}", rev);
+							}
+							NexusSearchOsgiRepository.this.notifyAll();
+						} catch (Exception e) {
+							logger.warn("Unbindable dependency {}", entry.getValue().toString());
+							continue;
 						}
-						NexusSearchOsgiRepository.this.notifyAll();
 					}
 				}
 			} catch (Exception e) {
 				logger.error("Failed to get POM of " + revision + ".", e);
 			}
+		}
+	}
+	
+	private void bindToVersion(Dependency dependency) throws Exception {
+		if (MavenVersionRange.isRange(dependency.version)) {
+
+			MavenVersionRangeFixed range = new MavenVersionRangeFixed(dependency.version);
+			List<Revision> revisions = mavenRepository.getRevisions(dependency.program);
+
+			for (Iterator<Revision> it = revisions.iterator(); it.hasNext();) {
+				Revision r = it.next();
+				if (!range.includes(r.version))
+					it.remove();
+			}
+
+			if (!revisions.isEmpty()) {
+				Collections.sort(revisions, new MavenRevisionComparator());
+				Revision highest = revisions.get(revisions.size() - 1);
+				dependency.version = highest.version.toString();
+			}
+		}
+	}
+
+	public class MavenRevisionComparator implements Comparator<Revision> {
+		@Override
+		public int compare(Revision rev1, Revision rev2) {
+			int n = rev1.program.compareTo(rev2.program);
+			if (n != 0) {
+				return n;
+			}
+
+			Version rev1ver = rev1.version.getOSGiVersion();
+			Version rev2ver = rev2.version.getOSGiVersion();
+			if (rev1ver.getMajor() != rev2ver.getMajor()) {
+				return rev1ver.getMajor() - rev2ver.getMajor();
+			}
+			if (rev1ver.getMinor() != rev2ver.getMinor()) {
+				return rev1ver.getMinor() - rev2ver.getMinor();
+			}
+			if (rev1ver.getMicro() != rev2ver.getMicro()) {
+				return rev1ver.getMicro() - rev2ver.getMicro();
+			}
+			if (rev1ver.getQualifier() == null && rev2ver.getQualifier() == null) {
+				return 0;
+			}
+			if (rev1ver.getQualifier() == null && rev2ver.getQualifier() != null) {
+				if (rev2ver.getQualifier().equals("SNAPSHOT")) {
+					return 1;
+				}
+				return -1;
+			}
+			if (rev1ver.getQualifier() != null && rev2ver.getQualifier() == null) {
+				if (rev1ver.getQualifier().equals("SNAPSHOT")) {
+					return -11;
+				}
+				return 1;
+			}
+			return rev1ver.getQualifier().compareTo(rev2ver.getQualifier());
 		}
 	}
 	
