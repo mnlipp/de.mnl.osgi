@@ -18,112 +18,35 @@
 
 package de.mnl.osgi.bnd.repository.maven.provider;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
+import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException;
+import org.apache.maven.artifact.versioning.VersionRange;
 
 import aQute.bnd.version.MavenVersion;
 import aQute.bnd.version.MavenVersionRange;
-import aQute.bnd.version.Version;
 
 // Workaround for https://github.com/bndtools/bnd/issues/2285
 public class MavenVersionRangeFixed extends MavenVersionRange {
-	static final Pattern	RESTRICTION_P	= Pattern.compile(""
 
-			+ "\\s*("											//
-			+ "("												//
-			+ "(?<li>\\[|\\()\\s*"								//
-			+ "(?<low>[^,\\s\\]\\[()]*)\\s*"					//
-			+ ",\\s*"											//
-			+ "(?<high>[^,\\s\\[\\]()]*)\\s*"					//
-			+ "(?<hi>\\]|\\))"									//
-			+ ")"												//
-			+ "|"												//
-			+ "(?<single>[^,\\s\\]\\[()]+)"						//
-			+ ")\\s*"											//
-			+ "(?<comma>,)?\\s*", Pattern.COMMENTS);
-
-	final boolean			li;
-	final boolean			hi;
-	final MavenVersion		low;
-	final MavenVersion		high;
-
-	MavenVersionRangeFixed		nextOr;
-
+	private VersionRange range;
+	
 	public MavenVersionRangeFixed(String range) {
-		this(RESTRICTION_P.matcher(range == null ? "0" : range));
-	}
-
-	private MavenVersionRangeFixed(Matcher m) {
-		super (null);
-		if (!m.lookingAt())
-			throw new IllegalArgumentException("Invalid version range " + m);
-
-		String single = m.group("single");
-		if (single != null) {
-			li = true;
-			low = new MavenVersion(single);
-			high = MavenVersion.HIGHEST;
-			hi = true;
-		} else {
-			li = m.group("li").equals("[");
-			hi = m.group("hi").equals("]");
-
-			low = MavenVersion.parseMavenString(m.group("low"));
-			if (m.group("high").trim().length() == 0) {
-				high = new MavenVersion(new Version(999999999, 999999999, 999999999));
-			} else {
-				high = MavenVersion.parseMavenString(m.group("high"));
-			}
+		super(null);
+		try {
+			this.range = VersionRange.createFromVersionSpec(range);
+		} catch (InvalidVersionSpecificationException e) {
+			throw new IllegalArgumentException(e);
 		}
-
-		if (m.group("comma") != null) {
-			m.region(m.end(), m.regionEnd());
-			nextOr = new MavenVersionRangeFixed(m);
-		} else
-			nextOr = null;
 	}
 
 	public boolean includes(MavenVersion mvr) {
-		int l = mvr.compareTo(low);
-		int h = mvr.compareTo(high);
-
-		boolean lowOk = l > 0 || (li && l == 0);
-		boolean highOk = h < 0 || (hi && h == 0);
-
-		if (lowOk && highOk)
-			return true;
-
-		if (nextOr != null)
-			return nextOr.includes(mvr);
-
-		return false;
+		return range.containsVersion(new DefaultArtifactVersion(mvr.toString()));
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		toString(sb);
-		return sb.toString();
+		return range.toString();
 	}
 
-	private void toString(StringBuilder sb) {
-		if (li)
-			sb.append("[");
-		else
-			sb.append("(");
-
-		sb.append(low);
-		sb.append(",");
-		sb.append(high);
-		if (hi)
-			sb.append("]");
-		else
-			sb.append(")");
-
-		if (nextOr != null) {
-			sb.append(",");
-			nextOr.toString(sb);
-		}
-	}
 
 	public static MavenVersionRangeFixed parseRange(String version) {
 		try {
@@ -134,15 +57,4 @@ public class MavenVersionRangeFixed extends MavenVersionRange {
 		return null;
 	}
 
-	public boolean wasSingle() {
-		return (li && !hi && high == MavenVersion.HIGHEST && nextOr == null);
-	}
-
-	public static boolean isRange(String version) {
-		if (version == null)
-			return false;
-
-		version = version.trim();
-		return version.startsWith("[") || version.startsWith("(");
-	}
 }

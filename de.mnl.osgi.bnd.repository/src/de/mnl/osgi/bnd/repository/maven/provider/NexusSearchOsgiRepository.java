@@ -44,6 +44,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.stream.events.XMLEvent;
 
+import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.osgi.resource.Resource;
 import org.osgi.service.repository.Repository;
 import org.slf4j.Logger;
@@ -56,7 +57,6 @@ import aQute.bnd.osgi.repository.XMLResourceGenerator;
 import aQute.bnd.osgi.repository.XMLResourceParser;
 import aQute.bnd.osgi.resource.ResourceBuilder;
 import aQute.bnd.version.MavenVersionRange;
-import aQute.bnd.version.Version;
 import aQute.maven.api.Archive;
 import aQute.maven.api.IMavenRepo;
 import aQute.maven.api.IPom;
@@ -448,33 +448,9 @@ public class NexusSearchOsgiRepository extends ResourcesRepository {
 				return n;
 			}
 
-			Version rev1ver = rev1.version.getOSGiVersion();
-			Version rev2ver = rev2.version.getOSGiVersion();
-			if (rev1ver.getMajor() != rev2ver.getMajor()) {
-				return rev1ver.getMajor() - rev2ver.getMajor();
-			}
-			if (rev1ver.getMinor() != rev2ver.getMinor()) {
-				return rev1ver.getMinor() - rev2ver.getMinor();
-			}
-			if (rev1ver.getMicro() != rev2ver.getMicro()) {
-				return rev1ver.getMicro() - rev2ver.getMicro();
-			}
-			if (rev1ver.getQualifier() == null && rev2ver.getQualifier() == null) {
-				return 0;
-			}
-			if (rev1ver.getQualifier() == null && rev2ver.getQualifier() != null) {
-				if (rev2ver.getQualifier().equals("SNAPSHOT")) {
-					return 1;
-				}
-				return -1;
-			}
-			if (rev1ver.getQualifier() != null && rev2ver.getQualifier() == null) {
-				if (rev1ver.getQualifier().equals("SNAPSHOT")) {
-					return -11;
-				}
-				return 1;
-			}
-			return rev1ver.getQualifier().compareTo(rev2ver.getQualifier());
+			ComparableVersion rev1ver = new ComparableVersion(rev1.version.toString());
+			ComparableVersion rev2ver = new ComparableVersion(rev2.version.toString());
+			return rev1ver.compareTo(rev2ver);
 		}
 	}
 	
