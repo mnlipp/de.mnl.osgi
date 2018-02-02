@@ -6,7 +6,7 @@ Bundle-Name: Bnd Nexus Search Plugin
 Bundle-Category: util
 Bundle-Copyright: Michael N. Lipp (C) 2017
 Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
-Bundle-Version: 0.0.8.${bundleVersionQualifier}
+Bundle-Version: 0.0.9.${bundleVersionQualifier}
 Export-Package: de.mnl.osgi.bnd.repository.maven.provider;bnd-plugins=true
 
 -buildpath: \
@@ -14,10 +14,17 @@ Export-Package: de.mnl.osgi.bnd.repository.maven.provider;bnd-plugins=true
 	osgi.cmpn;version=@6,\
     biz.aQute.bndlib;version="[3.5.0,4)",\
 	biz.aQute.repository;version="[3.5.0,4)",\
-	slf4j.api;version=latest
+	slf4j.api;version=latest,\
+	${replace;${lsr;jar};^(.*)$;jar/$1\\;version=file}
+
+Include-Resource: ${replace;${lsr;jar};^(.*)$;@jar/$1}
 
 -pom: \
 	groupid	= de.mnl.osgi,\
 	version = ${versionmask;===;${@version}}-SNAPSHOT
 
 #-baseline: *
+	
+bin=bin/main
+testbin=bin/test
+	
