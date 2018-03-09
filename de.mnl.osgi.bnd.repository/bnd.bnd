@@ -7,7 +7,9 @@ Bundle-Category: util
 Bundle-Copyright: Michael N. Lipp (C) 2018
 Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
 Bundle-Version: 0.0.10.${bundleVersionQualifier}
-Export-Package: de.mnl.osgi.bnd.repository.maven.provider;bnd-plugins=true
+Export-Package: \
+	de.mnl.osgi.bnd.repository.maven.provider;bnd-plugins=true,\
+	de.mnl.osgi.bnd.maven
 
 -buildpath: \
 	osgi.core;version=@6,\
