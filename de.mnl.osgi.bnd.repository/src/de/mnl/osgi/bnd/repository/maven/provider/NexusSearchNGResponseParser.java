@@ -35,6 +35,9 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 
@@ -43,6 +46,8 @@ import aQute.maven.api.Revision;
  * <code>lucene/search</code> request.
  */
 public class NexusSearchNGResponseParser {
+	private final static Logger logger = LoggerFactory.getLogger(
+			NexusSearchNGResponseParser.class);
 	private Set<Revision> artifacts = new HashSet<>();
 	private Map<String,RepoInfo> repoInfos = new HashMap<>();
 
@@ -226,7 +231,13 @@ public class NexusSearchNGResponseParser {
 				switch(event.asStartElement().getName().getLocalPart()) {
 				case "repositoryId":
 					String repositoryId = parseCharacters(eventReader);
-					repoInfos.get(repositoryId).referenced = true;
+					RepoInfo info = repoInfos.get(repositoryId);
+					if (info == null) {
+						logger.warn("Inconsistent search result: reference to "
+								+ "non-existant repository with id " + repositoryId + ".");
+						break;
+					}
+					info.referenced = true;
 					break;
 				case "groupId":
 					groupId = parseCharacters(eventReader);
