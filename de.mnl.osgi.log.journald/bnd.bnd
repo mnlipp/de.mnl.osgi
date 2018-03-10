@@ -1,0 +1,6 @@
+-buildpath: \
+    osgi.core;version=4.3.1,\
+    osgi.cmpn;version=4.3.1
+-runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
+-runee: JavaSE-1.7
+Private-Package: de.mnl.osgi.log.journald
