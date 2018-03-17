@@ -63,6 +63,7 @@ public class NexusSearchRepositoryProvider extends BaseRepository
 		= System.getProperty("maven.repo.local", "~/.m2/repository");
 
 	private boolean initialized = false;
+	private File localRepo;
 	private NexusSearchConfiguration configuration;
 	private String name = "OssSonatype";
 	private Registry registry = null;
@@ -120,7 +121,7 @@ public class NexusSearchRepositoryProvider extends BaseRepository
 		File obrIndexFile = workspace.getFile(getLocation());
 		File mvnReposFile = workspace.getFile(
 				"cnf/cache/nexus-search-" + name + "-repositories.xml");
-		File localRepo = IO.getFile(configuration.local(MAVEN_REPO_LOCAL));
+		localRepo = IO.getFile(configuration.local(MAVEN_REPO_LOCAL));
 		try {
 			osgiRepository = new NexusSearchOsgiRepository(
 					name, server, localRepo, obrIndexFile, mvnReposFile, 
@@ -133,7 +134,7 @@ public class NexusSearchRepositoryProvider extends BaseRepository
 	
 	@Override
 	public File getRoot() throws Exception {
-		return osgiRepository.location();
+		return localRepo;
 	}
 
 	@Override
