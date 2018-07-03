@@ -131,7 +131,7 @@ public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 		}
 		xmlIn.close();
 		return new MavenRepository(localRepo, name(), 
-				releaseBackers, snapshotBackers, Processor.getExecutor(), reporter, null);
+				releaseBackers, snapshotBackers, Processor.getExecutor(), reporter);
 	}
 
 	/**
@@ -249,7 +249,7 @@ public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 		xmlOut.close();
 		return new MavenRepository(localRepo, name(), 
 				releaseBackers, snapshotBackers,
-				Processor.getExecutor(), reporter, null);
+				Processor.getExecutor(), reporter);
 	}
 	
 	/**

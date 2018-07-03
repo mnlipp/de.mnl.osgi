@@ -124,7 +124,7 @@ public class MavenCoordinatesOsgiRepository extends MavenOsgiRepository {
 		}
 		return new MavenRepository(localRepo, name(), 
 				releaseBackers, snapshotBackers,
-				Processor.getExecutor(), reporter, null);
+				Processor.getExecutor(), reporter);
 	}
 	
 	/**

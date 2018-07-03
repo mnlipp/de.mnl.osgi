@@ -1,8 +1,5 @@
 # Configure Repositories
 -plugin.1.Central: \
-    aQute.bnd.deployer.repository.wrapper.Plugin; \
-        location = "${build}/cache/wrapper"; \
-        reindex = true, \
     aQute.bnd.repository.maven.provider.MavenBndRepository; \
         releaseUrl=https://repo.maven.apache.org/maven2/; \
         index=${.}/central.maven; \
