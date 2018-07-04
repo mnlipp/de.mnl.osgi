@@ -51,4 +51,8 @@ public interface NexusSearchConfiguration {
 	 */
 	boolean transitive(boolean deflt);
 
+	/** 
+	 * Number of search results to consider for each artifact.
+	 */
+	int searchBreadth(int dflt);
 }

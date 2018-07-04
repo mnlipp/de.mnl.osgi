@@ -24,7 +24,12 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -58,6 +63,7 @@ public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 			NexusSearchOsgiRepository.class);
 	private URL server;
 	private String queryString;
+	private int searchBreadth;
 	private File localRepo = null;
 	private File mvnReposFile;
 	private Reporter reporter;
@@ -76,11 +82,12 @@ public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 	 * @param client an HTTP client for obtaining information from the Nexus server
 	 */
 	public NexusSearchOsgiRepository (String name, URL server, File localRepo, 
-			File obrIndexFile, File mvnResposFile, String queryString, 
+			File obrIndexFile, File mvnResposFile, String queryString, int searchBreadth,
 			Reporter reporter, HttpClient client) throws Exception {
 		super(name, obrIndexFile);
 		this.server = server;
 		this.queryString = queryString;
+		this.searchBreadth = searchBreadth;
 		this.localRepo = localRepo;
 		this.mvnReposFile = mvnResposFile;
 		this.reporter = reporter;
@@ -151,7 +158,19 @@ public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 		// (provides information about existing repositories) and from executing
 		// the query (provides information about actually used repositories).
 		mavenRepository = createMavenRepository(parser);
-		return refresh(mavenRepository, parser.artifacts());
+		Set<Revision> revsFound = parser.artifacts();
+		Map<String,List<Revision>> revsByName = new HashMap<>();
+		for (Revision rev: revsFound) {
+			revsByName.computeIfAbsent(rev.group + ":" + rev.artifact, 
+					k -> new ArrayList<>()).add(rev);
+		}
+		Set<Revision> filteredRevs = new HashSet<>();
+		for (List<Revision> artifactRevs: revsByName.values()) {
+			artifactRevs.sort(new MavenRevisionComparator().reversed());
+			filteredRevs.addAll(artifactRevs.subList(
+					0, Math.min(searchBreadth, artifactRevs.size())));
+		}
+		return refresh(mavenRepository, filteredRevs);
 	}
 
 	/**
