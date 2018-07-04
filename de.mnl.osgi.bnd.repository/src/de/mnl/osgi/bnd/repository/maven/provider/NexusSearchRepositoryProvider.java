@@ -47,7 +47,6 @@ import aQute.bnd.util.repository.DownloadListenerPromise;
 import aQute.bnd.version.Version;
 import aQute.lib.converter.Converter;
 import aQute.lib.io.IO;
-import aQute.libg.reporter.slf4j.Slf4jReporter;
 import aQute.maven.api.Archive;
 import aQute.service.reporter.Reporter;
 
@@ -67,7 +66,7 @@ public class NexusSearchRepositoryProvider extends BaseRepository
 	private NexusSearchConfiguration configuration;
 	private String name = "OssSonatype";
 	private Registry registry = null;
-	private Reporter reporter = new Slf4jReporter(NexusSearchRepositoryProvider.class);
+	private Reporter reporter;
 	private NexusSearchOsgiRepository osgiRepository = null;
 	private URL server = null;
 	private BridgeRepository bridge;
