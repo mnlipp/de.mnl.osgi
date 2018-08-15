@@ -24,12 +24,14 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.Executors;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -46,11 +48,13 @@ import org.slf4j.LoggerFactory;
 import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.Processor;
 import aQute.bnd.osgi.repository.XMLResourceParser;
+import aQute.lib.strings.Strings;
 import aQute.maven.api.IMavenRepo;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.maven.provider.MavenRepository;
 import aQute.service.reporter.Reporter;
+import de.mnl.osgi.bnd.repository.maven.provider.NexusSearchNGResponseParser.ParseResult;
 
 /**
  * Provide an OSGi repository (a collection of {@link Resource}s, see 
@@ -64,6 +68,7 @@ public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 	private URL server;
 	private String queryString;
 	private int searchBreadth;
+	private int chunkSize;
 	private File localRepo = null;
 	private File mvnReposFile;
 	private Reporter reporter;
@@ -83,11 +88,12 @@ public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 	 */
 	public NexusSearchOsgiRepository (String name, URL server, File localRepo, 
 			File obrIndexFile, File mvnResposFile, String queryString, int searchBreadth,
-			Reporter reporter, HttpClient client) throws Exception {
+			int chunkSize, Reporter reporter, HttpClient client) throws Exception {
 		super(name, obrIndexFile);
 		this.server = server;
 		this.queryString = queryString;
 		this.searchBreadth = searchBreadth;
+		this.chunkSize = chunkSize;
 		this.localRepo = localRepo;
 		this.mvnReposFile = mvnResposFile;
 		this.reporter = reporter;
@@ -208,32 +214,95 @@ public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 	 * @param parser the parser
 	 * @throws Exception
 	 */
-	private void queryArtifacts(NexusSearchNGResponseParser parser) throws Exception {
-		int attempts = 0;
-		while (true) {
-			try {
-				logger.debug("Searching {}", queryString);
-				InputStream result = client.build()
-						.headers("User-Agent", "Bnd")
-						.get(InputStream.class)
-						.go(new URL(server, "service/local/lucene/search?" + queryString));
-				parser.parse(result);
-				result.close();
-				break;
-			} catch (Exception e) {
-				attempts += 1;
-				if (attempts > 3)
-					throw e;
-				Thread.sleep(1000 * attempts);
-			}
+	private void queryArtifacts(NexusSearchNGResponseParser parser) 
+			throws Exception {
+		ExecutorCompletionService<QueryResult> exeSvc 
+			= new ExecutorCompletionService<>(Executors.newFixedThreadPool(4));
+		int executing = 0;
+		for (String query: Strings.split(queryString)) {
+			exeSvc.submit(new ArtifactQuery(parser, query, 1, chunkSize));
+			executing += 1;
 		}
-
-		// List all revisions from query.
-		for (Revision revision: parser.artifacts()) {
-			logger.debug("Found {}", revision);					
+		while (executing > 0) {
+			QueryResult result = exeSvc.take().get();
+			executing -= 1;
+			ParseResult parsed = result.parsed;
+			if (parsed.from > 1) {
+				continue;
+			}
+			int from = parsed.from;
+			while (from + chunkSize - 1 < parsed.totalCount) {
+				from += chunkSize;
+				exeSvc.submit(new ArtifactQuery(parser, result.query, from,
+						chunkSize));
+				executing += 1;
+			}
 		}
 	}
 
+	/**
+	 * Execute the query. The result is stored in the parser.
+	 */
+	class ArtifactQuery implements Callable<QueryResult> {
+		private NexusSearchNGResponseParser parser;
+		private String query;
+		private int from;
+		private int count;
+		
+		public ArtifactQuery(NexusSearchNGResponseParser parser, String query, int from, int count) {
+			super();
+			this.parser = parser;
+			this.query = query;
+			this.from = from;
+			this.count = count;
+		}
+
+		@Override
+		public QueryResult call() throws Exception {
+			int attempts = 0;
+			QueryResult result = new QueryResult();
+			result.query = query;
+			while (true) {
+				try {
+					logger.debug("Searching {}", query);
+					InputStream answer = client.build()
+							.headers("User-Agent", "Bnd")
+							.get(InputStream.class)
+							.go(new URL(server, "service/local/lucene/search?"
+									+ query + "&from=" + from + "&count=" + count));
+					result.parsed = parser.parse(answer);
+					answer.close();
+					logger.debug("Got for {} results from {} to {} (of {})", 
+							query, result.parsed.from, 
+							result.parsed.from + result.parsed.count - 1,
+							result.parsed.totalCount);
+					if (result.parsed.tooManyResults) {
+						logger.error("Too many results for {}, results were "
+								+ "lost (chunk size too big)", query);
+					}
+					break;
+				} catch (Exception e) {
+					attempts += 1;
+					if (attempts > 3)
+						throw e;
+					Thread.sleep(1000 * attempts);
+				}
+			}
+
+			// List all revisions from query.
+			for (Revision revision: parser.artifacts()) {
+				logger.debug("Found {}", revision);					
+			}
+		
+			return result;
+		}
+	}
+
+	private class QueryResult {
+		String query;
+		ParseResult parsed;
+	}
+	
 	private MavenRepository createMavenRepository(
 			NexusSearchNGResponseParser parser) throws Exception {
 		// Create repository from URLs

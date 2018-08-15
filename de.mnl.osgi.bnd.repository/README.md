@@ -22,7 +22,7 @@ Here's a sample configuration of the plugin:
 -plugin.8.JGrapes: \
     de.mnl.osgi.bnd.repository.maven.provider.NexusSearchRepositoryProvider; \
         path:="${workspace}/cnf/plugins/de.mnl.osgi.bnd.repository-x.x.x.jar,\
-            ${workspace}/cnf/plugins/biz.aQute.repository-3.5.0.jar"; \
+            ${workspace}/cnf/plugins/biz.aQute.repository-4.0.0.jar"; \
         name=JGrapes; \
         server="https://oss.sonatype.org"; \
         query="g=org.jgrapes"
@@ -41,3 +41,13 @@ copied from the eclipse plugins directory.
 
 The `name` property defaults to `OssSonatype`, the `server` property 
 to `https://oss.sonatype.org`.
+
+The `query` property may be a comma separated list of queries that are executed
+in parallel.
+
+The optional `searchBreadth` property (default value: 3) restricts the
+artifacts found to the given number of (latest) versions.
+
+The optional `chunkSize` property (default value: 500) splits the queries
+in parallel queries with ranges of the given size. Note that results
+are lost if the chunk size is too big.

@@ -124,7 +124,8 @@ public class NexusSearchRepositoryProvider extends BaseRepository
 		try {
 			osgiRepository = new NexusSearchOsgiRepository(
 					name, server, localRepo, obrIndexFile, mvnReposFile, 
-					queryString, configuration.searchBreadth(3), reporter, client);
+					queryString, configuration.searchBreadth(3),
+					configuration.chunkSize(500), reporter, client);
 			bridge = new BridgeRepository(osgiRepository);
 		} catch (Exception e) {
 			throw new RuntimeException(e);

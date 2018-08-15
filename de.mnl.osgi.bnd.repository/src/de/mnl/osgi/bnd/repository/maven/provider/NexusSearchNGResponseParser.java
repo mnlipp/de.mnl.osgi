@@ -23,11 +23,11 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -48,8 +48,9 @@ import aQute.maven.api.Revision;
 public class NexusSearchNGResponseParser {
 	private final static Logger logger = LoggerFactory.getLogger(
 			NexusSearchNGResponseParser.class);
-	private Set<Revision> artifacts = new HashSet<>();
-	private Map<String,RepoInfo> repoInfos = new HashMap<>();
+	private Set<Revision> artifacts 
+		= Collections.newSetFromMap(new ConcurrentHashMap<>());
+	private Map<String,RepoInfo> repoInfos = new ConcurrentHashMap<>();
 
 	/**
 	 * Returns the reported snapshot repositories.
@@ -99,14 +100,31 @@ public class NexusSearchNGResponseParser {
 	 * @param in the stream with result data
 	 * @throws Exception
 	 */
-	public void parse(InputStream in) throws Exception {
+	public ParseResult parse(InputStream in) throws Exception {
 		XMLEventReader eventReader = XMLInputFactory.newInstance()
 				.createXMLEventReader(in);
+		ParseResult result = new ParseResult();
 		while(eventReader.hasNext()) {
 			XMLEvent event = eventReader.nextEvent();
 			if (event.isStartElement()) {
 				StartElement startElement = event.asStartElement();
 				switch (startElement.getName().getLocalPart()) {
+				case "totalCount":
+					result.totalCount = Integer
+						.parseInt(parseCharacters(eventReader));
+					break;
+				case "from":
+					result.from = Integer
+						.parseInt(parseCharacters(eventReader));
+					break;
+				case "count":
+					result.count = Integer
+						.parseInt(parseCharacters(eventReader));
+					break;
+				case "tooManyResults":
+					result.tooManyResults = Boolean
+						.parseBoolean(parseCharacters(eventReader));
+					break;
 				// Repositories (item by item)
 				case "repositories-item":
 					parseRepositoryData(eventReader);
@@ -118,10 +136,12 @@ public class NexusSearchNGResponseParser {
 				// Artifacts
 				case "artifact":
 					parseArtifact(eventReader);
+					result.artifactsInResult += 1;
 					break;
 				}
 			}
 		}
+		return result;
 	}
 	
 	/**
@@ -277,5 +297,13 @@ public class NexusSearchNGResponseParser {
 		public RepoPolicy repoPolicy = RepoPolicy.Unknown;
 		public URI contentResourceUri;
 		boolean referenced = false;
+	}
+	
+	public class ParseResult {
+		public int totalCount;
+		public int from;
+		public int count;
+		public boolean tooManyResults;
+		public int artifactsInResult;
 	}
 }

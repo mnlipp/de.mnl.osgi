@@ -55,4 +55,9 @@ public interface NexusSearchConfiguration {
 	 * Number of search results to consider for each artifact.
 	 */
 	int searchBreadth(int dflt);
+
+	/** 
+	 * Number of artfacts to return in one query.
+	 */
+	int chunkSize(int dflt);
 }
