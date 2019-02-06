@@ -1,0 +1,53 @@
+# This is the version of JUnit that will be used at build time and run time
+#junit: org.apache.servicemix.bundles.junit;version="[4.11,5)"
+
+# This is the version of Mockito that will be used at build time and run time
+#mockito: org.mockito.mockito-core;version="[2.13,3)",\
+#  org.objenesis;version="[2.6,3)"
+
+# Discover and run all test cases annotated with the @RunWith annotation
+Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
+
+# Build dependencies 
+-buildpath: \
+	${junit},\
+	${mockito},\
+	${mockito-deps},\
+	osgi.annotation; version=6.0.1,\
+	osgi.core; version=6.0,\
+	osgi.cmpn; version=6.0
+
+javac.source: 1.8
+javac.target: 1.8
+
+# We need JUnit and Mockito to resolve the test cases at runtime. 
+# Other runtime dependencies should be added as necessary
+
+Bundle-Version: ${logger-bundles-version}
+Private-Package: de.mnl.osgi.jul2osgi.test
+
+
+# Needed for Mockito's mocking to work
+-runsystempackages.objenesis: sun.misc,sun.reflect
+
+-runrequires: \
+	osgi.identity;filter:='(osgi.identity=de.mnl.osgi.jul2osgi)', \
+	osgi.identity;filter:='(osgi.identity=de.mnl.osgi.osgi2jul)'
+
+-runpath: de.mnl.osgi.jul2osgi.lib;version='latest'
+
+# Use Felix by default
+-runfw: org.apache.felix.framework;version=6
+# Use Equinox by default
+#-runfw: org.eclipse.osgi;version=3.13
+
+-runvm: -ea, -Djava.util.logging.manager=de.mnl.osgi.jul2osgi.lib.LogManager
+-runee: JavaSE-1.8
+-runbundles: \
+	${junit},\
+	${mockito},\
+	${mockito-deps},\
+	de.mnl.osgi.jul2osgi;version=snapshot,\
+	org.apache.felix.log;version='[1.0.0,1.2)',\
+	de.mnl.osgi.osgi2jul;version=snapshot
+	

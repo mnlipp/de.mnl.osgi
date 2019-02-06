@@ -1,0 +1,15 @@
+Bundle-Version: ${logger-bundles-version}
+
+-buildpath: \
+	osgi.annotation; version=6.0.1,\
+	osgi.core; version=6.0,\
+	osgi.cmpn; version=6.0
+
+-testpath: \
+	${junit}
+
+javac.source: 1.8
+javac.target: 1.8
+
+Private-Package: de.mnl.osgi.osgi2jul
+Bundle-Activator: de.mnl.osgi.osgi2jul.Activator

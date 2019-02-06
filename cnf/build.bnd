@@ -34,7 +34,7 @@
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
         name=Equinox; \
     	snapshotUrls=https://oss.sonatype.org/content/repositories/snapshots/; \
-        releaseUrls=https://central.maven.org/maven2; \
+        releaseUrls=https://repo1.maven.org/maven2; \
         query='q=a:%22org.eclipse.osgi%22&rows=10000'
 
 -releaserepo: Release
@@ -53,3 +53,8 @@ mockito: org.mockito.mockito-core; version=2.24.0
 mockito-deps: org.objenesis; version=2.6.0,\
   net.bytebuddy.byte-buddy; version=1.9.8,\
   net.bytebuddy.byte-buddy-agent; version=1.9.8 
+  
+# Choose either depending on whether we build a snapshot or a release:
+logger-bundles-version: 0.0.0-${tstamp}-SNAPSHOT
+#logger-bundles-version: 0.0.0.ga
+

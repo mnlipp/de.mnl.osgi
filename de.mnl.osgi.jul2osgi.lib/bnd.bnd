@@ -1,0 +1,12 @@
+Bundle-Version: ${logger-bundles-version}
+
+-buildpath: \
+	osgi.annotation; version=6.0.1
+
+-testpath: \
+	${junit}
+
+javac.source: 1.8
+javac.target: 1.8
+
+Export-Package: de.mnl.osgi.jul2osgi.lib

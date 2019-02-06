@@ -1,0 +1,44 @@
+// Additional jars for publishing
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier "sources"
+}
+ 
+task javadocJar(type: Jar) {
+	from (javadoc)
+	classifier "javadoc"
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+// MavenPublishing (new)
+    
+publishing {
+        
+    repositories {
+        maven {
+            name "snapshot"
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+            credentials {
+                username project.properties['sonatypeUsername'] ?: "nouser"
+                password project.properties['sonatypePassword'] ?: "nopass"
+            }
+        }
+        maven {
+            name "release"
+            url "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username project.properties['sonatypeUsername'] ?: "nouser"
+                password project.properties['sonatypePassword'] ?: "nopass"
+            }
+        }
+    }
+}
+
+// Additional configuration of publishing
+apply plugin: ConfigurePublishing
+

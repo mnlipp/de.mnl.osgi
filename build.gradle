@@ -1,4 +1,7 @@
-// Available to customize the build
+
+subprojects {
+	apply from: "${project.rootDir}/gradle/subprojects.gradle"
+}
 
 apply plugin: 'eclipse'
 
