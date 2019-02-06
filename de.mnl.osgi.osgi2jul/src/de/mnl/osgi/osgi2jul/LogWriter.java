@@ -22,6 +22,7 @@ import java.util.logging.LogRecord;
 
 import org.osgi.framework.Bundle;
 import org.osgi.service.log.LogEntry;
+import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LogListener;
 import org.osgi.service.log.LogService;
 
@@ -39,29 +40,30 @@ public class LogWriter implements LogListener {
 	@Override
 	public void logged(LogEntry entry) {
 		Level level = Level.OFF;
-		switch (entry.getLevel()) {
-		case LogService.LOG_DEBUG:
+		switch (entry.getLogLevel()) {
+		case TRACE:
+			level = Level.FINER;
+			break;
+		case DEBUG:
 			level = Level.FINE;
 			break;
-		case LogService.LOG_INFO:
+		case INFO:
 			level = Level.INFO;
 			break;
-		case LogService.LOG_WARNING:
+		case WARN:
 			level = Level.WARNING;
 			break;
-		case LogService.LOG_ERROR:
+		case ERROR:
 			level = Level.SEVERE;
 			break;
 		}
 		LogRecord record = new LogRecord(level, entry.getMessage());
+		record.setLoggerName(entry.getLoggerName());
 		record.setMillis(entry.getTime());
+		record.setSequenceNumber(entry.getSequence());
 		Throwable t = entry.getException();
 		if (t != null) {
 			record.setThrown(t);
-		}
-		Bundle bundle = entry.getBundle();
-		if (bundle != null) {
-			record.setSourceClassName(entry.getBundle().getSymbolicName());
 		}
 		handler.publish(record);
 	}
