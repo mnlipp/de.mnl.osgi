@@ -1,4 +1,6 @@
 // Additional jars for publishing
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava

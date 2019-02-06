@@ -4,6 +4,8 @@ dependencies {
     compile localGroovy()
 }
 
+group = "de.mnl.osgi"
+
 if (plugins.hasPlugin('biz.aQute.bnd')) {
     
     // artifact_version is defined in cnf/bnd.bnd
@@ -12,20 +14,9 @@ if (plugins.hasPlugin('biz.aQute.bnd')) {
     }
 }
 
-if (project.name.startsWith("de.mnl.osgi.") &&
-	!project.name.endsWith(".test")) {
-    apply plugin: 'signing'
-    apply plugin: 'maven'
-    apply plugin: 'maven-publish'
-
-    group = "de.mnl.osgi"
-        
-    apply from: "${project.rootDir}/gradle/publishing.gradle"
-    
-    tasks.compileJava {
-        if (!JavaVersion.current().isJava8()) {
-            options.compilerArgs.addAll(['--release', '8'])
-        }
-    }
+tasks.compileJava {
+	if (!JavaVersion.current().isJava8()) {
+		options.compilerArgs.addAll(['--release', '8'])
+	}
 }
 
