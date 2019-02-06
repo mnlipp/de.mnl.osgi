@@ -3,7 +3,7 @@ Bundle-Version: ${logger-bundles-version}
 -buildpath: \
 	osgi.annotation; version=6.0.1,\
 	osgi.core; version=6.0,\
-	osgi.cmpn; version=6.0
+	org.osgi.service.log;version='[1.4,2)'
 
 -testpath: \
 	${junit}

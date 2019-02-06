@@ -48,6 +48,6 @@ Private-Package: de.mnl.osgi.jul2osgi.test
 	${mockito},\
 	${mockito-deps},\
 	de.mnl.osgi.jul2osgi;version=snapshot,\
-	org.apache.felix.log;version='[1.0.0,1.2)',\
+	org.apache.felix.log;version='[1.2.0,1.2.1)',\
 	de.mnl.osgi.osgi2jul;version=snapshot
 	

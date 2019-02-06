@@ -16,13 +16,21 @@
 
 package de.mnl.osgi.jul2osgi;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
+import org.osgi.service.log.FormatterLogger;
+import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LogService;
+import org.osgi.service.log.Logger;
+import org.osgi.service.log.admin.LoggerAdmin;
+import org.osgi.service.log.admin.LoggerContext;
 import org.osgi.util.tracker.ServiceTracker;
 
 import de.mnl.osgi.jul2osgi.lib.LogManager;
@@ -33,6 +41,7 @@ import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;
 public class Forwarder implements BundleActivator, LogRecordHandler {
 
 	private ServiceTracker<LogService, LogService> logSvcTracker;
+	private ServiceTracker<LoggerAdmin, LoggerAdmin> logAdmTracker;
 
     @Override
 	public void start(BundleContext context) throws Exception {
@@ -45,13 +54,15 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
 		logSvcTracker = new ServiceTracker<LogService, LogService>(
 				context, LogService.class, null) {
 			@Override
-			public LogService addingService(ServiceReference<LogService> reference) {
+			public LogService addingService(
+					ServiceReference<LogService> reference) {
 				((LogManager)lm).setForwarder(Forwarder.this);
 				return super.addingService(reference);
 			}
 
 			@Override
-			public void removedService(ServiceReference<LogService> reference, LogService service) {
+			public void removedService(ServiceReference<LogService> reference,
+					LogService service) {
 				// TODO Auto-generated method stub
 				super.removedService(reference, service);
 				if (getService() == null) {
@@ -60,6 +71,22 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
 			}
 		};
     	logSvcTracker.open();
+		// Create the admin tracker
+		logAdmTracker = new ServiceTracker<LoggerAdmin, LoggerAdmin>(
+				context, LoggerAdmin.class, null) {
+			@Override
+			public LoggerAdmin addingService(
+					ServiceReference<LoggerAdmin> reference) {
+				LoggerAdmin adm = super.addingService(reference);
+				LoggerContext ctx = adm.getLoggerContext(
+						Forwarder.class.getPackage().getName());
+				Map<String,LogLevel> logLevels = new HashMap<>();
+				logLevels.put(Logger.ROOT_LOGGER_NAME, LogLevel.TRACE);
+				ctx.setLogLevels(logLevels);
+				return adm;
+			}
+		};
+		logAdmTracker.open();
 	}
 
 	@Override
@@ -69,6 +96,8 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
 		if (lm instanceof LogManager) {
 			((LogManager)lm).setForwarder(null);
 		}
+		logSvcTracker.close();
+		logAdmTracker.close();
 	}
 
 	@Override
@@ -77,18 +106,50 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
 		if (service == null) {
 			return false;
 		}
+		Logger logger = service.getLogger(
+				Optional.ofNullable(record.getSourceClassName())
+				.orElse(Logger.ROOT_LOGGER_NAME), FormatterLogger.class);
+		String format = "%s";
 		int julLevel = record.getLevel().intValue();
-		int level;
 		if (julLevel >= Level.SEVERE.intValue()) {
-			level = LogService.LOG_ERROR;
+			if (logger.isErrorEnabled()) {
+				logger.error(format, record.getMessage(), 
+						record.getSequenceNumber(), record.getMillis(),
+						record.getSequenceNumber(), 
+						record.getSourceMethodName(), record.getThreadID(),
+						record.getThrown());
+			}
 		} else if (julLevel >= Level.WARNING.intValue()) {
-			level = LogService.LOG_WARNING;
+			if (logger.isWarnEnabled()) {
+				logger.warn(format, record.getMessage(), 
+						record.getSequenceNumber(), record.getMillis(),
+						record.getSequenceNumber(), 
+						record.getSourceMethodName(), record.getThreadID(),
+						record.getThrown());
+			}
 		} else if (julLevel >= Level.INFO.intValue()) {
-			level = LogService.LOG_INFO;
-		} else {
-			level = LogService.LOG_DEBUG;
-		}
-		service.log(level, record.getMessage(), record.getThrown());
+			if (logger.isInfoEnabled()) {
+				logger.info(format, record.getMessage(), 
+						record.getSequenceNumber(), record.getMillis(),
+						record.getSequenceNumber(), 
+						record.getSourceMethodName(), record.getThreadID(),
+						record.getThrown());
+			}
+		} else if (julLevel >= Level.FINE.intValue()) {
+			if (logger.isDebugEnabled()) {
+				logger.debug(format, record.getMessage(), 
+						record.getSequenceNumber(), record.getMillis(),
+						record.getSequenceNumber(), 
+						record.getSourceMethodName(), record.getThreadID(),
+						record.getThrown());
+			}
+		} else if (logger.isTraceEnabled()) {
+			logger.trace(format, record.getMessage(), 
+					record.getSequenceNumber(), record.getMillis(),
+					record.getSequenceNumber(), 
+					record.getSourceMethodName(), record.getThreadID(),
+					record.getThrown());
+		} 
 		return true;
 	}
 
