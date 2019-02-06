@@ -74,10 +74,10 @@ public abstract class MavenOsgiRepository extends ResourcesRepository {
 	/**
 	 * Create a new instance that uses the provided information/resources to perform
 	 * its work.
+	 * 
+	 * @param name the name
 	 * @param obrIndexFile the persistent representation of this repository's content
-	 * @param releaseUrl the release URL
-	 * @param snapshotUrl the snapshot URL
-	 * @param query the query to execute
+	 * @throws Exception if a problem occurs
 	 */
 	public MavenOsgiRepository (String name, File obrIndexFile) throws Exception {
 		this.name = name;
@@ -115,15 +115,17 @@ public abstract class MavenOsgiRepository extends ResourcesRepository {
 	 * Refresh this repository's content.
 	 * 
 	 * @return true if refreshed, false if not refreshed possibly due to error
-	 * @throws Exception
+	 * @throws Exception if a problem occurs
 	 */
 	public abstract boolean refresh() throws Exception;
 	
 	/**
 	 * Refresh this repository's content.
-	 * 
+	 *
+	 * @param mavenRepository the maven repository
+	 * @param startArtifacts the collection of artifacts to start with
 	 * @return true if refreshed, false if not refreshed possibly due to error
-	 * @throws Exception
+	 * @throws Exception if a problem occurs
 	 */
 	public boolean refresh(MavenRepository mavenRepository,
 			Collection<? extends Revision> startArtifacts) throws Exception {

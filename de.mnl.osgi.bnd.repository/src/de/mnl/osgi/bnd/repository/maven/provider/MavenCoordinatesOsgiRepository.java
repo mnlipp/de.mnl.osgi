@@ -58,14 +58,16 @@ public class MavenCoordinatesOsgiRepository extends MavenOsgiRepository {
 	/**
 	 * Create a new instance that uses the provided information/resources to perform
 	 * its work.
-	 * 
-	 * @param releaseUrl the release URL
-	 * @param snapshotUrl the snapshot URL
+	 *
+	 * @param name the name
+	 * @param releaseUrls the release urls
+	 * @param snapshotUrls the snapshot urls
+	 * @param coordinates the coordinates
 	 * @param localRepo the local Maven repository (cache)
 	 * @param obrIndexFile the persistent representation of this repository's content
-	 * @param query the query to execute
 	 * @param reporter a reporter for reporting the progress
 	 * @param client an HTTP client for obtaining information from the Nexus server
+	 * @throws Exception the exception
 	 */
 	public MavenCoordinatesOsgiRepository (String name, List<URL> releaseUrls, List<URL> snapshotUrls,
 			List<String> coordinates, File localRepo, File obrIndexFile, 
@@ -95,7 +97,7 @@ public class MavenCoordinatesOsgiRepository extends MavenOsgiRepository {
 	 * Refresh this repository's content.
 	 * 
 	 * @return true if refreshed, false if not refreshed possibly due to error
-	 * @throws Exception
+	 * @throws Exception if a problem occurs
 	 */
 	public boolean refresh() throws Exception {
 		if (coordinates == null) {
@@ -130,7 +132,8 @@ public class MavenCoordinatesOsgiRepository extends MavenOsgiRepository {
 	/**
 	 * Return the Maven repository object used to back this repository.
 	 * 
-	 * @return
+	 * @return the repository object
+	 * @throws Exception if a problem occurs
 	 */
 	public IMavenRepo mavenRepository() throws Exception {
 		if (mavenRepository == null) {

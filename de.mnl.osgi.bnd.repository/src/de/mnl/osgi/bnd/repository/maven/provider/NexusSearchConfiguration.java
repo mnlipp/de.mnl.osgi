@@ -21,43 +21,65 @@ package de.mnl.osgi.bnd.repository.maven.provider;
 public interface NexusSearchConfiguration {
 
 	/**
-	 * The path to the local repository
+	 * The path to the local repository.
+	 *
+	 * @param deflt the default value
+	 * @return the string
 	 */
 	// default "~/.m2/repository"
 	String local(String deflt);
 
 	/**
 	 * Points to a file that is used as the cache. It will be in OSGi format.
+	 *
+	 * @param deflt the default value
+	 * @return the result
 	 */
 	String location(String deflt);
 
 	/**
 	 * The name of the repo. Required.
+	 * 
+	 * @param deflt the default value
+	 * @return the result
 	 */
 	String name(String deflt);
 
 	/**
 	 * The URL of the server.
+	 * 
+	 * @return the result
 	 */
 	String server();
 
 	/**
 	 * The query used to search the Nexus server.
+	 * 
+	 * @return the result
 	 */
 	String query();
 
 	/**
 	 * Allow transitive dependencies
+	 * 
+	 * @param deflt the default value
+	 * @return the result
 	 */
 	boolean transitive(boolean deflt);
 
 	/** 
 	 * Number of search results to consider for each artifact.
+	 * 
+	 * @param dflt the default value
+	 * @return the result
 	 */
 	int searchBreadth(int dflt);
 
 	/** 
 	 * Number of artfacts to return in one query.
+	 * 
+	 * @param dflt the default value
+	 * @return the result
 	 */
 	int chunkSize(int dflt);
 }

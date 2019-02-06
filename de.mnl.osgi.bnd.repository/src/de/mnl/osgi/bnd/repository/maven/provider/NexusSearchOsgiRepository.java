@@ -78,13 +78,18 @@ public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 	/**
 	 * Create a new instance that uses the provided information/resources to perform
 	 * its work.
-	 * 
+	 *
+	 * @param name the name
 	 * @param server the url of the Nexus server
 	 * @param localRepo the local Maven repository (cache)
 	 * @param obrIndexFile the persistent representation of this repository's content
-	 * @param query the query to execute
+	 * @param mvnResposFile the mvn respos file
+	 * @param queryString the query string
+	 * @param searchBreadth the search breadth
+	 * @param chunkSize the chunk size
 	 * @param reporter a reporter for reporting the progress
 	 * @param client an HTTP client for obtaining information from the Nexus server
+	 * @throws Exception if a problem occurs
 	 */
 	public NexusSearchOsgiRepository (String name, URL server, File localRepo, 
 			File obrIndexFile, File mvnResposFile, String queryString, int searchBreadth,
@@ -151,7 +156,7 @@ public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 	 * Refresh this repository's content.
 	 * 
 	 * @return true if refreshed, false if not refreshed possibly due to error
-	 * @throws Exception
+	 * @throws Exception if a problem occurs
 	 */
 	public boolean refresh() throws Exception {
 		if (queryString == null) {
@@ -342,8 +347,9 @@ public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 	
 	/**
 	 * Return the Maven repository object used to back this repository.
-	 * 
-	 * @return
+	 *
+	 * @return the maven repository
+	 * @throws Exception if a problem occurs
 	 */
 	public IMavenRepo mavenRepository() throws Exception {
 		if (mavenRepository == null) {

@@ -182,7 +182,7 @@ public class MavenVersion implements ArtifactVersion {
 	 * instead.
 	 *
 	 * @param version the version to parse
-	 * @throws UnsupportedOperationException
+	 * @throws UnsupportedOperationException in any case
 	 */
 	@Override
 	public void parseVersion(String version) {
@@ -224,7 +224,9 @@ public class MavenVersion implements ArtifactVersion {
 
 	/**
 	 * If the qualifier ends with -SNAPSHOT or for an OSGI version with a
-	 * qualifier that is SNAPSHOT
+	 * qualifier that is SNAPSHOT.
+	 *
+	 * @return true, if is snapshot
 	 */
 	public boolean isSnapshot() {
 		return snapshot;

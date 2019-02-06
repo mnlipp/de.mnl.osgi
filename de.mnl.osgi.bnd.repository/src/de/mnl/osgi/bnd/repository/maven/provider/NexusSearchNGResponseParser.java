@@ -56,7 +56,7 @@ public class NexusSearchNGResponseParser {
 	 * Returns the reported snapshot repositories.
 	 * 
 	 * @return the result
-	 * @throws MalformedURLException 
+	 * @throws MalformedURLException if the URL is malformed
 	 */
 	public Set<URL> snapshotRepositories() throws MalformedURLException {
 		Set<URL> result = new HashSet<>();
@@ -72,7 +72,7 @@ public class NexusSearchNGResponseParser {
 	 * Returns the reported release repositories.
 	 * 
 	 * @return the result
-	 * @throws MalformedURLException 
+	 * @throws MalformedURLException if the URL is malformed
 	 */
 	public Set<URL> releaseRepositories() throws MalformedURLException {
 		Set<URL> result = new HashSet<>();
@@ -96,9 +96,10 @@ public class NexusSearchNGResponseParser {
 	/**
 	 * Parse the result return from the Nexus server. The outcome will be reflected in
 	 * the attributes.
-	 * 
+	 *
 	 * @param in the stream with result data
-	 * @throws Exception
+	 * @return the parse result
+	 * @throws Exception if a problem occurs
 	 */
 	public ParseResult parse(InputStream in) throws Exception {
 		XMLEventReader eventReader = XMLInputFactory.newInstance()
