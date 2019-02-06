@@ -26,12 +26,12 @@ import org.osgi.service.log.LogReaderService;
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
+ * @deprecated Replaced by {@code de.mnl.osgi.osgi2jul}.
+ * 
  * This class provides the activator for this service. It registers
  * (respectively unregisters) the {@link LogWriter} as LogListener 
  * for for all log reader services and forwards any already existing 
  * log entries to it. 
- * 
- * @author Michael N. Lipp
  */
 public class Activator implements BundleActivator {
 

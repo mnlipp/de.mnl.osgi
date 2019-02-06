@@ -25,6 +25,8 @@ import org.osgi.service.log.LogListener;
 import org.osgi.service.log.LogService;
 
 /**
+ * @deprecated Replaced by {@code de.mnl.osgi.osgi2jul}.
+ * 
  * This class implements a LogListener that forwards the LogEntries 
  * 
  */
