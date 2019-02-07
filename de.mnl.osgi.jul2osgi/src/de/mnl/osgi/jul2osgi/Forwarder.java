@@ -16,6 +16,7 @@
 
 package de.mnl.osgi.jul2osgi;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -25,7 +26,6 @@ import java.util.logging.LogRecord;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
-import org.osgi.service.log.FormatterLogger;
 import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LogService;
 import org.osgi.service.log.Logger;
@@ -42,14 +42,35 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
 
 	private ServiceTracker<LogService, LogService> logSvcTracker;
 	private ServiceTracker<LoggerAdmin, LoggerAdmin> logAdmTracker;
+	private String logPattern;
+	private LogLevel contextLevel;
 
     @Override
 	public void start(BundleContext context) throws Exception {
     	final java.util.logging.LogManager lm
 			= java.util.logging.LogManager.getLogManager();
 		if (!(lm instanceof LogManager)) {
+			System.err.println("Configuration error: "
+					+ "Bundle de.mnl.osgi.jul2osgi must be used with "
+					+ "LogManager from de.mnl.osgi.jul2osgi.log.");
 			return;
 		}
+		logPattern = Optional.ofNullable(
+				context.getProperty("de.mnl.osgi.jul2osgi.logPattern"))
+				.orElse("{0}");
+		String ctxProperty = context.getProperty(
+				"de.mnl.osgi.jul2osgi.contextLevel");
+		if (ctxProperty == null) {
+			contextLevel = LogLevel.TRACE;
+		} else {
+			if (!ctxProperty.equals("NONE")) {
+				try {
+					contextLevel = LogLevel.valueOf(ctxProperty);
+				} catch (IllegalArgumentException e) {
+				}
+			}
+		}
+		
 		// Create new service tracker.
 		logSvcTracker = new ServiceTracker<LogService, LogService>(
 				context, LogService.class, null) {
@@ -78,11 +99,13 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
 			public LoggerAdmin addingService(
 					ServiceReference<LoggerAdmin> reference) {
 				LoggerAdmin adm = super.addingService(reference);
-				LoggerContext ctx = adm.getLoggerContext(
-						Forwarder.class.getPackage().getName());
-				Map<String,LogLevel> logLevels = new HashMap<>();
-				logLevels.put(Logger.ROOT_LOGGER_NAME, LogLevel.TRACE);
-				ctx.setLogLevels(logLevels);
+				if (contextLevel != null) {
+					LoggerContext ctx = adm.getLoggerContext(
+							Forwarder.class.getPackage().getName());
+					Map<String,LogLevel> logLevels = new HashMap<>();
+					logLevels.put(Logger.ROOT_LOGGER_NAME, contextLevel);
+					ctx.setLogLevels(logLevels);
+				}
 				return adm;
 			}
 		};
@@ -108,44 +131,44 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
 		}
 		Logger logger = service.getLogger(
 				Optional.ofNullable(record.getLoggerName())
-				.orElse(Logger.ROOT_LOGGER_NAME), FormatterLogger.class);
-		String format = "%s";
+				.orElse(Logger.ROOT_LOGGER_NAME));
 		int julLevel = record.getLevel().intValue();
 		if (julLevel >= Level.SEVERE.intValue()) {
 			if (logger.isErrorEnabled()) {
-				logger.error(format, record.getMessage(), record.getMillis(),
-						record.getSequenceNumber(), record.getSourceClassName(),
-						record.getSourceMethodName(), record.getThreadID(),
+				logger.error("{}", formatMessage(logPattern, record), 
 						record.getThrown());
 			}
 		} else if (julLevel >= Level.WARNING.intValue()) {
 			if (logger.isWarnEnabled()) {
-				logger.warn(format, record.getMessage(), record.getMillis(),
-						record.getSequenceNumber(), record.getSourceClassName(),
-						record.getSourceMethodName(), record.getThreadID(),
+				logger.warn("{}", formatMessage(logPattern, record), 
 						record.getThrown());
 			}
 		} else if (julLevel >= Level.INFO.intValue()) {
 			if (logger.isInfoEnabled()) {
-				logger.info(format, record.getMessage(), record.getMillis(),
-						record.getSequenceNumber(), record.getSourceClassName(),
-						record.getSourceMethodName(), record.getThreadID(),
+				logger.info("{}", formatMessage(logPattern, record), 
 						record.getThrown());
 			}
 		} else if (julLevel >= Level.FINE.intValue()) {
 			if (logger.isDebugEnabled()) {
-				logger.debug(format, record.getMessage(), record.getMillis(),
-						record.getSequenceNumber(), record.getSourceClassName(),
-						record.getSourceMethodName(), record.getThreadID(),
+				logger.debug("{}", formatMessage(logPattern, record), 
 						record.getThrown());
 			}
 		} else if (logger.isTraceEnabled()) {
-			logger.trace(format, record.getMessage(), record.getMillis(),
-					record.getSequenceNumber(), record.getSourceClassName(),
-					record.getSourceMethodName(), record.getThreadID(),
+			logger.trace("{}", formatMessage(logPattern, record), 
 					record.getThrown());
 		} 
 		return true;
 	}
 
+	private String formatMessage(String format, LogRecord record) {
+		String message = record.getMessage();
+		if (record.getResourceBundle() != null
+				&& record.getResourceBundle().containsKey(message)) {
+			message = record.getResourceBundle().getString(message);
+		}
+		message = MessageFormat.format(message, record.getParameters());
+		return MessageFormat.format(format, message, record.getMillis(),
+					record.getSequenceNumber(), record.getSourceClassName(),
+					record.getSourceMethodName(), record.getThreadID());
+	}
 }
