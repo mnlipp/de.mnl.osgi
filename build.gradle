@@ -2,6 +2,16 @@ plugins {
 	id 'org.ajoberstar.git-publish' version '1.0.1'
 }
 
+ext {
+	isTravisBuild = System.getenv().get("TRAVIS") == 'true'
+	isJitPackBuild = System.getenv().get("JITPACK") == 'true'
+}
+
+// Prepare github authentication for plugins
+if (System.properties['org.ajoberstar.grgit.auth.username'] == null) {
+	System.setProperty('org.ajoberstar.grgit.auth.username',
+		System.getenv("GH_TOKEN") ?: project.properties['github.token'] ?: "nouser")
+}
 
 subprojects {
 	apply from: "${project.rootDir}/gradle/subprojects.gradle"
