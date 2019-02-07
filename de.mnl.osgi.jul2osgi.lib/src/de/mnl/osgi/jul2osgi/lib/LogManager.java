@@ -17,6 +17,7 @@
 package de.mnl.osgi.jul2osgi.lib;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.LogRecord;
@@ -33,8 +34,17 @@ import java.util.logging.Logger;
  */
 public class LogManager extends java.util.logging.LogManager {
 
-	private List<LogRecord> buffered = new LinkedList<>();
+	private Deque<LogRecord> buffered = new LinkedList<>();
+	private int bufferSize = 100;
 	private LogRecordHandler forwarder;
+	
+	public LogManager() {
+		try {
+			bufferSize = Integer.parseInt(System.getProperty(
+					"de.mnl.osgi.jul2osgi.bufferSize", "100"));
+		} catch (NumberFormatException e) {
+		}
+	}
 	
     @Override
     public Logger getLogger(final String name) {
@@ -59,6 +69,9 @@ public class LogManager extends java.util.logging.LogManager {
 			return;
 		}
 		synchronized (buffered) {
+			if (buffered.size() == bufferSize) {
+				buffered.removeFirst();
+			}
 			buffered.add(record);
 		}
 	}
