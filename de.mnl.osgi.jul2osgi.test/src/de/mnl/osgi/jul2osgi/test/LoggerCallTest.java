@@ -13,7 +13,7 @@ import org.osgi.framework.FrameworkUtil;
 public class LoggerCallTest {
 
     protected static final Logger logger 
-    	= Logger.getLogger(LoggerCallTest.class.getName());
+    	= Logger.getLogger("Logger Call Test");
     
 	private final BundleContext context = FrameworkUtil
 			.getBundle(LoggerCallTest.class).getBundleContext();
@@ -24,6 +24,5 @@ public class LoggerCallTest {
 			System.out.println(bundle);
 		}
 		logger.info("Calling Logger.");
-		logger.severe("Calling Logger again.");
 	}
 }
