@@ -1,3 +1,7 @@
+# Choose either depending on whether we build a snapshot or a release:
+Bundle-Version: 1.0.0-${tstamp}-SNAPSHOT
+#Bundle-Version: 1.0.0.ga
+
 # This is the version of JUnit that will be used at build time and run time
 #junit: org.apache.servicemix.bundles.junit;version="[4.11,5)"
 
@@ -23,7 +27,6 @@ javac.target: 1.8
 # We need JUnit and Mockito to resolve the test cases at runtime. 
 # Other runtime dependencies should be added as necessary
 
-Bundle-Version: ${logger-bundles-version}
 Private-Package: de.mnl.osgi.jul2osgi.test
 
 

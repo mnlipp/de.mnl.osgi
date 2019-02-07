@@ -53,8 +53,3 @@ mockito: org.mockito.mockito-core; version=2.24.0
 mockito-deps: org.objenesis; version=2.6.0,\
   net.bytebuddy.byte-buddy; version=1.9.8,\
   net.bytebuddy.byte-buddy-agent; version=1.9.8 
-  
-# Choose either depending on whether we build a snapshot or a release:
-logger-bundles-version: 0.1.0-${tstamp}-SNAPSHOT
-#logger-bundles-version: 0.1.0.ga
-
