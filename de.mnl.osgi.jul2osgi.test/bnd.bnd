@@ -15,7 +15,7 @@ Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
 	${mockito-deps},\
 	osgi.annotation; version=6.0.1,\
 	osgi.core; version=6.0,\
-	osgi.cmpn; version=6.0
+	org.osgi.service.log;version='[1.4,2)'
 
 javac.source: 1.8
 javac.target: 1.8
@@ -50,4 +50,6 @@ Private-Package: de.mnl.osgi.jul2osgi.test
 	de.mnl.osgi.jul2osgi;version=snapshot,\
 	org.apache.felix.log;version='[1.2.0,1.2.1)',\
 	de.mnl.osgi.osgi2jul;version=snapshot
-	
+
+-runproperties: \
+	de.mnl.osgi.jul2osgi.logPattern='{3}.{4}: {0}'
