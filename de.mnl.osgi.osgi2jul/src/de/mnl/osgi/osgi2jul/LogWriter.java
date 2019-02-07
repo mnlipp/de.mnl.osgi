@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Michael N. Lipp (http://www.mnl.de)
+ * Copyright (C) 2019 Michael N. Lipp (http://www.mnl.de)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
