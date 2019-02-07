@@ -1,6 +1,42 @@
+plugins {
+	id 'org.ajoberstar.git-publish' version '1.0.1'
+}
+
 
 subprojects {
 	apply from: "${project.rootDir}/gradle/subprojects.gradle"
+}
+
+gitPublish {
+	repoUri = 'git@github.com:mnlipp/de.mnl.osgi.git'
+	branch = 'gh-pages'
+	contents {
+		subprojects.each { subproject ->
+			def javadocTask = subproject.tasks.findByName("javadoc")  
+			if (javadocTask) {
+				from(javadocTask) {
+					into subproject.name + '/javadoc'
+				}
+			}
+		}
+	}
+	preserve { include '**/*' }
+	commitMessage = "Updated."
+}
+
+task stage {
+	description = 'To be executed by travis, build and update JavaDoc.'
+	group = 'build'
+
+	// Build everything first
+	subprojects.each { subproject ->
+		def javadocTask = subproject.tasks.findByName("javadoc")  
+		if (javadocTask) {
+			dependsOn javadocTask
+		}
+	}
+	
+   	dependsOn gitPublishPush
 }
 
 apply plugin: 'eclipse'
