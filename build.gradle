@@ -18,7 +18,7 @@ subprojects {
 }
 
 gitPublish {
-	repoUri = 'git@github.com:mnlipp/de.mnl.osgi.git'
+	repoUri = 'https://github.com/mnlipp/de.mnl.osgi.git'
 	branch = 'gh-pages'
 	contents {
 		subprojects.each { subproject ->
