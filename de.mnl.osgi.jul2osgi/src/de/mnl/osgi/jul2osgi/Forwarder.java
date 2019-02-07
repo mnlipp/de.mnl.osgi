@@ -107,46 +107,41 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
 			return false;
 		}
 		Logger logger = service.getLogger(
-				Optional.ofNullable(record.getSourceClassName())
+				Optional.ofNullable(record.getLoggerName())
 				.orElse(Logger.ROOT_LOGGER_NAME), FormatterLogger.class);
 		String format = "%s";
 		int julLevel = record.getLevel().intValue();
 		if (julLevel >= Level.SEVERE.intValue()) {
 			if (logger.isErrorEnabled()) {
-				logger.error(format, record.getMessage(), 
-						record.getSequenceNumber(), record.getMillis(),
-						record.getSequenceNumber(), 
+				logger.error(format, record.getMessage(), record.getMillis(),
+						record.getSequenceNumber(), record.getSourceClassName(),
 						record.getSourceMethodName(), record.getThreadID(),
 						record.getThrown());
 			}
 		} else if (julLevel >= Level.WARNING.intValue()) {
 			if (logger.isWarnEnabled()) {
-				logger.warn(format, record.getMessage(), 
-						record.getSequenceNumber(), record.getMillis(),
-						record.getSequenceNumber(), 
+				logger.warn(format, record.getMessage(), record.getMillis(),
+						record.getSequenceNumber(), record.getSourceClassName(),
 						record.getSourceMethodName(), record.getThreadID(),
 						record.getThrown());
 			}
 		} else if (julLevel >= Level.INFO.intValue()) {
 			if (logger.isInfoEnabled()) {
-				logger.info(format, record.getMessage(), 
-						record.getSequenceNumber(), record.getMillis(),
-						record.getSequenceNumber(), 
+				logger.info(format, record.getMessage(), record.getMillis(),
+						record.getSequenceNumber(), record.getSourceClassName(),
 						record.getSourceMethodName(), record.getThreadID(),
 						record.getThrown());
 			}
 		} else if (julLevel >= Level.FINE.intValue()) {
 			if (logger.isDebugEnabled()) {
-				logger.debug(format, record.getMessage(), 
-						record.getSequenceNumber(), record.getMillis(),
-						record.getSequenceNumber(), 
+				logger.debug(format, record.getMessage(), record.getMillis(),
+						record.getSequenceNumber(), record.getSourceClassName(),
 						record.getSourceMethodName(), record.getThreadID(),
 						record.getThrown());
 			}
 		} else if (logger.isTraceEnabled()) {
-			logger.trace(format, record.getMessage(), 
-					record.getSequenceNumber(), record.getMillis(),
-					record.getSequenceNumber(), 
+			logger.trace(format, record.getMessage(), record.getMillis(),
+					record.getSequenceNumber(), record.getSourceClassName(),
 					record.getSourceMethodName(), record.getThreadID(),
 					record.getThrown());
 		} 
