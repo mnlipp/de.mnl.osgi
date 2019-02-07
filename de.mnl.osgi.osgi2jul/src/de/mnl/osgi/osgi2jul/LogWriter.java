@@ -15,16 +15,14 @@
  */
 package de.mnl.osgi.osgi2jul;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
-import org.osgi.framework.Bundle;
 import org.osgi.service.log.LogEntry;
-import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LogListener;
-import org.osgi.service.log.LogService;
 
 /**
  * This class implements a LogListener that forwards the LogEntries
@@ -32,8 +30,16 @@ import org.osgi.service.log.LogService;
  */
 public class LogWriter implements LogListener {
 
-	Handler handler = new ConsoleHandler();
-	
+	private Handler handler = new ConsoleHandler();
+	private final Level AUDIT = new Level("AUDIT", Integer.MAX_VALUE) {
+		private static final long serialVersionUID = 1269723275384552686L;
+	};
+	private CountDownLatch enabled;
+
+	public LogWriter(CountDownLatch enabled) {
+		this.enabled = enabled;
+	}
+
 	/* (non-Javadoc)
 	 * @see org.osgi.service.log.LogListener#logged(org.osgi.service.log.LogEntry)
 	 */
@@ -56,6 +62,9 @@ public class LogWriter implements LogListener {
 		case ERROR:
 			level = Level.SEVERE;
 			break;
+		case AUDIT:
+			level = AUDIT;
+			break;
 		}
 		LogRecord record = new LogRecord(level, entry.getMessage());
 		record.setLoggerName(entry.getLoggerName());
@@ -64,6 +73,11 @@ public class LogWriter implements LogListener {
 		Throwable t = entry.getException();
 		if (t != null) {
 			record.setThrown(t);
+		}
+		try {
+			enabled.await();
+		} catch (InterruptedException e) {
+			// Just an attempt to synchronize.
 		}
 		handler.publish(record);
 	}

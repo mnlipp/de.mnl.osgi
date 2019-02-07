@@ -17,6 +17,7 @@ package de.mnl.osgi.osgi2jul;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -36,8 +37,6 @@ public class Activator implements BundleActivator {
 	/** This tracker holds all log reader services. */
 	private ServiceTracker<LogReaderService, LogReaderService> 
 		serviceTracker = null;;
-	/** The log listener that forwards to java.util.logging. */
-	private LogWriter logWriter = new LogWriter();
 
 	/**
 	 * Open the log service tracker. The tracker is customized to attach the 
@@ -57,22 +56,15 @@ public class Activator implements BundleActivator {
 			public LogReaderService addingService
 				(ServiceReference<LogReaderService> reference) {
 				LogReaderService service = super.addingService(reference);
-				service.addLogListener(logWriter);
-				// We don't check for duplicate log entries. It can happen
-				// that an entry is forwarded twice. A new entry might be
-				// handled by the LogWriter registered above and go into
-				// the log entry store before we have copied its content
-				// below. As log entries haven't got unique ids (as in
-				// java.util.logging) we'd have to compare all properties
-				// in order to identify duplicates.
-				// But it is not very probable that this happens and having
-				// an identical entry twice isn't as bad as loosing one.
-				@SuppressWarnings("unchecked")
+				CountDownLatch enabled = new CountDownLatch(1);
+				service.addLogListener(new LogWriter(enabled));
 				List<LogEntry> entries = Collections.list(service.getLog());
 				Collections.reverse(entries);
+				LogWriter historyWriter = new LogWriter(new CountDownLatch(0));
 				for (LogEntry entry: entries) {
-					logWriter.logged(entry);
+					historyWriter.logged(entry);
 				}
+				enabled.countDown();
 				return service;
 			}
 
@@ -81,7 +73,6 @@ public class Activator implements BundleActivator {
 				(ServiceReference<LogReaderService> reference, 
 						LogReaderService service) {
 				super.removedService(reference, service);
-				service.removeLogListener(logWriter);
 			}
 
 		};
