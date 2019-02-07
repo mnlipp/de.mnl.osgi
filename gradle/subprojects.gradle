@@ -20,3 +20,16 @@ tasks.compileJava {
 	}
 }
 
+if (tasks.findByName("javadoc")) {
+	javadoc {
+		options.addStringOption("doctitle", "${project.name} ${project.version}")
+		options.addBooleanOption("use", true)
+		options.addBooleanOption("linksource", true)
+		options.addStringOption("bottom", file("${rootProject.rootDir}/misc/javadoc.bottom.txt").text)
+		options.links "https://docs.oracle.com/javase/8/docs/api/"
+		options.links "https://osgi.org/javadoc/osgi.cmpn/7.0.0/"
+		// Add --allow-script-in-comments if available (since 1.8.0_121)
+        options.addBooleanOption('-allow-script-in-comments').value = true
+	}
+}
+
