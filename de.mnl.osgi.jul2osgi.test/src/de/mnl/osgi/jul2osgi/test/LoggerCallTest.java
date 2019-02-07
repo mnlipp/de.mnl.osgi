@@ -1,13 +1,21 @@
 package de.mnl.osgi.jul2osgi.test;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
+import org.osgi.service.log.LogEntry;
+import org.osgi.service.log.LogListener;
+import org.osgi.service.log.LogReaderService;
+import org.osgi.util.tracker.ServiceTracker;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoggerCallTest {
@@ -18,11 +26,28 @@ public class LoggerCallTest {
 	private final BundleContext context = FrameworkUtil
 			.getBundle(LoggerCallTest.class).getBundleContext();
 
+	private <T> T getService(Class<T> clazz) throws InterruptedException {
+		ServiceTracker<T,T> st = new ServiceTracker<>(context, clazz, null);
+		st.open();
+		return st.waitForService(1000);
+	}
+	
 	@Test
 	public void testExample() throws InterruptedException {
-		for (Bundle bundle: context.getBundles()) {
-			System.out.println(bundle);
-		}
-		logger.info("Calling Logger.");
+		CountDownLatch recordLatch = new CountDownLatch(1);
+		LogReaderService logService = getService(LogReaderService.class);
+		logService.addLogListener(new LogListener() {
+			@Override
+			public void logged(LogEntry entry) {
+				if (entry.getLoggerName().equals("Logger Call Test")
+						&& entry.getMessage().equals(
+								"de.mnl.osgi.jul2osgi.test.LoggerCallTest"
+								+ ".testExample: Calling Logger from Test.")) {
+					recordLatch.countDown();
+				}
+			}
+		});
+		logger.log(Level.INFO, "Calling Logger from {0}.", "Test");
+		assertTrue(recordLatch.await(1000, TimeUnit.MILLISECONDS));
 	}
 }
