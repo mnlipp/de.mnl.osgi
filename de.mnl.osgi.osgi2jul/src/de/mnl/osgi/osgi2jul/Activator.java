@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.mnl.osgi.osgi2jul;
 
 import java.util.Collections;
@@ -34,55 +35,55 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class Activator implements BundleActivator {
 
-	/** This tracker holds all log reader services. */
-	private ServiceTracker<LogReaderService, LogReaderService> 
-		serviceTracker = null;;
+    /** This tracker holds all log reader services. */
+    private ServiceTracker<LogReaderService, LogReaderService> serviceTracker
+        = null;
 
-	/**
-	 * Open the log service tracker. The tracker is customized to attach the 
-	 * LogWriter to all registered log reader services (and detach it on 
-	 * un-registration, of course). Already existing log entries 
-	 * are forwarded to the LogWriter as well. No provisions have been
-	 * taken to avoid the duplicate output that can occur if a message
-	 * is logged between registering the LogWriter and forwarding
-	 * stored log entries.
-	 */
-	@Override
-	public void start(BundleContext context) throws Exception {
-		serviceTracker = new ServiceTracker<LogReaderService, LogReaderService>
-			(context, LogReaderService.class, null) {
+    /**
+     * Open the log service tracker. The tracker is customized to attach the 
+     * LogWriter to all registered log reader services (and detach it on 
+     * un-registration, of course). Already existing log entries 
+     * are forwarded to the LogWriter as well. No provisions have been
+     * taken to avoid the duplicate output that can occur if a message
+     * is logged between registering the LogWriter and forwarding
+     * stored log entries.
+     */
+    @Override
+    public void start(BundleContext context) throws Exception {
+        serviceTracker = new ServiceTracker<LogReaderService, LogReaderService>(
+            context, LogReaderService.class, null) {
 
-			@Override
-			public LogReaderService addingService
-				(ServiceReference<LogReaderService> reference) {
-				LogReaderService service = super.addingService(reference);
-				CountDownLatch enabled = new CountDownLatch(1);
-				service.addLogListener(new LogWriter(enabled));
-				List<LogEntry> entries = Collections.list(service.getLog());
-				Collections.reverse(entries);
-				LogWriter historyWriter = new LogWriter(new CountDownLatch(0));
-				for (LogEntry entry: entries) {
-					historyWriter.logged(entry);
-				}
-				enabled.countDown();
-				return service;
-			}
+            @Override
+            public LogReaderService addingService(
+                    ServiceReference<LogReaderService> reference) {
+                LogReaderService service = super.addingService(reference);
+                CountDownLatch enabled = new CountDownLatch(1);
+                service.addLogListener(new LogWriter(enabled));
+                List<LogEntry> entries = Collections.list(service.getLog());
+                Collections.reverse(entries);
+                LogWriter historyWriter = new LogWriter(new CountDownLatch(0));
+                for (LogEntry entry : entries) {
+                    historyWriter.logged(entry);
+                }
+                enabled.countDown();
+                return service;
+            }
 
-			@Override
-			public void removedService
-				(ServiceReference<LogReaderService> reference, 
-						LogReaderService service) {
-				super.removedService(reference, service);
-			}
+            @Override
+            public void removedService(
+                    ServiceReference<LogReaderService> reference,
+                    LogReaderService service) {
+                super.removedService(reference, service);
+            }
 
-		};
-		serviceTracker.open();
-	}
+        };
+        serviceTracker.open();
+    }
 
-	@Override
-	public void stop(BundleContext context) throws Exception {
-		serviceTracker.close();
-		serviceTracker = null;
-	}
+    @Override
+    public void stop(BundleContext context) throws Exception {
+        serviceTracker.close();
+        serviceTracker = null;
+    }
 
 }
