@@ -18,6 +18,15 @@
 
 package de.mnl.osgi.bnd.repository.maven.provider;
 
+import aQute.bnd.http.HttpClient;
+import aQute.bnd.osgi.Processor;
+import aQute.bnd.osgi.repository.XMLResourceParser;
+import aQute.maven.api.IMavenRepo;
+import aQute.maven.api.Revision;
+import aQute.maven.provider.MavenBackingRepository;
+import aQute.maven.provider.MavenRepository;
+import aQute.service.reporter.Reporter;
+
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,15 +38,6 @@ import org.osgi.service.repository.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import aQute.bnd.http.HttpClient;
-import aQute.bnd.osgi.Processor;
-import aQute.bnd.osgi.repository.XMLResourceParser;
-import aQute.maven.api.IMavenRepo;
-import aQute.maven.api.Revision;
-import aQute.maven.provider.MavenBackingRepository;
-import aQute.maven.provider.MavenRepository;
-import aQute.service.reporter.Reporter;
-
 /**
  * Provide an OSGi repository (a collection of {@link Resource}s, see 
  * {@link Repository}), filled with the results of searching specific
@@ -45,7 +45,7 @@ import aQute.service.reporter.Reporter;
  */
 public class MavenCoordinatesOsgiRepository extends MavenOsgiRepository {
 
-	private final static Logger logger = LoggerFactory.getLogger(
+	private static final Logger logger = LoggerFactory.getLogger(
 			MavenCoordinatesOsgiRepository.class);
 	private List<URL> releaseUrls;
 	private List<URL> snapshotUrls;

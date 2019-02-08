@@ -18,20 +18,6 @@
 
 package de.mnl.osgi.bnd.repository.maven.provider;
 
-import java.io.File;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
-
-import org.osgi.resource.Capability;
-import org.osgi.resource.Requirement;
-import org.osgi.service.repository.Repository;
-import org.osgi.util.promise.Promise;
-
 import aQute.bnd.build.Workspace;
 import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.repository.BaseRepository;
@@ -49,6 +35,20 @@ import aQute.lib.converter.Converter;
 import aQute.lib.io.IO;
 import aQute.maven.api.Archive;
 import aQute.service.reporter.Reporter;
+
+import java.io.File;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+
+import org.osgi.resource.Capability;
+import org.osgi.resource.Requirement;
+import org.osgi.service.repository.Repository;
+import org.osgi.util.promise.Promise;
 
 /**
  * Provide a {@link NexusSearchOsgiRepository} as a bnd repository. The interesting

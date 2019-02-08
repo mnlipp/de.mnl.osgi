@@ -18,9 +18,26 @@
 
 package de.mnl.osgi.bnd.repository.maven.provider;
 
+import aQute.bnd.osgi.Processor;
 import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapability;
+import aQute.bnd.osgi.repository.ResourcesRepository;
+import aQute.bnd.osgi.repository.XMLResourceGenerator;
+import aQute.bnd.osgi.repository.XMLResourceParser;
+import aQute.bnd.osgi.resource.ResourceBuilder;
+import aQute.bnd.version.MavenVersionRange;
+import aQute.maven.api.Archive;
+import aQute.maven.api.IPom;
+import aQute.maven.api.IPom.Dependency;
+import aQute.maven.api.MavenScope;
+import aQute.maven.api.Program;
+import aQute.maven.api.Revision;
+import aQute.maven.provider.MavenBackingRepository;
+import aQute.maven.provider.MavenRepository;
+import aQute.maven.provider.MetadataParser;
+import aQute.maven.provider.MetadataParser.RevisionMetadata;
 
 import java.io.File;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,23 +55,6 @@ import org.osgi.resource.Resource;
 import org.osgi.service.repository.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import aQute.bnd.osgi.Processor;
-import aQute.bnd.osgi.repository.ResourcesRepository;
-import aQute.bnd.osgi.repository.XMLResourceGenerator;
-import aQute.bnd.osgi.repository.XMLResourceParser;
-import aQute.bnd.osgi.resource.ResourceBuilder;
-import aQute.bnd.version.MavenVersionRange;
-import aQute.maven.api.Archive;
-import aQute.maven.api.IPom;
-import aQute.maven.api.MavenScope;
-import aQute.maven.api.Program;
-import aQute.maven.api.Revision;
-import aQute.maven.api.IPom.Dependency;
-import aQute.maven.provider.MavenBackingRepository;
-import aQute.maven.provider.MavenRepository;
-import aQute.maven.provider.MetadataParser;
-import aQute.maven.provider.MetadataParser.RevisionMetadata;
 
 /**
  * Provide an OSGi repository (a collection of {@link Resource}s, see 

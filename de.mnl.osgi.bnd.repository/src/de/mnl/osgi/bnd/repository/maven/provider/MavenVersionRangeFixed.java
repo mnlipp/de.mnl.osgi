@@ -18,12 +18,12 @@
 
 package de.mnl.osgi.bnd.repository.maven.provider;
 
+import aQute.bnd.version.MavenVersion;
+import aQute.bnd.version.MavenVersionRange;
+
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException;
 import org.apache.maven.artifact.versioning.VersionRange;
-
-import aQute.bnd.version.MavenVersion;
-import aQute.bnd.version.MavenVersionRange;
 
 // Workaround for https://github.com/bndtools/bnd/issues/2285
 public class MavenVersionRangeFixed extends MavenVersionRange {

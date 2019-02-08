@@ -18,6 +18,9 @@
 
 package de.mnl.osgi.bnd.maven;
 
+import aQute.bnd.version.Version;
+import aQute.bnd.version.VersionRange;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -28,9 +31,6 @@ import java.util.regex.Pattern;
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
-
-import aQute.bnd.version.Version;
-import aQute.bnd.version.VersionRange;
 
 /**
  * Provides a model of an artifact version which can be used as a maven version.

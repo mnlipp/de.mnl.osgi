@@ -32,7 +32,8 @@ public class MavenVersionRange {
 
 	public MavenVersionRange(String range) {
 		try {
-			this.range = org.apache.maven.artifact.versioning.VersionRange.createFromVersionSpec(range);
+			this.range = org.apache.maven.artifact.versioning.VersionRange
+			        .createFromVersionSpec(range);
 		} catch (InvalidVersionSpecificationException e) {
 			throw new IllegalArgumentException(e);
 		}

@@ -18,6 +18,17 @@
 
 package de.mnl.osgi.bnd.repository.maven.provider;
 
+import aQute.bnd.http.HttpClient;
+import aQute.bnd.osgi.Processor;
+import aQute.bnd.osgi.repository.XMLResourceParser;
+import aQute.lib.strings.Strings;
+import aQute.maven.api.IMavenRepo;
+import aQute.maven.api.Revision;
+import aQute.maven.provider.MavenBackingRepository;
+import aQute.maven.provider.MavenRepository;
+import aQute.service.reporter.Reporter;
+import de.mnl.osgi.bnd.repository.maven.provider.NexusSearchNGResponseParser.ParseResult;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -45,17 +56,6 @@ import org.osgi.service.repository.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import aQute.bnd.http.HttpClient;
-import aQute.bnd.osgi.Processor;
-import aQute.bnd.osgi.repository.XMLResourceParser;
-import aQute.lib.strings.Strings;
-import aQute.maven.api.IMavenRepo;
-import aQute.maven.api.Revision;
-import aQute.maven.provider.MavenBackingRepository;
-import aQute.maven.provider.MavenRepository;
-import aQute.service.reporter.Reporter;
-import de.mnl.osgi.bnd.repository.maven.provider.NexusSearchNGResponseParser.ParseResult;
-
 /**
  * Provide an OSGi repository (a collection of {@link Resource}s, see 
  * {@link Repository}), filled with the results of performing a search 
@@ -63,7 +63,7 @@ import de.mnl.osgi.bnd.repository.maven.provider.NexusSearchNGResponseParser.Par
  */
 public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 
-	private final static Logger logger = LoggerFactory.getLogger(
+	private static final Logger logger = LoggerFactory.getLogger(
 			NexusSearchOsgiRepository.class);
 	private URL server;
 	private String queryString;

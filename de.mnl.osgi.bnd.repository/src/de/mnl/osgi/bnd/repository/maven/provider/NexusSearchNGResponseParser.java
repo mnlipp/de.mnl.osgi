@@ -18,6 +18,9 @@
 
 package de.mnl.osgi.bnd.repository.maven.provider;
 
+import aQute.maven.api.Program;
+import aQute.maven.api.Revision;
+
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -38,15 +41,12 @@ import javax.xml.stream.events.XMLEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import aQute.maven.api.Program;
-import aQute.maven.api.Revision;
-
 /**
  * Parses the XML document returned by a Nexus server in response to a
  * <code>lucene/search</code> request.
  */
 public class NexusSearchNGResponseParser {
-	private final static Logger logger = LoggerFactory.getLogger(
+	private static final Logger logger = LoggerFactory.getLogger(
 			NexusSearchNGResponseParser.class);
 	private Set<Revision> artifacts 
 		= Collections.newSetFromMap(new ConcurrentHashMap<>());
