@@ -1,6 +1,9 @@
+
 plugins {
 	id 'org.ajoberstar.git-publish' version '1.0.1'
 }
+
+apply plugin: 'biz.aQute.bnd.workspace'
 
 ext {
 	isTravisBuild = System.getenv().get("TRAVIS") == 'true'
@@ -50,7 +53,6 @@ task stage {
 }
 
 apply plugin: 'eclipse'
-
 tasks.eclipse.dependsOn(cleanEclipse)
 
 wrapper {

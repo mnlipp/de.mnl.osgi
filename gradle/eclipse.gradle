@@ -1,0 +1,62 @@
+apply plugin: 'eclipse'
+    
+eclipse {
+	if (!project.name.startsWith("de.mnl.osgi")) {
+		// Dummy project. Nothing to do for Eclipse, but must show
+		// up as project
+		project {
+			natures = []
+			buildCommands = []
+		}
+	} else {
+		classpath {
+			// Only for bnd projects
+			if (plugins.hasPlugin('biz.aQute.bnd')) {
+				containers 'aQute.bnd.classpath.container'
+				// Classpath is completely handled by bnd container above
+				minusConfigurations += [ configurations.compileClasspath,
+					configurations.testCompileClasspath, configurations.testRuntimeClasspath ]
+			}
+			downloadJavadoc = true
+			downloadSources = true
+			file {
+				whenMerged {
+					entries.each {
+						if (it in org.gradle.plugins.ide.eclipse.model.AbstractClasspathEntry &&
+							it.entryAttributes['gradle_used_by_scope'] == 'test') {
+							it.entryAttributes['test'] = true
+						}
+					}
+				}
+			}
+		}
+		project {
+			// buildCommand 'org.eclipse.buildship.core.gradleprojectbuilder'
+			buildCommand 'net.sf.eclipsecs.core.CheckstyleBuilder'
+			// 'org.eclipse.buildship.core.gradleprojectnature',
+			natures 'org.eclipse.jdt.core.javanature', \
+            	'net.sf.eclipsecs.core.CheckstyleNature'
+				'org.eclipse.jdt.groovy.core.groovyNature'
+				// Only for bnd projects
+				if (plugins.hasPlugin('biz.aQute.bnd')) {
+					// buildCommand 'org.eclipse.jdt.core.javabuilder'
+					buildCommand 'bndtools.core.bndbuilder'
+					natures += 'bndtools.core.bndnature'
+				}
+		}
+		jdt {
+			sourceCompatibility = 1.8
+            targetCompatibility = 1.8
+            javaRuntimeName = "JavaSE-1.8"
+			file {
+				withProperties { properties ->
+					def formatterPrefs = new Properties()
+					rootProject.file("gradle/org.eclipse.jdt.core.formatter.prefs")
+						.withInputStream { formatterPrefs.load(it) }
+						properties.putAll(formatterPrefs)
+				}
+			}
+		}
+	}
+}
+tasks.eclipse.dependsOn(cleanEclipse)

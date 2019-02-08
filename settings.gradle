@@ -11,4 +11,11 @@ buildscript {
 	gradle.rootProject { buildscript { dependencies { classpath bndPlugin } } }
 }
 
-apply plugin: 'biz.aQute.bnd.workspace'
+for (File file: rootDir.listFiles()) {
+	if (file.isDirectory() &&
+			file.name.startsWith("de.mnl.osgi.") ) {
+			include file.name
+	}
+}
+
+include 'cnf'

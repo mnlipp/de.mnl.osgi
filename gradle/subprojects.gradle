@@ -33,3 +33,4 @@ if (tasks.findByName("javadoc")) {
 	}
 }
 
+apply from: "${project.rootDir}/gradle/eclipse.gradle"
