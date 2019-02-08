@@ -1,0 +1,3 @@
+tasks.testOSGi {
+    dependsOn(':de.mnl.osgi.osgi2jul:build')
+}
