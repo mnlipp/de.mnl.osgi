@@ -23,6 +23,14 @@
 		pretty = true; \
 		local = ${build}/release
 
+-plugin.5.JitPack: \
+    aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+        name="JitPack (POM)"; \
+        snapshotUrls=https://jitpack.io/; \
+        releaseUrls=https://jitpack.io/; \
+        pom=${build}/jitpack.pom; \
+        location=${build}/cache/jitpack-pom.xml
+
 -plugin.6.Felix = \
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
         name=Felix; \
