@@ -43,6 +43,7 @@ public class LogManager extends java.util.logging.LogManager {
 			bufferSize = Integer.parseInt(System.getProperty(
 					"de.mnl.osgi.jul2osgi.bufferSize", "100"));
 		} catch (NumberFormatException e) {
+		    // Left to default if invaid.
 		}
 	}
 	
