@@ -24,25 +24,25 @@
 <span class="sourceLineNo">016</span><a name="line.16"></a>
 <span class="sourceLineNo">017</span>package de.mnl.osgi.jul2osgi;<a name="line.17"></a>
 <span class="sourceLineNo">018</span><a name="line.18"></a>
-<span class="sourceLineNo">019</span>import java.text.MessageFormat;<a name="line.19"></a>
-<span class="sourceLineNo">020</span>import java.util.HashMap;<a name="line.20"></a>
-<span class="sourceLineNo">021</span>import java.util.Map;<a name="line.21"></a>
-<span class="sourceLineNo">022</span>import java.util.Optional;<a name="line.22"></a>
-<span class="sourceLineNo">023</span>import java.util.logging.Level;<a name="line.23"></a>
-<span class="sourceLineNo">024</span>import java.util.logging.LogRecord;<a name="line.24"></a>
-<span class="sourceLineNo">025</span><a name="line.25"></a>
-<span class="sourceLineNo">026</span>import org.osgi.framework.BundleActivator;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>import org.osgi.framework.BundleContext;<a name="line.27"></a>
-<span class="sourceLineNo">028</span>import org.osgi.framework.ServiceReference;<a name="line.28"></a>
-<span class="sourceLineNo">029</span>import org.osgi.service.log.LogLevel;<a name="line.29"></a>
-<span class="sourceLineNo">030</span>import org.osgi.service.log.LogService;<a name="line.30"></a>
-<span class="sourceLineNo">031</span>import org.osgi.service.log.Logger;<a name="line.31"></a>
-<span class="sourceLineNo">032</span>import org.osgi.service.log.admin.LoggerAdmin;<a name="line.32"></a>
-<span class="sourceLineNo">033</span>import org.osgi.service.log.admin.LoggerContext;<a name="line.33"></a>
-<span class="sourceLineNo">034</span>import org.osgi.util.tracker.ServiceTracker;<a name="line.34"></a>
-<span class="sourceLineNo">035</span><a name="line.35"></a>
-<span class="sourceLineNo">036</span>import de.mnl.osgi.jul2osgi.lib.LogManager;<a name="line.36"></a>
-<span class="sourceLineNo">037</span>import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;<a name="line.37"></a>
+<span class="sourceLineNo">019</span>import de.mnl.osgi.jul2osgi.lib.LogManager;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;<a name="line.20"></a>
+<span class="sourceLineNo">021</span><a name="line.21"></a>
+<span class="sourceLineNo">022</span>import java.text.MessageFormat;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import java.util.HashMap;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import java.util.Map;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import java.util.Optional;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import java.util.logging.Level;<a name="line.26"></a>
+<span class="sourceLineNo">027</span>import java.util.logging.LogRecord;<a name="line.27"></a>
+<span class="sourceLineNo">028</span><a name="line.28"></a>
+<span class="sourceLineNo">029</span>import org.osgi.framework.BundleActivator;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import org.osgi.framework.BundleContext;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import org.osgi.framework.ServiceReference;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import org.osgi.service.log.LogLevel;<a name="line.32"></a>
+<span class="sourceLineNo">033</span>import org.osgi.service.log.LogService;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>import org.osgi.service.log.Logger;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import org.osgi.service.log.admin.LoggerAdmin;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import org.osgi.service.log.admin.LoggerContext;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>import org.osgi.util.tracker.ServiceTracker;<a name="line.37"></a>
 <span class="sourceLineNo">038</span><a name="line.38"></a>
 <span class="sourceLineNo">039</span>/**<a name="line.39"></a>
 <span class="sourceLineNo">040</span> */<a name="line.40"></a>
@@ -75,111 +75,112 @@
 <span class="sourceLineNo">067</span>                                try {<a name="line.67"></a>
 <span class="sourceLineNo">068</span>                                        contextLevel = LogLevel.valueOf(ctxProperty);<a name="line.68"></a>
 <span class="sourceLineNo">069</span>                                } catch (IllegalArgumentException e) {<a name="line.69"></a>
-<span class="sourceLineNo">070</span>                                }<a name="line.70"></a>
-<span class="sourceLineNo">071</span>                        }<a name="line.71"></a>
-<span class="sourceLineNo">072</span>                }<a name="line.72"></a>
-<span class="sourceLineNo">073</span>                <a name="line.73"></a>
-<span class="sourceLineNo">074</span>                // Create new service tracker.<a name="line.74"></a>
-<span class="sourceLineNo">075</span>                logSvcTracker = new ServiceTracker&lt;LogService, LogService&gt;(<a name="line.75"></a>
-<span class="sourceLineNo">076</span>                                context, LogService.class, null) {<a name="line.76"></a>
-<span class="sourceLineNo">077</span>                        @Override<a name="line.77"></a>
-<span class="sourceLineNo">078</span>                        public LogService addingService(<a name="line.78"></a>
-<span class="sourceLineNo">079</span>                                        ServiceReference&lt;LogService&gt; reference) {<a name="line.79"></a>
-<span class="sourceLineNo">080</span>                                ((LogManager)lm).setForwarder(Forwarder.this);<a name="line.80"></a>
-<span class="sourceLineNo">081</span>                                return super.addingService(reference);<a name="line.81"></a>
-<span class="sourceLineNo">082</span>                        }<a name="line.82"></a>
-<span class="sourceLineNo">083</span><a name="line.83"></a>
-<span class="sourceLineNo">084</span>                        @Override<a name="line.84"></a>
-<span class="sourceLineNo">085</span>                        public void removedService(ServiceReference&lt;LogService&gt; reference,<a name="line.85"></a>
-<span class="sourceLineNo">086</span>                                        LogService service) {<a name="line.86"></a>
-<span class="sourceLineNo">087</span>                                // TODO Auto-generated method stub<a name="line.87"></a>
-<span class="sourceLineNo">088</span>                                super.removedService(reference, service);<a name="line.88"></a>
-<span class="sourceLineNo">089</span>                                if (getService() == null) {<a name="line.89"></a>
-<span class="sourceLineNo">090</span>                                        ((LogManager)lm).setForwarder(null);<a name="line.90"></a>
-<span class="sourceLineNo">091</span>                                }<a name="line.91"></a>
-<span class="sourceLineNo">092</span>                        }<a name="line.92"></a>
-<span class="sourceLineNo">093</span>                };<a name="line.93"></a>
-<span class="sourceLineNo">094</span>        logSvcTracker.open();<a name="line.94"></a>
-<span class="sourceLineNo">095</span>                // Create the admin tracker<a name="line.95"></a>
-<span class="sourceLineNo">096</span>                logAdmTracker = new ServiceTracker&lt;LoggerAdmin, LoggerAdmin&gt;(<a name="line.96"></a>
-<span class="sourceLineNo">097</span>                                context, LoggerAdmin.class, null) {<a name="line.97"></a>
-<span class="sourceLineNo">098</span>                        @Override<a name="line.98"></a>
-<span class="sourceLineNo">099</span>                        public LoggerAdmin addingService(<a name="line.99"></a>
-<span class="sourceLineNo">100</span>                                        ServiceReference&lt;LoggerAdmin&gt; reference) {<a name="line.100"></a>
-<span class="sourceLineNo">101</span>                                LoggerAdmin adm = super.addingService(reference);<a name="line.101"></a>
-<span class="sourceLineNo">102</span>                                if (contextLevel != null) {<a name="line.102"></a>
-<span class="sourceLineNo">103</span>                                        LoggerContext ctx = adm.getLoggerContext(<a name="line.103"></a>
-<span class="sourceLineNo">104</span>                                                        Forwarder.class.getPackage().getName());<a name="line.104"></a>
-<span class="sourceLineNo">105</span>                                        Map&lt;String,LogLevel&gt; logLevels = new HashMap&lt;&gt;();<a name="line.105"></a>
-<span class="sourceLineNo">106</span>                                        logLevels.put(Logger.ROOT_LOGGER_NAME, contextLevel);<a name="line.106"></a>
-<span class="sourceLineNo">107</span>                                        ctx.setLogLevels(logLevels);<a name="line.107"></a>
-<span class="sourceLineNo">108</span>                                }<a name="line.108"></a>
-<span class="sourceLineNo">109</span>                                return adm;<a name="line.109"></a>
-<span class="sourceLineNo">110</span>                        }<a name="line.110"></a>
-<span class="sourceLineNo">111</span>                };<a name="line.111"></a>
-<span class="sourceLineNo">112</span>                logAdmTracker.open();<a name="line.112"></a>
-<span class="sourceLineNo">113</span>        }<a name="line.113"></a>
-<span class="sourceLineNo">114</span><a name="line.114"></a>
-<span class="sourceLineNo">115</span>        @Override<a name="line.115"></a>
-<span class="sourceLineNo">116</span>        public void stop(BundleContext context) throws Exception {<a name="line.116"></a>
-<span class="sourceLineNo">117</span>                java.util.logging.LogManager lm<a name="line.117"></a>
-<span class="sourceLineNo">118</span>                        = java.util.logging.LogManager.getLogManager();<a name="line.118"></a>
-<span class="sourceLineNo">119</span>                if (lm instanceof LogManager) {<a name="line.119"></a>
-<span class="sourceLineNo">120</span>                        ((LogManager)lm).setForwarder(null);<a name="line.120"></a>
-<span class="sourceLineNo">121</span>                }<a name="line.121"></a>
-<span class="sourceLineNo">122</span>                logSvcTracker.close();<a name="line.122"></a>
-<span class="sourceLineNo">123</span>                logAdmTracker.close();<a name="line.123"></a>
-<span class="sourceLineNo">124</span>        }<a name="line.124"></a>
-<span class="sourceLineNo">125</span><a name="line.125"></a>
-<span class="sourceLineNo">126</span>        @Override<a name="line.126"></a>
-<span class="sourceLineNo">127</span>        public boolean process(LogRecord record) {<a name="line.127"></a>
-<span class="sourceLineNo">128</span>                LogService service = logSvcTracker.getService();<a name="line.128"></a>
-<span class="sourceLineNo">129</span>                if (service == null) {<a name="line.129"></a>
-<span class="sourceLineNo">130</span>                        return false;<a name="line.130"></a>
-<span class="sourceLineNo">131</span>                }<a name="line.131"></a>
-<span class="sourceLineNo">132</span>                Logger logger = service.getLogger(<a name="line.132"></a>
-<span class="sourceLineNo">133</span>                                Optional.ofNullable(record.getLoggerName())<a name="line.133"></a>
-<span class="sourceLineNo">134</span>                                .orElse(Logger.ROOT_LOGGER_NAME));<a name="line.134"></a>
-<span class="sourceLineNo">135</span>                int julLevel = record.getLevel().intValue();<a name="line.135"></a>
-<span class="sourceLineNo">136</span>                if (julLevel &gt;= Level.SEVERE.intValue()) {<a name="line.136"></a>
-<span class="sourceLineNo">137</span>                        if (logger.isErrorEnabled()) {<a name="line.137"></a>
-<span class="sourceLineNo">138</span>                                logger.error("{}", formatMessage(logPattern, record), <a name="line.138"></a>
-<span class="sourceLineNo">139</span>                                                record.getThrown());<a name="line.139"></a>
-<span class="sourceLineNo">140</span>                        }<a name="line.140"></a>
-<span class="sourceLineNo">141</span>                } else if (julLevel &gt;= Level.WARNING.intValue()) {<a name="line.141"></a>
-<span class="sourceLineNo">142</span>                        if (logger.isWarnEnabled()) {<a name="line.142"></a>
-<span class="sourceLineNo">143</span>                                logger.warn("{}", formatMessage(logPattern, record), <a name="line.143"></a>
-<span class="sourceLineNo">144</span>                                                record.getThrown());<a name="line.144"></a>
-<span class="sourceLineNo">145</span>                        }<a name="line.145"></a>
-<span class="sourceLineNo">146</span>                } else if (julLevel &gt;= Level.INFO.intValue()) {<a name="line.146"></a>
-<span class="sourceLineNo">147</span>                        if (logger.isInfoEnabled()) {<a name="line.147"></a>
-<span class="sourceLineNo">148</span>                                logger.info("{}", formatMessage(logPattern, record), <a name="line.148"></a>
-<span class="sourceLineNo">149</span>                                                record.getThrown());<a name="line.149"></a>
-<span class="sourceLineNo">150</span>                        }<a name="line.150"></a>
-<span class="sourceLineNo">151</span>                } else if (julLevel &gt;= Level.FINE.intValue()) {<a name="line.151"></a>
-<span class="sourceLineNo">152</span>                        if (logger.isDebugEnabled()) {<a name="line.152"></a>
-<span class="sourceLineNo">153</span>                                logger.debug("{}", formatMessage(logPattern, record), <a name="line.153"></a>
-<span class="sourceLineNo">154</span>                                                record.getThrown());<a name="line.154"></a>
-<span class="sourceLineNo">155</span>                        }<a name="line.155"></a>
-<span class="sourceLineNo">156</span>                } else if (logger.isTraceEnabled()) {<a name="line.156"></a>
-<span class="sourceLineNo">157</span>                        logger.trace("{}", formatMessage(logPattern, record), <a name="line.157"></a>
-<span class="sourceLineNo">158</span>                                        record.getThrown());<a name="line.158"></a>
-<span class="sourceLineNo">159</span>                } <a name="line.159"></a>
-<span class="sourceLineNo">160</span>                return true;<a name="line.160"></a>
-<span class="sourceLineNo">161</span>        }<a name="line.161"></a>
-<span class="sourceLineNo">162</span><a name="line.162"></a>
-<span class="sourceLineNo">163</span>        private String formatMessage(String format, LogRecord record) {<a name="line.163"></a>
-<span class="sourceLineNo">164</span>                String message = record.getMessage();<a name="line.164"></a>
-<span class="sourceLineNo">165</span>                if (record.getResourceBundle() != null<a name="line.165"></a>
-<span class="sourceLineNo">166</span>                                &amp;&amp; record.getResourceBundle().containsKey(message)) {<a name="line.166"></a>
-<span class="sourceLineNo">167</span>                        message = record.getResourceBundle().getString(message);<a name="line.167"></a>
-<span class="sourceLineNo">168</span>                }<a name="line.168"></a>
-<span class="sourceLineNo">169</span>                message = MessageFormat.format(message, record.getParameters());<a name="line.169"></a>
-<span class="sourceLineNo">170</span>                return MessageFormat.format(format, message, record.getMillis(),<a name="line.170"></a>
-<span class="sourceLineNo">171</span>                                        record.getSequenceNumber(), record.getSourceClassName(),<a name="line.171"></a>
-<span class="sourceLineNo">172</span>                                        record.getSourceMethodName(), record.getThreadID());<a name="line.172"></a>
-<span class="sourceLineNo">173</span>        }<a name="line.173"></a>
-<span class="sourceLineNo">174</span>}<a name="line.174"></a>
+<span class="sourceLineNo">070</span>                                    // Ignored if invalid.<a name="line.70"></a>
+<span class="sourceLineNo">071</span>                                }<a name="line.71"></a>
+<span class="sourceLineNo">072</span>                        }<a name="line.72"></a>
+<span class="sourceLineNo">073</span>                }<a name="line.73"></a>
+<span class="sourceLineNo">074</span>                <a name="line.74"></a>
+<span class="sourceLineNo">075</span>                // Create new service tracker.<a name="line.75"></a>
+<span class="sourceLineNo">076</span>                logSvcTracker = new ServiceTracker&lt;LogService, LogService&gt;(<a name="line.76"></a>
+<span class="sourceLineNo">077</span>                                context, LogService.class, null) {<a name="line.77"></a>
+<span class="sourceLineNo">078</span>                        @Override<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                        public LogService addingService(<a name="line.79"></a>
+<span class="sourceLineNo">080</span>                                        ServiceReference&lt;LogService&gt; reference) {<a name="line.80"></a>
+<span class="sourceLineNo">081</span>                                ((LogManager)lm).setForwarder(Forwarder.this);<a name="line.81"></a>
+<span class="sourceLineNo">082</span>                                return super.addingService(reference);<a name="line.82"></a>
+<span class="sourceLineNo">083</span>                        }<a name="line.83"></a>
+<span class="sourceLineNo">084</span><a name="line.84"></a>
+<span class="sourceLineNo">085</span>                        @Override<a name="line.85"></a>
+<span class="sourceLineNo">086</span>                        public void removedService(ServiceReference&lt;LogService&gt; reference,<a name="line.86"></a>
+<span class="sourceLineNo">087</span>                                        LogService service) {<a name="line.87"></a>
+<span class="sourceLineNo">088</span>                                // TODO Auto-generated method stub<a name="line.88"></a>
+<span class="sourceLineNo">089</span>                                super.removedService(reference, service);<a name="line.89"></a>
+<span class="sourceLineNo">090</span>                                if (getService() == null) {<a name="line.90"></a>
+<span class="sourceLineNo">091</span>                                        ((LogManager)lm).setForwarder(null);<a name="line.91"></a>
+<span class="sourceLineNo">092</span>                                }<a name="line.92"></a>
+<span class="sourceLineNo">093</span>                        }<a name="line.93"></a>
+<span class="sourceLineNo">094</span>                };<a name="line.94"></a>
+<span class="sourceLineNo">095</span>        logSvcTracker.open();<a name="line.95"></a>
+<span class="sourceLineNo">096</span>                // Create the admin tracker<a name="line.96"></a>
+<span class="sourceLineNo">097</span>                logAdmTracker = new ServiceTracker&lt;LoggerAdmin, LoggerAdmin&gt;(<a name="line.97"></a>
+<span class="sourceLineNo">098</span>                                context, LoggerAdmin.class, null) {<a name="line.98"></a>
+<span class="sourceLineNo">099</span>                        @Override<a name="line.99"></a>
+<span class="sourceLineNo">100</span>                        public LoggerAdmin addingService(<a name="line.100"></a>
+<span class="sourceLineNo">101</span>                                        ServiceReference&lt;LoggerAdmin&gt; reference) {<a name="line.101"></a>
+<span class="sourceLineNo">102</span>                                LoggerAdmin adm = super.addingService(reference);<a name="line.102"></a>
+<span class="sourceLineNo">103</span>                                if (contextLevel != null) {<a name="line.103"></a>
+<span class="sourceLineNo">104</span>                                        LoggerContext ctx = adm.getLoggerContext(<a name="line.104"></a>
+<span class="sourceLineNo">105</span>                                                        Forwarder.class.getPackage().getName());<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                                        Map&lt;String,LogLevel&gt; logLevels = new HashMap&lt;&gt;();<a name="line.106"></a>
+<span class="sourceLineNo">107</span>                                        logLevels.put(Logger.ROOT_LOGGER_NAME, contextLevel);<a name="line.107"></a>
+<span class="sourceLineNo">108</span>                                        ctx.setLogLevels(logLevels);<a name="line.108"></a>
+<span class="sourceLineNo">109</span>                                }<a name="line.109"></a>
+<span class="sourceLineNo">110</span>                                return adm;<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                        }<a name="line.111"></a>
+<span class="sourceLineNo">112</span>                };<a name="line.112"></a>
+<span class="sourceLineNo">113</span>                logAdmTracker.open();<a name="line.113"></a>
+<span class="sourceLineNo">114</span>        }<a name="line.114"></a>
+<span class="sourceLineNo">115</span><a name="line.115"></a>
+<span class="sourceLineNo">116</span>        @Override<a name="line.116"></a>
+<span class="sourceLineNo">117</span>        public void stop(BundleContext context) throws Exception {<a name="line.117"></a>
+<span class="sourceLineNo">118</span>                java.util.logging.LogManager lm<a name="line.118"></a>
+<span class="sourceLineNo">119</span>                        = java.util.logging.LogManager.getLogManager();<a name="line.119"></a>
+<span class="sourceLineNo">120</span>                if (lm instanceof LogManager) {<a name="line.120"></a>
+<span class="sourceLineNo">121</span>                        ((LogManager)lm).setForwarder(null);<a name="line.121"></a>
+<span class="sourceLineNo">122</span>                }<a name="line.122"></a>
+<span class="sourceLineNo">123</span>                logSvcTracker.close();<a name="line.123"></a>
+<span class="sourceLineNo">124</span>                logAdmTracker.close();<a name="line.124"></a>
+<span class="sourceLineNo">125</span>        }<a name="line.125"></a>
+<span class="sourceLineNo">126</span><a name="line.126"></a>
+<span class="sourceLineNo">127</span>        @Override<a name="line.127"></a>
+<span class="sourceLineNo">128</span>        public boolean process(LogRecord record) {<a name="line.128"></a>
+<span class="sourceLineNo">129</span>                LogService service = logSvcTracker.getService();<a name="line.129"></a>
+<span class="sourceLineNo">130</span>                if (service == null) {<a name="line.130"></a>
+<span class="sourceLineNo">131</span>                        return false;<a name="line.131"></a>
+<span class="sourceLineNo">132</span>                }<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                Logger logger = service.getLogger(<a name="line.133"></a>
+<span class="sourceLineNo">134</span>                                Optional.ofNullable(record.getLoggerName())<a name="line.134"></a>
+<span class="sourceLineNo">135</span>                                .orElse(Logger.ROOT_LOGGER_NAME));<a name="line.135"></a>
+<span class="sourceLineNo">136</span>                int julLevel = record.getLevel().intValue();<a name="line.136"></a>
+<span class="sourceLineNo">137</span>                if (julLevel &gt;= Level.SEVERE.intValue()) {<a name="line.137"></a>
+<span class="sourceLineNo">138</span>                        if (logger.isErrorEnabled()) {<a name="line.138"></a>
+<span class="sourceLineNo">139</span>                                logger.error("{}", formatMessage(logPattern, record), <a name="line.139"></a>
+<span class="sourceLineNo">140</span>                                                record.getThrown());<a name="line.140"></a>
+<span class="sourceLineNo">141</span>                        }<a name="line.141"></a>
+<span class="sourceLineNo">142</span>                } else if (julLevel &gt;= Level.WARNING.intValue()) {<a name="line.142"></a>
+<span class="sourceLineNo">143</span>                        if (logger.isWarnEnabled()) {<a name="line.143"></a>
+<span class="sourceLineNo">144</span>                                logger.warn("{}", formatMessage(logPattern, record), <a name="line.144"></a>
+<span class="sourceLineNo">145</span>                                                record.getThrown());<a name="line.145"></a>
+<span class="sourceLineNo">146</span>                        }<a name="line.146"></a>
+<span class="sourceLineNo">147</span>                } else if (julLevel &gt;= Level.INFO.intValue()) {<a name="line.147"></a>
+<span class="sourceLineNo">148</span>                        if (logger.isInfoEnabled()) {<a name="line.148"></a>
+<span class="sourceLineNo">149</span>                                logger.info("{}", formatMessage(logPattern, record), <a name="line.149"></a>
+<span class="sourceLineNo">150</span>                                                record.getThrown());<a name="line.150"></a>
+<span class="sourceLineNo">151</span>                        }<a name="line.151"></a>
+<span class="sourceLineNo">152</span>                } else if (julLevel &gt;= Level.FINE.intValue()) {<a name="line.152"></a>
+<span class="sourceLineNo">153</span>                        if (logger.isDebugEnabled()) {<a name="line.153"></a>
+<span class="sourceLineNo">154</span>                                logger.debug("{}", formatMessage(logPattern, record), <a name="line.154"></a>
+<span class="sourceLineNo">155</span>                                                record.getThrown());<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                        }<a name="line.156"></a>
+<span class="sourceLineNo">157</span>                } else if (logger.isTraceEnabled()) {<a name="line.157"></a>
+<span class="sourceLineNo">158</span>                        logger.trace("{}", formatMessage(logPattern, record), <a name="line.158"></a>
+<span class="sourceLineNo">159</span>                                        record.getThrown());<a name="line.159"></a>
+<span class="sourceLineNo">160</span>                } <a name="line.160"></a>
+<span class="sourceLineNo">161</span>                return true;<a name="line.161"></a>
+<span class="sourceLineNo">162</span>        }<a name="line.162"></a>
+<span class="sourceLineNo">163</span><a name="line.163"></a>
+<span class="sourceLineNo">164</span>        private String formatMessage(String format, LogRecord record) {<a name="line.164"></a>
+<span class="sourceLineNo">165</span>                String message = record.getMessage();<a name="line.165"></a>
+<span class="sourceLineNo">166</span>                if (record.getResourceBundle() != null<a name="line.166"></a>
+<span class="sourceLineNo">167</span>                                &amp;&amp; record.getResourceBundle().containsKey(message)) {<a name="line.167"></a>
+<span class="sourceLineNo">168</span>                        message = record.getResourceBundle().getString(message);<a name="line.168"></a>
+<span class="sourceLineNo">169</span>                }<a name="line.169"></a>
+<span class="sourceLineNo">170</span>                message = MessageFormat.format(message, record.getParameters());<a name="line.170"></a>
+<span class="sourceLineNo">171</span>                return MessageFormat.format(format, message, record.getMillis(),<a name="line.171"></a>
+<span class="sourceLineNo">172</span>                                        record.getSequenceNumber(), record.getSourceClassName(),<a name="line.172"></a>
+<span class="sourceLineNo">173</span>                                        record.getSourceMethodName(), record.getThreadID());<a name="line.173"></a>
+<span class="sourceLineNo">174</span>        }<a name="line.174"></a>
+<span class="sourceLineNo">175</span>}<a name="line.175"></a>
 
 
 
