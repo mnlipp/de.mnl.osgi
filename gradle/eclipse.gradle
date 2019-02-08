@@ -13,14 +13,16 @@ eclipse {
 			// Only for bnd projects
 			if (plugins.hasPlugin('biz.aQute.bnd')) {
 				containers 'aQute.bnd.classpath.container'
-				// Classpath is completely handled by bnd container above
-				minusConfigurations += [ configurations.compileClasspath,
-					configurations.testCompileClasspath, configurations.testRuntimeClasspath ]
 			}
 			downloadJavadoc = true
 			downloadSources = true
 			file {
 				whenMerged {
+					// Classpath is completely handled by bnd container above
+					entries.removeAll {
+						it in org.gradle.plugins.ide.eclipse.model.Library
+					}
+					// Mark test source folders
 					entries.each {
 						if (it in org.gradle.plugins.ide.eclipse.model.AbstractClasspathEntry &&
 							it.entryAttributes['gradle_used_by_scope'] == 'test') {
