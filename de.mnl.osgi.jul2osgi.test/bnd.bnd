@@ -1,5 +1,5 @@
 # Choose either depending on whether we build a snapshot or a release:
-Bundle-Version: 1.0.0-${tstamp}-SNAPSHOT
+Bundle-Version: 0.0.0.-${tstamp}-SNAPSHOT
 #Bundle-Version: 1.0.0.ga
 
 # This is the version of JUnit that will be used at build time and run time
@@ -17,8 +17,8 @@ Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
 	${junit},\
 	${mockito},\
 	${mockito-deps},\
-	osgi.annotation; version=6.0.1,\
 	osgi.core; version=6.0,\
+	osgi.annotation; version=6.0.1,\
 	org.osgi.service.log;version='[1.4,2)'
 
 javac.source: 1.8
@@ -34,8 +34,7 @@ Private-Package: de.mnl.osgi.jul2osgi.test
 -runsystempackages.objenesis: sun.misc,sun.reflect
 
 -runrequires: \
-	osgi.identity;filter:='(osgi.identity=de.mnl.osgi.jul2osgi)', \
-	osgi.identity;filter:='(osgi.identity=de.mnl.osgi.osgi2jul)'
+	osgi.identity;filter:='(osgi.identity=de.mnl.osgi.jul2osgi)'
 
 -runpath: de.mnl.osgi.jul2osgi.lib;version='latest'
 
@@ -50,8 +49,8 @@ Private-Package: de.mnl.osgi.jul2osgi.test
 	${junit},\
 	${mockito},\
 	${mockito-deps},\
-	de.mnl.osgi.jul2osgi;version=snapshot,\
 	org.apache.felix.log;version='[1.2.0,1.2.1)',\
+	de.mnl.osgi.jul2osgi;version=snapshot,\
 	de.mnl.osgi.osgi2jul;version=snapshot
 
 -runproperties: \
