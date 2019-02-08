@@ -16,6 +16,9 @@
 
 package de.mnl.osgi.jul2osgi;
 
+import de.mnl.osgi.jul2osgi.lib.LogManager;
+import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;
+
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,9 +35,6 @@ import org.osgi.service.log.Logger;
 import org.osgi.service.log.admin.LoggerAdmin;
 import org.osgi.service.log.admin.LoggerContext;
 import org.osgi.util.tracker.ServiceTracker;
-
-import de.mnl.osgi.jul2osgi.lib.LogManager;
-import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;
 
 /**
  */
@@ -67,6 +67,7 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
 				try {
 					contextLevel = LogLevel.valueOf(ctxProperty);
 				} catch (IllegalArgumentException e) {
+				    // Ignored if invalid.
 				}
 			}
 		}
