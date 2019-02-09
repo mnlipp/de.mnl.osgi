@@ -1,6 +1,7 @@
 
 plugins {
 	id 'org.ajoberstar.git-publish' version '1.0.1'
+	id "com.jfrog.bintray" version "1.8.4"
 }
 
 apply plugin: 'biz.aQute.bnd.workspace'
@@ -54,7 +55,3 @@ task stage {
 
 apply plugin: 'eclipse'
 tasks.eclipse.dependsOn(cleanEclipse)
-
-wrapper {
-  jarFile = rootProject.file('.gradle-wrapper/gradle-wrapper.jar')
-}

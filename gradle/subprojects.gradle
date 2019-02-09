@@ -5,6 +5,8 @@ dependencies {
 }
 
 group = "de.mnl.osgi"
+// Default, override in subprojects
+project.ext.licenses = ['AGPL-3.0']
 
 if (plugins.hasPlugin('biz.aQute.bnd')) {
     

@@ -44,3 +44,25 @@ publishing {
 // Additional configuration of publishing
 apply plugin: ConfigurePublishing
 
+// Bintray
+apply plugin: 'com.jfrog.bintray'
+
+bintray {
+	user = project.properties['bintrayUser'] ?: "nouser"
+	key = project.properties['bintrayApiKey'] ?: "nokey"
+	publications = ['maven']
+	publish = false
+	pkg {
+		repo = "forge"
+		name = project.group + ":" + (project.name.startsWith(project.group + ".")
+			? project.name.substring(project.group.size() + 1) : project.name)
+		version {
+			name = project.version
+			licenses = project.licenses
+			vcsUrl = 'https://github.com/mnlipp/de.mnl.osgi'
+			gpg {
+				sign = true
+			}
+		}
+	}
+}
