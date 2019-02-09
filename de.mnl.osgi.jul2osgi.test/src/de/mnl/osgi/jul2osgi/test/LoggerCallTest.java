@@ -3,8 +3,10 @@ package de.mnl.osgi.jul2osgi.test;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -36,18 +38,25 @@ public class LoggerCallTest {
 	public void testExample() throws InterruptedException {
 		CountDownLatch recordLatch = new CountDownLatch(1);
 		LogReaderService logService = getService(LogReaderService.class);
+		String expectedMessage = "de.mnl.osgi.jul2osgi.test.LoggerCallTest"
+                + ".testExample: Calling Logger from Test.";
 		logService.addLogListener(new LogListener() {
 			@Override
 			public void logged(LogEntry entry) {
 				if (entry.getLoggerName().equals("Logger Call Test")
-						&& entry.getMessage().equals(
-								"de.mnl.osgi.jul2osgi.test.LoggerCallTest"
-								+ ".testExample: Calling Logger from Test.")) {
+						&& entry.getMessage().equals(expectedMessage)) {
 					recordLatch.countDown();
 				}
 			}
 		});
 		logger.log(Level.INFO, "Calling Logger from {0}.", "Test");
 		assertTrue(recordLatch.await(1000, TimeUnit.MILLISECONDS));
+		String handled = null;
+		for (LogRecord record: TestHandler.records) {
+		    if (record.getMessage().equals(expectedMessage)) {
+		        handled = record.getMessage();
+		    }
+		}
+		assertNotNull(handled);
 	}
 }

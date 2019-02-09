@@ -17,8 +17,6 @@
 package de.mnl.osgi.osgi2jul;
 
 import java.util.concurrent.CountDownLatch;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
@@ -31,13 +29,14 @@ import org.osgi.service.log.LogListener;
  */
 public class LogWriter implements LogListener {
 
-    private Handler handler = new ConsoleHandler();
     private final Level auditLevel = new Level("AUDIT", Integer.MAX_VALUE) {
         private static final long serialVersionUID = 1269723275384552686L;
     };
+    private Forwarder forwarder;
     private CountDownLatch enabled;
 
-    public LogWriter(CountDownLatch enabled) {
+    public LogWriter(Forwarder forwarder, CountDownLatch enabled) {
+        this.forwarder = forwarder;
         this.enabled = enabled;
     }
 
@@ -83,7 +82,7 @@ public class LogWriter implements LogListener {
         } catch (InterruptedException e) {
             // Just an attempt to synchronize.
         }
-        handler.publish(record);
+        forwarder.publish(record);
     }
 
 }

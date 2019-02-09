@@ -14,4 +14,4 @@ javac.source: 1.8
 javac.target: 1.8
 
 Private-Package: de.mnl.osgi.osgi2jul
-Bundle-Activator: de.mnl.osgi.osgi2jul.Activator
+Bundle-Activator: de.mnl.osgi.osgi2jul.Forwarder
