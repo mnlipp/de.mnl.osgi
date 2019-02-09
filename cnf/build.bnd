@@ -5,25 +5,34 @@
 		index=${.}/central.maven; \
 		readOnly=true; \
 		name="Maven Central"
--plugin.2.Local: \
+
+-plugin.2.Bintray: \
+    aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+        name="Bintray"; \
+        snapshotUrls="https://oss.jfrog.org/artifactory/jcenter-cache/"; \
+        releaseUrls="https://dl.bintray.com/mnlipp/forge,https://http://dl.bintray.com/bintray/jcenter/"; \
+        revision="de.mnl.osgi:de.mnl.osgi.jul2osgi.lib:1.0.0, \
+            de.mnl.osgi:de.mnl.osgi.jul2osgi:1.0.0"
+
+-plugin.3.Local: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
 		name = Local; \
 		pretty = true; \
 		local = ${build}/local
 
--plugin.3.Templates: \
+-plugin.4.Templates: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
 		name = Templates; \
 		pretty = true; \
 		local = ${build}/templates
 
--plugin.4.Release: \
+-plugin.5.Release: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
 		name = Release; \
 		pretty = true; \
 		local = ${build}/release
 
--plugin.5.JitPack: \
+-plugin.6.JitPack: \
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
         name="JitPack (POM)"; \
         snapshotUrls=https://jitpack.io/; \
@@ -31,14 +40,14 @@
         pom=${build}/jitpack.pom; \
         location=${build}/cache/jitpack-pom.xml
 
--plugin.6.Felix = \
+-plugin.7.Felix = \
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
         name=Felix; \
     	snapshotUrls=https://oss.sonatype.org/content/repositories/snapshots/; \
         releaseUrls=https://repo1.maven.org/maven2; \
         query='q=g:%22org.apache.felix%22&rows=10000'
 
--plugin.7.Equinox = \
+-plugin.8.Equinox = \
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
         name=Equinox; \
     	snapshotUrls=https://oss.sonatype.org/content/repositories/snapshots/; \
@@ -47,6 +56,7 @@
 
 -releaserepo: Release
 -baselinerepo: Release
+-baseline: *
 
 # Always use contracts
 -contract: *
