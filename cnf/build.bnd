@@ -8,7 +8,8 @@
 
 -plugin.2.Bintray: \
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
-        name="Bintray"; \
+        name=Bintray; \
+		readOnly=true; \
         snapshotUrls="https://oss.jfrog.org/artifactory/jcenter-cache/"; \
         releaseUrls="https://dl.bintray.com/mnlipp/forge,https://http://dl.bintray.com/bintray/jcenter/"; \
         revision="de.mnl.osgi:de.mnl.osgi.jul2osgi.lib:1.0.0, \
@@ -35,6 +36,7 @@
 -plugin.6.JitPack: \
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
         name="JitPack (POM)"; \
+		readOnly=true; \
         snapshotUrls=https://jitpack.io/; \
         releaseUrls=https://jitpack.io/; \
         pom=${build}/jitpack.pom; \
@@ -43,6 +45,7 @@
 -plugin.7.Felix = \
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
         name=Felix; \
+		readOnly=true; \
     	snapshotUrls=https://oss.sonatype.org/content/repositories/snapshots/; \
         releaseUrls=https://repo1.maven.org/maven2; \
         query='q=g:%22org.apache.felix%22&rows=10000'
@@ -50,6 +53,7 @@
 -plugin.8.Equinox = \
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
         name=Equinox; \
+		readOnly=true; \
     	snapshotUrls=https://oss.sonatype.org/content/repositories/snapshots/; \
         releaseUrls=https://repo1.maven.org/maven2; \
         query='q=a:%22org.eclipse.osgi%22&rows=10000'
