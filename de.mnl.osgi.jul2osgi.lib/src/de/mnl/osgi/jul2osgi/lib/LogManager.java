@@ -83,6 +83,9 @@ public class LogManager extends java.util.logging.LogManager {
 		// flushed, thus changing the proper sequence.
 		synchronized(this) {
 			this.forwarder = forwarder;
+			if (forwarder == null) {
+			    return;
+			}
 			List<LogRecord> tbf;
 			synchronized (buffered) {
 				tbf = new ArrayList<>(buffered);
