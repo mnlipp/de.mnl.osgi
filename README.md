@@ -2,6 +2,11 @@
 
 [![Build Status](https://travis-ci.org/mnlipp/de.mnl.osgi.svg?branch=master)](https://travis-ci.org/mnlipp/de.mnl.osgi)
 
+| Bundle                   | Bintray |
+| ------------------------ | ------- |
+| de.mnl.osgi.jul2osgi     | [![Download](https://api.bintray.com/packages/mnlipp/forge/de.mnl.osgi%3Ajul2osgi/images/download.svg) ](https://bintray.com/mnlipp/forge/de.mnl.osgi%3Ajul2osgi/_latestVersion) 
+| de.mnl.osgi.jul2osgi.lib | [![Download](https://api.bintray.com/packages/mnlipp/forge/de.mnl.osgi%3Ajul2osgi.lib/images/download.svg) ](https://bintray.com/mnlipp/forge/de.mnl.osgi%3Ajul2osgi.lib/_latestVersion) 
+
 A collection of miscellaneous OSGi bundles and components.
 
 # Logging Bridges
