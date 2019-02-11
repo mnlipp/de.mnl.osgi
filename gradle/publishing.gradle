@@ -1,6 +1,8 @@
 // Additional jars for publishing
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'com.jfrog.bintray'
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
@@ -38,6 +40,14 @@ publishing {
                 password project.properties['sonatypePassword'] ?: "nopass"
             }
         }
+        maven {
+            name "ojo"
+            url "https://oss.jfrog.org/artifactory/oss-snapshot-local"
+            credentials {
+				username = project.properties['bintrayUser'] ?: "nouser"
+				password = project.properties['bintrayApiKey'] ?: "nokey"
+            }
+        }
     }
 }
 
@@ -45,8 +55,6 @@ publishing {
 apply plugin: ConfigurePublishing
 
 // Bintray
-apply plugin: 'com.jfrog.bintray'
-
 bintray {
 	user = project.properties['bintrayUser'] ?: "nouser"
 	key = project.properties['bintrayApiKey'] ?: "nokey"
@@ -66,3 +74,37 @@ bintray {
 		}
 	}
 }
+
+configurations {
+	snapshotArtifacts
+}
+
+configurations.snapshotArtifacts.getAllArtifacts().each {
+	println it
+}
+
+
+artifactory {
+	contextUrl = 'http://oss.jfrog.org'
+	publish {
+		repository {
+			repoKey = 'oss-snapshot-local'
+			username = project.properties['bintrayUser'] ?: "nouser"
+			password = project.properties['bintrayApiKey'] ?: "nokey"
+		}
+		defaults {
+//			publications('maven')
+			publishConfigs('snapshotArtifacts')
+			publishBuildInfo = false
+			publishArtifacts = true
+			publishPom = true
+			publishIvy = false
+		}
+	}
+	resolve {
+		repoKey = 'jcenter'
+	}
+	clientConfig.info.setBuildNumber('' 
+		+ new java.util.Random(System.currentTimeMillis()).nextInt(20000))
+}
+
