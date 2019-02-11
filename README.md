@@ -8,8 +8,8 @@ A collection of miscellaneous OSGi bundles and components.
 
 | Bundle                   | Bintray |
 | ------------------------ | ------- |
-| de.mnl.osgi.jul2osgi     | [![Download](https://api.bintray.com/packages/mnlipp/forge/de.mnl.osgi%3Ajul2osgi/images/download.svg) ](https://bintray.com/mnlipp/forge/de.mnl.osgi%3Ajul2osgi/_latestVersion) 
-| de.mnl.osgi.jul2osgi.lib | [![Download](https://api.bintray.com/packages/mnlipp/forge/de.mnl.osgi%3Ajul2osgi.lib/images/download.svg) ](https://bintray.com/mnlipp/forge/de.mnl.osgi%3Ajul2osgi.lib/_latestVersion) 
+| [de.mnl.osgi.jul2osgi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description)     | [![Download](https://api.bintray.com/packages/mnlipp/forge/de.mnl.osgi%3Ajul2osgi/images/download.svg) ](https://bintray.com/mnlipp/forge/de.mnl.osgi%3Ajul2osgi/_latestVersion) 
+| [de.mnl.osgi.jul2osgi.lib](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description) | [![Download](https://api.bintray.com/packages/mnlipp/forge/de.mnl.osgi%3Ajul2osgi.lib/images/download.svg) ](https://bintray.com/mnlipp/forge/de.mnl.osgi%3Ajul2osgi.lib/_latestVersion) 
 
 Logging in OSGi seems to be a notorious problem. Libraries—even if 
 they have OSGi bundle headers—avoid dependencies on OSGi and therefore
