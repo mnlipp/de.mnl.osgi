@@ -22,41 +22,43 @@ import org.osgi.util.tracker.ServiceTracker;
 @RunWith(MockitoJUnitRunner.class)
 public class LoggerCallTest {
 
-    protected static final Logger logger 
-    	= Logger.getLogger("Logger Call Test");
-    
-	private final BundleContext context = FrameworkUtil
-			.getBundle(LoggerCallTest.class).getBundleContext();
+    protected static final Logger logger
+        = Logger.getLogger("Logger Call Test");
 
-	private <T> T getService(Class<T> clazz) throws InterruptedException {
-		ServiceTracker<T,T> st = new ServiceTracker<>(context, clazz, null);
-		st.open();
-		return st.waitForService(1000);
-	}
-	
-	@Test
-	public void testExample() throws InterruptedException {
-		CountDownLatch recordLatch = new CountDownLatch(1);
-		LogReaderService logService = getService(LogReaderService.class);
-		String expectedMessage = "de.mnl.osgi.jul2osgi.test.LoggerCallTest"
-                + ".testExample: Calling Logger from Test.";
-		logService.addLogListener(new LogListener() {
-			@Override
-			public void logged(LogEntry entry) {
-				if (entry.getLoggerName().equals("Logger Call Test")
-						&& entry.getMessage().equals(expectedMessage)) {
-					recordLatch.countDown();
-				}
-			}
-		});
-		logger.log(Level.INFO, "Calling Logger from {0}.", "Test");
-		assertTrue(recordLatch.await(1000, TimeUnit.MILLISECONDS));
-		String handled = null;
-		for (LogRecord record: TestHandler.records) {
-		    if (record.getMessage().equals(expectedMessage)) {
-		        handled = record.getMessage();
-		    }
-		}
-		assertNotNull(handled);
-	}
+    private final BundleContext context = FrameworkUtil
+        .getBundle(LoggerCallTest.class).getBundleContext();
+
+    private <T> T getService(Class<T> clazz) throws InterruptedException {
+        ServiceTracker<T, T> st = new ServiceTracker<>(context, clazz, null);
+        st.open();
+        return st.waitForService(1000);
+    }
+
+    @Test
+    public void testExample() throws InterruptedException {
+        CountDownLatch recordLatch = new CountDownLatch(1);
+        LogReaderService logService = getService(LogReaderService.class);
+        String expectedMessage = "de.mnl.osgi.jul2osgi.test.LoggerCallTest"
+            + ".testExample: Calling Logger from Test.";
+        logService.addLogListener(new LogListener() {
+            @Override
+            public void logged(LogEntry entry) {
+                if (entry.getLoggerName().equals("Logger Call Test")
+                    && entry.getMessage().equals(expectedMessage)
+                    && entry.getBundle().getSymbolicName()
+                        .equals("de.mnl.osgi.jul2osgi.test")) {
+                    recordLatch.countDown();
+                }
+            }
+        });
+        logger.log(Level.INFO, "Calling Logger from {0}.", "Test");
+        assertTrue(recordLatch.await(1000, TimeUnit.MILLISECONDS));
+        String handled = null;
+        for (LogRecord record : TestHandler.records) {
+            if (record.getMessage().equals(expectedMessage)) {
+                handled = record.getMessage();
+            }
+        }
+        assertNotNull(handled);
+    }
 }

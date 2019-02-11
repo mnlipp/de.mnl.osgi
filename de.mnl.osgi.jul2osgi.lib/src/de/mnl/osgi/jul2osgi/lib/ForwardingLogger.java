@@ -16,6 +16,8 @@
 
 package de.mnl.osgi.jul2osgi.lib;
 
+import de.mnl.osgi.jul2osgi.lib.LogManager.LogInfo;
+
 import java.util.logging.Filter;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
@@ -26,15 +28,29 @@ import java.util.logging.Logger;
  */
 public class ForwardingLogger extends Logger {
 
-	private LogManager manager;
-	
-	public ForwardingLogger(LogManager manager, Logger orig) {
-		super(orig.getName(), orig.getResourceBundleName());
-		this.manager = manager;
-	}
+    private LogManager manager;
+    private String definingClass;
 
-	@Override
-	public void log(LogRecord record) {
+    public ForwardingLogger(LogManager manager, Logger orig) {
+        super(orig.getName(), orig.getResourceBundleName());
+        this.manager = manager;
+
+        // Find class that invoked getLogger
+        if (getName().length() == 0 || getName().equals("global")) {
+            return;
+        }
+        boolean getLoggerFound = false;
+        for (StackTraceElement ste : new Throwable().getStackTrace()) {
+            if (getLoggerFound) {
+                definingClass = ste.getClassName();
+                break;
+            }
+            getLoggerFound = ste.getMethodName().equals("getLogger");
+        }
+    }
+
+    @Override
+    public void log(LogRecord record) {
         if (!isLoggable(record.getLevel())) {
             return;
         }
@@ -43,9 +59,13 @@ public class ForwardingLogger extends Logger {
             return;
         }
 
-        // We still invoke handlers that may have been attached
-        // programmatically.
-        
+        // Unless parent handlers were to be ignored, we now log to OSGi
+        manager.log(new LogInfo(definingClass, record));
+
+        // We still invoke explicitly attached handlers. Note that the
+        // default root handler will automatically *not* be invoked
+        // because it is not wrapped as ForwardingLogger.
+
         Logger logger = this;
         while (logger != null) {
             final Handler[] loggerHandlers = logger.getHandlers();
@@ -54,13 +74,9 @@ public class ForwardingLogger extends Logger {
             }
             final boolean useParentHdls = logger.getUseParentHandlers();
             if (!useParentHdls) {
-                return;
+                break;
             }
             logger = logger.getParent();
         }
-
-        // Unless parent handlers were to be ignored, we now log to OSGi
-        manager.log(record);
-	}
-
+    }
 }

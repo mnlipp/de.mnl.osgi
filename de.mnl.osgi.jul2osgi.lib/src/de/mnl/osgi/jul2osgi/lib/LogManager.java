@@ -34,69 +34,129 @@ import java.util.logging.Logger;
  */
 public class LogManager extends java.util.logging.LogManager {
 
-	private Deque<LogRecord> buffered = new LinkedList<>();
-	private int bufferSize = 100;
-	private LogRecordHandler forwarder;
-	
-	public LogManager() {
-		try {
-			bufferSize = Integer.parseInt(System.getProperty(
-					"de.mnl.osgi.jul2osgi.bufferSize", "100"));
-		} catch (NumberFormatException e) {
-		    // Left to default if invaid.
-		}
-	}
-	
-    @Override
-    public Logger getLogger(final String name) {
-    	Logger logger = super.getLogger(name);
-    	return logger;
+    private Deque<LogInfo> buffered = new LinkedList<>();
+    private int bufferSize = 100;
+    private LogRecordHandler forwarder;
+
+    /**
+     * Instantiates a new log manager.
+     */
+    public LogManager() {
+        try {
+            bufferSize = Integer.parseInt(System.getProperty(
+                "de.mnl.osgi.jul2osgi.bufferSize", "100"));
+        } catch (NumberFormatException e) {
+            // Left to default if invaid.
+        }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.util.logging.LogManager#getLogger(java.lang.String)
+     */
     @Override
-	public boolean addLogger(Logger logger) {
-    	// It's hard to believe but this effectively overwrites the
-    	// Logger#getLogger factory methods.
-    	if (!(logger instanceof ForwardingLogger)) {
-    		logger = new ForwardingLogger(this, logger);
-    	}
-		super.addLogger(logger);
-		return false;
-	}
+    public Logger getLogger(final String name) {
+        Logger logger = super.getLogger(name);
+        return logger;
+    }
 
-	public void log(LogRecord record) {
-		LogRecordHandler fwd = forwarder;
-		if (fwd != null && fwd.process(record)) {
-			return;
-		}
-		synchronized (buffered) {
-			if (buffered.size() == bufferSize) {
-				buffered.removeFirst();
-			}
-			buffered.add(record);
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.util.logging.LogManager#addLogger(java.util.logging.Logger)
+     */
+    @Override
+    public boolean addLogger(Logger logger) {
+        // It's hard to believe but this effectively overwrites the
+        // Logger#getLogger factory methods.
+        if (!(logger instanceof ForwardingLogger)) {
+            logger = new ForwardingLogger(this, logger);
+        }
+        super.addLogger(logger);
+        return false;
+    }
 
-	public void setForwarder(LogRecordHandler forwarder) {
-		// It may be that the forwarder is used by a call to
-		// #log before all records from the buffer have been
-		// flushed, thus changing the proper sequence.
-		synchronized(this) {
-			this.forwarder = forwarder;
-			if (forwarder == null) {
-			    return;
-			}
-			List<LogRecord> tbf;
-			synchronized (buffered) {
-				tbf = new ArrayList<>(buffered);
-				buffered.clear();
-			}
-			for (LogRecord record : tbf) {
-				forwarder.process(record);
-			}
-			
-		}
-	}
-	
-	
+    /**
+     * Store or forward the logged information.
+     *
+     * @param logInfo the information
+     */
+    public void log(LogInfo logInfo) {
+        LogRecordHandler fwd = forwarder;
+        if (fwd != null && fwd.process(logInfo)) {
+            return;
+        }
+        synchronized (buffered) {
+            if (buffered.size() == bufferSize) {
+                buffered.removeFirst();
+            }
+            buffered.add(logInfo);
+        }
+    }
+
+    /**
+     * Sets the forwarder.
+     *
+     * @param forwarder the new forwarder
+     */
+    public void setForwarder(LogRecordHandler forwarder) {
+        // It may be that the forwarder is used by a call to
+        // #log before all records from the buffer have been
+        // flushed, thus changing the proper sequence.
+        synchronized (this) {
+            this.forwarder = forwarder;
+            if (forwarder == null) {
+                return;
+            }
+            List<LogInfo> tbf;
+            synchronized (buffered) {
+                tbf = new ArrayList<>(buffered);
+                buffered.clear();
+            }
+            for (LogInfo record : tbf) {
+                forwarder.process(record);
+            }
+
+        }
+    }
+
+    /**
+     * Holds the information from a logger invocation.
+     */
+    public static class LogInfo {
+        private String callingClass;
+        private LogRecord logRecord;
+
+        /**
+         * Instantiates a new log info.
+         *
+         * @param callingClass the calling class
+         * @param logRecord the log record
+         */
+        public LogInfo(String callingClass, LogRecord logRecord) {
+            super();
+            this.callingClass = callingClass;
+            this.logRecord = logRecord;
+        }
+
+        /**
+         * Gets the calling class.
+         *
+         * @return the callingClass
+         */
+        public String getCallingClass() {
+            return callingClass;
+        }
+
+        /**
+         * Gets the log record.
+         *
+         * @return the logRecord
+         */
+        public LogRecord getLogRecord() {
+            return logRecord;
+        }
+
+    }
 }

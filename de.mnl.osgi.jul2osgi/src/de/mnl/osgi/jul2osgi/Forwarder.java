@@ -17,18 +17,26 @@
 package de.mnl.osgi.jul2osgi;
 
 import de.mnl.osgi.jul2osgi.lib.LogManager;
+import de.mnl.osgi.jul2osgi.lib.LogManager.LogInfo;
 import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;
 
+import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Optional;
+import java.util.Set;
+import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LogService;
@@ -39,18 +47,26 @@ import org.osgi.util.tracker.ServiceTracker;
 
 /**
  */
+@SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class Forwarder implements BundleActivator, LogRecordHandler {
 
+    private BundleContext context;
     private ServiceTracker<LogService, LogService> logSvcTracker;
     private ServiceTracker<LoggerAdmin, LoggerAdmin> logAdmTracker;
     private String logPattern;
-    private LogLevel contextLevel;
+    private boolean adaptOsgiLevel = true;
+    private final Map<String, WeakReference<Bundle>> bundles
+        = new ConcurrentHashMap<>();
+    private final Set<Bundle> adaptedBundles = Collections
+        .synchronizedSet(Collections.newSetFromMap(new WeakHashMap<>()));
 
     @Override
+    @SuppressWarnings("PMD.SystemPrintln")
     public void start(BundleContext context) throws Exception {
-        final java.util.logging.LogManager lm
+        this.context = context;
+        final java.util.logging.LogManager logMgr
             = java.util.logging.LogManager.getLogManager();
-        if (!(lm instanceof LogManager)) {
+        if (!(logMgr instanceof LogManager)) {
             System.err.println("Configuration error: "
                 + "Bundle de.mnl.osgi.jul2osgi must be used with "
                 + "LogManager from de.mnl.osgi.jul2osgi.log.");
@@ -59,19 +75,27 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         logPattern = Optional.ofNullable(
             context.getProperty("de.mnl.osgi.jul2osgi.logPattern"))
             .orElse("{0}");
-        String ctxProperty = context.getProperty(
-            "de.mnl.osgi.jul2osgi.contextLevel");
-        if (ctxProperty == null) {
-            contextLevel = LogLevel.TRACE;
-        } else {
-            if (!ctxProperty.equals("NONE")) {
-                try {
-                    contextLevel = LogLevel.valueOf(ctxProperty);
-                } catch (IllegalArgumentException e) {
-                    // Ignored if invalid.
-                }
-            }
+        String adaptProperty = context.getProperty(
+            "de.mnl.osgi.jul2osgi.adaptOSGiLevel");
+        if (adaptProperty != null) {
+            adaptOsgiLevel = Boolean.parseBoolean(adaptProperty);
         }
+
+        // Create the admin tracker
+        logAdmTracker = new ServiceTracker<LoggerAdmin, LoggerAdmin>(
+            context, LoggerAdmin.class, null) {
+            @Override
+            public LoggerAdmin addingService(
+                    ServiceReference<LoggerAdmin> reference) {
+                LoggerAdmin adm = super.addingService(reference);
+                // Handle this bundle specially
+                if (adaptOsgiLevel) {
+                    adaptLogLevel(adm, context.getBundle());
+                }
+                return adm;
+            }
+        };
+        logAdmTracker.open();
 
         // Create new service tracker.
         logSvcTracker = new ServiceTracker<LogService, LogService>(
@@ -79,7 +103,7 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
             @Override
             public LogService addingService(
                     ServiceReference<LogService> reference) {
-                ((LogManager) lm).setForwarder(Forwarder.this);
+                ((LogManager) logMgr).setForwarder(Forwarder.this);
                 return super.addingService(reference);
             }
 
@@ -89,51 +113,55 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
                 // TODO Auto-generated method stub
                 super.removedService(reference, service);
                 if (getService() == null) {
-                    ((LogManager) lm).setForwarder(null);
+                    ((LogManager) logMgr).setForwarder(null);
                 }
             }
         };
         logSvcTracker.open();
-        // Create the admin tracker
-        logAdmTracker = new ServiceTracker<LoggerAdmin, LoggerAdmin>(
-            context, LoggerAdmin.class, null) {
-            @Override
-            public LoggerAdmin addingService(
-                    ServiceReference<LoggerAdmin> reference) {
-                LoggerAdmin adm = super.addingService(reference);
-                if (contextLevel != null) {
-                    LoggerContext ctx = adm.getLoggerContext(
-                        Forwarder.class.getPackage().getName());
-                    Map<String, LogLevel> logLevels = new HashMap<>();
-                    logLevels.put(Logger.ROOT_LOGGER_NAME, contextLevel);
-                    ctx.setLogLevels(logLevels);
-                }
-                return adm;
-            }
-        };
-        logAdmTracker.open();
+    }
+
+    private void adaptLogLevel(LoggerAdmin logAdmin, Bundle bundle) {
+        if (adaptedBundles.contains(bundle)) {
+            return;
+        }
+        LoggerContext ctx = logAdmin.getLoggerContext(
+            bundle.getSymbolicName() + "|" + bundle.getVersion());
+        @SuppressWarnings("PMD.UseConcurrentHashMap")
+        Map<String, LogLevel> logLevels = new HashMap<>();
+        logLevels.put(Logger.ROOT_LOGGER_NAME, LogLevel.TRACE);
+        ctx.setLogLevels(logLevels);
+        adaptedBundles.add(bundle);
     }
 
     @Override
     public void stop(BundleContext context) throws Exception {
-        java.util.logging.LogManager lm
+        java.util.logging.LogManager logMgr
             = java.util.logging.LogManager.getLogManager();
-        if (lm instanceof LogManager) {
-            ((LogManager) lm).setForwarder(null);
+        if (logMgr instanceof LogManager) {
+            ((LogManager) logMgr).setForwarder(null);
         }
         logSvcTracker.close();
         logAdmTracker.close();
     }
 
     @Override
-    public boolean process(LogRecord record) {
+    public boolean process(LogInfo logInfo) {
         LogService service = logSvcTracker.getService();
         if (service == null) {
             return false;
         }
-        Logger logger = service.getLogger(
-            Optional.ofNullable(record.getLoggerName())
-                .orElse(Logger.ROOT_LOGGER_NAME));
+        final LogRecord record = logInfo.getLogRecord();
+        final String loggerName = Optional.ofNullable(record.getLoggerName())
+            .orElse(Logger.ROOT_LOGGER_NAME);
+        Logger logger = findBundle(logInfo.getCallingClass())
+            .map(b -> {
+                if (adaptOsgiLevel) {
+                    Optional.ofNullable(logAdmTracker.getService())
+                        .ifPresent(adm -> adaptLogLevel(adm, b));
+                }
+                return service.getLogger(b, loggerName, Logger.class);
+            }).orElse(service.getLogger(loggerName));
+
         int julLevel = record.getLevel().intValue();
         if (julLevel >= Level.SEVERE.intValue()) {
             if (logger.isErrorEnabled()) {
@@ -162,12 +190,34 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         return true;
     }
 
+    private Optional<Bundle> findBundle(String callingClass) {
+        if (callingClass == null) {
+            return Optional.empty();
+        }
+        Bundle bundle = Optional.ofNullable(bundles.get(callingClass))
+            .map(WeakReference::get).orElse(null);
+        if (bundle != null) {
+            return Optional.of(bundle);
+        }
+        for (Bundle candidate : context.getBundles()) {
+            try {
+                bundle = FrameworkUtil
+                    .getBundle(candidate.loadClass(callingClass));
+                bundles.put(callingClass, new WeakReference<>(bundle)); // NOPMD
+                return Optional.of(bundle);
+            } catch (ClassNotFoundException | IllegalStateException e) { // NOPMD
+                // Not the right candidate
+            }
+        }
+        return Optional.empty();
+    }
+
     private String formatMessage(String format, LogRecord record) {
         String message = record.getMessage();
         if (record.getResourceBundle() != null) {
             try {
                 message = record.getResourceBundle().getString(message);
-            } catch (MissingResourceException e) {
+            } catch (MissingResourceException e) { // NOPMD
                 // Leave message as it is
             }
         }
@@ -176,7 +226,7 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
             message = MessageFormat.format(message, record.getParameters());
         }
         return MessageFormat.format(format, message, record.getMillis(),
-                    record.getSequenceNumber(), record.getSourceClassName(),
-                    record.getSourceMethodName(), record.getThreadID());
+            record.getSequenceNumber(), record.getSourceClassName(),
+            record.getSourceMethodName(), record.getThreadID());
     }
 }

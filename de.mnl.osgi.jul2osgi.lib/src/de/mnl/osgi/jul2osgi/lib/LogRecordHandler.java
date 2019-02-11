@@ -16,6 +16,8 @@
 
 package de.mnl.osgi.jul2osgi.lib;
 
+import de.mnl.osgi.jul2osgi.lib.LogManager.LogInfo;
+
 import java.util.logging.LogRecord;
 
 /**
@@ -24,16 +26,16 @@ import java.util.logging.LogRecord;
  */
 public interface LogRecordHandler {
 
-	/**
-	 * Asks the handler to process the record. If the record has successfully
-	 * been processed, returns {@code true}. If the record cannot be 
-	 * processed, returns {@code false}. In the latter case, the record
-	 * should be kept and processing should be attempted again when a
-	 * new handler has been set. 
-	 * 
-	 * @param record the log record
-	 * @return the result
-	 */
-	public boolean process(LogRecord record);
+    /**
+     * Asks the handler to process the record. If the record has successfully
+     * been processed, returns {@code true}. If the record cannot be 
+     * processed, returns {@code false}. In the latter case, the record
+     * should be kept and processing should be attempted again when a
+     * new handler has been set. 
+     * 
+     * @param logInfo the log record
+     * @return the result
+     */
+    public boolean process(LogInfo logInfo);
 
 }

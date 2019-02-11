@@ -17,7 +17,9 @@
 /**
  * A bundle that forwards java.util.logging (JUL) records to the
  * OSGi logging service.
- * <P>
+ * 
+ * <h3>Installation</h3>
+ * 
  * This bundle (the main bundle) works together with the 
  * bundle {@code de.mnl.osgi.jul2osgi.lib} (the library bundle), 
  * which provides a replacement for the default 
@@ -39,6 +41,10 @@
  * The size of the buffer can be configured with the system property
  * {@code de.mnl.osgi.jul2osgi.bufferSize}, which defaults to 100.
  * <P>
+ * The main bundle is deployed as any other OSGi bundle
+ * 
+ * <h3>Forwarding functionality</h3>
+ * 
  * When the main bundle is started, it first requests an OSGI log service 
  * from the framework. When this service becomes available, the forwarder 
  * in the main bundle registers a callback with the {@code LogManager}. 
@@ -60,6 +66,12 @@
  *       of the OSGi {@code LogRecord}.</li>
  * </ul>
  *
+ * The forwarder also attempts to determine the bundle within which
+ * the JUL {@code Logger} was created and use it as origin of the event 
+ * when forwarding it to OSGI logging. Only if determining the bundle
+ * fails will the log event appear to have been created by bundle
+ * {@code de.mnl.osgi.jul2osgi}.
+ * <P>
  * When using JUL, the message passed to the JUL {@code Logger} isn't
  * necessarily what you see in your log. It is first used to lookup
  * a mapping in the {@link java.util.ResourceBundle} associated with
@@ -82,11 +94,42 @@
  * information from the JUL {@code LogRecord}. This allows the remaining
  * information to be added to the message sent to the OSGi log service.
  * <P>
- * The {@code format} method is invoked as: {@code format(logPattern,
- * message, millis, sequenceNumber, sourceClassName, sourceMethodName,
- * threadID)}. In order to e.g. add the source class name and method
- * to the log message the pattern "<code>{3}.{4}: {0}</code>" could be used.
+ * The {@code format} method is invoked as: 
  * <P>
+ * {@code format(logPattern,
+ * message, millis, sequenceNumber, sourceClassName, sourceMethodName,
+ * threadID)}
+ * <P>
+ * In order to e.g. add the source class name and method
+ * to the log message the pattern "<code>{3}.{4}: {0}</code>" could be used.
+ * 
+ * <h3>Filtering</h3>
+ * 
+ * Calls to the JUL {@code Logger} are filtered before further processing
+ * according to the result from (JUL)
+ * {@link java.util.logging.Logger#isLoggable(java.util.logging.Level)} and
+ * by any configured JUL filter. Calls that pass this barrier are 
+ * forwarded to OSGi logging.
+ * <P>
+ * OSGi logging filters the forwarded events according to the level
+ * configured for the originating bundle and OSGi logger before accepting
+ * the event.
+ * <P>
+ * If you want log events to be delivered for levels lower than the 
+ * default levels, you must therefore lower the levels in both configurations. 
+ * Be aware that the default levels for JUL and OSGi logging differ. JUL
+ * uses the default level {@code INFO} while OSGi logging uses the default 
+ * level {@code WARNING}.
+ * <P>
+ * In order to avoid unnecessary processing of eventually discarded log
+ * events, filtering should preferably be configured using JUL. Anything
+ * that passes this first barrier can then be accepted by OSGi logging
+ * without further restrictions. Following this approach, the default
+ * level for bundles using JUL should thus best be set to 
+ * {@link org.osgi.service.log.LogLevel#TRACE} (see bundle property below).
+ * 
+ * <h3>Bundle properties</h3>
+ * 
  * The following bundle properties are used to configure the described 
  * behavior.
  * 
@@ -103,18 +146,14 @@
  *       <td><code>{0}</code></td>
  *     </tr>
  *     <tr>
- *       <td>{@code de.mnl.osgi.jul2osgi.contextLevel}</td>
- *       <td>Each OSGi {@code Logger} has a log level that prevents
- *           method invocations associated with lower levels from 
- *           effectively creating a record in the log service. By 
- *           default the forwarder sets the level to
- *           {@code TRACE}, assuming that log level management
- *           is done with JUL. It may be set to any valid log level
- *           or "{@code NONE}". The latter value prevents the forwarder
- *           from setting a log level at all and log levels for the
- *           messages from JUL must be managed by some other means
- *           (e.g. ConfigAdmin).</td>
- *       <td>{@code TRACE}</td>
+ *       <td>{@code de.mnl.osgi.jul2osgi.adaptOSGiLevel}</td>
+ *       <td>If set to {@code true}, the OSGi log level for the 
+ *           originating bundle of a JUL log event will automatically
+ *           ne set to {@link org.osgi.service.log.LogLevel#TRACE}.
+ *           This results in the expected behavior that any log 
+ *           message that has been enabled in JUL is visible in the
+ *           OSGi log.</td>
+ *       <td>{@code true}</td>
  *     </tr>
  *   </tbody>
  * </table>
