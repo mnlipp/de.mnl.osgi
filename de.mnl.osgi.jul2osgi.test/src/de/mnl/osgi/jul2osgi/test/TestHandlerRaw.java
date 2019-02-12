@@ -5,16 +5,17 @@ import java.util.List;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
-public class TestHandler extends Handler {
+public class TestHandlerRaw extends Handler {
 
     public static List<LogRecord> records = new ArrayList<>();
-    
-    public TestHandler() {
+
+    public TestHandlerRaw() {
     }
 
     @Override
     public void publish(LogRecord record) {
-        records.add(record);
+        LogRecord copy = new LogRecord(record.getLevel(), record.getMessage());
+        records.add(copy);
     }
 
     @Override

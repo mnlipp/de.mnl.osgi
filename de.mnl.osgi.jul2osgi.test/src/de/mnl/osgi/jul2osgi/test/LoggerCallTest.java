@@ -54,8 +54,16 @@ public class LoggerCallTest {
         logger.log(Level.INFO, "Calling Logger from {0}.", "Test");
         assertTrue(recordLatch.await(1000, TimeUnit.MILLISECONDS));
         String handled = null;
-        for (LogRecord record : TestHandler.records) {
+        for (LogRecord record : TestHandlerRaw.records) {
             if (record.getMessage().equals(expectedMessage)) {
+                handled = record.getMessage();
+            }
+        }
+        assertNotNull(handled);
+        handled = null;
+        for (LogRecord record : TestHandlerExt.records) {
+            if (record.getMessage().startsWith(expectedMessage
+                + " [de.mnl.osgi.jul2osgi.test|OSGi2JUL Test Bundle|")) {
                 handled = record.getMessage();
             }
         }

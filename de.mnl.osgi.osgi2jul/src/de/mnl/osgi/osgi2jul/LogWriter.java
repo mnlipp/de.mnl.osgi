@@ -32,10 +32,16 @@ public class LogWriter implements LogListener {
     private final Level auditLevel = new Level("AUDIT", Integer.MAX_VALUE) {
         private static final long serialVersionUID = 1269723275384552686L;
     };
-    private Forwarder forwarder;
-    private CountDownLatch enabled;
+    private final ForwardingManager forwarder;
+    private final CountDownLatch enabled;
 
-    public LogWriter(Forwarder forwarder, CountDownLatch enabled) {
+    /**
+     * Instantiates a new log writer.
+     *
+     * @param forwarder the forwarder
+     * @param enabled the enabled
+     */
+    public LogWriter(ForwardingManager forwarder, CountDownLatch enabled) {
         this.forwarder = forwarder;
         this.enabled = enabled;
     }
@@ -47,6 +53,7 @@ public class LogWriter implements LogListener {
      * org.osgi.service.log.LogListener#logged(org.osgi.service.log.LogEntry)
      */
     @Override
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
     public void logged(LogEntry entry) {
         Level level = Level.OFF;
         switch (entry.getLogLevel()) {
@@ -68,6 +75,8 @@ public class LogWriter implements LogListener {
         case AUDIT:
             level = auditLevel;
             break;
+        default:
+            break;
         }
         LogRecord record = new LogRecord(level, entry.getMessage());
         record.setLoggerName(entry.getLoggerName());
@@ -82,7 +91,7 @@ public class LogWriter implements LogListener {
         } catch (InterruptedException e) {
             // Just an attempt to synchronize.
         }
-        forwarder.publish(record);
+        forwarder.publish(entry, record);
     }
 
 }

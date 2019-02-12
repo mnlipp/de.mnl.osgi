@@ -1,3 +1,4 @@
+Bundle-Name: OSGi2JUL Test Bundle
 # Choose either depending on whether we build a snapshot or a release:
 Bundle-Version: 0.0.0.-${tstamp}-SNAPSHOT
 #Bundle-Version: 1.0.0.ga
@@ -32,15 +33,18 @@ Export-Package: de.mnl.osgi.jul2osgi.test
 -runrequires: \
 	osgi.identity;filter:='(osgi.identity=de.mnl.osgi.jul2osgi)'
 
--runpath: de.mnl.osgi.jul2osgi.lib;version='latest'
+-runpath: de.mnl.osgi.jul2osgi.lib;version='latest', \
+	${workspace}/misc/jacocoagent.jar;version=file; \
+	    agent='destfile=${basedir}/bin/jacoco.exec,append=false,includes=de.mnl.osgi.*'
+-javaagent: true
 
 # Use Felix by default
 -runfw: org.apache.felix.framework;version=6
 # Use Equinox by default
 #-runfw: org.eclipse.osgi;version=3.13
 
--runvm: -ea, -Djava.util.logging.manager=de.mnl.osgi.jul2osgi.lib.LogManager, \
-	-Djava.util.logging.config.file=logging.properties
+-runvm: -ea, -Djava.util.logging.manager=de.mnl.osgi.jul2osgi.lib.LogManager
+	
 -runee: JavaSE-1.8
 
 # We need JUnit and Mockito to resolve the test cases at runtime. 
@@ -54,6 +58,10 @@ Export-Package: de.mnl.osgi.jul2osgi.test
 	de.mnl.osgi.osgi2jul;version=snapshot
 
 -runproperties: \
+	de.mnl.osgi.jul2osgi.adaptOSGiLevel=true, \
 	de.mnl.osgi.jul2osgi.logPattern='{3}.{4}: {0}', \
-	de.mnl.osgi.osgi2jul.handlers='java.util.logging.ConsoleHandler, \
-		de.mnl.osgi.jul2osgi.test:de.mnl.osgi.jul2osgi.test.TestHandler'
+	de.mnl.osgi.osgi2jul.handlers='java.util.logging.ConsoleHandler[1], \
+		de.mnl.osgi.jul2osgi.test:de.mnl.osgi.jul2osgi.test.TestHandlerRaw, \
+		de.mnl.osgi.jul2osgi.test:de.mnl.osgi.jul2osgi.test.TestHandlerExt[3]', \
+	de.mnl.osgi.osgi2jul.handler.1.format='{0} [{2}]', \
+	de.mnl.osgi.osgi2jul.handler.3.format='{0} [{1}|{2}|{3}])'
