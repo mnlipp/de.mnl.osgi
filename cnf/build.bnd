@@ -33,7 +33,16 @@
 		pretty = true; \
 		local = ${build}/release
 
--plugin.6.JitPack: \
+-plugin.6.MnlOSGi: \
+    de.mnl.osgi.bnd.repository.maven.provider.NexusSearchRepositoryProvider; \
+        path:="${workspace}/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-0.0.16.jar,\
+            ${workspace}/cnf/plugins/biz.aQute.repository-4.0.0.jar"; \
+        name=MnlOSGi; \
+        server="https://oss.sonatype.org"; \
+        query="g=de.mnl.osgi"; \
+        searchBreadth="2"
+
+-plugin.7.JitPack: \
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
         name="JitPack (POM)"; \
 		readOnly=true; \
@@ -42,7 +51,7 @@
         pom=${build}/jitpack.pom; \
         location=${build}/cache/jitpack-pom.xml
 
--plugin.7.Felix = \
+-plugin.8.Felix = \
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
         name=Felix; \
 		readOnly=true; \
@@ -50,7 +59,7 @@
         releaseUrls=https://repo1.maven.org/maven2; \
         query='q=g:%22org.apache.felix%22&rows=10000'
 
--plugin.8.Equinox = \
+-plugin.9.Equinox = \
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
         name=Equinox; \
 		readOnly=true; \
@@ -86,4 +95,4 @@ artifact_version: ${versionmask;===s;${Bundle-Version}}
 bin=bin/main
 testbin=bin/test
 
-#-baselinerepo: Release
+-baselinerepo: Release
