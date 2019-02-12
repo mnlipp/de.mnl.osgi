@@ -6,10 +6,11 @@ A collection of miscellaneous OSGi bundles and components.
 
 # Logging Bridges
 
-| Bundle                   | Bintray |
+| Bundle                   | Maven |
 | ------------------------ | ------- |
-| [de.mnl.osgi.jul2osgi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description)     | [![Download](https://api.bintray.com/packages/mnlipp/forge/de.mnl.osgi%3Ajul2osgi/images/download.svg) ](https://bintray.com/mnlipp/forge/de.mnl.osgi%3Ajul2osgi/_latestVersion) 
-| [de.mnl.osgi.jul2osgi.lib](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description) | [![Download](https://api.bintray.com/packages/mnlipp/forge/de.mnl.osgi%3Ajul2osgi.lib/images/download.svg) ](https://bintray.com/mnlipp/forge/de.mnl.osgi%3Ajul2osgi.lib/_latestVersion) 
+| [de.mnl.osgi.jul2osgi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description)     | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.jul2osgi.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi%22) |
+| [de.mnl.osgi.jul2osgi.lib](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi.jul2osgi.lib/de.mnl.osgi.jul2osgi.lib.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi.lib%22) | 
+| [de.mnl.osgi.osgi2jul](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.osgi2jul/javadoc/de/mnl/osgi/osgi2jul/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi.osgi2jul/de.mnl.osgi.osgi2jul.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.osgi2jul%22) | 
 
 Logging in OSGi seems to be a notorious problem. Libraries—even if 
 they have OSGi bundle headers—avoid dependencies on OSGi and therefore
