@@ -15,6 +15,7 @@ biz.aQute.bnd:biz.aQute.repository:4.1.0
 
 org.apache.felix:org.apache.felix.log:1.0.1
 
+org.slf4j:slf4j-api:1.7.0
 org.slf4j:slf4j-api:1.7.13
 org.slf4j:slf4j-simple:1.7.13
 

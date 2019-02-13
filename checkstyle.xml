@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<!DOCTYPE module PUBLIC "-//Checkstyle//DTD Check Configuration 1.3//EN" "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <!--
     This configuration file was written by the eclipse-cs plugin configuration editor
@@ -12,8 +12,13 @@
   <property name="severity" value="warning"/>
   <property name="charset" value="UTF-8"/>
   <property name="fileExtensions" value="java, properties, xml"/>
+  <!-- Filter out Checkstyle warnings that have been suppressed with the @SuppressWarnings annotation -->
+  <module name="SuppressWarningsFilter" />
+
   <module name="TreeWalker">
     <property name="tabWidth" value="4"/>
+    <!-- Make the @SuppressWarnings annotations available to Checkstyle -->
+    <module name="SuppressWarningsHolder" />
     <module name="OuterTypeFilename"/>
     <module name="IllegalTokenText">
       <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
@@ -76,7 +81,6 @@
     <module name="LocalVariableName">
       <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
       <property name="allowOneCharVarInForLoop" value="true"/>
-      <property name="tokens" value="VARIABLE_DEF"/>
       <message key="name.invalidPattern" value="Local variable name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="ClassTypeParameterName">
@@ -90,7 +94,7 @@
     <module name="NoFinalizer"/>
     <module name="AbbreviationAsWordInName">
       <property name="allowedAbbreviationLength" value="1"/>
-      <property name="allowedAbbreviations" value="IO,MX,KV"/>
+      <property name="allowedAbbreviations" value="IO,MX,KV,MDC,MDCA"/>
       <property name="ignoreFinal" value="false"/>
     </module>
     <module name="OverloadMethodsDeclarationOrder"/>
