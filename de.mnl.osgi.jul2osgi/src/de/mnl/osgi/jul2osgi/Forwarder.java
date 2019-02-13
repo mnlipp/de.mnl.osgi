@@ -50,12 +50,11 @@ import org.osgi.util.tracker.ServiceTracker;
 @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class Forwarder implements BundleActivator, LogRecordHandler {
 
-    private BundleContext context;
     private ServiceTracker<LogService, LogService> logSvcTracker;
     private ServiceTracker<LoggerAdmin, LoggerAdmin> logAdmTracker;
     private String logPattern;
     private boolean adaptOsgiLevel = true;
-    private final Map<String, WeakReference<Bundle>> bundles
+    private final Map<Class<?>, WeakReference<Bundle>> bundles
         = new ConcurrentHashMap<>();
     private final Set<Bundle> adaptedBundles = Collections
         .synchronizedSet(Collections.newSetFromMap(new WeakHashMap<>()));
@@ -63,7 +62,6 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
     @Override
     @SuppressWarnings("PMD.SystemPrintln")
     public void start(BundleContext context) throws Exception {
-        this.context = context;
         final java.util.logging.LogManager logMgr
             = java.util.logging.LogManager.getLogManager();
         if (!(logMgr instanceof LogManager)) {
@@ -190,7 +188,7 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         return true;
     }
 
-    private Optional<Bundle> findBundle(String callingClass) {
+    private Optional<Bundle> findBundle(Class<?> callingClass) {
         if (callingClass == null) {
             return Optional.empty();
         }
@@ -199,15 +197,10 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         if (bundle != null) {
             return Optional.of(bundle);
         }
-        for (Bundle candidate : context.getBundles()) {
-            try {
-                bundle = FrameworkUtil
-                    .getBundle(candidate.loadClass(callingClass));
-                bundles.put(callingClass, new WeakReference<>(bundle)); // NOPMD
-                return Optional.of(bundle);
-            } catch (ClassNotFoundException | IllegalStateException e) { // NOPMD
-                // Not the right candidate
-            }
+        bundle = FrameworkUtil.getBundle(callingClass);
+        if (bundle != null) {
+            bundles.put(callingClass, new WeakReference<>(bundle)); // NOPMD
+            return Optional.of(bundle);
         }
         return Optional.empty();
     }

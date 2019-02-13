@@ -125,18 +125,18 @@ public class LogManager extends java.util.logging.LogManager {
      * Holds the information from a logger invocation.
      */
     public static class LogInfo {
-        private String callingClass;
+        private Class<?> callingClass;
         private LogRecord logRecord;
 
         /**
          * Instantiates a new log info.
          *
-         * @param callingClass the calling class
+         * @param definingClass the calling class
          * @param logRecord the log record
          */
-        public LogInfo(String callingClass, LogRecord logRecord) {
+        public LogInfo(Class<?> definingClass, LogRecord logRecord) {
             super();
-            this.callingClass = callingClass;
+            this.callingClass = definingClass;
             this.logRecord = logRecord;
         }
 
@@ -145,7 +145,7 @@ public class LogManager extends java.util.logging.LogManager {
          *
          * @return the callingClass
          */
-        public String getCallingClass() {
+        public Class<?> getCallingClass() {
             return callingClass;
         }
 

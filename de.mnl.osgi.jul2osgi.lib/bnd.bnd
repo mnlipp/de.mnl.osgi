@@ -1,7 +1,7 @@
 Bundle-Name: JUL to OSGi Logging LogManager
 # Choose either depending on whether we build a snapshot or a release:
-#Bundle-Version: 1.1.0.-${tstamp}-SNAPSHOT
-Bundle-Version: 1.1.0.ga
+#Bundle-Version: 1.2.0.-${tstamp}-SNAPSHOT
+Bundle-Version: 1.2.0.ga
 
 -buildpath: \
 	osgi.annotation; version=6.0.1

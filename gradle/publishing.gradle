@@ -75,14 +75,10 @@ bintray {
 	}
 }
 
+/*
 configurations {
 	snapshotArtifacts
 }
-
-configurations.snapshotArtifacts.getAllArtifacts().each {
-	println it
-}
-
 
 artifactory {
 	contextUrl = 'http://oss.jfrog.org'
@@ -107,4 +103,4 @@ artifactory {
 	clientConfig.info.setBuildNumber('' 
 		+ new java.util.Random(System.currentTimeMillis()).nextInt(20000))
 }
-
+*/

@@ -29,7 +29,8 @@ import java.util.logging.Logger;
 public class ForwardingLogger extends Logger {
 
     private LogManager manager;
-    private String definingClass;
+    private Class<?> definingClass;
+    private static final ContextHelper CTX_HLPR = new ContextHelper();
 
     public ForwardingLogger(LogManager manager, Logger orig) {
         super(orig.getName(), orig.getResourceBundleName());
@@ -39,13 +40,16 @@ public class ForwardingLogger extends Logger {
         if (getName().length() == 0 || getName().equals("global")) {
             return;
         }
-        boolean getLoggerFound = false;
-        for (StackTraceElement ste : new Throwable().getStackTrace()) {
-            if (getLoggerFound) {
-                definingClass = ste.getClassName();
+        StackTraceElement[] stackTrace = new Throwable().getStackTrace();
+        for (int i = 2; i < stackTrace.length; i++) {
+            StackTraceElement ste = stackTrace[i];
+            if (ste.getMethodName().equals("getLogger")) {
+                Class<?>[] classes = CTX_HLPR.getClassContext();
+                // Next in stack is caller of getLogger(), but
+                // getClassContext() has added one level
+                definingClass = classes[i + 2];
                 break;
             }
-            getLoggerFound = ste.getMethodName().equals("getLogger");
         }
     }
 
@@ -77,6 +81,13 @@ public class ForwardingLogger extends Logger {
                 break;
             }
             logger = logger.getParent();
+        }
+    }
+
+    private static class ContextHelper extends SecurityManager {
+        @Override
+        public Class<?>[] getClassContext() {
+            return super.getClassContext();
         }
     }
 }
