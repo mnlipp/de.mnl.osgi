@@ -42,14 +42,14 @@
         query="g=de.mnl.osgi"; \
         searchBreadth="2"
 
--plugin.7.JitPack: \
-    aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
-        name="JitPack (POM)"; \
-		readOnly=true; \
-        snapshotUrls=https://jitpack.io/; \
-        releaseUrls=https://jitpack.io/; \
-        pom=${build}/jitpack.pom; \
-        location=${build}/cache/jitpack-pom.xml
+#-plugin.7.JitPack: \
+#    aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+#        name="JitPack (POM)"; \
+#		readOnly=true; \
+#        snapshotUrls=https://jitpack.io/; \
+#        releaseUrls=https://jitpack.io/; \
+#        pom=${build}/jitpack.pom; \
+#        location=${build}/cache/jitpack-pom.xml
 
 -plugin.8.Felix = \
     aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
