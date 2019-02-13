@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 
 /**
  * An implementation of {@link ILoggerFactory} which returns
- * {@link ForwardingsLogger} instances.
+ * {@link Fwd2OsgiLogger} instances.
  */
 public class Fwd2OsgiLoggerFactory implements ILoggerFactory {
 
