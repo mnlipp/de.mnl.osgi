@@ -63,5 +63,5 @@ Export-Package: de.mnl.osgi.jul2osgi.test
 	de.mnl.osgi.osgi2jul.handlers='java.util.logging.ConsoleHandler[1], \
 		de.mnl.osgi.jul2osgi.test:de.mnl.osgi.jul2osgi.test.TestHandlerRaw, \
 		de.mnl.osgi.jul2osgi.test:de.mnl.osgi.jul2osgi.test.TestHandlerExt[3]', \
-	de.mnl.osgi.osgi2jul.handler.1.format='{0} [{2}]', \
-	de.mnl.osgi.osgi2jul.handler.3.format='{0} [{1}|{2}|{3}])'
+	de.mnl.osgi.osgi2jul.handler.1.format='{0} [{2}] ({4})', \
+	de.mnl.osgi.osgi2jul.handler.3.format='{0} [{1}|{2}|{3}]'
