@@ -218,7 +218,8 @@ public class ForwardingManager implements BundleActivator {
                         oldMessage,
                         entry.getBundle().getSymbolicName(),
                         entry.getBundle().getHeaders().get("Bundle-Name"),
-                        entry.getBundle().getVersion().toString() };
+                        entry.getBundle().getVersion().toString(),
+                        entry.getThreadInfo() };
                 }
                 record.setMessage(cfg.getOutputFormat().format(xtraArgs,
                     new StringBuffer(), null).toString());

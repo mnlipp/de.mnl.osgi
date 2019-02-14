@@ -44,7 +44,7 @@
  * is post-processed with a {@link java.text.MessageFormat} instance
  * created from the specified {@code format}. The formatter is invoked
  * with the parameters "original message", "bundle symbolic name",
- * "bundle name", "bundle version".
+ * "bundle name", "bundle version", "thread info".
  * <P>
  * In order to e.g. add the bundle name to the message, the
  * format pattern "<code>{0} [{2}]</code>" could be used.
