@@ -21,6 +21,8 @@ import de.mnl.osgi.jul2osgi.lib.LogManager.LogInfo;
 import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;
 
 import java.lang.ref.WeakReference;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.HashMap;
@@ -98,22 +100,35 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         // Create new service tracker.
         logSvcTracker = new ServiceTracker<LogService, LogService>(
             context, LogService.class, null) {
+            private LogService fallbackLogService;
+
             @Override
             public LogService addingService(
                     ServiceReference<LogService> reference) {
+                LogService newService = super.addingService(reference);
+                // Note that the service being added is not returned
+                // by getService() yet.
+                fallbackLogService = newService;
                 ((LogManager) logMgr).setForwarder(Forwarder.this);
-                return super.addingService(reference);
+                return newService;
             }
 
             @Override
             public void removedService(ServiceReference<LogService> reference,
                     LogService service) {
-                // TODO Auto-generated method stub
+                fallbackLogService = null;
                 super.removedService(reference, service);
                 if (getService() == null) {
                     ((LogManager) logMgr).setForwarder(null);
                 }
             }
+
+            @Override
+            public LogService getService() {
+                return Optional.ofNullable(super.getService())
+                    .orElse(fallbackLogService);
+            }
+
         };
         logSvcTracker.open();
     }
@@ -222,4 +237,46 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
             record.getSequenceNumber(), record.getSourceClassName(),
             record.getSourceMethodName(), record.getThreadID());
     }
+
+    /**
+     * Process events that are delivered .
+     *
+     * @param logInfos the log infos
+     */
+    @SuppressWarnings({ "PMD.EmptyCatchBlock", "PMD.UseVarargs" })
+    public void processBuffered(LogInfo[] logInfos) {
+        String threadName = Thread.currentThread().getName();
+        try {
+            // Set thread name to indicate invalid context
+            try {
+                AccessController.doPrivileged(new PrivilegedAction<Void>() {
+                    @Override
+                    public Void run() {
+                        Thread.currentThread().setName("(log flusher)");
+                        return null;
+                    }
+                });
+            } catch (SecurityException e) {
+                // Ignored, was just a best effort.
+            }
+            // Now process
+            for (LogInfo info : logInfos) {
+                process(info);
+            }
+        } finally {
+            try {
+                AccessController.doPrivileged(new PrivilegedAction<Void>() {
+                    @Override
+                    public Void run() {
+                        Thread.currentThread().setName(threadName);
+                        return null; // NOPMD
+                    }
+                });
+            } catch (SecurityException e) {
+                // Ignored. If resetting doesn't work, setting hasn't worked
+                // neither
+            }
+        }
+    }
+
 }

@@ -72,6 +72,16 @@
  * fails will the log event appear to have been created by bundle
  * {@code de.mnl.osgi.jul2osgi}.
  * <P>
+ * Special handling is applied by the forwarder if <i>buffered</i> log 
+ * entries are forwarded to the OSGi {@link org.osgi.service.log.Logger}. 
+ * This logger automatically derives a "thread info" property for the 
+ * newly created OSGI {@code LogRecord} from the calling thread.
+ * There is no way to override this automatically created value, which
+ * is obviously wrong when a thread forwards log events that have
+ * occurred and been buffered while executing other threads. The name
+ * of the thread that flushes the buffer is therefore set to
+ * "{@code (log flusher)}" while the events are forwarded.
+ * <P>
  * When using JUL, the message passed to the JUL {@code Logger} isn't
  * necessarily what you see in your log. It is first used to lookup
  * a mapping in the {@link java.util.ResourceBundle} associated with

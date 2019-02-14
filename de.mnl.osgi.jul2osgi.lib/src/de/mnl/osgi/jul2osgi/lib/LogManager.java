@@ -114,10 +114,7 @@ public class LogManager extends java.util.logging.LogManager {
                 tbf = new ArrayList<>(buffered);
                 buffered.clear();
             }
-            for (LogInfo record : tbf) {
-                forwarder.process(record);
-            }
-
+            forwarder.processBuffered(tbf.toArray(new LogInfo[0]));
         }
     }
 

@@ -38,4 +38,11 @@ public interface LogRecordHandler {
      */
     public boolean process(LogInfo logInfo);
 
+    /**
+     * Process the events from the buffer. In this case, the 
+     * thread context isn't related with the events.
+     *
+     * @param logInfos the log infos
+     */
+    public void processBuffered(LogInfo[] logInfos);
 }
