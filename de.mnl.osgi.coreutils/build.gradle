@@ -1,0 +1,29 @@
+project.ext.licenses = ['Apache-2.0']
+
+apply from: "${project.rootDir}/gradle/publishing.gradle"
+
+configurePublishing {
+    withPomXml {
+        asNode().with {
+            appendNode('url', 'https://github.com/mnlipp/de.mnl.osgi')
+            appendNode('scm').with {
+                appendNode('url', 'scm:git@github.com:mnlipp/de.mnl.osgi.git')
+                appendNode('connection', 'scm:git@github.com:mnlipp/de.mnl.osgi.git')
+                appendNode('developerConnection', 'git@github.com:mnlipp/de.mnl.osgi.git')
+            }
+            appendNode('developers').with {
+                appendNode('developer').with {
+                    appendNode('id', 'mnlipp')
+                    appendNode('name', 'Michael N. Lipp')
+                }
+            }
+			appendNode('licenses').with {
+				appendNode('license').with {
+					appendNode('name', 'Apache-2.0')
+					appendNode('url', 'https://www.apache.org/licenses/LICENSE-2.0')
+					appendNode('distribution', 'repo')
+				}
+			}
+        }
+    }
+}

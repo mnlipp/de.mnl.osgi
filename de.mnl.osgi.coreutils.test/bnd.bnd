@@ -1,0 +1,57 @@
+Bundle-Name: Core Utils Test Bundle
+# Choose either depending on whether we build a snapshot or a release:
+Bundle-Version: 0.0.0.-${tstamp}-SNAPSHOT
+#Bundle-Version: 1.0.0.ga
+
+# This is the version of JUnit that will be used at build time and run time
+#junit: org.apache.servicemix.bundles.junit;version="[4.11,5)"
+
+# This is the version of Mockito that will be used at build time and run time
+#mockito: org.mockito.mockito-core;version="[2.13,3)",\
+#  org.objenesis;version="[2.6,3)"
+
+# Discover and run all test cases annotated with the @RunWith annotation
+Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
+
+# Build dependencies 
+-buildpath: \
+	${junit},\
+	${mockito},\
+	${mockito-deps},\
+	osgi.core; version=6.0,\
+	osgi.annotation; version=6.0.1,\
+	de.mnl.osgi.coreutils;version=snapshot
+
+javac.source: 1.8
+javac.target: 1.8
+
+Export-Package: de.mnl.osgi.coreutils.test
+
+# Needed for Mockito's mocking to work
+-runsystempackages.objenesis: sun.misc,sun.reflect
+
+-runrequires: \
+	osgi.identity;filter:='(osgi.identity=de.mnl.osgi.jul2osgi)'
+
+-runpath: de.mnl.osgi.jul2osgi.lib;version='latest', \
+	${workspace}/misc/jacocoagent.jar;version=file; \
+	    agent='destfile=${basedir}/bin/jacoco.exec,append=false,includes=de.mnl.osgi.*'
+-javaagent: true
+
+# Use Felix by default
+-runfw: org.apache.felix.framework;version=6
+# Use Equinox by default
+#-runfw: org.eclipse.osgi;version=3.13
+
+-runvm: -ea
+	
+-runee: JavaSE-1.8
+
+# We need JUnit and Mockito to resolve the test cases at runtime. 
+# Other runtime dependencies should be added as necessary
+-runbundles: \
+	${junit},\
+	${mockito},\
+	${mockito-deps},\
+	de.mnl.osgi.coreutils;version=snapshot
+

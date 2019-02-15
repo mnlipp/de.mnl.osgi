@@ -1,0 +1,20 @@
+Bundle-Name: Utility classes for OSGi (Core)
+# Choose either depending on whether we build a snapshot or a release:
+Bundle-Version: 1.0.0.-${tstamp}-SNAPSHOT
+#Bundle-Version: 1.0.0.ga
+
+-buildpath: \
+	osgi.annotation;version=6.0.1,\
+	osgi.core;version=6.0
+
+-testpath: \
+	${junit}
+
+javac.source: 1.8
+javac.target: 1.8
+
+Export-Package: de.mnl.coreutils
+
+# Baseline does not work
+#-baselinerepo: Bintray
+-baseline: 
