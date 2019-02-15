@@ -16,6 +16,7 @@
 
 package de.mnl.osgi.jul2osgi;
 
+import de.mnl.coreutils.SimpleServiceTracker;
 import de.mnl.osgi.jul2osgi.lib.LogManager;
 import de.mnl.osgi.jul2osgi.lib.LogManager.LogInfo;
 import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;
@@ -52,7 +53,7 @@ import org.osgi.util.tracker.ServiceTracker;
 @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class Forwarder implements BundleActivator, LogRecordHandler {
 
-    private ServiceTracker<LogService, LogService> logSvcTracker;
+    private SimpleServiceTracker<LogService, LogService> logSvcTracker;
     private ServiceTracker<LoggerAdmin, LoggerAdmin> logAdmTracker;
     private String logPattern;
     private boolean adaptOsgiLevel = true;
@@ -62,7 +63,7 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         .synchronizedSet(Collections.newSetFromMap(new WeakHashMap<>()));
 
     @Override
-    @SuppressWarnings("PMD.SystemPrintln")
+    @SuppressWarnings({ "PMD.SystemPrintln", "resource" })
     public void start(BundleContext context) throws Exception {
         final java.util.logging.LogManager logMgr
             = java.util.logging.LogManager.getLogManager();
@@ -98,38 +99,12 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         logAdmTracker.open();
 
         // Create new service tracker.
-        logSvcTracker = new ServiceTracker<LogService, LogService>(
-            context, LogService.class, null) {
-            private LogService fallbackLogService;
-
-            @Override
-            public LogService addingService(
-                    ServiceReference<LogService> reference) {
-                LogService newService = super.addingService(reference);
-                // Note that the service being added is not returned
-                // by getService() yet.
-                fallbackLogService = newService;
-                ((LogManager) logMgr).setForwarder(Forwarder.this);
-                return newService;
-            }
-
-            @Override
-            public void removedService(ServiceReference<LogService> reference,
-                    LogService service) {
-                fallbackLogService = null;
-                super.removedService(reference, service);
-                if (getService() == null) {
-                    ((LogManager) logMgr).setForwarder(null);
-                }
-            }
-
-            @Override
-            public LogService getService() {
-                return Optional.ofNullable(super.getService())
-                    .orElse(fallbackLogService);
-            }
-
-        };
+        logSvcTracker = new SimpleServiceTracker<LogService, LogService>(
+            context, LogService.class)
+                .setOnAvailable((ref, svc) -> ((LogManager) logMgr)
+                    .setForwarder(this))
+                .setOnLastUnavailable((ref, svc) -> ((LogManager) logMgr)
+                    .setForwarder(this));
         logSvcTracker.open();
     }
 
@@ -159,10 +134,13 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
 
     @Override
     public boolean process(LogInfo logInfo) {
-        LogService service = logSvcTracker.getService();
-        if (service == null) {
-            return false;
-        }
+        return logSvcTracker.service().map(svc -> {
+            doProcess(logInfo, svc);
+            return true;
+        }).orElse(false);
+    }
+
+    private void doProcess(LogInfo logInfo, LogService service) {
         final LogRecord record = logInfo.getLogRecord();
         final String loggerName = Optional.ofNullable(record.getLoggerName())
             .orElse(Logger.ROOT_LOGGER_NAME);
@@ -200,7 +178,6 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
             logger.trace("{}", formatMessage(logPattern, record),
                 record.getThrown());
         }
-        return true;
     }
 
     private Optional<Bundle> findBundle(Class<?> callingClass) {
@@ -266,6 +243,7 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         } finally {
             try {
                 AccessController.doPrivileged(new PrivilegedAction<Void>() {
+
                     @Override
                     public Void run() {
                         Thread.currentThread().setName(threadName);

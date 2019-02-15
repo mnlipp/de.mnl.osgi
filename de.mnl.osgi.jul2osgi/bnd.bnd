@@ -1,12 +1,13 @@
 Bundle-Name: JUL to OSGi Logging Forwarder
 # Choose either depending on whether we build a snapshot or a release:
-#Bundle-Version: 1.3.0.-${tstamp}-SNAPSHOT
-Bundle-Version: 1.3.0.ga
+Bundle-Version: 1.3.1.-${tstamp}-SNAPSHOT
+#Bundle-Version: 1.3.0.ga
 
 -buildpath: \
 	osgi.annotation; version=6.0.1,\
 	osgi.core; version=6.0,\
 	org.osgi.service.log;version='[1.4,2)',\
+	de.mnl.osgi.coreutils; version=snapshot,\
 	de.mnl.osgi.jul2osgi.lib; version='[1.3.0,1.4.0)'
 
 -testpath: \
@@ -18,6 +19,5 @@ javac.target: 1.8
 Private-Package: de.mnl.osgi.jul2osgi
 Bundle-Activator: de.mnl.osgi.jul2osgi.Forwarder
 
-# Baseline does not work
-#-baselinerepo: Bintray
--baseline: 
+-baselinerepo: MnlOSGi
+-baseline: *
