@@ -36,7 +36,7 @@
 -plugin.6.MnlOSGi: \
     de.mnl.osgi.bnd.repository.maven.provider.NexusSearchRepositoryProvider; \
         path:="${workspace}/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-0.0.16.jar,\
-            ${workspace}/cnf/plugins/biz.aQute.repository-4.0.0.jar"; \
+            ${workspace}/cnf/plugins/biz.aQute.repository-4.1.0.jar"; \
         name=MnlOSGi; \
         server="https://oss.sonatype.org"; \
         query="g=de.mnl.osgi"; \
