@@ -17,3 +17,7 @@ Export-Package: de.mnl.coreutils
 
 -baselinerepo: MnlOSGi
 -baseline: *
+
+-fixupmessages: \
+    "The .classpath contains an unknown container: GROOVY_DSL_SUPPORT. This could make your build less portable."
+	

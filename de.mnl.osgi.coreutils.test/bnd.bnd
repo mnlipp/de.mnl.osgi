@@ -55,3 +55,6 @@ Export-Package: de.mnl.osgi.coreutils.test
 	${mockito-deps},\
 	de.mnl.osgi.coreutils;version=snapshot
 
+-fixupmessages: \
+    "The .classpath contains an unknown container: GROOVY_DSL_SUPPORT. This could make your build less portable."
+	
