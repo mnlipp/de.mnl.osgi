@@ -64,9 +64,10 @@ import org.osgi.util.tracker.ServiceTrackerCustomizer;
  * The <code>SimpleServiceTracker</code> class is thread-safe.
  *
  * @param <S> the type of the service to be tracked
- * @param <W> the type of the objects returned as tracking results
- *      (see {@link #setWrapper(Function)}); usually, this is the 
- *      same type as {@code S}
+ * @param <W> the type of the tracking results
+ *      (see {@link #setWrapper(Function)}). Usually, this is the 
+ *      same type as {@code S}, i.e. services are not wrapped before
+ *      being returned.
  */
 public class SimpleServiceTracker<S, W> implements AutoCloseable {
 
@@ -242,15 +243,21 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
 
     /**
      * Sets the wrapper function. The function is invoked for
-     * every newly tracked service. It allows to wrap the service
-     * obtained from the registry into some other type that is
-     * used as return type when retrieving services from this tracker.  
+     * every newly tracked service. It allows to wrap a service
+     * obtained from the registry in some other object that is
+     * used as return value when retrieving services from this 
+     * tracker.  
      *
      * @param wrapper the wrapper
      * @return the simple service tracker
+     * @throws IllegalStateException if the service tracker is open
      */
     public SimpleServiceTracker<S, W> setWrapper(
             Function<S, W> wrapper) {
+        if (delegee.getTrackingCount() >= 0) {
+            throw new IllegalStateException(
+                "Wrapper cannot be set while tracker is open.");
+        }
         this.wrapper = wrapper;
         return this;
     }
