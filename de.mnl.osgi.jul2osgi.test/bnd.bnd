@@ -54,6 +54,7 @@ Export-Package: de.mnl.osgi.jul2osgi.test
 	${mockito},\
 	${mockito-deps},\
 	org.apache.felix.log;version='[1.2.0,1.2.1)',\
+	de.mnl.osgi.coreutils;version=snapshot,\
 	de.mnl.osgi.jul2osgi;version=snapshot,\
 	de.mnl.osgi.osgi2jul;version=snapshot
 
