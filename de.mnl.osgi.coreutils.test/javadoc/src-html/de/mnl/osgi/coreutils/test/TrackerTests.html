@@ -24,7 +24,7 @@
 <span class="sourceLineNo">016</span><a name="line.16"></a>
 <span class="sourceLineNo">017</span>package de.mnl.osgi.coreutils.test;<a name="line.17"></a>
 <span class="sourceLineNo">018</span><a name="line.18"></a>
-<span class="sourceLineNo">019</span>import de.mnl.coreutils.SimpleServiceTracker;<a name="line.19"></a>
+<span class="sourceLineNo">019</span>import de.mnl.coreutils.ServiceCollector;<a name="line.19"></a>
 <span class="sourceLineNo">020</span><a name="line.20"></a>
 <span class="sourceLineNo">021</span>import java.util.HashMap;<a name="line.21"></a>
 <span class="sourceLineNo">022</span>import java.util.Hashtable;<a name="line.22"></a>
@@ -54,9 +54,9 @@
 <span class="sourceLineNo">046</span>    public void testBasics() throws InterruptedException {<a name="line.46"></a>
 <span class="sourceLineNo">047</span>        context.registerService(SampleService.class, new SampleService(), null);<a name="line.47"></a>
 <span class="sourceLineNo">048</span>        Map&lt;String, Object&gt; results = new HashMap&lt;&gt;();<a name="line.48"></a>
-<span class="sourceLineNo">049</span>        SimpleServiceTracker&lt;SampleService, SampleService&gt; trk1bck;<a name="line.49"></a>
-<span class="sourceLineNo">050</span>        try (SimpleServiceTracker&lt;SampleService, SampleService&gt; trk1<a name="line.50"></a>
-<span class="sourceLineNo">051</span>            = new SimpleServiceTracker&lt;SampleService, SampleService&gt;(<a name="line.51"></a>
+<span class="sourceLineNo">049</span>        ServiceCollector&lt;SampleService, SampleService&gt; trk1bck;<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        try (ServiceCollector&lt;SampleService, SampleService&gt; trk1<a name="line.50"></a>
+<span class="sourceLineNo">051</span>            = new ServiceCollector&lt;SampleService, SampleService&gt;(<a name="line.51"></a>
 <span class="sourceLineNo">052</span>                context, SampleService.class)) {<a name="line.52"></a>
 <span class="sourceLineNo">053</span>            trk1bck = trk1;<a name="line.53"></a>
 <span class="sourceLineNo">054</span>            trk1.setOnFirstAvailable(<a name="line.54"></a>
@@ -68,9 +68,9 @@
 <span class="sourceLineNo">060</span>                    assertEquals(ref, trk1.serviceReference().get());<a name="line.60"></a>
 <span class="sourceLineNo">061</span>                    assertEquals(ref, trk1.serviceReferences()[0]);<a name="line.61"></a>
 <span class="sourceLineNo">062</span>                    assertEquals(ref,<a name="line.62"></a>
-<span class="sourceLineNo">063</span>                        trk1.tracked().keySet().iterator().next());<a name="line.63"></a>
+<span class="sourceLineNo">063</span>                        trk1.collected().keySet().iterator().next());<a name="line.63"></a>
 <span class="sourceLineNo">064</span>                    assertEquals(svc,<a name="line.64"></a>
-<span class="sourceLineNo">065</span>                        trk1.tracked().values().iterator().next());<a name="line.65"></a>
+<span class="sourceLineNo">065</span>                        trk1.collected().values().iterator().next());<a name="line.65"></a>
 <span class="sourceLineNo">066</span>                    assertEquals(1, trk1.size());<a name="line.66"></a>
 <span class="sourceLineNo">067</span>                })<a name="line.67"></a>
 <span class="sourceLineNo">068</span>                .setOnAvailable((ref, svc) -&gt; results.put("availCalled", true))<a name="line.68"></a>
@@ -103,8 +103,8 @@
 <span class="sourceLineNo">095</span><a name="line.95"></a>
 <span class="sourceLineNo">096</span>        // Now run<a name="line.96"></a>
 <span class="sourceLineNo">097</span>        Map&lt;String, Object&gt; results = new HashMap&lt;&gt;();<a name="line.97"></a>
-<span class="sourceLineNo">098</span>        try (SimpleServiceTracker&lt;SampleService, SampleService&gt; trk1<a name="line.98"></a>
-<span class="sourceLineNo">099</span>            = new SimpleServiceTracker&lt;SampleService, SampleService&gt;(<a name="line.99"></a>
+<span class="sourceLineNo">098</span>        try (ServiceCollector&lt;SampleService, SampleService&gt; trk1<a name="line.98"></a>
+<span class="sourceLineNo">099</span>            = new ServiceCollector&lt;SampleService, SampleService&gt;(<a name="line.99"></a>
 <span class="sourceLineNo">100</span>                context, SampleService.class)) {<a name="line.100"></a>
 <span class="sourceLineNo">101</span>            trk1.setOnFirstAvailable(<a name="line.101"></a>
 <span class="sourceLineNo">102</span>                (ref, svc) -&gt; {<a name="line.102"></a>
@@ -119,9 +119,9 @@
 <span class="sourceLineNo">111</span>                    }<a name="line.111"></a>
 <span class="sourceLineNo">112</span>                    assertEquals(2, trk1.services().length);<a name="line.112"></a>
 <span class="sourceLineNo">113</span>                    assertEquals(2, trk1.serviceReferences().length);<a name="line.113"></a>
-<span class="sourceLineNo">114</span>                    assertEquals(2, trk1.tracked().entrySet().size());<a name="line.114"></a>
+<span class="sourceLineNo">114</span>                    assertEquals(2, trk1.collected().entrySet().size());<a name="line.114"></a>
 <span class="sourceLineNo">115</span>                    assertEquals(service2,<a name="line.115"></a>
-<span class="sourceLineNo">116</span>                        trk1.tracked().values().iterator().next());<a name="line.116"></a>
+<span class="sourceLineNo">116</span>                        trk1.collected().values().iterator().next());<a name="line.116"></a>
 <span class="sourceLineNo">117</span>                    assertEquals(2, trk1.size());<a name="line.117"></a>
 <span class="sourceLineNo">118</span>                })<a name="line.118"></a>
 <span class="sourceLineNo">119</span>                .setOnUnavailable(<a name="line.119"></a>
