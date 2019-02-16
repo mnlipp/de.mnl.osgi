@@ -37,16 +37,16 @@ import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
 /**
- * The <code>SimpleServiceTracker</code> class simplifies using services
+ * The {@code ServiceCollector} class simplifies using services
  * from the OSGi Framework's service registry beyond the simplification
  * provided by the {@link ServiceTracker} from the 
  * <a href="https://osgi.org/specification/osgi.core/7.0.0/util.tracker.html">
  * OSGi Core Specification</a>.
  * <p>
- * The tracker calls registered callbacks when the first or any 
+ * The {@code ServiceCollector} calls registered callbacks when the first or any 
  * service becomes available. The implementation ensures that
- * at least one service can be obtained from the tracker during the 
- * execution of these callbacks. At least one service will also
+ * at least one service can be obtained from the {@code ServiceCollector}
+ * during the execution of these callbacks. At least one service will also
  * be available after the execution of the callbacks until the 
  * "last unavailable" callback has been invoked.
  * <P>
@@ -55,21 +55,21 @@ import org.osgi.util.tracker.ServiceTrackerCustomizer;
  * includes, as a special case, starting and stopping threads in the
  * respective callbacks.
  * <p>
- * A {@code SimpleServiceTracker} object is constructed with search 
- * criteria. It can then be opened to begin tracking all services in 
+ * A {@code ServiceCollector} object is constructed with search 
+ * criteria. It can then be opened to begin collecting all services in 
  * the Framework's service registry that match the specified search 
- * criteria. The <code>SimpleServiceTracker</code> is currently
+ * criteria. The {@code ServiceCollector} is currently
  * implemented using a standard {@link ServiceTracker} as a delegee.
  * <p>
- * The <code>SimpleServiceTracker</code> class is thread-safe.
+ * The {@code ServiceCollector} class is thread-safe.
  *
- * @param <S> the type of the service to be tracked
- * @param <W> the type of the tracking results
+ * @param <S> the type of the service to be collected
+ * @param <W> the type of the collected items
  *      (see {@link #setWrapper(Function)}). Usually, this is the 
  *      same type as {@code S}, i.e. services are not wrapped before
  *      being returned.
  */
-public class SimpleServiceTracker<S, W> implements AutoCloseable {
+public class ServiceCollector<S, W> implements AutoCloseable {
 
     private final ServiceTracker<S, W> delegee;
     /*
@@ -85,82 +85,84 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
     private BiConsumer<ServiceReference<S>, W> onLastUnavailable;
     private BiConsumer<ServiceReference<S>, W> onModified;
     private Function<S, W> wrapper;
-    private int minTrackingCount;
+    private int minModificationCount;
 
     /**
-     * Instantiates a new simple service tracker that tracks services
+     * Instantiates a new {@code ServiceCollector} that collects services
      * of the specified class.
      *
      * @param context the bundle context used to interact with the framework
      * @param clazz the clazz
      */
-    public SimpleServiceTracker(BundleContext context, Class<S> clazz) {
+    public ServiceCollector(BundleContext context, Class<S> clazz) {
         delegee = new MyTracker(context, clazz, null);
     }
 
     /**
-     * Instantiates a new simple service tracker that tracks services
+     * Instantiates a new {@code ServiceCollector} that collects services
      * matches by the specified filter.
      *
      * @param context the bundle context used to interact with the framework
      * @param filter the filter
      */
-    public SimpleServiceTracker(BundleContext context, Filter filter) {
+    public ServiceCollector(BundleContext context, Filter filter) {
         delegee = new MyTracker(context, filter, null);
     }
 
     /**
-     * Instantiates a new simple service tracker that tracks services
+     * Instantiates a new {@code ServiceCollector} that collects services
      * on the specified service reference.
      *
      * @param context the bundle context used to interact with the framework
      * @param reference the reference
      */
-    public SimpleServiceTracker(BundleContext context,
+    public ServiceCollector(BundleContext context,
             ServiceReference<S> reference) {
         delegee = new MyTracker(context, reference, null);
     }
 
     /**
-     * Instantiates a new simple service tracker that tracks services
+     * Instantiates a new {@code ServiceCollector} that collects services
      * on the specified class name.
      *
      * @param context the bundle context used to interact with the framework
      * @param className the class name
      */
-    public SimpleServiceTracker(BundleContext context, String className) {
+    public ServiceCollector(BundleContext context, String className) {
         delegee = new MyTracker(context, className, null);
     }
 
     /**
-     * Starts tracking of services. Short for calling {@code open(false)}.
+     * Starts collecting of service providers. Short for calling {@code open(false)}.
      *
      * @throws IllegalStateException If the {@code BundleConetxt}
-     *     with which this tracker was created is no longer valid.
+     *     with which this {@code ServiceCollector} was created is no longer valid.
      */
     public void open() throws IllegalStateException {
         delegee.open();
-        minTrackingCount = delegee.getTrackingCount();
+        minModificationCount = delegee.getTrackingCount();
     }
 
     /**
-     * Starts tracking of services. Short for calling {@code open(false)}.
+     * Starts collecting services. Short for calling {@code open(false)}.
      * 
-     * @param trackAllServices if <code>true</code>, then this 
-     *     tracker will track all matching services regardless of class loader
-     *     accessibility. If <code>false</code>, then this tracker
-     *     will only track matching services which are class loader
+     * @param collectAllServices if <code>true</code>, then this 
+     *     {@code ServiceCollector} will collect all matching services 
+     *     regardless of class loader
+     *     accessibility. If <code>false</code>, then 
+     *     this {@code ServiceCollector} will only collect matching services 
+     *     which are class loader
      *     accessible to the bundle whose <code>BundleContext</code> is 
-     *     used by this tracker.
+     *     used by this {@code ServiceCollector}.
      * @throws IllegalStateException If the {@code BundleConetxt}
-     *     with which this tracker was created is no longer valid.
+     *     with which this {@code ServiceCollector} was created is no longer valid.
      */
-    public void open(boolean trackAllServices) throws IllegalStateException {
-        delegee.open(trackAllServices);
+    public void open(boolean collectAllServices) throws IllegalStateException {
+        delegee.open(collectAllServices);
     }
 
     /**
-     * Stops tracking services.
+     * Stops collecting services.
      */
     public void close() {
         fallback = null;
@@ -173,9 +175,9 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
      * and the service are passed as arguments.
      *
      * @param onFirstAvailable the function to be called
-     * @return the simple service tracker
+     * @return the {@code ServiceCollector}
      */
-    public SimpleServiceTracker<S, W> setOnFirstAvailable(
+    public ServiceCollector<S, W> setOnFirstAvailable(
             BiConsumer<ServiceReference<S>, W> onFirstAvailable) {
         this.onFirstAvailable = onFirstAvailable;
         return this;
@@ -189,53 +191,53 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
      * provided, the latter will be called first.
      *
      * @param onAvailable the function to be called
-     * @return the simple service tracker
+     * @return the {@code ServiceCollector}
      */
-    public SimpleServiceTracker<S, W> setOnAvailable(
+    public ServiceCollector<S, W> setOnAvailable(
             BiConsumer<ServiceReference<S>, W> onAvailable) {
         this.onAvailable = onAvailable;
         return this;
     }
 
     /**
-     * Sets a function to be called when one of the tracked services
+     * Sets a function to be called when one of the collected services
      * becomes unavailable. The service reference to the modified service 
      * and the service are passed as arguments.
      *
      * @param onUnavailable the function to call
-     * @return the simple service tracker
+     * @return the {@code ServiceCollector}
      */
-    public SimpleServiceTracker<S, W> setOnUnavailable(
+    public ServiceCollector<S, W> setOnUnavailable(
             BiConsumer<ServiceReference<S>, W> onUnavailable) {
         this.onUnavailable = onUnavailable;
         return this;
     }
 
     /**
-     * Sets a function to be called when the last of the tracked services
+     * Sets a function to be called when the last of the collected services
      * becomes unavailable. The service reference to the modified service 
      * and the service are passed as arguments. If both an
      * "onUnavailable" and an "onLastUnavailable" function are set,
      * the latter will be called last.
      *
      * @param onLastUnavailable the function to call
-     * @return the simple service tracker
+     * @return the {@code ServiceCollector}
      */
-    public SimpleServiceTracker<S, W> setOnLastUnavailable(
+    public ServiceCollector<S, W> setOnLastUnavailable(
             BiConsumer<ServiceReference<S>, W> onLastUnavailable) {
         this.onLastUnavailable = onLastUnavailable;
         return this;
     }
 
     /**
-     * Sets a function to be called when one of the tracked services
+     * Sets a function to be called when one of the collected services
      * changes. The service reference to the modified service and
      * the service are passed as arguments.
      *
      * @param onModified the function to call
-     * @return the simple service tracker
+     * @return the {@code ServiceCollector}
      */
-    public SimpleServiceTracker<S, W> setOnModfied(
+    public ServiceCollector<S, W> setOnModfied(
             BiConsumer<ServiceReference<S>, W> onModified) {
         this.onModified = onModified;
         return this;
@@ -243,29 +245,32 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
 
     /**
      * Sets the wrapper function. The function is invoked for
-     * every newly tracked service. It allows to wrap a service
+     * every newly collected service. It allows to wrap a service
      * obtained from the registry in some other object that is
      * used as return value when retrieving services from this 
-     * tracker.  
+     * {@code ServiceCollector}.
+     * <P>
+     * The wrapper can also serve as a filter. If the wrapper returns
+     * {@code null}, the service will not be added to the collection.
      *
      * @param wrapper the wrapper
-     * @return the simple service tracker
-     * @throws IllegalStateException if the service tracker is open
+     * @return the {@code ServiceCollector}
+     * @throws IllegalStateException if the {@code ServiceCollector} is open
      */
-    public SimpleServiceTracker<S, W> setWrapper(
+    public ServiceCollector<S, W> setWrapper(
             Function<S, W> wrapper) {
         if (delegee.getTrackingCount() >= 0) {
             throw new IllegalStateException(
-                "Wrapper cannot be set while tracker is open.");
+                "Wrapper cannot be set while service collector is open.");
         }
         this.wrapper = wrapper;
         return this;
     }
 
     /**
-     * Wait for at least one service to be tracked by this
-     * tracker. This method will also return when this
-     * tracked is closed from another thread.
+     * Wait for at least one service to be collected by this
+     * {@code ServiceCollector}. This method will also return when this
+     * {@code ServiceCollector} is closed from another thread.
      * <p>
      * It is strongly recommended that {@code waitForService} is not used 
      * during the calling of the {@code BundleActivator} methods.
@@ -284,11 +289,11 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
     }
 
     /**
-     * Return an array of {@code ServiceReference}s for all services being
-     * tracked by this tracker.
+     * Return an array of {@code ServiceReference}s for all services 
+     * collected by this {@code ServiceCollector}.
      * 
      * @return Array of {@code ServiceReference}s or an empty array if no 
-     *     services are being tracked.
+     *     services have been collected.
      */
     @SuppressWarnings("unchecked")
     public ServiceReference<S>[] serviceReferences() {
@@ -318,10 +323,10 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
     }
 
     /**
-     * Returns a {@code ServiceReference} for one of the services being tracked
-     * by this tracker.
+     * Returns a {@code ServiceReference} for one of the services collected
+     * by this {@code ServiceCollector}.
      * <p>
-     * If multiple services are being tracked, the service with the highest
+     * If multiple services have been collected, the service with the highest
      * ranking (as specified in its {@code service.ranking} property) is
      * returned. If there is a tie in ranking, the service with the lowest
      * service id (as specified in its {@code service.id} property); that is,
@@ -338,7 +343,8 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
 
     /**
      * Returns the service object for the specified {@code ServiceReference} 
-     * if the specified referenced service is being tracked by this tracker.
+     * if the specified referenced service has been collected
+     * by this {@code ServiceCollector}.
      * 
      * @param reference the reference to the desired service.
      * @return an optional service object
@@ -357,8 +363,8 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
     }
 
     /**
-     * Returns a service object for one of the services being tracked by this
-     * tracker.
+     * Returns a service object for one of the services collected by this
+     * {@code ServiceCollector}.
      * 
      * @return an optional service object
      */
@@ -369,8 +375,8 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
     }
 
     /**
-     * Return an array of service objects for all services being tracked by this
-     * tracker.
+     * Return an array of service objects for all services collected by this
+     * {@code ServiceCollector}.
      * 
      * @return an array of service objects which may be empty
      */
@@ -383,50 +389,52 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
     }
 
     /**
-     * Return the number of services being tracked by this
-     * tracker. This value may not be correct during the
+     * Return the number of services collected by this
+     * {@code ServiceCollector}. This value may not be correct during the
      * execution of handlers.
      * 
-     * @return The number of services being tracked.
+     * @return The number of services collected
      */
     public int size() {
         return serviceReferences().length;
     }
 
     /**
-     * Returns the tracking count for this tracker.
+     * Returns the modification count for this {@code ServiceCollector}.
      * 
-     * The tracking count is initialized to 0 when this tracker
-     * is opened. Every time a service is added, modified or removed from this
-     * tracker, the tracking count is incremented.
+     * The modification count is initialized to 0 when this 
+     * {@code ServiceCollector} is opened. Every time a service is added, 
+     * modified or removed from this {@code ServiceCollector}, 
+     * the modification count is incremented.
      * <p>
-     * The tracking count can be used to determine if this
-     * tracker has added, modified or removed a service by
-     * comparing a tracking count value previously collected with the current
-     * tracking count value. If the value has not changed, then no service has
-     * been added, modified or removed from this tracker since
-     * the previous tracking count was collected.
+     * The modification count can be used to determine if this
+     * {@code ServiceCollector} has added, modified or removed a service by
+     * comparing a modification count value previously collected with the 
+     * current modification count value. If the value has not changed, 
+     * then no service has been added, modified or removed from this 
+     * {@code ServiceCollector} since the previous modification count 
+     * was collected.
      * 
-     * @return The tracking count for this tracker or -1 if this
-     *       tracker is not open.
+     * @return The modification count for this {@code ServiceCollector} or
+     *      -1 if this {@code ServiceCollector} is not open.
      */
-    public int trackingCount() {
-        return Math.max(minTrackingCount, delegee.getTrackingCount());
+    public int modificationCount() {
+        return Math.max(minModificationCount, delegee.getTrackingCount());
     }
 
     /**
      * Return a {@code SortedMap} of the {@code ServiceReference}s and service
-     * objects for all services being tracked by this tracker.
+     * objects for all services collected by this {@code ServiceCollector}.
      * The map is sorted in reverse natural order of {@code ServiceReference}.
      * That is, the first entry is the service with the highest ranking and the
      * lowest service id.
      * 
      * @return A {@code SortedMap} with the {@code ServiceReference}s and
-     *         service objects for all services being tracked by this
-     *         tracker. If no services are being tracked, then
-     *         the returned map is empty.
+     *         service objects for all services collected by this
+     *         {@code ServiceCollector}. If no services have been collected,
+     *         then the returned map is empty.
      */
-    public SortedMap<ServiceReference<S>, W> tracked() {
+    public SortedMap<ServiceReference<S>, W> collected() {
         SortedMap<ServiceReference<S>, W> result = delegee.getTracked();
         FallbackData maybe = fallback;
         if (maybe != null) {
@@ -447,13 +455,24 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
     }
 
     /**
-     * Return if this tracker is empty.
+     * Return if this {@code ServiceCollector} is empty.
      * 
-     * @return {@code true} if this tracker is not tracking any
-     *         services.
+     * @return {@code true} if this {@code ServiceCollector} 
+     *     has not collected any services.
      */
     public boolean isEmpty() {
         return delegee.isEmpty();
+    }
+
+    /**
+     * Remove a service from this {@code ServiceCollector}.
+     * 
+     * The specified service will be removed from this {@code ServiceCollector}.
+     * 
+     * @param reference The reference to the service to be removed.
+     */
+    public void remove(ServiceReference<S> reference) {
+        delegee.remove(reference);
     }
 
     private class FallbackData {
@@ -499,7 +518,7 @@ public class SimpleServiceTracker<S, W> implements AutoCloseable {
         @Override
         public W addingService(ServiceReference<S> reference) {
             synchronized (this) {
-                minTrackingCount = delegee.getTrackingCount() + 1;
+                minModificationCount = delegee.getTrackingCount() + 1;
                 @SuppressWarnings("unchecked")
                 W newService = Optional.ofNullable(wrapper)
                     .map(w -> w.apply(context.getService(reference)))

@@ -16,7 +16,7 @@
 
 package de.mnl.osgi.jul2osgi;
 
-import de.mnl.coreutils.SimpleServiceTracker;
+import de.mnl.coreutils.ServiceCollector;
 import de.mnl.osgi.jul2osgi.lib.LogManager;
 import de.mnl.osgi.jul2osgi.lib.LogManager.LogInfo;
 import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;
@@ -53,7 +53,7 @@ import org.osgi.util.tracker.ServiceTracker;
 @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class Forwarder implements BundleActivator, LogRecordHandler {
 
-    private SimpleServiceTracker<LogService, LogService> logSvcTracker;
+    private ServiceCollector<LogService, LogService> logSvcTracker;
     private ServiceTracker<LoggerAdmin, LoggerAdmin> logAdmTracker;
     private String logPattern;
     private boolean adaptOsgiLevel = true;
@@ -99,7 +99,7 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         logAdmTracker.open();
 
         // Create new service tracker.
-        logSvcTracker = new SimpleServiceTracker<LogService, LogService>(
+        logSvcTracker = new ServiceCollector<LogService, LogService>(
             context, LogService.class)
                 .setOnAvailable((ref, svc) -> ((LogManager) logMgr)
                     .setForwarder(this))

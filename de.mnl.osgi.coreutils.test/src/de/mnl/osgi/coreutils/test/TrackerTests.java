@@ -16,7 +16,7 @@
 
 package de.mnl.osgi.coreutils.test;
 
-import de.mnl.coreutils.SimpleServiceTracker;
+import de.mnl.coreutils.ServiceCollector;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -46,9 +46,9 @@ public class TrackerTests {
     public void testBasics() throws InterruptedException {
         context.registerService(SampleService.class, new SampleService(), null);
         Map<String, Object> results = new HashMap<>();
-        SimpleServiceTracker<SampleService, SampleService> trk1bck;
-        try (SimpleServiceTracker<SampleService, SampleService> trk1
-            = new SimpleServiceTracker<SampleService, SampleService>(
+        ServiceCollector<SampleService, SampleService> trk1bck;
+        try (ServiceCollector<SampleService, SampleService> trk1
+            = new ServiceCollector<SampleService, SampleService>(
                 context, SampleService.class)) {
             trk1bck = trk1;
             trk1.setOnFirstAvailable(
@@ -60,9 +60,9 @@ public class TrackerTests {
                     assertEquals(ref, trk1.serviceReference().get());
                     assertEquals(ref, trk1.serviceReferences()[0]);
                     assertEquals(ref,
-                        trk1.tracked().keySet().iterator().next());
+                        trk1.collected().keySet().iterator().next());
                     assertEquals(svc,
-                        trk1.tracked().values().iterator().next());
+                        trk1.collected().values().iterator().next());
                     assertEquals(1, trk1.size());
                 })
                 .setOnAvailable((ref, svc) -> results.put("availCalled", true))
@@ -95,8 +95,8 @@ public class TrackerTests {
 
         // Now run
         Map<String, Object> results = new HashMap<>();
-        try (SimpleServiceTracker<SampleService, SampleService> trk1
-            = new SimpleServiceTracker<SampleService, SampleService>(
+        try (ServiceCollector<SampleService, SampleService> trk1
+            = new ServiceCollector<SampleService, SampleService>(
                 context, SampleService.class)) {
             trk1.setOnFirstAvailable(
                 (ref, svc) -> {
@@ -111,9 +111,9 @@ public class TrackerTests {
                     }
                     assertEquals(2, trk1.services().length);
                     assertEquals(2, trk1.serviceReferences().length);
-                    assertEquals(2, trk1.tracked().entrySet().size());
+                    assertEquals(2, trk1.collected().entrySet().size());
                     assertEquals(service2,
-                        trk1.tracked().values().iterator().next());
+                        trk1.collected().values().iterator().next());
                     assertEquals(2, trk1.size());
                 })
                 .setOnUnavailable(
