@@ -78,12 +78,12 @@ import org.osgi.framework.ServiceReference;
 public class ServiceCollector<S, W> implements AutoCloseable {
 
     /**
-     * The Bundle Context used by this {@code ServiceTracker}.
+     * The Bundle Context used by this {@code ServiceCollector}.
      */
     protected final BundleContext context;
     /**
-     * The Filter used by this {@code ServiceTracker} which specifies the search
-     * criteria for the services to track.
+     * The Filter used by this {@code ServiceCollector} which s
+     * pecifies the search criteria for the services to collect.
      */
     protected final Filter filter;
     /**
@@ -97,13 +97,13 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      */
     ServiceListener listener;
     /**
-     * Class name to be tracked. If this field is set, then we are tracking by
-     * class name.
+     * Class name to be collected. If this field is set, then we are 
+     * collecting by class name.
      */
     private final String collectClass;
     /**
-     * Reference to be tracked. If this field is set, then we are tracking a
-     * single ServiceReference.
+     * Reference to be collected. If this field is set, then we are 
+     * collecting a single ServiceReference.
      */
     private final ServiceReference<S> collectReference;
     /**
@@ -111,7 +111,7 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      */
     private final Set<ServiceReference<S>> initialReferences = new HashSet<>();
     /**
-     * Tracked services: {@code ServiceReference} -> customized Object and
+     * Collected services: {@code ServiceReference} -> customized Object and
      * {@code ServiceListener} object
      */
     private final SortedMap<ServiceReference<S>, W> collected
@@ -395,9 +395,9 @@ public class ServiceCollector<S, W> implements AutoCloseable {
 
     /**
      * Returns the list of initial {@code ServiceReference}s that will be
-     * tracked by this {@code ServiceTracker}.
+     * collected by this {@code ServiceCollector}.
      * 
-     * @param trackAllServices If {@code true}, use
+     * @param collectAllServices If {@code true}, use
      *        {@code getAllServiceReferences}.
      * @param className The class name with which the service was registered, or
      *        {@code null} for all services.
@@ -407,11 +407,11 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      *         invalid syntax.
      */
     private List<ServiceReference<S>> getInitialReferences(
-            boolean trackAllServices, String className, String filterString)
+            boolean collectAllServices, String className, String filterString)
             throws InvalidSyntaxException {
         @SuppressWarnings("unchecked")
         ServiceReference<S>[] result
-            = (ServiceReference<S>[]) ((trackAllServices)
+            = (ServiceReference<S>[]) ((collectAllServices)
                 ? context.getAllServiceReferences(className, filterString)
                 : context.getServiceReferences(className, filterString));
         if (result == null) {
@@ -477,7 +477,7 @@ public class ServiceCollector<S, W> implements AutoCloseable {
     /**
      * Add the given reference to the collected services.
      * 
-     * @param reference reference to be tracked.
+     * @param reference reference to be collected.
      */
     private void addToCollected(final ServiceReference<S> reference) {
         synchronized (this) {
@@ -486,7 +486,7 @@ public class ServiceCollector<S, W> implements AutoCloseable {
                 return;
             }
             if (collected.get(reference) != null) {
-                /* if we are already tracking this reference */
+                /* if we are already collecting this reference */
                 return; /* skip this reference */
             }
             if (initialReferences.contains(reference)) {
