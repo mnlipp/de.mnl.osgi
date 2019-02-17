@@ -110,10 +110,10 @@ public class ServiceCollector<S> implements AutoCloseable {
      */
     int[] modificationCount = new int[] { -1 };
     // The callbacks.
-    private BiConsumer<ServiceReference<S>, S> onFirstBound;
+    private BiConsumer<ServiceReference<S>, S> onBoundFirst;
     private BiConsumer<ServiceReference<S>, S> onBound;
     private BiConsumer<ServiceReference<S>, S> onUnbinding;
-    private BiConsumer<ServiceReference<S>, S> onLastUnbinding;
+    private BiConsumer<ServiceReference<S>, S> onUnbindingLast;
     private BiConsumer<ServiceReference<S>, S> onModified;
     // Speed up getService.
     private volatile S cachedService;
@@ -211,12 +211,12 @@ public class ServiceCollector<S> implements AutoCloseable {
      * available. The service reference to the new service 
      * and the service are passed as arguments.
      *
-     * @param onFirstBound the function to be called
+     * @param onBoundFirst the function to be called
      * @return the {@code ServiceCollector}
      */
-    public ServiceCollector<S> setOnFirstBound(
-            BiConsumer<ServiceReference<S>, S> onFirstBound) {
-        this.onFirstBound = onFirstBound;
+    public ServiceCollector<S> setOnBoundFirst(
+            BiConsumer<ServiceReference<S>, S> onBoundFirst) {
+        this.onBoundFirst = onBoundFirst;
         return this;
     }
 
@@ -257,12 +257,12 @@ public class ServiceCollector<S> implements AutoCloseable {
      * "onUnavailable" and an "onLastUnavailable" function are set,
      * the latter will be called last.
      *
-     * @param onLastUnbinding the function to call
+     * @param onUnbindingLast the function to call
      * @return the {@code ServiceCollector}
      */
-    public ServiceCollector<S> setOnLastUnbinding(
-            BiConsumer<ServiceReference<S>, S> onLastUnbinding) {
-        this.onLastUnbinding = onLastUnbinding;
+    public ServiceCollector<S> setOnUnbindingLast(
+            BiConsumer<ServiceReference<S>, S> onUnbindingLast) {
+        this.onUnbindingLast = onUnbindingLast;
         return this;
     }
 
@@ -387,12 +387,15 @@ public class ServiceCollector<S> implements AutoCloseable {
             = (ServiceReference<S>[]) ((trackAllServices)
                 ? context.getAllServiceReferences(className, filterString)
                 : context.getServiceReferences(className, filterString));
+        if (result == null) {
+            return Collections.emptyList();
+        }
         return Arrays.asList(result);
     }
 
     private void processInitial() {
         while (true) {
-            ServiceReference<S> item;
+            ServiceReference<S> reference;
             synchronized (this) {
                 if (!isOpen() || (initialReferences.size() == 0)) {
                     return; /* we are done */
@@ -400,11 +403,11 @@ public class ServiceCollector<S> implements AutoCloseable {
                 // Get one...
                 Iterator<ServiceReference<S>> iter
                     = initialReferences.iterator();
-                item = iter.next();
+                reference = iter.next();
                 iter.remove();
             }
             // Process as if it was just registered.
-            addToCollected(item);
+            addToCollected(reference);
         }
     }
 
@@ -456,8 +459,12 @@ public class ServiceCollector<S> implements AutoCloseable {
                 return;
             }
             if (collected.get(reference) != null) {
-                /* if we are already tracking this item */
-                return; /* skip this item */
+                /* if we are already tracking this reference */
+                return; /* skip this reference */
+            }
+            if (initialReferences.contains(reference)) {
+                // Skip, will be added as initial.
+                return;
             }
             S service = (S) context.getService(reference);
             if (service == null) {
@@ -470,7 +477,7 @@ public class ServiceCollector<S> implements AutoCloseable {
             collected.put(reference, service);
             modified();
             if (wasEmpty) {
-                Optional.ofNullable(onFirstBound)
+                Optional.ofNullable(onBoundFirst)
                     .ifPresent(cb -> cb.accept(reference, service));
             }
             Optional.ofNullable(onBound)
@@ -487,7 +494,7 @@ public class ServiceCollector<S> implements AutoCloseable {
             Optional.ofNullable(onUnbinding)
                 .ifPresent(cb -> cb.accept(reference, service));
             if (collected.size() == 1) {
-                Optional.ofNullable(onLastUnbinding)
+                Optional.ofNullable(onUnbindingLast)
                     .ifPresent(cb -> cb.accept(reference, service));
             }
             context.ungetService(reference);

@@ -103,7 +103,7 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
             context, LogService.class)
                 .setOnBound((ref, svc) -> ((LogManager) logMgr)
                     .setForwarder(this))
-                .setOnLastUnbinding((ref, svc) -> ((LogManager) logMgr)
+                .setOnUnbindingLast((ref, svc) -> ((LogManager) logMgr)
                     .setForwarder(this));
         logSvcTracker.open();
     }
