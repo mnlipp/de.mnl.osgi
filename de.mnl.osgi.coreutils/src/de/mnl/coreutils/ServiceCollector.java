@@ -109,14 +109,14 @@ public class ServiceCollector<S> implements AutoCloseable {
      * Can be used for waiting.
      */
     int[] modificationCount = new int[] { -1 };
-    /*
-     * The callbacks.
-     */
+    // The callbacks.
     private BiConsumer<ServiceReference<S>, S> onFirstBound;
     private BiConsumer<ServiceReference<S>, S> onBound;
     private BiConsumer<ServiceReference<S>, S> onUnbinding;
     private BiConsumer<ServiceReference<S>, S> onLastUnbinding;
     private BiConsumer<ServiceReference<S>, S> onModified;
+    // Speed up getService.
+    private volatile S cachedService;
 
     /**
      * Instantiates a new {@code ServiceCollector} that collects services
@@ -283,6 +283,7 @@ public class ServiceCollector<S> implements AutoCloseable {
     private void modified() {
         synchronized (modificationCount) {
             modificationCount[0] = modificationCount[0] + 1;
+            cachedService = null;
             modificationCount.notifyAll();
         }
     }
@@ -479,7 +480,6 @@ public class ServiceCollector<S> implements AutoCloseable {
 
     private void removeFromCollected(ServiceReference<S> reference) {
         synchronized (this) {
-            modified();
             S service = collected.get(reference);
             if (service == null) {
                 return;
@@ -492,6 +492,9 @@ public class ServiceCollector<S> implements AutoCloseable {
             }
             context.ungetService(reference);
             collected.remove(reference);
+            if (isOpen()) {
+                modified();
+            }
         }
     }
 
@@ -508,6 +511,7 @@ public class ServiceCollector<S> implements AutoCloseable {
             while (!collected.isEmpty()) {
                 removeFromCollected(collected.lastKey());
             }
+            cachedService = null;
         }
     }
 
@@ -615,14 +619,22 @@ public class ServiceCollector<S> implements AutoCloseable {
      * Returns a service object for one of the services collected by this
      * {@code ServiceCollector}. This is effectively the same as 
      * {@code serviceReference().flatMap(ref -> service(ref))}.
+     * <P>
+     * The result value is cached, so refrain from implementing another
+     * cache in the invoking code.
      * 
      * @return an optional service object
      */
     public Optional<S> service() {
+        final S cached = cachedService;
+        if (cached != null) {
+            return Optional.of(cached);
+        }
         synchronized (this) {
             Iterator<S> iter = collected.values().iterator();
             if (iter.hasNext()) {
-                return Optional.of(iter.next());
+                cachedService = iter.next();
+                return Optional.of(cachedService);
             }
         }
         return Optional.empty();
