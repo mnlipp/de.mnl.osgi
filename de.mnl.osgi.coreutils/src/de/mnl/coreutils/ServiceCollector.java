@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2019 Michael N. Lipp (http://www.mnl.de)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * Method comments based on the comments in the ServiceTracker implementation
+ * Based on the ServiceTracker implementation from OSGi.
  * 
  * Copyright (c) OSGi Alliance (2000, 2014). All Rights Reserved.
  * 
@@ -23,69 +23,100 @@
 package de.mnl.coreutils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
+import org.osgi.framework.AllServiceListener;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.Filter;
+import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.ServiceEvent;
+import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
-import org.osgi.util.tracker.ServiceTracker;
-import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
 /**
- * The {@code ServiceCollector} class simplifies using services
- * from the OSGi Framework's service registry beyond the simplification
- * provided by the {@link ServiceTracker} from the 
- * <a href="https://osgi.org/specification/osgi.core/7.0.0/util.tracker.html">
- * OSGi Core Specification</a>.
- * <p>
- * The {@code ServiceCollector} calls registered callbacks when the first or any 
- * service becomes available. The implementation ensures that
- * at least one service can be obtained from the {@code ServiceCollector}
- * during the execution of these callbacks. At least one service will also
- * be available after the execution of the callbacks until the 
- * "last unavailable" callback has been invoked.
+ * Maintains a collection of services matching some criteria.
  * <P>
- * Functions enabled/disabled in the respective callbacks can therefore 
- * rely on a service being available while they are enabled. This
- * includes, as a special case, starting and stopping threads in the
- * respective callbacks.
- * <p>
- * A {@code ServiceCollector} object is constructed with search 
- * criteria. It can then be opened to begin collecting all services in 
- * the Framework's service registry that match the specified search 
- * criteria. The {@code ServiceCollector} is currently
- * implemented using a standard {@link ServiceTracker} as a delegee.
- * <p>
- * The {@code ServiceCollector} class is thread-safe.
+ * An instance can be created with different criteria for matching
+ * services of a given type. When the instance has been opened, it 
+ * represents the collection of all matching services available
+ * in the framework. Changes of the collection are reported using
+ * the registered handlers.
+ * <P>
+ * Because OSGi is a threaded environment, the registered services 
+ * can vary any time. Results from queries on the collection are 
+ * therefore only reliable in a block that synchronizes on the 
+ * collection. The synchronization puts other threads that attempt 
+ * to change the collection on hold. Note that this implies the 
+ * risk of creating deadlocks.
+ * <P>
+ * Callbacks are already synchronized on this collection.
  *
- * @param <S> the type of the service to be collected
- * @param <W> the type of the collected items
- *      (see {@link #setWrapper(Function)}). Usually, this is the 
- *      same type as {@code S}, i.e. services are not wrapped before
- *      being returned.
+ * @param <S> the type of the service
  */
-public class ServiceCollector<S, W> implements AutoCloseable {
+public class ServiceCollector<S> implements AutoCloseable {
 
-    private final ServiceTracker<S, W> delegee;
-    /*
-     * The service data known from ServiceTracker#addingService
-     * but not yet known to have been added. Or the service data
-     * already removed from the ServiceTracker but provided as a fallback
-     * while calling onLastUnavailable in ServiceTracker#removedService.
+    /**
+     * The Bundle Context used by this {@code ServiceTracker}.
      */
-    private FallbackData fallback;
-    private BiConsumer<ServiceReference<S>, W> onFirstAvailable;
-    private BiConsumer<ServiceReference<S>, W> onAvailable;
-    private BiConsumer<ServiceReference<S>, W> onUnavailable;
-    private BiConsumer<ServiceReference<S>, W> onLastUnavailable;
-    private BiConsumer<ServiceReference<S>, W> onModified;
-    private Function<S, W> wrapper;
-    private int minModificationCount;
+    protected final BundleContext context;
+    /**
+     * The Filter used by this {@code ServiceTracker} which specifies the search
+     * criteria for the services to track.
+     */
+    protected final Filter filter;
+    /**
+     * Filter string for use when adding the ServiceListener. If this field is
+     * set, then certain optimizations can be taken since we don't have a user
+     * supplied filter.
+     */
+    final String listenerFilter;
+    /**
+     * The registered listener.
+     */
+    ServiceListener listener;
+    /**
+     * Class name to be tracked. If this field is set, then we are tracking by
+     * class name.
+     */
+    private final String collectClass;
+    /**
+     * Reference to be tracked. If this field is set, then we are tracking a
+     * single ServiceReference.
+     */
+    private final ServiceReference<S> collectReference;
+    /**
+     * Initial service references, processed in open.
+     */
+    private final Set<ServiceReference<S>> initialReferences = new HashSet<>();
+    /**
+     * Tracked services: {@code ServiceReference} -> customized Object and
+     * {@code ServiceListener} object
+     */
+    private final SortedMap<ServiceReference<S>, S> collected
+        = new TreeMap<>(Collections.reverseOrder());
+    /**
+     * Can be used for waiting.
+     */
+    int[] modificationCount = new int[] { -1 };
+    /*
+     * The callbacks.
+     */
+    private BiConsumer<ServiceReference<S>, S> onFirstBound;
+    private BiConsumer<ServiceReference<S>, S> onBound;
+    private BiConsumer<ServiceReference<S>, S> onUnbinding;
+    private BiConsumer<ServiceReference<S>, S> onLastUnbinding;
+    private BiConsumer<ServiceReference<S>, S> onModified;
 
     /**
      * Instantiates a new {@code ServiceCollector} that collects services
@@ -95,7 +126,7 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      * @param clazz the clazz
      */
     public ServiceCollector(BundleContext context, Class<S> clazz) {
-        delegee = new MyTracker(context, clazz, null);
+        this(context, clazz.getName());
     }
 
     /**
@@ -106,7 +137,17 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      * @param filter the filter
      */
     public ServiceCollector(BundleContext context, Filter filter) {
-        delegee = new MyTracker(context, filter, null);
+        this.context = context;
+        this.collectReference = null;
+        this.collectClass = null;
+        this.listenerFilter = filter.toString();
+        this.filter = filter;
+        if ((context == null) || (filter == null)) {
+            /*
+             * we throw a NPE here to be consistent with the other constructors
+             */
+            throw new NullPointerException();
+        }
     }
 
     /**
@@ -118,7 +159,23 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      */
     public ServiceCollector(BundleContext context,
             ServiceReference<S> reference) {
-        delegee = new MyTracker(context, reference, null);
+        this.context = context;
+        this.collectReference = reference;
+        this.collectClass = null;
+        this.listenerFilter = "(" + Constants.SERVICE_ID + "="
+            + reference.getProperty(Constants.SERVICE_ID).toString() + ")";
+        try {
+            this.filter = context.createFilter(listenerFilter);
+        } catch (InvalidSyntaxException e) {
+            /*
+             * we could only get this exception if the ServiceReference was
+             * invalid
+             */
+            IllegalArgumentException iae = new IllegalArgumentException(
+                "unexpected InvalidSyntaxException: " + e.getMessage());
+            iae.initCause(e);
+            throw iae;
+        }
     }
 
     /**
@@ -129,18 +186,117 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      * @param className the class name
      */
     public ServiceCollector(BundleContext context, String className) {
-        delegee = new MyTracker(context, className, null);
+        this.context = context;
+        this.collectReference = null;
+        this.collectClass = className;
+        // we call clazz.toString to verify clazz is non-null!
+        this.listenerFilter
+            = "(" + Constants.OBJECTCLASS + "=" + className + ")";
+        try {
+            this.filter = context.createFilter(listenerFilter);
+        } catch (InvalidSyntaxException e) {
+            /*
+             * we could only get this exception if the clazz argument was
+             * malformed
+             */
+            IllegalArgumentException iae = new IllegalArgumentException(
+                "unexpected InvalidSyntaxException: " + e.getMessage());
+            iae.initCause(e);
+            throw iae;
+        }
     }
 
     /**
-     * Starts collecting of service providers. Short for calling {@code open(false)}.
+     * Sets a function to be called when the first service becomes 
+     * available. The service reference to the new service 
+     * and the service are passed as arguments.
+     *
+     * @param onFirstBound the function to be called
+     * @return the {@code ServiceCollector}
+     */
+    public ServiceCollector<S> setOnFirstBound(
+            BiConsumer<ServiceReference<S>, S> onFirstBound) {
+        this.onFirstBound = onFirstBound;
+        return this;
+    }
+
+    /**
+     * Sets a function to be called when a new service becomes 
+     * available. The service reference to the new service 
+     * and the service are passed as arguments. If both an
+     * "onAvailable" and an "onFirstAvailable" function are
+     * provided, the latter will be called first.
+     *
+     * @param onBound the function to be called
+     * @return the {@code ServiceCollector}
+     */
+    public ServiceCollector<S> setOnBound(
+            BiConsumer<ServiceReference<S>, S> onBound) {
+        this.onBound = onBound;
+        return this;
+    }
+
+    /**
+     * Sets a function to be called when one of the collected services
+     * becomes unavailable. The service reference to the modified service 
+     * and the service are passed as arguments.
+     *
+     * @param onUnbinding the function to call
+     * @return the {@code ServiceCollector}
+     */
+    public ServiceCollector<S> setOnUnbinding(
+            BiConsumer<ServiceReference<S>, S> onUnbinding) {
+        this.onUnbinding = onUnbinding;
+        return this;
+    }
+
+    /**
+     * Sets a function to be called when the last of the collected services
+     * becomes unavailable. The service reference to the modified service 
+     * and the service are passed as arguments. If both an
+     * "onUnavailable" and an "onLastUnavailable" function are set,
+     * the latter will be called last.
+     *
+     * @param onLastUnbinding the function to call
+     * @return the {@code ServiceCollector}
+     */
+    public ServiceCollector<S> setOnLastUnbinding(
+            BiConsumer<ServiceReference<S>, S> onLastUnbinding) {
+        this.onLastUnbinding = onLastUnbinding;
+        return this;
+    }
+
+    /**
+     * Sets a function to be called when one of the collected services
+     * changes. The service reference to the modified service and
+     * the service are passed as arguments.
+     *
+     * @param onModified the function to call
+     * @return the {@code ServiceCollector}
+     */
+    public ServiceCollector<S> setOnModfied(
+            BiConsumer<ServiceReference<S>, S> onModified) {
+        this.onModified = onModified;
+        return this;
+    }
+
+    private void modified() {
+        synchronized (modificationCount) {
+            modificationCount[0] = modificationCount[0] + 1;
+            modificationCount.notifyAll();
+        }
+    }
+
+    /**
+     * Starts collecting of service providers. Short for calling 
+     * {@code open(false)}.
      *
      * @throws IllegalStateException If the {@code BundleConetxt}
-     *     with which this {@code ServiceCollector} was created is no longer valid.
+     *     with which this {@code ServiceCollector} was created is 
+     *     no longer valid.
      */
     public void open() throws IllegalStateException {
-        delegee.open();
-        minModificationCount = delegee.getTrackingCount();
+        open(false);
     }
 
     /**
@@ -155,116 +311,204 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      *     accessible to the bundle whose <code>BundleContext</code> is 
      *     used by this {@code ServiceCollector}.
      * @throws IllegalStateException If the {@code BundleConetxt}
-     *     with which this {@code ServiceCollector} was created is no longer valid.
+     *     with which this {@code ServiceCollector} was created is no 
+     *     longer valid.
      */
     public void open(boolean collectAllServices) throws IllegalStateException {
-        delegee.open(collectAllServices);
+        synchronized (this) {
+            if (isOpen()) {
+                // Already open, don't treat as error.
+                return;
+            }
+            modificationCount[0] = 0;
+            try {
+                registerListener(collectAllServices);
+                if (collectClass != null) {
+                    initialReferences.addAll(getInitialReferences(
+                        collectAllServices, collectClass, null));
+                } else if (collectReference != null) {
+                    if (collectReference.getBundle() != null) {
+                        initialReferences.add(collectReference);
+                    }
+                } else { /* user supplied filter */
+                    initialReferences.addAll(getInitialReferences(
+                        collectAllServices, null, listenerFilter));
+                }
+                processInitial();
+            } catch (InvalidSyntaxException e) {
+                throw new RuntimeException(
+                    "unexpected InvalidSyntaxException: " + e.getMessage(),
+                    e);
+            }
+        }
+    }
+
+    private void registerListener(boolean collectAllServices)
+            throws InvalidSyntaxException {
+        if (collectAllServices) {
+            listener = new AllServiceListener() {
+                @Override
+                public void serviceChanged(ServiceEvent event) {
+                    ServiceCollector.this.serviceChanged(event);
+                }
+            };
+        } else {
+            listener = new ServiceListener() {
+
+                @Override
+                public void serviceChanged(ServiceEvent event) {
+                    ServiceCollector.this.serviceChanged(event);
+                }
+
+            };
+        }
+        context.addServiceListener(listener, listenerFilter);
+    }
+
+    /**
+     * Returns the list of initial {@code ServiceReference}s that will be
+     * tracked by this {@code ServiceTracker}.
+     * 
+     * @param trackAllServices If {@code true}, use
+     *        {@code getAllServiceReferences}.
+     * @param className The class name with which the service was registered, or
+     *        {@code null} for all services.
+     * @param filterString The filter criteria or {@code null} for all services.
+     * @return The list of initial {@code ServiceReference}s.
+     * @throws InvalidSyntaxException If the specified filterString has an
+     *         invalid syntax.
+     */
+    private List<ServiceReference<S>> getInitialReferences(
+            boolean trackAllServices, String className, String filterString)
+            throws InvalidSyntaxException {
+        @SuppressWarnings("unchecked")
+        ServiceReference<S>[] result
+            = (ServiceReference<S>[]) ((trackAllServices)
+                ? context.getAllServiceReferences(className, filterString)
+                : context.getServiceReferences(className, filterString));
+        return Arrays.asList(result);
+    }
+
+    private void processInitial() {
+        while (true) {
+            ServiceReference<S> item;
+            synchronized (this) {
+                if (!isOpen() || (initialReferences.size() == 0)) {
+                    return; /* we are done */
+                }
+                // Get one...
+                Iterator<ServiceReference<S>> iter
+                    = initialReferences.iterator();
+                item = iter.next();
+                iter.remove();
+            }
+            // Process as if it was just registered.
+            addToCollected(item);
+        }
+    }
+
+    private void serviceChanged(ServiceEvent event) {
+        /*
+         * Check if we had a delayed call (which could happen when we
+         * close).
+         */
+        if (!isOpen()) {
+            return;
+        }
+        @SuppressWarnings("unchecked")
+        final ServiceReference<S> reference
+            = (ServiceReference<S>) event.getServiceReference();
+
+        switch (event.getType()) {
+        case ServiceEvent.REGISTERED:
+            addToCollected(reference);
+            break;
+        case ServiceEvent.MODIFIED:
+            synchronized (this) {
+                S service = collected.get(reference);
+                if (service == null) {
+                    // Probably still in initialReferences, ignore.
+                    return;
+                }
+                modified();
+                Optional.ofNullable(onModified)
+                    .ifPresent(cb -> cb.accept(reference, service));
+            }
+            break;
+        case ServiceEvent.MODIFIED_ENDMATCH:
+        case ServiceEvent.UNREGISTERING:
+            removeFromCollected(reference);
+            break;
+        }
+
+    }
+
+    /**
+     * Add the given reference to the collected services.
+     * 
+     * @param reference reference to be tracked.
+     */
+    private void addToCollected(final ServiceReference<S> reference) {
+        synchronized (this) {
+            if (!isOpen()) {
+                // We have been closed.
+                return;
+            }
+            if (collected.get(reference) != null) {
+                /* if we are already tracking this item */
+                return; /* skip this item */
+            }
+            S service = (S) context.getService(reference);
+            if (service == null) {
+                // Has vanished in the meantime, should not happen when
+                // processing a REGISTERED event, but may happen when
+                // processing a reference from initialReferences.
+                return;
+            }
+            boolean wasEmpty = collected.isEmpty();
+            collected.put(reference, service);
+            modified();
+            if (wasEmpty) {
+                Optional.ofNullable(onFirstBound)
+                    .ifPresent(cb -> cb.accept(reference, service));
+            }
+            Optional.ofNullable(onBound)
+                .ifPresent(cb -> cb.accept(reference, service));
+        }
+    }
+
+    private void removeFromCollected(ServiceReference<S> reference) {
+        synchronized (this) {
+            modified();
+            S service = collected.get(reference);
+            if (service == null) {
+                return;
+            }
+            Optional.ofNullable(onUnbinding)
+                .ifPresent(cb -> cb.accept(reference, service));
+            if (collected.size() == 1) {
+                Optional.ofNullable(onLastUnbinding)
+                    .ifPresent(cb -> cb.accept(reference, service));
+            }
+            context.ungetService(reference);
+            collected.remove(reference);
+        }
     }
 
     /**
      * Stops collecting services.
      */
     public void close() {
-        fallback = null;
-        delegee.close();
-    }
-
-    /**
-     * Sets a function to be called when the first service becomes 
-     * available. The service reference to the new service 
-     * and the service are passed as arguments.
-     *
-     * @param onFirstAvailable the function to be called
-     * @return the {@code ServiceCollector}
-     */
-    public ServiceCollector<S, W> setOnFirstAvailable(
-            BiConsumer<ServiceReference<S>, W> onFirstAvailable) {
-        this.onFirstAvailable = onFirstAvailable;
-        return this;
-    }
-
-    /**
-     * Sets a function to be called when a new service becomes 
-     * available. The service reference to the new service 
-     * and the service are passed as arguments. If both an
-     * "onAvailable" and an "onFirstAvailable" function are
-     * provided, the latter will be called first.
-     *
-     * @param onAvailable the function to be called
-     * @return the {@code ServiceCollector}
-     */
-    public ServiceCollector<S, W> setOnAvailable(
-            BiConsumer<ServiceReference<S>, W> onAvailable) {
-        this.onAvailable = onAvailable;
-        return this;
-    }
-
-    /**
-     * Sets a function to be called when one of the collected services
-     * becomes unavailable. The service reference to the modified service 
-     * and the service are passed as arguments.
-     *
-     * @param onUnavailable the function to call
-     * @return the {@code ServiceCollector}
-     */
-    public ServiceCollector<S, W> setOnUnavailable(
-            BiConsumer<ServiceReference<S>, W> onUnavailable) {
-        this.onUnavailable = onUnavailable;
-        return this;
-    }
-
-    /**
-     * Sets a function to be called when the last of the collected services
-     * becomes unavailable. The service reference to the modified service 
-     * and the service are passed as arguments. If both an
-     * "onUnavailable" and an "onLastUnavailable" function are set,
-     * the latter will be called last.
-     *
-     * @param onLastUnavailable the function to call
-     * @return the {@code ServiceCollector}
-     */
-    public ServiceCollector<S, W> setOnLastUnavailable(
-            BiConsumer<ServiceReference<S>, W> onLastUnavailable) {
-        this.onLastUnavailable = onLastUnavailable;
-        return this;
-    }
-
-    /**
-     * Sets a function to be called when one of the collected services
-     * changes. The service reference to the modified service and
-     * the service are passed as arguments.
-     *
-     * @param onModified the function to call
-     * @return the {@code ServiceCollector}
-     */
-    public ServiceCollector<S, W> setOnModfied(
-            BiConsumer<ServiceReference<S>, W> onModified) {
-        this.onModified = onModified;
-        return this;
-    }
-
-    /**
-     * Sets the wrapper function. The function is invoked for
-     * every newly collected service. It allows to wrap a service
-     * obtained from the registry in some other object that is
-     * used as return value when retrieving services from this 
-     * {@code ServiceCollector}.
-     * <P>
-     * The wrapper can also serve as a filter. If the wrapper returns
-     * {@code null}, the service will not be added to the collection.
-     *
-     * @param wrapper the wrapper
-     * @return the {@code ServiceCollector}
-     * @throws IllegalStateException if the {@code ServiceCollector} is open
-     */
-    public ServiceCollector<S, W> setWrapper(
-            Function<S, W> wrapper) {
-        if (delegee.getTrackingCount() >= 0) {
-            throw new IllegalStateException(
-                "Wrapper cannot be set while service collector is open.");
+        synchronized (this) {
+            context.removeServiceListener(listener);
+            synchronized (modificationCount) {
+                modificationCount[0] = -1;
+                modificationCount.notifyAll();
+            }
+            while (!collected.isEmpty()) {
+                removeFromCollected(collected.lastKey());
+            }
         }
-        this.wrapper = wrapper;
-        return this;
     }
 
     /**
@@ -284,42 +528,50 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      *     current thread.
      * @throws IllegalArgumentException If the value of timeout is negative.
      */
-    public W waitForService(long timeout) throws InterruptedException {
-        return delegee.waitForService(timeout);
-    }
-
-    /**
-     * Return an array of {@code ServiceReference}s for all services 
-     * collected by this {@code ServiceCollector}.
-     * 
-     * @return Array of {@code ServiceReference}s or an empty array if no 
-     *     services have been collected.
-     */
-    @SuppressWarnings("unchecked")
-    public ServiceReference<S>[] serviceReferences() {
-        FallbackData maybeAdd = fallback;
-        if (maybeAdd == null) {
-            return Optional.ofNullable(delegee.getServiceReferences())
-                .orElse((ServiceReference<S>[]) new ServiceReference[0]);
+    public Optional<S> waitForService(long timeout)
+            throws InterruptedException {
+        if (timeout < 0) {
+            throw new IllegalArgumentException("timeout value is negative");
         }
-        // Add fallback service reference if not already in list returned
-        // by delegee.
-        Object maybeAddId = maybeAdd.svcRef().getProperty(Constants.SERVICE_ID);
-        List<ServiceReference<S>> result = new ArrayList<>();
-        ServiceReference<S>[] knownRefs = delegee.getServiceReferences();
-        if (knownRefs != null) {
-            for (ServiceReference<S> ref : knownRefs) {
-                result.add(ref);
-                if (ref.getProperty(Constants.SERVICE_ID).equals(maybeAddId)) {
-                    // Known and therefore already added.
-                    maybeAdd = null;
+
+        S service = service().orElse(null);
+        if (service != null) {
+            return Optional.of(service);
+        }
+
+        final long endTime
+            = (timeout == 0) ? 0 : (System.currentTimeMillis() + timeout);
+        while (true) {
+            synchronized (modificationCount) {
+                if (modificationCount() < 0) {
+                    return Optional.empty();
+                }
+                modificationCount.wait(timeout);
+            }
+            Optional<S> found = service();
+            if (found.isPresent()) {
+                return found;
+            }
+            if (endTime > 0) { // if we have a timeout
+                timeout = endTime - System.currentTimeMillis();
+                if (timeout <= 0) { // that has expired
+                    return Optional.empty();
                 }
             }
         }
-        if (maybeAdd != null) {
-            result.add(maybeAdd.svcRef());
+    }
+
+    /**
+     * Return the current set of {@code ServiceReference}s for all services 
+     * collected by this {@code ServiceCollector}.
+     * 
+     * @return the set.
+     */
+    public List<ServiceReference<S>> serviceReferences() {
+        synchronized (this) {
+            return Collections
+                .unmodifiableList(new ArrayList<>(collected.keySet()));
         }
-        return result.toArray(new ServiceReference[0]);
     }
 
     /**
@@ -336,9 +588,13 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      * @return an optional {@code ServiceReference}
      */
     public Optional<ServiceReference<S>> serviceReference() {
-        return Optional.ofNullable(delegee.getServiceReference())
-            .map(ref -> Optional.of(ref))
-            .orElse(Optional.ofNullable(fallback).map(FallbackData::svcRef));
+        try {
+            synchronized (this) {
+                return Optional.of(collected.firstKey());
+            }
+        } catch (NoSuchElementException e) {
+            return Optional.empty();
+        }
     }
 
     /**
@@ -349,43 +605,41 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      * @param reference the reference to the desired service.
      * @return an optional service object
      */
-    public Optional<W> service(ServiceReference<S> reference) {
-        W known = delegee.getService(reference);
-        if (known != null) {
-            return Optional.of(known);
+    public Optional<S> service(ServiceReference<S> reference) {
+        synchronized (this) {
+            return Optional.ofNullable(collected.get(reference));
         }
-        // Maybe fallback can be used...
-        FallbackData maybe = fallback;
-        return Optional.ofNullable(maybe.svcRef())
-            .filter(ref -> ref.getProperty(Constants.SERVICE_ID)
-                .equals(reference.getProperty(Constants.SERVICE_ID)))
-            .map(found -> maybe.service());
     }
 
     /**
      * Returns a service object for one of the services collected by this
-     * {@code ServiceCollector}.
+     * {@code ServiceCollector}. This is effectively the same as 
+     * {@code serviceReference().flatMap(ref -> service(ref))}.
      * 
      * @return an optional service object
      */
-    public Optional<W> service() {
-        return Optional.ofNullable(
-            Optional.ofNullable(delegee.getService()).orElse(Optional
-                .ofNullable(fallback).map(FallbackData::service).orElse(null)));
+    public Optional<S> service() {
+        synchronized (this) {
+            Iterator<S> iter = collected.values().iterator();
+            if (iter.hasNext()) {
+                return Optional.of(iter.next());
+            }
+        }
+        return Optional.empty();
     }
 
     /**
-     * Return an array of service objects for all services collected by this
-     * {@code ServiceCollector}.
+     * Return the list of service objects for all services collected by this
+     * {@code ServiceCollector}. This is effectively a mapping of
+     * {@link #serviceReferences()} to services.
      * 
-     * @return an array of service objects which may be empty
+     * @return a list of service objects which may be empty
      */
-    public Object[] services() {
-        List<W> result = new ArrayList<>();
-        for (ServiceReference<S> ref : serviceReferences()) {
-            service(ref).ifPresent(s -> result.add(s));
+    public List<S> services() {
+        synchronized (this) {
+            return Collections
+                .unmodifiableList(new ArrayList<>(collected.values()));
         }
-        return result.toArray(new Object[0]);
     }
 
     /**
@@ -396,7 +650,9 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      * @return The number of services collected
      */
     public int size() {
-        return serviceReferences().length;
+        synchronized (this) {
+            return collected.size();
+        }
     }
 
     /**
@@ -419,7 +675,16 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      *      -1 if this {@code ServiceCollector} is not open.
      */
     public int modificationCount() {
-        return Math.max(minModificationCount, delegee.getTrackingCount());
+        return modificationCount[0];
+    }
+
+    /**
+     * Checks if this {@code ServiceCollector} is open.
+     *
+     * @return true, if is open
+     */
+    public boolean isOpen() {
+        return modificationCount[0] >= 0;
     }
 
     /**
@@ -434,24 +699,13 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      *         {@code ServiceCollector}. If no services have been collected,
      *         then the returned map is empty.
      */
-    public SortedMap<ServiceReference<S>, W> collected() {
-        SortedMap<ServiceReference<S>, W> result = delegee.getTracked();
-        FallbackData maybe = fallback;
-        if (maybe != null) {
-            Object maybeId = maybe.svcRef().getProperty(Constants.SERVICE_ID);
-            // There's no equals/hashCode on ServiceReference, sigh.
-            boolean found = false;
-            for (ServiceReference<S> ref : result.keySet()) {
-                if (ref.getProperty(Constants.SERVICE_ID).equals(maybeId)) {
-                    found = true;
-                    break;
-                }
+    public SortedMap<ServiceReference<S>, S> collected() {
+        synchronized (this) {
+            if (collected.isEmpty()) {
+                return new TreeMap<>(Collections.reverseOrder());
             }
-            if (!found) {
-                result.put(maybe.svcRef(), maybe.service());
-            }
+            return Collections.unmodifiableSortedMap(new TreeMap<>(collected));
         }
-        return result;
     }
 
     /**
@@ -461,7 +715,9 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      *     has not collected any services.
      */
     public boolean isEmpty() {
-        return delegee.isEmpty();
+        synchronized (this) {
+            return collected.isEmpty();
+        }
     }
 
     /**
@@ -472,89 +728,7 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      * @param reference The reference to the service to be removed.
      */
     public void remove(ServiceReference<S> reference) {
-        delegee.remove(reference);
+        removeFromCollected(reference);
     }
 
-    private class FallbackData {
-        private final ServiceReference<S> svcRef;
-        private final W service;
-
-        public FallbackData(ServiceReference<S> svcRef, W service) {
-            this.svcRef = svcRef;
-            this.service = service;
-        }
-
-        public final ServiceReference<S> svcRef() {
-            return svcRef;
-        }
-
-        public final W service() {
-            return service;
-        }
-    }
-
-    private class MyTracker extends ServiceTracker<S, W> {
-
-        public MyTracker(BundleContext context, Class<S> clazz,
-                ServiceTrackerCustomizer<S, W> customizer) {
-            super(context, clazz, customizer);
-        }
-
-        public MyTracker(BundleContext context, Filter filter,
-                ServiceTrackerCustomizer<S, W> customizer) {
-            super(context, filter, customizer);
-        }
-
-        public MyTracker(BundleContext context, ServiceReference<S> reference,
-                ServiceTrackerCustomizer<S, W> customizer) {
-            super(context, reference, customizer);
-        }
-
-        public MyTracker(BundleContext context, String clazz,
-                ServiceTrackerCustomizer<S, W> customizer) {
-            super(context, clazz, customizer);
-        }
-
-        @Override
-        public W addingService(ServiceReference<S> reference) {
-            synchronized (this) {
-                minModificationCount = delegee.getTrackingCount() + 1;
-                @SuppressWarnings("unchecked")
-                W newService = Optional.ofNullable(wrapper)
-                    .map(w -> w.apply(context.getService(reference)))
-                    .orElse((W) context.getService(reference));
-                fallback = new FallbackData(reference, newService);
-                if (delegee.isEmpty()) {
-                    Optional.ofNullable(onFirstAvailable)
-                        .ifPresent(h -> h.accept(reference, newService));
-                }
-                if (onAvailable != null) {
-                    Optional.ofNullable(onAvailable)
-                        .ifPresent(h -> h.accept(reference, newService));
-                }
-                return newService;
-            }
-        }
-
-        @Override
-        public void removedService(ServiceReference<S> reference, W service) {
-            synchronized (this) {
-                fallback = new FallbackData(reference, service);
-                Optional.ofNullable(onUnavailable)
-                    .ifPresent(h -> h.accept(reference, service));
-                if (delegee.isEmpty()) {
-                    Optional.ofNullable(onLastUnavailable)
-                        .ifPresent(h -> h.accept(reference, service));
-                }
-                fallback = null;
-                super.removedService(reference, service);
-            }
-        }
-
-        @Override
-        public void modifiedService(ServiceReference<S> reference, W service) {
-            Optional.ofNullable(onModified)
-                .ifPresent(h -> h.accept(reference, service));
-        }
-    }
 }

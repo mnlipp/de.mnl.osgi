@@ -53,7 +53,7 @@ import org.osgi.util.tracker.ServiceTracker;
 @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class Forwarder implements BundleActivator, LogRecordHandler {
 
-    private ServiceCollector<LogService, LogService> logSvcTracker;
+    private ServiceCollector<LogService> logSvcTracker;
     private ServiceTracker<LoggerAdmin, LoggerAdmin> logAdmTracker;
     private String logPattern;
     private boolean adaptOsgiLevel = true;
@@ -99,11 +99,11 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         logAdmTracker.open();
 
         // Create new service tracker.
-        logSvcTracker = new ServiceCollector<LogService, LogService>(
+        logSvcTracker = new ServiceCollector<LogService>(
             context, LogService.class)
-                .setOnAvailable((ref, svc) -> ((LogManager) logMgr)
+                .setOnBound((ref, svc) -> ((LogManager) logMgr)
                     .setForwarder(this))
-                .setOnLastUnavailable((ref, svc) -> ((LogManager) logMgr)
+                .setOnLastUnbinding((ref, svc) -> ((LogManager) logMgr)
                     .setForwarder(this));
         logSvcTracker.open();
     }

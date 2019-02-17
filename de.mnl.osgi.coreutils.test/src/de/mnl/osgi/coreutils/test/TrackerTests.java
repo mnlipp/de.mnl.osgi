@@ -46,29 +46,29 @@ public class TrackerTests {
     public void testBasics() throws InterruptedException {
         context.registerService(SampleService.class, new SampleService(), null);
         Map<String, Object> results = new HashMap<>();
-        ServiceCollector<SampleService, SampleService> trk1bck;
-        try (ServiceCollector<SampleService, SampleService> trk1
-            = new ServiceCollector<SampleService, SampleService>(
+        ServiceCollector<SampleService> trk1bck;
+        try (ServiceCollector<SampleService> trk1
+            = new ServiceCollector<SampleService>(
                 context, SampleService.class)) {
             trk1bck = trk1;
-            trk1.setOnFirstAvailable(
+            trk1.setOnFirstBound(
                 (ref, svc) -> {
                     results.put("firstCalled", true);
                     assertTrue(trk1.service().isPresent());
                     assertEquals(svc, trk1.service().get());
-                    assertEquals(svc, trk1.services()[0]);
+                    assertEquals(svc, trk1.services().get(0));
                     assertEquals(ref, trk1.serviceReference().get());
-                    assertEquals(ref, trk1.serviceReferences()[0]);
+                    assertEquals(ref, trk1.serviceReferences().get(0));
                     assertEquals(ref,
                         trk1.collected().keySet().iterator().next());
                     assertEquals(svc,
                         trk1.collected().values().iterator().next());
                     assertEquals(1, trk1.size());
                 })
-                .setOnAvailable((ref, svc) -> results.put("availCalled", true))
-                .setOnUnavailable(
+                .setOnBound((ref, svc) -> results.put("availCalled", true))
+                .setOnUnbinding(
                     (ref, svc) -> results.put("unavailCalled", true))
-                .setOnLastUnavailable((ref, svc) -> {
+                .setOnLastUnbinding((ref, svc) -> {
                     results.put("lastCalled", true);
                     assertEquals(svc, trk1.service().get());
                 });
@@ -95,34 +95,34 @@ public class TrackerTests {
 
         // Now run
         Map<String, Object> results = new HashMap<>();
-        try (ServiceCollector<SampleService, SampleService> trk1
-            = new ServiceCollector<SampleService, SampleService>(
+        try (ServiceCollector<SampleService> trk1
+            = new ServiceCollector<SampleService>(
                 context, SampleService.class)) {
-            trk1.setOnFirstAvailable(
+            trk1.setOnFirstBound(
                 (ref, svc) -> {
                     results.put("firstCalled", true);
                 })
-                .setOnAvailable((ref, svc) -> {
+                .setOnBound((ref, svc) -> {
                     int invocation = (int) results
                         .computeIfAbsent("availCalled", k -> 0) + 1;
                     results.put("availCalled", invocation);
                     if (invocation == 1) {
                         return;
                     }
-                    assertEquals(2, trk1.services().length);
-                    assertEquals(2, trk1.serviceReferences().length);
+                    assertEquals(2, trk1.services().size());
+                    assertEquals(2, trk1.serviceReferences().size());
                     assertEquals(2, trk1.collected().entrySet().size());
                     assertEquals(service2,
                         trk1.collected().values().iterator().next());
                     assertEquals(2, trk1.size());
                 })
-                .setOnUnavailable(
+                .setOnUnbinding(
                     (ref, svc) -> {
                         int invocation = (int) results
                             .computeIfAbsent("unavailCalled", k -> 0) + 1;
                         results.put("unavailCalled", invocation);
                     })
-                .setOnLastUnavailable((ref, svc) -> {
+                .setOnLastUnbinding((ref, svc) -> {
                     results.put("lastCalled", true);
                     assertEquals(svc, trk1.service().get());
                 });
