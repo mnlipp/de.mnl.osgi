@@ -227,6 +227,7 @@ public class ServiceCollector<S, W> implements AutoCloseable {
      * as a filter.
      *
      * @param wrapper the wrapper function
+     * @return the service collector
      */
     public ServiceCollector<S, W> setWrapper(Function<S, W> wrapper) {
         this.wrapper = wrapper;
