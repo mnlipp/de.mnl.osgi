@@ -91,8 +91,8 @@ public class CollectorTests {
 
     /**
      * An available service must be found.
-     * 
-     * @throws InterruptedException
+     *
+     * @throws InterruptedException the interrupted exception
      */
     @Test
     @SuppressWarnings("resource")
@@ -116,8 +116,8 @@ public class CollectorTests {
 
     /**
      * Two services must be found and rankings must be observed.
-     * 
-     * @throws InterruptedException
+     *
+     * @throws InterruptedException the interrupted exception
      */
     @SuppressWarnings("resource")
     @Test
@@ -154,8 +154,8 @@ public class CollectorTests {
 
     /**
      * Adding and removing must have effects.
-     * 
-     * @throws InterruptedException
+     *
+     * @throws InterruptedException the interrupted exception
      */
     @Test
     public void testDynamic() throws InterruptedException {
@@ -205,9 +205,9 @@ public class CollectorTests {
 
     /**
      * Attempt to test concurrency.
-     * 
-     * @throws TimeoutException
-     * @throws InterruptedException
+     *
+     * @throws TimeoutException the timeout exception
+     * @throws InterruptedException the interrupted exception
      */
     @Test
     public void testConcurrent() throws TimeoutException, InterruptedException {
