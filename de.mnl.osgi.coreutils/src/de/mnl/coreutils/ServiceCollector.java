@@ -34,6 +34,7 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 import org.osgi.framework.AllServiceListener;
 import org.osgi.framework.BundleContext;
@@ -55,16 +56,26 @@ import org.osgi.framework.ServiceReference;
  * <P>
  * Because OSGi is a threaded environment, the registered services 
  * can vary any time. Results from queries on the collection are 
- * therefore only reliable in a block that synchronizes on the 
+ * therefore only reliable while synchronizing on the 
  * collection. The synchronization puts other threads that attempt 
  * to change the collection on hold. Note that this implies the 
  * risk of creating deadlocks.
  * <P>
- * Callbacks are already synchronized on this collection.
+ * Callbacks are also synchronized on this collector, else
+ * the state of the collector during the execution of the
+ * callback might not reflect the state that is signalled by
+ * the callback.
+ * <P>
+ * The services obtained from the framework may optionally be 
+ * wrapped in another type by setting a wrapper function.
+ * The invocation of the wrapper is also synchronized on this 
+ * collector.
  *
  * @param <S> the type of the service
+ * @param <W> the type of values returned by queries, usually the same
+ *      type as the type of the service
  */
-public class ServiceCollector<S> implements AutoCloseable {
+public class ServiceCollector<S, W> implements AutoCloseable {
 
     /**
      * The Bundle Context used by this {@code ServiceTracker}.
@@ -103,20 +114,21 @@ public class ServiceCollector<S> implements AutoCloseable {
      * Tracked services: {@code ServiceReference} -> customized Object and
      * {@code ServiceListener} object
      */
-    private final SortedMap<ServiceReference<S>, S> collected
+    private final SortedMap<ServiceReference<S>, W> collected
         = new TreeMap<>(Collections.reverseOrder());
     /**
      * Can be used for waiting.
      */
     int[] modificationCount = new int[] { -1 };
     // The callbacks.
-    private BiConsumer<ServiceReference<S>, S> onBoundFirst;
-    private BiConsumer<ServiceReference<S>, S> onBound;
-    private BiConsumer<ServiceReference<S>, S> onUnbinding;
-    private BiConsumer<ServiceReference<S>, S> onUnbindingLast;
-    private BiConsumer<ServiceReference<S>, S> onModified;
+    private BiConsumer<ServiceReference<S>, W> onBoundFirst;
+    private BiConsumer<ServiceReference<S>, W> onBound;
+    private BiConsumer<ServiceReference<S>, W> onUnbinding;
+    private BiConsumer<ServiceReference<S>, W> onUnbindingLast;
+    private BiConsumer<ServiceReference<S>, W> onModified;
+    private Function<S, W> wrapper;
     // Speed up getService.
-    private volatile S cachedService;
+    private volatile W cachedService;
 
     /**
      * Instantiates a new {@code ServiceCollector} that collects services
@@ -207,6 +219,21 @@ public class ServiceCollector<S> implements AutoCloseable {
     }
 
     /**
+     * Sets the wrapper function. Each service obtained from the 
+     * framework can optionally be wrapped in another type if required.
+     * <P>
+     * If the wrapper returns {@code null}, the service is not added
+     * to the collection. The wrapper function can thus also be used
+     * as a filter.
+     *
+     * @param wrapper the wrapper function
+     */
+    public ServiceCollector<S, W> setWrapper(Function<S, W> wrapper) {
+        this.wrapper = wrapper;
+        return this;
+    }
+
+    /**
      * Sets a function to be called when the first service becomes 
      * available. The service reference to the new service 
      * and the service are passed as arguments.
@@ -214,8 +241,8 @@ public class ServiceCollector<S> implements AutoCloseable {
      * @param onBoundFirst the function to be called
      * @return the {@code ServiceCollector}
      */
-    public ServiceCollector<S> setOnBoundFirst(
-            BiConsumer<ServiceReference<S>, S> onBoundFirst) {
+    public ServiceCollector<S, W> setOnBoundFirst(
+            BiConsumer<ServiceReference<S>, W> onBoundFirst) {
         this.onBoundFirst = onBoundFirst;
         return this;
     }
@@ -230,8 +257,8 @@ public class ServiceCollector<S> implements AutoCloseable {
      * @param onBound the function to be called
      * @return the {@code ServiceCollector}
      */
-    public ServiceCollector<S> setOnBound(
-            BiConsumer<ServiceReference<S>, S> onBound) {
+    public ServiceCollector<S, W> setOnBound(
+            BiConsumer<ServiceReference<S>, W> onBound) {
         this.onBound = onBound;
         return this;
     }
@@ -244,8 +271,8 @@ public class ServiceCollector<S> implements AutoCloseable {
      * @param onUnbinding the function to call
      * @return the {@code ServiceCollector}
      */
-    public ServiceCollector<S> setOnUnbinding(
-            BiConsumer<ServiceReference<S>, S> onUnbinding) {
+    public ServiceCollector<S, W> setOnUnbinding(
+            BiConsumer<ServiceReference<S>, W> onUnbinding) {
         this.onUnbinding = onUnbinding;
         return this;
     }
@@ -260,8 +287,8 @@ public class ServiceCollector<S> implements AutoCloseable {
      * @param onUnbindingLast the function to call
      * @return the {@code ServiceCollector}
      */
-    public ServiceCollector<S> setOnUnbindingLast(
-            BiConsumer<ServiceReference<S>, S> onUnbindingLast) {
+    public ServiceCollector<S, W> setOnUnbindingLast(
+            BiConsumer<ServiceReference<S>, W> onUnbindingLast) {
         this.onUnbindingLast = onUnbindingLast;
         return this;
     }
@@ -274,8 +301,8 @@ public class ServiceCollector<S> implements AutoCloseable {
      * @param onModified the function to call
      * @return the {@code ServiceCollector}
      */
-    public ServiceCollector<S> setOnModfied(
-            BiConsumer<ServiceReference<S>, S> onModified) {
+    public ServiceCollector<S, W> setOnModfied(
+            BiConsumer<ServiceReference<S>, W> onModified) {
         this.onModified = onModified;
         return this;
     }
@@ -429,7 +456,7 @@ public class ServiceCollector<S> implements AutoCloseable {
             break;
         case ServiceEvent.MODIFIED:
             synchronized (this) {
-                S service = collected.get(reference);
+                W service = collected.get(reference);
                 if (service == null) {
                     // Probably still in initialReferences, ignore.
                     return;
@@ -466,7 +493,11 @@ public class ServiceCollector<S> implements AutoCloseable {
                 // Skip, will be added as initial.
                 return;
             }
-            S service = (S) context.getService(reference);
+
+            S obtained = context.getService(reference);
+            @SuppressWarnings("unchecked")
+            W service = (wrapper == null) ? (W) obtained
+                : wrapper.apply(context.getService(reference));
             if (service == null) {
                 // Has vanished in the meantime, should not happen when
                 // processing a REGISTERED event, but may happen when
@@ -487,7 +518,7 @@ public class ServiceCollector<S> implements AutoCloseable {
 
     private void removeFromCollected(ServiceReference<S> reference) {
         synchronized (this) {
-            S service = collected.get(reference);
+            W service = collected.get(reference);
             if (service == null) {
                 return;
             }
@@ -539,13 +570,13 @@ public class ServiceCollector<S> implements AutoCloseable {
      *     current thread.
      * @throws IllegalArgumentException If the value of timeout is negative.
      */
-    public Optional<S> waitForService(long timeout)
+    public Optional<W> waitForService(long timeout)
             throws InterruptedException {
         if (timeout < 0) {
             throw new IllegalArgumentException("timeout value is negative");
         }
 
-        S service = service().orElse(null);
+        W service = service().orElse(null);
         if (service != null) {
             return Optional.of(service);
         }
@@ -559,7 +590,7 @@ public class ServiceCollector<S> implements AutoCloseable {
                 }
                 modificationCount.wait(timeout);
             }
-            Optional<S> found = service();
+            Optional<W> found = service();
             if (found.isPresent()) {
                 return found;
             }
@@ -616,7 +647,7 @@ public class ServiceCollector<S> implements AutoCloseable {
      * @param reference the reference to the desired service.
      * @return an optional service object
      */
-    public Optional<S> service(ServiceReference<S> reference) {
+    public Optional<W> service(ServiceReference<S> reference) {
         synchronized (this) {
             return Optional.ofNullable(collected.get(reference));
         }
@@ -632,13 +663,13 @@ public class ServiceCollector<S> implements AutoCloseable {
      * 
      * @return an optional service object
      */
-    public Optional<S> service() {
-        final S cached = cachedService;
+    public Optional<W> service() {
+        final W cached = cachedService;
         if (cached != null) {
             return Optional.of(cached);
         }
         synchronized (this) {
-            Iterator<S> iter = collected.values().iterator();
+            Iterator<W> iter = collected.values().iterator();
             if (iter.hasNext()) {
                 cachedService = iter.next();
                 return Optional.of(cachedService);
@@ -654,7 +685,7 @@ public class ServiceCollector<S> implements AutoCloseable {
      * 
      * @return a list of service objects which may be empty
      */
-    public List<S> services() {
+    public List<W> services() {
         synchronized (this) {
             return Collections
                 .unmodifiableList(new ArrayList<>(collected.values()));
@@ -718,7 +749,7 @@ public class ServiceCollector<S> implements AutoCloseable {
      *         {@code ServiceCollector}. If no services have been collected,
      *         then the returned map is empty.
      */
-    public SortedMap<ServiceReference<S>, S> collected() {
+    public SortedMap<ServiceReference<S>, W> collected() {
         synchronized (this) {
             if (collected.isEmpty()) {
                 return new TreeMap<>(Collections.reverseOrder());

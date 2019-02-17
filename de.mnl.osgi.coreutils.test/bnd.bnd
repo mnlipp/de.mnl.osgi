@@ -20,6 +20,7 @@ Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
 	${mockito-deps},\
 	osgi.core; version=6.0,\
 	osgi.annotation; version=6.0.1,\
+	net.jodah.concurrentunit;version=latest,\
 	de.mnl.osgi.coreutils;version=snapshot
 
 javac.source: 1.8
@@ -53,6 +54,7 @@ Export-Package: de.mnl.osgi.coreutils.test
 	${junit},\
 	${mockito},\
 	${mockito-deps},\
+	net.jodah.concurrentunit;version=latest,\
 	de.mnl.osgi.coreutils;version=snapshot
 
 -fixupmessages: \

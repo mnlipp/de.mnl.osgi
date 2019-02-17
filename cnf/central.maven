@@ -26,3 +26,4 @@ net.bytebuddy:byte-buddy:1.9.8
 net.bytebuddy:byte-buddy-agent:1.9.8
 
 org.hamcrest:hamcrest-all:1.3
+net.jodah:concurrentunit:0.4.4
