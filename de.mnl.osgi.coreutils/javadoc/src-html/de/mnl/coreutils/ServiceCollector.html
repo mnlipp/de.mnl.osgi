@@ -235,561 +235,562 @@
 <span class="sourceLineNo">227</span>     * as a filter.<a name="line.227"></a>
 <span class="sourceLineNo">228</span>     *<a name="line.228"></a>
 <span class="sourceLineNo">229</span>     * @param wrapper the wrapper function<a name="line.229"></a>
-<span class="sourceLineNo">230</span>     */<a name="line.230"></a>
-<span class="sourceLineNo">231</span>    public ServiceCollector&lt;S, W&gt; setWrapper(Function&lt;S, W&gt; wrapper) {<a name="line.231"></a>
-<span class="sourceLineNo">232</span>        this.wrapper = wrapper;<a name="line.232"></a>
-<span class="sourceLineNo">233</span>        return this;<a name="line.233"></a>
-<span class="sourceLineNo">234</span>    }<a name="line.234"></a>
-<span class="sourceLineNo">235</span><a name="line.235"></a>
-<span class="sourceLineNo">236</span>    /**<a name="line.236"></a>
-<span class="sourceLineNo">237</span>     * Sets a function to be called when the first service becomes <a name="line.237"></a>
-<span class="sourceLineNo">238</span>     * available. The service reference to the new service <a name="line.238"></a>
-<span class="sourceLineNo">239</span>     * and the service are passed as arguments.<a name="line.239"></a>
-<span class="sourceLineNo">240</span>     *<a name="line.240"></a>
-<span class="sourceLineNo">241</span>     * @param onBoundFirst the function to be called<a name="line.241"></a>
-<span class="sourceLineNo">242</span>     * @return the {@code ServiceCollector}<a name="line.242"></a>
-<span class="sourceLineNo">243</span>     */<a name="line.243"></a>
-<span class="sourceLineNo">244</span>    public ServiceCollector&lt;S, W&gt; setOnBoundFirst(<a name="line.244"></a>
-<span class="sourceLineNo">245</span>            BiConsumer&lt;ServiceReference&lt;S&gt;, W&gt; onBoundFirst) {<a name="line.245"></a>
-<span class="sourceLineNo">246</span>        this.onBoundFirst = onBoundFirst;<a name="line.246"></a>
-<span class="sourceLineNo">247</span>        return this;<a name="line.247"></a>
-<span class="sourceLineNo">248</span>    }<a name="line.248"></a>
-<span class="sourceLineNo">249</span><a name="line.249"></a>
-<span class="sourceLineNo">250</span>    /**<a name="line.250"></a>
-<span class="sourceLineNo">251</span>     * Sets a function to be called when a new service becomes <a name="line.251"></a>
-<span class="sourceLineNo">252</span>     * available. The service reference to the new service <a name="line.252"></a>
-<span class="sourceLineNo">253</span>     * and the service are passed as arguments. If both an<a name="line.253"></a>
-<span class="sourceLineNo">254</span>     * "onAvailable" and an "onFirstAvailable" function are<a name="line.254"></a>
-<span class="sourceLineNo">255</span>     * provided, the latter will be called first.<a name="line.255"></a>
-<span class="sourceLineNo">256</span>     *<a name="line.256"></a>
-<span class="sourceLineNo">257</span>     * @param onBound the function to be called<a name="line.257"></a>
-<span class="sourceLineNo">258</span>     * @return the {@code ServiceCollector}<a name="line.258"></a>
-<span class="sourceLineNo">259</span>     */<a name="line.259"></a>
-<span class="sourceLineNo">260</span>    public ServiceCollector&lt;S, W&gt; setOnBound(<a name="line.260"></a>
-<span class="sourceLineNo">261</span>            BiConsumer&lt;ServiceReference&lt;S&gt;, W&gt; onBound) {<a name="line.261"></a>
-<span class="sourceLineNo">262</span>        this.onBound = onBound;<a name="line.262"></a>
-<span class="sourceLineNo">263</span>        return this;<a name="line.263"></a>
-<span class="sourceLineNo">264</span>    }<a name="line.264"></a>
-<span class="sourceLineNo">265</span><a name="line.265"></a>
-<span class="sourceLineNo">266</span>    /**<a name="line.266"></a>
-<span class="sourceLineNo">267</span>     * Sets a function to be called when one of the collected services<a name="line.267"></a>
-<span class="sourceLineNo">268</span>     * becomes unavailable. The service reference to the modified service <a name="line.268"></a>
-<span class="sourceLineNo">269</span>     * and the service are passed as arguments.<a name="line.269"></a>
-<span class="sourceLineNo">270</span>     *<a name="line.270"></a>
-<span class="sourceLineNo">271</span>     * @param onUnbinding the function to call<a name="line.271"></a>
-<span class="sourceLineNo">272</span>     * @return the {@code ServiceCollector}<a name="line.272"></a>
-<span class="sourceLineNo">273</span>     */<a name="line.273"></a>
-<span class="sourceLineNo">274</span>    public ServiceCollector&lt;S, W&gt; setOnUnbinding(<a name="line.274"></a>
-<span class="sourceLineNo">275</span>            BiConsumer&lt;ServiceReference&lt;S&gt;, W&gt; onUnbinding) {<a name="line.275"></a>
-<span class="sourceLineNo">276</span>        this.onUnbinding = onUnbinding;<a name="line.276"></a>
-<span class="sourceLineNo">277</span>        return this;<a name="line.277"></a>
-<span class="sourceLineNo">278</span>    }<a name="line.278"></a>
-<span class="sourceLineNo">279</span><a name="line.279"></a>
-<span class="sourceLineNo">280</span>    /**<a name="line.280"></a>
-<span class="sourceLineNo">281</span>     * Sets a function to be called when the last of the collected services<a name="line.281"></a>
-<span class="sourceLineNo">282</span>     * becomes unavailable. The service reference to the modified service <a name="line.282"></a>
-<span class="sourceLineNo">283</span>     * and the service are passed as arguments. If both an<a name="line.283"></a>
-<span class="sourceLineNo">284</span>     * "onUnavailable" and an "onLastUnavailable" function are set,<a name="line.284"></a>
-<span class="sourceLineNo">285</span>     * the latter will be called last.<a name="line.285"></a>
-<span class="sourceLineNo">286</span>     *<a name="line.286"></a>
-<span class="sourceLineNo">287</span>     * @param onUnbindingLast the function to call<a name="line.287"></a>
-<span class="sourceLineNo">288</span>     * @return the {@code ServiceCollector}<a name="line.288"></a>
-<span class="sourceLineNo">289</span>     */<a name="line.289"></a>
-<span class="sourceLineNo">290</span>    public ServiceCollector&lt;S, W&gt; setOnUnbindingLast(<a name="line.290"></a>
-<span class="sourceLineNo">291</span>            BiConsumer&lt;ServiceReference&lt;S&gt;, W&gt; onUnbindingLast) {<a name="line.291"></a>
-<span class="sourceLineNo">292</span>        this.onUnbindingLast = onUnbindingLast;<a name="line.292"></a>
-<span class="sourceLineNo">293</span>        return this;<a name="line.293"></a>
-<span class="sourceLineNo">294</span>    }<a name="line.294"></a>
-<span class="sourceLineNo">295</span><a name="line.295"></a>
-<span class="sourceLineNo">296</span>    /**<a name="line.296"></a>
-<span class="sourceLineNo">297</span>     * Sets a function to be called when one of the collected services<a name="line.297"></a>
-<span class="sourceLineNo">298</span>     * changes. The service reference to the modified service and<a name="line.298"></a>
-<span class="sourceLineNo">299</span>     * the service are passed as arguments.<a name="line.299"></a>
-<span class="sourceLineNo">300</span>     *<a name="line.300"></a>
-<span class="sourceLineNo">301</span>     * @param onModified the function to call<a name="line.301"></a>
-<span class="sourceLineNo">302</span>     * @return the {@code ServiceCollector}<a name="line.302"></a>
-<span class="sourceLineNo">303</span>     */<a name="line.303"></a>
-<span class="sourceLineNo">304</span>    public ServiceCollector&lt;S, W&gt; setOnModfied(<a name="line.304"></a>
-<span class="sourceLineNo">305</span>            BiConsumer&lt;ServiceReference&lt;S&gt;, W&gt; onModified) {<a name="line.305"></a>
-<span class="sourceLineNo">306</span>        this.onModified = onModified;<a name="line.306"></a>
-<span class="sourceLineNo">307</span>        return this;<a name="line.307"></a>
-<span class="sourceLineNo">308</span>    }<a name="line.308"></a>
-<span class="sourceLineNo">309</span><a name="line.309"></a>
-<span class="sourceLineNo">310</span>    private void modified() {<a name="line.310"></a>
-<span class="sourceLineNo">311</span>        synchronized (modificationCount) {<a name="line.311"></a>
-<span class="sourceLineNo">312</span>            modificationCount[0] = modificationCount[0] + 1;<a name="line.312"></a>
-<span class="sourceLineNo">313</span>            cachedService = null;<a name="line.313"></a>
-<span class="sourceLineNo">314</span>            modificationCount.notifyAll();<a name="line.314"></a>
-<span class="sourceLineNo">315</span>        }<a name="line.315"></a>
-<span class="sourceLineNo">316</span>    }<a name="line.316"></a>
-<span class="sourceLineNo">317</span><a name="line.317"></a>
-<span class="sourceLineNo">318</span>    /**<a name="line.318"></a>
-<span class="sourceLineNo">319</span>     * Starts collecting of service providers. Short for calling <a name="line.319"></a>
-<span class="sourceLineNo">320</span>     * {@code open(false)}.<a name="line.320"></a>
-<span class="sourceLineNo">321</span>     *<a name="line.321"></a>
-<span class="sourceLineNo">322</span>     * @throws IllegalStateException If the {@code BundleConetxt}<a name="line.322"></a>
-<span class="sourceLineNo">323</span>     *     with which this {@code ServiceCollector} was created is <a name="line.323"></a>
-<span class="sourceLineNo">324</span>     *     no longer valid.<a name="line.324"></a>
-<span class="sourceLineNo">325</span>     */<a name="line.325"></a>
-<span class="sourceLineNo">326</span>    public void open() throws IllegalStateException {<a name="line.326"></a>
-<span class="sourceLineNo">327</span>        open(false);<a name="line.327"></a>
-<span class="sourceLineNo">328</span>    }<a name="line.328"></a>
-<span class="sourceLineNo">329</span><a name="line.329"></a>
-<span class="sourceLineNo">330</span>    /**<a name="line.330"></a>
-<span class="sourceLineNo">331</span>     * Starts collecting services. Short for calling {@code open(false)}.<a name="line.331"></a>
-<span class="sourceLineNo">332</span>     * <a name="line.332"></a>
-<span class="sourceLineNo">333</span>     * @param collectAllServices if &lt;code&gt;true&lt;/code&gt;, then this <a name="line.333"></a>
-<span class="sourceLineNo">334</span>     *     {@code ServiceCollector} will collect all matching services <a name="line.334"></a>
-<span class="sourceLineNo">335</span>     *     regardless of class loader<a name="line.335"></a>
-<span class="sourceLineNo">336</span>     *     accessibility. If &lt;code&gt;false&lt;/code&gt;, then <a name="line.336"></a>
-<span class="sourceLineNo">337</span>     *     this {@code ServiceCollector} will only collect matching services <a name="line.337"></a>
-<span class="sourceLineNo">338</span>     *     which are class loader<a name="line.338"></a>
-<span class="sourceLineNo">339</span>     *     accessible to the bundle whose &lt;code&gt;BundleContext&lt;/code&gt; is <a name="line.339"></a>
-<span class="sourceLineNo">340</span>     *     used by this {@code ServiceCollector}.<a name="line.340"></a>
-<span class="sourceLineNo">341</span>     * @throws IllegalStateException If the {@code BundleConetxt}<a name="line.341"></a>
-<span class="sourceLineNo">342</span>     *     with which this {@code ServiceCollector} was created is no <a name="line.342"></a>
-<span class="sourceLineNo">343</span>     *     longer valid.<a name="line.343"></a>
-<span class="sourceLineNo">344</span>     */<a name="line.344"></a>
-<span class="sourceLineNo">345</span>    public void open(boolean collectAllServices) throws IllegalStateException {<a name="line.345"></a>
-<span class="sourceLineNo">346</span>        synchronized (this) {<a name="line.346"></a>
-<span class="sourceLineNo">347</span>            if (isOpen()) {<a name="line.347"></a>
-<span class="sourceLineNo">348</span>                // Already open, don't treat as error.<a name="line.348"></a>
-<span class="sourceLineNo">349</span>                return;<a name="line.349"></a>
-<span class="sourceLineNo">350</span>            }<a name="line.350"></a>
-<span class="sourceLineNo">351</span>            modificationCount[0] = 0;<a name="line.351"></a>
-<span class="sourceLineNo">352</span>            try {<a name="line.352"></a>
-<span class="sourceLineNo">353</span>                registerListener(collectAllServices);<a name="line.353"></a>
-<span class="sourceLineNo">354</span>                if (collectClass != null) {<a name="line.354"></a>
-<span class="sourceLineNo">355</span>                    initialReferences.addAll(getInitialReferences(<a name="line.355"></a>
-<span class="sourceLineNo">356</span>                        collectAllServices, collectClass, null));<a name="line.356"></a>
-<span class="sourceLineNo">357</span>                } else if (collectReference != null) {<a name="line.357"></a>
-<span class="sourceLineNo">358</span>                    if (collectReference.getBundle() != null) {<a name="line.358"></a>
-<span class="sourceLineNo">359</span>                        initialReferences.add(collectReference);<a name="line.359"></a>
-<span class="sourceLineNo">360</span>                    }<a name="line.360"></a>
-<span class="sourceLineNo">361</span>                } else { /* user supplied filter */<a name="line.361"></a>
-<span class="sourceLineNo">362</span>                    initialReferences.addAll(getInitialReferences(<a name="line.362"></a>
-<span class="sourceLineNo">363</span>                        collectAllServices, null, listenerFilter));<a name="line.363"></a>
-<span class="sourceLineNo">364</span>                }<a name="line.364"></a>
-<span class="sourceLineNo">365</span>                processInitial();<a name="line.365"></a>
-<span class="sourceLineNo">366</span>            } catch (InvalidSyntaxException e) {<a name="line.366"></a>
-<span class="sourceLineNo">367</span>                throw new RuntimeException(<a name="line.367"></a>
-<span class="sourceLineNo">368</span>                    "unexpected InvalidSyntaxException: " + e.getMessage(),<a name="line.368"></a>
-<span class="sourceLineNo">369</span>                    e);<a name="line.369"></a>
-<span class="sourceLineNo">370</span>            }<a name="line.370"></a>
-<span class="sourceLineNo">371</span>        }<a name="line.371"></a>
-<span class="sourceLineNo">372</span>    }<a name="line.372"></a>
-<span class="sourceLineNo">373</span><a name="line.373"></a>
-<span class="sourceLineNo">374</span>    private void registerListener(boolean collectAllServices)<a name="line.374"></a>
-<span class="sourceLineNo">375</span>            throws InvalidSyntaxException {<a name="line.375"></a>
-<span class="sourceLineNo">376</span>        if (collectAllServices) {<a name="line.376"></a>
-<span class="sourceLineNo">377</span>            listener = new AllServiceListener() {<a name="line.377"></a>
-<span class="sourceLineNo">378</span>                @Override<a name="line.378"></a>
-<span class="sourceLineNo">379</span>                public void serviceChanged(ServiceEvent event) {<a name="line.379"></a>
-<span class="sourceLineNo">380</span>                    ServiceCollector.this.serviceChanged(event);<a name="line.380"></a>
-<span class="sourceLineNo">381</span>                }<a name="line.381"></a>
-<span class="sourceLineNo">382</span>            };<a name="line.382"></a>
-<span class="sourceLineNo">383</span>        } else {<a name="line.383"></a>
-<span class="sourceLineNo">384</span>            listener = new ServiceListener() {<a name="line.384"></a>
-<span class="sourceLineNo">385</span><a name="line.385"></a>
-<span class="sourceLineNo">386</span>                @Override<a name="line.386"></a>
-<span class="sourceLineNo">387</span>                public void serviceChanged(ServiceEvent event) {<a name="line.387"></a>
-<span class="sourceLineNo">388</span>                    ServiceCollector.this.serviceChanged(event);<a name="line.388"></a>
-<span class="sourceLineNo">389</span>                }<a name="line.389"></a>
-<span class="sourceLineNo">390</span><a name="line.390"></a>
-<span class="sourceLineNo">391</span>            };<a name="line.391"></a>
-<span class="sourceLineNo">392</span>        }<a name="line.392"></a>
-<span class="sourceLineNo">393</span>        context.addServiceListener(listener, listenerFilter);<a name="line.393"></a>
-<span class="sourceLineNo">394</span>    }<a name="line.394"></a>
-<span class="sourceLineNo">395</span><a name="line.395"></a>
-<span class="sourceLineNo">396</span>    /**<a name="line.396"></a>
-<span class="sourceLineNo">397</span>     * Returns the list of initial {@code ServiceReference}s that will be<a name="line.397"></a>
-<span class="sourceLineNo">398</span>     * collected by this {@code ServiceCollector}.<a name="line.398"></a>
-<span class="sourceLineNo">399</span>     * <a name="line.399"></a>
-<span class="sourceLineNo">400</span>     * @param collectAllServices If {@code true}, use<a name="line.400"></a>
-<span class="sourceLineNo">401</span>     *        {@code getAllServiceReferences}.<a name="line.401"></a>
-<span class="sourceLineNo">402</span>     * @param className The class name with which the service was registered, or<a name="line.402"></a>
-<span class="sourceLineNo">403</span>     *        {@code null} for all services.<a name="line.403"></a>
-<span class="sourceLineNo">404</span>     * @param filterString The filter criteria or {@code null} for all services.<a name="line.404"></a>
-<span class="sourceLineNo">405</span>     * @return The list of initial {@code ServiceReference}s.<a name="line.405"></a>
-<span class="sourceLineNo">406</span>     * @throws InvalidSyntaxException If the specified filterString has an<a name="line.406"></a>
-<span class="sourceLineNo">407</span>     *         invalid syntax.<a name="line.407"></a>
-<span class="sourceLineNo">408</span>     */<a name="line.408"></a>
-<span class="sourceLineNo">409</span>    private List&lt;ServiceReference&lt;S&gt;&gt; getInitialReferences(<a name="line.409"></a>
-<span class="sourceLineNo">410</span>            boolean collectAllServices, String className, String filterString)<a name="line.410"></a>
-<span class="sourceLineNo">411</span>            throws InvalidSyntaxException {<a name="line.411"></a>
-<span class="sourceLineNo">412</span>        @SuppressWarnings("unchecked")<a name="line.412"></a>
-<span class="sourceLineNo">413</span>        ServiceReference&lt;S&gt;[] result<a name="line.413"></a>
-<span class="sourceLineNo">414</span>            = (ServiceReference&lt;S&gt;[]) ((collectAllServices)<a name="line.414"></a>
-<span class="sourceLineNo">415</span>                ? context.getAllServiceReferences(className, filterString)<a name="line.415"></a>
-<span class="sourceLineNo">416</span>                : context.getServiceReferences(className, filterString));<a name="line.416"></a>
-<span class="sourceLineNo">417</span>        if (result == null) {<a name="line.417"></a>
-<span class="sourceLineNo">418</span>            return Collections.emptyList();<a name="line.418"></a>
-<span class="sourceLineNo">419</span>        }<a name="line.419"></a>
-<span class="sourceLineNo">420</span>        return Arrays.asList(result);<a name="line.420"></a>
-<span class="sourceLineNo">421</span>    }<a name="line.421"></a>
-<span class="sourceLineNo">422</span><a name="line.422"></a>
-<span class="sourceLineNo">423</span>    private void processInitial() {<a name="line.423"></a>
-<span class="sourceLineNo">424</span>        while (true) {<a name="line.424"></a>
-<span class="sourceLineNo">425</span>            ServiceReference&lt;S&gt; reference;<a name="line.425"></a>
-<span class="sourceLineNo">426</span>            synchronized (this) {<a name="line.426"></a>
-<span class="sourceLineNo">427</span>                if (!isOpen() || (initialReferences.size() == 0)) {<a name="line.427"></a>
-<span class="sourceLineNo">428</span>                    return; /* we are done */<a name="line.428"></a>
-<span class="sourceLineNo">429</span>                }<a name="line.429"></a>
-<span class="sourceLineNo">430</span>                // Get one...<a name="line.430"></a>
-<span class="sourceLineNo">431</span>                Iterator&lt;ServiceReference&lt;S&gt;&gt; iter<a name="line.431"></a>
-<span class="sourceLineNo">432</span>                    = initialReferences.iterator();<a name="line.432"></a>
-<span class="sourceLineNo">433</span>                reference = iter.next();<a name="line.433"></a>
-<span class="sourceLineNo">434</span>                iter.remove();<a name="line.434"></a>
-<span class="sourceLineNo">435</span>            }<a name="line.435"></a>
-<span class="sourceLineNo">436</span>            // Process as if it was just registered.<a name="line.436"></a>
-<span class="sourceLineNo">437</span>            addToCollected(reference);<a name="line.437"></a>
-<span class="sourceLineNo">438</span>        }<a name="line.438"></a>
-<span class="sourceLineNo">439</span>    }<a name="line.439"></a>
-<span class="sourceLineNo">440</span><a name="line.440"></a>
-<span class="sourceLineNo">441</span>    private void serviceChanged(ServiceEvent event) {<a name="line.441"></a>
-<span class="sourceLineNo">442</span>        /*<a name="line.442"></a>
-<span class="sourceLineNo">443</span>         * Check if we had a delayed call (which could happen when we<a name="line.443"></a>
-<span class="sourceLineNo">444</span>         * close).<a name="line.444"></a>
-<span class="sourceLineNo">445</span>         */<a name="line.445"></a>
-<span class="sourceLineNo">446</span>        if (!isOpen()) {<a name="line.446"></a>
-<span class="sourceLineNo">447</span>            return;<a name="line.447"></a>
-<span class="sourceLineNo">448</span>        }<a name="line.448"></a>
-<span class="sourceLineNo">449</span>        @SuppressWarnings("unchecked")<a name="line.449"></a>
-<span class="sourceLineNo">450</span>        final ServiceReference&lt;S&gt; reference<a name="line.450"></a>
-<span class="sourceLineNo">451</span>            = (ServiceReference&lt;S&gt;) event.getServiceReference();<a name="line.451"></a>
-<span class="sourceLineNo">452</span><a name="line.452"></a>
-<span class="sourceLineNo">453</span>        switch (event.getType()) {<a name="line.453"></a>
-<span class="sourceLineNo">454</span>        case ServiceEvent.REGISTERED:<a name="line.454"></a>
-<span class="sourceLineNo">455</span>            addToCollected(reference);<a name="line.455"></a>
-<span class="sourceLineNo">456</span>            break;<a name="line.456"></a>
-<span class="sourceLineNo">457</span>        case ServiceEvent.MODIFIED:<a name="line.457"></a>
-<span class="sourceLineNo">458</span>            synchronized (this) {<a name="line.458"></a>
-<span class="sourceLineNo">459</span>                W service = collected.get(reference);<a name="line.459"></a>
-<span class="sourceLineNo">460</span>                if (service == null) {<a name="line.460"></a>
-<span class="sourceLineNo">461</span>                    // Probably still in initialReferences, ignore.<a name="line.461"></a>
-<span class="sourceLineNo">462</span>                    return;<a name="line.462"></a>
-<span class="sourceLineNo">463</span>                }<a name="line.463"></a>
-<span class="sourceLineNo">464</span>                modified();<a name="line.464"></a>
-<span class="sourceLineNo">465</span>                Optional.ofNullable(onModified)<a name="line.465"></a>
-<span class="sourceLineNo">466</span>                    .ifPresent(cb -&gt; cb.accept(reference, service));<a name="line.466"></a>
-<span class="sourceLineNo">467</span>            }<a name="line.467"></a>
-<span class="sourceLineNo">468</span>            break;<a name="line.468"></a>
-<span class="sourceLineNo">469</span>        case ServiceEvent.MODIFIED_ENDMATCH:<a name="line.469"></a>
-<span class="sourceLineNo">470</span>        case ServiceEvent.UNREGISTERING:<a name="line.470"></a>
-<span class="sourceLineNo">471</span>            removeFromCollected(reference);<a name="line.471"></a>
-<span class="sourceLineNo">472</span>            break;<a name="line.472"></a>
-<span class="sourceLineNo">473</span>        }<a name="line.473"></a>
-<span class="sourceLineNo">474</span><a name="line.474"></a>
-<span class="sourceLineNo">475</span>    }<a name="line.475"></a>
-<span class="sourceLineNo">476</span><a name="line.476"></a>
-<span class="sourceLineNo">477</span>    /**<a name="line.477"></a>
-<span class="sourceLineNo">478</span>     * Add the given reference to the collected services.<a name="line.478"></a>
-<span class="sourceLineNo">479</span>     * <a name="line.479"></a>
-<span class="sourceLineNo">480</span>     * @param reference reference to be collected.<a name="line.480"></a>
-<span class="sourceLineNo">481</span>     */<a name="line.481"></a>
-<span class="sourceLineNo">482</span>    private void addToCollected(final ServiceReference&lt;S&gt; reference) {<a name="line.482"></a>
-<span class="sourceLineNo">483</span>        synchronized (this) {<a name="line.483"></a>
-<span class="sourceLineNo">484</span>            if (!isOpen()) {<a name="line.484"></a>
-<span class="sourceLineNo">485</span>                // We have been closed.<a name="line.485"></a>
-<span class="sourceLineNo">486</span>                return;<a name="line.486"></a>
-<span class="sourceLineNo">487</span>            }<a name="line.487"></a>
-<span class="sourceLineNo">488</span>            if (collected.get(reference) != null) {<a name="line.488"></a>
-<span class="sourceLineNo">489</span>                /* if we are already collecting this reference */<a name="line.489"></a>
-<span class="sourceLineNo">490</span>                return; /* skip this reference */<a name="line.490"></a>
-<span class="sourceLineNo">491</span>            }<a name="line.491"></a>
-<span class="sourceLineNo">492</span>            if (initialReferences.contains(reference)) {<a name="line.492"></a>
-<span class="sourceLineNo">493</span>                // Skip, will be added as initial.<a name="line.493"></a>
-<span class="sourceLineNo">494</span>                return;<a name="line.494"></a>
-<span class="sourceLineNo">495</span>            }<a name="line.495"></a>
-<span class="sourceLineNo">496</span><a name="line.496"></a>
-<span class="sourceLineNo">497</span>            S obtained = context.getService(reference);<a name="line.497"></a>
-<span class="sourceLineNo">498</span>            @SuppressWarnings("unchecked")<a name="line.498"></a>
-<span class="sourceLineNo">499</span>            W service = (wrapper == null) ? (W) obtained<a name="line.499"></a>
-<span class="sourceLineNo">500</span>                : wrapper.apply(context.getService(reference));<a name="line.500"></a>
-<span class="sourceLineNo">501</span>            if (service == null) {<a name="line.501"></a>
-<span class="sourceLineNo">502</span>                // Has vanished in the meantime, should not happen when<a name="line.502"></a>
-<span class="sourceLineNo">503</span>                // processing a REGISTERED event, but may happen when<a name="line.503"></a>
-<span class="sourceLineNo">504</span>                // processing a reference from initialReferences.<a name="line.504"></a>
-<span class="sourceLineNo">505</span>                return;<a name="line.505"></a>
-<span class="sourceLineNo">506</span>            }<a name="line.506"></a>
-<span class="sourceLineNo">507</span>            boolean wasEmpty = collected.isEmpty();<a name="line.507"></a>
-<span class="sourceLineNo">508</span>            collected.put(reference, service);<a name="line.508"></a>
-<span class="sourceLineNo">509</span>            modified();<a name="line.509"></a>
-<span class="sourceLineNo">510</span>            if (wasEmpty) {<a name="line.510"></a>
-<span class="sourceLineNo">511</span>                Optional.ofNullable(onBoundFirst)<a name="line.511"></a>
-<span class="sourceLineNo">512</span>                    .ifPresent(cb -&gt; cb.accept(reference, service));<a name="line.512"></a>
-<span class="sourceLineNo">513</span>            }<a name="line.513"></a>
-<span class="sourceLineNo">514</span>            Optional.ofNullable(onBound)<a name="line.514"></a>
-<span class="sourceLineNo">515</span>                .ifPresent(cb -&gt; cb.accept(reference, service));<a name="line.515"></a>
-<span class="sourceLineNo">516</span>        }<a name="line.516"></a>
-<span class="sourceLineNo">517</span>    }<a name="line.517"></a>
-<span class="sourceLineNo">518</span><a name="line.518"></a>
-<span class="sourceLineNo">519</span>    private void removeFromCollected(ServiceReference&lt;S&gt; reference) {<a name="line.519"></a>
-<span class="sourceLineNo">520</span>        synchronized (this) {<a name="line.520"></a>
-<span class="sourceLineNo">521</span>            W service = collected.get(reference);<a name="line.521"></a>
-<span class="sourceLineNo">522</span>            if (service == null) {<a name="line.522"></a>
-<span class="sourceLineNo">523</span>                return;<a name="line.523"></a>
-<span class="sourceLineNo">524</span>            }<a name="line.524"></a>
-<span class="sourceLineNo">525</span>            Optional.ofNullable(onUnbinding)<a name="line.525"></a>
-<span class="sourceLineNo">526</span>                .ifPresent(cb -&gt; cb.accept(reference, service));<a name="line.526"></a>
-<span class="sourceLineNo">527</span>            if (collected.size() == 1) {<a name="line.527"></a>
-<span class="sourceLineNo">528</span>                Optional.ofNullable(onUnbindingLast)<a name="line.528"></a>
-<span class="sourceLineNo">529</span>                    .ifPresent(cb -&gt; cb.accept(reference, service));<a name="line.529"></a>
-<span class="sourceLineNo">530</span>            }<a name="line.530"></a>
-<span class="sourceLineNo">531</span>            context.ungetService(reference);<a name="line.531"></a>
-<span class="sourceLineNo">532</span>            collected.remove(reference);<a name="line.532"></a>
-<span class="sourceLineNo">533</span>            if (isOpen()) {<a name="line.533"></a>
-<span class="sourceLineNo">534</span>                modified();<a name="line.534"></a>
-<span class="sourceLineNo">535</span>            }<a name="line.535"></a>
-<span class="sourceLineNo">536</span>        }<a name="line.536"></a>
-<span class="sourceLineNo">537</span>    }<a name="line.537"></a>
-<span class="sourceLineNo">538</span><a name="line.538"></a>
-<span class="sourceLineNo">539</span>    /**<a name="line.539"></a>
-<span class="sourceLineNo">540</span>     * Stops collecting services.<a name="line.540"></a>
-<span class="sourceLineNo">541</span>     */<a name="line.541"></a>
-<span class="sourceLineNo">542</span>    public void close() {<a name="line.542"></a>
-<span class="sourceLineNo">543</span>        synchronized (this) {<a name="line.543"></a>
-<span class="sourceLineNo">544</span>            context.removeServiceListener(listener);<a name="line.544"></a>
-<span class="sourceLineNo">545</span>            synchronized (modificationCount) {<a name="line.545"></a>
-<span class="sourceLineNo">546</span>                modificationCount[0] = -1;<a name="line.546"></a>
-<span class="sourceLineNo">547</span>                modificationCount.notifyAll();<a name="line.547"></a>
-<span class="sourceLineNo">548</span>            }<a name="line.548"></a>
-<span class="sourceLineNo">549</span>            while (!collected.isEmpty()) {<a name="line.549"></a>
-<span class="sourceLineNo">550</span>                removeFromCollected(collected.lastKey());<a name="line.550"></a>
-<span class="sourceLineNo">551</span>            }<a name="line.551"></a>
-<span class="sourceLineNo">552</span>            cachedService = null;<a name="line.552"></a>
-<span class="sourceLineNo">553</span>        }<a name="line.553"></a>
-<span class="sourceLineNo">554</span>    }<a name="line.554"></a>
-<span class="sourceLineNo">555</span><a name="line.555"></a>
-<span class="sourceLineNo">556</span>    /**<a name="line.556"></a>
-<span class="sourceLineNo">557</span>     * Wait for at least one service to be collected by this<a name="line.557"></a>
-<span class="sourceLineNo">558</span>     * {@code ServiceCollector}. This method will also return when this<a name="line.558"></a>
-<span class="sourceLineNo">559</span>     * {@code ServiceCollector} is closed from another thread.<a name="line.559"></a>
-<span class="sourceLineNo">560</span>     * &lt;p&gt;<a name="line.560"></a>
-<span class="sourceLineNo">561</span>     * It is strongly recommended that {@code waitForService} is not used <a name="line.561"></a>
-<span class="sourceLineNo">562</span>     * during the calling of the {@code BundleActivator} methods.<a name="line.562"></a>
-<span class="sourceLineNo">563</span>     * {@code BundleActivator} methods are expected to complete in a short<a name="line.563"></a>
-<span class="sourceLineNo">564</span>     * period of time.<a name="line.564"></a>
-<span class="sourceLineNo">565</span>     * <a name="line.565"></a>
-<span class="sourceLineNo">566</span>     * @param timeout The time interval in milliseconds to wait. If zero, the<a name="line.566"></a>
-<span class="sourceLineNo">567</span>     *     method will wait indefinitely.<a name="line.567"></a>
-<span class="sourceLineNo">568</span>     * @return Returns the result of {@link #service()}.<a name="line.568"></a>
-<span class="sourceLineNo">569</span>     * @throws InterruptedException If another thread has interrupted the<a name="line.569"></a>
-<span class="sourceLineNo">570</span>     *     current thread.<a name="line.570"></a>
-<span class="sourceLineNo">571</span>     * @throws IllegalArgumentException If the value of timeout is negative.<a name="line.571"></a>
-<span class="sourceLineNo">572</span>     */<a name="line.572"></a>
-<span class="sourceLineNo">573</span>    public Optional&lt;W&gt; waitForService(long timeout)<a name="line.573"></a>
-<span class="sourceLineNo">574</span>            throws InterruptedException {<a name="line.574"></a>
-<span class="sourceLineNo">575</span>        if (timeout &lt; 0) {<a name="line.575"></a>
-<span class="sourceLineNo">576</span>            throw new IllegalArgumentException("timeout value is negative");<a name="line.576"></a>
-<span class="sourceLineNo">577</span>        }<a name="line.577"></a>
-<span class="sourceLineNo">578</span><a name="line.578"></a>
-<span class="sourceLineNo">579</span>        W service = service().orElse(null);<a name="line.579"></a>
-<span class="sourceLineNo">580</span>        if (service != null) {<a name="line.580"></a>
-<span class="sourceLineNo">581</span>            return Optional.of(service);<a name="line.581"></a>
-<span class="sourceLineNo">582</span>        }<a name="line.582"></a>
-<span class="sourceLineNo">583</span><a name="line.583"></a>
-<span class="sourceLineNo">584</span>        final long endTime<a name="line.584"></a>
-<span class="sourceLineNo">585</span>            = (timeout == 0) ? 0 : (System.currentTimeMillis() + timeout);<a name="line.585"></a>
-<span class="sourceLineNo">586</span>        while (true) {<a name="line.586"></a>
-<span class="sourceLineNo">587</span>            synchronized (modificationCount) {<a name="line.587"></a>
-<span class="sourceLineNo">588</span>                if (modificationCount() &lt; 0) {<a name="line.588"></a>
-<span class="sourceLineNo">589</span>                    return Optional.empty();<a name="line.589"></a>
-<span class="sourceLineNo">590</span>                }<a name="line.590"></a>
-<span class="sourceLineNo">591</span>                modificationCount.wait(timeout);<a name="line.591"></a>
-<span class="sourceLineNo">592</span>            }<a name="line.592"></a>
-<span class="sourceLineNo">593</span>            Optional&lt;W&gt; found = service();<a name="line.593"></a>
-<span class="sourceLineNo">594</span>            if (found.isPresent()) {<a name="line.594"></a>
-<span class="sourceLineNo">595</span>                return found;<a name="line.595"></a>
-<span class="sourceLineNo">596</span>            }<a name="line.596"></a>
-<span class="sourceLineNo">597</span>            if (endTime &gt; 0) { // if we have a timeout<a name="line.597"></a>
-<span class="sourceLineNo">598</span>                timeout = endTime - System.currentTimeMillis();<a name="line.598"></a>
-<span class="sourceLineNo">599</span>                if (timeout &lt;= 0) { // that has expired<a name="line.599"></a>
-<span class="sourceLineNo">600</span>                    return Optional.empty();<a name="line.600"></a>
-<span class="sourceLineNo">601</span>                }<a name="line.601"></a>
-<span class="sourceLineNo">602</span>            }<a name="line.602"></a>
-<span class="sourceLineNo">603</span>        }<a name="line.603"></a>
-<span class="sourceLineNo">604</span>    }<a name="line.604"></a>
-<span class="sourceLineNo">605</span><a name="line.605"></a>
-<span class="sourceLineNo">606</span>    /**<a name="line.606"></a>
-<span class="sourceLineNo">607</span>     * Return the current set of {@code ServiceReference}s for all services <a name="line.607"></a>
-<span class="sourceLineNo">608</span>     * collected by this {@code ServiceCollector}.<a name="line.608"></a>
-<span class="sourceLineNo">609</span>     * <a name="line.609"></a>
-<span class="sourceLineNo">610</span>     * @return the set.<a name="line.610"></a>
-<span class="sourceLineNo">611</span>     */<a name="line.611"></a>
-<span class="sourceLineNo">612</span>    public List&lt;ServiceReference&lt;S&gt;&gt; serviceReferences() {<a name="line.612"></a>
-<span class="sourceLineNo">613</span>        synchronized (this) {<a name="line.613"></a>
-<span class="sourceLineNo">614</span>            return Collections<a name="line.614"></a>
-<span class="sourceLineNo">615</span>                .unmodifiableList(new ArrayList&lt;&gt;(collected.keySet()));<a name="line.615"></a>
-<span class="sourceLineNo">616</span>        }<a name="line.616"></a>
-<span class="sourceLineNo">617</span>    }<a name="line.617"></a>
-<span class="sourceLineNo">618</span><a name="line.618"></a>
-<span class="sourceLineNo">619</span>    /**<a name="line.619"></a>
-<span class="sourceLineNo">620</span>     * Returns a {@code ServiceReference} for one of the services collected<a name="line.620"></a>
-<span class="sourceLineNo">621</span>     * by this {@code ServiceCollector}.<a name="line.621"></a>
-<span class="sourceLineNo">622</span>     * &lt;p&gt;<a name="line.622"></a>
-<span class="sourceLineNo">623</span>     * If multiple services have been collected, the service with the highest<a name="line.623"></a>
-<span class="sourceLineNo">624</span>     * ranking (as specified in its {@code service.ranking} property) is<a name="line.624"></a>
-<span class="sourceLineNo">625</span>     * returned. If there is a tie in ranking, the service with the lowest<a name="line.625"></a>
-<span class="sourceLineNo">626</span>     * service id (as specified in its {@code service.id} property); that is,<a name="line.626"></a>
-<span class="sourceLineNo">627</span>     * the service that was registered first is returned. This is the same<a name="line.627"></a>
-<span class="sourceLineNo">628</span>     * algorithm used by {@code BundleContext.getServiceReference}.<a name="line.628"></a>
-<span class="sourceLineNo">629</span>     * <a name="line.629"></a>
-<span class="sourceLineNo">630</span>     * @return an optional {@code ServiceReference}<a name="line.630"></a>
-<span class="sourceLineNo">631</span>     */<a name="line.631"></a>
-<span class="sourceLineNo">632</span>    public Optional&lt;ServiceReference&lt;S&gt;&gt; serviceReference() {<a name="line.632"></a>
-<span class="sourceLineNo">633</span>        try {<a name="line.633"></a>
-<span class="sourceLineNo">634</span>            synchronized (this) {<a name="line.634"></a>
-<span class="sourceLineNo">635</span>                return Optional.of(collected.firstKey());<a name="line.635"></a>
-<span class="sourceLineNo">636</span>            }<a name="line.636"></a>
-<span class="sourceLineNo">637</span>        } catch (NoSuchElementException e) {<a name="line.637"></a>
-<span class="sourceLineNo">638</span>            return Optional.empty();<a name="line.638"></a>
-<span class="sourceLineNo">639</span>        }<a name="line.639"></a>
-<span class="sourceLineNo">640</span>    }<a name="line.640"></a>
-<span class="sourceLineNo">641</span><a name="line.641"></a>
-<span class="sourceLineNo">642</span>    /**<a name="line.642"></a>
-<span class="sourceLineNo">643</span>     * Returns the service object for the specified {@code ServiceReference} <a name="line.643"></a>
-<span class="sourceLineNo">644</span>     * if the specified referenced service has been collected<a name="line.644"></a>
-<span class="sourceLineNo">645</span>     * by this {@code ServiceCollector}.<a name="line.645"></a>
-<span class="sourceLineNo">646</span>     * <a name="line.646"></a>
-<span class="sourceLineNo">647</span>     * @param reference the reference to the desired service.<a name="line.647"></a>
-<span class="sourceLineNo">648</span>     * @return an optional service object<a name="line.648"></a>
-<span class="sourceLineNo">649</span>     */<a name="line.649"></a>
-<span class="sourceLineNo">650</span>    public Optional&lt;W&gt; service(ServiceReference&lt;S&gt; reference) {<a name="line.650"></a>
-<span class="sourceLineNo">651</span>        synchronized (this) {<a name="line.651"></a>
-<span class="sourceLineNo">652</span>            return Optional.ofNullable(collected.get(reference));<a name="line.652"></a>
-<span class="sourceLineNo">653</span>        }<a name="line.653"></a>
-<span class="sourceLineNo">654</span>    }<a name="line.654"></a>
-<span class="sourceLineNo">655</span><a name="line.655"></a>
-<span class="sourceLineNo">656</span>    /**<a name="line.656"></a>
-<span class="sourceLineNo">657</span>     * Returns a service object for one of the services collected by this<a name="line.657"></a>
-<span class="sourceLineNo">658</span>     * {@code ServiceCollector}. This is effectively the same as <a name="line.658"></a>
-<span class="sourceLineNo">659</span>     * {@code serviceReference().flatMap(ref -&gt; service(ref))}.<a name="line.659"></a>
-<span class="sourceLineNo">660</span>     * &lt;P&gt;<a name="line.660"></a>
-<span class="sourceLineNo">661</span>     * The result value is cached, so refrain from implementing another<a name="line.661"></a>
-<span class="sourceLineNo">662</span>     * cache in the invoking code.<a name="line.662"></a>
-<span class="sourceLineNo">663</span>     * <a name="line.663"></a>
-<span class="sourceLineNo">664</span>     * @return an optional service object<a name="line.664"></a>
-<span class="sourceLineNo">665</span>     */<a name="line.665"></a>
-<span class="sourceLineNo">666</span>    public Optional&lt;W&gt; service() {<a name="line.666"></a>
-<span class="sourceLineNo">667</span>        final W cached = cachedService;<a name="line.667"></a>
-<span class="sourceLineNo">668</span>        if (cached != null) {<a name="line.668"></a>
-<span class="sourceLineNo">669</span>            return Optional.of(cached);<a name="line.669"></a>
-<span class="sourceLineNo">670</span>        }<a name="line.670"></a>
-<span class="sourceLineNo">671</span>        synchronized (this) {<a name="line.671"></a>
-<span class="sourceLineNo">672</span>            Iterator&lt;W&gt; iter = collected.values().iterator();<a name="line.672"></a>
-<span class="sourceLineNo">673</span>            if (iter.hasNext()) {<a name="line.673"></a>
-<span class="sourceLineNo">674</span>                cachedService = iter.next();<a name="line.674"></a>
-<span class="sourceLineNo">675</span>                return Optional.of(cachedService);<a name="line.675"></a>
-<span class="sourceLineNo">676</span>            }<a name="line.676"></a>
-<span class="sourceLineNo">677</span>        }<a name="line.677"></a>
-<span class="sourceLineNo">678</span>        return Optional.empty();<a name="line.678"></a>
-<span class="sourceLineNo">679</span>    }<a name="line.679"></a>
-<span class="sourceLineNo">680</span><a name="line.680"></a>
-<span class="sourceLineNo">681</span>    /**<a name="line.681"></a>
-<span class="sourceLineNo">682</span>     * Return the list of service objects for all services collected by this<a name="line.682"></a>
-<span class="sourceLineNo">683</span>     * {@code ServiceCollector}. This is effectively a mapping of<a name="line.683"></a>
-<span class="sourceLineNo">684</span>     * {@link #serviceReferences()} to services.<a name="line.684"></a>
-<span class="sourceLineNo">685</span>     * <a name="line.685"></a>
-<span class="sourceLineNo">686</span>     * @return a list of service objects which may be empty<a name="line.686"></a>
-<span class="sourceLineNo">687</span>     */<a name="line.687"></a>
-<span class="sourceLineNo">688</span>    public List&lt;W&gt; services() {<a name="line.688"></a>
-<span class="sourceLineNo">689</span>        synchronized (this) {<a name="line.689"></a>
-<span class="sourceLineNo">690</span>            return Collections<a name="line.690"></a>
-<span class="sourceLineNo">691</span>                .unmodifiableList(new ArrayList&lt;&gt;(collected.values()));<a name="line.691"></a>
-<span class="sourceLineNo">692</span>        }<a name="line.692"></a>
-<span class="sourceLineNo">693</span>    }<a name="line.693"></a>
-<span class="sourceLineNo">694</span><a name="line.694"></a>
-<span class="sourceLineNo">695</span>    /**<a name="line.695"></a>
-<span class="sourceLineNo">696</span>     * Return the number of services collected by this<a name="line.696"></a>
-<span class="sourceLineNo">697</span>     * {@code ServiceCollector}. This value may not be correct during the<a name="line.697"></a>
-<span class="sourceLineNo">698</span>     * execution of handlers.<a name="line.698"></a>
-<span class="sourceLineNo">699</span>     * <a name="line.699"></a>
-<span class="sourceLineNo">700</span>     * @return The number of services collected<a name="line.700"></a>
-<span class="sourceLineNo">701</span>     */<a name="line.701"></a>
-<span class="sourceLineNo">702</span>    public int size() {<a name="line.702"></a>
-<span class="sourceLineNo">703</span>        synchronized (this) {<a name="line.703"></a>
-<span class="sourceLineNo">704</span>            return collected.size();<a name="line.704"></a>
-<span class="sourceLineNo">705</span>        }<a name="line.705"></a>
-<span class="sourceLineNo">706</span>    }<a name="line.706"></a>
-<span class="sourceLineNo">707</span><a name="line.707"></a>
-<span class="sourceLineNo">708</span>    /**<a name="line.708"></a>
-<span class="sourceLineNo">709</span>     * Returns the modification count for this {@code ServiceCollector}.<a name="line.709"></a>
-<span class="sourceLineNo">710</span>     * <a name="line.710"></a>
-<span class="sourceLineNo">711</span>     * The modification count is initialized to 0 when this <a name="line.711"></a>
-<span class="sourceLineNo">712</span>     * {@code ServiceCollector} is opened. Every time a service is added, <a name="line.712"></a>
-<span class="sourceLineNo">713</span>     * modified or removed from this {@code ServiceCollector}, <a name="line.713"></a>
-<span class="sourceLineNo">714</span>     * the modification count is incremented.<a name="line.714"></a>
-<span class="sourceLineNo">715</span>     * &lt;p&gt;<a name="line.715"></a>
-<span class="sourceLineNo">716</span>     * The modification count can be used to determine if this<a name="line.716"></a>
-<span class="sourceLineNo">717</span>     * {@code ServiceCollector} has added, modified or removed a service by<a name="line.717"></a>
-<span class="sourceLineNo">718</span>     * comparing a modification count value previously collected with the <a name="line.718"></a>
-<span class="sourceLineNo">719</span>     * current modification count value. If the value has not changed, <a name="line.719"></a>
-<span class="sourceLineNo">720</span>     * then no service has been added, modified or removed from this <a name="line.720"></a>
-<span class="sourceLineNo">721</span>     * {@code ServiceCollector} since the previous modification count <a name="line.721"></a>
-<span class="sourceLineNo">722</span>     * was collected.<a name="line.722"></a>
-<span class="sourceLineNo">723</span>     * <a name="line.723"></a>
-<span class="sourceLineNo">724</span>     * @return The modification count for this {@code ServiceCollector} or<a name="line.724"></a>
-<span class="sourceLineNo">725</span>     *      -1 if this {@code ServiceCollector} is not open.<a name="line.725"></a>
-<span class="sourceLineNo">726</span>     */<a name="line.726"></a>
-<span class="sourceLineNo">727</span>    public int modificationCount() {<a name="line.727"></a>
-<span class="sourceLineNo">728</span>        return modificationCount[0];<a name="line.728"></a>
-<span class="sourceLineNo">729</span>    }<a name="line.729"></a>
-<span class="sourceLineNo">730</span><a name="line.730"></a>
-<span class="sourceLineNo">731</span>    /**<a name="line.731"></a>
-<span class="sourceLineNo">732</span>     * Checks if this {@code ServiceCollector} is open.<a name="line.732"></a>
-<span class="sourceLineNo">733</span>     *<a name="line.733"></a>
-<span class="sourceLineNo">734</span>     * @return true, if is open<a name="line.734"></a>
-<span class="sourceLineNo">735</span>     */<a name="line.735"></a>
-<span class="sourceLineNo">736</span>    public boolean isOpen() {<a name="line.736"></a>
-<span class="sourceLineNo">737</span>        return modificationCount[0] &gt;= 0;<a name="line.737"></a>
-<span class="sourceLineNo">738</span>    }<a name="line.738"></a>
-<span class="sourceLineNo">739</span><a name="line.739"></a>
-<span class="sourceLineNo">740</span>    /**<a name="line.740"></a>
-<span class="sourceLineNo">741</span>     * Return a {@code SortedMap} of the {@code ServiceReference}s and service<a name="line.741"></a>
-<span class="sourceLineNo">742</span>     * objects for all services collected by this {@code ServiceCollector}.<a name="line.742"></a>
-<span class="sourceLineNo">743</span>     * The map is sorted in reverse natural order of {@code ServiceReference}.<a name="line.743"></a>
-<span class="sourceLineNo">744</span>     * That is, the first entry is the service with the highest ranking and the<a name="line.744"></a>
-<span class="sourceLineNo">745</span>     * lowest service id.<a name="line.745"></a>
-<span class="sourceLineNo">746</span>     * <a name="line.746"></a>
-<span class="sourceLineNo">747</span>     * @return A {@code SortedMap} with the {@code ServiceReference}s and<a name="line.747"></a>
-<span class="sourceLineNo">748</span>     *         service objects for all services collected by this<a name="line.748"></a>
-<span class="sourceLineNo">749</span>     *         {@code ServiceCollector}. If no services have been collected,<a name="line.749"></a>
-<span class="sourceLineNo">750</span>     *         then the returned map is empty.<a name="line.750"></a>
-<span class="sourceLineNo">751</span>     */<a name="line.751"></a>
-<span class="sourceLineNo">752</span>    public SortedMap&lt;ServiceReference&lt;S&gt;, W&gt; collected() {<a name="line.752"></a>
-<span class="sourceLineNo">753</span>        synchronized (this) {<a name="line.753"></a>
-<span class="sourceLineNo">754</span>            if (collected.isEmpty()) {<a name="line.754"></a>
-<span class="sourceLineNo">755</span>                return new TreeMap&lt;&gt;(Collections.reverseOrder());<a name="line.755"></a>
-<span class="sourceLineNo">756</span>            }<a name="line.756"></a>
-<span class="sourceLineNo">757</span>            return Collections.unmodifiableSortedMap(new TreeMap&lt;&gt;(collected));<a name="line.757"></a>
-<span class="sourceLineNo">758</span>        }<a name="line.758"></a>
-<span class="sourceLineNo">759</span>    }<a name="line.759"></a>
-<span class="sourceLineNo">760</span><a name="line.760"></a>
-<span class="sourceLineNo">761</span>    /**<a name="line.761"></a>
-<span class="sourceLineNo">762</span>     * Return if this {@code ServiceCollector} is empty.<a name="line.762"></a>
-<span class="sourceLineNo">763</span>     * <a name="line.763"></a>
-<span class="sourceLineNo">764</span>     * @return {@code true} if this {@code ServiceCollector} <a name="line.764"></a>
-<span class="sourceLineNo">765</span>     *     has not collected any services.<a name="line.765"></a>
-<span class="sourceLineNo">766</span>     */<a name="line.766"></a>
-<span class="sourceLineNo">767</span>    public boolean isEmpty() {<a name="line.767"></a>
-<span class="sourceLineNo">768</span>        synchronized (this) {<a name="line.768"></a>
-<span class="sourceLineNo">769</span>            return collected.isEmpty();<a name="line.769"></a>
-<span class="sourceLineNo">770</span>        }<a name="line.770"></a>
-<span class="sourceLineNo">771</span>    }<a name="line.771"></a>
-<span class="sourceLineNo">772</span><a name="line.772"></a>
-<span class="sourceLineNo">773</span>    /**<a name="line.773"></a>
-<span class="sourceLineNo">774</span>     * Remove a service from this {@code ServiceCollector}.<a name="line.774"></a>
-<span class="sourceLineNo">775</span>     * <a name="line.775"></a>
-<span class="sourceLineNo">776</span>     * The specified service will be removed from this {@code ServiceCollector}.<a name="line.776"></a>
-<span class="sourceLineNo">777</span>     * <a name="line.777"></a>
-<span class="sourceLineNo">778</span>     * @param reference The reference to the service to be removed.<a name="line.778"></a>
-<span class="sourceLineNo">779</span>     */<a name="line.779"></a>
-<span class="sourceLineNo">780</span>    public void remove(ServiceReference&lt;S&gt; reference) {<a name="line.780"></a>
-<span class="sourceLineNo">781</span>        removeFromCollected(reference);<a name="line.781"></a>
-<span class="sourceLineNo">782</span>    }<a name="line.782"></a>
-<span class="sourceLineNo">783</span><a name="line.783"></a>
-<span class="sourceLineNo">784</span>}<a name="line.784"></a>
+<span class="sourceLineNo">230</span>     * @return the service collector<a name="line.230"></a>
+<span class="sourceLineNo">231</span>     */<a name="line.231"></a>
+<span class="sourceLineNo">232</span>    public ServiceCollector&lt;S, W&gt; setWrapper(Function&lt;S, W&gt; wrapper) {<a name="line.232"></a>
+<span class="sourceLineNo">233</span>        this.wrapper = wrapper;<a name="line.233"></a>
+<span class="sourceLineNo">234</span>        return this;<a name="line.234"></a>
+<span class="sourceLineNo">235</span>    }<a name="line.235"></a>
+<span class="sourceLineNo">236</span><a name="line.236"></a>
+<span class="sourceLineNo">237</span>    /**<a name="line.237"></a>
+<span class="sourceLineNo">238</span>     * Sets a function to be called when the first service becomes <a name="line.238"></a>
+<span class="sourceLineNo">239</span>     * available. The service reference to the new service <a name="line.239"></a>
+<span class="sourceLineNo">240</span>     * and the service are passed as arguments.<a name="line.240"></a>
+<span class="sourceLineNo">241</span>     *<a name="line.241"></a>
+<span class="sourceLineNo">242</span>     * @param onBoundFirst the function to be called<a name="line.242"></a>
+<span class="sourceLineNo">243</span>     * @return the {@code ServiceCollector}<a name="line.243"></a>
+<span class="sourceLineNo">244</span>     */<a name="line.244"></a>
+<span class="sourceLineNo">245</span>    public ServiceCollector&lt;S, W&gt; setOnBoundFirst(<a name="line.245"></a>
+<span class="sourceLineNo">246</span>            BiConsumer&lt;ServiceReference&lt;S&gt;, W&gt; onBoundFirst) {<a name="line.246"></a>
+<span class="sourceLineNo">247</span>        this.onBoundFirst = onBoundFirst;<a name="line.247"></a>
+<span class="sourceLineNo">248</span>        return this;<a name="line.248"></a>
+<span class="sourceLineNo">249</span>    }<a name="line.249"></a>
+<span class="sourceLineNo">250</span><a name="line.250"></a>
+<span class="sourceLineNo">251</span>    /**<a name="line.251"></a>
+<span class="sourceLineNo">252</span>     * Sets a function to be called when a new service becomes <a name="line.252"></a>
+<span class="sourceLineNo">253</span>     * available. The service reference to the new service <a name="line.253"></a>
+<span class="sourceLineNo">254</span>     * and the service are passed as arguments. If both an<a name="line.254"></a>
+<span class="sourceLineNo">255</span>     * "onAvailable" and an "onFirstAvailable" function are<a name="line.255"></a>
+<span class="sourceLineNo">256</span>     * provided, the latter will be called first.<a name="line.256"></a>
+<span class="sourceLineNo">257</span>     *<a name="line.257"></a>
+<span class="sourceLineNo">258</span>     * @param onBound the function to be called<a name="line.258"></a>
+<span class="sourceLineNo">259</span>     * @return the {@code ServiceCollector}<a name="line.259"></a>
+<span class="sourceLineNo">260</span>     */<a name="line.260"></a>
+<span class="sourceLineNo">261</span>    public ServiceCollector&lt;S, W&gt; setOnBound(<a name="line.261"></a>
+<span class="sourceLineNo">262</span>            BiConsumer&lt;ServiceReference&lt;S&gt;, W&gt; onBound) {<a name="line.262"></a>
+<span class="sourceLineNo">263</span>        this.onBound = onBound;<a name="line.263"></a>
+<span class="sourceLineNo">264</span>        return this;<a name="line.264"></a>
+<span class="sourceLineNo">265</span>    }<a name="line.265"></a>
+<span class="sourceLineNo">266</span><a name="line.266"></a>
+<span class="sourceLineNo">267</span>    /**<a name="line.267"></a>
+<span class="sourceLineNo">268</span>     * Sets a function to be called when one of the collected services<a name="line.268"></a>
+<span class="sourceLineNo">269</span>     * becomes unavailable. The service reference to the modified service <a name="line.269"></a>
+<span class="sourceLineNo">270</span>     * and the service are passed as arguments.<a name="line.270"></a>
+<span class="sourceLineNo">271</span>     *<a name="line.271"></a>
+<span class="sourceLineNo">272</span>     * @param onUnbinding the function to call<a name="line.272"></a>
+<span class="sourceLineNo">273</span>     * @return the {@code ServiceCollector}<a name="line.273"></a>
+<span class="sourceLineNo">274</span>     */<a name="line.274"></a>
+<span class="sourceLineNo">275</span>    public ServiceCollector&lt;S, W&gt; setOnUnbinding(<a name="line.275"></a>
+<span class="sourceLineNo">276</span>            BiConsumer&lt;ServiceReference&lt;S&gt;, W&gt; onUnbinding) {<a name="line.276"></a>
+<span class="sourceLineNo">277</span>        this.onUnbinding = onUnbinding;<a name="line.277"></a>
+<span class="sourceLineNo">278</span>        return this;<a name="line.278"></a>
+<span class="sourceLineNo">279</span>    }<a name="line.279"></a>
+<span class="sourceLineNo">280</span><a name="line.280"></a>
+<span class="sourceLineNo">281</span>    /**<a name="line.281"></a>
+<span class="sourceLineNo">282</span>     * Sets a function to be called when the last of the collected services<a name="line.282"></a>
+<span class="sourceLineNo">283</span>     * becomes unavailable. The service reference to the modified service <a name="line.283"></a>
+<span class="sourceLineNo">284</span>     * and the service are passed as arguments. If both an<a name="line.284"></a>
+<span class="sourceLineNo">285</span>     * "onUnavailable" and an "onLastUnavailable" function are set,<a name="line.285"></a>
+<span class="sourceLineNo">286</span>     * the latter will be called last.<a name="line.286"></a>
+<span class="sourceLineNo">287</span>     *<a name="line.287"></a>
+<span class="sourceLineNo">288</span>     * @param onUnbindingLast the function to call<a name="line.288"></a>
+<span class="sourceLineNo">289</span>     * @return the {@code ServiceCollector}<a name="line.289"></a>
+<span class="sourceLineNo">290</span>     */<a name="line.290"></a>
+<span class="sourceLineNo">291</span>    public ServiceCollector&lt;S, W&gt; setOnUnbindingLast(<a name="line.291"></a>
+<span class="sourceLineNo">292</span>            BiConsumer&lt;ServiceReference&lt;S&gt;, W&gt; onUnbindingLast) {<a name="line.292"></a>
+<span class="sourceLineNo">293</span>        this.onUnbindingLast = onUnbindingLast;<a name="line.293"></a>
+<span class="sourceLineNo">294</span>        return this;<a name="line.294"></a>
+<span class="sourceLineNo">295</span>    }<a name="line.295"></a>
+<span class="sourceLineNo">296</span><a name="line.296"></a>
+<span class="sourceLineNo">297</span>    /**<a name="line.297"></a>
+<span class="sourceLineNo">298</span>     * Sets a function to be called when one of the collected services<a name="line.298"></a>
+<span class="sourceLineNo">299</span>     * changes. The service reference to the modified service and<a name="line.299"></a>
+<span class="sourceLineNo">300</span>     * the service are passed as arguments.<a name="line.300"></a>
+<span class="sourceLineNo">301</span>     *<a name="line.301"></a>
+<span class="sourceLineNo">302</span>     * @param onModified the function to call<a name="line.302"></a>
+<span class="sourceLineNo">303</span>     * @return the {@code ServiceCollector}<a name="line.303"></a>
+<span class="sourceLineNo">304</span>     */<a name="line.304"></a>
+<span class="sourceLineNo">305</span>    public ServiceCollector&lt;S, W&gt; setOnModfied(<a name="line.305"></a>
+<span class="sourceLineNo">306</span>            BiConsumer&lt;ServiceReference&lt;S&gt;, W&gt; onModified) {<a name="line.306"></a>
+<span class="sourceLineNo">307</span>        this.onModified = onModified;<a name="line.307"></a>
+<span class="sourceLineNo">308</span>        return this;<a name="line.308"></a>
+<span class="sourceLineNo">309</span>    }<a name="line.309"></a>
+<span class="sourceLineNo">310</span><a name="line.310"></a>
+<span class="sourceLineNo">311</span>    private void modified() {<a name="line.311"></a>
+<span class="sourceLineNo">312</span>        synchronized (modificationCount) {<a name="line.312"></a>
+<span class="sourceLineNo">313</span>            modificationCount[0] = modificationCount[0] + 1;<a name="line.313"></a>
+<span class="sourceLineNo">314</span>            cachedService = null;<a name="line.314"></a>
+<span class="sourceLineNo">315</span>            modificationCount.notifyAll();<a name="line.315"></a>
+<span class="sourceLineNo">316</span>        }<a name="line.316"></a>
+<span class="sourceLineNo">317</span>    }<a name="line.317"></a>
+<span class="sourceLineNo">318</span><a name="line.318"></a>
+<span class="sourceLineNo">319</span>    /**<a name="line.319"></a>
+<span class="sourceLineNo">320</span>     * Starts collecting of service providers. Short for calling <a name="line.320"></a>
+<span class="sourceLineNo">321</span>     * {@code open(false)}.<a name="line.321"></a>
+<span class="sourceLineNo">322</span>     *<a name="line.322"></a>
+<span class="sourceLineNo">323</span>     * @throws IllegalStateException If the {@code BundleConetxt}<a name="line.323"></a>
+<span class="sourceLineNo">324</span>     *     with which this {@code ServiceCollector} was created is <a name="line.324"></a>
+<span class="sourceLineNo">325</span>     *     no longer valid.<a name="line.325"></a>
+<span class="sourceLineNo">326</span>     */<a name="line.326"></a>
+<span class="sourceLineNo">327</span>    public void open() throws IllegalStateException {<a name="line.327"></a>
+<span class="sourceLineNo">328</span>        open(false);<a name="line.328"></a>
+<span class="sourceLineNo">329</span>    }<a name="line.329"></a>
+<span class="sourceLineNo">330</span><a name="line.330"></a>
+<span class="sourceLineNo">331</span>    /**<a name="line.331"></a>
+<span class="sourceLineNo">332</span>     * Starts collecting services. Short for calling {@code open(false)}.<a name="line.332"></a>
+<span class="sourceLineNo">333</span>     * <a name="line.333"></a>
+<span class="sourceLineNo">334</span>     * @param collectAllServices if &lt;code&gt;true&lt;/code&gt;, then this <a name="line.334"></a>
+<span class="sourceLineNo">335</span>     *     {@code ServiceCollector} will collect all matching services <a name="line.335"></a>
+<span class="sourceLineNo">336</span>     *     regardless of class loader<a name="line.336"></a>
+<span class="sourceLineNo">337</span>     *     accessibility. If &lt;code&gt;false&lt;/code&gt;, then <a name="line.337"></a>
+<span class="sourceLineNo">338</span>     *     this {@code ServiceCollector} will only collect matching services <a name="line.338"></a>
+<span class="sourceLineNo">339</span>     *     which are class loader<a name="line.339"></a>
+<span class="sourceLineNo">340</span>     *     accessible to the bundle whose &lt;code&gt;BundleContext&lt;/code&gt; is <a name="line.340"></a>
+<span class="sourceLineNo">341</span>     *     used by this {@code ServiceCollector}.<a name="line.341"></a>
+<span class="sourceLineNo">342</span>     * @throws IllegalStateException If the {@code BundleConetxt}<a name="line.342"></a>
+<span class="sourceLineNo">343</span>     *     with which this {@code ServiceCollector} was created is no <a name="line.343"></a>
+<span class="sourceLineNo">344</span>     *     longer valid.<a name="line.344"></a>
+<span class="sourceLineNo">345</span>     */<a name="line.345"></a>
+<span class="sourceLineNo">346</span>    public void open(boolean collectAllServices) throws IllegalStateException {<a name="line.346"></a>
+<span class="sourceLineNo">347</span>        synchronized (this) {<a name="line.347"></a>
+<span class="sourceLineNo">348</span>            if (isOpen()) {<a name="line.348"></a>
+<span class="sourceLineNo">349</span>                // Already open, don't treat as error.<a name="line.349"></a>
+<span class="sourceLineNo">350</span>                return;<a name="line.350"></a>
+<span class="sourceLineNo">351</span>            }<a name="line.351"></a>
+<span class="sourceLineNo">352</span>            modificationCount[0] = 0;<a name="line.352"></a>
+<span class="sourceLineNo">353</span>            try {<a name="line.353"></a>
+<span class="sourceLineNo">354</span>                registerListener(collectAllServices);<a name="line.354"></a>
+<span class="sourceLineNo">355</span>                if (collectClass != null) {<a name="line.355"></a>
+<span class="sourceLineNo">356</span>                    initialReferences.addAll(getInitialReferences(<a name="line.356"></a>
+<span class="sourceLineNo">357</span>                        collectAllServices, collectClass, null));<a name="line.357"></a>
+<span class="sourceLineNo">358</span>                } else if (collectReference != null) {<a name="line.358"></a>
+<span class="sourceLineNo">359</span>                    if (collectReference.getBundle() != null) {<a name="line.359"></a>
+<span class="sourceLineNo">360</span>                        initialReferences.add(collectReference);<a name="line.360"></a>
+<span class="sourceLineNo">361</span>                    }<a name="line.361"></a>
+<span class="sourceLineNo">362</span>                } else { /* user supplied filter */<a name="line.362"></a>
+<span class="sourceLineNo">363</span>                    initialReferences.addAll(getInitialReferences(<a name="line.363"></a>
+<span class="sourceLineNo">364</span>                        collectAllServices, null, listenerFilter));<a name="line.364"></a>
+<span class="sourceLineNo">365</span>                }<a name="line.365"></a>
+<span class="sourceLineNo">366</span>                processInitial();<a name="line.366"></a>
+<span class="sourceLineNo">367</span>            } catch (InvalidSyntaxException e) {<a name="line.367"></a>
+<span class="sourceLineNo">368</span>                throw new RuntimeException(<a name="line.368"></a>
+<span class="sourceLineNo">369</span>                    "unexpected InvalidSyntaxException: " + e.getMessage(),<a name="line.369"></a>
+<span class="sourceLineNo">370</span>                    e);<a name="line.370"></a>
+<span class="sourceLineNo">371</span>            }<a name="line.371"></a>
+<span class="sourceLineNo">372</span>        }<a name="line.372"></a>
+<span class="sourceLineNo">373</span>    }<a name="line.373"></a>
+<span class="sourceLineNo">374</span><a name="line.374"></a>
+<span class="sourceLineNo">375</span>    private void registerListener(boolean collectAllServices)<a name="line.375"></a>
+<span class="sourceLineNo">376</span>            throws InvalidSyntaxException {<a name="line.376"></a>
+<span class="sourceLineNo">377</span>        if (collectAllServices) {<a name="line.377"></a>
+<span class="sourceLineNo">378</span>            listener = new AllServiceListener() {<a name="line.378"></a>
+<span class="sourceLineNo">379</span>                @Override<a name="line.379"></a>
+<span class="sourceLineNo">380</span>                public void serviceChanged(ServiceEvent event) {<a name="line.380"></a>
+<span class="sourceLineNo">381</span>                    ServiceCollector.this.serviceChanged(event);<a name="line.381"></a>
+<span class="sourceLineNo">382</span>                }<a name="line.382"></a>
+<span class="sourceLineNo">383</span>            };<a name="line.383"></a>
+<span class="sourceLineNo">384</span>        } else {<a name="line.384"></a>
+<span class="sourceLineNo">385</span>            listener = new ServiceListener() {<a name="line.385"></a>
+<span class="sourceLineNo">386</span><a name="line.386"></a>
+<span class="sourceLineNo">387</span>                @Override<a name="line.387"></a>
+<span class="sourceLineNo">388</span>                public void serviceChanged(ServiceEvent event) {<a name="line.388"></a>
+<span class="sourceLineNo">389</span>                    ServiceCollector.this.serviceChanged(event);<a name="line.389"></a>
+<span class="sourceLineNo">390</span>                }<a name="line.390"></a>
+<span class="sourceLineNo">391</span><a name="line.391"></a>
+<span class="sourceLineNo">392</span>            };<a name="line.392"></a>
+<span class="sourceLineNo">393</span>        }<a name="line.393"></a>
+<span class="sourceLineNo">394</span>        context.addServiceListener(listener, listenerFilter);<a name="line.394"></a>
+<span class="sourceLineNo">395</span>    }<a name="line.395"></a>
+<span class="sourceLineNo">396</span><a name="line.396"></a>
+<span class="sourceLineNo">397</span>    /**<a name="line.397"></a>
+<span class="sourceLineNo">398</span>     * Returns the list of initial {@code ServiceReference}s that will be<a name="line.398"></a>
+<span class="sourceLineNo">399</span>     * collected by this {@code ServiceCollector}.<a name="line.399"></a>
+<span class="sourceLineNo">400</span>     * <a name="line.400"></a>
+<span class="sourceLineNo">401</span>     * @param collectAllServices If {@code true}, use<a name="line.401"></a>
+<span class="sourceLineNo">402</span>     *        {@code getAllServiceReferences}.<a name="line.402"></a>
+<span class="sourceLineNo">403</span>     * @param className The class name with which the service was registered, or<a name="line.403"></a>
+<span class="sourceLineNo">404</span>     *        {@code null} for all services.<a name="line.404"></a>
+<span class="sourceLineNo">405</span>     * @param filterString The filter criteria or {@code null} for all services.<a name="line.405"></a>
+<span class="sourceLineNo">406</span>     * @return The list of initial {@code ServiceReference}s.<a name="line.406"></a>
+<span class="sourceLineNo">407</span>     * @throws InvalidSyntaxException If the specified filterString has an<a name="line.407"></a>
+<span class="sourceLineNo">408</span>     *         invalid syntax.<a name="line.408"></a>
+<span class="sourceLineNo">409</span>     */<a name="line.409"></a>
+<span class="sourceLineNo">410</span>    private List&lt;ServiceReference&lt;S&gt;&gt; getInitialReferences(<a name="line.410"></a>
+<span class="sourceLineNo">411</span>            boolean collectAllServices, String className, String filterString)<a name="line.411"></a>
+<span class="sourceLineNo">412</span>            throws InvalidSyntaxException {<a name="line.412"></a>
+<span class="sourceLineNo">413</span>        @SuppressWarnings("unchecked")<a name="line.413"></a>
+<span class="sourceLineNo">414</span>        ServiceReference&lt;S&gt;[] result<a name="line.414"></a>
+<span class="sourceLineNo">415</span>            = (ServiceReference&lt;S&gt;[]) ((collectAllServices)<a name="line.415"></a>
+<span class="sourceLineNo">416</span>                ? context.getAllServiceReferences(className, filterString)<a name="line.416"></a>
+<span class="sourceLineNo">417</span>                : context.getServiceReferences(className, filterString));<a name="line.417"></a>
+<span class="sourceLineNo">418</span>        if (result == null) {<a name="line.418"></a>
+<span class="sourceLineNo">419</span>            return Collections.emptyList();<a name="line.419"></a>
+<span class="sourceLineNo">420</span>        }<a name="line.420"></a>
+<span class="sourceLineNo">421</span>        return Arrays.asList(result);<a name="line.421"></a>
+<span class="sourceLineNo">422</span>    }<a name="line.422"></a>
+<span class="sourceLineNo">423</span><a name="line.423"></a>
+<span class="sourceLineNo">424</span>    private void processInitial() {<a name="line.424"></a>
+<span class="sourceLineNo">425</span>        while (true) {<a name="line.425"></a>
+<span class="sourceLineNo">426</span>            ServiceReference&lt;S&gt; reference;<a name="line.426"></a>
+<span class="sourceLineNo">427</span>            synchronized (this) {<a name="line.427"></a>
+<span class="sourceLineNo">428</span>                if (!isOpen() || (initialReferences.size() == 0)) {<a name="line.428"></a>
+<span class="sourceLineNo">429</span>                    return; /* we are done */<a name="line.429"></a>
+<span class="sourceLineNo">430</span>                }<a name="line.430"></a>
+<span class="sourceLineNo">431</span>                // Get one...<a name="line.431"></a>
+<span class="sourceLineNo">432</span>                Iterator&lt;ServiceReference&lt;S&gt;&gt; iter<a name="line.432"></a>
+<span class="sourceLineNo">433</span>                    = initialReferences.iterator();<a name="line.433"></a>
+<span class="sourceLineNo">434</span>                reference = iter.next();<a name="line.434"></a>
+<span class="sourceLineNo">435</span>                iter.remove();<a name="line.435"></a>
+<span class="sourceLineNo">436</span>            }<a name="line.436"></a>
+<span class="sourceLineNo">437</span>            // Process as if it was just registered.<a name="line.437"></a>
+<span class="sourceLineNo">438</span>            addToCollected(reference);<a name="line.438"></a>
+<span class="sourceLineNo">439</span>        }<a name="line.439"></a>
+<span class="sourceLineNo">440</span>    }<a name="line.440"></a>
+<span class="sourceLineNo">441</span><a name="line.441"></a>
+<span class="sourceLineNo">442</span>    private void serviceChanged(ServiceEvent event) {<a name="line.442"></a>
+<span class="sourceLineNo">443</span>        /*<a name="line.443"></a>
+<span class="sourceLineNo">444</span>         * Check if we had a delayed call (which could happen when we<a name="line.444"></a>
+<span class="sourceLineNo">445</span>         * close).<a name="line.445"></a>
+<span class="sourceLineNo">446</span>         */<a name="line.446"></a>
+<span class="sourceLineNo">447</span>        if (!isOpen()) {<a name="line.447"></a>
+<span class="sourceLineNo">448</span>            return;<a name="line.448"></a>
+<span class="sourceLineNo">449</span>        }<a name="line.449"></a>
+<span class="sourceLineNo">450</span>        @SuppressWarnings("unchecked")<a name="line.450"></a>
+<span class="sourceLineNo">451</span>        final ServiceReference&lt;S&gt; reference<a name="line.451"></a>
+<span class="sourceLineNo">452</span>            = (ServiceReference&lt;S&gt;) event.getServiceReference();<a name="line.452"></a>
+<span class="sourceLineNo">453</span><a name="line.453"></a>
+<span class="sourceLineNo">454</span>        switch (event.getType()) {<a name="line.454"></a>
+<span class="sourceLineNo">455</span>        case ServiceEvent.REGISTERED:<a name="line.455"></a>
+<span class="sourceLineNo">456</span>            addToCollected(reference);<a name="line.456"></a>
+<span class="sourceLineNo">457</span>            break;<a name="line.457"></a>
+<span class="sourceLineNo">458</span>        case ServiceEvent.MODIFIED:<a name="line.458"></a>
+<span class="sourceLineNo">459</span>            synchronized (this) {<a name="line.459"></a>
+<span class="sourceLineNo">460</span>                W service = collected.get(reference);<a name="line.460"></a>
+<span class="sourceLineNo">461</span>                if (service == null) {<a name="line.461"></a>
+<span class="sourceLineNo">462</span>                    // Probably still in initialReferences, ignore.<a name="line.462"></a>
+<span class="sourceLineNo">463</span>                    return;<a name="line.463"></a>
+<span class="sourceLineNo">464</span>                }<a name="line.464"></a>
+<span class="sourceLineNo">465</span>                modified();<a name="line.465"></a>
+<span class="sourceLineNo">466</span>                Optional.ofNullable(onModified)<a name="line.466"></a>
+<span class="sourceLineNo">467</span>                    .ifPresent(cb -&gt; cb.accept(reference, service));<a name="line.467"></a>
+<span class="sourceLineNo">468</span>            }<a name="line.468"></a>
+<span class="sourceLineNo">469</span>            break;<a name="line.469"></a>
+<span class="sourceLineNo">470</span>        case ServiceEvent.MODIFIED_ENDMATCH:<a name="line.470"></a>
+<span class="sourceLineNo">471</span>        case ServiceEvent.UNREGISTERING:<a name="line.471"></a>
+<span class="sourceLineNo">472</span>            removeFromCollected(reference);<a name="line.472"></a>
+<span class="sourceLineNo">473</span>            break;<a name="line.473"></a>
+<span class="sourceLineNo">474</span>        }<a name="line.474"></a>
+<span class="sourceLineNo">475</span><a name="line.475"></a>
+<span class="sourceLineNo">476</span>    }<a name="line.476"></a>
+<span class="sourceLineNo">477</span><a name="line.477"></a>
+<span class="sourceLineNo">478</span>    /**<a name="line.478"></a>
+<span class="sourceLineNo">479</span>     * Add the given reference to the collected services.<a name="line.479"></a>
+<span class="sourceLineNo">480</span>     * <a name="line.480"></a>
+<span class="sourceLineNo">481</span>     * @param reference reference to be collected.<a name="line.481"></a>
+<span class="sourceLineNo">482</span>     */<a name="line.482"></a>
+<span class="sourceLineNo">483</span>    private void addToCollected(final ServiceReference&lt;S&gt; reference) {<a name="line.483"></a>
+<span class="sourceLineNo">484</span>        synchronized (this) {<a name="line.484"></a>
+<span class="sourceLineNo">485</span>            if (!isOpen()) {<a name="line.485"></a>
+<span class="sourceLineNo">486</span>                // We have been closed.<a name="line.486"></a>
+<span class="sourceLineNo">487</span>                return;<a name="line.487"></a>
+<span class="sourceLineNo">488</span>            }<a name="line.488"></a>
+<span class="sourceLineNo">489</span>            if (collected.get(reference) != null) {<a name="line.489"></a>
+<span class="sourceLineNo">490</span>                /* if we are already collecting this reference */<a name="line.490"></a>
+<span class="sourceLineNo">491</span>                return; /* skip this reference */<a name="line.491"></a>
+<span class="sourceLineNo">492</span>            }<a name="line.492"></a>
+<span class="sourceLineNo">493</span>            if (initialReferences.contains(reference)) {<a name="line.493"></a>
+<span class="sourceLineNo">494</span>                // Skip, will be added as initial.<a name="line.494"></a>
+<span class="sourceLineNo">495</span>                return;<a name="line.495"></a>
+<span class="sourceLineNo">496</span>            }<a name="line.496"></a>
+<span class="sourceLineNo">497</span><a name="line.497"></a>
+<span class="sourceLineNo">498</span>            S obtained = context.getService(reference);<a name="line.498"></a>
+<span class="sourceLineNo">499</span>            @SuppressWarnings("unchecked")<a name="line.499"></a>
+<span class="sourceLineNo">500</span>            W service = (wrapper == null) ? (W) obtained<a name="line.500"></a>
+<span class="sourceLineNo">501</span>                : wrapper.apply(context.getService(reference));<a name="line.501"></a>
+<span class="sourceLineNo">502</span>            if (service == null) {<a name="line.502"></a>
+<span class="sourceLineNo">503</span>                // Has vanished in the meantime, should not happen when<a name="line.503"></a>
+<span class="sourceLineNo">504</span>                // processing a REGISTERED event, but may happen when<a name="line.504"></a>
+<span class="sourceLineNo">505</span>                // processing a reference from initialReferences.<a name="line.505"></a>
+<span class="sourceLineNo">506</span>                return;<a name="line.506"></a>
+<span class="sourceLineNo">507</span>            }<a name="line.507"></a>
+<span class="sourceLineNo">508</span>            boolean wasEmpty = collected.isEmpty();<a name="line.508"></a>
+<span class="sourceLineNo">509</span>            collected.put(reference, service);<a name="line.509"></a>
+<span class="sourceLineNo">510</span>            modified();<a name="line.510"></a>
+<span class="sourceLineNo">511</span>            if (wasEmpty) {<a name="line.511"></a>
+<span class="sourceLineNo">512</span>                Optional.ofNullable(onBoundFirst)<a name="line.512"></a>
+<span class="sourceLineNo">513</span>                    .ifPresent(cb -&gt; cb.accept(reference, service));<a name="line.513"></a>
+<span class="sourceLineNo">514</span>            }<a name="line.514"></a>
+<span class="sourceLineNo">515</span>            Optional.ofNullable(onBound)<a name="line.515"></a>
+<span class="sourceLineNo">516</span>                .ifPresent(cb -&gt; cb.accept(reference, service));<a name="line.516"></a>
+<span class="sourceLineNo">517</span>        }<a name="line.517"></a>
+<span class="sourceLineNo">518</span>    }<a name="line.518"></a>
+<span class="sourceLineNo">519</span><a name="line.519"></a>
+<span class="sourceLineNo">520</span>    private void removeFromCollected(ServiceReference&lt;S&gt; reference) {<a name="line.520"></a>
+<span class="sourceLineNo">521</span>        synchronized (this) {<a name="line.521"></a>
+<span class="sourceLineNo">522</span>            W service = collected.get(reference);<a name="line.522"></a>
+<span class="sourceLineNo">523</span>            if (service == null) {<a name="line.523"></a>
+<span class="sourceLineNo">524</span>                return;<a name="line.524"></a>
+<span class="sourceLineNo">525</span>            }<a name="line.525"></a>
+<span class="sourceLineNo">526</span>            Optional.ofNullable(onUnbinding)<a name="line.526"></a>
+<span class="sourceLineNo">527</span>                .ifPresent(cb -&gt; cb.accept(reference, service));<a name="line.527"></a>
+<span class="sourceLineNo">528</span>            if (collected.size() == 1) {<a name="line.528"></a>
+<span class="sourceLineNo">529</span>                Optional.ofNullable(onUnbindingLast)<a name="line.529"></a>
+<span class="sourceLineNo">530</span>                    .ifPresent(cb -&gt; cb.accept(reference, service));<a name="line.530"></a>
+<span class="sourceLineNo">531</span>            }<a name="line.531"></a>
+<span class="sourceLineNo">532</span>            context.ungetService(reference);<a name="line.532"></a>
+<span class="sourceLineNo">533</span>            collected.remove(reference);<a name="line.533"></a>
+<span class="sourceLineNo">534</span>            if (isOpen()) {<a name="line.534"></a>
+<span class="sourceLineNo">535</span>                modified();<a name="line.535"></a>
+<span class="sourceLineNo">536</span>            }<a name="line.536"></a>
+<span class="sourceLineNo">537</span>        }<a name="line.537"></a>
+<span class="sourceLineNo">538</span>    }<a name="line.538"></a>
+<span class="sourceLineNo">539</span><a name="line.539"></a>
+<span class="sourceLineNo">540</span>    /**<a name="line.540"></a>
+<span class="sourceLineNo">541</span>     * Stops collecting services.<a name="line.541"></a>
+<span class="sourceLineNo">542</span>     */<a name="line.542"></a>
+<span class="sourceLineNo">543</span>    public void close() {<a name="line.543"></a>
+<span class="sourceLineNo">544</span>        synchronized (this) {<a name="line.544"></a>
+<span class="sourceLineNo">545</span>            context.removeServiceListener(listener);<a name="line.545"></a>
+<span class="sourceLineNo">546</span>            synchronized (modificationCount) {<a name="line.546"></a>
+<span class="sourceLineNo">547</span>                modificationCount[0] = -1;<a name="line.547"></a>
+<span class="sourceLineNo">548</span>                modificationCount.notifyAll();<a name="line.548"></a>
+<span class="sourceLineNo">549</span>            }<a name="line.549"></a>
+<span class="sourceLineNo">550</span>            while (!collected.isEmpty()) {<a name="line.550"></a>
+<span class="sourceLineNo">551</span>                removeFromCollected(collected.lastKey());<a name="line.551"></a>
+<span class="sourceLineNo">552</span>            }<a name="line.552"></a>
+<span class="sourceLineNo">553</span>            cachedService = null;<a name="line.553"></a>
+<span class="sourceLineNo">554</span>        }<a name="line.554"></a>
+<span class="sourceLineNo">555</span>    }<a name="line.555"></a>
+<span class="sourceLineNo">556</span><a name="line.556"></a>
+<span class="sourceLineNo">557</span>    /**<a name="line.557"></a>
+<span class="sourceLineNo">558</span>     * Wait for at least one service to be collected by this<a name="line.558"></a>
+<span class="sourceLineNo">559</span>     * {@code ServiceCollector}. This method will also return when this<a name="line.559"></a>
+<span class="sourceLineNo">560</span>     * {@code ServiceCollector} is closed from another thread.<a name="line.560"></a>
+<span class="sourceLineNo">561</span>     * &lt;p&gt;<a name="line.561"></a>
+<span class="sourceLineNo">562</span>     * It is strongly recommended that {@code waitForService} is not used <a name="line.562"></a>
+<span class="sourceLineNo">563</span>     * during the calling of the {@code BundleActivator} methods.<a name="line.563"></a>
+<span class="sourceLineNo">564</span>     * {@code BundleActivator} methods are expected to complete in a short<a name="line.564"></a>
+<span class="sourceLineNo">565</span>     * period of time.<a name="line.565"></a>
+<span class="sourceLineNo">566</span>     * <a name="line.566"></a>
+<span class="sourceLineNo">567</span>     * @param timeout The time interval in milliseconds to wait. If zero, the<a name="line.567"></a>
+<span class="sourceLineNo">568</span>     *     method will wait indefinitely.<a name="line.568"></a>
+<span class="sourceLineNo">569</span>     * @return Returns the result of {@link #service()}.<a name="line.569"></a>
+<span class="sourceLineNo">570</span>     * @throws InterruptedException If another thread has interrupted the<a name="line.570"></a>
+<span class="sourceLineNo">571</span>     *     current thread.<a name="line.571"></a>
+<span class="sourceLineNo">572</span>     * @throws IllegalArgumentException If the value of timeout is negative.<a name="line.572"></a>
+<span class="sourceLineNo">573</span>     */<a name="line.573"></a>
+<span class="sourceLineNo">574</span>    public Optional&lt;W&gt; waitForService(long timeout)<a name="line.574"></a>
+<span class="sourceLineNo">575</span>            throws InterruptedException {<a name="line.575"></a>
+<span class="sourceLineNo">576</span>        if (timeout &lt; 0) {<a name="line.576"></a>
+<span class="sourceLineNo">577</span>            throw new IllegalArgumentException("timeout value is negative");<a name="line.577"></a>
+<span class="sourceLineNo">578</span>        }<a name="line.578"></a>
+<span class="sourceLineNo">579</span><a name="line.579"></a>
+<span class="sourceLineNo">580</span>        W service = service().orElse(null);<a name="line.580"></a>
+<span class="sourceLineNo">581</span>        if (service != null) {<a name="line.581"></a>
+<span class="sourceLineNo">582</span>            return Optional.of(service);<a name="line.582"></a>
+<span class="sourceLineNo">583</span>        }<a name="line.583"></a>
+<span class="sourceLineNo">584</span><a name="line.584"></a>
+<span class="sourceLineNo">585</span>        final long endTime<a name="line.585"></a>
+<span class="sourceLineNo">586</span>            = (timeout == 0) ? 0 : (System.currentTimeMillis() + timeout);<a name="line.586"></a>
+<span class="sourceLineNo">587</span>        while (true) {<a name="line.587"></a>
+<span class="sourceLineNo">588</span>            synchronized (modificationCount) {<a name="line.588"></a>
+<span class="sourceLineNo">589</span>                if (modificationCount() &lt; 0) {<a name="line.589"></a>
+<span class="sourceLineNo">590</span>                    return Optional.empty();<a name="line.590"></a>
+<span class="sourceLineNo">591</span>                }<a name="line.591"></a>
+<span class="sourceLineNo">592</span>                modificationCount.wait(timeout);<a name="line.592"></a>
+<span class="sourceLineNo">593</span>            }<a name="line.593"></a>
+<span class="sourceLineNo">594</span>            Optional&lt;W&gt; found = service();<a name="line.594"></a>
+<span class="sourceLineNo">595</span>            if (found.isPresent()) {<a name="line.595"></a>
+<span class="sourceLineNo">596</span>                return found;<a name="line.596"></a>
+<span class="sourceLineNo">597</span>            }<a name="line.597"></a>
+<span class="sourceLineNo">598</span>            if (endTime &gt; 0) { // if we have a timeout<a name="line.598"></a>
+<span class="sourceLineNo">599</span>                timeout = endTime - System.currentTimeMillis();<a name="line.599"></a>
+<span class="sourceLineNo">600</span>                if (timeout &lt;= 0) { // that has expired<a name="line.600"></a>
+<span class="sourceLineNo">601</span>                    return Optional.empty();<a name="line.601"></a>
+<span class="sourceLineNo">602</span>                }<a name="line.602"></a>
+<span class="sourceLineNo">603</span>            }<a name="line.603"></a>
+<span class="sourceLineNo">604</span>        }<a name="line.604"></a>
+<span class="sourceLineNo">605</span>    }<a name="line.605"></a>
+<span class="sourceLineNo">606</span><a name="line.606"></a>
+<span class="sourceLineNo">607</span>    /**<a name="line.607"></a>
+<span class="sourceLineNo">608</span>     * Return the current set of {@code ServiceReference}s for all services <a name="line.608"></a>
+<span class="sourceLineNo">609</span>     * collected by this {@code ServiceCollector}.<a name="line.609"></a>
+<span class="sourceLineNo">610</span>     * <a name="line.610"></a>
+<span class="sourceLineNo">611</span>     * @return the set.<a name="line.611"></a>
+<span class="sourceLineNo">612</span>     */<a name="line.612"></a>
+<span class="sourceLineNo">613</span>    public List&lt;ServiceReference&lt;S&gt;&gt; serviceReferences() {<a name="line.613"></a>
+<span class="sourceLineNo">614</span>        synchronized (this) {<a name="line.614"></a>
+<span class="sourceLineNo">615</span>            return Collections<a name="line.615"></a>
+<span class="sourceLineNo">616</span>                .unmodifiableList(new ArrayList&lt;&gt;(collected.keySet()));<a name="line.616"></a>
+<span class="sourceLineNo">617</span>        }<a name="line.617"></a>
+<span class="sourceLineNo">618</span>    }<a name="line.618"></a>
+<span class="sourceLineNo">619</span><a name="line.619"></a>
+<span class="sourceLineNo">620</span>    /**<a name="line.620"></a>
+<span class="sourceLineNo">621</span>     * Returns a {@code ServiceReference} for one of the services collected<a name="line.621"></a>
+<span class="sourceLineNo">622</span>     * by this {@code ServiceCollector}.<a name="line.622"></a>
+<span class="sourceLineNo">623</span>     * &lt;p&gt;<a name="line.623"></a>
+<span class="sourceLineNo">624</span>     * If multiple services have been collected, the service with the highest<a name="line.624"></a>
+<span class="sourceLineNo">625</span>     * ranking (as specified in its {@code service.ranking} property) is<a name="line.625"></a>
+<span class="sourceLineNo">626</span>     * returned. If there is a tie in ranking, the service with the lowest<a name="line.626"></a>
+<span class="sourceLineNo">627</span>     * service id (as specified in its {@code service.id} property); that is,<a name="line.627"></a>
+<span class="sourceLineNo">628</span>     * the service that was registered first is returned. This is the same<a name="line.628"></a>
+<span class="sourceLineNo">629</span>     * algorithm used by {@code BundleContext.getServiceReference}.<a name="line.629"></a>
+<span class="sourceLineNo">630</span>     * <a name="line.630"></a>
+<span class="sourceLineNo">631</span>     * @return an optional {@code ServiceReference}<a name="line.631"></a>
+<span class="sourceLineNo">632</span>     */<a name="line.632"></a>
+<span class="sourceLineNo">633</span>    public Optional&lt;ServiceReference&lt;S&gt;&gt; serviceReference() {<a name="line.633"></a>
+<span class="sourceLineNo">634</span>        try {<a name="line.634"></a>
+<span class="sourceLineNo">635</span>            synchronized (this) {<a name="line.635"></a>
+<span class="sourceLineNo">636</span>                return Optional.of(collected.firstKey());<a name="line.636"></a>
+<span class="sourceLineNo">637</span>            }<a name="line.637"></a>
+<span class="sourceLineNo">638</span>        } catch (NoSuchElementException e) {<a name="line.638"></a>
+<span class="sourceLineNo">639</span>            return Optional.empty();<a name="line.639"></a>
+<span class="sourceLineNo">640</span>        }<a name="line.640"></a>
+<span class="sourceLineNo">641</span>    }<a name="line.641"></a>
+<span class="sourceLineNo">642</span><a name="line.642"></a>
+<span class="sourceLineNo">643</span>    /**<a name="line.643"></a>
+<span class="sourceLineNo">644</span>     * Returns the service object for the specified {@code ServiceReference} <a name="line.644"></a>
+<span class="sourceLineNo">645</span>     * if the specified referenced service has been collected<a name="line.645"></a>
+<span class="sourceLineNo">646</span>     * by this {@code ServiceCollector}.<a name="line.646"></a>
+<span class="sourceLineNo">647</span>     * <a name="line.647"></a>
+<span class="sourceLineNo">648</span>     * @param reference the reference to the desired service.<a name="line.648"></a>
+<span class="sourceLineNo">649</span>     * @return an optional service object<a name="line.649"></a>
+<span class="sourceLineNo">650</span>     */<a name="line.650"></a>
+<span class="sourceLineNo">651</span>    public Optional&lt;W&gt; service(ServiceReference&lt;S&gt; reference) {<a name="line.651"></a>
+<span class="sourceLineNo">652</span>        synchronized (this) {<a name="line.652"></a>
+<span class="sourceLineNo">653</span>            return Optional.ofNullable(collected.get(reference));<a name="line.653"></a>
+<span class="sourceLineNo">654</span>        }<a name="line.654"></a>
+<span class="sourceLineNo">655</span>    }<a name="line.655"></a>
+<span class="sourceLineNo">656</span><a name="line.656"></a>
+<span class="sourceLineNo">657</span>    /**<a name="line.657"></a>
+<span class="sourceLineNo">658</span>     * Returns a service object for one of the services collected by this<a name="line.658"></a>
+<span class="sourceLineNo">659</span>     * {@code ServiceCollector}. This is effectively the same as <a name="line.659"></a>
+<span class="sourceLineNo">660</span>     * {@code serviceReference().flatMap(ref -&gt; service(ref))}.<a name="line.660"></a>
+<span class="sourceLineNo">661</span>     * &lt;P&gt;<a name="line.661"></a>
+<span class="sourceLineNo">662</span>     * The result value is cached, so refrain from implementing another<a name="line.662"></a>
+<span class="sourceLineNo">663</span>     * cache in the invoking code.<a name="line.663"></a>
+<span class="sourceLineNo">664</span>     * <a name="line.664"></a>
+<span class="sourceLineNo">665</span>     * @return an optional service object<a name="line.665"></a>
+<span class="sourceLineNo">666</span>     */<a name="line.666"></a>
+<span class="sourceLineNo">667</span>    public Optional&lt;W&gt; service() {<a name="line.667"></a>
+<span class="sourceLineNo">668</span>        final W cached = cachedService;<a name="line.668"></a>
+<span class="sourceLineNo">669</span>        if (cached != null) {<a name="line.669"></a>
+<span class="sourceLineNo">670</span>            return Optional.of(cached);<a name="line.670"></a>
+<span class="sourceLineNo">671</span>        }<a name="line.671"></a>
+<span class="sourceLineNo">672</span>        synchronized (this) {<a name="line.672"></a>
+<span class="sourceLineNo">673</span>            Iterator&lt;W&gt; iter = collected.values().iterator();<a name="line.673"></a>
+<span class="sourceLineNo">674</span>            if (iter.hasNext()) {<a name="line.674"></a>
+<span class="sourceLineNo">675</span>                cachedService = iter.next();<a name="line.675"></a>
+<span class="sourceLineNo">676</span>                return Optional.of(cachedService);<a name="line.676"></a>
+<span class="sourceLineNo">677</span>            }<a name="line.677"></a>
+<span class="sourceLineNo">678</span>        }<a name="line.678"></a>
+<span class="sourceLineNo">679</span>        return Optional.empty();<a name="line.679"></a>
+<span class="sourceLineNo">680</span>    }<a name="line.680"></a>
+<span class="sourceLineNo">681</span><a name="line.681"></a>
+<span class="sourceLineNo">682</span>    /**<a name="line.682"></a>
+<span class="sourceLineNo">683</span>     * Return the list of service objects for all services collected by this<a name="line.683"></a>
+<span class="sourceLineNo">684</span>     * {@code ServiceCollector}. This is effectively a mapping of<a name="line.684"></a>
+<span class="sourceLineNo">685</span>     * {@link #serviceReferences()} to services.<a name="line.685"></a>
+<span class="sourceLineNo">686</span>     * <a name="line.686"></a>
+<span class="sourceLineNo">687</span>     * @return a list of service objects which may be empty<a name="line.687"></a>
+<span class="sourceLineNo">688</span>     */<a name="line.688"></a>
+<span class="sourceLineNo">689</span>    public List&lt;W&gt; services() {<a name="line.689"></a>
+<span class="sourceLineNo">690</span>        synchronized (this) {<a name="line.690"></a>
+<span class="sourceLineNo">691</span>            return Collections<a name="line.691"></a>
+<span class="sourceLineNo">692</span>                .unmodifiableList(new ArrayList&lt;&gt;(collected.values()));<a name="line.692"></a>
+<span class="sourceLineNo">693</span>        }<a name="line.693"></a>
+<span class="sourceLineNo">694</span>    }<a name="line.694"></a>
+<span class="sourceLineNo">695</span><a name="line.695"></a>
+<span class="sourceLineNo">696</span>    /**<a name="line.696"></a>
+<span class="sourceLineNo">697</span>     * Return the number of services collected by this<a name="line.697"></a>
+<span class="sourceLineNo">698</span>     * {@code ServiceCollector}. This value may not be correct during the<a name="line.698"></a>
+<span class="sourceLineNo">699</span>     * execution of handlers.<a name="line.699"></a>
+<span class="sourceLineNo">700</span>     * <a name="line.700"></a>
+<span class="sourceLineNo">701</span>     * @return The number of services collected<a name="line.701"></a>
+<span class="sourceLineNo">702</span>     */<a name="line.702"></a>
+<span class="sourceLineNo">703</span>    public int size() {<a name="line.703"></a>
+<span class="sourceLineNo">704</span>        synchronized (this) {<a name="line.704"></a>
+<span class="sourceLineNo">705</span>            return collected.size();<a name="line.705"></a>
+<span class="sourceLineNo">706</span>        }<a name="line.706"></a>
+<span class="sourceLineNo">707</span>    }<a name="line.707"></a>
+<span class="sourceLineNo">708</span><a name="line.708"></a>
+<span class="sourceLineNo">709</span>    /**<a name="line.709"></a>
+<span class="sourceLineNo">710</span>     * Returns the modification count for this {@code ServiceCollector}.<a name="line.710"></a>
+<span class="sourceLineNo">711</span>     * <a name="line.711"></a>
+<span class="sourceLineNo">712</span>     * The modification count is initialized to 0 when this <a name="line.712"></a>
+<span class="sourceLineNo">713</span>     * {@code ServiceCollector} is opened. Every time a service is added, <a name="line.713"></a>
+<span class="sourceLineNo">714</span>     * modified or removed from this {@code ServiceCollector}, <a name="line.714"></a>
+<span class="sourceLineNo">715</span>     * the modification count is incremented.<a name="line.715"></a>
+<span class="sourceLineNo">716</span>     * &lt;p&gt;<a name="line.716"></a>
+<span class="sourceLineNo">717</span>     * The modification count can be used to determine if this<a name="line.717"></a>
+<span class="sourceLineNo">718</span>     * {@code ServiceCollector} has added, modified or removed a service by<a name="line.718"></a>
+<span class="sourceLineNo">719</span>     * comparing a modification count value previously collected with the <a name="line.719"></a>
+<span class="sourceLineNo">720</span>     * current modification count value. If the value has not changed, <a name="line.720"></a>
+<span class="sourceLineNo">721</span>     * then no service has been added, modified or removed from this <a name="line.721"></a>
+<span class="sourceLineNo">722</span>     * {@code ServiceCollector} since the previous modification count <a name="line.722"></a>
+<span class="sourceLineNo">723</span>     * was collected.<a name="line.723"></a>
+<span class="sourceLineNo">724</span>     * <a name="line.724"></a>
+<span class="sourceLineNo">725</span>     * @return The modification count for this {@code ServiceCollector} or<a name="line.725"></a>
+<span class="sourceLineNo">726</span>     *      -1 if this {@code ServiceCollector} is not open.<a name="line.726"></a>
+<span class="sourceLineNo">727</span>     */<a name="line.727"></a>
+<span class="sourceLineNo">728</span>    public int modificationCount() {<a name="line.728"></a>
+<span class="sourceLineNo">729</span>        return modificationCount[0];<a name="line.729"></a>
+<span class="sourceLineNo">730</span>    }<a name="line.730"></a>
+<span class="sourceLineNo">731</span><a name="line.731"></a>
+<span class="sourceLineNo">732</span>    /**<a name="line.732"></a>
+<span class="sourceLineNo">733</span>     * Checks if this {@code ServiceCollector} is open.<a name="line.733"></a>
+<span class="sourceLineNo">734</span>     *<a name="line.734"></a>
+<span class="sourceLineNo">735</span>     * @return true, if is open<a name="line.735"></a>
+<span class="sourceLineNo">736</span>     */<a name="line.736"></a>
+<span class="sourceLineNo">737</span>    public boolean isOpen() {<a name="line.737"></a>
+<span class="sourceLineNo">738</span>        return modificationCount[0] &gt;= 0;<a name="line.738"></a>
+<span class="sourceLineNo">739</span>    }<a name="line.739"></a>
+<span class="sourceLineNo">740</span><a name="line.740"></a>
+<span class="sourceLineNo">741</span>    /**<a name="line.741"></a>
+<span class="sourceLineNo">742</span>     * Return a {@code SortedMap} of the {@code ServiceReference}s and service<a name="line.742"></a>
+<span class="sourceLineNo">743</span>     * objects for all services collected by this {@code ServiceCollector}.<a name="line.743"></a>
+<span class="sourceLineNo">744</span>     * The map is sorted in reverse natural order of {@code ServiceReference}.<a name="line.744"></a>
+<span class="sourceLineNo">745</span>     * That is, the first entry is the service with the highest ranking and the<a name="line.745"></a>
+<span class="sourceLineNo">746</span>     * lowest service id.<a name="line.746"></a>
+<span class="sourceLineNo">747</span>     * <a name="line.747"></a>
+<span class="sourceLineNo">748</span>     * @return A {@code SortedMap} with the {@code ServiceReference}s and<a name="line.748"></a>
+<span class="sourceLineNo">749</span>     *         service objects for all services collected by this<a name="line.749"></a>
+<span class="sourceLineNo">750</span>     *         {@code ServiceCollector}. If no services have been collected,<a name="line.750"></a>
+<span class="sourceLineNo">751</span>     *         then the returned map is empty.<a name="line.751"></a>
+<span class="sourceLineNo">752</span>     */<a name="line.752"></a>
+<span class="sourceLineNo">753</span>    public SortedMap&lt;ServiceReference&lt;S&gt;, W&gt; collected() {<a name="line.753"></a>
+<span class="sourceLineNo">754</span>        synchronized (this) {<a name="line.754"></a>
+<span class="sourceLineNo">755</span>            if (collected.isEmpty()) {<a name="line.755"></a>
+<span class="sourceLineNo">756</span>                return new TreeMap&lt;&gt;(Collections.reverseOrder());<a name="line.756"></a>
+<span class="sourceLineNo">757</span>            }<a name="line.757"></a>
+<span class="sourceLineNo">758</span>            return Collections.unmodifiableSortedMap(new TreeMap&lt;&gt;(collected));<a name="line.758"></a>
+<span class="sourceLineNo">759</span>        }<a name="line.759"></a>
+<span class="sourceLineNo">760</span>    }<a name="line.760"></a>
+<span class="sourceLineNo">761</span><a name="line.761"></a>
+<span class="sourceLineNo">762</span>    /**<a name="line.762"></a>
+<span class="sourceLineNo">763</span>     * Return if this {@code ServiceCollector} is empty.<a name="line.763"></a>
+<span class="sourceLineNo">764</span>     * <a name="line.764"></a>
+<span class="sourceLineNo">765</span>     * @return {@code true} if this {@code ServiceCollector} <a name="line.765"></a>
+<span class="sourceLineNo">766</span>     *     has not collected any services.<a name="line.766"></a>
+<span class="sourceLineNo">767</span>     */<a name="line.767"></a>
+<span class="sourceLineNo">768</span>    public boolean isEmpty() {<a name="line.768"></a>
+<span class="sourceLineNo">769</span>        synchronized (this) {<a name="line.769"></a>
+<span class="sourceLineNo">770</span>            return collected.isEmpty();<a name="line.770"></a>
+<span class="sourceLineNo">771</span>        }<a name="line.771"></a>
+<span class="sourceLineNo">772</span>    }<a name="line.772"></a>
+<span class="sourceLineNo">773</span><a name="line.773"></a>
+<span class="sourceLineNo">774</span>    /**<a name="line.774"></a>
+<span class="sourceLineNo">775</span>     * Remove a service from this {@code ServiceCollector}.<a name="line.775"></a>
+<span class="sourceLineNo">776</span>     * <a name="line.776"></a>
+<span class="sourceLineNo">777</span>     * The specified service will be removed from this {@code ServiceCollector}.<a name="line.777"></a>
+<span class="sourceLineNo">778</span>     * <a name="line.778"></a>
+<span class="sourceLineNo">779</span>     * @param reference The reference to the service to be removed.<a name="line.779"></a>
+<span class="sourceLineNo">780</span>     */<a name="line.780"></a>
+<span class="sourceLineNo">781</span>    public void remove(ServiceReference&lt;S&gt; reference) {<a name="line.781"></a>
+<span class="sourceLineNo">782</span>        removeFromCollected(reference);<a name="line.782"></a>
+<span class="sourceLineNo">783</span>    }<a name="line.783"></a>
+<span class="sourceLineNo">784</span><a name="line.784"></a>
+<span class="sourceLineNo">785</span>}<a name="line.785"></a>
 
 
 
