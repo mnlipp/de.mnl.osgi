@@ -78,24 +78,6 @@ public class LogManager extends java.util.logging.LogManager {
     }
 
     /**
-     * Store or forward the logged information.
-     *
-     * @param logInfo the information
-     */
-    public void log(LogInfo logInfo) {
-        LogRecordHandler fwd = forwarder;
-        if (fwd != null && fwd.process(logInfo)) {
-            return;
-        }
-        synchronized (buffered) {
-            if (buffered.size() == bufferSize) {
-                buffered.removeFirst();
-            }
-            buffered.add(logInfo);
-        }
-    }
-
-    /**
      * Sets the forwarder.
      *
      * @param forwarder the new forwarder
@@ -104,6 +86,8 @@ public class LogManager extends java.util.logging.LogManager {
         // It may be that the forwarder is used by a call to
         // #log before all records from the buffer have been
         // flushed, thus changing the proper sequence.
+
+        // Protect the forwarder from being changed while used in #log
         synchronized (this) {
             this.forwarder = forwarder;
             if (forwarder == null) {
@@ -115,6 +99,26 @@ public class LogManager extends java.util.logging.LogManager {
                 buffered.clear();
             }
             forwarder.processBuffered(tbf.toArray(new LogInfo[0]));
+        }
+    }
+
+    /**
+     * Store or forward the logged information.
+     *
+     * @param logInfo the information
+     */
+    public void log(LogInfo logInfo) {
+        // Lock the forwarder. May not change while being used.
+        synchronized (this) {
+            if (forwarder != null && forwarder.process(logInfo)) {
+                return;
+            }
+        }
+        synchronized (buffered) {
+            if (buffered.size() == bufferSize) {
+                buffered.removeFirst();
+            }
+            buffered.add(logInfo);
         }
     }
 
