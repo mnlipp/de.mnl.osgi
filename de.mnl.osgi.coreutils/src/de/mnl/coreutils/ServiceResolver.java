@@ -27,7 +27,7 @@ import org.osgi.framework.Filter;
 import org.osgi.framework.ServiceReference;
 
 /**
- * Maintains and attempts to resolve dependencies to services.
+ * Maintains and attempts to resolve dependencies on services.
  * <P>
  * The class supports two usage pattern. The first is to use the
  * {@code ServiceResolver} as base class for the bundle's activator.
@@ -80,6 +80,7 @@ import org.osgi.framework.ServiceReference;
  * resolver.close();
  * </pre>
  * 
+ * 
  */
 public class ServiceResolver implements AutoCloseable, BundleActivator {
 
@@ -116,8 +117,8 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
      * Called by the framework when using the {@code ServiceResolver} as 
      * base class for a bundle activator.
      * <P>
-     * The implementation first calls {@link #configure()} and then
-     * {@link #open()}. 
+     * The implementation sets the {@link #context} attribute and calls 
+     * {@link #configure()} and {@link #open()}. 
      *
      * @param context the context
      * @throws Exception if a problem occurs
@@ -130,8 +131,9 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
     }
 
     /**
-     * Configures the resolver. Must be overridden by the derived class
-     * when using the resolver as base class for a bundle activator.
+     * Configures the {@code ServiceResolver}. Must be overridden 
+     * by the derived class when using the {@code ServiceResolver}
+     * as base class for a bundle activator.
      * The derived class must configure the resolver with calls to
      * at least one of the {@code addDependency} methods.
      * <P>
@@ -172,7 +174,8 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
 
     /**
      * Called by the framework when using the {@code ServiceResolver} as 
-     * base class for a bundle activator.
+     * base class for a bundle activator. The implementatoin calls
+     * {@link #close()}.
      *
      * @param context the context
      * @throws Exception if a problem occurs
