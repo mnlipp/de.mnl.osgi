@@ -79,7 +79,6 @@ import org.osgi.framework.ServiceReference;
  *      (see {@link #setServiceGetter(BiFunction)})
  */
 public class ServiceCollector<S, T> implements AutoCloseable {
-
     /**
      * The Bundle Context used by this {@code ServiceCollector}.
      */
@@ -153,10 +152,10 @@ public class ServiceCollector<S, T> implements AutoCloseable {
      */
     public ServiceCollector(BundleContext context, Filter filter) {
         this.context = context;
-        this.collectReference = null;
-        this.collectClass = null;
-        this.listenerFilter = filter.toString();
         this.filter = filter;
+        collectReference = null;
+        collectClass = null;
+        listenerFilter = filter.toString();
         if ((context == null) || (filter == null)) {
             /*
              * we throw a NPE here to be consistent with the other constructors
@@ -176,11 +175,11 @@ public class ServiceCollector<S, T> implements AutoCloseable {
             ServiceReference<S> reference) {
         this.context = context;
         this.collectReference = reference;
-        this.collectClass = null;
-        this.listenerFilter = "(" + Constants.SERVICE_ID + "="
+        collectClass = null;
+        listenerFilter = "(" + Constants.SERVICE_ID + "="
             + reference.getProperty(Constants.SERVICE_ID).toString() + ")";
         try {
-            this.filter = context.createFilter(listenerFilter);
+            filter = context.createFilter(listenerFilter);
         } catch (InvalidSyntaxException e) {
             /*
              * we could only get this exception if the ServiceReference was
@@ -202,13 +201,13 @@ public class ServiceCollector<S, T> implements AutoCloseable {
      */
     public ServiceCollector(BundleContext context, String className) {
         this.context = context;
-        this.collectReference = null;
-        this.collectClass = className;
+        collectReference = null;
+        collectClass = className;
         // we call clazz.toString to verify clazz is non-null!
-        this.listenerFilter
+        listenerFilter
             = "(" + Constants.OBJECTCLASS + "=" + className + ")";
         try {
-            this.filter = context.createFilter(listenerFilter);
+            filter = context.createFilter(listenerFilter);
         } catch (InvalidSyntaxException e) {
             /*
              * we could only get this exception if the clazz argument was
@@ -246,9 +245,13 @@ public class ServiceCollector<S, T> implements AutoCloseable {
     }
 
     /**
-     * Sets a function to be called when the first service is 
-     * available. The service reference to the new service 
-     * and the service are passed as arguments.
+     * Sets a function to be called when the first service 
+     * instance was added to the collection. The reference
+     * to the new service and the service instance are passed as 
+     * arguments.
+     * <P>
+     * The function is called before a callback set by 
+     * {@link #setOnAdded(BiConsumer)}.
      *
      * @param onBound the function to be called
      * @return the {@code ServiceCollector}
@@ -260,11 +263,9 @@ public class ServiceCollector<S, T> implements AutoCloseable {
     }
 
     /**
-     * Sets a function to be called when a new service becomes 
-     * available. The service reference to the new service 
-     * and the service are passed as arguments. If both an
-     * "onAvailable" and an "onFirstAvailable" function are
-     * provided, the latter will be called first.
+     * Sets a function to be called when a new service instance
+     * was added to the collection. The reference to the new 
+     * service and the service instance are passed as arguments.
      *
      * @param onAdded the function to be called
      * @return the {@code ServiceCollector}
@@ -276,9 +277,9 @@ public class ServiceCollector<S, T> implements AutoCloseable {
     }
 
     /**
-     * Sets a function to be called when one of the collected services
-     * becomes unavailable. The service reference to the service to be 
-     * removed and the service are passed as arguments.
+     * Sets a function to be called before one of the collected service
+     * instances becomes unavailable. The reference to the service to 
+     * be removed and the service instance are passed as arguments.
      *
      * @param onRemoving the function to call
      * @return the {@code ServiceCollector}
@@ -290,11 +291,13 @@ public class ServiceCollector<S, T> implements AutoCloseable {
     }
 
     /**
-     * Sets a function to be called when the last of the collected services
-     * becomes unavailable. The service reference to the modified service 
-     * and the service are passed as arguments. If both an
-     * "onUnavailable" and an "onLastUnavailable" function are set,
-     * the latter will be called last.
+     * Sets a function to be called before the last of the collected 
+     * service instances becomes unavailable. The reference to 
+     * the service to be removed and the service instance are 
+     * passed as arguments.
+     * <P>
+     * The function is called after a callback set by 
+     * {@link #setOnRemoving(BiConsumer)}).
      *
      * @param onUnbinding the function to call
      * @return the {@code ServiceCollector}
@@ -792,6 +795,17 @@ public class ServiceCollector<S, T> implements AutoCloseable {
      */
     public void remove(ServiceReference<S> reference) {
         removeFromCollected(reference);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ServiceCollector [filter=" + filter + ", bundle="
+            + context.getBundle() + "]";
     }
 
 }
