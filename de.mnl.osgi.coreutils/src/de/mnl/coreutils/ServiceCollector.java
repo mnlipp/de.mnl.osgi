@@ -309,9 +309,14 @@ public class ServiceCollector<S, T> implements AutoCloseable {
     }
 
     /**
-     * Sets a function to be called when one of the collected services
-     * changes. The service reference to the modified service and
-     * the service are passed as arguments.
+     * Sets a function to be called when the preferred service
+     * changes. This may either be a change of the preferred service's
+     * properties (reported by the framework) or the replacement of
+     * the preferred service by another service. The service reference 
+     * to the modified service and the service are passed as arguments.
+     * <P>
+     * If the preferred service is replaced by another service, this
+     * function is called after the "onAdded" or "onRemoved" callback.
      *
      * @param onModified the function to call
      * @return the {@code ServiceCollector}
@@ -477,8 +482,10 @@ public class ServiceCollector<S, T> implements AutoCloseable {
                     return;
                 }
                 modified();
-                Optional.ofNullable(onModified)
-                    .ifPresent(cb -> cb.accept(reference, service));
+                if (onModified != null
+                    && reference.equals(collected.firstKey())) {
+                    onModified.accept(reference, service);
+                }
             }
             break;
         case ServiceEvent.MODIFIED_ENDMATCH:
@@ -529,6 +536,11 @@ public class ServiceCollector<S, T> implements AutoCloseable {
             }
             Optional.ofNullable(onAdded)
                 .ifPresent(cb -> cb.accept(reference, service));
+            // If added is first, first has changed
+            if (onModified != null && collected.size() > 1
+                && collected.firstKey().equals(reference)) {
+                onModified.accept(reference, service);
+            }
         }
     }
 
@@ -545,11 +557,17 @@ public class ServiceCollector<S, T> implements AutoCloseable {
                     .ifPresent(cb -> cb.accept(reference, service));
             }
             context.ungetService(reference);
+            boolean firstChanges = reference.equals(collected.firstKey());
             collected.remove(reference);
             if (isOpen()) {
                 modified();
             }
+            // Has first changed?
+            if (onModified != null && firstChanges && !collected.isEmpty()) {
+                onModified.accept(reference, service);
+            }
         }
+
     }
 
     /**

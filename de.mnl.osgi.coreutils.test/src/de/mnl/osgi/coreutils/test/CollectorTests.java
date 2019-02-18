@@ -86,6 +86,7 @@ public class CollectorTests {
                 incCount("lastUnbinding");
                 assertEquals(svc, service().get());
             });
+            setOnModfied((ref, svc) -> incCount("modified"));
         }
     }
 
@@ -108,10 +109,12 @@ public class CollectorTests {
             coll1.waitForService(1000);
             assertEquals(1, coll1.callbacks.get("firstBound").intValue());
             assertEquals(1, coll1.callbacks.get("bound").intValue());
+            assertNull(coll1.callbacks.get("modified"));
         }
         assertFalse(coll1bck.service().isPresent());
         assertEquals(1, coll1bck.callbacks.get("unbinding").intValue());
         assertEquals(1, coll1bck.callbacks.get("lastUnbinding").intValue());
+        assertNull(coll1bck.callbacks.get("modified"));
     }
 
     /**
@@ -174,6 +177,7 @@ public class CollectorTests {
                     SampleService.class, service1, props);
             assertEquals(1, coll1.callbacks.get("firstBound").intValue());
             assertEquals(1, coll1.callbacks.get("bound").intValue());
+            assertNull(coll1.callbacks.get("modified"));
             assertEquals(service1, coll1.service().get());
 
             // Add second
@@ -184,6 +188,7 @@ public class CollectorTests {
                     SampleService.class, service2, props);
             assertEquals(1, coll1.callbacks.get("firstBound").intValue());
             assertEquals(2, coll1.callbacks.get("bound").intValue());
+            assertEquals(1, coll1.callbacks.get("modified").intValue());
             assertEquals(service2, coll1.service().get());
 
             // Remove second
@@ -191,6 +196,7 @@ public class CollectorTests {
             assertEquals(1, coll1.callbacks.get("firstBound").intValue());
             assertEquals(2, coll1.callbacks.get("bound").intValue());
             assertEquals(1, coll1.callbacks.get("unbinding").intValue());
+            assertEquals(2, coll1.callbacks.get("modified").intValue());
             assertEquals(service1, coll1.service().get());
 
             // Remove first
@@ -199,6 +205,7 @@ public class CollectorTests {
             assertEquals(2, coll1.callbacks.get("bound").intValue());
             assertEquals(2, coll1.callbacks.get("unbinding").intValue());
             assertEquals(1, coll1.callbacks.get("lastUnbinding").intValue());
+            assertEquals(2, coll1.callbacks.get("modified").intValue());
             assertFalse(coll1.service().isPresent());
         }
     }
