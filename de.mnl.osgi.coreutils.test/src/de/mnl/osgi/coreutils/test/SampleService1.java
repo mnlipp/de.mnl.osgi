@@ -16,10 +16,9 @@
 
 package de.mnl.osgi.coreutils.test;
 
-public class SampleService {
+public class SampleService1 {
 
-    public SampleService() {
-        // TODO Auto-generated constructor stub
+    public SampleService1() {
     }
 
 }

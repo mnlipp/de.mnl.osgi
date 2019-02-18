@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeoutException;
-import java.util.logging.Logger;
 import net.jodah.concurrentunit.Waiter;
 
 import org.junit.After;
@@ -42,9 +41,6 @@ import org.osgi.framework.ServiceRegistration;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CollectorTests {
-
-    protected static final Logger logger
-        = Logger.getLogger("Logger Call Test");
 
     private final BundleContext context = FrameworkUtil
         .getBundle(CollectorTests.class).getBundleContext();
@@ -98,12 +94,12 @@ public class CollectorTests {
     @Test
     @SuppressWarnings("resource")
     public void testUseAvailable() throws InterruptedException {
-        cleanup.add(context.registerService(SampleService.class,
-            new SampleService(), null));
-        TestCollector<SampleService> coll1bck;
-        try (TestCollector<SampleService> coll1
-            = new TestCollector<SampleService>(
-                context, SampleService.class)) {
+        cleanup.add(context.registerService(SampleService1.class,
+            new SampleService1(), null));
+        TestCollector<SampleService1> coll1bck;
+        try (TestCollector<SampleService1> coll1
+            = new TestCollector<SampleService1>(
+                context, SampleService1.class)) {
             coll1bck = coll1;
             coll1.open();
             coll1.waitForService(1000);
@@ -128,19 +124,19 @@ public class CollectorTests {
         // Prepare
         Hashtable<String, Object> props = new Hashtable<>();
         props.put(Constants.SERVICE_RANKING, 1);
-        SampleService service1 = new SampleService();
-        cleanup.add(context.registerService(SampleService.class,
+        SampleService1 service1 = new SampleService1();
+        cleanup.add(context.registerService(SampleService1.class,
             service1, props));
         props.put(Constants.SERVICE_RANKING, 2);
-        SampleService service2 = new SampleService();
-        cleanup.add(context.registerService(SampleService.class,
+        SampleService1 service2 = new SampleService1();
+        cleanup.add(context.registerService(SampleService1.class,
             service2, props));
 
         // Now run
-        TestCollector<SampleService> coll1bck;
-        try (TestCollector<SampleService> coll1
-            = new TestCollector<SampleService>(context,
-                SampleService.class)) {
+        TestCollector<SampleService1> coll1bck;
+        try (TestCollector<SampleService1> coll1
+            = new TestCollector<SampleService1>(context,
+                SampleService1.class)) {
             coll1bck = coll1;
             coll1.open();
             coll1.waitForService(1000);
@@ -162,19 +158,19 @@ public class CollectorTests {
      */
     @Test
     public void testDynamic() throws InterruptedException {
-        try (TestCollector<SampleService> coll1
-            = new TestCollector<SampleService>(context,
-                SampleService.class)) {
+        try (TestCollector<SampleService1> coll1
+            = new TestCollector<SampleService1>(context,
+                SampleService1.class)) {
             coll1.open();
             assertTrue(coll1.isEmpty());
 
             // Add first service
             Hashtable<String, Object> props = new Hashtable<>();
             props.put(Constants.SERVICE_RANKING, 1);
-            SampleService service1 = new SampleService();
-            final ServiceRegistration<SampleService> reg1
+            SampleService1 service1 = new SampleService1();
+            final ServiceRegistration<SampleService1> reg1
                 = context.registerService(
-                    SampleService.class, service1, props);
+                    SampleService1.class, service1, props);
             assertEquals(1, coll1.callbacks.get("firstBound").intValue());
             assertEquals(1, coll1.callbacks.get("bound").intValue());
             assertNull(coll1.callbacks.get("modified"));
@@ -182,10 +178,10 @@ public class CollectorTests {
 
             // Add second
             props.put(Constants.SERVICE_RANKING, 2);
-            SampleService service2 = new SampleService();
-            final ServiceRegistration<SampleService> reg2
+            SampleService1 service2 = new SampleService1();
+            final ServiceRegistration<SampleService1> reg2
                 = context.registerService(
-                    SampleService.class, service2, props);
+                    SampleService1.class, service2, props);
             assertEquals(1, coll1.callbacks.get("firstBound").intValue());
             assertEquals(2, coll1.callbacks.get("bound").intValue());
             assertEquals(1, coll1.callbacks.get("modified").intValue());
@@ -224,8 +220,9 @@ public class CollectorTests {
         CountDownLatch started = new CountDownLatch(N);
         int[] services = new int[N];
         // Threads prepared
-        try (TestCollector<SampleService> coll1
-            = new TestCollector<SampleService>(context, SampleService.class)) {
+        try (TestCollector<SampleService1> coll1
+            = new TestCollector<SampleService1>(context,
+                SampleService1.class)) {
             coll1.open();
             assertTrue(coll1.isEmpty());
             // Prepare threads
@@ -260,14 +257,14 @@ public class CollectorTests {
     }
 
     private void runTestInThread(Waiter waiter,
-            TestCollector<SampleService> coll1, int count, int[] services) {
+            TestCollector<SampleService1> coll1, int count, int[] services) {
         // Add service
         Hashtable<String, Object> props = new Hashtable<>();
         props.put(Constants.SERVICE_RANKING, 1);
-        SampleService service1 = new SampleService();
-        final ServiceRegistration<SampleService> reg1
+        SampleService1 service1 = new SampleService1();
+        final ServiceRegistration<SampleService1> reg1
             = context.registerService(
-                SampleService.class, service1, props);
+                SampleService1.class, service1, props);
         services[count] = coll1.serviceReferences().size();
         try {
             Thread.sleep(count % 10);

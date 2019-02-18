@@ -19,11 +19,13 @@ package de.mnl.coreutils;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
 import org.osgi.framework.ServiceReference;
 
+// TODO: Auto-generated Javadoc
 /**
  * Maintains and attempts to resolve dependencies to services. 
  */
@@ -37,6 +39,7 @@ public class ServiceResolver implements AutoCloseable {
     private int resolved;
     private Runnable onResolved;
     private Runnable onDissolving;
+    private Consumer<String> onRebound;
 
     /**
      * Creates a new resolver that uses the given context.
@@ -73,6 +76,20 @@ public class ServiceResolver implements AutoCloseable {
     }
 
     /**
+     * Sets the function to be called when the preferred service
+     * of a resolved dependency changes. The change may either be
+     * a change of properties reported by the framework or the
+     * replacement of the preferred service with another service. 
+     *
+     * @param onRebound the on rebound
+     * @return the service resolver
+     */
+    public ServiceResolver setOnRebound(Consumer<String> onRebound) {
+        this.onRebound = onRebound;
+        return this;
+    }
+
+    /**
      * Adds a mandatory dependency on the service specified by the
      * class. The name of the class is used as name of the
      * dependency.
@@ -101,7 +118,8 @@ public class ServiceResolver implements AutoCloseable {
                     "Cannot add dependencies to open reolver.");
             }
             dependencies.put(name, new ServiceCollector<>(context, filter)
-                .setOnBound(this::onBound).setOnUnbinding(this::onUnbinding));
+                .setOnBound(this::onBound).setOnUnbinding(this::onUnbinding)
+                .setOnModfied((ref, svc) -> onModified(name)));
             return this;
         }
     }
@@ -123,7 +141,8 @@ public class ServiceResolver implements AutoCloseable {
                     "Cannot add dependencies to open reolver.");
             }
             dependencies.put(name, new ServiceCollector<>(context, reference)
-                .setOnBound(this::onBound).setOnUnbinding(this::onUnbinding));
+                .setOnBound(this::onBound).setOnUnbinding(this::onUnbinding)
+                .setOnModfied((ref, svc) -> onModified(name)));
             return this;
         }
     }
@@ -134,6 +153,7 @@ public class ServiceResolver implements AutoCloseable {
      *
      * @param name the name of the dependency
      * @param className the class name
+     * @return the service resolver
      */
     @SuppressWarnings("resource")
     public ServiceResolver addDependency(String name, String className) {
@@ -143,7 +163,8 @@ public class ServiceResolver implements AutoCloseable {
                     "Cannot add dependencies to open reolver.");
             }
             dependencies.put(name, new ServiceCollector<>(context, className)
-                .setOnBound(this::onBound).setOnUnbinding(this::onUnbinding));
+                .setOnBound(this::onBound).setOnUnbinding(this::onUnbinding)
+                .setOnModfied((ref, svc) -> onModified(name)));
             return this;
         }
     }
@@ -176,7 +197,8 @@ public class ServiceResolver implements AutoCloseable {
                 throw new IllegalStateException(
                     "Cannot add dependencies to open reolver.");
             }
-            optDependencies.put(name, new ServiceCollector<>(context, filter));
+            optDependencies.put(name, new ServiceCollector<>(context, filter)
+                .setOnModfied((ref, svc) -> onModified(name)));
             return this;
         }
     }
@@ -198,7 +220,8 @@ public class ServiceResolver implements AutoCloseable {
                     "Cannot add dependencies to open reolver.");
             }
             optDependencies.put(name,
-                new ServiceCollector<>(context, reference));
+                new ServiceCollector<>(context, reference)
+                    .setOnModfied((ref, svc) -> onModified(name)));
             return this;
         }
     }
@@ -209,6 +232,7 @@ public class ServiceResolver implements AutoCloseable {
      *
      * @param name the name of the dependency
      * @param className the class name
+     * @return the service resolver
      */
     @SuppressWarnings("resource")
     public ServiceResolver addOptionalDependency(String name,
@@ -219,7 +243,8 @@ public class ServiceResolver implements AutoCloseable {
                     "Cannot add dependencies to open reolver.");
             }
             optDependencies.put(name,
-                new ServiceCollector<>(context, className));
+                new ServiceCollector<>(context, className)
+                    .setOnModfied((ref, svc) -> onModified(name)));
             return this;
         }
     }
@@ -242,6 +267,10 @@ public class ServiceResolver implements AutoCloseable {
         }
     }
 
+    private void onModified(String dependency) {
+        Optional.ofNullable(onRebound).ifPresent(cb -> cb.accept(dependency));
+    }
+
     /**
      * Starts the resolver. While open, the resolver attempts
      * to obtain service implementation for all registered
@@ -260,6 +289,7 @@ public class ServiceResolver implements AutoCloseable {
         for (ServiceCollector<?, ?> coll : optDependencies.values()) {
             coll.open();
         }
+        isOpen = true;
     }
 
     /**
@@ -275,9 +305,24 @@ public class ServiceResolver implements AutoCloseable {
         for (ServiceCollector<?, ?> coll : optDependencies.values()) {
             coll.close();
         }
+        isOpen = false;
     }
 
-    boolean resolved() {
+    /**
+     * Checks if the resolver is open.
+     *
+     * @return true, if open
+     */
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    /**
+     * Checks if the resolver is in the resolved state.
+     *
+     * @return the result
+     */
+    public boolean isResolved() {
         synchronized (this) {
             return resolved == dependencies.size();
         }
@@ -335,9 +380,8 @@ public class ServiceResolver implements AutoCloseable {
     /**
      * Returns the (optional) service found for the optional dependency, 
      * using the name of the class as name of the dependency. 
-     * 
+     *
      * @param <T> the type of the service
-     * @param name the name of the dependency
      * @param clazz the class of the service
      * @return the result
      */
