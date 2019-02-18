@@ -109,9 +109,9 @@
 <span class="sourceLineNo">101</span>        // Create new service tracker.<a name="line.101"></a>
 <span class="sourceLineNo">102</span>        logSvcTracker = new ServiceCollector&lt;LogService, LogService&gt;(<a name="line.102"></a>
 <span class="sourceLineNo">103</span>            context, LogService.class)<a name="line.103"></a>
-<span class="sourceLineNo">104</span>                .setOnBound((ref, svc) -&gt; ((LogManager) logMgr)<a name="line.104"></a>
+<span class="sourceLineNo">104</span>                .setOnAdded((ref, svc) -&gt; ((LogManager) logMgr)<a name="line.104"></a>
 <span class="sourceLineNo">105</span>                    .setForwarder(this))<a name="line.105"></a>
-<span class="sourceLineNo">106</span>                .setOnUnbindingLast((ref, svc) -&gt; ((LogManager) logMgr)<a name="line.106"></a>
+<span class="sourceLineNo">106</span>                .setOnUnbinding((ref, svc) -&gt; ((LogManager) logMgr)<a name="line.106"></a>
 <span class="sourceLineNo">107</span>                    .setForwarder(this));<a name="line.107"></a>
 <span class="sourceLineNo">108</span>        logSvcTracker.open();<a name="line.108"></a>
 <span class="sourceLineNo">109</span>    }<a name="line.109"></a>
