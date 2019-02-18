@@ -68,7 +68,7 @@ public class CollectorTests {
 
         public TestCollector(BundleContext context, Class<S> clazz) {
             super(context, clazz);
-            setOnBoundFirst(
+            setOnBound(
                 (ref, svc) -> {
                     incCount("firstBound");
                     assertTrue(service().isPresent());
@@ -80,9 +80,9 @@ public class CollectorTests {
                     assertEquals(svc, collected().values().iterator().next());
                     assertEquals(1, size());
                 });
-            setOnBound((ref, svc) -> incCount("bound"));
-            setOnUnbinding((ref, svc) -> incCount("unbinding"));
-            setOnUnbindingLast((ref, svc) -> {
+            setOnAdded((ref, svc) -> incCount("bound"));
+            setOnRemoving((ref, svc) -> incCount("unbinding"));
+            setOnUnbinding((ref, svc) -> {
                 incCount("lastUnbinding");
                 assertEquals(svc, service().get());
             });

@@ -101,9 +101,9 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         // Create new service tracker.
         logSvcTracker = new ServiceCollector<LogService, LogService>(
             context, LogService.class)
-                .setOnBound((ref, svc) -> ((LogManager) logMgr)
+                .setOnAdded((ref, svc) -> ((LogManager) logMgr)
                     .setForwarder(this))
-                .setOnUnbindingLast((ref, svc) -> ((LogManager) logMgr)
+                .setOnUnbinding((ref, svc) -> ((LogManager) logMgr)
                     .setForwarder(this));
         logSvcTracker.open();
     }
