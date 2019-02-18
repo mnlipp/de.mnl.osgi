@@ -21,17 +21,72 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
 import org.osgi.framework.ServiceReference;
 
-// TODO: Auto-generated Javadoc
 /**
- * Maintains and attempts to resolve dependencies to services. 
+ * Maintains and attempts to resolve dependencies to services.
+ * <P>
+ * The class supports two usage pattern. The first is to use the
+ * {@code ServiceResolver} as base class for the bundle's activator.
+ * The derived class must override {@link #configure()} to add
+ * at least one dependency.
+ * <P>
+ * The methods {@link #onResolved()}, {@link #onDissolving()} and
+ * {@link #onRebound(String)} can be overridden as required.
+ * 
+ * <pre>
+ * public class Activator extends ServiceResolver {
+ *     &#x40;Override
+ *     protected void configure() {
+ *         addDependency(...);
+ *     }
+ *     
+ *     &#x40;Override
+ *     protected void onResolved() {
+ *         // ...
+ *     }
+ *     
+ *     &#x40;Override
+ *     protected void onDissolving() {
+ *         // ...
+ *     }
+ *     
+ *     &#x40;Override
+ *     protected void onRebound(String dependency) {
+ *         // ...
+ *     }
+ * }
+ * </pre>
+ * 
+ * The second usage pattern is to create a {@code ServiceResolver} with
+ * a {@link BundleContext}, add dependencies and callbacks as required
+ * and call {@link #open()}. When resolving is no longer required,
+ * {@link #close()} must be called.
+ * 
+ * <pre>
+ * // Usually executed during bundle start...
+ * ServiceResolver resolver = new ServiceResolver(context);
+ * // Add dependencies
+ * resolver.addDependency(...);
+ * resolver.setOnResolved(() -&gt; ...);
+ * resolver.setOnDissolving(() -&gt; ...);
+ * resolver.setOnRebound(name -&gt; ...);
+ * resolver.open();
+ * 
+ * // Usually executed during bundle stop...
+ * resolver.close();
+ * </pre>
+ * 
  */
-public class ServiceResolver implements AutoCloseable {
+public class ServiceResolver implements AutoCloseable, BundleActivator {
 
-    private BundleContext context;
+    /**
+     * The bundle context. Made available for derived classes.
+     */
+    protected BundleContext context;
     private boolean isOpen;
     private Map<String, ServiceCollector<?, ?>> dependencies = new HashMap<>();
     private Map<String, ServiceCollector<?, ?>> optDependencies
@@ -48,6 +103,83 @@ public class ServiceResolver implements AutoCloseable {
      */
     public ServiceResolver(BundleContext context) {
         this.context = context;
+    }
+
+    /**
+     * Constructor for using the {@code ServiceResolver} as base
+     * class for a {@link BundleActivator}.
+     */
+    protected ServiceResolver() {
+    }
+
+    /**
+     * Called by the framework when using the {@code ServiceResolver} as 
+     * base class for a bundle activator.
+     * <P>
+     * The implementation first calls {@link #configure()} and then
+     * {@link #open()}. 
+     *
+     * @param context the context
+     * @throws Exception if a problem occurs
+     */
+    @Override
+    public void start(BundleContext context) throws Exception {
+        this.context = context;
+        configure();
+        open();
+    }
+
+    /**
+     * Configures the resolver. Must be overridden by the derived class
+     * when using the resolver as base class for a bundle activator.
+     * The derived class must configure the resolver with calls to
+     * at least one of the {@code addDependency} methods.
+     * <P>
+     * The default implementation does nothing.
+     */
+    protected void configure() {
+    }
+
+    /**
+     * Called when all dependencies have been resolved. Overriding this
+     * method is an alternative to setting a callback with
+     * {@link #setOnResolved(Runnable)}.
+     */
+    protected void onResolved() {
+    }
+
+    /**
+     * Called when the resolver is about to leave the resolved state,
+     * i.e. when one of the mandatory services is going to be unbound.
+     * Overriding this method is an alternative to setting a callback with
+     * {@link #setOnDissolving(Runnable)}.
+     */
+    protected void onDissolving() {
+    }
+
+    /**
+     * Called when the preferred service of a resolved dependency 
+     * changes. The change may either be a change of properties 
+     * reported by the framework or the replacement of the preferred 
+     * service with another service. Overriding this method is an 
+     * alternative to setting a callback with
+     * {@link #setOnRebound(Consumer)}.
+     *
+     * @param dependency the dependency that has been rebound
+     */
+    protected void onRebound(String dependency) {
+    }
+
+    /**
+     * Called by the framework when using the {@code ServiceResolver} as 
+     * base class for a bundle activator.
+     *
+     * @param context the context
+     * @throws Exception if a problem occurs
+     */
+    @Override
+    public void stop(BundleContext context) throws Exception {
+        close();
     }
 
     /**
@@ -110,7 +242,6 @@ public class ServiceResolver implements AutoCloseable {
      * @param filter the filter
      * @return the service resolver
      */
-    @SuppressWarnings("resource")
     public ServiceResolver addDependency(String name, Filter filter) {
         synchronized (this) {
             if (isOpen) {
@@ -118,8 +249,8 @@ public class ServiceResolver implements AutoCloseable {
                     "Cannot add dependencies to open reolver.");
             }
             dependencies.put(name, new ServiceCollector<>(context, filter)
-                .setOnBound(this::onBound).setOnUnbinding(this::onUnbinding)
-                .setOnModfied((ref, svc) -> onModified(name)));
+                .setOnBound(this::boundCb).setOnUnbinding(this::unbindingCb)
+                .setOnModfied((ref, svc) -> modifiedCb(name)));
             return this;
         }
     }
@@ -132,7 +263,6 @@ public class ServiceResolver implements AutoCloseable {
      * @param reference the reference
      * @return the service resolver
      */
-    @SuppressWarnings("resource")
     public ServiceResolver addDependency(String name,
             ServiceReference<?> reference) {
         synchronized (this) {
@@ -141,8 +271,8 @@ public class ServiceResolver implements AutoCloseable {
                     "Cannot add dependencies to open reolver.");
             }
             dependencies.put(name, new ServiceCollector<>(context, reference)
-                .setOnBound(this::onBound).setOnUnbinding(this::onUnbinding)
-                .setOnModfied((ref, svc) -> onModified(name)));
+                .setOnBound(this::boundCb).setOnUnbinding(this::unbindingCb)
+                .setOnModfied((ref, svc) -> modifiedCb(name)));
             return this;
         }
     }
@@ -155,7 +285,6 @@ public class ServiceResolver implements AutoCloseable {
      * @param className the class name
      * @return the service resolver
      */
-    @SuppressWarnings("resource")
     public ServiceResolver addDependency(String name, String className) {
         synchronized (this) {
             if (isOpen) {
@@ -163,8 +292,8 @@ public class ServiceResolver implements AutoCloseable {
                     "Cannot add dependencies to open reolver.");
             }
             dependencies.put(name, new ServiceCollector<>(context, className)
-                .setOnBound(this::onBound).setOnUnbinding(this::onUnbinding)
-                .setOnModfied((ref, svc) -> onModified(name)));
+                .setOnBound(this::boundCb).setOnUnbinding(this::unbindingCb)
+                .setOnModfied((ref, svc) -> modifiedCb(name)));
             return this;
         }
     }
@@ -190,7 +319,6 @@ public class ServiceResolver implements AutoCloseable {
      * @param filter the filter
      * @return the service resolver
      */
-    @SuppressWarnings("resource")
     public ServiceResolver addOptionalDependency(String name, Filter filter) {
         synchronized (this) {
             if (isOpen) {
@@ -198,7 +326,7 @@ public class ServiceResolver implements AutoCloseable {
                     "Cannot add dependencies to open reolver.");
             }
             optDependencies.put(name, new ServiceCollector<>(context, filter)
-                .setOnModfied((ref, svc) -> onModified(name)));
+                .setOnModfied((ref, svc) -> modifiedCb(name)));
             return this;
         }
     }
@@ -211,7 +339,6 @@ public class ServiceResolver implements AutoCloseable {
      * @param reference the reference
      * @return the service resolver
      */
-    @SuppressWarnings("resource")
     public ServiceResolver addOptionalDependency(String name,
             ServiceReference<?> reference) {
         synchronized (this) {
@@ -221,7 +348,7 @@ public class ServiceResolver implements AutoCloseable {
             }
             optDependencies.put(name,
                 new ServiceCollector<>(context, reference)
-                    .setOnModfied((ref, svc) -> onModified(name)));
+                    .setOnModfied((ref, svc) -> modifiedCb(name)));
             return this;
         }
     }
@@ -234,7 +361,6 @@ public class ServiceResolver implements AutoCloseable {
      * @param className the class name
      * @return the service resolver
      */
-    @SuppressWarnings("resource")
     public ServiceResolver addOptionalDependency(String name,
             String className) {
         synchronized (this) {
@@ -244,31 +370,37 @@ public class ServiceResolver implements AutoCloseable {
             }
             optDependencies.put(name,
                 new ServiceCollector<>(context, className)
-                    .setOnModfied((ref, svc) -> onModified(name)));
+                    .setOnModfied((ref, svc) -> modifiedCb(name)));
             return this;
         }
     }
 
-    private void onBound(ServiceReference<?> reference, Object service) {
+    private void boundCb(ServiceReference<?> reference, Object service) {
         synchronized (this) {
             resolved += 1;
-            if (onResolved != null && resolved == dependencies.size()) {
-                onResolved.run();
+            if (resolved == dependencies.size()) {
+                Optional.ofNullable(onResolved).ifPresent(cb -> cb.run());
+                onResolved();
             }
         }
     }
 
-    private void onUnbinding(ServiceReference<?> reference, Object service) {
+    private void unbindingCb(ServiceReference<?> reference, Object service) {
         synchronized (this) {
-            if (onDissolving != null && resolved == dependencies.size()) {
-                onDissolving.run();
+            if (resolved == dependencies.size()) {
+                Optional.ofNullable(onDissolving).ifPresent(cb -> cb.run());
+                onDissolving();
             }
             resolved -= 1;
         }
     }
 
-    private void onModified(String dependency) {
-        Optional.ofNullable(onRebound).ifPresent(cb -> cb.accept(dependency));
+    protected void modifiedCb(String dependency) {
+        synchronized (this) {
+            Optional.ofNullable(onRebound)
+                .ifPresent(cb -> cb.accept(dependency));
+            onRebound(dependency);
+        }
     }
 
     /**

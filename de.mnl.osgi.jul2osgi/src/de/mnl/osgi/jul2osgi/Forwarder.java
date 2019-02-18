@@ -37,7 +37,6 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.service.log.LogLevel;
@@ -49,9 +48,8 @@ import org.osgi.service.log.admin.LoggerContext;
 /**
  */
 @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
-public class Forwarder implements BundleActivator, LogRecordHandler {
+public class Forwarder extends ServiceResolver implements LogRecordHandler {
 
-    private ServiceResolver resolver;
     private String logPattern;
     private boolean adaptOsgiLevel = true;
     private final Map<Class<?>, WeakReference<Bundle>> bundles
@@ -60,8 +58,8 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         .synchronizedSet(Collections.newSetFromMap(new WeakHashMap<>()));
 
     @Override
-    @SuppressWarnings({ "PMD.SystemPrintln", "resource" })
-    public void start(BundleContext context) throws Exception {
+    @SuppressWarnings({ "PMD.SystemPrintln" })
+    protected void configure() {
         final java.util.logging.LogManager logMgr
             = java.util.logging.LogManager.getLogManager();
         if (!(logMgr instanceof LogManager)) {
@@ -79,21 +77,29 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
             adaptOsgiLevel = Boolean.parseBoolean(adaptProperty);
         }
 
-        resolver = new ServiceResolver(context)
-            .addDependency(LogService.class)
-            .addDependency(LoggerAdmin.class)
-            .setOnResolved(() -> {
-                if (adaptOsgiLevel) {
-                    // Handle this bundle specially
-                    adaptLogLevel(resolver.get(LoggerAdmin.class),
-                        context.getBundle());
-                }
-                ((LogManager) logMgr).setForwarder(this);
-            })
-            .setOnDissolving(() -> {
-                ((LogManager) logMgr).setForwarder(this);
-            });
-        resolver.open();
+        addDependency(LogService.class);
+        addDependency(LoggerAdmin.class);
+        setOnResolved(() -> {
+            if (adaptOsgiLevel) {
+                // Handle this bundle specially
+                adaptLogLevel(get(LoggerAdmin.class),
+                    context.getBundle());
+            }
+            ((LogManager) logMgr).setForwarder(this);
+        });
+        setOnDissolving(() -> {
+            ((LogManager) logMgr).setForwarder(this);
+        });
+    }
+
+    @Override
+    public void stop(BundleContext context) throws Exception {
+        java.util.logging.LogManager logMgr
+            = java.util.logging.LogManager.getLogManager();
+        if (logMgr instanceof LogManager) {
+            ((LogManager) logMgr).setForwarder(null);
+        }
+        super.stop(context);
     }
 
     private void adaptLogLevel(LoggerAdmin logAdmin, Bundle bundle) {
@@ -110,18 +116,8 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
     }
 
     @Override
-    public void stop(BundleContext context) throws Exception {
-        java.util.logging.LogManager logMgr
-            = java.util.logging.LogManager.getLogManager();
-        if (logMgr instanceof LogManager) {
-            ((LogManager) logMgr).setForwarder(null);
-        }
-        resolver.close();
-    }
-
-    @Override
     public boolean process(LogInfo logInfo) {
-        LogService logSvc = resolver.get(LogService.class);
+        LogService logSvc = get(LogService.class);
         if (logSvc == null) {
             return false;
         }
@@ -136,7 +132,7 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         Logger logger = findBundle(logInfo.getCallingClass())
             .map(b -> {
                 if (adaptOsgiLevel) {
-                    adaptLogLevel(resolver.get(LoggerAdmin.class), b);
+                    adaptLogLevel(get(LoggerAdmin.class), b);
                 }
                 return service.getLogger(b, loggerName, Logger.class);
             }).orElse(service.getLogger(loggerName));
