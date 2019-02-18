@@ -16,7 +16,7 @@
 
 package de.mnl.osgi.jul2osgi;
 
-import de.mnl.coreutils.ServiceCollector;
+import de.mnl.coreutils.ServiceResolver;
 import de.mnl.osgi.jul2osgi.lib.LogManager;
 import de.mnl.osgi.jul2osgi.lib.LogManager.LogInfo;
 import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;
@@ -40,21 +40,18 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
 import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LogService;
 import org.osgi.service.log.Logger;
 import org.osgi.service.log.admin.LoggerAdmin;
 import org.osgi.service.log.admin.LoggerContext;
-import org.osgi.util.tracker.ServiceTracker;
 
 /**
  */
 @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class Forwarder implements BundleActivator, LogRecordHandler {
 
-    private ServiceCollector<LogService, LogService> logSvcTracker;
-    private ServiceTracker<LoggerAdmin, LoggerAdmin> logAdmTracker;
+    private ServiceResolver resolver;
     private String logPattern;
     private boolean adaptOsgiLevel = true;
     private final Map<Class<?>, WeakReference<Bundle>> bundles
@@ -82,30 +79,21 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
             adaptOsgiLevel = Boolean.parseBoolean(adaptProperty);
         }
 
-        // Create the admin tracker
-        logAdmTracker = new ServiceTracker<LoggerAdmin, LoggerAdmin>(
-            context, LoggerAdmin.class, null) {
-            @Override
-            public LoggerAdmin addingService(
-                    ServiceReference<LoggerAdmin> reference) {
-                LoggerAdmin adm = super.addingService(reference);
-                // Handle this bundle specially
+        resolver = new ServiceResolver(context)
+            .addDependency(LogService.class)
+            .addDependency(LoggerAdmin.class)
+            .setOnResolved(() -> {
                 if (adaptOsgiLevel) {
-                    adaptLogLevel(adm, context.getBundle());
+                    // Handle this bundle specially
+                    adaptLogLevel(resolver.get(LoggerAdmin.class),
+                        context.getBundle());
                 }
-                return adm;
-            }
-        };
-        logAdmTracker.open();
-
-        // Create new service tracker.
-        logSvcTracker = new ServiceCollector<LogService, LogService>(
-            context, LogService.class)
-                .setOnAdded((ref, svc) -> ((LogManager) logMgr)
-                    .setForwarder(this))
-                .setOnUnbinding((ref, svc) -> ((LogManager) logMgr)
-                    .setForwarder(this));
-        logSvcTracker.open();
+                ((LogManager) logMgr).setForwarder(this);
+            })
+            .setOnDissolving(() -> {
+                ((LogManager) logMgr).setForwarder(this);
+            });
+        resolver.open();
     }
 
     private void adaptLogLevel(LoggerAdmin logAdmin, Bundle bundle) {
@@ -128,16 +116,17 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         if (logMgr instanceof LogManager) {
             ((LogManager) logMgr).setForwarder(null);
         }
-        logSvcTracker.close();
-        logAdmTracker.close();
+        resolver.close();
     }
 
     @Override
     public boolean process(LogInfo logInfo) {
-        return logSvcTracker.service().map(svc -> {
-            doProcess(logInfo, svc);
-            return true;
-        }).orElse(false);
+        LogService logSvc = resolver.get(LogService.class);
+        if (logSvc == null) {
+            return false;
+        }
+        doProcess(logInfo, logSvc);
+        return true;
     }
 
     private void doProcess(LogInfo logInfo, LogService service) {
@@ -147,8 +136,7 @@ public class Forwarder implements BundleActivator, LogRecordHandler {
         Logger logger = findBundle(logInfo.getCallingClass())
             .map(b -> {
                 if (adaptOsgiLevel) {
-                    Optional.ofNullable(logAdmTracker.getService())
-                        .ifPresent(adm -> adaptLogLevel(adm, b));
+                    adaptLogLevel(resolver.get(LoggerAdmin.class), b);
                 }
                 return service.getLogger(b, loggerName, Logger.class);
             }).orElse(service.getLogger(loggerName));
