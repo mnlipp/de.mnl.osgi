@@ -16,6 +16,8 @@
 
 package de.mnl.osgi.osgi2jul;
 
+import de.mnl.osgi.coreutils.ServiceResolver;
+
 import java.security.AccessController;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
@@ -33,12 +35,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 import org.osgi.service.log.LogEntry;
 import org.osgi.service.log.LogReaderService;
-import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * This class provides the activator for this service. It registers
@@ -47,14 +46,15 @@ import org.osgi.util.tracker.ServiceTracker;
  * log entries to it. 
  */
 @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
-public class ForwardingManager implements BundleActivator {
+public class ForwardingManager extends ServiceResolver {
 
     private static final Pattern HANDLER_DEF = Pattern.compile(
         "(?:(?<bundle>[^:]+):)?(?<class>[^\\[]+)(?:\\[(?<id>\\d+)\\])?");
 
     /** This tracker holds all log reader services. */
-    private ServiceTracker<LogReaderService, LogReaderService> logReaderTracker;
     private final List<HandlerConfig> handlers = new ArrayList<>();
+    private LogReaderService subscribedService;
+    private LogWriter registeredListener;
 
     /**
      * Open the log service tracker. The tracker is customized to attach a 
@@ -66,40 +66,54 @@ public class ForwardingManager implements BundleActivator {
      * stored log entries.
      */
     @Override
-    public void start(BundleContext context) throws Exception {
+    public void configure() {
         createHandlers(context);
+        addDependency(LogReaderService.class);
+    }
 
-        logReaderTracker
-            = new ServiceTracker<LogReaderService, LogReaderService>(
-                context, LogReaderService.class, null) {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.mnl.osgi.coreutils.ServiceResolver#onResolved()
+     */
+    @Override
+    protected void onResolved() {
+        subscribeTo(get(LogReaderService.class));
+    }
 
-                @Override
-                public LogReaderService addingService(
-                        ServiceReference<LogReaderService> reference) {
-                    LogReaderService service = super.addingService(reference);
-                    CountDownLatch enabled = new CountDownLatch(1);
-                    service.addLogListener(
-                        new LogWriter(ForwardingManager.this, enabled));
-                    List<LogEntry> entries = Collections.list(service.getLog());
-                    Collections.reverse(entries);
-                    LogWriter historyWriter = new LogWriter(
-                        ForwardingManager.this, new CountDownLatch(0));
-                    for (LogEntry entry : entries) {
-                        historyWriter.logged(entry);
-                    }
-                    enabled.countDown();
-                    return service;
-                }
+    @Override
+    protected void onRebound(String dependency) {
+        if (LogReaderService.class.getName().equals(dependency)) {
+            subscribeTo(get(LogReaderService.class));
+        }
+    }
 
-                @Override
-                public void removedService(
-                        ServiceReference<LogReaderService> reference,
-                        LogReaderService service) {
-                    super.removedService(reference, service);
-                }
+    @Override
+    protected void onDissolving() {
+        if (subscribedService != null && registeredListener != null) {
+            subscribedService.removeLogListener(registeredListener);
+        }
+        subscribedService = null;
+    }
 
-            };
-        logReaderTracker.open();
+    private void subscribeTo(LogReaderService logReaderService) {
+        if (logReaderService.equals(subscribedService)) {
+            return;
+        }
+        if (subscribedService != null && registeredListener != null) {
+            subscribedService.removeLogListener(registeredListener);
+        }
+        subscribedService = logReaderService;
+        CountDownLatch enabled = new CountDownLatch(1);
+        registeredListener = new LogWriter(this, enabled);
+        subscribedService.addLogListener(registeredListener);
+        List<LogEntry> entries = Collections.list(subscribedService.getLog());
+        Collections.reverse(entries);
+        LogWriter historyWriter = new LogWriter(this, new CountDownLatch(0));
+        for (LogEntry entry : entries) {
+            historyWriter.logged(entry);
+        }
+        enabled.countDown();
     }
 
     @SuppressWarnings({ "PMD.SystemPrintln", "PMD.DataflowAnomalyAnalysis" })
@@ -192,9 +206,8 @@ public class ForwardingManager implements BundleActivator {
 
     @Override
     public void stop(BundleContext context) throws Exception {
-        logReaderTracker.close();
-        logReaderTracker = null;
         handlers.clear();
+        super.stop(context);
     }
 
     /**

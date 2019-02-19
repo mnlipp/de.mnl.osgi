@@ -1,12 +1,13 @@
 Bundle-Name: OSGi Logging to JUL Forwarder
 # Choose either depending on whether we build a snapshot or a release:
-Bundle-Version: 1.1.1.-${tstamp}-SNAPSHOT
-#Bundle-Version: 1.1.0.ga
+#Bundle-Version: 1.1.1.-${tstamp}-SNAPSHOT
+Bundle-Version: 1.1.1.ga
 
 -buildpath: \
 	osgi.annotation; version=6.0.1,\
 	osgi.core; version=6.0,\
-	org.osgi.service.log;version='[1.4,2)'
+	org.osgi.service.log;version='[1.4,2)',\
+	de.mnl.osgi.coreutils;version=snapshot
 
 -testpath: \
 	${junit}
@@ -19,3 +20,6 @@ Bundle-Activator: de.mnl.osgi.osgi2jul.ForwardingManager
 
 -baselinerepo: MnlOSGi
 -baseline: * 
+
+-fixupmessages: \
+    "The .classpath contains an unknown container: GROOVY_DSL_SUPPORT. This could make your build less portable."
