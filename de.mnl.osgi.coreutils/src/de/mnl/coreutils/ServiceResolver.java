@@ -46,17 +46,17 @@ import org.osgi.framework.ServiceReference;
  *     
  *     &#x40;Override
  *     protected void onResolved() {
- *         // ...
+ *         // Enable usage or register as service or start worker thread ...
  *     }
  *     
  *     &#x40;Override
  *     protected void onDissolving() {
- *         // ...
+ *         // Disable usage or unregister or stop and join worker thread ...
  *     }
  *     
  *     &#x40;Override
  *     protected void onRebound(String dependency) {
- *         // ...
+ *         // Only required if there is a "long term" usage of a dependency.
  *     }
  * }
  * </pre>
@@ -80,7 +80,14 @@ import org.osgi.framework.ServiceReference;
  * resolver.close();
  * </pre>
  * 
- * 
+ * In addition to the management of mandatory dependencies, the
+ * {@code ServiceResolver} can also keep track of optional
+ * service dependencies. This allows the {@code ServiceResolver}
+ * to be provided as unified service access point. Apart from
+ * a single {@link #open()} and {@link #close()} function, the
+ * {@code ServiceProvider} does not implement additional functions
+ * for optional service dependencies compared to the underlying
+ * {@link ServiceCollector}s.
  */
 public class ServiceResolver implements AutoCloseable, BundleActivator {
 
@@ -88,11 +95,11 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
      * The bundle context. Made available for derived classes.
      */
     protected BundleContext context;
-    private boolean isOpen;
+    private volatile boolean isOpen;
     private Map<String, ServiceCollector<?, ?>> dependencies = new HashMap<>();
     private Map<String, ServiceCollector<?, ?>> optDependencies
         = new HashMap<>();
-    private int resolved;
+    private int resolvedCount;
     private Runnable onResolved;
     private Runnable onDissolving;
     private Consumer<String> onRebound;
@@ -380,8 +387,8 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
 
     private void boundCb(ServiceReference<?> reference, Object service) {
         synchronized (this) {
-            resolved += 1;
-            if (resolved == dependencies.size()) {
+            resolvedCount += 1;
+            if (resolvedCount == dependencies.size()) {
                 Optional.ofNullable(onResolved).ifPresent(cb -> cb.run());
                 onResolved();
             }
@@ -390,15 +397,15 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
 
     private void unbindingCb(ServiceReference<?> reference, Object service) {
         synchronized (this) {
-            if (resolved == dependencies.size()) {
+            if (resolvedCount == dependencies.size()) {
                 Optional.ofNullable(onDissolving).ifPresent(cb -> cb.run());
                 onDissolving();
             }
-            resolved -= 1;
+            resolvedCount -= 1;
         }
     }
 
-    protected void modifiedCb(String dependency) {
+    private void modifiedCb(String dependency) {
         synchronized (this) {
             Optional.ofNullable(onRebound)
                 .ifPresent(cb -> cb.accept(dependency));
@@ -416,7 +423,7 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
             if (isOpen) {
                 return;
             }
-            resolved = 0;
+            resolvedCount = 0;
         }
         for (ServiceCollector<?, ?> coll : dependencies.values()) {
             coll.open();
@@ -431,16 +438,20 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
      * Stops the resolver. All maintained services are released.
      */
     public void close() {
-        if (!isOpen) {
-            return;
+        synchronized (this) {
+            if (!isOpen) {
+                return;
+            }
+            isOpen = false;
+            for (ServiceCollector<?, ?> coll : dependencies.values()) {
+                coll.close();
+            }
+            for (ServiceCollector<?, ?> coll : optDependencies.values()) {
+                coll.close();
+            }
+            dependencies.clear();
+            optDependencies.clear();
         }
-        for (ServiceCollector<?, ?> coll : dependencies.values()) {
-            coll.close();
-        }
-        for (ServiceCollector<?, ?> coll : optDependencies.values()) {
-            coll.close();
-        }
-        isOpen = false;
     }
 
     /**
@@ -459,7 +470,7 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
      */
     public boolean isResolved() {
         synchronized (this) {
-            return resolved == dependencies.size();
+            return resolvedCount == dependencies.size();
         }
     }
 

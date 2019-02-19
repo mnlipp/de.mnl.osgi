@@ -63,9 +63,9 @@ import org.osgi.framework.ServiceReference;
  * Also note that this does not prevent modifications by the
  * holder of the lock.
  * <P>
- * Callbacks are also synchronized on this collector, else
+ * Callbacks are always synchronized on this collector, else
  * the state of the collector during the execution of the
- * callback might not reflect the state that is signaled by
+ * callback might no longer be the state that triggered
  * the callback.
  * <P>
  * Instead of using the services from the framework directly,
@@ -119,9 +119,9 @@ public class ServiceCollector<S, T> implements AutoCloseable {
     private final SortedMap<ServiceReference<S>, T> collected
         = new TreeMap<>(Collections.reverseOrder());
     /**
-     * Can be used for waiting.
+     * Can be used for waiting on.
      */
-    int[] modificationCount = new int[] { -1 };
+    private volatile int[] modificationCount = new int[] { -1 };
     // The callbacks.
     private BiConsumer<ServiceReference<S>, T> onBound;
     private BiConsumer<ServiceReference<S>, T> onAdded;
@@ -442,7 +442,7 @@ public class ServiceCollector<S, T> implements AutoCloseable {
 
     private void processInitial() {
         while (true) {
-            ServiceReference<S> reference;
+            // Process one by one so that we do not keep holding the lock.
             synchronized (this) {
                 if (!isOpen() || (initialReferences.size() == 0)) {
                     return; /* we are done */
@@ -450,11 +450,11 @@ public class ServiceCollector<S, T> implements AutoCloseable {
                 // Get one...
                 Iterator<ServiceReference<S>> iter
                     = initialReferences.iterator();
-                reference = iter.next();
+                ServiceReference<S> reference = iter.next();
                 iter.remove();
+                // Process (as if it had been registered).
+                addToCollected(reference);
             }
-            // Process as if it was just registered.
-            addToCollected(reference);
         }
     }
 
@@ -472,7 +472,10 @@ public class ServiceCollector<S, T> implements AutoCloseable {
 
         switch (event.getType()) {
         case ServiceEvent.REGISTERED:
-            addToCollected(reference);
+            synchronized (this) {
+                initialReferences.remove(reference);
+                addToCollected(reference);
+            }
             break;
         case ServiceEvent.MODIFIED:
             synchronized (this) {
@@ -490,7 +493,11 @@ public class ServiceCollector<S, T> implements AutoCloseable {
             break;
         case ServiceEvent.MODIFIED_ENDMATCH:
         case ServiceEvent.UNREGISTERING:
-            removeFromCollected(reference);
+            synchronized (this) {
+                // May occur while processing the initial set of references.
+                initialReferences.remove(reference);
+                removeFromCollected(reference);
+            }
             break;
         }
 
@@ -498,54 +505,56 @@ public class ServiceCollector<S, T> implements AutoCloseable {
 
     /**
      * Add the given reference to the collected services.
+     * Must be called from synchronized block.
      * 
      * @param reference reference to be collected.
      */
     private void addToCollected(final ServiceReference<S> reference) {
-        synchronized (this) {
-            if (!isOpen()) {
-                // We have been closed.
-                return;
-            }
-            if (collected.get(reference) != null) {
-                /* if we are already collecting this reference */
-                return; /* skip this reference */
-            }
-            if (initialReferences.contains(reference)) {
-                // Skip, will be added as initial.
-                return;
-            }
+        if (!isOpen()) {
+            // We have been closed.
+            return;
+        }
+        if (collected.get(reference) != null) {
+            /* if we are already collecting this reference */
+            return; /* skip this reference */
+        }
 
-            @SuppressWarnings("unchecked")
-            T service = (svcGetter == null)
-                ? (T) context.getService(reference)
-                : svcGetter.apply(context, reference);
-            if (service == null) {
-                // Has either vanished in the meantime (should not happen
-                // when processing a REGISTERED event, but may happen when
-                // processing a reference from initialReferences) or was
-                // filtered by the service getter.
-                return;
-            }
-            boolean wasEmpty = collected.isEmpty();
-            collected.put(reference, service);
-            modified();
-            if (wasEmpty) {
-                Optional.ofNullable(onBound)
-                    .ifPresent(cb -> cb.accept(reference, service));
-            }
-            Optional.ofNullable(onAdded)
+        @SuppressWarnings("unchecked")
+        T service = (svcGetter == null)
+            ? (T) context.getService(reference)
+            : svcGetter.apply(context, reference);
+        if (service == null) {
+            // Has either vanished in the meantime (should not happen
+            // when processing a REGISTERED event, but may happen when
+            // processing a reference from initialReferences) or was
+            // filtered by the service getter.
+            return;
+        }
+        boolean wasEmpty = collected.isEmpty();
+        collected.put(reference, service);
+        modified();
+        if (wasEmpty) {
+            Optional.ofNullable(onBound)
                 .ifPresent(cb -> cb.accept(reference, service));
-            // If added is first, first has changed
-            if (onModified != null && collected.size() > 1
-                && collected.firstKey().equals(reference)) {
-                onModified.accept(reference, service);
-            }
+        }
+        Optional.ofNullable(onAdded)
+            .ifPresent(cb -> cb.accept(reference, service));
+        // If added is first, first has changed
+        if (onModified != null && collected.size() > 1
+            && collected.firstKey().equals(reference)) {
+            onModified.accept(reference, service);
         }
     }
 
+    /**
+     * Removes a service reference from the collection.
+     * Must be called from synchronized block.
+     *
+     * @param reference the reference
+     */
     private void removeFromCollected(ServiceReference<S> reference) {
         synchronized (this) {
+            // Only proceed if collected
             T service = collected.get(reference);
             if (service == null) {
                 return;
@@ -580,11 +589,13 @@ public class ServiceCollector<S, T> implements AutoCloseable {
                 modificationCount[0] = -1;
                 modificationCount.notifyAll();
             }
-            while (!collected.isEmpty()) {
+        }
+        while (!collected.isEmpty()) {
+            synchronized (this) {
                 removeFromCollected(collected.lastKey());
             }
-            cachedService = null;
         }
+        cachedService = null;
     }
 
     /**
@@ -812,7 +823,9 @@ public class ServiceCollector<S, T> implements AutoCloseable {
      * @param reference The reference to the service to be removed.
      */
     public void remove(ServiceReference<S> reference) {
-        removeFromCollected(reference);
+        synchronized (this) {
+            removeFromCollected(reference);
+        }
     }
 
     /*
