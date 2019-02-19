@@ -5,8 +5,14 @@ eclipse {
 		// Dummy project. Nothing to do for Eclipse, but must show
 		// up as project
 		project {
-			natures.clear()
-			buildCommands.clear()
+			file {
+				//closure executed after .project content is loaded from existing file
+				//and after gradle build information is merged
+				whenMerged { project ->
+					project.natures.clear()
+					project.buildCommands.clear()
+				}
+			}
 		}
 	} else {
 		classpath {
