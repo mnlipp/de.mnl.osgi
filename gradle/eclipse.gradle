@@ -5,8 +5,8 @@ eclipse {
 		// Dummy project. Nothing to do for Eclipse, but must show
 		// up as project
 		project {
-			natures = []
-			buildCommands = []
+			natures.clear()
+			buildCommands.clear()
 		}
 	} else {
 		classpath {
