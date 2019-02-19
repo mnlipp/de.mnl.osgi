@@ -17,6 +17,11 @@
 /**
  * A bundle that forwards java.util.logging (JUL) records to the
  * OSGi logging service.
+ * <P>
+ * <a href="https://github.com/mnlipp/de.mnl.osgi/issues" target="_blank">
+ *   <img alt="GitHub issues" src="https://img.shields.io/github/issues/mnlipp/de.mnl.osgi.svg"></a>
+ * <a href="https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi%22" target="_blank">
+ *   <img alt="Maven Central" src="https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.jul2osgi.svg"></a>
  * 
  * <h3>Installation</h3>
  * 
