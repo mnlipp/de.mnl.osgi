@@ -16,7 +16,7 @@
 
 package de.mnl.osgi.jul2osgi;
 
-import de.mnl.coreutils.ServiceResolver;
+import de.mnl.osgi.coreutils.ServiceResolver;
 import de.mnl.osgi.jul2osgi.lib.LogManager;
 import de.mnl.osgi.jul2osgi.lib.LogManager.LogInfo;
 import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;

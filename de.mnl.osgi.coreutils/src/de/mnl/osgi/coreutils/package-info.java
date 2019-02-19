@@ -17,4 +17,4 @@
 /**
  * Various helper classes, depending only on OSGi Core.
  */
-package de.mnl.coreutils;
+package de.mnl.osgi.coreutils;

@@ -16,8 +16,6 @@
 
 package de.mnl.osgi.coreutils.test;
 
-import de.mnl.coreutils.ServiceResolver;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -35,6 +33,8 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceRegistration;
+
+import de.mnl.osgi.coreutils.ServiceResolver;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ResolverTests {

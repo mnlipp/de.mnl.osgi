@@ -20,7 +20,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License").
  */
 
-package de.mnl.coreutils;
+package de.mnl.osgi.coreutils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

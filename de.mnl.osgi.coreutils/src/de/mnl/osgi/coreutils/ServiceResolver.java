@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.mnl.coreutils;
+package de.mnl.osgi.coreutils;
 
 import java.util.HashMap;
 import java.util.Map;
