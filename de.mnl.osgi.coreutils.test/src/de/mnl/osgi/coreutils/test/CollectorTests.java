@@ -230,12 +230,10 @@ public class CollectorTests {
                 final int count = i;
                 new Thread(() -> {
                     started.countDown();
-                    synchronized (starter) {
-                        try {
-                            starter.wait();
-                        } catch (InterruptedException e) {
-                            waiter.fail();
-                        }
+                    try {
+                        started.await();
+                    } catch (InterruptedException e1) {
+                        waiter.fail();
                     }
                     try {
                         Thread.sleep(100 + (count / 4) * 8);
