@@ -1,6 +1,7 @@
-package de.mnl.osgi.slf4j2osgi.test;
+package de.mnl.osgi.lf4osgi.test;
 
 import de.mnl.osgi.coreutils.ServiceCollector;
+import de.mnl.osgi.lf4osgi.LoggerFactory;
 
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
@@ -22,9 +23,7 @@ import org.osgi.service.log.LogEntry;
 import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LogListener;
 import org.osgi.service.log.LogReaderService;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.osgi.service.log.Logger;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoggerCallTest {

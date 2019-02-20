@@ -16,358 +16,333 @@
 
 package org.slf4j.impl;
 
-import org.slf4j.helpers.MarkerIgnoringBase;
+import de.mnl.osgi.lf4osgi.provider.AbstractLoggerFacade;
+
+import org.osgi.service.log.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.Marker;
 
 /**
  * The Class Fwd2OsgiLogger.
  */
-@SuppressWarnings("PMD.TooManyMethods")
-public class Fwd2OsgiLogger extends MarkerIgnoringBase {
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.ExcessivePublicCount" })
+public class Fwd2OsgiLogger extends AbstractLoggerFacade implements Logger {
 
-    private static final long serialVersionUID = 876548186537645501L;
+    @SuppressWarnings("PMD.LoggerIsNotStaticFinal")
+    private org.osgi.service.log.Logger delegee;
 
     /**
-     * Instantiates a new logger.
+     * Instantiates a new logger with the provided name.
      *
      * @param name the name
      */
     public Fwd2OsgiLogger(String name) {
-        // TODO Auto-generated constructor stub
+        super(name);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#debug(java.lang.String, java.lang.Object,
-     * java.lang.Object)
-     */
     @Override
-    public void debug(String arg0, Object arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
+    public void loggerFactoryUpdated(LoggerFactory factory) {
+        delegee = factory.getLogger(getName());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#debug(java.lang.String, java.lang.Object[])
-     */
-    @Override
-    public void debug(String arg0, Object... arg1) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#debug(java.lang.String, java.lang.Object)
-     */
-    @Override
-    public void debug(String arg0, Object arg1) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#debug(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-    public void debug(String arg0, Throwable arg1) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#debug(java.lang.String)
-     */
-    @Override
-    public void debug(String arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#error(java.lang.String, java.lang.Object,
-     * java.lang.Object)
-     */
-    @Override
-    public void error(String arg0, Object arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#error(java.lang.String, java.lang.Object[])
-     */
-    @Override
-    public void error(String arg0, Object... arg1) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#error(java.lang.String, java.lang.Object)
-     */
-    @Override
-    public void error(String arg0, Object arg1) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#error(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-    public void error(String arg0, Throwable arg1) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#error(java.lang.String)
-     */
-    @Override
-    public void error(String arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#info(java.lang.String, java.lang.Object,
-     * java.lang.Object)
-     */
-    @Override
-    public void info(String arg0, Object arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#info(java.lang.String, java.lang.Object[])
-     */
-    @Override
-    public void info(String arg0, Object... arg1) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#info(java.lang.String, java.lang.Object)
-     */
-    @Override
-    public void info(String arg0, Object arg1) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#info(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-    public void info(String arg0, Throwable arg1) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#info(java.lang.String)
-     */
-    @Override
-    public void info(String arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#isDebugEnabled()
-     */
-    @Override
-    public boolean isDebugEnabled() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#isErrorEnabled()
-     */
-    @Override
-    public boolean isErrorEnabled() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#isInfoEnabled()
-     */
-    @Override
-    public boolean isInfoEnabled() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#isTraceEnabled()
-     */
     @Override
     public boolean isTraceEnabled() {
-        // TODO Auto-generated method stub
-        return false;
+        return delegee.isTraceEnabled();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#isWarnEnabled()
-     */
+    @Override
+    public boolean isTraceEnabled(Marker marker) {
+        return isTraceEnabled();
+    }
+
+    @Override
+    public void trace(String format, Object arg1, Object arg2) {
+        delegee.trace(format, arg1, arg2);
+    }
+
+    @Override
+    public void trace(String format, Object... arguments) {
+        delegee.trace(format, arguments);
+    }
+
+    @Override
+    public void trace(String format, Object arg) {
+        delegee.trace(format, arg);
+    }
+
+    @Override
+    public void trace(String message, Throwable arg) {
+        delegee.trace(message, arg);
+    }
+
+    @Override
+    public void trace(String message) {
+        delegee.trace(message);
+    }
+
+    @Override
+    public void trace(Marker marker, String msg) {
+        trace(msg);
+    }
+
+    @Override
+    public void trace(Marker marker, String format, Object arg) {
+        trace(format, arg);
+    }
+
+    @Override
+    public void trace(Marker marker, String format, Object arg1, Object arg2) {
+        trace(format, arg1, arg2);
+    }
+
+    @Override
+    public void trace(Marker marker, String format, Object... arguments) {
+        trace(format, arguments);
+    }
+
+    @Override
+    public void trace(Marker marker, String msg, Throwable thr) {
+        trace(msg, thr);
+    }
+
+    @Override
+    public boolean isDebugEnabled() {
+        return delegee.isDebugEnabled();
+    }
+
+    @Override
+    public boolean isDebugEnabled(Marker marker) {
+        return isDebugEnabled();
+    }
+
+    @Override
+    public void debug(String format, Object arg1, Object arg2) {
+        delegee.debug(format, arg1, arg2);
+    }
+
+    @Override
+    public void debug(String format, Object... arguments) {
+        delegee.debug(format, arguments);
+    }
+
+    @Override
+    public void debug(String format, Object arg) {
+        delegee.debug(format, arg);
+    }
+
+    @Override
+    public void debug(String message, Throwable arg1) {
+        delegee.debug(message, arg1);
+    }
+
+    @Override
+    public void debug(String message) {
+        delegee.debug(message);
+    }
+
+    @Override
+    public void debug(Marker marker, String msg) {
+        debug(msg);
+    }
+
+    @Override
+    public void debug(Marker marker, String format, Object arg) {
+        debug(format, arg);
+    }
+
+    @Override
+    public void debug(Marker marker, String format, Object arg1, Object arg2) {
+        debug(format, arg1, arg2);
+    }
+
+    @Override
+    public void debug(Marker marker, String format, Object... arguments) {
+        debug(format, arguments);
+    }
+
+    @Override
+    public void debug(Marker marker, String msg, Throwable thr) {
+        debug(msg, thr);
+    }
+
+    @Override
+    public boolean isInfoEnabled() {
+        return delegee.isInfoEnabled();
+    }
+
+    @Override
+    public boolean isInfoEnabled(Marker marker) {
+        return isInfoEnabled();
+    }
+
+    @Override
+    public void info(String format, Object arg1, Object arg2) {
+        delegee.info(format, arg1, arg2);
+    }
+
+    @Override
+    public void info(String format, Object... arguments) {
+        delegee.info(format, arguments);
+    }
+
+    @Override
+    public void info(String format, Object arg) {
+        delegee.info(format, arg);
+    }
+
+    @Override
+    public void info(String message, Throwable arg1) {
+        delegee.info(message, arg1);
+    }
+
+    @Override
+    public void info(String message) {
+        delegee.info(message);
+    }
+
+    @Override
+    public void info(Marker marker, String msg) {
+        info(msg);
+    }
+
+    @Override
+    public void info(Marker marker, String format, Object arg) {
+        info(format, arg);
+    }
+
+    @Override
+    public void info(Marker marker, String format, Object arg1, Object arg2) {
+        info(format, arg1, arg2);
+    }
+
+    @Override
+    public void info(Marker marker, String format, Object... arguments) {
+        info(format, arguments);
+    }
+
+    @Override
+    public void info(Marker marker, String msg, Throwable thr) {
+        info(msg, thr);
+    }
+
     @Override
     public boolean isWarnEnabled() {
-        // TODO Auto-generated method stub
-        return false;
+        return delegee.isWarnEnabled();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#trace(java.lang.String, java.lang.Object,
-     * java.lang.Object)
-     */
     @Override
-    public void trace(String arg0, Object arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
+    public boolean isWarnEnabled(Marker marker) {
+        return isWarnEnabled();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#trace(java.lang.String, java.lang.Object[])
-     */
     @Override
-    public void trace(String arg0, Object... arg1) {
-        // TODO Auto-generated method stub
-
+    public void warn(String format, Object arg1, Object arg2) {
+        delegee.warn(format, arg1, arg2);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#trace(java.lang.String, java.lang.Object)
-     */
     @Override
-    public void trace(String arg0, Object arg1) {
-        // TODO Auto-generated method stub
-
+    public void warn(String format, Object... arg1) {
+        delegee.warn(format, arg1);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#trace(java.lang.String, java.lang.Throwable)
-     */
     @Override
-    public void trace(String arg0, Throwable arg1) {
-        // TODO Auto-generated method stub
-
+    public void warn(String format, Object arg) {
+        delegee.warn(format, arg);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#trace(java.lang.String)
-     */
     @Override
-    public void trace(String arg0) {
-        // TODO Auto-generated method stub
-
+    public void warn(String message, Throwable arg1) {
+        delegee.warn(message, arg1);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#warn(java.lang.String, java.lang.Object,
-     * java.lang.Object)
-     */
     @Override
-    public void warn(String arg0, Object arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
+    public void warn(String message) {
+        delegee.warn(message);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#warn(java.lang.String, java.lang.Object[])
-     */
     @Override
-    public void warn(String arg0, Object... arg1) {
-        // TODO Auto-generated method stub
-
+    public void warn(Marker marker, String msg) {
+        warn(msg);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#warn(java.lang.String, java.lang.Object)
-     */
     @Override
-    public void warn(String arg0, Object arg1) {
-        // TODO Auto-generated method stub
-
+    public void warn(Marker marker, String format, Object arg) {
+        warn(format, arg);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#warn(java.lang.String, java.lang.Throwable)
-     */
     @Override
-    public void warn(String arg0, Throwable arg1) {
-        // TODO Auto-generated method stub
-
+    public void warn(Marker marker, String format, Object arg1, Object arg2) {
+        warn(format, arg1, arg2);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.slf4j.Logger#warn(java.lang.String)
-     */
     @Override
-    public void warn(String arg0) {
-        // TODO Auto-generated method stub
+    public void warn(Marker marker, String format, Object... arguments) {
+        warn(format, arguments);
+    }
 
+    @Override
+    public void warn(Marker marker, String msg, Throwable thr) {
+        warn(msg, thr);
+    }
+
+    @Override
+    public boolean isErrorEnabled() {
+        return delegee.isErrorEnabled();
+    }
+
+    @Override
+    public boolean isErrorEnabled(Marker marker) {
+        return isErrorEnabled();
+    }
+
+    @Override
+    public void error(String format, Object arg1, Object arg2) {
+        delegee.error(format, arg1, arg2);
+    }
+
+    @Override
+    public void error(String format, Object... arguments) {
+        delegee.error(format, arguments);
+    }
+
+    @Override
+    public void error(String format, Object arg) {
+        delegee.error(format, arg);
+    }
+
+    @Override
+    public void error(String message, Throwable arg1) {
+        delegee.error(message, arg1);
+    }
+
+    @Override
+    public void error(String message) {
+        delegee.error(message);
+    }
+
+    @Override
+    public void error(Marker marker, String msg) {
+        error(msg);
+    }
+
+    @Override
+    public void error(Marker marker, String format, Object arg) {
+        error(format, arg);
+    }
+
+    @Override
+    public void error(Marker marker, String format, Object arg1, Object arg2) {
+        error(format, arg1, arg2);
+    }
+
+    @Override
+    public void error(Marker marker, String format, Object... arguments) {
+        error(format, arguments);
+    }
+
+    @Override
+    public void error(Marker marker, String msg, Throwable thr) {
+        error(msg, thr);
     }
 
 }
