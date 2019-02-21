@@ -1,4 +1,4 @@
-Bundle-Name: SL4J to OSGi
+Bundle-Name: SL4J to OSGi Logging
 # Choose either depending on whether we build a snapshot or a release:
 Bundle-Version: 0.0.0.-${tstamp}-SNAPSHOT
 #Bundle-Version: 1.0.0.ga
@@ -23,3 +23,6 @@ Export-Package: \
 Bundle-Activator: de.mnl.osgi.lf4osgi.provider.LogFacadeManager
 -baselinerepo: MnlOSGi
 -baseline: *
+
+-fixupmessages: \
+    "The .classpath contains an unknown container: GROOVY_DSL_SUPPORT. This could make your build less portable."
