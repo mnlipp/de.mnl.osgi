@@ -37,7 +37,7 @@ but even with declarative services its usage is a bit cumbersome compared
 to the ease of use that you get with the logging libraries. 
 
 I've searched, but all attempts to solve the problem seemed rather complex to 
-me. So I have written my own set of really simple to use bridging bundles.
+me. So I have written my own set of really simple to use bridging/facade bundles.
 Contrary to some other "unification attempts", these bridges/facades put
 OSGi logging in the center. All log events from the "standard" libraries
 mentioned above are forwarded to the OSGi logging service, and all logging 
