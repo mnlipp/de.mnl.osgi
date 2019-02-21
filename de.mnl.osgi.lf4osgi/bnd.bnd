@@ -1,4 +1,4 @@
-Bundle-Name: SL4J to OSGi Logging
+Bundle-Name: Logging Facade for OSGi Logging
 # Choose either depending on whether we build a snapshot or a release:
 Bundle-Version: 0.0.0.-${tstamp}-SNAPSHOT
 #Bundle-Version: 1.0.0.ga
