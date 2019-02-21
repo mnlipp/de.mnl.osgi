@@ -43,7 +43,7 @@ me. So I have written my own set of really simple to use bridging bundles.
    A logging facade for OSGi logging. Makes using OSGi logging as simple as
    using the "standard" libraries.
    
- * [SLF4J for OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.sl4j2osgi/javadoc/org/slf4j/impl/package-summary.html#package.description):
+ * [SLF4J for OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.slf4j2osgi/javadoc/org/slf4j/impl/package-summary.html#package.description):
    A SLF4J logging facade for OSGi logging. Build on LF4OSGi.
    
  * [JUL to OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description):
