@@ -51,21 +51,20 @@
  * However, this should be neglectable under all circumstances,
  * especially if you use closures for logging.
  * <P>
- * While no {@code LoggingFactory} service is availabe, logging events
- * are stored in a buffer which is flushed to the service as soon as
- * it becomes available. The "thread info", however, cannot be 
- * forwarded to the service that becomes available, because it is
- * not an explicit parameter of the {@link org.osgi.service.log.Logger}'s
- * methods. Flushed log events therefore have the thread info from
- * the flushing thread. To make this obvious, the name
- * of is set to "{@code (log flusher)}" while the events are
- * flushed.
+ * While no {@code LoggingFactory} service is available, logging events
+ * are recorded in a buffer which is flushed to the service as soon as
+ * it becomes available. The "thread info", which is not specified
+ * but added automatically by the implementation of the logger service, 
+ * cannot be recorded. The recorded event data therefore includes the name
+ * of the thread that caused the log event. When flushing the recorded
+ * events, the name of the flushing thread is temporarily set to
+ * the recorded thread name with "[recorded]" appended.
  * <P>
  * As long as there is no {@code LoggingFactory} service available,
  * the logging level cannot be determined. Therefore all events
  * with level {@link org.osgi.service.log.LogLevel#DEBUG} and up
- * are buffered. This can be changed using the bundle properties
- * (see below).
+ * are recorded. This can be changed using system settings or 
+ * bundle properties (see below).
  * 
  * <h3>Bundle properties</h3>
  * 
@@ -94,5 +93,11 @@
  *   </tbody>
  * </table>
  *
+ * Bundle parameters can only be evaluated when the bundle has been started.
+ * This may be too late if another bundle that uses LF4OSGi is started
+ * before this bundle. These values can therefore also be set as system 
+ * properties. If values are supplied both as system properties and as
+ * bunde parameters, the bundle parameters take precedence when the
+ * LF4OSGi provider bundle is started.
  */
 package de.mnl.osgi.lf4osgi;

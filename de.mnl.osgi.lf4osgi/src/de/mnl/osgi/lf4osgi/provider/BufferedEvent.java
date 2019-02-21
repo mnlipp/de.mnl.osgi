@@ -16,6 +16,8 @@
 
 package de.mnl.osgi.lf4osgi.provider;
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.Arrays;
 
 import org.osgi.framework.Bundle;
@@ -31,6 +33,7 @@ public class BufferedEvent {
 
     private static final Object[] EMPTY_ARRAY = new Object[0];
     private final Bundle bundle;
+    private final String threadName;
     private final String name;
     private final LogLevel level;
     private final String message;
@@ -52,6 +55,7 @@ public class BufferedEvent {
         this.level = level;
         this.message = message;
         this.arguments = Arrays.copyOf(arguments, arguments.length);
+        threadName = Thread.currentThread().getName();
     }
 
     /**
@@ -69,6 +73,7 @@ public class BufferedEvent {
         this.level = level;
         this.message = message;
         arguments = EMPTY_ARRAY;
+        threadName = Thread.currentThread().getName();
     }
 
 //    /**
@@ -105,8 +110,45 @@ public class BufferedEvent {
      *
      * @param factory the factory
      */
-    @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
+    @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition", "PMD.EmptyCatchBlock",
+        "PMD.NcssCount" })
     public void forward(LoggerFactory factory) {
+        String savedName = Thread.currentThread().getName();
+        try {
+            // Set thread name to get nice thread info
+            try {
+                AccessController.doPrivileged(new PrivilegedAction<Void>() {
+                    @Override
+                    public Void run() {
+                        Thread.currentThread()
+                            .setName(threadName + " [recorded]");
+                        return null;
+                    }
+                });
+            } catch (SecurityException e) {
+                // Ignored, was just a best effort.
+            }
+            // Now process
+            doForward(factory);
+        } finally {
+            try {
+                AccessController.doPrivileged(new PrivilegedAction<Void>() {
+                    @Override
+                    public Void run() {
+                        Thread.currentThread().setName(savedName);
+                        return null; // NOPMD
+                    }
+                });
+            } catch (SecurityException e) {
+                // Ignored. If resetting doesn't work, setting hasn't worked
+                // either
+            }
+        }
+
+    }
+
+    @SuppressWarnings("PMD.NcssCount")
+    private void doForward(LoggerFactory factory) {
         final Logger logger = factory.getLogger(bundle, name, Logger.class);
         switch (level) {
         case TRACE:
