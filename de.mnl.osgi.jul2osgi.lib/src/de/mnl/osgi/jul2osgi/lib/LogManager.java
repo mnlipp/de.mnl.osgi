@@ -114,6 +114,9 @@ public class LogManager extends java.util.logging.LogManager {
                 return;
             }
         }
+        logInfo.setThreadName(Thread.currentThread().getName());
+        // We need to infer this information now, won't be possible later.
+        logInfo.getLogRecord().getSourceClassName();
         synchronized (buffered) {
             if (buffered.size() == bufferSize) {
                 buffered.removeFirst();
@@ -128,6 +131,7 @@ public class LogManager extends java.util.logging.LogManager {
     public static class LogInfo {
         private Class<?> callingClass;
         private LogRecord logRecord;
+        private String threadName;
 
         /**
          * Instantiates a new log info.
@@ -139,6 +143,25 @@ public class LogManager extends java.util.logging.LogManager {
             super();
             this.callingClass = definingClass;
             this.logRecord = logRecord;
+        }
+
+        /**
+         * Sets the thread name. Only required if the log info
+         * has to be buffered.
+         *
+         * @param threadName the new thread name
+         */
+        public void setThreadName(String threadName) {
+            this.threadName = threadName;
+        }
+
+        /**
+         * Gets the thread name.
+         *
+         * @return the threadName
+         */
+        public final String getThreadName() {
+            return threadName;
         }
 
         /**

@@ -88,7 +88,8 @@ public class Forwarder extends ServiceResolver implements LogRecordHandler {
             ((LogManager) logMgr).setForwarder(this);
         });
         setOnDissolving(() -> {
-            ((LogManager) logMgr).setForwarder(this);
+            ((LogManager) logMgr).setForwarder(null);
+            adaptedBundles.clear();
         });
     }
 
@@ -204,39 +205,41 @@ public class Forwarder extends ServiceResolver implements LogRecordHandler {
      *
      * @param logInfos the log infos
      */
-    @SuppressWarnings({ "PMD.EmptyCatchBlock", "PMD.UseVarargs" })
+    @SuppressWarnings({ "PMD.EmptyCatchBlock", "PMD.UseVarargs",
+        "PMD.AvoidInstantiatingObjectsInLoops" })
     public void processBuffered(LogInfo[] logInfos) {
         String threadName = Thread.currentThread().getName();
-        try {
-            // Set thread name to indicate invalid context
+        for (LogInfo info : logInfos) {
             try {
-                AccessController.doPrivileged(new PrivilegedAction<Void>() {
-                    @Override
-                    public Void run() {
-                        Thread.currentThread().setName("(log flusher)");
-                        return null;
-                    }
-                });
-            } catch (SecurityException e) {
-                // Ignored, was just a best effort.
-            }
-            // Now process
-            for (LogInfo info : logInfos) {
+                // Set thread name to indicate invalid context
+                try {
+                    AccessController.doPrivileged(new PrivilegedAction<Void>() {
+                        @Override
+                        public Void run() {
+                            Thread.currentThread()
+                                .setName(info.getThreadName() + " [recorded]");
+                            return null;
+                        }
+                    });
+                } catch (SecurityException e) {
+                    // Ignored, was just a best effort.
+                }
+                // Now process
                 process(info);
-            }
-        } finally {
-            try {
-                AccessController.doPrivileged(new PrivilegedAction<Void>() {
+            } finally {
+                try {
+                    AccessController.doPrivileged(new PrivilegedAction<Void>() {
 
-                    @Override
-                    public Void run() {
-                        Thread.currentThread().setName(threadName);
-                        return null; // NOPMD
-                    }
-                });
-            } catch (SecurityException e) {
-                // Ignored. If resetting doesn't work, setting hasn't worked
-                // neither
+                        @Override
+                        public Void run() {
+                            Thread.currentThread().setName(threadName);
+                            return null; // NOPMD
+                        }
+                    });
+                } catch (SecurityException e) {
+                    // Ignored. If resetting doesn't work, setting hasn't worked
+                    // neither
+                }
             }
         }
     }

@@ -1,20 +1,27 @@
 package de.mnl.osgi.jul2osgi.test;
 
+import de.mnl.osgi.coreutils.ServiceCollector;
+
+import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.service.log.LogEntry;
+import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LogListener;
 import org.osgi.service.log.LogReaderService;
 import org.osgi.util.tracker.ServiceTracker;
@@ -68,5 +75,47 @@ public class LoggerCallTest {
             }
         }
         assertNotNull(handled);
+    }
+
+    @Test
+    public void testBuffered() throws InterruptedException, BundleException {
+        Bundle osgiLoggerFactory = context.getServiceReference(
+            org.osgi.service.log.LoggerFactory.class).getBundle();
+        assertNotNull(osgiLoggerFactory);
+        try {
+            osgiLoggerFactory.stop();
+            logger.log(Level.INFO, "Calling Logger {0}", "Info");
+            logger.log(Level.WARNING, "Calling Logger Warn");
+            logger.log(Level.SEVERE, "Calling Logger Error", new Throwable());
+            osgiLoggerFactory.start();
+            try (ServiceCollector<LogReaderService,
+                    LogReaderService> logReaderProvider
+                        = new ServiceCollector<>(context,
+                            LogReaderService.class)) {
+                logReaderProvider.open();
+                LogReaderService logReader
+                    = logReaderProvider.waitForService(1000).get();
+                CountDownLatch latch = new CountDownLatch(3);
+                for (LogEntry entry : Collections.list(logReader.getLog())) {
+                    if (entry.getMessage().indexOf("Calling Logger Info") >= 0
+                        && entry.getLogLevel() == LogLevel.INFO) {
+                        latch.countDown();
+                    }
+                    if (entry.getMessage().indexOf("Calling Logger Warn") >= 0
+                        && entry.getLogLevel() == LogLevel.WARN) {
+                        latch.countDown();
+                    }
+                    if (entry.getMessage().indexOf("Calling Logger Error") >= 0
+                        && entry.getLogLevel() == LogLevel.ERROR) {
+                        assertNotNull(entry.getException());
+                        latch.countDown();
+                    }
+                }
+                latch.await(1000, TimeUnit.MILLISECONDS);
+                assertEquals(0, latch.getCount());
+            }
+        } finally {
+            osgiLoggerFactory.start();
+        }
     }
 }

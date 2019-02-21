@@ -20,7 +20,8 @@ Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
 	${mockito-deps},\
 	osgi.core; version=6.0,\
 	osgi.annotation; version=6.0.1,\
-	org.osgi.service.log;version='[1.4,2)'
+	org.osgi.service.log;version='[1.4,2)',\
+	de.mnl.osgi.coreutils;version=latest
 
 javac.source: 1.8
 javac.target: 1.8
