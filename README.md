@@ -38,7 +38,7 @@ I've searched, but all attempts to solve the problem seemed rather complex to
 me. So I have written my own set of really simple to use bridging bundles.
 
  * [JUL to OSGi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description):
-   forwards all information to the OSGi log service.
+   forwards all logging events from java.util.logging to the OSGi log service.
    
  * [OSGi to JUL](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.osgi2jul/javadoc/):
    invokes JUL compliant handlers for the messages logged with the OSGi log 
