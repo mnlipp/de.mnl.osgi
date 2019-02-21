@@ -8,7 +8,7 @@ A collection of miscellaneous OSGi bundles and components.
 
 | Bundle                   | Maven |
 | ------------------------ | ------- |
-| [de.mnl.osgi.coreutils](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.coreutils/javadoc/de/mnl/coreutils/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.coreutils.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.coreutils%22) |
+| [de.mnl.osgi.coreutils](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.coreutils/javadoc/de/mnl/osgi/coreutils/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.coreutils.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.coreutils%22) |
 
 A small bundle with utilities/helpers. Currently, it provides a new kind
 of service tracker that works around the problem outlined 
