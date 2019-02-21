@@ -121,24 +121,22 @@ public class BufferingLoggerFactory implements LoggerFactory {
 
     @Override
     public Logger getLogger(String name) {
-        return new BufferingLogger(this, name);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Logger getLogger(Class<?> clazz) {
-        return new BufferingLogger(this, clazz.getName());
+        throw new UnsupportedOperationException();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <L extends Logger> L getLogger(String name, Class<L> loggerType) {
-        return (L) new BufferingLogger(this, name);
+        throw new UnsupportedOperationException();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <L extends Logger> L getLogger(Class<?> clazz, Class<L> loggerType) {
-        return (L) new BufferingLogger(this, clazz.getName());
+        throw new UnsupportedOperationException();
     }
 
     @SuppressWarnings("unchecked")

@@ -16,6 +16,8 @@
 
 package de.mnl.osgi.lf4osgi.provider;
 
+import de.mnl.osgi.lf4osgi.Lf4OsgiLogger;
+
 import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.Optional;
@@ -37,14 +39,34 @@ public abstract class AbstractLoggerFacade {
     private final String name;
     private final Bundle bundle;
 
-    private static Optional<Class<?>> findCreatingClass() {
+    /**
+     * Find the class that creates the logger. This is done by searching
+     * through the current stack trace for the invocation of the
+     * getLogger method of the class that provides loggers. The
+     * next frame in the stack trace then reveals the name of the
+     * class that requests the logger.
+     *
+     * @param providingClass the providing class
+     * @return the optional
+     */
+    private static Optional<Class<?>>
+            findRequestingClass(String providingClass) {
         StackTraceElement[] stackTrace = new Throwable().getStackTrace();
         for (int i = 2; i < stackTrace.length; i++) {
             StackTraceElement ste = stackTrace[i];
-            if (ste.getMethodName().equals("getLogger")) {
+            if (ste.getClassName().equals(providingClass)
+                && ste.getMethodName().equals("getLogger")) {
                 Class<?>[] classes = CTX_HLPR.getClassContext();
-                // Next in stack is caller of getLogger(), but
-                // getClassContext() has added one level
+                // Next in stack should caller of getLogger(), but
+                // getClassContext() has added one level, so the
+                // caller of getLogger should be at i+2. But...
+                // from the JavaDoc: "Some virtual machines may, under
+                // some circumstances, omit one or more stack frames
+                // from the stack trace." So let's make sure that we
+                // are really there.
+                while (!classes[i + 1].getName().equals(providingClass)) {
+                    i += 1;
+                }
                 return Optional.of(classes[i + 2]);
             }
         }
@@ -69,13 +91,22 @@ public abstract class AbstractLoggerFacade {
     }
 
     /**
-     * Instantiates a new logger facade.
+     * Instantiates a new logger facade. The invoking bundle is determined
+     * from the class that invoked getLogger, which is searched for
+     * in the stacktrace as caller of the getLogger method of the class
+     * that provides the loggers from the users point of view.
+     * <P>
+     * Here, the provider is always {@link Lf4OsgiLogger}. But the name
+     * is provided as parameter in order to allow other facades to this
+     * as base class.
      *
      * @param name the name
+     * @param providingClass the providing class
      */
-    public AbstractLoggerFacade(String name) {
+    public AbstractLoggerFacade(String name, String providingClass) {
         this.name = name;
-        bundle = findCreatingClass().flatMap(AbstractLoggerFacade::findBundle)
+        bundle = findRequestingClass(providingClass)
+            .flatMap(AbstractLoggerFacade::findBundle)
             .orElse(null);
         LogFacadeManager.addLoggerFacade(this);
     }

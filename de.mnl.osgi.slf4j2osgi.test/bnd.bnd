@@ -64,4 +64,8 @@ Export-Package: \
 	de.mnl.osgi.slf4j2osgi;version=snapshot,\
 	de.mnl.osgi.osgi2jul;version=snapshot
 
-#-runproperties: 
+-runproperties: \
+	org.osgi.service.log.admin.loglevel=INFO, \
+	de.mnl.osgi.osgi2jul.handlers='java.util.logging.ConsoleHandler[1]', \
+	de.mnl.osgi.osgi2jul.handler.1.format='{0} [{2}] ({4})'
+

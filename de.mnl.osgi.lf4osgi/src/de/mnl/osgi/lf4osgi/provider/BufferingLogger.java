@@ -31,18 +31,6 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     private final BufferingLoggerFactory factory;
 
     /**
-     * Instantiates a new buffering logger with the given factory
-     * and provided factory.
-     *
-     * @param factory the factory
-     * @param name the name
-     */
-    public BufferingLogger(BufferingLoggerFactory factory, String name) {
-        super(name);
-        this.factory = factory;
-    }
-
-    /**
      * Instantiates a new buffering logger with the given factory, bundle
      * and provided factory.
      *

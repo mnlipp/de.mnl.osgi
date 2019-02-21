@@ -38,7 +38,7 @@ public class Lf4OsgiLogger extends AbstractLoggerFacade implements Logger {
      * @param name the name
      */
     public Lf4OsgiLogger(String name) {
-        super(name);
+        super(name, de.mnl.osgi.lf4osgi.LoggerFactory.class.getName());
     }
 
     /**

@@ -37,12 +37,13 @@ public class Fwd2OsgiLogger extends AbstractLoggerFacade implements Logger {
      * @param name the name
      */
     public Fwd2OsgiLogger(String name) {
-        super(name);
+        super(name, org.slf4j.LoggerFactory.class.getName());
     }
 
     @Override
     public void loggerFactoryUpdated(LoggerFactory factory) {
-        delegee = factory.getLogger(getName());
+        delegee = factory.getLogger(getBundle(), getName(),
+            org.osgi.service.log.Logger.class);
     }
 
     @Override
