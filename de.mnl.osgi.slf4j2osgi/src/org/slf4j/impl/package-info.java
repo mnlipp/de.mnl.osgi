@@ -15,7 +15,15 @@
  */
 
 /**
- *
+ * This package provides a binding of the SLF4J to OSGi logging. The
+ * implementation uses the same core code as the Logging Facade for
+ * OSGi (LF4OSGi). It's just another type of logger to which the
+ * OSGi logging functions are bound.
+ * <P>
+ * Simply install this bundle in addition to de.mnl.osgi.lf4j and you
+ * can use the SLF4J {@code LoggerFactory} as you're used to. As this
+ * implementation shares everything "behind the facade" with LFOSGi,
+ * it also shares its configuration options.
  */
 @Version("1.7.0") // api requires an impl with at least this version
 package org.slf4j.impl;
