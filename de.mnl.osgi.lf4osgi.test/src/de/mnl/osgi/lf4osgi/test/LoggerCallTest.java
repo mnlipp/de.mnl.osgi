@@ -49,6 +49,8 @@ public class LoggerCallTest {
                 public void logged(LogEntry entry) {
                     if (entry.getMessage()
                         .startsWith("Calling Logger from Test.")) {
+                        assertEquals("de.mnl.osgi.lf4osgi.test",
+                            entry.getBundle().getSymbolicName());
                         gotIt.set(true);
                         latch.countDown();
                     }
