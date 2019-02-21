@@ -19,7 +19,7 @@ of service tracker that works around the problem outlined
 | Bundle                   | Maven |
 | ------------------------ | ------- |
 | [de.mnl.osgi.lf4osgi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.lf4osgi/javadoc/de/mnl/osgi/lf4osgi/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.lf4osgi.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.lf4osgi%22) | 
-| [de.mnl.osgi.slf4j2osgi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.slf4j2osgi/javadoc/de/mnl/osgi/slf4j2osgi/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.slf4j2osgi.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.slf4j2osgi%22) | 
+| [de.mnl.osgi.slf4j2osgi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.slf4j2osgi/javadoc/org/slf4j/impl/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.slf4j2osgi.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.slf4j2osgi%22) | 
 | [de.mnl.osgi.jul2osgi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description)     | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.jul2osgi.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi%22) |
 | [de.mnl.osgi.jul2osgi.lib](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.jul2osgi.lib.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi.lib%22) | 
 | [de.mnl.osgi.osgi2jul](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.osgi2jul/javadoc/de/mnl/osgi/osgi2jul/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.osgi2jul.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.osgi2jul%22) | 
@@ -43,7 +43,7 @@ me. So I have written my own set of really simple to use bridging bundles.
    A logging facade for OSGi logging. Makes using OSGi logging as simple as
    using the "standard" libraries.
    
- * [SLF4J for OSGi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.sl4j2osgi/javadoc/de/mnl/osgi/slf4j2osgi/package-summary.html#package.description):
+ * [SLF4J for OSGi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.sl4j2osgi/javadoc/org/slf4j/impl/package-summary.html#package.description):
    A SLF4J logging facade for OSGi logging. Build on LF4OSGi.
    
  * [JUL to OSGi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description):
