@@ -38,6 +38,11 @@ to the ease of use that you get with the logging libraries.
 
 I've searched, but all attempts to solve the problem seemed rather complex to 
 me. So I have written my own set of really simple to use bridging bundles.
+Contrary to some other "unification attempts", these bridges/facades put
+OSGi logging in the center. All log events from the "standard" libraries
+mentioned above are forwarded to the OSGi logging service, and all logging 
+results can be obtained from the OSGi logging service (e.g. displayed
+in the Apache Felix Web Console).
 
  * [LF for OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.lf4osgi/javadoc/de/mnl/osgi/lf4osgi/package-summary.html#package.description):
    A logging facade for OSGi logging. Makes using OSGi logging as simple as
