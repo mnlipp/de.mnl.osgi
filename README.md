@@ -8,7 +8,7 @@ A collection of miscellaneous OSGi bundles and components.
 
 | Bundle                   | Maven |
 | ------------------------ | ------- |
-| [de.mnl.osgi.coreutils](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.coreutils/javadoc/de/mnl/osgi/coreutils/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.coreutils.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.coreutils%22) |
+| [de.mnl.osgi.coreutils](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.coreutils/javadoc/de/mnl/osgi/coreutils/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.coreutils.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.coreutils%22) |
 
 A small bundle with utilities/helpers. Currently, it provides a new kind
 of service tracker that works around the problem outlined 
@@ -18,11 +18,11 @@ of service tracker that works around the problem outlined
 
 | Bundle                   | Maven |
 | ------------------------ | ------- |
-| [de.mnl.osgi.lf4osgi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.lf4osgi/javadoc/de/mnl/osgi/lf4osgi/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.lf4osgi.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.lf4osgi%22) | 
-| [de.mnl.osgi.slf4j2osgi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.slf4j2osgi/javadoc/org/slf4j/impl/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.slf4j2osgi.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.slf4j2osgi%22) | 
-| [de.mnl.osgi.jul2osgi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description)     | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.jul2osgi.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi%22) |
-| [de.mnl.osgi.jul2osgi.lib](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.jul2osgi.lib.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi.lib%22) | 
-| [de.mnl.osgi.osgi2jul](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.osgi2jul/javadoc/de/mnl/osgi/osgi2jul/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.osgi2jul.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.osgi2jul%22) | 
+| [de.mnl.osgi.lf4osgi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.lf4osgi/javadoc/de/mnl/osgi/lf4osgi/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.lf4osgi.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.lf4osgi%22) | 
+| [de.mnl.osgi.slf4j2osgi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.slf4j2osgi/javadoc/org/slf4j/impl/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.slf4j2osgi.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.slf4j2osgi%22) | 
+| [de.mnl.osgi.jul2osgi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description)     | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.jul2osgi.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi%22) |
+| [de.mnl.osgi.jul2osgi.lib](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.jul2osgi.lib.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi.lib%22) | 
+| [de.mnl.osgi.osgi2jul](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.osgi2jul/javadoc/de/mnl/osgi/osgi2jul/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.osgi2jul.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.osgi2jul%22) | 
 
 Logging in OSGi seems to be a notorious problem. Libraries—even if 
 they have OSGi bundle headers—avoid dependencies on OSGi and therefore
@@ -39,17 +39,17 @@ to the ease of use that you get with the logging libraries.
 I've searched, but all attempts to solve the problem seemed rather complex to 
 me. So I have written my own set of really simple to use bridging bundles.
 
- * [LF for OSGi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.lf4osgi/javadoc/de/mnl/osgi/lf4osgi/package-summary.html#package.description):
+ * [LF for OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.lf4osgi/javadoc/de/mnl/osgi/lf4osgi/package-summary.html#package.description):
    A logging facade for OSGi logging. Makes using OSGi logging as simple as
    using the "standard" libraries.
    
- * [SLF4J for OSGi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.sl4j2osgi/javadoc/org/slf4j/impl/package-summary.html#package.description):
+ * [SLF4J for OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.sl4j2osgi/javadoc/org/slf4j/impl/package-summary.html#package.description):
    A SLF4J logging facade for OSGi logging. Build on LF4OSGi.
    
- * [JUL to OSGi](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description):
+ * [JUL to OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description):
    forwards all logging events from java.util.logging to the OSGi log service.
    
- * [OSGi to JUL](http://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.osgi2jul/javadoc/):
+ * [OSGi to JUL](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.osgi2jul/javadoc/):
    invokes JUL compliant handlers for the messages logged with the OSGi log 
    service.
 
