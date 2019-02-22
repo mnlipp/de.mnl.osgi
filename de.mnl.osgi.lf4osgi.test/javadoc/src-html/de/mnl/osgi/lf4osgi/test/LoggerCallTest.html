@@ -9,29 +9,29 @@
 <pre><span class="sourceLineNo">001</span>package de.mnl.osgi.lf4osgi.test;<a name="line.1"></a>
 <span class="sourceLineNo">002</span><a name="line.2"></a>
 <span class="sourceLineNo">003</span>import de.mnl.osgi.coreutils.ServiceCollector;<a name="line.3"></a>
-<span class="sourceLineNo">004</span>import de.mnl.osgi.lf4osgi.LoggerFactory;<a name="line.4"></a>
-<span class="sourceLineNo">005</span><a name="line.5"></a>
-<span class="sourceLineNo">006</span>import java.util.Collections;<a name="line.6"></a>
-<span class="sourceLineNo">007</span>import java.util.concurrent.CountDownLatch;<a name="line.7"></a>
-<span class="sourceLineNo">008</span>import java.util.concurrent.TimeUnit;<a name="line.8"></a>
-<span class="sourceLineNo">009</span>import java.util.concurrent.atomic.AtomicBoolean;<a name="line.9"></a>
-<span class="sourceLineNo">010</span><a name="line.10"></a>
-<span class="sourceLineNo">011</span>import static org.junit.Assert.assertEquals;<a name="line.11"></a>
-<span class="sourceLineNo">012</span>import static org.junit.Assert.assertNotNull;<a name="line.12"></a>
-<span class="sourceLineNo">013</span>import static org.junit.Assert.assertTrue;<a name="line.13"></a>
-<span class="sourceLineNo">014</span><a name="line.14"></a>
-<span class="sourceLineNo">015</span>import org.junit.Test;<a name="line.15"></a>
-<span class="sourceLineNo">016</span>import org.junit.runner.RunWith;<a name="line.16"></a>
-<span class="sourceLineNo">017</span>import org.mockito.junit.MockitoJUnitRunner;<a name="line.17"></a>
-<span class="sourceLineNo">018</span>import org.osgi.framework.Bundle;<a name="line.18"></a>
-<span class="sourceLineNo">019</span>import org.osgi.framework.BundleContext;<a name="line.19"></a>
-<span class="sourceLineNo">020</span>import org.osgi.framework.BundleException;<a name="line.20"></a>
-<span class="sourceLineNo">021</span>import org.osgi.framework.FrameworkUtil;<a name="line.21"></a>
-<span class="sourceLineNo">022</span>import org.osgi.service.log.LogEntry;<a name="line.22"></a>
-<span class="sourceLineNo">023</span>import org.osgi.service.log.LogLevel;<a name="line.23"></a>
-<span class="sourceLineNo">024</span>import org.osgi.service.log.LogListener;<a name="line.24"></a>
-<span class="sourceLineNo">025</span>import org.osgi.service.log.LogReaderService;<a name="line.25"></a>
-<span class="sourceLineNo">026</span>import org.osgi.service.log.Logger;<a name="line.26"></a>
+<span class="sourceLineNo">004</span>import de.mnl.osgi.lf4osgi.Logger;<a name="line.4"></a>
+<span class="sourceLineNo">005</span>import de.mnl.osgi.lf4osgi.LoggerFactory;<a name="line.5"></a>
+<span class="sourceLineNo">006</span><a name="line.6"></a>
+<span class="sourceLineNo">007</span>import java.util.Collections;<a name="line.7"></a>
+<span class="sourceLineNo">008</span>import java.util.concurrent.CountDownLatch;<a name="line.8"></a>
+<span class="sourceLineNo">009</span>import java.util.concurrent.TimeUnit;<a name="line.9"></a>
+<span class="sourceLineNo">010</span>import java.util.concurrent.atomic.AtomicBoolean;<a name="line.10"></a>
+<span class="sourceLineNo">011</span><a name="line.11"></a>
+<span class="sourceLineNo">012</span>import static org.junit.Assert.assertEquals;<a name="line.12"></a>
+<span class="sourceLineNo">013</span>import static org.junit.Assert.assertNotNull;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import static org.junit.Assert.assertTrue;<a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span>import org.junit.Test;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>import org.junit.runner.RunWith;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>import org.mockito.junit.MockitoJUnitRunner;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>import org.osgi.framework.Bundle;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import org.osgi.framework.BundleContext;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import org.osgi.framework.BundleException;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import org.osgi.framework.FrameworkUtil;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import org.osgi.service.log.LogEntry;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import org.osgi.service.log.LogLevel;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import org.osgi.service.log.LogListener;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import org.osgi.service.log.LogReaderService;<a name="line.26"></a>
 <span class="sourceLineNo">027</span><a name="line.27"></a>
 <span class="sourceLineNo">028</span>@RunWith(MockitoJUnitRunner.class)<a name="line.28"></a>
 <span class="sourceLineNo">029</span>public class LoggerCallTest {<a name="line.29"></a>
@@ -78,7 +78,7 @@
 <span class="sourceLineNo">070</span>        try {<a name="line.70"></a>
 <span class="sourceLineNo">071</span>            osgiLoggerFactory.stop();<a name="line.71"></a>
 <span class="sourceLineNo">072</span>            logger.info("Calling Logger {}", "Info");<a name="line.72"></a>
-<span class="sourceLineNo">073</span>            logger.warn("Calling Logger Warn");<a name="line.73"></a>
+<span class="sourceLineNo">073</span>            logger.warn(() -&gt; "Calling Logger " + "Warn");<a name="line.73"></a>
 <span class="sourceLineNo">074</span>            logger.error("Calling Logger Error", new Throwable());<a name="line.74"></a>
 <span class="sourceLineNo">075</span>            osgiLoggerFactory.start();<a name="line.75"></a>
 <span class="sourceLineNo">076</span>            try (ServiceCollector&lt;LogReaderService,<a name="line.76"></a>
