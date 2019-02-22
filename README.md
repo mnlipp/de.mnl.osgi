@@ -62,3 +62,17 @@ in the Apache Felix Web Console).
 # Other Sub-Projects
 
 See the READMEs in the subdirectories for details. 
+
+# Usage
+
+The easiest way to include the bundles in your bnd workspace build is to
+add a `BndPomRepository`:
+
+```
+-plugin.xx.MnlOSGi: \
+    aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+        name=MnlOSGi; \
+        readOnly=true; \
+        releaseUrls=https://repo.maven.apache.org/maven2/; \
+        query='q=g:%22de.mnl.osgi%22'
+```
