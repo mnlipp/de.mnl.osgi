@@ -18,15 +18,16 @@ package de.mnl.osgi.lf4osgi;
 
 import de.mnl.osgi.lf4osgi.provider.AbstractLoggerFacade;
 
+import java.util.function.Supplier;
+
 import org.osgi.framework.Bundle;
-import org.osgi.service.log.Logger;
 import org.osgi.service.log.LoggerConsumer;
 import org.osgi.service.log.LoggerFactory;
 
 /**
  * The implementation of the facade for OSGi loggers.
  */
-@SuppressWarnings("PMD.TooManyMethods")
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.ExcessivePublicCount" })
 public class Lf4OsgiLogger extends AbstractLoggerFacade implements Logger {
 
     @SuppressWarnings("PMD.LoggerIsNotStaticFinal")
@@ -89,6 +90,20 @@ public class Lf4OsgiLogger extends AbstractLoggerFacade implements Logger {
     }
 
     @Override
+    public void trace(Supplier<String> messageSupplier) {
+        if (delegee.isTraceEnabled()) {
+            delegee.trace(messageSupplier.get());
+        }
+    }
+
+    @Override
+    public void trace(Supplier<String> messageSupplier, Throwable thr) {
+        if (delegee.isTraceEnabled()) {
+            delegee.trace(messageSupplier.get(), thr);
+        }
+    }
+
+    @Override
     public boolean isDebugEnabled() {
         return delegee.isDebugEnabled();
     }
@@ -117,6 +132,20 @@ public class Lf4OsgiLogger extends AbstractLoggerFacade implements Logger {
     public <E extends Exception> void debug(LoggerConsumer<E> consumer)
             throws E {
         delegee.debug(consumer);
+    }
+
+    @Override
+    public void debug(Supplier<String> messageSupplier) {
+        if (delegee.isDebugEnabled()) {
+            delegee.debug(messageSupplier.get());
+        }
+    }
+
+    @Override
+    public void debug(Supplier<String> messageSupplier, Throwable thr) {
+        if (delegee.isDebugEnabled()) {
+            delegee.debug(messageSupplier.get(), thr);
+        }
     }
 
     @Override
@@ -151,6 +180,20 @@ public class Lf4OsgiLogger extends AbstractLoggerFacade implements Logger {
     }
 
     @Override
+    public void info(Supplier<String> messageSupplier) {
+        if (delegee.isInfoEnabled()) {
+            delegee.info(messageSupplier.get());
+        }
+    }
+
+    @Override
+    public void info(Supplier<String> messageSupplier, Throwable thr) {
+        if (delegee.isInfoEnabled()) {
+            delegee.info(messageSupplier.get(), thr);
+        }
+    }
+
+    @Override
     public boolean isWarnEnabled() {
         return delegee.isWarnEnabled();
     }
@@ -176,9 +219,23 @@ public class Lf4OsgiLogger extends AbstractLoggerFacade implements Logger {
     }
 
     @Override
+    public void warn(Supplier<String> messageSupplier) {
+        if (delegee.isWarnEnabled()) {
+            delegee.warn(messageSupplier.get());
+        }
+    }
+
+    @Override
     public <E extends Exception> void warn(LoggerConsumer<E> consumer)
             throws E {
         delegee.warn(consumer);
+    }
+
+    @Override
+    public void warn(Supplier<String> messageSupplier, Throwable thr) {
+        if (delegee.isWarnEnabled()) {
+            delegee.warn(messageSupplier.get(), thr);
+        }
     }
 
     @Override
@@ -210,6 +267,20 @@ public class Lf4OsgiLogger extends AbstractLoggerFacade implements Logger {
     public <E extends Exception> void error(LoggerConsumer<E> consumer)
             throws E {
         delegee.error(consumer);
+    }
+
+    @Override
+    public void error(Supplier<String> messageSupplier) {
+        if (delegee.isErrorEnabled()) {
+            delegee.error(messageSupplier.get());
+        }
+    }
+
+    @Override
+    public void error(Supplier<String> messageSupplier, Throwable thr) {
+        if (delegee.isErrorEnabled()) {
+            delegee.error(messageSupplier.get(), thr);
+        }
     }
 
     @Override

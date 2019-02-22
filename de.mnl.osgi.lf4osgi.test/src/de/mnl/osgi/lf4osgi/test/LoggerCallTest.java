@@ -1,6 +1,7 @@
 package de.mnl.osgi.lf4osgi.test;
 
 import de.mnl.osgi.coreutils.ServiceCollector;
+import de.mnl.osgi.lf4osgi.Logger;
 import de.mnl.osgi.lf4osgi.LoggerFactory;
 
 import java.util.Collections;
@@ -23,7 +24,6 @@ import org.osgi.service.log.LogEntry;
 import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LogListener;
 import org.osgi.service.log.LogReaderService;
-import org.osgi.service.log.Logger;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoggerCallTest {
@@ -70,7 +70,7 @@ public class LoggerCallTest {
         try {
             osgiLoggerFactory.stop();
             logger.info("Calling Logger {}", "Info");
-            logger.warn("Calling Logger Warn");
+            logger.warn(() -> "Calling Logger " + "Warn");
             logger.error("Calling Logger Error", new Throwable());
             osgiLoggerFactory.start();
             try (ServiceCollector<LogReaderService,

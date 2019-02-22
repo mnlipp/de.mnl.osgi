@@ -17,7 +17,6 @@
 package de.mnl.osgi.lf4osgi;
 
 import org.osgi.framework.Bundle;
-import org.osgi.service.log.Logger;
 
 /**
  * The factory that supplies the OSGi {@link Logger}s from static

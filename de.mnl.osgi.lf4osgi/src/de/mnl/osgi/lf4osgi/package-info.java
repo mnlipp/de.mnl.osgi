@@ -41,30 +41,53 @@
  * invalid should the {@code LoggingFactory} service in use be replaced.
  * <P>
  * Yet another point is how to log when no {@code LoggingFactory} service
- * is available. This my be the case during startup.
+ * is available. This may be the case during startup.
  * <P>
- * This facade for OSGi logging overcomes these problems. The
+ * This "facade" for OSGi logging overcomes those problems. The
  * tiny overhead to pay is an extra method invocation because the
  * {@link org.osgi.service.log.Logger} implementation provided as 
- * facade has to delegate to the logger provided by the 
+ * facade has to delegate to the logger supplied by the 
  * {@code LoggingFactory} service (or a stand-in, see below). 
  * However, this should be neglectable under all circumstances,
  * especially if you use closures for logging.
  * <P>
- * While no {@code LoggingFactory} service is available, logging events
- * are recorded in a buffer which is flushed to the service as soon as
- * it becomes available. The "thread info", which is not specified
+ * As long as there is no {@code LoggingFactory} service available (yet), 
+ * logging events are recorded in a buffer which is flushed to the service 
+ * as soon as it becomes available. The "thread info", which is not specified
  * but added automatically by the implementation of the logger service, 
  * cannot be recorded. The recorded event data therefore includes the name
  * of the thread that caused the log event. When flushing the recorded
  * events, the name of the flushing thread is temporarily set to
  * the recorded thread name with "[recorded]" appended.
  * <P>
- * As long as there is no {@code LoggingFactory} service available,
+ * Of course, if there is no {@code LoggingFactory} service available,
  * the logging level cannot be determined. Therefore all events
  * with level {@link org.osgi.service.log.LogLevel#DEBUG} and up
- * are recorded. This can be changed using system settings or 
- * bundle properties (see below).
+ * are recorded. This default threshold can be changed using system 
+ * settings or bundle properties (see below).
+ * 
+ * <h3>Additional log methods</h3>
+ * 
+ * The loggers returned by the {@link de.mnl.osgi.lf4osgi.LoggerFactory}
+ * actually implement a subinterface of the OSGi 
+ * {@link org.osgi.service.log.Logger} interface. This augmented
+ * LF4OSGi {@link de.mnl.osgi.lf4osgi.Logger} interface provides
+ * additional log methods with the first parameter being the
+ * {@link java.util.function.Supplier} for the message, which is only
+ * evaluated if the log level is met.
+ * <P>
+ * This additional functionality is the reason why the
+ * {@link de.mnl.osgi.lf4osgi.LoggerFactory} does not supply
+ * {@link org.osgi.service.log.FormatterLogger}s. Using a supplier
+ * for the message is a much more flexible design. If you want to
+ * use printf-style formatting, simply log like this:
+ * <pre>
+ * logger.warn(() -&gt; String.format("Value is %d.", 42));
+ * </pre>
+ * With the "message supplier pattern" you can just as easily use 
+ * a {@link java.text.MessageFormat} or simply concatenate strings 
+ * to generate your log message. As long as the log level is below 
+ * the threshold, nothing is evaluated and no performance is lost.
  * 
  * <h3>Bundle properties</h3>
  * 
