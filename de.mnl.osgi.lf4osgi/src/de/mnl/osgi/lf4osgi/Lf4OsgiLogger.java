@@ -31,7 +31,7 @@ import org.osgi.service.log.LoggerFactory;
 public class Lf4OsgiLogger extends AbstractLoggerFacade implements Logger {
 
     @SuppressWarnings("PMD.LoggerIsNotStaticFinal")
-    private Logger delegee;
+    private org.osgi.service.log.Logger delegee;
 
     /**
      * Instantiates a new logger with the provided name.
