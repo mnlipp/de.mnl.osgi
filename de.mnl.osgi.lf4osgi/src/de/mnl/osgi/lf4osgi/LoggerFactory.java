@@ -16,6 +16,9 @@
 
 package de.mnl.osgi.lf4osgi;
 
+import de.mnl.osgi.lf4osgi.provider.LoggerFacadeContext;
+import de.mnl.osgi.lf4osgi.provider.LoggerFacadeContextRegistry;
+
 import org.osgi.framework.Bundle;
 
 /**
@@ -25,6 +28,11 @@ import org.osgi.framework.Bundle;
 @SuppressWarnings({ "PMD.ClassNamingConventions", "PMD.UseUtilityClass" })
 public class LoggerFactory {
 
+    @SuppressWarnings("PMD.FieldNamingConventions")
+    private static final LoggerFacadeContextRegistry<LoggerFacadeContext<Lf4OsgiLogger>,
+            Lf4OsgiLogger> contexts
+                = new LoggerFacadeContextRegistry<>(b -> new LoggerFacadeContext<>(b));
+
     /**
      * Gets a logger with the given name.
      *
@@ -32,7 +40,10 @@ public class LoggerFactory {
      * @return the logger
      */
     public static Logger getLogger(String name) {
-        return new Lf4OsgiLogger(name);
+        Bundle bundle = LoggerFacadeContextRegistry
+            .findBundle(LoggerFactory.class.getName()).orElse(null);
+        return contexts.getBundleContext(bundle).computeIfAbsent(name,
+            (c, n) -> new Lf4OsgiLogger(c, n));
     }
 
     /**
@@ -42,7 +53,11 @@ public class LoggerFactory {
      * @return the logger
      */
     public static Logger getLogger(Class<?> clazz) {
-        return new Lf4OsgiLogger(clazz.getName());
+        String name = clazz.getName();
+        Bundle bundle = LoggerFacadeContextRegistry
+            .findBundle(LoggerFactory.class.getName()).orElse(null);
+        return contexts.getBundleContext(bundle).computeIfAbsent(name,
+            (c, n) -> new Lf4OsgiLogger(c, n));
     }
 
     /**
@@ -58,7 +73,8 @@ public class LoggerFactory {
      * @return the logger
      */
     public static Logger getLogger(Bundle bundle, String name) {
-        return new Lf4OsgiLogger(bundle, name);
+        return contexts.getBundleContext(bundle).computeIfAbsent(name,
+            (c, n) -> new Lf4OsgiLogger(c, n));
     }
 
     /**
@@ -74,7 +90,9 @@ public class LoggerFactory {
      * @return the logger
      */
     public static Logger getLogger(Bundle bundle, Class<?> clazz) {
-        return new Lf4OsgiLogger(bundle, clazz.getName());
+        String name = clazz.getName();
+        return contexts.getBundleContext(bundle).computeIfAbsent(name,
+            (c, n) -> new Lf4OsgiLogger(c, n));
     }
 
 }

@@ -16,44 +16,46 @@
 
 package org.slf4j.impl;
 
-import de.mnl.osgi.lf4osgi.provider.AbstractLoggerFacade;
+import de.mnl.osgi.lf4osgi.provider.LoggerFacade;
+import de.mnl.osgi.lf4osgi.provider.LoggerFacadeManager;
 
+import org.osgi.framework.Bundle;
 import org.osgi.service.log.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.Marker;
+import org.slf4j.helpers.MarkerIgnoringBase;
 
 /**
  * The Class Fwd2OsgiLogger.
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.ExcessivePublicCount" })
-public class Fwd2OsgiLogger extends AbstractLoggerFacade implements Logger {
+public class Fwd2OsgiLogger extends MarkerIgnoringBase implements LoggerFacade {
+    private static final long serialVersionUID = -6844449574931434059L;
 
+    private final Bundle bundle;
+    private final String name;
     @SuppressWarnings("PMD.LoggerIsNotStaticFinal")
     private org.osgi.service.log.Logger delegee;
 
     /**
      * Instantiates a new logger with the provided name.
      *
+     * @param bundle the bundle
      * @param name the name
      */
-    public Fwd2OsgiLogger(String name) {
-        super(name, org.slf4j.LoggerFactory.class.getName());
+    public Fwd2OsgiLogger(Bundle bundle, String name) {
+        this.bundle = bundle;
+        this.name = name;
+        LoggerFacadeManager.registerFacade(this);
     }
 
     @Override
     public void loggerFactoryUpdated(LoggerFactory factory) {
-        delegee = factory.getLogger(getBundle(), getName(),
+        delegee = factory.getLogger(bundle, name,
             org.osgi.service.log.Logger.class);
     }
 
     @Override
     public boolean isTraceEnabled() {
         return delegee.isTraceEnabled();
-    }
-
-    @Override
-    public boolean isTraceEnabled(Marker marker) {
-        return isTraceEnabled();
     }
 
     @Override
@@ -82,38 +84,8 @@ public class Fwd2OsgiLogger extends AbstractLoggerFacade implements Logger {
     }
 
     @Override
-    public void trace(Marker marker, String msg) {
-        trace(msg);
-    }
-
-    @Override
-    public void trace(Marker marker, String format, Object arg) {
-        trace(format, arg);
-    }
-
-    @Override
-    public void trace(Marker marker, String format, Object arg1, Object arg2) {
-        trace(format, arg1, arg2);
-    }
-
-    @Override
-    public void trace(Marker marker, String format, Object... arguments) {
-        trace(format, arguments);
-    }
-
-    @Override
-    public void trace(Marker marker, String msg, Throwable thr) {
-        trace(msg, thr);
-    }
-
-    @Override
     public boolean isDebugEnabled() {
         return delegee.isDebugEnabled();
-    }
-
-    @Override
-    public boolean isDebugEnabled(Marker marker) {
-        return isDebugEnabled();
     }
 
     @Override
@@ -142,38 +114,8 @@ public class Fwd2OsgiLogger extends AbstractLoggerFacade implements Logger {
     }
 
     @Override
-    public void debug(Marker marker, String msg) {
-        debug(msg);
-    }
-
-    @Override
-    public void debug(Marker marker, String format, Object arg) {
-        debug(format, arg);
-    }
-
-    @Override
-    public void debug(Marker marker, String format, Object arg1, Object arg2) {
-        debug(format, arg1, arg2);
-    }
-
-    @Override
-    public void debug(Marker marker, String format, Object... arguments) {
-        debug(format, arguments);
-    }
-
-    @Override
-    public void debug(Marker marker, String msg, Throwable thr) {
-        debug(msg, thr);
-    }
-
-    @Override
     public boolean isInfoEnabled() {
         return delegee.isInfoEnabled();
-    }
-
-    @Override
-    public boolean isInfoEnabled(Marker marker) {
-        return isInfoEnabled();
     }
 
     @Override
@@ -202,38 +144,8 @@ public class Fwd2OsgiLogger extends AbstractLoggerFacade implements Logger {
     }
 
     @Override
-    public void info(Marker marker, String msg) {
-        info(msg);
-    }
-
-    @Override
-    public void info(Marker marker, String format, Object arg) {
-        info(format, arg);
-    }
-
-    @Override
-    public void info(Marker marker, String format, Object arg1, Object arg2) {
-        info(format, arg1, arg2);
-    }
-
-    @Override
-    public void info(Marker marker, String format, Object... arguments) {
-        info(format, arguments);
-    }
-
-    @Override
-    public void info(Marker marker, String msg, Throwable thr) {
-        info(msg, thr);
-    }
-
-    @Override
     public boolean isWarnEnabled() {
         return delegee.isWarnEnabled();
-    }
-
-    @Override
-    public boolean isWarnEnabled(Marker marker) {
-        return isWarnEnabled();
     }
 
     @Override
@@ -262,38 +174,8 @@ public class Fwd2OsgiLogger extends AbstractLoggerFacade implements Logger {
     }
 
     @Override
-    public void warn(Marker marker, String msg) {
-        warn(msg);
-    }
-
-    @Override
-    public void warn(Marker marker, String format, Object arg) {
-        warn(format, arg);
-    }
-
-    @Override
-    public void warn(Marker marker, String format, Object arg1, Object arg2) {
-        warn(format, arg1, arg2);
-    }
-
-    @Override
-    public void warn(Marker marker, String format, Object... arguments) {
-        warn(format, arguments);
-    }
-
-    @Override
-    public void warn(Marker marker, String msg, Throwable thr) {
-        warn(msg, thr);
-    }
-
-    @Override
     public boolean isErrorEnabled() {
         return delegee.isErrorEnabled();
-    }
-
-    @Override
-    public boolean isErrorEnabled(Marker marker) {
-        return isErrorEnabled();
     }
 
     @Override
@@ -319,31 +201,6 @@ public class Fwd2OsgiLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void error(String message) {
         delegee.error(message);
-    }
-
-    @Override
-    public void error(Marker marker, String msg) {
-        error(msg);
-    }
-
-    @Override
-    public void error(Marker marker, String format, Object arg) {
-        error(format, arg);
-    }
-
-    @Override
-    public void error(Marker marker, String format, Object arg1, Object arg2) {
-        error(format, arg1, arg2);
-    }
-
-    @Override
-    public void error(Marker marker, String format, Object... arguments) {
-        error(format, arguments);
-    }
-
-    @Override
-    public void error(Marker marker, String msg, Throwable thr) {
-        error(msg, thr);
     }
 
 }

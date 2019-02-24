@@ -28,29 +28,36 @@ import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LoggerFactory;
 
 /**
- * Forwards the SLF4J log events to the OSGi log service.
+ * Keeps the loggers in the facades up-to-date.
  */
-public class LogFacadeManager extends ServiceResolver {
+public class LoggerFacadeManager extends ServiceResolver {
 
     @SuppressWarnings("PMD.FieldNamingConventions")
-    private static final Collection<AbstractLoggerFacade> facades
+    private static final Collection<LoggerFacade> facades
         = Collections.newSetFromMap(new WeakHashMap<>());
     private static BufferingLoggerFactory bufferingFactory
         = new BufferingLoggerFactory();
     private static LoggerFactory loggerFactory = bufferingFactory;
 
-    /* package */ static void
-            addLoggerFacade(AbstractLoggerFacade loggerFacade) {
-        synchronized (LogFacadeManager.class) {
+    /**
+     * Register the given facade for receiving updates when the
+     * logger factory changes. The registration is automatically
+     * invoked by the constructor. It is also provided as method
+     * to support the usage of this class as delegee.
+     *
+     * @param loggerFacade the logger facade
+     */
+    public static void registerFacade(LoggerFacade loggerFacade) {
+        synchronized (LoggerFacadeManager.class) {
             loggerFacade.loggerFactoryUpdated(loggerFactory);
             facades.add(loggerFacade);
         }
     }
 
     private void updateLoggerFactory(LoggerFactory factory) {
-        synchronized (LogFacadeManager.class) {
+        synchronized (LoggerFacadeManager.class) {
             loggerFactory = factory;
-            for (AbstractLoggerFacade facade : new ArrayList<>(facades)) {
+            for (LoggerFacade facade : new ArrayList<>(facades)) {
                 facade.loggerFactoryUpdated(loggerFactory);
             }
         }

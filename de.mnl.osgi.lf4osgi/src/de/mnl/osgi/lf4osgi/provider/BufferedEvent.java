@@ -76,35 +76,6 @@ public class BufferedEvent {
         threadName = Thread.currentThread().getName();
     }
 
-//    /**
-//     * Forward the log event using the provided logger factory.
-//     *
-//     * @param factory the factory
-//     */
-//    public void forward(LoggerFactory factory) {
-//        final Logger logger = factory.getLogger(bundle, name, Logger.class);
-//        switch (level) {
-//        case TRACE:
-//            logger.trace(l -> l.trace(message, arguments));
-//            break;
-//        case DEBUG:
-//            logger.debug(l -> l.debug(message, arguments));
-//            break;
-//        case INFO:
-//            logger.info(l -> l.info(message, arguments));
-//            break;
-//        case WARN:
-//            logger.warn(l -> l.warn(message, arguments));
-//            break;
-//        case ERROR:
-//            logger.error(l -> l.error(message, arguments));
-//            break;
-//        case AUDIT:
-//            logger.audit(message, arguments);
-//            break;
-//        }
-//    }
-
     /**
      * Forward the log event using the provided logger factory.
      *

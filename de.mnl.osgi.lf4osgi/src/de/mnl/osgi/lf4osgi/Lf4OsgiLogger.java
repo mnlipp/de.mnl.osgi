@@ -17,10 +17,10 @@
 package de.mnl.osgi.lf4osgi;
 
 import de.mnl.osgi.lf4osgi.provider.AbstractLoggerFacade;
+import de.mnl.osgi.lf4osgi.provider.LoggerFacadeContext;
 
 import java.util.function.Supplier;
 
-import org.osgi.framework.Bundle;
 import org.osgi.service.log.LoggerConsumer;
 import org.osgi.service.log.LoggerFactory;
 
@@ -28,29 +28,21 @@ import org.osgi.service.log.LoggerFactory;
  * The implementation of the facade for OSGi loggers.
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.ExcessivePublicCount" })
-public class Lf4OsgiLogger extends AbstractLoggerFacade implements Logger {
+public class Lf4OsgiLogger extends AbstractLoggerFacade<Lf4OsgiLogger>
+        implements Logger {
 
     @SuppressWarnings("PMD.LoggerIsNotStaticFinal")
     private org.osgi.service.log.Logger delegee;
 
     /**
-     * Instantiates a new logger with the provided name.
-     *
-     * @param name the name
-     */
-    public Lf4OsgiLogger(String name) {
-        super(name, de.mnl.osgi.lf4osgi.LoggerFactory.class.getName());
-    }
-
-    /**
      * Instantiates a new logger for the given bundle with the
      * provided name.
      *
-     * @param bundle the bundle
+     * @param context the context
      * @param name the name
      */
-    public Lf4OsgiLogger(Bundle bundle, String name) {
-        super(bundle, name);
+    public Lf4OsgiLogger(LoggerFacadeContext<Lf4OsgiLogger> context, String name) {
+        super(context, name);
     }
 
     @Override

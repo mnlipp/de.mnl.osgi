@@ -27,3 +27,7 @@ net.bytebuddy:byte-buddy-agent:1.9.8
 
 org.hamcrest:hamcrest-all:1.3
 net.jodah:concurrentunit:0.4.4
+
+org.apache.logging.log4j:log4j-api:2.11.2
+org.apache.logging.log4j:log4j-core:2.11.2
+ 

@@ -16,9 +16,14 @@
 
 package org.slf4j.impl;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import de.mnl.osgi.lf4osgi.provider.LoggerFacadeContextRegistry;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.osgi.framework.Bundle;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 
@@ -28,20 +33,24 @@ import org.slf4j.Logger;
  */
 public class Fwd2OsgiLoggerFactory implements ILoggerFactory {
 
-    private final ConcurrentMap<String, Logger> loggerMap;
+    @SuppressWarnings("PMD.UseConcurrentHashMap")
+    private final Map<Bundle, Map<String, Logger>> loggerMap;
 
     /**
      * Instantiates a new logger factory.
      */
     public Fwd2OsgiLoggerFactory() {
-        loggerMap = new ConcurrentHashMap<String, Logger>();
+        loggerMap = Collections.synchronizedMap(new WeakHashMap<>());
     }
 
     /**
      * Return an appropriate {@link Fwd2OsgiLogger} instance by name.
      */
     public Logger getLogger(String name) {
-        return loggerMap.computeIfAbsent(name, k -> new Fwd2OsgiLogger(name));
+        Bundle bundle = LoggerFacadeContextRegistry
+            .findBundle(org.slf4j.LoggerFactory.class.getName()).orElse(null);
+        return loggerMap
+            .computeIfAbsent(bundle, b -> new ConcurrentHashMap<>())
+            .computeIfAbsent(name, n -> new Fwd2OsgiLogger(bundle, n));
     }
-
 }

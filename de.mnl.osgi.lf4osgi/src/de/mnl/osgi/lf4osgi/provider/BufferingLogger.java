@@ -20,15 +20,16 @@ import org.osgi.framework.Bundle;
 import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.Logger;
 import org.osgi.service.log.LoggerConsumer;
-import org.osgi.service.log.LoggerFactory;
 
 /**
  * A logger that logs to a buffer.
  */
 @SuppressWarnings("PMD.TooManyMethods")
-public class BufferingLogger extends AbstractLoggerFacade implements Logger {
+public class BufferingLogger implements Logger {
 
     private final BufferingLoggerFactory factory;
+    private final Bundle bundle;
+    private final String name;
 
     /**
      * Instantiates a new buffering logger with the given factory, bundle
@@ -40,13 +41,16 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
      */
     public BufferingLogger(BufferingLoggerFactory factory, Bundle bundle,
             String name) {
-        super(bundle, name);
         this.factory = factory;
+        this.bundle = bundle;
+        this.name = name;
     }
 
-    @Override
-    public void loggerFactoryUpdated(LoggerFactory factory) {
-        // Never updated.
+    /**
+     * @return the name
+     */
+    public final String getName() {
+        return name;
     }
 
     @Override
@@ -57,7 +61,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void trace(String message) {
         if (isTraceEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.TRACE, message));
         }
     }
@@ -65,7 +69,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void trace(String format, Object arg) {
         if (isTraceEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.TRACE, format, arg));
         }
     }
@@ -73,7 +77,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void trace(String format, Object arg1, Object arg2) {
         if (isTraceEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.TRACE, format, arg1, arg2));
         }
     }
@@ -81,7 +85,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void trace(String format, Object... arguments) {
         if (isTraceEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.TRACE, format, arguments));
         }
     }
@@ -100,7 +104,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void debug(String message) {
         if (isDebugEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.DEBUG, message));
         }
     }
@@ -108,7 +112,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void debug(String format, Object arg) {
         if (isDebugEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.DEBUG, format, arg));
         }
     }
@@ -116,7 +120,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void debug(String format, Object arg1, Object arg2) {
         if (isDebugEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.DEBUG, format, arg1, arg2));
         }
     }
@@ -124,7 +128,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void debug(String format, Object... arguments) {
         if (isDebugEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.DEBUG, format, arguments));
         }
     }
@@ -143,7 +147,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void info(String message) {
         if (isInfoEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.INFO, message));
         }
     }
@@ -151,7 +155,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void info(String format, Object arg) {
         if (isInfoEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.INFO, format, arg));
         }
     }
@@ -159,7 +163,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void info(String format, Object arg1, Object arg2) {
         if (isInfoEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.INFO, format, arg1, arg2));
         }
     }
@@ -167,7 +171,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void info(String format, Object... arguments) {
         if (isInfoEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.INFO, format, arguments));
         }
     }
@@ -186,7 +190,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void warn(String message) {
         if (isWarnEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.WARN, message));
         }
     }
@@ -194,7 +198,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void warn(String format, Object arg) {
         if (isWarnEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.WARN, format, arg));
         }
     }
@@ -202,7 +206,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void warn(String format, Object arg1, Object arg2) {
         if (isWarnEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.WARN, format, arg1, arg2));
         }
     }
@@ -210,7 +214,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void warn(String format, Object... arguments) {
         if (isWarnEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.WARN, format, arguments));
         }
     }
@@ -229,7 +233,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void error(String message) {
         if (isErrorEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.ERROR, message));
         }
     }
@@ -237,7 +241,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void error(String format, Object arg) {
         if (isErrorEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.ERROR, format, arg));
         }
     }
@@ -245,7 +249,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void error(String format, Object arg1, Object arg2) {
         if (isErrorEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.ERROR, format, arg1, arg2));
         }
     }
@@ -253,7 +257,7 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
     @Override
     public void error(String format, Object... arguments) {
         if (isErrorEnabled()) {
-            factory.addEvent(new BufferedEvent(getBundle(), getName(),
+            factory.addEvent(new BufferedEvent(bundle, getName(),
                 LogLevel.ERROR, format, arguments));
         }
     }
@@ -266,25 +270,25 @@ public class BufferingLogger extends AbstractLoggerFacade implements Logger {
 
     @Override
     public void audit(String message) {
-        factory.addEvent(new BufferedEvent(getBundle(), getName(),
+        factory.addEvent(new BufferedEvent(bundle, getName(),
             LogLevel.AUDIT, message));
     }
 
     @Override
     public void audit(String format, Object arg) {
-        factory.addEvent(new BufferedEvent(getBundle(), getName(),
+        factory.addEvent(new BufferedEvent(bundle, getName(),
             LogLevel.AUDIT, format, arg));
     }
 
     @Override
     public void audit(String format, Object arg1, Object arg2) {
-        factory.addEvent(new BufferedEvent(getBundle(), getName(),
+        factory.addEvent(new BufferedEvent(bundle, getName(),
             LogLevel.AUDIT, format, arg1, arg2));
     }
 
     @Override
     public void audit(String format, Object... arguments) {
-        factory.addEvent(new BufferedEvent(getBundle(), getName(),
+        factory.addEvent(new BufferedEvent(bundle, getName(),
             LogLevel.AUDIT, format, arguments));
     }
 

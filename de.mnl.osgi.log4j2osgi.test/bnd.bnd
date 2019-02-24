@@ -1,0 +1,68 @@
+Bundle-Name: Log4j2OSGi Test Bundle
+# Choose either depending on whether we build a snapshot or a release:
+Bundle-Version: 0.0.0.-${tstamp}-SNAPSHOT
+#Bundle-Version: 1.0.0.ga
+
+# This is the version of JUnit that will be used at build time and run time
+#junit: org.apache.servicemix.bundles.junit;version="[4.11,5)"
+
+# This is the version of Mockito that will be used at build time and run time
+#mockito: org.mockito.mockito-core;version="[2.13,3)",\
+#  org.objenesis;version="[2.6,3)"
+
+# Discover and run all test cases annotated with the @RunWith annotation
+Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
+
+# Build dependencies 
+-buildpath: \
+	${junit},\
+	${mockito},\
+	${mockito-deps},\
+	osgi.core;version=6.0,\
+	osgi.annotation;version=6.0.1,\
+	org.osgi.service.log;version='[1.4,2)',\
+	de.mnl.osgi.coreutils;version=snapshot,\
+	org.apache.logging.log4j.api;version=2.11
+
+javac.source: 1.8
+javac.target: 1.8
+
+Export-Package: de.mnl.osgi.log4j2osgi.test
+
+# Needed for Mockito's mocking to work
+-runsystempackages.objenesis: sun.misc,sun.reflect
+
+-runrequires: \
+	osgi.identity;filter:='(osgi.identity=de.mnl.osgi.slf4j2osgi)'
+
+-runpath: \
+	${workspace}/misc/jacocoagent.jar;version=file; \
+	    agent='destfile=${basedir}/bin/jacoco.exec,append=false,includes=de.mnl.osgi.*'
+-javaagent: true
+
+# Use Felix by default
+-runfw: org.apache.felix.framework;version=6
+# Use Equinox by default
+#-runfw: org.eclipse.osgi;version=3.13
+
+-runvm: -ea
+
+-runee: JavaSE-1.8
+
+# We need JUnit and Mockito to resolve the test cases at runtime. 
+# Other runtime dependencies should be added as necessary
+-runbundles: \
+	${junit},\
+	${mockito},\
+	${mockito-deps},\
+	org.apache.felix.log;version='[1.2.0,1.2.1)',\
+	de.mnl.osgi.coreutils;version=snapshot,\
+	org.apache.logging.log4j.api;version=2.11,\
+	de.mnl.osgi.lf4osgi;version=snapshot,\
+	de.mnl.osgi.log4j2osgi;version=snapshot,\
+	de.mnl.osgi.osgi2jul;version=snapshot
+
+-runproperties: \
+	org.osgi.service.log.admin.loglevel=INFO, \
+	de.mnl.osgi.osgi2jul.handlers='java.util.logging.ConsoleHandler[1]', \
+	de.mnl.osgi.osgi2jul.handler.1.format='{0} [{2}] ({4})'
