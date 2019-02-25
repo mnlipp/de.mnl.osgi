@@ -16,8 +16,8 @@
 
 package de.mnl.osgi.lf4osgi;
 
-import de.mnl.osgi.lf4osgi.core.LoggerCatalogue;
 import de.mnl.osgi.lf4osgi.core.DefaultLoggerGroup;
+import de.mnl.osgi.lf4osgi.core.LoggerCatalogue;
 
 import org.osgi.framework.Bundle;
 
@@ -30,7 +30,7 @@ public class LoggerFactory {
 
     @SuppressWarnings("PMD.FieldNamingConventions")
     private static final LoggerCatalogue<
-            DefaultLoggerGroup<Lf4OsgiLogger>> dictionary
+            DefaultLoggerGroup<Lf4OsgiLogger>> catalogue
                 = new LoggerCatalogue<>(
                     b -> new DefaultLoggerGroup<Lf4OsgiLogger>(b,
                         (g, n) -> new Lf4OsgiLogger(g, n)));
@@ -44,7 +44,7 @@ public class LoggerFactory {
     public static Logger getLogger(String name) {
         Bundle bundle = LoggerCatalogue
             .findBundle(LoggerFactory.class.getName()).orElse(null);
-        return dictionary.getLoggerGoup(bundle).computeIfAbsent(name,
+        return catalogue.getLoggerGoup(bundle).computeIfAbsent(name,
             (c, n) -> new Lf4OsgiLogger(c, n));
     }
 
@@ -58,7 +58,7 @@ public class LoggerFactory {
         String name = clazz.getName();
         Bundle bundle = LoggerCatalogue
             .findBundle(LoggerFactory.class.getName()).orElse(null);
-        return dictionary.getLoggerGoup(bundle).computeIfAbsent(name,
+        return catalogue.getLoggerGoup(bundle).computeIfAbsent(name,
             (c, n) -> new Lf4OsgiLogger(c, n));
     }
 
@@ -75,7 +75,7 @@ public class LoggerFactory {
      * @return the logger
      */
     public static Logger getLogger(Bundle bundle, String name) {
-        return dictionary.getLoggerGoup(bundle).computeIfAbsent(name,
+        return catalogue.getLoggerGoup(bundle).computeIfAbsent(name,
             (c, n) -> new Lf4OsgiLogger(c, n));
     }
 
@@ -93,7 +93,7 @@ public class LoggerFactory {
      */
     public static Logger getLogger(Bundle bundle, Class<?> clazz) {
         String name = clazz.getName();
-        return dictionary.getLoggerGoup(bundle).computeIfAbsent(name,
+        return catalogue.getLoggerGoup(bundle).computeIfAbsent(name,
             (c, n) -> new Lf4OsgiLogger(c, n));
     }
 

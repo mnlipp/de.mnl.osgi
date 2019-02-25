@@ -15,6 +15,7 @@
  * You should have received a copy of the GNU General Public License along 
  * with this program; if not, see <http://www.gnu.org/licenses/>.
  */
+
 package de.mnl.osgi.lf4osgi.test;
 
 import de.mnl.osgi.coreutils.ServiceCollector;
