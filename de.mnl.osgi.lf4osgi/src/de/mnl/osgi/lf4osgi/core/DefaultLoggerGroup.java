@@ -24,7 +24,7 @@ import java.util.function.BiFunction;
 import org.osgi.framework.Bundle;
 
 /**
- * The cache of loggers used in a specific bundle. 
+ * A simple cache for loggers used by a bundle.
  * 
  * @param <T> the type of the loggers in the group
  */
@@ -36,10 +36,11 @@ public class DefaultLoggerGroup<T> implements LoggerGroup {
     private final BiFunction<LoggerGroup, String, T> loggerSupplier;
 
     /**
-     * Instantiates a new bundle context.
+     * Instantiates a new bundle group.
      *
      * @param bundle the bundle
-     * @param loggerSupplier the logger supplier
+     * @param loggerSupplier the default logger supplier used
+     *     by {@link #computeIfAbsent(String)}
      */
     public DefaultLoggerGroup(Bundle bundle,
             BiFunction<LoggerGroup, String, T> loggerSupplier) {
@@ -49,6 +50,8 @@ public class DefaultLoggerGroup<T> implements LoggerGroup {
     }
 
     /**
+     * Returns the bundle that this group is associated with.
+     * 
      * @return the bundle
      */
     public final Bundle getBundle() {
@@ -56,7 +59,7 @@ public class DefaultLoggerGroup<T> implements LoggerGroup {
     }
 
     /**
-     * Checks for logger.
+     * Checks if the logger with the provided name already exists.
      *
      * @param name the name
      * @return true, if successful
@@ -77,7 +80,7 @@ public class DefaultLoggerGroup<T> implements LoggerGroup {
 
     /**
      * Gets the logger with the specified name. If it is not already in
-     * the group, create it using the provided supplier.
+     * this group, create it using the provided supplier.
      *
      * @param name the name
      * @param supplier the supplier
@@ -90,7 +93,7 @@ public class DefaultLoggerGroup<T> implements LoggerGroup {
 
     /**
      * Gets the logger with the specified name.If it is not already in
-     * the group, create it using the default supplier.
+     * this group, create it using the default supplier.
      *
      * @param name the name
      * @return the logger

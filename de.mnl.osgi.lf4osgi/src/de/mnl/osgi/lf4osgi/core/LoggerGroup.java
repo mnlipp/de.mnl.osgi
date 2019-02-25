@@ -19,11 +19,13 @@ package de.mnl.osgi.lf4osgi.core;
 import org.osgi.framework.Bundle;
 
 /**
- * A group of loggers created by classes from a common bundle. 
+ * A group of loggers created by the classes from a common bundle. 
  */
 public interface LoggerGroup {
 
     /**
+     * Returns the bundle that this group is associated with.
+     * 
      * @return the bundle
      */
     Bundle getBundle();

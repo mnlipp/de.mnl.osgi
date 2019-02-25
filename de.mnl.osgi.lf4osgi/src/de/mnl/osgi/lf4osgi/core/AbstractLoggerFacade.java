@@ -20,7 +20,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.service.log.LoggerFactory;
 
 /**
- * The base class for OSGi logger facades.
+ * A base class for logger facades. 
  */
 public abstract class AbstractLoggerFacade<T extends LoggerFacade>
         implements LoggerFacade {
@@ -29,18 +29,9 @@ public abstract class AbstractLoggerFacade<T extends LoggerFacade>
     private final LoggerGroup group;
 
     /**
-     * Instantiates a new logger facade. The invoking bundle is determined
-     * from the class that invoked {@code getLogger}. This class is searched 
-     * for in the stacktrace as caller of the {@code getLogger} method of 
-     * the class that provides the loggers (the logger factory) from the 
-     * users point of view.
+     * Instantiates a new logger facade.
      * <P>
-     * For LF4OSGi loggers the provider is always 
-     * {@link de.mnl.osgi.lf4osgi.LoggerFactory}. But the name is taken 
-     * from the  parameter in order to allow other facades to use this 
-     * class as base class.
-     * <P>
-     * The new logger is automatically registered with the 
+     * A new logger is automatically registered with the 
      * {@link LoggerFacadeManager}.
      *
      * @param group the logger group

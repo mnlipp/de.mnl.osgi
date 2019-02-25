@@ -53,15 +53,15 @@
  * <P>
  * As long as there is no {@code LoggingFactory} service available (yet), 
  * logging events are recorded in a buffer which is flushed to the service 
- * as soon as it becomes available. The "thread info", which is not specified
- * but added automatically by the implementation of the logger service, 
+ * as soon as it becomes available. The "thread info", which is added 
+ * automatically by the implementation of the logger service, 
  * cannot be recorded. The recorded event data therefore includes the name
  * of the thread that caused the log event. When flushing the recorded
  * events, the name of the flushing thread is temporarily set to
  * the recorded thread name with "[recorded]" appended.
  * <P>
- * Of course, if there is no {@code LoggingFactory} service available,
- * the logging level cannot be determined. Therefore all events
+ * Of course, while there is no {@code LoggingFactory} service available,
+ * the desired logging level cannot be determined. Therefore all events
  * with level {@link org.osgi.service.log.LogLevel#DEBUG} and up
  * are recorded. This default threshold can be changed using system 
  * settings or bundle properties (see below).

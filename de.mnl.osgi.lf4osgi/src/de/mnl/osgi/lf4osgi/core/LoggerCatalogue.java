@@ -27,8 +27,9 @@ import org.osgi.framework.BundleListener;
 import org.osgi.framework.FrameworkUtil;
 
 /**
- * A manager for groups of logger depending on a bundle. Logger group
- * for a given bundle are discarded when a bundle is uninstalled.
+ * A manager for groups of loggers associated with a bundle. A Logger 
+ * group for a given bundle is automatically discarded when the 
+ * associated bundle is uninstalled.
  *
  * @param <T> the logger group type
  */
@@ -59,11 +60,12 @@ public class LoggerCatalogue<T> {
     }
 
     /**
-     * Find the class that creates the logger. This is done by searching
-     * through the current stack trace for the invocation of the
-     * getLogger method of the class that provides loggers. The
-     * next frame in the stack trace then reveals the name of the
-     * class that requests the logger.
+     * Find the class that attempts to get a logger. This is done 
+     * by searching through the current call stack for the invocation 
+     * of the {@code getLogger} method of the class that provides 
+     * the loggers (the {@code providingClass}). The next frame in 
+     * the call stack then reveals the name of the class that 
+     * requests the logger.
      *
      * @param providingClass the providing class
      * @return the optional
@@ -94,15 +96,15 @@ public class LoggerCatalogue<T> {
 
     /**
      * Find the bundle that contains the class that wants to get
-     * a logger using the current call stack. 
+     * a logger, using the current call stack. 
      * <P>
-     * The bundle is determined from the class that invoked getLogger,
-     * which is searched for in the call stack as caller of the 
-     * getLogger method of the class that provides the loggers from 
-     * the users point of view.
+     * The bundle is determined from the class that invoked 
+     * {@code getLogger}, which&mdash;in turn&mdash;is searched for in 
+     * the call stack as caller of the {@code getLogger} method of the 
+     * class that provides the loggers from the users point of view.
      *
      * @param providingClass the providing class
-     * @return the optional
+     * @return the bundle
      */
     public static Optional<Bundle> findBundle(String providingClass) {
         return findRequestingClass(providingClass)

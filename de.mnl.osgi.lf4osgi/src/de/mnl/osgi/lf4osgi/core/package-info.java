@@ -15,6 +15,8 @@
  */
 
 /**
- *
+ * The classes that implement the logger facade for OSGi. They are
+ * designed in such a way that they can easily be used to provide
+ * other logger facades as well.
  */
 package de.mnl.osgi.lf4osgi.core;

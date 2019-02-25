@@ -25,7 +25,7 @@ public interface LoggerFacade {
 
     /**
      * Called when the logger factory changes. Implementing classes
-     * must update the logger that they had previously obtained.
+     * must update the logger that they forward to.
      *
      * @param factory the factory
      */

@@ -25,7 +25,11 @@ import org.osgi.service.log.LoggerConsumer;
 import org.osgi.service.log.LoggerFactory;
 
 /**
- * The implementation of the facade for OSGi loggers.
+ * The implementation of the facade for OSGi loggers. This type should
+ * not be used by consumers of this API. Rather, declare your loggers
+ * to be of type (OSGi) {@link org.osgi.service.log.Logger}, if you want
+ * the OSGi API only, or of type {@link Logger} (from this package) if 
+ * you want to use the message supplying closures. 
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.ExcessivePublicCount" })
 public class Lf4OsgiLogger extends AbstractLoggerFacade<Lf4OsgiLogger>

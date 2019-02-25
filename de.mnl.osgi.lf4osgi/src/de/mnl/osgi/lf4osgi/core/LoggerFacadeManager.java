@@ -28,7 +28,8 @@ import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LoggerFactory;
 
 /**
- * Keeps the loggers in the facades up-to-date.
+ * Tracks the availability of an OSGi {@link LoggerFactory} service
+ * and keeps the logger facades up-to-date.
  */
 public class LoggerFacadeManager extends ServiceResolver {
 
@@ -41,9 +42,7 @@ public class LoggerFacadeManager extends ServiceResolver {
 
     /**
      * Register the given facade for receiving updates when the
-     * logger factory changes. The registration is automatically
-     * invoked by the constructor. It is also provided as method
-     * to support the usage of this class as delegee.
+     * logger factory changes. 
      *
      * @param loggerFacade the logger facade
      */
