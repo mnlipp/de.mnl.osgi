@@ -14,21 +14,7 @@
  * limitations under the License.
  */
 
-package de.mnl.osgi.lf4osgi.provider;
-
-import org.osgi.service.log.LoggerFactory;
-
 /**
- * The interface that must be implemented by logger facades.
+ *
  */
-public interface LoggerFacade {
-
-    /**
-     * Called when the logger factory changes. Implementing classes
-     * must update the logger that they had previously obtained.
-     *
-     * @param factory the factory
-     */
-    void loggerFactoryUpdated(LoggerFactory factory);
-
-}
+package de.mnl.osgi.lf4osgi.core;

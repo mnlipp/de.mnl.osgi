@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.mnl.osgi.lf4osgi.provider;
+package de.mnl.osgi.lf4osgi.core;
 
 import org.osgi.framework.Bundle;
 import org.osgi.service.log.LoggerFactory;
@@ -26,7 +26,7 @@ public abstract class AbstractLoggerFacade<T extends LoggerFacade>
         implements LoggerFacade {
 
     private final String name;
-    private final LoggerFacadeContext<T> context;
+    private final LoggerGroup group;
 
     /**
      * Instantiates a new logger facade. The invoking bundle is determined
@@ -43,11 +43,11 @@ public abstract class AbstractLoggerFacade<T extends LoggerFacade>
      * The new logger is automatically registered with the 
      * {@link LoggerFacadeManager}.
      *
-     * @param context the context
+     * @param group the logger group
      * @param name the name
      */
-    public AbstractLoggerFacade(LoggerFacadeContext<T> context, String name) {
-        this.context = context;
+    public AbstractLoggerFacade(LoggerGroup group, String name) {
+        this.group = group;
         this.name = name;
         LoggerFacadeManager.registerFacade(this);
     }
@@ -67,7 +67,7 @@ public abstract class AbstractLoggerFacade<T extends LoggerFacade>
      * @return the bundle
      */
     protected Bundle getBundle() {
-        return context.getBundle();
+        return group.getBundle();
     }
 
     /**

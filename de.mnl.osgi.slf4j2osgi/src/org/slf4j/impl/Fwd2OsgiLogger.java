@@ -16,10 +16,10 @@
 
 package org.slf4j.impl;
 
-import de.mnl.osgi.lf4osgi.provider.LoggerFacade;
-import de.mnl.osgi.lf4osgi.provider.LoggerFacadeManager;
+import de.mnl.osgi.lf4osgi.core.LoggerFacade;
+import de.mnl.osgi.lf4osgi.core.LoggerFacadeManager;
+import de.mnl.osgi.lf4osgi.core.LoggerGroup;
 
-import org.osgi.framework.Bundle;
 import org.osgi.service.log.LoggerFactory;
 import org.slf4j.helpers.MarkerIgnoringBase;
 
@@ -30,7 +30,7 @@ import org.slf4j.helpers.MarkerIgnoringBase;
 public class Fwd2OsgiLogger extends MarkerIgnoringBase implements LoggerFacade {
     private static final long serialVersionUID = -6844449574931434059L;
 
-    private final Bundle bundle;
+    private final LoggerGroup group;
     private final String name;
     @SuppressWarnings("PMD.LoggerIsNotStaticFinal")
     private org.osgi.service.log.Logger delegee;
@@ -38,18 +38,18 @@ public class Fwd2OsgiLogger extends MarkerIgnoringBase implements LoggerFacade {
     /**
      * Instantiates a new logger with the provided name.
      *
-     * @param bundle the bundle
+     * @param group the group that the logger belongs to
      * @param name the name
      */
-    public Fwd2OsgiLogger(Bundle bundle, String name) {
-        this.bundle = bundle;
+    public Fwd2OsgiLogger(LoggerGroup group, String name) {
+        this.group = group;
         this.name = name;
         LoggerFacadeManager.registerFacade(this);
     }
 
     @Override
     public void loggerFactoryUpdated(LoggerFactory factory) {
-        delegee = factory.getLogger(bundle, name,
+        delegee = factory.getLogger(group.getBundle(), name,
             org.osgi.service.log.Logger.class);
     }
 

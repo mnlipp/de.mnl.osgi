@@ -16,21 +16,27 @@
 
 package de.mnl.osgi.log4j2osgi;
 
+import de.mnl.osgi.lf4osgi.core.LoggerGroup;
+
 import org.apache.logging.log4j.message.MessageFactory;
 import org.apache.logging.log4j.spi.ExtendedLogger;
 import org.apache.logging.log4j.spi.LoggerContext;
 import org.apache.logging.log4j.spi.LoggerRegistry;
 import org.osgi.framework.Bundle;
 
-public class OsgiLoggerContext
-        extends de.mnl.osgi.lf4osgi.provider.LoggerFacadeContext<OsgiLogger>
-        implements LoggerContext {
+public class OsgiLoggerContext implements LoggerGroup, LoggerContext {
 
+    private final Bundle bundle;
     private final LoggerRegistry<OsgiLogger> loggerRegistry;
 
     public OsgiLoggerContext(Bundle bundle) {
-        super(bundle);
+        this.bundle = bundle;
         loggerRegistry = new LoggerRegistry<>();
+    }
+
+    @Override
+    public Bundle getBundle() {
+        return bundle;
     }
 
     @Override

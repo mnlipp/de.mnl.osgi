@@ -14,15 +14,21 @@
  * limitations under the License.
  */
 
+package de.mnl.osgi.lf4osgi.core;
+
+import org.osgi.service.log.LoggerFactory;
+
 /**
- * This package provides a binding of log4j to OSGi logging. The
- * implementation uses the same core code as the Logging Facade for
- * OSGi (LF4OSGi). It's just another type of logger that acts as
- * facade for the OSGi logger.
- * <P>
- * Simply install this bundle in addition to de.mnl.osgi.lf4j and you
- * can use the log4j {@code LogManager} as you're used to. As this
- * implementation shares everything "behind the facade" with LFOSGi,
- * it also shares its configuration options.
+ * The interface that must be implemented by logger facades.
  */
-package de.mnl.osgi.log4j2osgi;
+public interface LoggerFacade {
+
+    /**
+     * Called when the logger factory changes. Implementing classes
+     * must update the logger that they had previously obtained.
+     *
+     * @param factory the factory
+     */
+    void loggerFactoryUpdated(LoggerFactory factory);
+
+}

@@ -16,8 +16,8 @@
 
 package de.mnl.osgi.log4j2osgi;
 
-import de.mnl.osgi.lf4osgi.provider.LoggerFacade;
-import de.mnl.osgi.lf4osgi.provider.LoggerFacadeManager;
+import de.mnl.osgi.lf4osgi.core.LoggerFacade;
+import de.mnl.osgi.lf4osgi.core.LoggerFacadeManager;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;

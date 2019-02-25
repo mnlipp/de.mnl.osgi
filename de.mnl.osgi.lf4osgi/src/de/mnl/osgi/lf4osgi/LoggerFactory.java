@@ -16,8 +16,8 @@
 
 package de.mnl.osgi.lf4osgi;
 
-import de.mnl.osgi.lf4osgi.provider.LoggerFacadeContext;
-import de.mnl.osgi.lf4osgi.provider.LoggerFacadeContextRegistry;
+import de.mnl.osgi.lf4osgi.core.LoggerCatalogue;
+import de.mnl.osgi.lf4osgi.core.DefaultLoggerGroup;
 
 import org.osgi.framework.Bundle;
 
@@ -29,9 +29,11 @@ import org.osgi.framework.Bundle;
 public class LoggerFactory {
 
     @SuppressWarnings("PMD.FieldNamingConventions")
-    private static final LoggerFacadeContextRegistry<LoggerFacadeContext<Lf4OsgiLogger>,
-            Lf4OsgiLogger> contexts
-                = new LoggerFacadeContextRegistry<>(b -> new LoggerFacadeContext<>(b));
+    private static final LoggerCatalogue<
+            DefaultLoggerGroup<Lf4OsgiLogger>> dictionary
+                = new LoggerCatalogue<>(
+                    b -> new DefaultLoggerGroup<Lf4OsgiLogger>(b,
+                        (g, n) -> new Lf4OsgiLogger(g, n)));
 
     /**
      * Gets a logger with the given name.
@@ -40,9 +42,9 @@ public class LoggerFactory {
      * @return the logger
      */
     public static Logger getLogger(String name) {
-        Bundle bundle = LoggerFacadeContextRegistry
+        Bundle bundle = LoggerCatalogue
             .findBundle(LoggerFactory.class.getName()).orElse(null);
-        return contexts.getBundleContext(bundle).computeIfAbsent(name,
+        return dictionary.getLoggerGoup(bundle).computeIfAbsent(name,
             (c, n) -> new Lf4OsgiLogger(c, n));
     }
 
@@ -54,9 +56,9 @@ public class LoggerFactory {
      */
     public static Logger getLogger(Class<?> clazz) {
         String name = clazz.getName();
-        Bundle bundle = LoggerFacadeContextRegistry
+        Bundle bundle = LoggerCatalogue
             .findBundle(LoggerFactory.class.getName()).orElse(null);
-        return contexts.getBundleContext(bundle).computeIfAbsent(name,
+        return dictionary.getLoggerGoup(bundle).computeIfAbsent(name,
             (c, n) -> new Lf4OsgiLogger(c, n));
     }
 
@@ -73,7 +75,7 @@ public class LoggerFactory {
      * @return the logger
      */
     public static Logger getLogger(Bundle bundle, String name) {
-        return contexts.getBundleContext(bundle).computeIfAbsent(name,
+        return dictionary.getLoggerGoup(bundle).computeIfAbsent(name,
             (c, n) -> new Lf4OsgiLogger(c, n));
     }
 
@@ -91,7 +93,7 @@ public class LoggerFactory {
      */
     public static Logger getLogger(Bundle bundle, Class<?> clazz) {
         String name = clazz.getName();
-        return contexts.getBundleContext(bundle).computeIfAbsent(name,
+        return dictionary.getLoggerGoup(bundle).computeIfAbsent(name,
             (c, n) -> new Lf4OsgiLogger(c, n));
     }
 

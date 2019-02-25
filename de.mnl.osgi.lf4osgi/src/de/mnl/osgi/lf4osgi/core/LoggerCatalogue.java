@@ -14,48 +14,48 @@
  * limitations under the License.
  */
 
-package de.mnl.osgi.lf4osgi.provider;
+package de.mnl.osgi.lf4osgi.core;
 
-import java.lang.ref.WeakReference;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
-import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleEvent;
+import org.osgi.framework.BundleListener;
 import org.osgi.framework.FrameworkUtil;
 
 /**
- * A manager for bundle contexts. This is simply a {@link WeakHashMap}
- * with {@link Bundle}s as key and {@link WeakReference}s to
- * {@link Bundle}s as values. This ensures that our caching never
- * prevents garbage collection.
+ * A manager for groups of logger depending on a bundle. Logger group
+ * for a given bundle are discarded when a bundle is uninstalled.
  *
- * @param <L> the generic type
+ * @param <T> the logger group type
  */
-public class LoggerFacadeContextRegistry<C extends LoggerFacadeContext<L>,
-        L extends LoggerFacade> {
+public class LoggerCatalogue<T> {
 
     private static final ContextHelper CTX_HLPR = new ContextHelper();
-    @SuppressWarnings("PMD.FieldNamingConventions")
-    private static final Map<Class<?>, WeakReference<Bundle>> bundles
-        = new ConcurrentHashMap<>();
 
-    @SuppressWarnings("PMD.UseConcurrentHashMap")
-    private final Map<Bundle, WeakReference<C>> contextMap
-        = Collections.synchronizedMap(new WeakHashMap<>());
-    private final Function<Bundle, C> contextSupplier;
+    private final Map<Bundle, T> groups = new ConcurrentHashMap<>();
+    private final Function<Bundle, T> groupSupplier;
 
     /**
-     * Instantiates a new logger context registry.
+     * Instantiates a new logger catalogue.
      *
-     * @param contextSupplier the context supplier
+     * @param groupSupplier the supplier for new logger groups
      */
-    public LoggerFacadeContextRegistry(Function<Bundle, C> contextSupplier) {
+    public LoggerCatalogue(Function<Bundle, T> groupSupplier) {
         super();
-        this.contextSupplier = contextSupplier;
+        this.groupSupplier = groupSupplier;
+        FrameworkUtil.getBundle(LoggerCatalogue.class).getBundleContext()
+            .addBundleListener(new BundleListener() {
+                @Override
+                public void bundleChanged(BundleEvent event) {
+                    if (event.getType() == BundleEvent.UNINSTALLED) {
+                        groups.remove(event.getBundle());
+                    }
+                }
+            });
     }
 
     /**
@@ -92,55 +92,31 @@ public class LoggerFacadeContextRegistry<C extends LoggerFacadeContext<L>,
         return Optional.empty();
     }
 
-    private static Optional<Bundle> findBundle(Class<?> clazz) {
-        if (clazz == null) {
-            return Optional.empty();
-        }
-        Bundle bundle = Optional.ofNullable(bundles.get(clazz))
-            .map(WeakReference::get).orElse(null);
-        if (bundle != null) {
-            return Optional.of(bundle);
-        }
-        bundle = FrameworkUtil.getBundle(clazz);
-        if (bundle != null) {
-            bundles.put(clazz, new WeakReference<>(bundle));
-            return Optional.of(bundle);
-        }
-        return Optional.empty();
-    }
-
     /**
-     * Find the invoking bundle. It is determined
-     * from the class that invoked getLogger, which is searched for
-     * in the stacktrace as caller of the getLogger method of the class
-     * that provides the loggers from the users point of view.
+     * Find the bundle that contains the class that wants to get
+     * a logger using the current call stack. 
+     * <P>
+     * The bundle is determined from the class that invoked getLogger,
+     * which is searched for in the call stack as caller of the 
+     * getLogger method of the class that provides the loggers from 
+     * the users point of view.
      *
      * @param providingClass the providing class
      * @return the optional
      */
     public static Optional<Bundle> findBundle(String providingClass) {
         return findRequestingClass(providingClass)
-            .flatMap(LoggerFacadeContextRegistry::findBundle);
+            .map(cls -> FrameworkUtil.getBundle(cls));
     }
 
     /**
-     * Returns the bundle context for the given bundle.
+     * Returns the logger group for the given bundle.
      *
      * @param bundle the bundle
-     * @return the bundle context
+     * @return the logger group
      */
-    public C getBundleContext(Bundle bundle) {
-        synchronized (contextMap) {
-            C bdlCtx = contextMap.computeIfAbsent(bundle,
-                b -> new WeakReference<>(contextSupplier.apply(b))).get();
-            if (bdlCtx != null) {
-                return bdlCtx;
-            }
-            // Was there but has been garbage collected.
-            bdlCtx = contextSupplier.apply(bundle);
-            contextMap.put(bundle, new WeakReference<>(bdlCtx));
-            return bdlCtx;
-        }
+    public T getLoggerGoup(Bundle bundle) {
+        return groups.computeIfAbsent(bundle, b -> groupSupplier.apply(b));
     }
 
     /**

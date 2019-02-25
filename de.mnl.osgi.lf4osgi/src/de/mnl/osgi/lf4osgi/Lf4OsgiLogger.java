@@ -16,8 +16,8 @@
 
 package de.mnl.osgi.lf4osgi;
 
-import de.mnl.osgi.lf4osgi.provider.AbstractLoggerFacade;
-import de.mnl.osgi.lf4osgi.provider.LoggerFacadeContext;
+import de.mnl.osgi.lf4osgi.core.AbstractLoggerFacade;
+import de.mnl.osgi.lf4osgi.core.LoggerGroup;
 
 import java.util.function.Supplier;
 
@@ -41,7 +41,7 @@ public class Lf4OsgiLogger extends AbstractLoggerFacade<Lf4OsgiLogger>
      * @param context the context
      * @param name the name
      */
-    public Lf4OsgiLogger(LoggerFacadeContext<Lf4OsgiLogger> context, String name) {
+    public Lf4OsgiLogger(LoggerGroup context, String name) {
         super(context, name);
     }
 

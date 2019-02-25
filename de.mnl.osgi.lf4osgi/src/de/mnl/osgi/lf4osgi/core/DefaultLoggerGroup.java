@@ -14,32 +14,37 @@
  * limitations under the License.
  */
 
-package de.mnl.osgi.lf4osgi.provider;
+package de.mnl.osgi.lf4osgi.core;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 
 import org.osgi.framework.Bundle;
 
 /**
- * The context in which logger facades are created and cached. 
- * The context is defined by the bundle for which the context
- * creates and caches the logger facades.
+ * The cache of loggers used in a specific bundle. 
+ * 
+ * @param <T> the type of the loggers in the group
  */
-public class LoggerFacadeContext<T extends LoggerFacade> {
+public class DefaultLoggerGroup<T> implements LoggerGroup {
 
     private final Bundle bundle;
 
     private final Map<String, T> loggers;
+    private final BiFunction<LoggerGroup, String, T> loggerSupplier;
 
     /**
      * Instantiates a new bundle context.
      *
      * @param bundle the bundle
+     * @param loggerSupplier the logger supplier
      */
-    public LoggerFacadeContext(Bundle bundle) {
+    public DefaultLoggerGroup(Bundle bundle,
+            BiFunction<LoggerGroup, String, T> loggerSupplier) {
         this.bundle = bundle;
+        this.loggerSupplier = loggerSupplier;
         loggers = new ConcurrentHashMap<>();
     }
 
@@ -64,26 +69,39 @@ public class LoggerFacadeContext<T extends LoggerFacade> {
      * Gets the logger if it exists.
      *
      * @param name the name
-     * @return the logger or {@code null}
+     * @return the logger
      */
-    public T getLogger(String name) {
-        return loggers.get(name);
+    public Optional<T> logger(String name) {
+        return Optional.ofNullable(loggers.get(name));
     }
 
     /**
-     * Gets the logger with the specified name.
+     * Gets the logger with the specified name. If it is not already in
+     * the group, create it using the provided supplier.
      *
      * @param name the name
      * @param supplier the supplier
      * @return the logger
      */
     public T computeIfAbsent(String name,
-            BiFunction<LoggerFacadeContext<T>, String, T> supplier) {
+            BiFunction<LoggerGroup, String, T> supplier) {
         return loggers.computeIfAbsent(name, n -> supplier.apply(this, n));
     }
 
     /**
-     * Put the logger in the context if it isn't already known.
+     * Gets the logger with the specified name.If it is not already in
+     * the group, create it using the default supplier.
+     *
+     * @param name the name
+     * @return the logger
+     */
+    public T computeIfAbsent(String name) {
+        return loggers.computeIfAbsent(name,
+            n -> loggerSupplier.apply(this, n));
+    }
+
+    /**
+     * Put the logger in the group if it isn't already known.
      *
      * @param name the name
      * @param logger the logger

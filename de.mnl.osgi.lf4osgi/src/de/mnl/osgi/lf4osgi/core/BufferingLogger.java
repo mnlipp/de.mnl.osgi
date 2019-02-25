@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.mnl.osgi.lf4osgi.provider;
+package de.mnl.osgi.lf4osgi.core;
 
 import org.osgi.framework.Bundle;
 import org.osgi.service.log.LogLevel;

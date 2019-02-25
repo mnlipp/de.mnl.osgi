@@ -16,7 +16,7 @@
 
 package de.mnl.osgi.log4j2osgi;
 
-import de.mnl.osgi.lf4osgi.provider.LoggerFacadeContextRegistry;
+import de.mnl.osgi.lf4osgi.core.LoggerCatalogue;
 
 import java.net.URI;
 
@@ -24,8 +24,7 @@ import org.apache.logging.log4j.spi.LoggerContext;
 import org.apache.logging.log4j.spi.LoggerContextFactory;
 import org.osgi.framework.Bundle;
 
-public class OsgiLoggerContextFactory
-        extends LoggerFacadeContextRegistry<OsgiLoggerContext, OsgiLogger>
+public class OsgiLoggerContextFactory extends LoggerCatalogue<OsgiLoggerContext>
         implements LoggerContextFactory {
 
     public OsgiLoggerContextFactory() {
@@ -33,14 +32,16 @@ public class OsgiLoggerContextFactory
     }
 
     @Override
-    public LoggerContext getContext(final String fqcn, final ClassLoader loader,
-            final Object externalContext, final boolean currentContext) {
-        Bundle bundle = LoggerFacadeContextRegistry.findBundle(fqcn).get();
-        return getBundleContext(bundle);
+    public OsgiLoggerContext getContext(final String fqcn,
+            final ClassLoader loader, final Object externalContext,
+            final boolean currentContext) {
+        Bundle bundle = LoggerCatalogue.findBundle(fqcn).get();
+        return getLoggerGoup(bundle);
     }
 
     @Override
-    public LoggerContext getContext(final String fqcn, final ClassLoader loader,
+    public OsgiLoggerContext getContext(final String fqcn,
+            final ClassLoader loader,
             final Object externalContext, final boolean currentContext,
             final URI configLocation, final String name) {
         return getContext(fqcn, loader, externalContext, currentContext);

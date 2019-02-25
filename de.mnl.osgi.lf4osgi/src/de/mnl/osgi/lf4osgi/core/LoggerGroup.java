@@ -14,7 +14,17 @@
  * limitations under the License.
  */
 
+package de.mnl.osgi.lf4osgi.core;
+
+import org.osgi.framework.Bundle;
+
 /**
- *
+ * A group of loggers created by classes from a common bundle. 
  */
-package de.mnl.osgi.lf4osgi.provider;
+public interface LoggerGroup {
+
+    /**
+     * @return the bundle
+     */
+    Bundle getBundle();
+}

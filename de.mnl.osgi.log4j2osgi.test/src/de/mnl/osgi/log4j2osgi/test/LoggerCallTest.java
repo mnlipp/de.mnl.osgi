@@ -106,4 +106,15 @@ public class LoggerCallTest {
             osgiLoggerFactory.start();
         }
     }
+
+    /*
+     * (Too) basic.
+     */
+    @Test
+    public void testLoggerCache() throws InterruptedException, BundleException {
+        Logger logger1 = LogManager.getLogger("Test");
+        Logger logger2 = LogManager.getLogger("Test");
+        assertTrue(logger1 == logger2);
+    }
+
 }
