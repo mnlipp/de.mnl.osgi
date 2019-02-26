@@ -47,10 +47,14 @@ in the Apache Felix Web Console).
 
  * [LF for OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.lf4osgi/javadoc/de/mnl/osgi/lf4osgi/package-summary.html#package.description):
    A logging facade for OSGi logging. Makes using OSGi logging as simple as
-   using the "standard" libraries.
+   using one of the "standard" libraries.
    
  * [SLF4J for OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.slf4j2osgi/javadoc/org/slf4j/impl/package-summary.html#package.description):
-   A SLF4J logging facade for OSGi logging. Build on LF4OSGi.
+   A SLF4J logging facade for OSGi logging. Built on LF4OSGi.
+   
+ * [Log4j to OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.log4j2osgi/javadoc/de/mnl/osgi/log4j2osgi/package-summary.html#package.description):
+   Not sure if this is a facade or a bridge. Anyway, forwards calls to the log4j 2 API
+   to OSGi logging. Built on LF4OSGi.
    
  * [JUL to OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description):
    forwards all logging events from java.util.logging to the OSGi log service.
