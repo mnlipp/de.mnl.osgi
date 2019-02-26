@@ -37,6 +37,7 @@ public class LoggerCatalogue<T> {
 
     private static final ContextHelper CTX_HLPR = new ContextHelper();
 
+    private boolean listenerInstalled;
     private final Map<Bundle, T> groups = new ConcurrentHashMap<>();
     private final Function<Bundle, T> groupSupplier;
 
@@ -48,12 +49,33 @@ public class LoggerCatalogue<T> {
     public LoggerCatalogue(Function<Bundle, T> groupSupplier) {
         super();
         this.groupSupplier = groupSupplier;
-        FrameworkUtil.getBundle(LoggerCatalogue.class).getBundleContext()
-            .addBundleListener(new BundleListener() {
-                @Override
-                public void bundleChanged(BundleEvent event) {
-                    if (event.getType() == BundleEvent.UNINSTALLED) {
-                        groups.remove(event.getBundle());
+        /*
+         * This may be invoked from from anywhere, even a static context.
+         * Therefore, it might not be possible to register the listener
+         * immediately.
+         */
+        checkListener();
+    }
+
+    private void checkListener() {
+        if (listenerInstalled) {
+            return;
+        }
+        Optional.ofNullable(FrameworkUtil.getBundle(groupSupplier.getClass()))
+            .map(Bundle::getBundleContext).ifPresent(ctx -> {
+                ctx.addBundleListener(new BundleListener() {
+                    @Override
+                    public void bundleChanged(BundleEvent event) {
+                        if (event.getType() == BundleEvent.UNINSTALLED) {
+                            groups.remove(event.getBundle());
+                        }
+                    }
+                });
+                listenerInstalled = true;
+                // This is unlikely to ever happen, but as this is delayed...
+                for (Bundle bdl : groups.keySet()) {
+                    if ((bdl.getState() & Bundle.UNINSTALLED) != 0) {
+                        groups.remove(bdl);
                     }
                 }
             });
@@ -118,6 +140,7 @@ public class LoggerCatalogue<T> {
      * @return the logger group
      */
     public T getLoggerGoup(Bundle bundle) {
+        checkListener();
         return groups.computeIfAbsent(bundle, b -> groupSupplier.apply(b));
     }
 
