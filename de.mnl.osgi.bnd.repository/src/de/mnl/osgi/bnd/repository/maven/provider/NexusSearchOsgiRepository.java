@@ -281,7 +281,8 @@ public class NexusSearchOsgiRepository extends MavenOsgiRepository {
 							query, result.parsed.from, 
 							result.parsed.from + result.parsed.count - 1,
 							result.parsed.totalCount);
-					if (result.parsed.tooManyResults) {
+					if (result.parsed.tooManyResults 
+					        && result.parsed.count < count) {
 						logger.error("Too many results for {}, results were "
 								+ "lost (chunk size too big)", query);
 					}
