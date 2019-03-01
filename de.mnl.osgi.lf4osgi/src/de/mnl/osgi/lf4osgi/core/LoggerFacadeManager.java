@@ -22,8 +22,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.Consumer;
 
+import org.osgi.framework.BundleContext;
 import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LoggerFactory;
 
@@ -36,6 +40,9 @@ public class LoggerFacadeManager extends ServiceResolver {
     @SuppressWarnings("PMD.FieldNamingConventions")
     private static final Collection<LoggerFacade> facades
         = Collections.newSetFromMap(new WeakHashMap<>());
+    private static BundleContext context;
+    private static Queue<Consumer<BundleContext>> pendingContextOperations
+        = new ConcurrentLinkedQueue<>();
     private static BufferingLoggerFactory bufferingFactory
         = new BufferingLoggerFactory();
     private static LoggerFactory loggerFactory = bufferingFactory;
@@ -48,18 +55,40 @@ public class LoggerFacadeManager extends ServiceResolver {
      */
     public static void registerFacade(LoggerFacade loggerFacade) {
         synchronized (LoggerFacadeManager.class) {
-            loggerFacade.loggerFactoryUpdated(loggerFactory);
+            loggerFacade.loggerFactoryUpdated(
+                loggerFactory == bufferingFactory ? bufferingFactory // NOPMD
+                    : new FailSafeLoggerFactory(loggerFacade, loggerFactory));
             facades.add(loggerFacade);
         }
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     private void updateLoggerFactory(LoggerFactory factory) {
         synchronized (LoggerFacadeManager.class) {
             loggerFactory = factory;
             for (LoggerFacade facade : new ArrayList<>(facades)) {
-                facade.loggerFactoryUpdated(loggerFactory);
+                facade.loggerFactoryUpdated(
+                    loggerFactory == bufferingFactory ? bufferingFactory // NOPMD
+                        : new FailSafeLoggerFactory(facade, loggerFactory));
             }
         }
+    }
+
+    @Override
+    public void start(BundleContext context) throws Exception {
+        synchronized (LoggerFacadeManager.class) {
+            LoggerFacadeManager.context = context;
+            // Process any pending operations that depend on a context.
+            while (true) {
+                Consumer<BundleContext> operation
+                    = pendingContextOperations.poll();
+                if (operation == null) {
+                    break;
+                }
+                operation.accept(context);
+            }
+        }
+        super.start(context);
     }
 
     @Override
@@ -90,6 +119,32 @@ public class LoggerFacadeManager extends ServiceResolver {
     protected void onRebound(String dependency) {
         if (LoggerFactory.class.getName().equals(dependency)) {
             updateLoggerFactory(get(LoggerFactory.class));
+        }
+    }
+
+    @Override
+    public void stop(BundleContext context) throws Exception {
+        synchronized (LoggerFacadeManager.class) {
+            LoggerFacadeManager.context = context;
+        }
+        super.stop(context);
+    }
+
+    /**
+     * Execute an operation that depends on the availability of the
+     * bundle context. If a context is available, the operation
+     * is executed at once. Else, it is delayed until the context
+     * becomes available.
+     *
+     * @param operation the operation
+     */
+    public static void contextOperation(Consumer<BundleContext> operation) {
+        synchronized (LoggerFacadeManager.class) {
+            if (context != null) {
+                operation.accept(context);
+                return;
+            }
+            pendingContextOperations.add(operation);
         }
     }
 

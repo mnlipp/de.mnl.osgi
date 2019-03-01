@@ -120,7 +120,14 @@ public class BufferedEvent {
 
     @SuppressWarnings("PMD.NcssCount")
     private void doForward(LoggerFactory factory) {
-        final Logger logger = factory.getLogger(bundle, name, Logger.class);
+        Logger logger;
+        if ((bundle.getState() & (Bundle.RESOLVED | Bundle.STARTING
+            | Bundle.ACTIVE | Bundle.STOPPING)) == 0) {
+            // Cannot log with unresolved bundle.
+            logger = factory.getLogger(name, Logger.class);
+        } else {
+            logger = factory.getLogger(bundle, name, Logger.class);
+        }
         switch (level) {
         case TRACE:
             if (arguments.length == 0) {
