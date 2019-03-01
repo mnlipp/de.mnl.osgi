@@ -108,7 +108,7 @@ public class LoggerCatalogue<T> {
                 // from the stack trace." So let's make sure that we
                 // are really there.
                 while (!classes[i + 1].getName().equals(providingClass)) {
-                    i += 1;
+                    i += 1; // NOPMD
                 }
                 return Optional.of(classes[i + 2]);
             }
