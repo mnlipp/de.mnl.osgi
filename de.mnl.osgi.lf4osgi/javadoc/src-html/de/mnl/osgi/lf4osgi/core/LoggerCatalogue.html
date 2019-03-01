@@ -116,7 +116,7 @@
 <span class="sourceLineNo">108</span>                // from the stack trace." So let's make sure that we<a name="line.108"></a>
 <span class="sourceLineNo">109</span>                // are really there.<a name="line.109"></a>
 <span class="sourceLineNo">110</span>                while (!classes[i + 1].getName().equals(providingClass)) {<a name="line.110"></a>
-<span class="sourceLineNo">111</span>                    i += 1;<a name="line.111"></a>
+<span class="sourceLineNo">111</span>                    i += 1; // NOPMD<a name="line.111"></a>
 <span class="sourceLineNo">112</span>                }<a name="line.112"></a>
 <span class="sourceLineNo">113</span>                return Optional.of(classes[i + 2]);<a name="line.113"></a>
 <span class="sourceLineNo">114</span>            }<a name="line.114"></a>
