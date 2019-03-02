@@ -7,8 +7,8 @@ Bundle-Version: 1.0.1.-${tstamp}-SNAPSHOT
 	osgi.annotation;version=6.0.1,\
 	osgi.core;version=6.0,\
 	org.osgi.service.log;version='[1.4,2)',\
-	de.mnl.osgi.coreutils;version=latest,\
-	de.mnl.osgi.lf4osgi;version=latest,\
+	de.mnl.osgi.coreutils;version='[1.0.1,1.0.2)',\
+	de.mnl.osgi.lf4osgi;version='[2.1.0,2.1.1)',\
 	org.apache.logging.log4j.api;version=2.11
 
 -testpath: \
