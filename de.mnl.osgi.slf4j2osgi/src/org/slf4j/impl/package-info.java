@@ -25,7 +25,7 @@
  * implementation shares everything "behind the facade" with LFOSGi,
  * it also shares its configuration options.
  */
-@Version("1.7.0") // api requires an impl with at least this version
+@Version("1.6.0") // API requires an impl with at least this version
 package org.slf4j.impl;
 
 import org.osgi.annotation.versioning.Version;
