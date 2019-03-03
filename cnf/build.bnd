@@ -11,7 +11,7 @@
         name=Bintray; \
 		readOnly=true; \
         snapshotUrls="https://oss.jfrog.org/artifactory/jcenter-cache/"; \
-        releaseUrls="https://dl.bintray.com/mnlipp/forge,https://http://dl.bintray.com/bintray/jcenter/"; \
+        releaseUrls="https://dl.bintray.com/mnlipp/forge,https://dl.bintray.com/bintray/jcenter/"; \
         revision="de.mnl.osgi:de.mnl.osgi.jul2osgi.lib:1.0.0, \
             de.mnl.osgi:de.mnl.osgi.jul2osgi:1.0.0"
 
