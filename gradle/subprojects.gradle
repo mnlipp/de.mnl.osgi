@@ -1,3 +1,10 @@
+repositories {
+	jcenter()
+	mavenCentral()
+	// Sometimes, synchronization with central is too slow
+	maven { url 'https://oss.sonatype.org/content/repositories/releases/' }
+}
+
 apply plugin:'groovy'
 
 dependencies {
