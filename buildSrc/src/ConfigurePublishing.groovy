@@ -69,26 +69,12 @@ class ConfigurePublishing implements Plugin<Project> {
 								appendNode('description', projectDescription)
 							}
 						}
-						pom.withXml(project.configurePublishing.withPomXml)
 						
-						// Depend on jar built by bnd
-						def jarFile = project.components.java.artifacts.first().file
-						def pomTask = project.tasks.generatePomFileForMavenPublication
-						def jarTask = project.tasks.jar
-						pomTask.dependsOn(jarTask)
-
-						// Continue "configuring" with information from bnd
-						// after jar jas been built.
-						pomTask.doFirst {
-							def jarFiles = project.zipTree(jarFile)
-							def pomFiles = jarFiles.matching {
-								include "META-INF/maven/**/pom.xml" }.files
-							if (pomFiles) {
-								def top = new XmlParser().parse(pomFiles.first())
-								pom.withXml { mergeDependencyInfo(it.asNode(), top) }
-							}
-
+						pom.withXml {
+							addDependencyInformation(project, asNode())
 						}
+						
+						pom.withXml(project.configurePublishing.withPomXml)
 					}
 				}
 			}
@@ -100,16 +86,57 @@ class ConfigurePublishing implements Plugin<Project> {
 
 	}
 
-	void mergeDependencyInfo(Node target, Node source) {
-		if (!source.dependencies) {
-			return;
+	void addDependencyInformation(project, pomRoot) {
+		def knownDependencies = collectKnownDependencies(pomRoot)
+		project.configurations.compile.each {
+			def jarFile = it
+			def jarFiles = null
+			try {
+				jarFiles = project.zipTree(jarFile)
+			} catch(e) {
+			}
+			if (!jarFiles) {
+				return
+			}
+			def pomPropsFiles = jarFiles.matching {
+				include "META-INF/maven/**/pom.properties"
+			}.files
+			if (pomPropsFiles.empty) {
+				return
+			}
+			def pomProps = new Properties();
+			new FileInputStream(pomPropsFiles.first()).withCloseable {
+				input -> pomProps.load(input)
+			}
+			def newDepKey = "${pomProps.groupId}:${pomProps.artifactId}:${pomProps.version}"
+			if (!knownDependencies.contains(newDepKey)) {
+				mergeDependency(pomRoot, pomProps)
+			}
 		}
-		if (!target.dependencies) {
-			target.appendNode('dependencies')
+	}
+	
+	Set collectKnownDependencies(pomRoot) {
+		Set result = new HashSet()
+		if (!pomRoot.dependencies || pomRoot.dependencies.empty) {
+			return result
 		}
-		source.dependencies.first().each {
-			target.dependencies*.append(it)
+		def dependencies = pomRoot.dependencies.first()
+		dependencies.children().each {
+			result.add("${it.groupId.text()}:${it.artifactId.text()}:${it.version.text()}")
 		}
+		return result
+	}
+	
+	void mergeDependency(pomRoot, props) {
+		if (!pomRoot.dependencies) {
+			pomRoot.appendNode('dependencies')
+		}
+		def dependencies = pomRoot.dependencies.first()
+		def dependency = dependencies.appendNode('dependency')
+		dependency.appendNode('groupId').setValue(props.groupId)
+		dependency.appendNode('artifactId').setValue(props.artifactId)
+		dependency.appendNode('version').setValue(props.version)
+		dependency.appendNode('scope').setValue('compile')
 	}
 
 }
