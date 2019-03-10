@@ -14,29 +14,12 @@ class ConfigurePublishing implements Plugin<Project> {
 		project.publishing {
 			publications {
 				maven(MavenPublication) {
-					// Make available in closure below
-					def publication = it
 					from project.components.java
 
+					// Make available in closure below
+					def publication = it
+					
 					project.afterEvaluate {
-						// Depend on jar built by bnd
-						def jarFile = project.components.java.artifacts.first().file
-						def pomTask = project.tasks.generatePomFileForMavenPublication
-						def jarTask = project.tasks.jar
-						pomTask.dependsOn(jarTask)
-
-						// Continue "configuring" after jar jas been built
-						pomTask.doFirst {
-							def jarFiles = project.zipTree(jarFile)
-							def pomFiles = jarFiles.matching {
-								include "META-INF/maven/**/pom.xml" }.files
-							if (pomFiles) {
-								def top = new XmlParser().parse(pomFiles.first())
-								pom.withXml { mergeDependencyInfo(it.asNode(), top) }
-							}
-
-						}
-
 						artifactId = project.archivesBaseName
 						artifact(project.tasks.sourcesJar) {
 							classifier = 'sources'
@@ -87,6 +70,25 @@ class ConfigurePublishing implements Plugin<Project> {
 							}
 						}
 						pom.withXml(project.configurePublishing.withPomXml)
+						
+						// Depend on jar built by bnd
+						def jarFile = project.components.java.artifacts.first().file
+						def pomTask = project.tasks.generatePomFileForMavenPublication
+						def jarTask = project.tasks.jar
+						pomTask.dependsOn(jarTask)
+
+						// Continue "configuring" with information from bnd
+						// after jar jas been built.
+						pomTask.doFirst {
+							def jarFiles = project.zipTree(jarFile)
+							def pomFiles = jarFiles.matching {
+								include "META-INF/maven/**/pom.xml" }.files
+							if (pomFiles) {
+								def top = new XmlParser().parse(pomFiles.first())
+								pom.withXml { mergeDependencyInfo(it.asNode(), top) }
+							}
+
+						}
 					}
 				}
 			}
