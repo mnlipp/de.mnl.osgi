@@ -1,16 +1,3 @@
-buildscript {
-	repositories {
-		maven {
-			url uri(bnd_repourl)
-		}
-		mavenCentral()
-	}
-	dependencies { classpath "biz.aQute.bnd:biz.aQute.bnd.gradle:${bnd_version}" }
-	/* Add bnd gradle plugin to buildscript classpath of rootProject */
-	def bndPlugin = files(configurations.classpath.files)
-	gradle.rootProject { buildscript { dependencies { classpath bndPlugin } } }
-}
-
 for (File file: rootDir.listFiles()) {
 	if (file.isDirectory() &&
 			file.name.startsWith("de.mnl.osgi.") ) {

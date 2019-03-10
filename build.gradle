@@ -1,8 +1,19 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		maven {
+			url uri(bnd_repourl)
+		}
+	}
+	dependencies {
+	  classpath "biz.aQute.bnd:biz.aQute.bnd.gradle:${bnd_version}"
+	}
+}
 
 plugins {
 	id 'org.ajoberstar.git-publish' version '1.0.1'
 	id "com.jfrog.bintray" version "1.8.4"
-	id "com.jfrog.artifactory" version "4.9.0"
+//	id "com.jfrog.artifactory" version "4.9.0"
 }
 
 apply plugin: 'biz.aQute.bnd.workspace'

@@ -1,45 +1,43 @@
-repositories {
-	jcenter()
-	mavenCentral()
-	// Sometimes, synchronization with central is too slow
-	maven { url 'https://oss.sonatype.org/content/repositories/releases/' }
-}
-
-apply plugin:'groovy'
-
-dependencies {
-    compile localGroovy()
-}
 
 group = "de.mnl.osgi"
 // Default, override in subprojects
 project.ext.licenses = ['AGPL-3.0']
 
 if (plugins.hasPlugin('biz.aQute.bnd')) {
-    
-    // artifact_version is defined in cnf/bnd.bnd
-    if (bnd.artifact_version) {
-        project.version = bnd.artifact_version
-    }
-}
 
-tasks.compileJava {
-	if (!JavaVersion.current().isJava8()) {
-		options.compilerArgs.addAll(['--release', '8'])
+	// artifact_version is defined in cnf/bnd.bnd
+	if (bnd.artifact_version) {
+		project.version = bnd.artifact_version
 	}
-}
+	if (bnd["-groupid"]) {
+		group = bnd["-groupid"]
+	}
+	if (bnd["Bundle-Description"]) {
+		description = bnd["Bundle-Description"]
+	} else {
+		if (bnd["Bundle-Name"]) {
+			description = bnd["Bundle-Name"]
+		}
+	}
 
-if (tasks.findByName("javadoc")) {
-	javadoc {
-		options.addStringOption("doctitle", "${project.name} ${project.version}")
-		options.addBooleanOption("use", true)
-		options.addBooleanOption("linksource", true)
-		options.addStringOption("bottom", file("${rootProject.rootDir}/misc/javadoc.bottom.txt").text)
-		options.links "https://docs.oracle.com/javase/8/docs/api/"
-		options.links "https://osgi.org/javadoc/osgi.core/7.0.0/"
-		options.links "https://osgi.org/javadoc/osgi.cmpn/7.0.0/"
-		// Add --allow-script-in-comments if available (since 1.8.0_121)
-        options.addBooleanOption('-allow-script-in-comments').value = true
+	tasks.compileJava {
+		if (!JavaVersion.current().isJava8()) {
+			options.compilerArgs.addAll(['--release', '8'])
+		}
+	}
+
+	if (tasks.findByName("javadoc")) {
+		javadoc {
+			options.addStringOption("doctitle", "${project.name} ${project.version}")
+			options.addBooleanOption("use", true)
+			options.addBooleanOption("linksource", true)
+			options.addStringOption("bottom", file("${rootProject.rootDir}/misc/javadoc.bottom.txt").text)
+			options.links "https://docs.oracle.com/javase/8/docs/api/"
+			options.links "https://osgi.org/javadoc/osgi.core/7.0.0/"
+			options.links "https://osgi.org/javadoc/osgi.cmpn/7.0.0/"
+			// Add --allow-script-in-comments if available (since 1.8.0_121)
+			options.addBooleanOption('-allow-script-in-comments').value = true
+		}
 	}
 }
 

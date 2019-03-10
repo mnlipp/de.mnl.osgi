@@ -1,6 +1,21 @@
+// Get bnd on the classpath
+Properties gradleProps = new Properties()
+repositories {
+	FileInputStream input = new FileInputStream(
+		file("${rootDir.parentFile}/gradle.properties"))
+	gradleProps.load(input)
+	input.close()
+	
+	mavenCentral()
+	maven {
+		url uri(gradleProps.bnd_repourl)
+	}
+}
+
 dependencies {
 	compile gradleApi()
 	compile localGroovy()
+	compile "biz.aQute.bnd:biz.aQute.bnd.gradle:${gradleProps.bnd_version}"
 }
 
 // Configure sensible layout

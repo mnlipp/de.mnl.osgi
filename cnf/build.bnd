@@ -76,13 +76,6 @@
         releaseUrls=https://repo1.maven.org/maven2; \
         query='q=a:%22org.eclipse.osgi%22&rows=10000'
 
--releaserepo: Release
--baselinerepo: Release
--baseline: *
-
-# Always use contracts
--contract: *
-
 # Set Git revision information in the manifests of built bundles
 Git-Descriptor:           ${system-allow-fail;git describe --dirty --always}
 Git-SHA:                  ${system-allow-fail;git rev-list -1 HEAD}
@@ -94,6 +87,15 @@ mockito-deps: org.objenesis; version=2.6.0,\
   net.bytebuddy.byte-buddy; version=1.9.8,\
   net.bytebuddy.byte-buddy-agent; version=1.9.8 
 
+# Set group id
+-groupid: de.mnl.osgi
+
+# Generate pom
+-pom: true
+
+# Always use contracts
+-contract: *
+
 # Used in build.gradle for the artifact version
 artifact_version: ${versionmask;===s;${Bundle-Version}}
 # This should make the name of the incrementally generated jar
@@ -104,4 +106,7 @@ artifact_version: ${versionmask;===s;${Bundle-Version}}
 bin=bin/main
 testbin=bin/test
 
+-releaserepo: Release
 -baselinerepo: Release
+-baseline: *
+
