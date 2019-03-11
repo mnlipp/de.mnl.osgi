@@ -21,20 +21,19 @@ package de.mnl.osgi.bnd.repository.maven.provider;
 import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.Processor;
 import aQute.bnd.osgi.repository.ResourcesRepository;
-import aQute.bnd.osgi.repository.XMLResourceParser;
+import aQute.bnd.osgi.repository.XMLResourceGenerator;
 import aQute.maven.api.IMavenRepo;
+import aQute.maven.api.IPom;
 import aQute.maven.api.Program;
-import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
-import aQute.maven.provider.MavenRepository;
 import aQute.service.reporter.Reporter;
+import de.mnl.osgi.bnd.maven.ExtRevision;
 import de.mnl.osgi.bnd.maven.MergingMavenRepository;
+import de.mnl.osgi.bnd.maven.RevisionIndexer;
+import de.mnl.osgi.bnd.maven.RevisionIndexer.IndexedResource;
 
-import java.beans.IndexedPropertyDescriptor;
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,9 +42,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
-import org.osgi.framework.AllServiceListener;
 import org.osgi.resource.Resource;
 import org.osgi.service.repository.Repository;
 import org.slf4j.Logger;
@@ -168,41 +165,36 @@ public class IndexedMavenRepository extends ResourcesRepository {
      * @throws Exception if a problem occurs
      */
     public boolean refresh() throws Exception {
-        for (String dir : indexDbDir.list()) {
-            if (!dir.matches("^[A-Za-z].*")) {
+        for (String groupId : indexDbDir.list()) {
+            if (!groupId.matches("^[A-Za-z].*")) {
                 continue;
             }
-            LOG.debug("Refreshing {}", dir);
-            Collection<String> artifactIds = findArtifactIds(dir);
+            LOG.debug("Refreshing {}", groupId);
+            ResourcesRepository osgiRepo = new ResourcesRepository();
+            RevisionIndexer indexer = new RevisionIndexer(mavenRepository,
+                osgiRepo, IndexedResource.REMOTE);
+            Collection<String> artifactIds = findArtifactIds(groupId);
             for (String artifactId : artifactIds) {
                 if (artifactId.endsWith("/")) {
                     artifactId
                         = artifactId.substring(0, artifactId.length() - 1);
                 }
-                Program program = Program.valueOf(dir, artifactId);
-                List<Revision> revisions
-                    = mavenRepository.getRevisions(program);
-                for (Revision rev : revisions) {
-                    String path = rev.archive("jar", null).remotePath;
-                    path = null;
-                }
-                revisions = null;
+                Program program = Program.valueOf(groupId, artifactId);
+                List<ExtRevision> revisions
+                    = mavenRepository.getExtRevisions(program);
+                Set<IPom> dependencies = new HashSet<>();
+                indexer.indexRevisions(revisions, dependencies);
             }
+            XMLResourceGenerator generator = new XMLResourceGenerator();
+            generator.resources(osgiRepo.getResources());
+            generator.name(name());
+            generator
+                .save(new File(new File(indexDbDir, groupId), "index.xml"));
         }
-//        if (coordinates == null) {
-//            return false;
-//        }
-//        List<Revision> startRevisions = coordinates.stream()
-//            .map(an -> Revision.valueOf(an)).collect(Collectors.toList());
-//        // List all revisions from configuration.
-//        for (Revision revision : startRevisions) {
-//            logger.debug("Found {}", revision);
-//        }
-//        return refresh(mavenRepository, startRevisions);
         return true;
     }
 
-    public Collection<String> findArtifactIds(String dir) throws Exception {
+    private Collection<String> findArtifactIds(String dir) throws Exception {
         Set<String> result = new HashSet<>();
         for (URL repoUrl : repositoryUrls) {
             String page = client.build().headers("User-Agent", "Bnd")

@@ -19,6 +19,8 @@
 package de.mnl.osgi.bnd.maven;
 
 import aQute.maven.api.IMavenRepo;
+import aQute.maven.api.Program;
+import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.maven.provider.MavenRepository;
 import aQute.service.reporter.Reporter;
@@ -26,7 +28,6 @@ import aQute.service.reporter.Reporter;
 import java.io.Closeable;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -71,4 +72,26 @@ public class MergingMavenRepository extends MavenRepository
         return result;
     }
 
+    public List<ExtRevision> getExtRevisions(Program program) throws Exception {
+        List<ExtRevision> revisions = new ArrayList<>();
+
+        for (MavenBackingRepository mbr : getReleaseRepositories()) {
+            addRevisions(mbr, program, revisions);
+        }
+        for (MavenBackingRepository mbr : getSnapshotRepositories()) {
+            if (!getReleaseRepositories().contains(mbr)) {
+                addRevisions(mbr, program, revisions);
+            }
+        }
+        return revisions;
+    }
+
+    private void addRevisions(MavenBackingRepository mbr, Program program,
+            List<ExtRevision> revisions) throws Exception {
+        List<Revision> revs = new ArrayList<>();
+        mbr.getRevisions(program, revs);
+        for (Revision rev : revs) {
+            revisions.add(new ExtRevision(mbr, rev));
+        }
+    }
 }
