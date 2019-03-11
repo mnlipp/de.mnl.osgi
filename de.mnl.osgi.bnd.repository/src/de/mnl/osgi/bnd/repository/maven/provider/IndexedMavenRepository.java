@@ -33,20 +33,35 @@ import de.mnl.osgi.bnd.maven.RevisionIndexer;
 import de.mnl.osgi.bnd.maven.RevisionIndexer.IndexedResource;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.osgi.resource.Resource;
 import org.osgi.service.repository.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Provide an OSGi repository (a collection of {@link Resource}s, see 
@@ -68,6 +83,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private final Pattern hrefPattern = Pattern.compile(
         "<[aA]\\s+(?:[^>]*?\\s+)?href=(?<quote>[\"'])"
             + "(?<href>[a-zA-Z].*?)\\k<quote>");
+    Map<String, ResourcesRepository> groupRepos = new HashMap<>();
 
     /**
      * Create a new instance that uses the provided information/resources to perform
@@ -166,11 +182,13 @@ public class IndexedMavenRepository extends ResourcesRepository {
      */
     public boolean refresh() throws Exception {
         for (String groupId : indexDbDir.list()) {
-            if (!groupId.matches("^[A-Za-z].*")) {
+            if (!groupId.matches("^[A-Za-z].*")
+                || groupId.equals("index.xml")) {
                 continue;
             }
             LOG.debug("Refreshing {}", groupId);
             ResourcesRepository osgiRepo = new ResourcesRepository();
+            groupRepos.put(groupId, osgiRepo);
             RevisionIndexer indexer = new RevisionIndexer(mavenRepository,
                 osgiRepo, IndexedResource.REMOTE);
             Collection<String> artifactIds = findArtifactIds(groupId);
@@ -191,6 +209,10 @@ public class IndexedMavenRepository extends ResourcesRepository {
             generator
                 .save(new File(new File(indexDbDir, groupId), "index.xml"));
         }
+        try (OutputStream fos
+            = new FileOutputStream(new File(indexDbDir, "index.xml"))) {
+            writeFederatedIndex(fos);
+        }
         return true;
     }
 
@@ -199,6 +221,9 @@ public class IndexedMavenRepository extends ResourcesRepository {
         for (URL repoUrl : repositoryUrls) {
             String page = client.build().headers("User-Agent", "Bnd")
                 .get(String.class).go(new URL(repoUrl, dir.replace('.', '/')));
+            if (page == null) {
+                return result;
+            }
             Matcher matcher = hrefPattern.matcher(page);
             while (matcher.find()) {
                 result.add(matcher.group("href"));
@@ -207,4 +232,37 @@ public class IndexedMavenRepository extends ResourcesRepository {
         return result;
     }
 
+    private void writeFederatedIndex(OutputStream out) {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        Document doc;
+        final String repoNs = "http://www.osgi.org/xmlns/repository/v1.0.0";
+        try {
+            doc = dbf.newDocumentBuilder().newDocument();
+        } catch (ParserConfigurationException e) {
+            return;
+        }
+        // <repository name=... increment=...>
+        Element repoNode = doc.createElementNS(repoNs, "repository");
+        repoNode.setAttribute("name", name);
+        repoNode.setAttribute("increment",
+            Long.toString(System.currentTimeMillis()));
+        doc.appendChild(repoNode);
+        for (String groupId : groupRepos.keySet()) {
+            // <referral url=...>
+            Element referral = doc.createElementNS(repoNs, "referral");
+            referral.setAttribute("url", groupId + "/index.xml");
+            repoNode.appendChild(referral);
+        }
+        // Write federated index.
+        try {
+            Transformer transformer
+                = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource source = new DOMSource(doc);
+            transformer.transform(source, new StreamResult(out));
+        } catch (TransformerException e) {
+            // Shouldn't happen
+        }
+    }
 }
