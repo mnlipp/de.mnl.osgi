@@ -1,6 +1,6 @@
 /*
- * Bnd Nexus Search Plugin
- * Copyright (C) 2017  Michael N. Lipp
+ * Extra Bnd Repository Plugins
+ * Copyright (C) 2017,2019  Michael N. Lipp
  * 
  * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU Affero General Public License as published by 
@@ -16,7 +16,7 @@
  * with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.mnl.osgi.bnd.repository.maven.provider;
+package de.mnl.osgi.bnd.maven;
 
 import aQute.bnd.version.MavenVersion;
 import aQute.bnd.version.MavenVersionRange;
@@ -26,35 +26,35 @@ import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException
 import org.apache.maven.artifact.versioning.VersionRange;
 
 // Workaround for https://github.com/bndtools/bnd/issues/2285
-public class MavenVersionRangeFixed extends MavenVersionRange {
+public class BndMavenVersionRangeFixed extends MavenVersionRange {
 
-	private VersionRange range;
-	
-	public MavenVersionRangeFixed(String range) {
-		super(null);
-		try {
-			this.range = VersionRange.createFromVersionSpec(range);
-		} catch (InvalidVersionSpecificationException e) {
-			throw new IllegalArgumentException(e);
-		}
-	}
+    private VersionRange range;
 
-	public boolean includes(MavenVersion mvr) {
-		return range.containsVersion(new DefaultArtifactVersion(mvr.toString()));
-	}
+    public BndMavenVersionRangeFixed(String range) {
+        super(null);
+        try {
+            this.range = VersionRange.createFromVersionSpec(range);
+        } catch (InvalidVersionSpecificationException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 
-	public String toString() {
-		return range.toString();
-	}
+    public boolean includes(MavenVersion mvr) {
+        return range
+            .containsVersion(new DefaultArtifactVersion(mvr.toString()));
+    }
 
+    public String toString() {
+        return range.toString();
+    }
 
-	public static MavenVersionRangeFixed parseRange(String version) {
-		try {
-			return new MavenVersionRangeFixed(version);
-		} catch (Exception e) {
-			// ignore
-		}
-		return null;
-	}
+    public static BndMavenVersionRangeFixed parseRange(String version) {
+        try {
+            return new BndMavenVersionRangeFixed(version);
+        } catch (Exception e) {
+            // ignore
+        }
+        return null;
+    }
 
 }

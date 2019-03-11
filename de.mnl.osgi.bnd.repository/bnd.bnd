@@ -14,8 +14,8 @@ Export-Package: \
 -buildpath: \
 	osgi.core;version=@6,\
 	osgi.cmpn;version=@6,\
-    biz.aQute.bndlib;version="[4.0.0,5)",\
-	biz.aQute.repository;version="[4.0.0,5)",\
+    biz.aQute.bndlib;version="[4.1.0,5)",\
+	biz.aQute.repository;version="[4.1.0,5)",\
 	slf4j.api;version=latest,\
 	${replace;${lsr;jar};^(.*)$;jar/$1\\;version=file}
 

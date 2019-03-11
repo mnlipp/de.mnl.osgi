@@ -1,5 +1,5 @@
 /*
- * Bnd Nexus Search Plugin
+ * Extra Bnd Repository Plugins
  * Copyright (C) 2017  Michael N. Lipp
  * 
  * This program is free software; you can redistribute it and/or modify it 
@@ -28,50 +28,49 @@ import org.apache.maven.artifact.versioning.Restriction;
  */
 public class MavenVersionRange {
 
-	private org.apache.maven.artifact.versioning.VersionRange range;
+    private org.apache.maven.artifact.versioning.VersionRange range;
 
-	public MavenVersionRange(String range) {
-		try {
-			this.range = org.apache.maven.artifact.versioning.VersionRange
-			        .createFromVersionSpec(range);
-		} catch (InvalidVersionSpecificationException e) {
-			throw new IllegalArgumentException(e);
-		}
-	}
+    public MavenVersionRange(String range) {
+        try {
+            this.range = org.apache.maven.artifact.versioning.VersionRange
+                .createFromVersionSpec(range);
+        } catch (InvalidVersionSpecificationException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 
-	public boolean includes(MavenVersion mvr) {
-		return range.containsVersion(mvr);
-	}
+    public boolean includes(MavenVersion mvr) {
+        return range.containsVersion(mvr);
+    }
 
-	public static MavenVersionRange parseRange(String version) {
-		try {
-			return new MavenVersionRange(version);
-		} catch (Exception e) {
-			// ignore
-		}
-		return null;
-	}
+    public static MavenVersionRange parseRange(String version) {
+        try {
+            return new MavenVersionRange(version);
+        } catch (Exception e) {
+            // ignore
+        }
+        return null;
+    }
 
-	public boolean wasSingle() {
-		if (range.getRestrictions()
-			.size() != 1) {
-			return false;
-		}
-		Restriction r = range.getRestrictions()
-			.get(0);
-		return r.getLowerBound() == null && r.getUpperBound() == null;
-	}
+    public boolean wasSingle() {
+        if (range.getRestrictions()
+            .size() != 1) {
+            return false;
+        }
+        Restriction rstrct = range.getRestrictions().get(0);
+        return rstrct.getLowerBound() == null && rstrct.getUpperBound() == null;
+    }
 
-	public static boolean isRange(String version) {
-		if (version == null)
-			return false;
+    public static boolean isRange(String version) {
+        if (version == null) {
+            return false;
+        }
+        version = version.trim();
+        return version.startsWith("[") || version.startsWith("(");
+    }
 
-		version = version.trim();
-		return version.startsWith("[") || version.startsWith("(");
-	}
-
-	@Override
-	public String toString() {
-		return range.toString();
-	}
+    @Override
+    public String toString() {
+        return range.toString();
+    }
 }

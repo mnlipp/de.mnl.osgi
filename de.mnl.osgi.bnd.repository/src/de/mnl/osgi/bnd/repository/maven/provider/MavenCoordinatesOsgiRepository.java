@@ -26,6 +26,7 @@ import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.maven.provider.MavenRepository;
 import aQute.service.reporter.Reporter;
+import de.mnl.osgi.bnd.maven.LocalMavenBackedOsgiRepository;
 
 import java.io.File;
 import java.net.URL;
@@ -43,102 +44,102 @@ import org.slf4j.LoggerFactory;
  * {@link Repository}), filled with the results of searching specific
  * artifacts.
  */
-public class MavenCoordinatesOsgiRepository extends MavenOsgiRepository {
+public class MavenCoordinatesOsgiRepository extends LocalMavenBackedOsgiRepository {
 
-	private static final Logger logger = LoggerFactory.getLogger(
-			MavenCoordinatesOsgiRepository.class);
-	private List<URL> releaseUrls;
-	private List<URL> snapshotUrls;
-	private List<String> coordinates;
-	private File localRepo = null;
-	private Reporter reporter;
-	private HttpClient client; 
-	private MavenRepository mavenRepository;
-	
-	/**
-	 * Create a new instance that uses the provided information/resources to perform
-	 * its work.
-	 *
-	 * @param name the name
-	 * @param releaseUrls the release urls
-	 * @param snapshotUrls the snapshot urls
-	 * @param coordinates the coordinates
-	 * @param localRepo the local Maven repository (cache)
-	 * @param obrIndexFile the persistent representation of this repository's content
-	 * @param reporter a reporter for reporting the progress
-	 * @param client an HTTP client for obtaining information from the Nexus server
-	 * @throws Exception the exception
-	 */
-	public MavenCoordinatesOsgiRepository (String name, List<URL> releaseUrls, List<URL> snapshotUrls,
-			List<String> coordinates, File localRepo, File obrIndexFile, 
-			Reporter reporter, HttpClient client)
-			throws Exception {
-		super(name, obrIndexFile);
-		this.releaseUrls = releaseUrls;
-		this.snapshotUrls = snapshotUrls;
-		this.coordinates = coordinates;
-		this.localRepo = localRepo;
-		this.reporter = reporter;
-		this.client = client;
-		
-		// load results from previous execution.
-		mavenRepository = createMavenRepository();
-		if (!location().exists() || !location().isFile()) {
-			refresh();
-		} else {
-			try (XMLResourceParser parser = new XMLResourceParser(location())) {
-				List<Resource> resources = parser.parse();
-				addAll(resources);
-			}
-		}
-	}
+    private static final Logger logger = LoggerFactory.getLogger(
+        MavenCoordinatesOsgiRepository.class);
+    private List<URL> releaseUrls;
+    private List<URL> snapshotUrls;
+    private List<String> coordinates;
+    private File localRepo = null;
+    private Reporter reporter;
+    private HttpClient client;
+    private MavenRepository mavenRepository;
 
-	/**
-	 * Refresh this repository's content.
-	 * 
-	 * @return true if refreshed, false if not refreshed possibly due to error
-	 * @throws Exception if a problem occurs
-	 */
-	public boolean refresh() throws Exception {
-		if (coordinates == null) {
-			return false;
-		}
-		List<Revision> startRevisions = coordinates.stream()
-				.map(an -> Revision.valueOf(an)).collect(Collectors.toList());
-		// List all revisions from configuration.
-		for (Revision revision: startRevisions) {
-			logger.debug("Found {}", revision);					
-		}
-		return refresh(mavenRepository, startRevisions);
-	}
+    /**
+     * Create a new instance that uses the provided information/resources to perform
+     * its work.
+     *
+     * @param name the name
+     * @param releaseUrls the release urls
+     * @param snapshotUrls the snapshot urls
+     * @param coordinates the coordinates
+     * @param localRepo the local Maven repository (cache)
+     * @param obrIndexFile the persistent representation of this repository's content
+     * @param reporter a reporter for reporting the progress
+     * @param client an HTTP client for obtaining information from the Nexus server
+     * @throws Exception the exception
+     */
+    public MavenCoordinatesOsgiRepository(String name, List<URL> releaseUrls,
+            List<URL> snapshotUrls, List<String> coordinates, File localRepo,
+            File obrIndexFile, Reporter reporter, HttpClient client)
+            throws Exception {
+        super(name, obrIndexFile);
+        this.releaseUrls = releaseUrls;
+        this.snapshotUrls = snapshotUrls;
+        this.coordinates = coordinates;
+        this.localRepo = localRepo;
+        this.reporter = reporter;
+        this.client = client;
 
-	private MavenRepository createMavenRepository() throws Exception {
-		// Create repository from URLs
-		List<MavenBackingRepository> releaseBackers = new ArrayList<>();
-		for(URL url: releaseUrls) {
-			releaseBackers.addAll(MavenBackingRepository.create(
-					url.toString(), reporter, localRepo, client));
-		}
-		List<MavenBackingRepository> snapshotBackers = new ArrayList<>();
-		for(URL url: snapshotUrls) {
-			snapshotBackers.addAll(MavenBackingRepository.create(
-					url.toString(), reporter, localRepo, client));
-		}
-		return new MavenRepository(localRepo, name(), 
-				releaseBackers, snapshotBackers,
-				Processor.getExecutor(), reporter);
-	}
-	
-	/**
-	 * Return the Maven repository object used to back this repository.
-	 * 
-	 * @return the repository object
-	 * @throws Exception if a problem occurs
-	 */
-	public IMavenRepo mavenRepository() throws Exception {
-		if (mavenRepository == null) {
-			refresh();
-		}
-		return mavenRepository;
-	}
+        // load results from previous execution.
+        mavenRepository = createMavenRepository();
+        if (!location().exists() || !location().isFile()) {
+            refresh();
+        } else {
+            try (XMLResourceParser parser = new XMLResourceParser(location())) {
+                List<Resource> resources = parser.parse();
+                addAll(resources);
+            }
+        }
+    }
+
+    /**
+     * Refresh this repository's content.
+     * 
+     * @return true if refreshed, false if not refreshed possibly due to error
+     * @throws Exception if a problem occurs
+     */
+    public boolean refresh() throws Exception {
+        if (coordinates == null) {
+            return false;
+        }
+        List<Revision> startRevisions = coordinates.stream()
+            .map(an -> Revision.valueOf(an)).collect(Collectors.toList());
+        // List all revisions from configuration.
+        for (Revision revision : startRevisions) {
+            logger.debug("Found {}", revision);
+        }
+        return refresh(mavenRepository, startRevisions);
+    }
+
+    private MavenRepository createMavenRepository() throws Exception {
+        // Create repository from URLs
+        List<MavenBackingRepository> releaseBackers = new ArrayList<>();
+        for (URL url : releaseUrls) {
+            releaseBackers.addAll(MavenBackingRepository.create(
+                url.toString(), reporter, localRepo, client));
+        }
+        List<MavenBackingRepository> snapshotBackers = new ArrayList<>();
+        for (URL url : snapshotUrls) {
+            snapshotBackers.addAll(MavenBackingRepository.create(
+                url.toString(), reporter, localRepo, client));
+        }
+        return new MavenRepository(localRepo, name(),
+            releaseBackers, snapshotBackers,
+            Processor.getExecutor(), reporter);
+    }
+
+    /**
+     * Return the Maven repository object used to back this repository.
+     * 
+     * @return the repository object
+     * @throws Exception if a problem occurs
+     */
+    public IMavenRepo mavenRepository() throws Exception {
+        if (mavenRepository == null) {
+            refresh();
+        }
+        return mavenRepository;
+    }
 }

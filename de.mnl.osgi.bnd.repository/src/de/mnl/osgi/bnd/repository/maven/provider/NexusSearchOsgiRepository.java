@@ -27,6 +27,7 @@ import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.maven.provider.MavenRepository;
 import aQute.service.reporter.Reporter;
+import de.mnl.osgi.bnd.maven.LocalMavenBackedOsgiRepository;
 import de.mnl.osgi.bnd.repository.maven.provider.NexusSearchNGResponseParser.ParseResult;
 
 import java.io.File;
@@ -61,7 +62,7 @@ import org.slf4j.LoggerFactory;
  * {@link Repository}), filled with the results of performing a search 
  * on a Nexus server.
  */
-public class NexusSearchOsgiRepository extends MavenOsgiRepository {
+public class NexusSearchOsgiRepository extends LocalMavenBackedOsgiRepository {
 
 	private static final Logger logger = LoggerFactory.getLogger(
 			NexusSearchOsgiRepository.class);

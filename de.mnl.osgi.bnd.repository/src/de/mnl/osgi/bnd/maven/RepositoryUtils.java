@@ -16,7 +16,32 @@
  * with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * 
- */
 package de.mnl.osgi.bnd.maven;
+
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
+
+/**
+ * The Class Utils.
+ */
+public final class RepositoryUtils {
+
+    public static final Pattern LIST_ITEM_SEPARATOR
+        = Pattern.compile("\\s*,\\s*");
+
+    private RepositoryUtils() {
+    }
+
+    /**
+     * Itemize list.
+     *
+     * @param list the list
+     * @return the stream
+     */
+    public static Stream<String> itemizeList(String list) {
+        if (list == null) {
+            return Stream.empty();
+        }
+        return LIST_ITEM_SEPARATOR.splitAsStream(list);
+    }
+}
