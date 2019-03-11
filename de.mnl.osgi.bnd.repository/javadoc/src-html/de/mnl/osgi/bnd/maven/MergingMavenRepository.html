@@ -27,59 +27,82 @@
 <span class="sourceLineNo">019</span>package de.mnl.osgi.bnd.maven;<a name="line.19"></a>
 <span class="sourceLineNo">020</span><a name="line.20"></a>
 <span class="sourceLineNo">021</span>import aQute.maven.api.IMavenRepo;<a name="line.21"></a>
-<span class="sourceLineNo">022</span>import aQute.maven.provider.MavenBackingRepository;<a name="line.22"></a>
-<span class="sourceLineNo">023</span>import aQute.maven.provider.MavenRepository;<a name="line.23"></a>
-<span class="sourceLineNo">024</span>import aQute.service.reporter.Reporter;<a name="line.24"></a>
-<span class="sourceLineNo">025</span><a name="line.25"></a>
-<span class="sourceLineNo">026</span>import java.io.Closeable;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>import java.io.File;<a name="line.27"></a>
-<span class="sourceLineNo">028</span>import java.util.ArrayList;<a name="line.28"></a>
-<span class="sourceLineNo">029</span>import java.util.Collection;<a name="line.29"></a>
-<span class="sourceLineNo">030</span>import java.util.List;<a name="line.30"></a>
-<span class="sourceLineNo">031</span>import java.util.concurrent.Executor;<a name="line.31"></a>
-<span class="sourceLineNo">032</span><a name="line.32"></a>
-<span class="sourceLineNo">033</span>import org.slf4j.Logger;<a name="line.33"></a>
-<span class="sourceLineNo">034</span>import org.slf4j.LoggerFactory;<a name="line.34"></a>
-<span class="sourceLineNo">035</span><a name="line.35"></a>
-<span class="sourceLineNo">036</span>/**<a name="line.36"></a>
-<span class="sourceLineNo">037</span> * Provides a common {@link IMavenRepo} view on several <a name="line.37"></a>
-<span class="sourceLineNo">038</span> * {@link MavenBackingRepository} instances.<a name="line.38"></a>
-<span class="sourceLineNo">039</span> * &lt;P&gt;<a name="line.39"></a>
-<span class="sourceLineNo">040</span> * The class extends {@link MavenRepository} which lacks some<a name="line.40"></a>
-<span class="sourceLineNo">041</span> * required functionality.<a name="line.41"></a>
-<span class="sourceLineNo">042</span> */<a name="line.42"></a>
-<span class="sourceLineNo">043</span>public class MergingMavenRepository extends MavenRepository<a name="line.43"></a>
-<span class="sourceLineNo">044</span>        implements IMavenRepo, Closeable {<a name="line.44"></a>
-<span class="sourceLineNo">045</span>    private static final Logger LOG<a name="line.45"></a>
-<span class="sourceLineNo">046</span>        = LoggerFactory.getLogger(MergingMavenRepository.class);<a name="line.46"></a>
-<span class="sourceLineNo">047</span><a name="line.47"></a>
-<span class="sourceLineNo">048</span>    /**<a name="line.48"></a>
-<span class="sourceLineNo">049</span>     * Instantiates a new merged maven repository.<a name="line.49"></a>
-<span class="sourceLineNo">050</span>     *<a name="line.50"></a>
-<span class="sourceLineNo">051</span>     * @param base the base<a name="line.51"></a>
-<span class="sourceLineNo">052</span>     * @param repoId the repository id<a name="line.52"></a>
-<span class="sourceLineNo">053</span>     * @param releaseRepos the backing release repositories<a name="line.53"></a>
-<span class="sourceLineNo">054</span>     * @param snapshotRepos the backing snapshot repositories<a name="line.54"></a>
-<span class="sourceLineNo">055</span>     * @param executor an executor<a name="line.55"></a>
-<span class="sourceLineNo">056</span>     * @throws Exception the exception<a name="line.56"></a>
-<span class="sourceLineNo">057</span>     */<a name="line.57"></a>
-<span class="sourceLineNo">058</span>    @SuppressWarnings("PMD.SignatureDeclareThrowsException")<a name="line.58"></a>
-<span class="sourceLineNo">059</span>    public MergingMavenRepository(File base, String repoId,<a name="line.59"></a>
-<span class="sourceLineNo">060</span>            List&lt;MavenBackingRepository&gt; releaseRepos,<a name="line.60"></a>
-<span class="sourceLineNo">061</span>            List&lt;MavenBackingRepository&gt; snapshotRepos, Executor executor,<a name="line.61"></a>
-<span class="sourceLineNo">062</span>            Reporter reporter)<a name="line.62"></a>
-<span class="sourceLineNo">063</span>            throws Exception {<a name="line.63"></a>
-<span class="sourceLineNo">064</span>        super(base, repoId, releaseRepos, snapshotRepos, executor, reporter);<a name="line.64"></a>
-<span class="sourceLineNo">065</span>    }<a name="line.65"></a>
-<span class="sourceLineNo">066</span><a name="line.66"></a>
-<span class="sourceLineNo">067</span>    public List&lt;MavenBackingRepository&gt; allRepositories() {<a name="line.67"></a>
-<span class="sourceLineNo">068</span>        List&lt;MavenBackingRepository&gt; result<a name="line.68"></a>
-<span class="sourceLineNo">069</span>            = new ArrayList&lt;&gt;(getReleaseRepositories());<a name="line.69"></a>
-<span class="sourceLineNo">070</span>        result.addAll(getSnapshotRepositories());<a name="line.70"></a>
-<span class="sourceLineNo">071</span>        return result;<a name="line.71"></a>
-<span class="sourceLineNo">072</span>    }<a name="line.72"></a>
-<span class="sourceLineNo">073</span><a name="line.73"></a>
-<span class="sourceLineNo">074</span>}<a name="line.74"></a>
+<span class="sourceLineNo">022</span>import aQute.maven.api.Program;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import aQute.maven.api.Revision;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import aQute.maven.provider.MavenBackingRepository;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import aQute.maven.provider.MavenRepository;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import aQute.service.reporter.Reporter;<a name="line.26"></a>
+<span class="sourceLineNo">027</span><a name="line.27"></a>
+<span class="sourceLineNo">028</span>import java.io.Closeable;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>import java.io.File;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import java.util.ArrayList;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import java.util.List;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import java.util.concurrent.Executor;<a name="line.32"></a>
+<span class="sourceLineNo">033</span><a name="line.33"></a>
+<span class="sourceLineNo">034</span>import org.slf4j.Logger;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import org.slf4j.LoggerFactory;<a name="line.35"></a>
+<span class="sourceLineNo">036</span><a name="line.36"></a>
+<span class="sourceLineNo">037</span>/**<a name="line.37"></a>
+<span class="sourceLineNo">038</span> * Provides a common {@link IMavenRepo} view on several <a name="line.38"></a>
+<span class="sourceLineNo">039</span> * {@link MavenBackingRepository} instances.<a name="line.39"></a>
+<span class="sourceLineNo">040</span> * &lt;P&gt;<a name="line.40"></a>
+<span class="sourceLineNo">041</span> * The class extends {@link MavenRepository} which lacks some<a name="line.41"></a>
+<span class="sourceLineNo">042</span> * required functionality.<a name="line.42"></a>
+<span class="sourceLineNo">043</span> */<a name="line.43"></a>
+<span class="sourceLineNo">044</span>public class MergingMavenRepository extends MavenRepository<a name="line.44"></a>
+<span class="sourceLineNo">045</span>        implements IMavenRepo, Closeable {<a name="line.45"></a>
+<span class="sourceLineNo">046</span>    private static final Logger LOG<a name="line.46"></a>
+<span class="sourceLineNo">047</span>        = LoggerFactory.getLogger(MergingMavenRepository.class);<a name="line.47"></a>
+<span class="sourceLineNo">048</span><a name="line.48"></a>
+<span class="sourceLineNo">049</span>    /**<a name="line.49"></a>
+<span class="sourceLineNo">050</span>     * Instantiates a new merged maven repository.<a name="line.50"></a>
+<span class="sourceLineNo">051</span>     *<a name="line.51"></a>
+<span class="sourceLineNo">052</span>     * @param base the base<a name="line.52"></a>
+<span class="sourceLineNo">053</span>     * @param repoId the repository id<a name="line.53"></a>
+<span class="sourceLineNo">054</span>     * @param releaseRepos the backing release repositories<a name="line.54"></a>
+<span class="sourceLineNo">055</span>     * @param snapshotRepos the backing snapshot repositories<a name="line.55"></a>
+<span class="sourceLineNo">056</span>     * @param executor an executor<a name="line.56"></a>
+<span class="sourceLineNo">057</span>     * @throws Exception the exception<a name="line.57"></a>
+<span class="sourceLineNo">058</span>     */<a name="line.58"></a>
+<span class="sourceLineNo">059</span>    @SuppressWarnings("PMD.SignatureDeclareThrowsException")<a name="line.59"></a>
+<span class="sourceLineNo">060</span>    public MergingMavenRepository(File base, String repoId,<a name="line.60"></a>
+<span class="sourceLineNo">061</span>            List&lt;MavenBackingRepository&gt; releaseRepos,<a name="line.61"></a>
+<span class="sourceLineNo">062</span>            List&lt;MavenBackingRepository&gt; snapshotRepos, Executor executor,<a name="line.62"></a>
+<span class="sourceLineNo">063</span>            Reporter reporter)<a name="line.63"></a>
+<span class="sourceLineNo">064</span>            throws Exception {<a name="line.64"></a>
+<span class="sourceLineNo">065</span>        super(base, repoId, releaseRepos, snapshotRepos, executor, reporter);<a name="line.65"></a>
+<span class="sourceLineNo">066</span>    }<a name="line.66"></a>
+<span class="sourceLineNo">067</span><a name="line.67"></a>
+<span class="sourceLineNo">068</span>    public List&lt;MavenBackingRepository&gt; allRepositories() {<a name="line.68"></a>
+<span class="sourceLineNo">069</span>        List&lt;MavenBackingRepository&gt; result<a name="line.69"></a>
+<span class="sourceLineNo">070</span>            = new ArrayList&lt;&gt;(getReleaseRepositories());<a name="line.70"></a>
+<span class="sourceLineNo">071</span>        result.addAll(getSnapshotRepositories());<a name="line.71"></a>
+<span class="sourceLineNo">072</span>        return result;<a name="line.72"></a>
+<span class="sourceLineNo">073</span>    }<a name="line.73"></a>
+<span class="sourceLineNo">074</span><a name="line.74"></a>
+<span class="sourceLineNo">075</span>    public List&lt;ExtRevision&gt; getExtRevisions(Program program) throws Exception {<a name="line.75"></a>
+<span class="sourceLineNo">076</span>        List&lt;ExtRevision&gt; revisions = new ArrayList&lt;&gt;();<a name="line.76"></a>
+<span class="sourceLineNo">077</span><a name="line.77"></a>
+<span class="sourceLineNo">078</span>        for (MavenBackingRepository mbr : getReleaseRepositories()) {<a name="line.78"></a>
+<span class="sourceLineNo">079</span>            addRevisions(mbr, program, revisions);<a name="line.79"></a>
+<span class="sourceLineNo">080</span>        }<a name="line.80"></a>
+<span class="sourceLineNo">081</span>        for (MavenBackingRepository mbr : getSnapshotRepositories()) {<a name="line.81"></a>
+<span class="sourceLineNo">082</span>            if (!getReleaseRepositories().contains(mbr)) {<a name="line.82"></a>
+<span class="sourceLineNo">083</span>                addRevisions(mbr, program, revisions);<a name="line.83"></a>
+<span class="sourceLineNo">084</span>            }<a name="line.84"></a>
+<span class="sourceLineNo">085</span>        }<a name="line.85"></a>
+<span class="sourceLineNo">086</span>        return revisions;<a name="line.86"></a>
+<span class="sourceLineNo">087</span>    }<a name="line.87"></a>
+<span class="sourceLineNo">088</span><a name="line.88"></a>
+<span class="sourceLineNo">089</span>    private void addRevisions(MavenBackingRepository mbr, Program program,<a name="line.89"></a>
+<span class="sourceLineNo">090</span>            List&lt;ExtRevision&gt; revisions) throws Exception {<a name="line.90"></a>
+<span class="sourceLineNo">091</span>        List&lt;Revision&gt; revs = new ArrayList&lt;&gt;();<a name="line.91"></a>
+<span class="sourceLineNo">092</span>        mbr.getRevisions(program, revs);<a name="line.92"></a>
+<span class="sourceLineNo">093</span>        for (Revision rev : revs) {<a name="line.93"></a>
+<span class="sourceLineNo">094</span>            revisions.add(new ExtRevision(mbr, rev));<a name="line.94"></a>
+<span class="sourceLineNo">095</span>        }<a name="line.95"></a>
+<span class="sourceLineNo">096</span>    }<a name="line.96"></a>
+<span class="sourceLineNo">097</span>}<a name="line.97"></a>
 
 
 
