@@ -21,31 +21,24 @@ package de.mnl.osgi.bnd.repository.maven.provider;
 import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.Processor;
 import aQute.bnd.osgi.repository.ResourcesRepository;
-import aQute.bnd.osgi.repository.XMLResourceGenerator;
+import aQute.bnd.osgi.repository.XMLResourceParser;
 import aQute.maven.api.IMavenRepo;
-import aQute.maven.api.IPom;
-import aQute.maven.api.Program;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
-import de.mnl.osgi.bnd.maven.ExtRevision;
 import de.mnl.osgi.bnd.maven.MergingMavenRepository;
-import de.mnl.osgi.bnd.maven.RevisionIndexer;
-import de.mnl.osgi.bnd.maven.RevisionIndexer.IndexedResource;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Queue;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -67,23 +60,20 @@ import org.w3c.dom.Element;
  * Provide an OSGi repository (a collection of {@link Resource}s, see 
  * {@link Repository}), filled with resolved artifacts from given groupIds.
  */
+@SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class IndexedMavenRepository extends ResourcesRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(
         IndexedMavenRepository.class);
     private final String name;
-    private final File indexDbDir;
+    private final Path indexDbDir;
     private final List<URL> releaseUrls;
     private final List<URL> snapshotUrls;
     private final File localRepo;
     private final Reporter reporter;
     private final HttpClient client;
     private final MergingMavenRepository mavenRepository;
-    private final Set<URL> repositoryUrls = new HashSet<>();
-    private final Pattern hrefPattern = Pattern.compile(
-        "<[aA]\\s+(?:[^>]*?\\s+)?href=(?<quote>[\"'])"
-            + "(?<href>[a-zA-Z].*?)\\k<quote>");
-    Map<String, ResourcesRepository> groupRepos = new HashMap<>();
+    private final Map<String, GroupIndexManager> groups = new HashMap<>();
 
     /**
      * Create a new instance that uses the provided information/resources to perform
@@ -98,11 +88,13 @@ public class IndexedMavenRepository extends ResourcesRepository {
      * @param client an HTTP client for obtaining information from the Nexus server
      * @throws Exception the exception
      */
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
+        "PMD.SignatureDeclareThrowsException", "PMD.AvoidDuplicateLiterals" })
     public IndexedMavenRepository(String name, List<URL> releaseUrls,
             List<URL> snapshotUrls, File localRepo, File indexDbDir,
             Reporter reporter, HttpClient client) throws Exception {
         this.name = name;
-        this.indexDbDir = indexDbDir;
+        this.indexDbDir = indexDbDir.toPath();
         this.releaseUrls = releaseUrls;
         this.snapshotUrls = snapshotUrls;
         this.localRepo = localRepo;
@@ -111,22 +103,29 @@ public class IndexedMavenRepository extends ResourcesRepository {
 
         // Check prerequisites
         if (indexDbDir.exists() && !indexDbDir.isDirectory()) {
-            LOG.error(indexDbDir + "must be a directory.");
+            LOG.error("{} must be a directory.", indexDbDir);
             throw new IOException(indexDbDir + "must be a directory.");
         }
         if (!indexDbDir.exists()) {
             indexDbDir.mkdirs();
         }
 
-        // All URLs
-        repositoryUrls.addAll(releaseUrls);
-        repositoryUrls.addAll(snapshotUrls);
-
-        // Our backend
+        // Our repository
         mavenRepository = createMavenRepository();
-        // refresh();
+
+        // Restore
+        File federatedIndex = this.indexDbDir.resolve("index.xml").toFile();
+        if (federatedIndex.canRead()) {
+            try (XMLResourceParser parser
+                = new XMLResourceParser(federatedIndex)) {
+                addAll(parser.parse());
+            } catch (Exception e) {
+                LOG.warn("Cannot parse federated index (ignored).", e);
+            }
+        }
     }
 
+    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
     private MergingMavenRepository createMavenRepository() throws Exception {
         // Create repository from URLs
         List<MavenBackingRepository> releaseBackers = new ArrayList<>();
@@ -158,7 +157,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
      * @return the location
      */
     public final File location() {
-        return indexDbDir;
+        return indexDbDir.toFile();
     }
 
     /**
@@ -167,6 +166,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
      * @return the repository object
      * @throws Exception if a problem occurs
      */
+    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
     public IMavenRepo mavenRepository() throws Exception {
         if (mavenRepository == null) {
             refresh();
@@ -180,75 +180,56 @@ public class IndexedMavenRepository extends ResourcesRepository {
      * @return true if refreshed, false if not refreshed possibly due to error
      * @throws Exception if a problem occurs
      */
+    @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition",
+        "PMD.SignatureDeclareThrowsException" })
     public boolean refresh() throws Exception {
-        for (String groupId : indexDbDir.list()) {
+        Queue<GroupIndexManager> toBeRefreshed = new LinkedList<>();
+        for (String groupId : indexDbDir.toFile().list()) {
             if (!groupId.matches("^[A-Za-z].*")
-                || groupId.equals("index.xml")) {
+                || "index.xml".equals(groupId)) {
                 continue;
             }
-            LOG.debug("Refreshing {}", groupId);
-            ResourcesRepository osgiRepo = new ResourcesRepository();
-            groupRepos.put(groupId, osgiRepo);
-            RevisionIndexer indexer = new RevisionIndexer(mavenRepository,
-                osgiRepo, IndexedResource.REMOTE);
-            Collection<String> artifactIds = findArtifactIds(groupId);
-            for (String artifactId : artifactIds) {
-                if (artifactId.endsWith("/")) {
-                    artifactId
-                        = artifactId.substring(0, artifactId.length() - 1);
-                }
-                Program program = Program.valueOf(groupId, artifactId);
-                List<ExtRevision> revisions
-                    = mavenRepository.getExtRevisions(program);
-                Set<IPom> dependencies = new HashSet<>();
-                indexer.indexRevisions(revisions, dependencies);
+            @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+            GroupIndexManager group = new GroupIndexManager(groupId,
+                indexDbDir.resolve(groupId), mavenRepository, client);
+            groups.put(groupId, group);
+            if (group.isRequested()) {
+                toBeRefreshed.add(group);
             }
-            XMLResourceGenerator generator = new XMLResourceGenerator();
-            generator.resources(osgiRepo.getResources());
-            generator.name(name());
-            generator
-                .save(new File(new File(indexDbDir, groupId), "index.xml"));
+        }
+        while (true) {
+            GroupIndexManager group = toBeRefreshed.poll();
+            if (group == null) {
+                break;
+            }
+            LOG.debug("Refreshing {}", group.id());
+            group.rescan();
         }
         try (OutputStream fos
-            = new FileOutputStream(new File(indexDbDir, "index.xml"))) {
+            = Files.newOutputStream(indexDbDir.resolve("index.xml"))) {
             writeFederatedIndex(fos);
         }
         return true;
-    }
-
-    private Collection<String> findArtifactIds(String dir) throws Exception {
-        Set<String> result = new HashSet<>();
-        for (URL repoUrl : repositoryUrls) {
-            String page = client.build().headers("User-Agent", "Bnd")
-                .get(String.class).go(new URL(repoUrl, dir.replace('.', '/')));
-            if (page == null) {
-                return result;
-            }
-            Matcher matcher = hrefPattern.matcher(page);
-            while (matcher.find()) {
-                result.add(matcher.group("href"));
-            }
-        }
-        return result;
     }
 
     private void writeFederatedIndex(OutputStream out) {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         Document doc;
-        final String repoNs = "http://www.osgi.org/xmlns/repository/v1.0.0";
         try {
             doc = dbf.newDocumentBuilder().newDocument();
         } catch (ParserConfigurationException e) {
             return;
         }
+        @SuppressWarnings("PMD.AvoidFinalLocalVariable")
+        final String repoNs = "http://www.osgi.org/xmlns/repository/v1.0.0";
         // <repository name=... increment=...>
         Element repoNode = doc.createElementNS(repoNs, "repository");
         repoNode.setAttribute("name", name);
         repoNode.setAttribute("increment",
             Long.toString(System.currentTimeMillis()));
         doc.appendChild(repoNode);
-        for (String groupId : groupRepos.keySet()) {
+        for (String groupId : groups.keySet()) {
             // <referral url=...>
             Element referral = doc.createElementNS(repoNs, "referral");
             referral.setAttribute("url", groupId + "/index.xml");
@@ -262,7 +243,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
             DOMSource source = new DOMSource(doc);
             transformer.transform(source, new StreamResult(out));
         } catch (TransformerException e) {
-            // Shouldn't happen
+            LOG.error("Cannot write federated index.", e);
         }
     }
 }

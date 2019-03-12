@@ -24,6 +24,7 @@ import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.bnd.osgi.resource.ResourceBuilder;
 import aQute.maven.api.Archive;
 import aQute.maven.api.IPom;
+import aQute.maven.api.MavenScope;
 import aQute.maven.provider.MavenRepository;
 import aQute.maven.provider.MetadataParser;
 import aQute.maven.provider.MetadataParser.RevisionMetadata;
@@ -31,6 +32,7 @@ import aQute.maven.provider.MetadataParser.RevisionMetadata;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.osgi.resource.Resource;
 
@@ -68,7 +70,7 @@ public class RevisionIndexer {
      * @param dependencies the dependencies
      */
     public void indexRevisions(List<ExtRevision> revisions,
-            Collection<IPom> dependencies) {
+            Consumer<Collection<IPom.Dependency>> dependencyHandler) {
         for (ExtRevision revision : revisions) {
             // Get and add this revision's OSGi information
             Archive archive;
@@ -88,7 +90,16 @@ public class RevisionIndexer {
             try {
                 IPom pom = mavenRepository.getPom(archive.getRevision());
                 if (pom != null) {
-                    dependencies.add(pom);
+                    Collection<IPom.Dependency> deps = pom
+                        .getDependencies(MavenScope.compile, false).values();
+                    if (!deps.isEmpty()) {
+                        dependencyHandler.accept(deps);
+                    }
+                    deps = pom.getDependencies(MavenScope.runtime, false)
+                        .values();
+                    if (!deps.isEmpty()) {
+                        dependencyHandler.accept(deps);
+                    }
                 }
             } catch (Exception e) {
                 // Ignored
