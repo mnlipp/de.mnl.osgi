@@ -31,12 +31,12 @@ import aQute.maven.provider.MavenBackingRepository;
  * because {@link Revision} has only an invisible constructor and can 
  * therefore not be extended. The drawback is that the information
  * about the repository doesn't propagate, i.e. you cannot retrieve
- * it from an {@link Archive} related to this {@link ExtRevision}.
+ * it from an {@link Archive} related to this {@link BoundRevision}.
  * <P>
  * @see <a href="https://github.com/bndtools/bnd/issues/3058">Related 
  * bnd issue</a>
  */
-public class ExtRevision {
+public class BoundRevision {
 
     private final MavenBackingRepository mavenBackingRepository;
     private final Revision revision;
@@ -47,7 +47,7 @@ public class ExtRevision {
      * @param mavenBackingRepository the maven backing repository
      * @param revision the revision
      */
-    public ExtRevision(MavenBackingRepository mavenBackingRepository,
+    public BoundRevision(MavenBackingRepository mavenBackingRepository,
             Revision revision) {
         this.mavenBackingRepository = mavenBackingRepository;
         this.revision = revision;
@@ -186,8 +186,8 @@ public class ExtRevision {
      * @see aQute.maven.api.Revision#equals(java.lang.Object)
      */
     public boolean equals(Object obj) {
-        if (obj instanceof ExtRevision) {
-            return revision.equals(((ExtRevision) obj).revision);
+        if (obj instanceof BoundRevision) {
+            return revision.equals(((BoundRevision) obj).revision);
         }
         return revision.equals(obj);
     }

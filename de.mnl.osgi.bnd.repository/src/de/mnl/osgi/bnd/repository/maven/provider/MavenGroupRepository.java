@@ -26,7 +26,7 @@ import aQute.maven.api.IPom;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
-import de.mnl.osgi.bnd.maven.ExtRevision;
+import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.MergingMavenRepository;
 import de.mnl.osgi.bnd.maven.RevisionIndexer;
 import de.mnl.osgi.bnd.maven.RevisionIndexer.IndexedResource;
@@ -195,9 +195,9 @@ public class MavenGroupRepository extends ResourcesRepository {
             Program program = Program.valueOf(groupId, artifactId);
 
             // Get revisions of program.
-            List<ExtRevision> revisions;
+            List<BoundRevision> revisions;
             try {
-                revisions = mavenRepository.getExtRevisions(program);
+                revisions = mavenRepository.boundRevisions(program);
             } catch (Exception e) {
                 // Strange name in parsed result.
                 LOG.warn("Couldn't get revisions for {}" // NOPMD (constant)
@@ -206,7 +206,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             }
 
             // Index the revisions.
-            for (ExtRevision rev : revisions) {
+            for (BoundRevision rev : revisions) {
                 List<Capability> cap = oldRepo.findProvider(
                     oldRepo.newRequirementBuilder("bnd.info")
                         .addAttribute("from", rev.revision().toString())
@@ -266,7 +266,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         if (mavenRevisions.contains(revision)) {
             return;
         }
-        mavenRepository.toExtRevision(revision).ifPresent(rev -> {
+        mavenRepository.toBoundRevision(revision).ifPresent(rev -> {
             indexer.indexRevision(rev, dependencyHandler);
             mavenRevisions.add(revision);
         });

@@ -76,15 +76,16 @@ public class MergingMavenRepository extends MavenRepository
     }
 
     /**
-     * Returns all known revisions as {@link ExtRevision}s.
+     * Returns all known revisions as {@link BoundRevision}s.
      *
      * @param program the program
-     * @return the ext revisions
+     * @return the bound revisions
      * @throws Exception the exception
      */
     @SuppressWarnings("PMD.SignatureDeclareThrowsException")
-    public List<ExtRevision> getExtRevisions(Program program) throws Exception {
-        List<ExtRevision> revisions = new ArrayList<>();
+    public List<BoundRevision> boundRevisions(Program program)
+            throws Exception {
+        List<BoundRevision> revisions = new ArrayList<>();
 
         for (MavenBackingRepository mbr : getReleaseRepositories()) {
             addRevisions(mbr, program, revisions);
@@ -100,34 +101,35 @@ public class MergingMavenRepository extends MavenRepository
     @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
         "PMD.AvoidInstantiatingObjectsInLoops" })
     private void addRevisions(MavenBackingRepository mbr, Program program,
-            List<ExtRevision> revisions) throws Exception {
+            List<BoundRevision> revisions) throws Exception {
         List<Revision> revs = new ArrayList<>();
         mbr.getRevisions(program, revs);
         for (Revision rev : revs) {
-            revisions.add(new ExtRevision(mbr, rev));
+            revisions.add(new BoundRevision(mbr, rev));
         }
     }
 
     /**
-     * Converts a {@link Revision} to an {@link ExtRevision}.
+     * Converts a {@link Revision} to an {@link BoundRevision}.
      *
      * @param revision the revision
-     * @return the optional
+     * @return the bound revision
      * @throws IOException 
      */
     @SuppressWarnings("PMD.SignatureDeclareThrowsException")
-    public Optional<ExtRevision> toExtRevision(Revision revision)
+    public Optional<BoundRevision> toBoundRevision(Revision revision)
             throws IOException {
         for (MavenBackingRepository mbr : getReleaseRepositories()) {
-            Optional<ExtRevision> checkResult = toExtRevision(mbr, revision);
+            Optional<BoundRevision> checkResult
+                = toBoundRevision(mbr, revision);
             if (checkResult.isPresent()) {
                 return checkResult;
             }
         }
         for (MavenBackingRepository mbr : getSnapshotRepositories()) {
             if (!getReleaseRepositories().contains(mbr)) {
-                Optional<ExtRevision> checkResult
-                    = toExtRevision(mbr, revision);
+                Optional<BoundRevision> checkResult
+                    = toBoundRevision(mbr, revision);
                 if (checkResult.isPresent()) {
                     return checkResult;
                 }
@@ -139,7 +141,7 @@ public class MergingMavenRepository extends MavenRepository
     @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
         "PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException",
         "PMD.AvoidThrowingRawExceptionTypes" })
-    private Optional<ExtRevision> toExtRevision(MavenBackingRepository mbr,
+    private Optional<BoundRevision> toBoundRevision(MavenBackingRepository mbr,
             Revision revision) throws IOException {
         List<Revision> revs = new ArrayList<>();
         try {
@@ -151,7 +153,7 @@ public class MergingMavenRepository extends MavenRepository
             throw new RuntimeException(e);
         }
         if (revs.contains(revision)) {
-            return Optional.of(new ExtRevision(mbr, revision));
+            return Optional.of(new BoundRevision(mbr, revision));
         }
         return Optional.empty();
     }

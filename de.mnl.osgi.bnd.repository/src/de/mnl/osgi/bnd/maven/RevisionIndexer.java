@@ -76,9 +76,9 @@ public class RevisionIndexer {
      * @param revisions the revisions
      * @param dependencies the dependencies
      */
-    public void indexRevisions(List<ExtRevision> revisions,
+    public void indexRevisions(List<BoundRevision> revisions,
             Consumer<Collection<IPom.Dependency>> dependencyHandler) {
-        for (ExtRevision revision : revisions) {
+        for (BoundRevision revision : revisions) {
             indexRevision(revision, dependencyHandler);
         }
     }
@@ -92,7 +92,7 @@ public class RevisionIndexer {
      * @param dependencies the dependencies
      */
 
-    public void indexRevision(ExtRevision revision,
+    public void indexRevision(BoundRevision revision,
             Consumer<Collection<IPom.Dependency>> dependencyHandler) {
         // Get and add this maven revision's OSGi information
         Archive archive;
@@ -134,7 +134,7 @@ public class RevisionIndexer {
         }
     }
 
-    private void refreshSnapshot(Archive archive, ExtRevision revision) {
+    private void refreshSnapshot(Archive archive, BoundRevision revision) {
         File metaFile = mavenRepository.toLocalFile(
             revision.metadata(revision.mavenBackingRepository().getId()));
         RevisionMetadata metaData;
@@ -153,7 +153,7 @@ public class RevisionIndexer {
         }
     }
 
-    private Resource parseResource(ExtRevision revision, Archive archive) {
+    private Resource parseResource(BoundRevision revision, Archive archive) {
         ResourceBuilder builder = new ResourceBuilder();
         try {
             File binary = mavenRepository.get(archive).getValue();
