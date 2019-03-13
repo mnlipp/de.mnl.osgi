@@ -25,7 +25,6 @@ import aQute.bnd.osgi.resource.ResourceBuilder;
 import aQute.maven.api.Archive;
 import aQute.maven.api.IPom;
 import aQute.maven.api.MavenScope;
-import aQute.maven.provider.MavenRepository;
 import aQute.maven.provider.MetadataParser;
 import aQute.maven.provider.MetadataParser.RevisionMetadata;
 import de.mnl.osgi.bnd.repository.maven.provider.MavenGroupRepository;
@@ -56,7 +55,7 @@ public class RevisionIndexer {
     private static final Logger LOG = LoggerFactory.getLogger(
         MavenGroupRepository.class);
 
-    private final MavenRepository mavenRepository;
+    private final CompositeMavenRepository mavenRepository;
     private final ResourcesRepository osgiRepository;
     private final IndexedResource indexedResource;
 
@@ -67,7 +66,7 @@ public class RevisionIndexer {
      * @param osgiRepository the osgi repository
      * @param indexedResource the indexed resource
      */
-    public RevisionIndexer(MavenRepository mavenRepository,
+    public RevisionIndexer(CompositeMavenRepository mavenRepository,
             ResourcesRepository osgiRepository,
             IndexedResource indexedResource) {
         this.mavenRepository = mavenRepository;
@@ -103,10 +102,9 @@ public class RevisionIndexer {
     public void indexRevision(BoundRevision revision,
             Consumer<Collection<IPom.Dependency>> dependencyHandler) {
         // Get and add this maven revision's OSGi information
-        Archive archive;
+        BoundArchive archive;
         try {
-            archive = mavenRepository.getResolvedArchive(revision.revision(),
-                "jar", "");
+            archive = mavenRepository.getResolvedArchive(revision, "jar", "");
             if (archive == null) {
                 return;
             }
@@ -135,7 +133,7 @@ public class RevisionIndexer {
         } catch (Exception e) {
             LOG.error("Problem processing POM of {}.", revision, e);
         }
-        Resource resource = parseResource(revision, archive);
+        Resource resource = parseResource(archive);
         if (resource != null) {
             synchronized (osgiRepository) {
                 osgiRepository.add(resource);
@@ -165,20 +163,20 @@ public class RevisionIndexer {
     }
 
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    private Resource parseResource(BoundRevision revision, Archive archive) {
+    private Resource parseResource(BoundArchive archive) {
         ResourceBuilder builder = new ResourceBuilder();
         try {
             File binary = mavenRepository.get(archive).getValue();
             if (indexedResource == IndexedResource.LOCAL) {
                 builder.addFile(binary, binary.toURI());
             } else {
-                builder.addFile(binary, revision.mavenBackingRepository()
+                builder.addFile(binary, archive.mavenBackingRepository()
                     .toURI(archive.remotePath));
             }
             addInformationCapability(builder, archive.toString(),
                 archive.getRevision().toString(), null);
         } catch (Exception e) {
-            LOG.error("Problem accessing {}.", revision, e);
+            LOG.error("Problem accessing {}.", archive, e);
             return null;
         }
         return builder.build();

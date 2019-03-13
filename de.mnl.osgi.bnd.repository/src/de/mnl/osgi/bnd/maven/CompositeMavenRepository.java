@@ -18,6 +18,7 @@
 
 package de.mnl.osgi.bnd.maven;
 
+import aQute.bnd.version.MavenVersion;
 import aQute.maven.api.IMavenRepo;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
@@ -157,6 +158,46 @@ public class CompositeMavenRepository extends MavenRepository
             return Optional.of(new BoundRevision(mbr, revision));
         }
         return Optional.empty();
+    }
+
+    @Override
+    public BoundArchive getResolvedArchive(Revision revision, String extension,
+            String classifier) throws IOException {
+        Optional<BoundRevision> bound = toBoundRevision(revision);
+        if (bound.isPresent()) {
+            return getResolvedArchive(bound.get(), extension, classifier);
+        }
+        return null;
+    }
+
+    /**
+     * Gets the resolved archive.
+     *
+     * @param revision the revision
+     * @param extension the extension
+     * @param classifier the classifier
+     * @return the resolved archive
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
+        "PMD.AvoidThrowingRawExceptionTypes", "PMD.AvoidRethrowingException" })
+    public BoundArchive getResolvedArchive(BoundRevision revision,
+            String extension, String classifier) throws IOException {
+        if (!revision.isSnapshot()) {
+            return revision.archive(extension, classifier);
+        }
+        try {
+            MavenVersion version = revision.mavenBackingRepository()
+                .getVersion(revision.revision());
+            if (version != null) {
+                return revision.archive(version, extension, classifier);
+            }
+        } catch (IOException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
 }

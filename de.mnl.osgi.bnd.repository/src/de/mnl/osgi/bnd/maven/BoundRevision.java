@@ -31,7 +31,9 @@ import aQute.maven.provider.MavenBackingRepository;
  * because {@link Revision} has only an invisible constructor and can 
  * therefore not be extended. The drawback is that the information
  * about the repository doesn't propagate, i.e. you cannot retrieve
- * it from an {@link Archive} related to this {@link BoundRevision}.
+ * it from an ordinary {@link Archive} related to this 
+ * {@link BoundRevision}. If you need the information, you have to use 
+ * a {@link BoundArchive} instead. 
  * <P>
  * @see <a href="https://github.com/bndtools/bnd/issues/3058">Related 
  * bnd issue</a>
@@ -89,8 +91,8 @@ public class BoundRevision {
      * @return the archive
      * @see aQute.maven.api.Revision#archive(java.lang.String, java.lang.String)
      */
-    public Archive archive(String extension, String classifier) {
-        return revision.archive(extension, classifier);
+    public BoundArchive archive(String extension, String classifier) {
+        return new BoundArchive(this, null, extension, classifier);
     }
 
     /**
@@ -101,9 +103,9 @@ public class BoundRevision {
      * @param classifier the classifier
      * @return the archive
      */
-    public Archive archive(MavenVersion version, String extension,
+    public BoundArchive archive(MavenVersion version, String extension,
             String classifier) {
-        return revision.archive(version, extension, classifier);
+        return new BoundArchive(this, version, extension, classifier);
     }
 
     /**

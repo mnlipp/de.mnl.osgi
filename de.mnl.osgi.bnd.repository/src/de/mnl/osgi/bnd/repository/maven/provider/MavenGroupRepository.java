@@ -34,7 +34,7 @@ import de.mnl.osgi.bnd.maven.RevisionIndexer.IndexedResource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
@@ -197,9 +197,6 @@ public class MavenGroupRepository extends ResourcesRepository {
         mavenRevisions.clear();
         Collection<String> artifactIds = findArtifactIds(groupId);
         for (String artifactId : artifactIds) {
-            if (artifactId.endsWith("/")) {
-                artifactId = artifactId.substring(0, artifactId.length() - 1);
-            }
             Program program = Program.valueOf(groupId, artifactId);
 
             // Get revisions of program.
@@ -232,26 +229,33 @@ public class MavenGroupRepository extends ResourcesRepository {
         indexChanged = true;
     }
 
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
+        "PMD.AvoidInstantiatingObjectsInLoops" })
     private Collection<String> findArtifactIds(String dir) {
         Set<String> result = new HashSet<>();
         for (MavenBackingRepository repo : mavenRepository.allRepositories()) {
-            URL repoUrl = null;
+            URI groupUri = null;
             try {
-                repoUrl = repo.toURI("").toURL();
-                @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+                groupUri = repo.toURI("").resolve(dir.replace('.', '/') + "/");
                 String page = client.build().headers("User-Agent", "Bnd")
                     .get(String.class)
-                    .go(new URL(repoUrl, dir.replace('.', '/')));
+                    .go(groupUri);
                 if (page == null) {
                     continue;
                 }
                 Matcher matcher = hrefPattern.matcher(page);
                 while (matcher.find()) {
-                    result.add(matcher.group("href"));
+                    URI programUri = groupUri.resolve(matcher.group("href"));
+                    String artifactId = programUri.getPath()
+                        .substring(groupUri.getPath().length());
+                    if (artifactId.endsWith("/")) {
+                        artifactId
+                            = artifactId.substring(0, artifactId.length() - 1);
+                    }
+                    result.add(artifactId);
                 }
             } catch (Exception e) {
-                LOG.warn("Problem retrieving {}, skipped.", repoUrl, e);
+                LOG.warn("Problem retrieving {}, skipped.", groupUri, e);
             }
         }
         return result;
