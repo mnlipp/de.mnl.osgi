@@ -36,150 +36,163 @@
 <span class="sourceLineNo">028</span>import aQute.maven.provider.MavenRepository;<a name="line.28"></a>
 <span class="sourceLineNo">029</span>import aQute.maven.provider.MetadataParser;<a name="line.29"></a>
 <span class="sourceLineNo">030</span>import aQute.maven.provider.MetadataParser.RevisionMetadata;<a name="line.30"></a>
-<span class="sourceLineNo">031</span><a name="line.31"></a>
-<span class="sourceLineNo">032</span>import java.io.File;<a name="line.32"></a>
-<span class="sourceLineNo">033</span>import java.util.Collection;<a name="line.33"></a>
-<span class="sourceLineNo">034</span>import java.util.List;<a name="line.34"></a>
-<span class="sourceLineNo">035</span>import java.util.function.Consumer;<a name="line.35"></a>
-<span class="sourceLineNo">036</span><a name="line.36"></a>
-<span class="sourceLineNo">037</span>import org.osgi.resource.Resource;<a name="line.37"></a>
-<span class="sourceLineNo">038</span><a name="line.38"></a>
-<span class="sourceLineNo">039</span>/**<a name="line.39"></a>
-<span class="sourceLineNo">040</span> * Provides a processor for adding a maven resource to<a name="line.40"></a>
-<span class="sourceLineNo">041</span> * an OSGi repository.<a name="line.41"></a>
-<span class="sourceLineNo">042</span> */<a name="line.42"></a>
-<span class="sourceLineNo">043</span>public class RevisionIndexer {<a name="line.43"></a>
-<span class="sourceLineNo">044</span><a name="line.44"></a>
-<span class="sourceLineNo">045</span>    /**<a name="line.45"></a>
-<span class="sourceLineNo">046</span>     * Use local or remote URL in index.<a name="line.46"></a>
-<span class="sourceLineNo">047</span>     */<a name="line.47"></a>
-<span class="sourceLineNo">048</span>    public enum IndexedResource {<a name="line.48"></a>
-<span class="sourceLineNo">049</span>        LOCAL, REMOTE<a name="line.49"></a>
-<span class="sourceLineNo">050</span>    }<a name="line.50"></a>
-<span class="sourceLineNo">051</span><a name="line.51"></a>
-<span class="sourceLineNo">052</span>    private final MavenRepository mavenRepository;<a name="line.52"></a>
-<span class="sourceLineNo">053</span>    private final ResourcesRepository osgiRepository;<a name="line.53"></a>
-<span class="sourceLineNo">054</span>    private final IndexedResource indexedResource;<a name="line.54"></a>
+<span class="sourceLineNo">031</span>import de.mnl.osgi.bnd.repository.maven.provider.MavenGroupRepository;<a name="line.31"></a>
+<span class="sourceLineNo">032</span><a name="line.32"></a>
+<span class="sourceLineNo">033</span>import java.io.File;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>import java.util.Collection;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import java.util.List;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import java.util.function.Consumer;<a name="line.36"></a>
+<span class="sourceLineNo">037</span><a name="line.37"></a>
+<span class="sourceLineNo">038</span>import org.osgi.resource.Resource;<a name="line.38"></a>
+<span class="sourceLineNo">039</span>import org.slf4j.Logger;<a name="line.39"></a>
+<span class="sourceLineNo">040</span>import org.slf4j.LoggerFactory;<a name="line.40"></a>
+<span class="sourceLineNo">041</span><a name="line.41"></a>
+<span class="sourceLineNo">042</span>/**<a name="line.42"></a>
+<span class="sourceLineNo">043</span> * Provides a processor for adding a maven resource to<a name="line.43"></a>
+<span class="sourceLineNo">044</span> * an OSGi repository.<a name="line.44"></a>
+<span class="sourceLineNo">045</span> */<a name="line.45"></a>
+<span class="sourceLineNo">046</span>@SuppressWarnings("PMD.DataflowAnomalyAnalysis")<a name="line.46"></a>
+<span class="sourceLineNo">047</span>public class RevisionIndexer {<a name="line.47"></a>
+<span class="sourceLineNo">048</span><a name="line.48"></a>
+<span class="sourceLineNo">049</span>    /**<a name="line.49"></a>
+<span class="sourceLineNo">050</span>     * Use local or remote URL in index.<a name="line.50"></a>
+<span class="sourceLineNo">051</span>     */<a name="line.51"></a>
+<span class="sourceLineNo">052</span>    public enum IndexedResource {<a name="line.52"></a>
+<span class="sourceLineNo">053</span>        LOCAL, REMOTE<a name="line.53"></a>
+<span class="sourceLineNo">054</span>    }<a name="line.54"></a>
 <span class="sourceLineNo">055</span><a name="line.55"></a>
-<span class="sourceLineNo">056</span>    /**<a name="line.56"></a>
-<span class="sourceLineNo">057</span>     * Instantiates a new revision indexer.<a name="line.57"></a>
-<span class="sourceLineNo">058</span>     *<a name="line.58"></a>
-<span class="sourceLineNo">059</span>     * @param mavenRepository the maven repository<a name="line.59"></a>
-<span class="sourceLineNo">060</span>     * @param osgiRepository the osgi repository<a name="line.60"></a>
-<span class="sourceLineNo">061</span>     * @param indexedResource the indexed resource<a name="line.61"></a>
-<span class="sourceLineNo">062</span>     */<a name="line.62"></a>
-<span class="sourceLineNo">063</span>    public RevisionIndexer(MavenRepository mavenRepository,<a name="line.63"></a>
-<span class="sourceLineNo">064</span>            ResourcesRepository osgiRepository,<a name="line.64"></a>
-<span class="sourceLineNo">065</span>            IndexedResource indexedResource) {<a name="line.65"></a>
-<span class="sourceLineNo">066</span>        this.mavenRepository = mavenRepository;<a name="line.66"></a>
-<span class="sourceLineNo">067</span>        this.osgiRepository = osgiRepository;<a name="line.67"></a>
-<span class="sourceLineNo">068</span>        this.indexedResource = indexedResource;<a name="line.68"></a>
-<span class="sourceLineNo">069</span>    }<a name="line.69"></a>
-<span class="sourceLineNo">070</span><a name="line.70"></a>
-<span class="sourceLineNo">071</span>    /**<a name="line.71"></a>
-<span class="sourceLineNo">072</span>     * Indexes the given revisions and adds the results to<a name="line.72"></a>
-<span class="sourceLineNo">073</span>     * the OSGi repository. The dependencies of the indexed<a name="line.73"></a>
-<span class="sourceLineNo">074</span>     * revisions are collected in {@code dependencies}.  <a name="line.74"></a>
-<span class="sourceLineNo">075</span>     *<a name="line.75"></a>
-<span class="sourceLineNo">076</span>     * @param revisions the revisions<a name="line.76"></a>
-<span class="sourceLineNo">077</span>     * @param dependencyHandler the dependency handler<a name="line.77"></a>
-<span class="sourceLineNo">078</span>     */<a name="line.78"></a>
-<span class="sourceLineNo">079</span>    public void indexRevisions(List&lt;BoundRevision&gt; revisions,<a name="line.79"></a>
-<span class="sourceLineNo">080</span>            Consumer&lt;Collection&lt;IPom.Dependency&gt;&gt; dependencyHandler) {<a name="line.80"></a>
-<span class="sourceLineNo">081</span>        for (BoundRevision revision : revisions) {<a name="line.81"></a>
-<span class="sourceLineNo">082</span>            indexRevision(revision, dependencyHandler);<a name="line.82"></a>
-<span class="sourceLineNo">083</span>        }<a name="line.83"></a>
-<span class="sourceLineNo">084</span>    }<a name="line.84"></a>
-<span class="sourceLineNo">085</span><a name="line.85"></a>
-<span class="sourceLineNo">086</span>    /**<a name="line.86"></a>
-<span class="sourceLineNo">087</span>     * Indexes the given revision and adds the results to<a name="line.87"></a>
-<span class="sourceLineNo">088</span>     * the OSGi repository. The dependencies of the indexed<a name="line.88"></a>
-<span class="sourceLineNo">089</span>     * revisions are collected in {@code dependencies}.  <a name="line.89"></a>
-<span class="sourceLineNo">090</span>     *<a name="line.90"></a>
-<span class="sourceLineNo">091</span>     * @param revision the revision<a name="line.91"></a>
-<span class="sourceLineNo">092</span>     * @param dependencyHandler the dependency handler<a name="line.92"></a>
-<span class="sourceLineNo">093</span>     */<a name="line.93"></a>
-<span class="sourceLineNo">094</span><a name="line.94"></a>
-<span class="sourceLineNo">095</span>    public void indexRevision(BoundRevision revision,<a name="line.95"></a>
-<span class="sourceLineNo">096</span>            Consumer&lt;Collection&lt;IPom.Dependency&gt;&gt; dependencyHandler) {<a name="line.96"></a>
-<span class="sourceLineNo">097</span>        // Get and add this maven revision's OSGi information<a name="line.97"></a>
-<span class="sourceLineNo">098</span>        Archive archive;<a name="line.98"></a>
-<span class="sourceLineNo">099</span>        try {<a name="line.99"></a>
-<span class="sourceLineNo">100</span>            archive = mavenRepository.getResolvedArchive(revision.revision(),<a name="line.100"></a>
-<span class="sourceLineNo">101</span>                "jar", "");<a name="line.101"></a>
-<span class="sourceLineNo">102</span>            if (archive == null) {<a name="line.102"></a>
-<span class="sourceLineNo">103</span>                return;<a name="line.103"></a>
-<span class="sourceLineNo">104</span>            }<a name="line.104"></a>
-<span class="sourceLineNo">105</span>        } catch (Exception e) {<a name="line.105"></a>
-<span class="sourceLineNo">106</span>            return;<a name="line.106"></a>
-<span class="sourceLineNo">107</span>        }<a name="line.107"></a>
-<span class="sourceLineNo">108</span>        if (archive.isSnapshot()) {<a name="line.108"></a>
-<span class="sourceLineNo">109</span>            refreshSnapshot(archive, revision);<a name="line.109"></a>
-<span class="sourceLineNo">110</span>        }<a name="line.110"></a>
-<span class="sourceLineNo">111</span>        // Get POM for dependencies<a name="line.111"></a>
-<span class="sourceLineNo">112</span>        try {<a name="line.112"></a>
-<span class="sourceLineNo">113</span>            IPom pom = mavenRepository.getPom(archive.getRevision());<a name="line.113"></a>
-<span class="sourceLineNo">114</span>            if (pom != null) {<a name="line.114"></a>
-<span class="sourceLineNo">115</span>                Collection&lt;IPom.Dependency&gt; deps = pom<a name="line.115"></a>
-<span class="sourceLineNo">116</span>                    .getDependencies(MavenScope.compile, false).values();<a name="line.116"></a>
-<span class="sourceLineNo">117</span>                if (!deps.isEmpty()) {<a name="line.117"></a>
-<span class="sourceLineNo">118</span>                    dependencyHandler.accept(deps);<a name="line.118"></a>
-<span class="sourceLineNo">119</span>                }<a name="line.119"></a>
-<span class="sourceLineNo">120</span>                deps = pom.getDependencies(MavenScope.runtime, false)<a name="line.120"></a>
-<span class="sourceLineNo">121</span>                    .values();<a name="line.121"></a>
-<span class="sourceLineNo">122</span>                if (!deps.isEmpty()) {<a name="line.122"></a>
-<span class="sourceLineNo">123</span>                    dependencyHandler.accept(deps);<a name="line.123"></a>
-<span class="sourceLineNo">124</span>                }<a name="line.124"></a>
-<span class="sourceLineNo">125</span>            }<a name="line.125"></a>
-<span class="sourceLineNo">126</span>        } catch (Exception e) {<a name="line.126"></a>
-<span class="sourceLineNo">127</span>            // Ignored<a name="line.127"></a>
-<span class="sourceLineNo">128</span>        }<a name="line.128"></a>
-<span class="sourceLineNo">129</span>        Resource resource = parseResource(revision, archive);<a name="line.129"></a>
-<span class="sourceLineNo">130</span>        if (resource != null) {<a name="line.130"></a>
-<span class="sourceLineNo">131</span>            synchronized (osgiRepository) {<a name="line.131"></a>
-<span class="sourceLineNo">132</span>                osgiRepository.add(resource);<a name="line.132"></a>
-<span class="sourceLineNo">133</span>            }<a name="line.133"></a>
-<span class="sourceLineNo">134</span>        }<a name="line.134"></a>
-<span class="sourceLineNo">135</span>    }<a name="line.135"></a>
-<span class="sourceLineNo">136</span><a name="line.136"></a>
-<span class="sourceLineNo">137</span>    private void refreshSnapshot(Archive archive, BoundRevision revision) {<a name="line.137"></a>
-<span class="sourceLineNo">138</span>        File metaFile = mavenRepository.toLocalFile(<a name="line.138"></a>
-<span class="sourceLineNo">139</span>            revision.metadata(revision.mavenBackingRepository().getId()));<a name="line.139"></a>
-<span class="sourceLineNo">140</span>        RevisionMetadata metaData;<a name="line.140"></a>
-<span class="sourceLineNo">141</span>        try {<a name="line.141"></a>
-<span class="sourceLineNo">142</span>            metaData = MetadataParser.parseRevisionMetadata(metaFile);<a name="line.142"></a>
-<span class="sourceLineNo">143</span>        } catch (Exception e) {<a name="line.143"></a>
-<span class="sourceLineNo">144</span>            return;<a name="line.144"></a>
-<span class="sourceLineNo">145</span>        }<a name="line.145"></a>
-<span class="sourceLineNo">146</span>        File archiveFile = mavenRepository.toLocalFile(archive);<a name="line.146"></a>
-<span class="sourceLineNo">147</span>        if (archiveFile.lastModified() &lt; metaData.lastUpdated) {<a name="line.147"></a>
-<span class="sourceLineNo">148</span>            archiveFile.delete();<a name="line.148"></a>
-<span class="sourceLineNo">149</span>        }<a name="line.149"></a>
-<span class="sourceLineNo">150</span>        File pomFile = mavenRepository.toLocalFile(archive.getPomArchive());<a name="line.150"></a>
-<span class="sourceLineNo">151</span>        if (pomFile.lastModified() &lt; metaData.lastUpdated) {<a name="line.151"></a>
-<span class="sourceLineNo">152</span>            pomFile.delete();<a name="line.152"></a>
-<span class="sourceLineNo">153</span>        }<a name="line.153"></a>
-<span class="sourceLineNo">154</span>    }<a name="line.154"></a>
-<span class="sourceLineNo">155</span><a name="line.155"></a>
-<span class="sourceLineNo">156</span>    private Resource parseResource(BoundRevision revision, Archive archive) {<a name="line.156"></a>
-<span class="sourceLineNo">157</span>        ResourceBuilder builder = new ResourceBuilder();<a name="line.157"></a>
-<span class="sourceLineNo">158</span>        try {<a name="line.158"></a>
-<span class="sourceLineNo">159</span>            File binary = mavenRepository.get(archive).getValue();<a name="line.159"></a>
-<span class="sourceLineNo">160</span>            if (indexedResource == IndexedResource.LOCAL) {<a name="line.160"></a>
-<span class="sourceLineNo">161</span>                builder.addFile(binary, binary.toURI());<a name="line.161"></a>
-<span class="sourceLineNo">162</span>            } else {<a name="line.162"></a>
-<span class="sourceLineNo">163</span>                builder.addFile(binary, revision.mavenBackingRepository()<a name="line.163"></a>
-<span class="sourceLineNo">164</span>                    .toURI(archive.remotePath));<a name="line.164"></a>
-<span class="sourceLineNo">165</span>            }<a name="line.165"></a>
-<span class="sourceLineNo">166</span>            addInformationCapability(builder, archive.toString(),<a name="line.166"></a>
-<span class="sourceLineNo">167</span>                archive.getRevision().toString(), null);<a name="line.167"></a>
-<span class="sourceLineNo">168</span>        } catch (Exception e) {<a name="line.168"></a>
-<span class="sourceLineNo">169</span>            return null;<a name="line.169"></a>
-<span class="sourceLineNo">170</span>        }<a name="line.170"></a>
-<span class="sourceLineNo">171</span>        return builder.build();<a name="line.171"></a>
-<span class="sourceLineNo">172</span>    }<a name="line.172"></a>
-<span class="sourceLineNo">173</span><a name="line.173"></a>
-<span class="sourceLineNo">174</span>}<a name="line.174"></a>
+<span class="sourceLineNo">056</span>    private static final Logger LOG = LoggerFactory.getLogger(<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        MavenGroupRepository.class);<a name="line.57"></a>
+<span class="sourceLineNo">058</span><a name="line.58"></a>
+<span class="sourceLineNo">059</span>    private final MavenRepository mavenRepository;<a name="line.59"></a>
+<span class="sourceLineNo">060</span>    private final ResourcesRepository osgiRepository;<a name="line.60"></a>
+<span class="sourceLineNo">061</span>    private final IndexedResource indexedResource;<a name="line.61"></a>
+<span class="sourceLineNo">062</span><a name="line.62"></a>
+<span class="sourceLineNo">063</span>    /**<a name="line.63"></a>
+<span class="sourceLineNo">064</span>     * Instantiates a new revision indexer.<a name="line.64"></a>
+<span class="sourceLineNo">065</span>     *<a name="line.65"></a>
+<span class="sourceLineNo">066</span>     * @param mavenRepository the maven repository<a name="line.66"></a>
+<span class="sourceLineNo">067</span>     * @param osgiRepository the osgi repository<a name="line.67"></a>
+<span class="sourceLineNo">068</span>     * @param indexedResource the indexed resource<a name="line.68"></a>
+<span class="sourceLineNo">069</span>     */<a name="line.69"></a>
+<span class="sourceLineNo">070</span>    public RevisionIndexer(MavenRepository mavenRepository,<a name="line.70"></a>
+<span class="sourceLineNo">071</span>            ResourcesRepository osgiRepository,<a name="line.71"></a>
+<span class="sourceLineNo">072</span>            IndexedResource indexedResource) {<a name="line.72"></a>
+<span class="sourceLineNo">073</span>        this.mavenRepository = mavenRepository;<a name="line.73"></a>
+<span class="sourceLineNo">074</span>        this.osgiRepository = osgiRepository;<a name="line.74"></a>
+<span class="sourceLineNo">075</span>        this.indexedResource = indexedResource;<a name="line.75"></a>
+<span class="sourceLineNo">076</span>    }<a name="line.76"></a>
+<span class="sourceLineNo">077</span><a name="line.77"></a>
+<span class="sourceLineNo">078</span>    /**<a name="line.78"></a>
+<span class="sourceLineNo">079</span>     * Indexes the given revisions and adds the results to<a name="line.79"></a>
+<span class="sourceLineNo">080</span>     * the OSGi repository. The dependencies of the indexed<a name="line.80"></a>
+<span class="sourceLineNo">081</span>     * revisions are collected in {@code dependencies}.  <a name="line.81"></a>
+<span class="sourceLineNo">082</span>     *<a name="line.82"></a>
+<span class="sourceLineNo">083</span>     * @param revisions the revisions<a name="line.83"></a>
+<span class="sourceLineNo">084</span>     * @param dependencyHandler the dependency handler<a name="line.84"></a>
+<span class="sourceLineNo">085</span>     */<a name="line.85"></a>
+<span class="sourceLineNo">086</span>    public void indexRevisions(List&lt;BoundRevision&gt; revisions,<a name="line.86"></a>
+<span class="sourceLineNo">087</span>            Consumer&lt;Collection&lt;IPom.Dependency&gt;&gt; dependencyHandler) {<a name="line.87"></a>
+<span class="sourceLineNo">088</span>        for (BoundRevision revision : revisions) {<a name="line.88"></a>
+<span class="sourceLineNo">089</span>            indexRevision(revision, dependencyHandler);<a name="line.89"></a>
+<span class="sourceLineNo">090</span>        }<a name="line.90"></a>
+<span class="sourceLineNo">091</span>    }<a name="line.91"></a>
+<span class="sourceLineNo">092</span><a name="line.92"></a>
+<span class="sourceLineNo">093</span>    /**<a name="line.93"></a>
+<span class="sourceLineNo">094</span>     * Indexes the given revision and adds the results to<a name="line.94"></a>
+<span class="sourceLineNo">095</span>     * the OSGi repository. The dependencies of the indexed<a name="line.95"></a>
+<span class="sourceLineNo">096</span>     * revisions are collected in {@code dependencies}.  <a name="line.96"></a>
+<span class="sourceLineNo">097</span>     *<a name="line.97"></a>
+<span class="sourceLineNo">098</span>     * @param revision the revision<a name="line.98"></a>
+<span class="sourceLineNo">099</span>     * @param dependencyHandler the dependency handler<a name="line.99"></a>
+<span class="sourceLineNo">100</span>     */<a name="line.100"></a>
+<span class="sourceLineNo">101</span><a name="line.101"></a>
+<span class="sourceLineNo">102</span>    @SuppressWarnings("PMD.AvoidCatchingGenericException")<a name="line.102"></a>
+<span class="sourceLineNo">103</span>    public void indexRevision(BoundRevision revision,<a name="line.103"></a>
+<span class="sourceLineNo">104</span>            Consumer&lt;Collection&lt;IPom.Dependency&gt;&gt; dependencyHandler) {<a name="line.104"></a>
+<span class="sourceLineNo">105</span>        // Get and add this maven revision's OSGi information<a name="line.105"></a>
+<span class="sourceLineNo">106</span>        Archive archive;<a name="line.106"></a>
+<span class="sourceLineNo">107</span>        try {<a name="line.107"></a>
+<span class="sourceLineNo">108</span>            archive = mavenRepository.getResolvedArchive(revision.revision(),<a name="line.108"></a>
+<span class="sourceLineNo">109</span>                "jar", "");<a name="line.109"></a>
+<span class="sourceLineNo">110</span>            if (archive == null) {<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                return;<a name="line.111"></a>
+<span class="sourceLineNo">112</span>            }<a name="line.112"></a>
+<span class="sourceLineNo">113</span>        } catch (Exception e) {<a name="line.113"></a>
+<span class="sourceLineNo">114</span>            LOG.error("Problem resolving archive for {}.", revision, e);<a name="line.114"></a>
+<span class="sourceLineNo">115</span>            return;<a name="line.115"></a>
+<span class="sourceLineNo">116</span>        }<a name="line.116"></a>
+<span class="sourceLineNo">117</span>        if (archive.isSnapshot()) {<a name="line.117"></a>
+<span class="sourceLineNo">118</span>            refreshSnapshot(archive, revision);<a name="line.118"></a>
+<span class="sourceLineNo">119</span>        }<a name="line.119"></a>
+<span class="sourceLineNo">120</span>        // Get POM for dependencies<a name="line.120"></a>
+<span class="sourceLineNo">121</span>        try {<a name="line.121"></a>
+<span class="sourceLineNo">122</span>            IPom pom = mavenRepository.getPom(archive.getRevision());<a name="line.122"></a>
+<span class="sourceLineNo">123</span>            if (pom != null) {<a name="line.123"></a>
+<span class="sourceLineNo">124</span>                Collection&lt;IPom.Dependency&gt; deps = pom<a name="line.124"></a>
+<span class="sourceLineNo">125</span>                    .getDependencies(MavenScope.compile, false).values();<a name="line.125"></a>
+<span class="sourceLineNo">126</span>                if (!deps.isEmpty()) {<a name="line.126"></a>
+<span class="sourceLineNo">127</span>                    dependencyHandler.accept(deps);<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                }<a name="line.128"></a>
+<span class="sourceLineNo">129</span>                deps = pom.getDependencies(MavenScope.runtime, false)<a name="line.129"></a>
+<span class="sourceLineNo">130</span>                    .values();<a name="line.130"></a>
+<span class="sourceLineNo">131</span>                if (!deps.isEmpty()) {<a name="line.131"></a>
+<span class="sourceLineNo">132</span>                    dependencyHandler.accept(deps);<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                }<a name="line.133"></a>
+<span class="sourceLineNo">134</span>            }<a name="line.134"></a>
+<span class="sourceLineNo">135</span>        } catch (Exception e) {<a name="line.135"></a>
+<span class="sourceLineNo">136</span>            LOG.error("Problem processing POM of {}.", revision, e);<a name="line.136"></a>
+<span class="sourceLineNo">137</span>        }<a name="line.137"></a>
+<span class="sourceLineNo">138</span>        Resource resource = parseResource(revision, archive);<a name="line.138"></a>
+<span class="sourceLineNo">139</span>        if (resource != null) {<a name="line.139"></a>
+<span class="sourceLineNo">140</span>            synchronized (osgiRepository) {<a name="line.140"></a>
+<span class="sourceLineNo">141</span>                osgiRepository.add(resource);<a name="line.141"></a>
+<span class="sourceLineNo">142</span>            }<a name="line.142"></a>
+<span class="sourceLineNo">143</span>        }<a name="line.143"></a>
+<span class="sourceLineNo">144</span>    }<a name="line.144"></a>
+<span class="sourceLineNo">145</span><a name="line.145"></a>
+<span class="sourceLineNo">146</span>    @SuppressWarnings("PMD.AvoidCatchingGenericException")<a name="line.146"></a>
+<span class="sourceLineNo">147</span>    private void refreshSnapshot(Archive archive, BoundRevision revision) {<a name="line.147"></a>
+<span class="sourceLineNo">148</span>        File metaFile = mavenRepository.toLocalFile(<a name="line.148"></a>
+<span class="sourceLineNo">149</span>            revision.metadata(revision.mavenBackingRepository().getId()));<a name="line.149"></a>
+<span class="sourceLineNo">150</span>        RevisionMetadata metaData;<a name="line.150"></a>
+<span class="sourceLineNo">151</span>        try {<a name="line.151"></a>
+<span class="sourceLineNo">152</span>            metaData = MetadataParser.parseRevisionMetadata(metaFile);<a name="line.152"></a>
+<span class="sourceLineNo">153</span>        } catch (Exception e) {<a name="line.153"></a>
+<span class="sourceLineNo">154</span>            LOG.error("Problem accessing {}.", revision, e);<a name="line.154"></a>
+<span class="sourceLineNo">155</span>            return;<a name="line.155"></a>
+<span class="sourceLineNo">156</span>        }<a name="line.156"></a>
+<span class="sourceLineNo">157</span>        File archiveFile = mavenRepository.toLocalFile(archive);<a name="line.157"></a>
+<span class="sourceLineNo">158</span>        if (archiveFile.lastModified() &lt; metaData.lastUpdated) {<a name="line.158"></a>
+<span class="sourceLineNo">159</span>            archiveFile.delete();<a name="line.159"></a>
+<span class="sourceLineNo">160</span>        }<a name="line.160"></a>
+<span class="sourceLineNo">161</span>        File pomFile = mavenRepository.toLocalFile(archive.getPomArchive());<a name="line.161"></a>
+<span class="sourceLineNo">162</span>        if (pomFile.lastModified() &lt; metaData.lastUpdated) {<a name="line.162"></a>
+<span class="sourceLineNo">163</span>            pomFile.delete();<a name="line.163"></a>
+<span class="sourceLineNo">164</span>        }<a name="line.164"></a>
+<span class="sourceLineNo">165</span>    }<a name="line.165"></a>
+<span class="sourceLineNo">166</span><a name="line.166"></a>
+<span class="sourceLineNo">167</span>    @SuppressWarnings("PMD.AvoidCatchingGenericException")<a name="line.167"></a>
+<span class="sourceLineNo">168</span>    private Resource parseResource(BoundRevision revision, Archive archive) {<a name="line.168"></a>
+<span class="sourceLineNo">169</span>        ResourceBuilder builder = new ResourceBuilder();<a name="line.169"></a>
+<span class="sourceLineNo">170</span>        try {<a name="line.170"></a>
+<span class="sourceLineNo">171</span>            File binary = mavenRepository.get(archive).getValue();<a name="line.171"></a>
+<span class="sourceLineNo">172</span>            if (indexedResource == IndexedResource.LOCAL) {<a name="line.172"></a>
+<span class="sourceLineNo">173</span>                builder.addFile(binary, binary.toURI());<a name="line.173"></a>
+<span class="sourceLineNo">174</span>            } else {<a name="line.174"></a>
+<span class="sourceLineNo">175</span>                builder.addFile(binary, revision.mavenBackingRepository()<a name="line.175"></a>
+<span class="sourceLineNo">176</span>                    .toURI(archive.remotePath));<a name="line.176"></a>
+<span class="sourceLineNo">177</span>            }<a name="line.177"></a>
+<span class="sourceLineNo">178</span>            addInformationCapability(builder, archive.toString(),<a name="line.178"></a>
+<span class="sourceLineNo">179</span>                archive.getRevision().toString(), null);<a name="line.179"></a>
+<span class="sourceLineNo">180</span>        } catch (Exception e) {<a name="line.180"></a>
+<span class="sourceLineNo">181</span>            LOG.error("Problem accessing {}.", revision, e);<a name="line.181"></a>
+<span class="sourceLineNo">182</span>            return null;<a name="line.182"></a>
+<span class="sourceLineNo">183</span>        }<a name="line.183"></a>
+<span class="sourceLineNo">184</span>        return builder.build();<a name="line.184"></a>
+<span class="sourceLineNo">185</span>    }<a name="line.185"></a>
+<span class="sourceLineNo">186</span><a name="line.186"></a>
+<span class="sourceLineNo">187</span>}<a name="line.187"></a>
 
 
 
