@@ -24,7 +24,7 @@ import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 
 /**
- * A revision with the a reference to the maven repository
+ * A revision with a reference to the maven repository
  * in which it was found.
  * <P>
  * This class resorts to a delegation pattern as second best solution,
