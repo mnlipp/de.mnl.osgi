@@ -77,8 +77,11 @@ public class MavenGroupRepository extends ResourcesRepository {
     /**
      * Instantiates a new representation of group data backed
      * by the specified directory. 
-     * 
-     * @param directory the directory
+     *
+     * @param groupId the maven groupId indexed by this repository
+     * @param directory the directory used to persist data
+     * @param mavenRepository the maven repository
+     * @param client the client used for remote access
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings("PMD.ConfusingTernary")
@@ -178,7 +181,12 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
-     * Refresh.
+     * Refresh the repository. This retrieves the list of known
+     * artifactIds from the remote repository and adds the
+     * versions. For versions already in the repository, the
+     * existing information is re-used.  
+     *
+     * @param dependencyHandler the dependency handler
      */
     @SuppressWarnings({ "PMD.AvoidReassigningLoopVariables",
         "PMD.AvoidCatchingGenericException" })

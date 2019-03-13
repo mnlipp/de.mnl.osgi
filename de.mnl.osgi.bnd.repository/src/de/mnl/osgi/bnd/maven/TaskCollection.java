@@ -64,6 +64,7 @@ public class TaskCollection {
     /**
      * Submit the given task.
      *
+     * @param <T> the generic type
      * @param task the task
      * @return the future
      */

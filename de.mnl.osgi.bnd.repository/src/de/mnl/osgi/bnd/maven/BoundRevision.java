@@ -129,7 +129,10 @@ public class BoundRevision {
     }
 
     /**
-     * @return
+     * Returns the revision with the origin repository attached in
+     * square brackets.
+     * 
+     * @return the string representation
      * @see aQute.maven.api.Revision#toString()
      */
     public String toString() {

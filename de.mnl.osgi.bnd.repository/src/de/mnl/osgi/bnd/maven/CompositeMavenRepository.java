@@ -51,6 +51,7 @@ public class CompositeMavenRepository extends MavenRepository
      * @param releaseRepos the backing release repositories
      * @param snapshotRepos the backing snapshot repositories
      * @param executor an executor
+     * @param reporter the reporter
      * @throws Exception the exception
      */
     @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
@@ -114,7 +115,7 @@ public class CompositeMavenRepository extends MavenRepository
      *
      * @param revision the revision
      * @return the bound revision
-     * @throws IOException 
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings("PMD.SignatureDeclareThrowsException")
     public Optional<BoundRevision> toBoundRevision(Revision revision)

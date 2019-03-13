@@ -74,7 +74,7 @@ public class RevisionIndexer {
      * revisions are collected in {@code dependencies}.  
      *
      * @param revisions the revisions
-     * @param dependencies the dependencies
+     * @param dependencyHandler the dependency handler
      */
     public void indexRevisions(List<BoundRevision> revisions,
             Consumer<Collection<IPom.Dependency>> dependencyHandler) {
@@ -89,7 +89,7 @@ public class RevisionIndexer {
      * revisions are collected in {@code dependencies}.  
      *
      * @param revision the revision
-     * @param dependencies the dependencies
+     * @param dependencyHandler the dependency handler
      */
 
     public void indexRevision(BoundRevision revision,
