@@ -22,7 +22,9 @@ import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.bnd.osgi.repository.XMLResourceGenerator;
 import aQute.bnd.osgi.repository.XMLResourceParser;
+import aQute.maven.api.IPom;
 import aQute.maven.api.Program;
+import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import de.mnl.osgi.bnd.maven.ExtRevision;
 import de.mnl.osgi.bnd.maven.MergingMavenRepository;
@@ -36,13 +38,16 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.osgi.resource.Capability;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,19 +55,21 @@ import org.slf4j.LoggerFactory;
  * A manager for a single group index.
  */
 @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
-public class GroupIndexManager {
+public class MavenGroupRepository extends ResourcesRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(
-        GroupIndexManager.class);
+        MavenGroupRepository.class);
 
     private final String groupId;
-    private final Path groupDir;
     private final MergingMavenRepository mavenRepository;
     private final HttpClient client;
     private final Path groupPropsPath;
     private final Path groupIndexPath;
-    private final ResourcesRepository osgiRepository;
+    private final Set<Revision> mavenRevisions = new HashSet<>();
+    private final RevisionIndexer indexer;
     private final Properties groupProps;
+    private boolean propsChanged;
+    private boolean indexChanged;
     private final Pattern hrefPattern = Pattern.compile(
         "<[aA]\\s+(?:[^>]*?\\s+)?href=(?<quote>[\"'])"
             + "(?<href>[a-zA-Z].*?)\\k<quote>");
@@ -74,43 +81,79 @@ public class GroupIndexManager {
      * @param directory the directory
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public GroupIndexManager(String groupId, Path directory,
+    @SuppressWarnings("PMD.ConfusingTernary")
+    public MavenGroupRepository(String groupId, Path directory,
             MergingMavenRepository mavenRepository, HttpClient client)
             throws IOException {
         this.groupId = groupId;
-        this.groupDir = directory;
         this.mavenRepository = mavenRepository;
         this.client = client;
 
         // Prepare directory and files
         groupPropsPath = directory.resolve("group.properties");
         groupProps = new Properties();
-        // If directory does not exist, it is created for dependencies
-        if (!groupDir.toFile().exists()) { // NOPMD
-            groupDir.toFile().mkdir();
+        // If directory does not exist, it's not from a request.
+        if (!directory.toFile().exists()) {
+            directory.toFile().mkdir();
             groupProps.setProperty("requested", "false");
-            try (OutputStream out = Files.newOutputStream(groupPropsPath)) {
-                groupProps.store(out, "Group properties");
-            }
+            propsChanged = true;
         } else {
             // Directory exists, either as newly created or as "old"
             if (groupPropsPath.toFile().canRead()) {
                 try (InputStream input = Files.newInputStream(groupPropsPath)) {
                     groupProps.load(input);
                 }
+            } else {
+                propsChanged = true;
             }
         }
 
         // Prepare OSGi repository
-        osgiRepository = new ResourcesRepository();
         groupIndexPath = directory.resolve("index.xml");
         if (groupIndexPath.toFile().canRead()) {
             try (XMLResourceParser parser
                 = new XMLResourceParser(groupIndexPath.toFile())) {
-                osgiRepository.addAll(parser.parse());
+                addAll(parser.parse());
             } catch (Exception e) { // NOPMD
                 LOG.warn("Cannot parse {}, ignored.", groupIndexPath, e);
             }
+        } else {
+            indexChanged = true;
+        }
+        // Cache revisions for faster checks.
+        for (Capability cap : findProvider(
+            newRequirementBuilder("bnd.info").build())) {
+            mavenRevisions.add(
+                Revision.valueOf((String) cap.getAttributes().get("from")));
+        }
+
+        // Helper for adding to index
+        indexer = new RevisionIndexer(mavenRepository, this,
+            IndexedResource.REMOTE);
+    }
+
+    /**
+     * Writes all changes to persistent storage.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public void flush() throws IOException {
+        if (propsChanged) {
+            try (OutputStream out = Files.newOutputStream(groupPropsPath)) {
+                groupProps.store(out, "Group properties");
+            }
+            propsChanged = false;
+        }
+        if (indexChanged) {
+            XMLResourceGenerator generator = new XMLResourceGenerator();
+            generator.resources(getResources());
+            generator.name(mavenRepository.getName());
+            try {
+                generator.save(groupIndexPath.toFile());
+            } catch (IOException e) {
+                LOG.error("Cannot save {}.", groupIndexPath, e);
+            }
+            indexChanged = false;
         }
     }
 
@@ -139,36 +182,46 @@ public class GroupIndexManager {
      */
     @SuppressWarnings({ "PMD.AvoidReassigningLoopVariables",
         "PMD.AvoidCatchingGenericException" })
-    public void rescan() {
-        RevisionIndexer indexer = new RevisionIndexer(mavenRepository,
-            osgiRepository, IndexedResource.REMOTE);
+    public void
+            rescan(Consumer<Collection<IPom.Dependency>> dependencyHandler) {
+        ResourcesRepository oldRepo = new ResourcesRepository(getResources());
+        set(Collections.emptyList());
+        mavenRevisions.clear();
         Collection<String> artifactIds = findArtifactIds(groupId);
         for (String artifactId : artifactIds) {
             if (artifactId.endsWith("/")) {
-                artifactId
-                    = artifactId.substring(0, artifactId.length() - 1);
+                artifactId = artifactId.substring(0, artifactId.length() - 1);
             }
             Program program = Program.valueOf(groupId, artifactId);
+
+            // Get revisions of program.
             List<ExtRevision> revisions;
             try {
                 revisions = mavenRepository.getExtRevisions(program);
             } catch (Exception e) {
                 // Strange name in parsed result.
+                LOG.warn("Couldn't get revisions for {}" // NOPMD (constant)
+                    + " (found in maven-metadata.xml).", program, e);
                 continue;
             }
-            indexer.indexRevisions(revisions, dependencies -> {
-                int i = 0;
-            });
-        }
-        XMLResourceGenerator generator = new XMLResourceGenerator();
-        generator.resources(osgiRepository.getResources());
-        generator.name(mavenRepository.getName());
-        try {
-            generator.save(groupIndexPath.toFile());
-        } catch (IOException e) {
-            LOG.error("Cannot save {}.", groupIndexPath, e);
-        }
 
+            // Index the revisions.
+            for (ExtRevision rev : revisions) {
+                List<Capability> cap = oldRepo.findProvider(
+                    oldRepo.newRequirementBuilder("bnd.info")
+                        .addAttribute("from", rev.revision().toString())
+                        .build());
+                if (!cap.isEmpty()) { // NOPMD
+                    // Reuse existing
+                    add(cap.get(0).getResource());
+                } else {
+                    // Extract information from artifact.
+                    indexer.indexRevision(rev, dependencyHandler);
+                }
+                mavenRevisions.add(rev.revision());
+            }
+        }
+        indexChanged = true;
     }
 
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
@@ -196,4 +249,26 @@ public class GroupIndexManager {
         return result;
     }
 
+    /**
+     * Adds the specified revision.
+     *
+     * @param revision the revision
+     * @param dependencyHandler the dependency handler
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public void addRevision(Revision revision,
+            Consumer<Collection<IPom.Dependency>> dependencyHandler)
+            throws IOException {
+        if (!revision.group.equals(groupId)) {
+            throw new IllegalArgumentException("Wrong groupId "
+                + revision.group + " (must be " + groupId + ").");
+        }
+        if (mavenRevisions.contains(revision)) {
+            return;
+        }
+        mavenRepository.toExtRevision(revision).ifPresent(rev -> {
+            indexer.indexRevision(rev, dependencyHandler);
+            mavenRevisions.add(revision);
+        });
+    }
 }

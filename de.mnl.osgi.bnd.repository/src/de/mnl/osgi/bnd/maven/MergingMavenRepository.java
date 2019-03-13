@@ -27,12 +27,11 @@ import aQute.service.reporter.Reporter;
 
 import java.io.Closeable;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Executor;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Provides a common {@link IMavenRepo} view on several 
@@ -43,8 +42,6 @@ import org.slf4j.LoggerFactory;
  */
 public class MergingMavenRepository extends MavenRepository
         implements IMavenRepo, Closeable {
-    private static final Logger LOG
-        = LoggerFactory.getLogger(MergingMavenRepository.class);
 
     /**
      * Instantiates a new merged maven repository.
@@ -56,7 +53,8 @@ public class MergingMavenRepository extends MavenRepository
      * @param executor an executor
      * @throws Exception the exception
      */
-    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
+    @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
+        "PMD.AvoidDuplicateLiterals" })
     public MergingMavenRepository(File base, String repoId,
             List<MavenBackingRepository> releaseRepos,
             List<MavenBackingRepository> snapshotRepos, Executor executor,
@@ -65,6 +63,11 @@ public class MergingMavenRepository extends MavenRepository
         super(base, repoId, releaseRepos, snapshotRepos, executor, reporter);
     }
 
+    /**
+     * Returns all repositories.
+     *
+     * @return the list
+     */
     public List<MavenBackingRepository> allRepositories() {
         List<MavenBackingRepository> result
             = new ArrayList<>(getReleaseRepositories());
@@ -72,6 +75,14 @@ public class MergingMavenRepository extends MavenRepository
         return result;
     }
 
+    /**
+     * Returns all known revisions as {@link ExtRevision}s.
+     *
+     * @param program the program
+     * @return the ext revisions
+     * @throws Exception the exception
+     */
+    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
     public List<ExtRevision> getExtRevisions(Program program) throws Exception {
         List<ExtRevision> revisions = new ArrayList<>();
 
@@ -86,6 +97,8 @@ public class MergingMavenRepository extends MavenRepository
         return revisions;
     }
 
+    @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
+        "PMD.AvoidInstantiatingObjectsInLoops" })
     private void addRevisions(MavenBackingRepository mbr, Program program,
             List<ExtRevision> revisions) throws Exception {
         List<Revision> revs = new ArrayList<>();
@@ -94,4 +107,53 @@ public class MergingMavenRepository extends MavenRepository
             revisions.add(new ExtRevision(mbr, rev));
         }
     }
+
+    /**
+     * Converts a {@link Revision} to an {@link ExtRevision}.
+     *
+     * @param revision the revision
+     * @return the optional
+     * @throws IOException 
+     */
+    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
+    public Optional<ExtRevision> toExtRevision(Revision revision)
+            throws IOException {
+        for (MavenBackingRepository mbr : getReleaseRepositories()) {
+            Optional<ExtRevision> checkResult = toExtRevision(mbr, revision);
+            if (checkResult.isPresent()) {
+                return checkResult;
+            }
+        }
+        for (MavenBackingRepository mbr : getSnapshotRepositories()) {
+            if (!getReleaseRepositories().contains(mbr)) {
+                Optional<ExtRevision> checkResult
+                    = toExtRevision(mbr, revision);
+                if (checkResult.isPresent()) {
+                    return checkResult;
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
+        "PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException",
+        "PMD.AvoidThrowingRawExceptionTypes" })
+    private Optional<ExtRevision> toExtRevision(MavenBackingRepository mbr,
+            Revision revision) throws IOException {
+        List<Revision> revs = new ArrayList<>();
+        try {
+            mbr.getRevisions(revision.program, revs);
+        } catch (IOException e) {
+            // Should be the only reason.
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        if (revs.contains(revision)) {
+            return Optional.of(new ExtRevision(mbr, revision));
+        }
+        return Optional.empty();
+    }
+
 }

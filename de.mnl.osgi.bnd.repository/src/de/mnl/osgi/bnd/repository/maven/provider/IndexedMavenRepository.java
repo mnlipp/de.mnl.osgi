@@ -23,9 +23,11 @@ import aQute.bnd.osgi.Processor;
 import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.bnd.osgi.repository.XMLResourceParser;
 import aQute.maven.api.IMavenRepo;
+import aQute.maven.api.IPom;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
 import de.mnl.osgi.bnd.maven.MergingMavenRepository;
+import de.mnl.osgi.bnd.maven.TaskCollection;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,11 +36,16 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -73,7 +80,9 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private final Reporter reporter;
     private final HttpClient client;
     private final MergingMavenRepository mavenRepository;
-    private final Map<String, GroupIndexManager> groups = new HashMap<>();
+    private final TaskCollection execCtx;
+    private final Map<String, MavenGroupRepository> groups
+        = new ConcurrentHashMap<>();
 
     /**
      * Create a new instance that uses the provided information/resources to perform
@@ -100,6 +109,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
         this.localRepo = localRepo;
         this.reporter = reporter;
         this.client = client;
+        execCtx = new TaskCollection(Processor.getScheduledExecutor());
 
         // Check prerequisites
         if (indexDbDir.exists() && !indexDbDir.isDirectory()) {
@@ -181,35 +191,58 @@ public class IndexedMavenRepository extends ResourcesRepository {
      * @throws Exception if a problem occurs
      */
     @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition",
-        "PMD.SignatureDeclareThrowsException" })
+        "PMD.SignatureDeclareThrowsException",
+        "PMD.AvoidInstantiatingObjectsInLoops" })
     public boolean refresh() throws Exception {
-        Queue<GroupIndexManager> toBeRefreshed = new LinkedList<>();
+        AtomicInteger running = new AtomicInteger();
+
         for (String groupId : indexDbDir.toFile().list()) {
             if (!groupId.matches("^[A-Za-z].*")
                 || "index.xml".equals(groupId)) {
                 continue;
             }
-            @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-            GroupIndexManager group = new GroupIndexManager(groupId,
-                indexDbDir.resolve(groupId), mavenRepository, client);
-            groups.put(groupId, group);
+            execCtx.submit(new Callable<Void>() {
+                @Override
+                public Void call() throws Exception {
+                    MavenGroupRepository group = new MavenGroupRepository(groupId,
+                        indexDbDir.resolve(groupId), mavenRepository, client);
+                    groups.put(groupId, group);
+                    return null;
+                }
+            });
+        }
+        execCtx.await();
+        for (MavenGroupRepository group : new ArrayList<>(groups.values())) {
             if (group.isRequested()) {
-                toBeRefreshed.add(group);
+                execCtx.submit(() -> {
+                    LOG.debug("Refreshing {}", group.id());
+                    group.rescan(
+                        deps -> handleDependencies(deps));
+                });
             }
         }
+        execCtx.await();
         while (true) {
-            GroupIndexManager group = toBeRefreshed.poll();
-            if (group == null) {
-                break;
+            synchronized (running) {
+                if (running.get() == 0) {
+                    break;
+                }
+                running.wait();
             }
-            LOG.debug("Refreshing {}", group.id());
-            group.rescan();
+        }
+        // Remaining tasks executed sequentially.
+        for (MavenGroupRepository gim : groups.values()) {
+            gim.flush();
         }
         try (OutputStream fos
             = Files.newOutputStream(indexDbDir.resolve("index.xml"))) {
             writeFederatedIndex(fos);
         }
         return true;
+    }
+
+    private void handleDependencies(Collection<IPom.Dependency> dependencies) {
+
     }
 
     private void writeFederatedIndex(OutputStream out) {

@@ -36,15 +36,22 @@ import java.util.function.Consumer;
 
 import org.osgi.resource.Resource;
 
+/**
+ * Provides a processor for adding a maven resource to
+ * an OSGi repository.
+ */
 public class RevisionIndexer {
 
+    /**
+     * Use local or remote URL in index.
+     */
     public enum IndexedResource {
         LOCAL, REMOTE
     }
 
-    private MavenRepository mavenRepository;
-    private ResourcesRepository osgiRepository;
-    private IndexedResource indexedResource;
+    private final MavenRepository mavenRepository;
+    private final ResourcesRepository osgiRepository;
+    private final IndexedResource indexedResource;
 
     /**
      * Instantiates a new revision indexer.
@@ -72,40 +79,56 @@ public class RevisionIndexer {
     public void indexRevisions(List<ExtRevision> revisions,
             Consumer<Collection<IPom.Dependency>> dependencyHandler) {
         for (ExtRevision revision : revisions) {
-            // Get and add this revision's OSGi information
-            Archive archive;
-            try {
-                archive = mavenRepository
-                    .getResolvedArchive(revision.revision(), "jar", "");
-                if (archive == null) {
-                    continue;
+            indexRevision(revision, dependencyHandler);
+        }
+    }
+
+    /**
+     * Indexes the given revision and adds the results to
+     * the OSGi repository. The dependencies of the indexed
+     * revisions are collected in {@code dependencies}.  
+     *
+     * @param revision the revision
+     * @param dependencies the dependencies
+     */
+
+    public void indexRevision(ExtRevision revision,
+            Consumer<Collection<IPom.Dependency>> dependencyHandler) {
+        // Get and add this maven revision's OSGi information
+        Archive archive;
+        try {
+            archive = mavenRepository.getResolvedArchive(revision.revision(),
+                "jar", "");
+            if (archive == null) {
+                return;
+            }
+        } catch (Exception e) {
+            return;
+        }
+        if (archive.isSnapshot()) {
+            refreshSnapshot(archive, revision);
+        }
+        // Get POM for dependencies
+        try {
+            IPom pom = mavenRepository.getPom(archive.getRevision());
+            if (pom != null) {
+                Collection<IPom.Dependency> deps = pom
+                    .getDependencies(MavenScope.compile, false).values();
+                if (!deps.isEmpty()) {
+                    dependencyHandler.accept(deps);
                 }
-            } catch (Exception e) {
-                continue;
-            }
-            if (archive.isSnapshot()) {
-                refreshSnapshot(archive, revision);
-            }
-            // Get POM for dependencies
-            try {
-                IPom pom = mavenRepository.getPom(archive.getRevision());
-                if (pom != null) {
-                    Collection<IPom.Dependency> deps = pom
-                        .getDependencies(MavenScope.compile, false).values();
-                    if (!deps.isEmpty()) {
-                        dependencyHandler.accept(deps);
-                    }
-                    deps = pom.getDependencies(MavenScope.runtime, false)
-                        .values();
-                    if (!deps.isEmpty()) {
-                        dependencyHandler.accept(deps);
-                    }
+                deps = pom.getDependencies(MavenScope.runtime, false)
+                    .values();
+                if (!deps.isEmpty()) {
+                    dependencyHandler.accept(deps);
                 }
-            } catch (Exception e) {
-                // Ignored
             }
-            Resource resource = parseResource(revision, archive);
-            if (resource != null) {
+        } catch (Exception e) {
+            // Ignored
+        }
+        Resource resource = parseResource(revision, archive);
+        if (resource != null) {
+            synchronized (osgiRepository) {
                 osgiRepository.add(resource);
             }
         }
@@ -131,21 +154,21 @@ public class RevisionIndexer {
     }
 
     private Resource parseResource(ExtRevision revision, Archive archive) {
-        ResourceBuilder rb = new ResourceBuilder();
+        ResourceBuilder builder = new ResourceBuilder();
         try {
             File binary = mavenRepository.get(archive).getValue();
             if (indexedResource == IndexedResource.LOCAL) {
-                rb.addFile(binary, binary.toURI());
+                builder.addFile(binary, binary.toURI());
             } else {
-                rb.addFile(binary, revision.mavenBackingRepository()
+                builder.addFile(binary, revision.mavenBackingRepository()
                     .toURI(archive.remotePath));
             }
-            addInformationCapability(rb, archive.toString(),
+            addInformationCapability(builder, archive.toString(),
                 archive.getRevision().toString(), null);
         } catch (Exception e) {
             return null;
         }
-        return rb.build();
+        return builder.build();
     }
 
 }
