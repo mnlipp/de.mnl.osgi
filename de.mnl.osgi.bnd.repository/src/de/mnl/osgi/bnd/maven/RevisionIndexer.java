@@ -28,6 +28,7 @@ import aQute.maven.api.MavenScope;
 import aQute.maven.provider.MavenRepository;
 import aQute.maven.provider.MetadataParser;
 import aQute.maven.provider.MetadataParser.RevisionMetadata;
+import de.mnl.osgi.bnd.repository.maven.provider.MavenGroupRepository;
 
 import java.io.File;
 import java.util.Collection;
@@ -35,11 +36,14 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import org.osgi.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides a processor for adding a maven resource to
  * an OSGi repository.
  */
+@SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class RevisionIndexer {
 
     /**
@@ -48,6 +52,9 @@ public class RevisionIndexer {
     public enum IndexedResource {
         LOCAL, REMOTE
     }
+
+    private static final Logger LOG = LoggerFactory.getLogger(
+        MavenGroupRepository.class);
 
     private final MavenRepository mavenRepository;
     private final ResourcesRepository osgiRepository;
@@ -92,6 +99,7 @@ public class RevisionIndexer {
      * @param dependencyHandler the dependency handler
      */
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public void indexRevision(BoundRevision revision,
             Consumer<Collection<IPom.Dependency>> dependencyHandler) {
         // Get and add this maven revision's OSGi information
@@ -103,6 +111,7 @@ public class RevisionIndexer {
                 return;
             }
         } catch (Exception e) {
+            LOG.error("Problem resolving archive for {}.", revision, e);
             return;
         }
         if (archive.isSnapshot()) {
@@ -124,7 +133,7 @@ public class RevisionIndexer {
                 }
             }
         } catch (Exception e) {
-            // Ignored
+            LOG.error("Problem processing POM of {}.", revision, e);
         }
         Resource resource = parseResource(revision, archive);
         if (resource != null) {
@@ -134,6 +143,7 @@ public class RevisionIndexer {
         }
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     private void refreshSnapshot(Archive archive, BoundRevision revision) {
         File metaFile = mavenRepository.toLocalFile(
             revision.metadata(revision.mavenBackingRepository().getId()));
@@ -141,6 +151,7 @@ public class RevisionIndexer {
         try {
             metaData = MetadataParser.parseRevisionMetadata(metaFile);
         } catch (Exception e) {
+            LOG.error("Problem accessing {}.", revision, e);
             return;
         }
         File archiveFile = mavenRepository.toLocalFile(archive);
@@ -153,6 +164,7 @@ public class RevisionIndexer {
         }
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     private Resource parseResource(BoundRevision revision, Archive archive) {
         ResourceBuilder builder = new ResourceBuilder();
         try {
@@ -166,6 +178,7 @@ public class RevisionIndexer {
             addInformationCapability(builder, archive.toString(),
                 archive.getRevision().toString(), null);
         } catch (Exception e) {
+            LOG.error("Problem accessing {}.", revision, e);
             return null;
         }
         return builder.build();
