@@ -27,7 +27,7 @@ import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import de.mnl.osgi.bnd.maven.BoundRevision;
-import de.mnl.osgi.bnd.maven.MergingMavenRepository;
+import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
 import de.mnl.osgi.bnd.maven.RevisionIndexer;
 import de.mnl.osgi.bnd.maven.RevisionIndexer.IndexedResource;
 
@@ -61,7 +61,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         MavenGroupRepository.class);
 
     private final String groupId;
-    private final MergingMavenRepository mavenRepository;
+    private final CompositeMavenRepository mavenRepository;
     private final HttpClient client;
     private final Path groupPropsPath;
     private final Path groupIndexPath;
@@ -83,7 +83,7 @@ public class MavenGroupRepository extends ResourcesRepository {
      */
     @SuppressWarnings("PMD.ConfusingTernary")
     public MavenGroupRepository(String groupId, Path directory,
-            MergingMavenRepository mavenRepository, HttpClient client)
+            CompositeMavenRepository mavenRepository, HttpClient client)
             throws IOException {
         this.groupId = groupId;
         this.mavenRepository = mavenRepository;

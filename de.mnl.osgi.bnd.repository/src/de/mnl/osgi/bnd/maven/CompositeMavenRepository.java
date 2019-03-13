@@ -40,7 +40,7 @@ import java.util.concurrent.Executor;
  * The class extends {@link MavenRepository} which lacks some
  * required functionality.
  */
-public class MergingMavenRepository extends MavenRepository
+public class CompositeMavenRepository extends MavenRepository
         implements IMavenRepo, Closeable {
 
     /**
@@ -55,7 +55,7 @@ public class MergingMavenRepository extends MavenRepository
      */
     @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
         "PMD.AvoidDuplicateLiterals" })
-    public MergingMavenRepository(File base, String repoId,
+    public CompositeMavenRepository(File base, String repoId,
             List<MavenBackingRepository> releaseRepos,
             List<MavenBackingRepository> snapshotRepos, Executor executor,
             Reporter reporter)

@@ -26,7 +26,7 @@ import aQute.maven.api.IMavenRepo;
 import aQute.maven.api.IPom;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
-import de.mnl.osgi.bnd.maven.MergingMavenRepository;
+import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
 import de.mnl.osgi.bnd.maven.TaskCollection;
 
 import java.io.File;
@@ -79,7 +79,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private final File localRepo;
     private final Reporter reporter;
     private final HttpClient client;
-    private final MergingMavenRepository mavenRepository;
+    private final CompositeMavenRepository mavenRepository;
     private final TaskCollection execCtx;
     private final Map<String, MavenGroupRepository> groups
         = new ConcurrentHashMap<>();
@@ -136,7 +136,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
     }
 
     @SuppressWarnings("PMD.SignatureDeclareThrowsException")
-    private MergingMavenRepository createMavenRepository() throws Exception {
+    private CompositeMavenRepository createMavenRepository() throws Exception {
         // Create repository from URLs
         List<MavenBackingRepository> releaseBackers = new ArrayList<>();
         for (URL url : releaseUrls) {
@@ -148,7 +148,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
             snapshotBackers.addAll(MavenBackingRepository.create(
                 url.toString(), reporter, localRepo, client));
         }
-        return new MergingMavenRepository(localRepo, name(), releaseBackers,
+        return new CompositeMavenRepository(localRepo, name(), releaseBackers,
             snapshotBackers, Processor.getExecutor(), reporter);
     }
 
