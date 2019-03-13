@@ -42,7 +42,7 @@
 <span class="sourceLineNo">034</span>import java.io.IOException;<a name="line.34"></a>
 <span class="sourceLineNo">035</span>import java.io.InputStream;<a name="line.35"></a>
 <span class="sourceLineNo">036</span>import java.io.OutputStream;<a name="line.36"></a>
-<span class="sourceLineNo">037</span>import java.net.URL;<a name="line.37"></a>
+<span class="sourceLineNo">037</span>import java.net.URI;<a name="line.37"></a>
 <span class="sourceLineNo">038</span>import java.nio.file.Files;<a name="line.38"></a>
 <span class="sourceLineNo">039</span>import java.nio.file.Path;<a name="line.39"></a>
 <span class="sourceLineNo">040</span>import java.util.Collection;<a name="line.40"></a>
@@ -205,89 +205,93 @@
 <span class="sourceLineNo">197</span>        mavenRevisions.clear();<a name="line.197"></a>
 <span class="sourceLineNo">198</span>        Collection&lt;String&gt; artifactIds = findArtifactIds(groupId);<a name="line.198"></a>
 <span class="sourceLineNo">199</span>        for (String artifactId : artifactIds) {<a name="line.199"></a>
-<span class="sourceLineNo">200</span>            if (artifactId.endsWith("/")) {<a name="line.200"></a>
-<span class="sourceLineNo">201</span>                artifactId = artifactId.substring(0, artifactId.length() - 1);<a name="line.201"></a>
-<span class="sourceLineNo">202</span>            }<a name="line.202"></a>
-<span class="sourceLineNo">203</span>            Program program = Program.valueOf(groupId, artifactId);<a name="line.203"></a>
-<span class="sourceLineNo">204</span><a name="line.204"></a>
-<span class="sourceLineNo">205</span>            // Get revisions of program.<a name="line.205"></a>
-<span class="sourceLineNo">206</span>            List&lt;BoundRevision&gt; revisions;<a name="line.206"></a>
-<span class="sourceLineNo">207</span>            try {<a name="line.207"></a>
-<span class="sourceLineNo">208</span>                revisions = mavenRepository.boundRevisions(program);<a name="line.208"></a>
-<span class="sourceLineNo">209</span>            } catch (Exception e) {<a name="line.209"></a>
-<span class="sourceLineNo">210</span>                // Strange name in parsed result.<a name="line.210"></a>
-<span class="sourceLineNo">211</span>                LOG.warn("Couldn't get revisions for {}" // NOPMD (constant)<a name="line.211"></a>
-<span class="sourceLineNo">212</span>                    + " (found in maven-metadata.xml).", program, e);<a name="line.212"></a>
-<span class="sourceLineNo">213</span>                continue;<a name="line.213"></a>
-<span class="sourceLineNo">214</span>            }<a name="line.214"></a>
-<span class="sourceLineNo">215</span><a name="line.215"></a>
-<span class="sourceLineNo">216</span>            // Index the revisions.<a name="line.216"></a>
-<span class="sourceLineNo">217</span>            for (BoundRevision rev : revisions) {<a name="line.217"></a>
-<span class="sourceLineNo">218</span>                List&lt;Capability&gt; cap = oldRepo.findProvider(<a name="line.218"></a>
-<span class="sourceLineNo">219</span>                    oldRepo.newRequirementBuilder("bnd.info")<a name="line.219"></a>
-<span class="sourceLineNo">220</span>                        .addAttribute("from", rev.revision().toString())<a name="line.220"></a>
-<span class="sourceLineNo">221</span>                        .build());<a name="line.221"></a>
-<span class="sourceLineNo">222</span>                if (!cap.isEmpty()) { // NOPMD<a name="line.222"></a>
-<span class="sourceLineNo">223</span>                    // Reuse existing<a name="line.223"></a>
-<span class="sourceLineNo">224</span>                    add(cap.get(0).getResource());<a name="line.224"></a>
-<span class="sourceLineNo">225</span>                } else {<a name="line.225"></a>
-<span class="sourceLineNo">226</span>                    // Extract information from artifact.<a name="line.226"></a>
-<span class="sourceLineNo">227</span>                    indexer.indexRevision(rev, dependencyHandler);<a name="line.227"></a>
-<span class="sourceLineNo">228</span>                }<a name="line.228"></a>
-<span class="sourceLineNo">229</span>                mavenRevisions.add(rev.revision());<a name="line.229"></a>
-<span class="sourceLineNo">230</span>            }<a name="line.230"></a>
-<span class="sourceLineNo">231</span>        }<a name="line.231"></a>
-<span class="sourceLineNo">232</span>        indexChanged = true;<a name="line.232"></a>
-<span class="sourceLineNo">233</span>    }<a name="line.233"></a>
-<span class="sourceLineNo">234</span><a name="line.234"></a>
-<span class="sourceLineNo">235</span>    @SuppressWarnings("PMD.AvoidCatchingGenericException")<a name="line.235"></a>
-<span class="sourceLineNo">236</span>    private Collection&lt;String&gt; findArtifactIds(String dir) {<a name="line.236"></a>
-<span class="sourceLineNo">237</span>        Set&lt;String&gt; result = new HashSet&lt;&gt;();<a name="line.237"></a>
-<span class="sourceLineNo">238</span>        for (MavenBackingRepository repo : mavenRepository.allRepositories()) {<a name="line.238"></a>
-<span class="sourceLineNo">239</span>            URL repoUrl = null;<a name="line.239"></a>
-<span class="sourceLineNo">240</span>            try {<a name="line.240"></a>
-<span class="sourceLineNo">241</span>                repoUrl = repo.toURI("").toURL();<a name="line.241"></a>
-<span class="sourceLineNo">242</span>                @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")<a name="line.242"></a>
-<span class="sourceLineNo">243</span>                String page = client.build().headers("User-Agent", "Bnd")<a name="line.243"></a>
-<span class="sourceLineNo">244</span>                    .get(String.class)<a name="line.244"></a>
-<span class="sourceLineNo">245</span>                    .go(new URL(repoUrl, dir.replace('.', '/')));<a name="line.245"></a>
-<span class="sourceLineNo">246</span>                if (page == null) {<a name="line.246"></a>
-<span class="sourceLineNo">247</span>                    continue;<a name="line.247"></a>
-<span class="sourceLineNo">248</span>                }<a name="line.248"></a>
-<span class="sourceLineNo">249</span>                Matcher matcher = hrefPattern.matcher(page);<a name="line.249"></a>
-<span class="sourceLineNo">250</span>                while (matcher.find()) {<a name="line.250"></a>
-<span class="sourceLineNo">251</span>                    result.add(matcher.group("href"));<a name="line.251"></a>
-<span class="sourceLineNo">252</span>                }<a name="line.252"></a>
-<span class="sourceLineNo">253</span>            } catch (Exception e) {<a name="line.253"></a>
-<span class="sourceLineNo">254</span>                LOG.warn("Problem retrieving {}, skipped.", repoUrl, e);<a name="line.254"></a>
-<span class="sourceLineNo">255</span>            }<a name="line.255"></a>
-<span class="sourceLineNo">256</span>        }<a name="line.256"></a>
-<span class="sourceLineNo">257</span>        return result;<a name="line.257"></a>
-<span class="sourceLineNo">258</span>    }<a name="line.258"></a>
-<span class="sourceLineNo">259</span><a name="line.259"></a>
-<span class="sourceLineNo">260</span>    /**<a name="line.260"></a>
-<span class="sourceLineNo">261</span>     * Adds the specified revision.<a name="line.261"></a>
-<span class="sourceLineNo">262</span>     *<a name="line.262"></a>
-<span class="sourceLineNo">263</span>     * @param revision the revision<a name="line.263"></a>
-<span class="sourceLineNo">264</span>     * @param dependencyHandler the dependency handler<a name="line.264"></a>
-<span class="sourceLineNo">265</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.265"></a>
-<span class="sourceLineNo">266</span>     */<a name="line.266"></a>
-<span class="sourceLineNo">267</span>    public void addRevision(Revision revision,<a name="line.267"></a>
-<span class="sourceLineNo">268</span>            Consumer&lt;Collection&lt;IPom.Dependency&gt;&gt; dependencyHandler)<a name="line.268"></a>
-<span class="sourceLineNo">269</span>            throws IOException {<a name="line.269"></a>
-<span class="sourceLineNo">270</span>        if (!revision.group.equals(groupId)) {<a name="line.270"></a>
-<span class="sourceLineNo">271</span>            throw new IllegalArgumentException("Wrong groupId "<a name="line.271"></a>
-<span class="sourceLineNo">272</span>                + revision.group + " (must be " + groupId + ").");<a name="line.272"></a>
-<span class="sourceLineNo">273</span>        }<a name="line.273"></a>
-<span class="sourceLineNo">274</span>        if (mavenRevisions.contains(revision)) {<a name="line.274"></a>
-<span class="sourceLineNo">275</span>            return;<a name="line.275"></a>
-<span class="sourceLineNo">276</span>        }<a name="line.276"></a>
-<span class="sourceLineNo">277</span>        mavenRepository.toBoundRevision(revision).ifPresent(rev -&gt; {<a name="line.277"></a>
-<span class="sourceLineNo">278</span>            indexer.indexRevision(rev, dependencyHandler);<a name="line.278"></a>
-<span class="sourceLineNo">279</span>            mavenRevisions.add(revision);<a name="line.279"></a>
-<span class="sourceLineNo">280</span>        });<a name="line.280"></a>
-<span class="sourceLineNo">281</span>    }<a name="line.281"></a>
-<span class="sourceLineNo">282</span>}<a name="line.282"></a>
+<span class="sourceLineNo">200</span>            Program program = Program.valueOf(groupId, artifactId);<a name="line.200"></a>
+<span class="sourceLineNo">201</span><a name="line.201"></a>
+<span class="sourceLineNo">202</span>            // Get revisions of program.<a name="line.202"></a>
+<span class="sourceLineNo">203</span>            List&lt;BoundRevision&gt; revisions;<a name="line.203"></a>
+<span class="sourceLineNo">204</span>            try {<a name="line.204"></a>
+<span class="sourceLineNo">205</span>                revisions = mavenRepository.boundRevisions(program);<a name="line.205"></a>
+<span class="sourceLineNo">206</span>            } catch (Exception e) {<a name="line.206"></a>
+<span class="sourceLineNo">207</span>                // Strange name in parsed result.<a name="line.207"></a>
+<span class="sourceLineNo">208</span>                LOG.warn("Couldn't get revisions for {}" // NOPMD (constant)<a name="line.208"></a>
+<span class="sourceLineNo">209</span>                    + " (found in maven-metadata.xml).", program, e);<a name="line.209"></a>
+<span class="sourceLineNo">210</span>                continue;<a name="line.210"></a>
+<span class="sourceLineNo">211</span>            }<a name="line.211"></a>
+<span class="sourceLineNo">212</span><a name="line.212"></a>
+<span class="sourceLineNo">213</span>            // Index the revisions.<a name="line.213"></a>
+<span class="sourceLineNo">214</span>            for (BoundRevision rev : revisions) {<a name="line.214"></a>
+<span class="sourceLineNo">215</span>                List&lt;Capability&gt; cap = oldRepo.findProvider(<a name="line.215"></a>
+<span class="sourceLineNo">216</span>                    oldRepo.newRequirementBuilder("bnd.info")<a name="line.216"></a>
+<span class="sourceLineNo">217</span>                        .addAttribute("from", rev.revision().toString())<a name="line.217"></a>
+<span class="sourceLineNo">218</span>                        .build());<a name="line.218"></a>
+<span class="sourceLineNo">219</span>                if (!cap.isEmpty()) { // NOPMD<a name="line.219"></a>
+<span class="sourceLineNo">220</span>                    // Reuse existing<a name="line.220"></a>
+<span class="sourceLineNo">221</span>                    add(cap.get(0).getResource());<a name="line.221"></a>
+<span class="sourceLineNo">222</span>                } else {<a name="line.222"></a>
+<span class="sourceLineNo">223</span>                    // Extract information from artifact.<a name="line.223"></a>
+<span class="sourceLineNo">224</span>                    indexer.indexRevision(rev, dependencyHandler);<a name="line.224"></a>
+<span class="sourceLineNo">225</span>                }<a name="line.225"></a>
+<span class="sourceLineNo">226</span>                mavenRevisions.add(rev.revision());<a name="line.226"></a>
+<span class="sourceLineNo">227</span>            }<a name="line.227"></a>
+<span class="sourceLineNo">228</span>        }<a name="line.228"></a>
+<span class="sourceLineNo">229</span>        indexChanged = true;<a name="line.229"></a>
+<span class="sourceLineNo">230</span>    }<a name="line.230"></a>
+<span class="sourceLineNo">231</span><a name="line.231"></a>
+<span class="sourceLineNo">232</span>    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",<a name="line.232"></a>
+<span class="sourceLineNo">233</span>        "PMD.AvoidInstantiatingObjectsInLoops" })<a name="line.233"></a>
+<span class="sourceLineNo">234</span>    private Collection&lt;String&gt; findArtifactIds(String dir) {<a name="line.234"></a>
+<span class="sourceLineNo">235</span>        Set&lt;String&gt; result = new HashSet&lt;&gt;();<a name="line.235"></a>
+<span class="sourceLineNo">236</span>        for (MavenBackingRepository repo : mavenRepository.allRepositories()) {<a name="line.236"></a>
+<span class="sourceLineNo">237</span>            URI groupUri = null;<a name="line.237"></a>
+<span class="sourceLineNo">238</span>            try {<a name="line.238"></a>
+<span class="sourceLineNo">239</span>                groupUri = repo.toURI("").resolve(dir.replace('.', '/') + "/");<a name="line.239"></a>
+<span class="sourceLineNo">240</span>                String page = client.build().headers("User-Agent", "Bnd")<a name="line.240"></a>
+<span class="sourceLineNo">241</span>                    .get(String.class)<a name="line.241"></a>
+<span class="sourceLineNo">242</span>                    .go(groupUri);<a name="line.242"></a>
+<span class="sourceLineNo">243</span>                if (page == null) {<a name="line.243"></a>
+<span class="sourceLineNo">244</span>                    continue;<a name="line.244"></a>
+<span class="sourceLineNo">245</span>                }<a name="line.245"></a>
+<span class="sourceLineNo">246</span>                Matcher matcher = hrefPattern.matcher(page);<a name="line.246"></a>
+<span class="sourceLineNo">247</span>                while (matcher.find()) {<a name="line.247"></a>
+<span class="sourceLineNo">248</span>                    URI programUri = groupUri.resolve(matcher.group("href"));<a name="line.248"></a>
+<span class="sourceLineNo">249</span>                    String artifactId = programUri.getPath()<a name="line.249"></a>
+<span class="sourceLineNo">250</span>                        .substring(groupUri.getPath().length());<a name="line.250"></a>
+<span class="sourceLineNo">251</span>                    if (artifactId.endsWith("/")) {<a name="line.251"></a>
+<span class="sourceLineNo">252</span>                        artifactId<a name="line.252"></a>
+<span class="sourceLineNo">253</span>                            = artifactId.substring(0, artifactId.length() - 1);<a name="line.253"></a>
+<span class="sourceLineNo">254</span>                    }<a name="line.254"></a>
+<span class="sourceLineNo">255</span>                    result.add(artifactId);<a name="line.255"></a>
+<span class="sourceLineNo">256</span>                }<a name="line.256"></a>
+<span class="sourceLineNo">257</span>            } catch (Exception e) {<a name="line.257"></a>
+<span class="sourceLineNo">258</span>                LOG.warn("Problem retrieving {}, skipped.", groupUri, e);<a name="line.258"></a>
+<span class="sourceLineNo">259</span>            }<a name="line.259"></a>
+<span class="sourceLineNo">260</span>        }<a name="line.260"></a>
+<span class="sourceLineNo">261</span>        return result;<a name="line.261"></a>
+<span class="sourceLineNo">262</span>    }<a name="line.262"></a>
+<span class="sourceLineNo">263</span><a name="line.263"></a>
+<span class="sourceLineNo">264</span>    /**<a name="line.264"></a>
+<span class="sourceLineNo">265</span>     * Adds the specified revision.<a name="line.265"></a>
+<span class="sourceLineNo">266</span>     *<a name="line.266"></a>
+<span class="sourceLineNo">267</span>     * @param revision the revision<a name="line.267"></a>
+<span class="sourceLineNo">268</span>     * @param dependencyHandler the dependency handler<a name="line.268"></a>
+<span class="sourceLineNo">269</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.269"></a>
+<span class="sourceLineNo">270</span>     */<a name="line.270"></a>
+<span class="sourceLineNo">271</span>    public void addRevision(Revision revision,<a name="line.271"></a>
+<span class="sourceLineNo">272</span>            Consumer&lt;Collection&lt;IPom.Dependency&gt;&gt; dependencyHandler)<a name="line.272"></a>
+<span class="sourceLineNo">273</span>            throws IOException {<a name="line.273"></a>
+<span class="sourceLineNo">274</span>        if (!revision.group.equals(groupId)) {<a name="line.274"></a>
+<span class="sourceLineNo">275</span>            throw new IllegalArgumentException("Wrong groupId "<a name="line.275"></a>
+<span class="sourceLineNo">276</span>                + revision.group + " (must be " + groupId + ").");<a name="line.276"></a>
+<span class="sourceLineNo">277</span>        }<a name="line.277"></a>
+<span class="sourceLineNo">278</span>        if (mavenRevisions.contains(revision)) {<a name="line.278"></a>
+<span class="sourceLineNo">279</span>            return;<a name="line.279"></a>
+<span class="sourceLineNo">280</span>        }<a name="line.280"></a>
+<span class="sourceLineNo">281</span>        mavenRepository.toBoundRevision(revision).ifPresent(rev -&gt; {<a name="line.281"></a>
+<span class="sourceLineNo">282</span>            indexer.indexRevision(rev, dependencyHandler);<a name="line.282"></a>
+<span class="sourceLineNo">283</span>            mavenRevisions.add(revision);<a name="line.283"></a>
+<span class="sourceLineNo">284</span>        });<a name="line.284"></a>
+<span class="sourceLineNo">285</span>    }<a name="line.285"></a>
+<span class="sourceLineNo">286</span>}<a name="line.286"></a>
 
 
 
