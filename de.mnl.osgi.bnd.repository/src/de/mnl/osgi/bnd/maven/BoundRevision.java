@@ -69,8 +69,35 @@ public class BoundRevision {
      *
      * @return the revision
      */
-    public final Revision revision() {
+    public Revision unbound() {
         return revision;
+    }
+
+    /**
+     * Returns the group id.
+     *
+     * @return the id
+     */
+    public String groupId() {
+        return revision.group;
+    }
+
+    /**
+     * Returns the artifact id.
+     *
+     * @return the id
+     */
+    public String artifactId() {
+        return revision.artifact;
+    }
+
+    /**
+     * Returns the version.
+     *
+     * @return the version
+     */
+    public MavenVersion version() {
+        return revision.version;
     }
 
     /**

@@ -28,8 +28,7 @@ import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
-import de.mnl.osgi.bnd.maven.RevisionIndexer;
-import de.mnl.osgi.bnd.maven.RevisionIndexer.IndexedResource;
+import de.mnl.osgi.bnd.maven.CompositeMavenRepository.BinaryLocation;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,11 +47,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.osgi.resource.Capability;
+import org.osgi.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A manager for a single group index.
+ * A repository with artifacts from a single group.
  */
 @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class MavenGroupRepository extends ResourcesRepository {
@@ -66,10 +66,10 @@ public class MavenGroupRepository extends ResourcesRepository {
     private final Path groupPropsPath;
     private final Path groupIndexPath;
     private final Set<Revision> mavenRevisions = new HashSet<>();
-    private final RevisionIndexer indexer;
     private final Properties groupProps;
     private boolean propsChanged;
     private boolean indexChanged;
+    private ResourcesRepository backupRepo;
     private final Pattern hrefPattern = Pattern.compile(
         "<[aA]\\s+(?:[^>]*?\\s+)?href=(?<quote>[\"'])"
             + "(?<href>[a-zA-Z].*?)\\k<quote>");
@@ -129,10 +129,6 @@ public class MavenGroupRepository extends ResourcesRepository {
             mavenRevisions.add(
                 Revision.valueOf((String) cap.getAttributes().get("from")));
         }
-
-        // Helper for adding to index
-        indexer = new RevisionIndexer(mavenRepository, this,
-            IndexedResource.REMOTE);
     }
 
     /**
@@ -181,20 +177,41 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
+     * Clears this repository. Keeps the current content as
+     * backup for reuse in a subsequent call to {@link #refresh(Consumer)}.
+     */
+    public void clear() {
+        synchronized (this) {
+            backupRepo = new ResourcesRepository(getResources());
+            set(Collections.emptyList());
+            mavenRevisions.clear();
+        }
+    }
+
+    /**
      * Refresh the repository. This retrieves the list of known
      * artifactIds from the remote repository and adds the
      * versions. For versions already in the repository, the
      * existing information is re-used.  
      *
      * @param dependencyHandler the dependency handler
+     * @throws IOException 
      */
     @SuppressWarnings({ "PMD.AvoidReassigningLoopVariables",
         "PMD.AvoidCatchingGenericException" })
     public void
-            rescan(Consumer<Collection<IPom.Dependency>> dependencyHandler) {
-        ResourcesRepository oldRepo = new ResourcesRepository(getResources());
-        set(Collections.emptyList());
-        mavenRevisions.clear();
+            refresh(Consumer<Collection<IPom.Dependency>> dependencyHandler)
+                    throws IOException {
+        if (!isRequested()) {
+            return;
+        }
+        synchronized (this) {
+            if (backupRepo == null) {
+                backupRepo = new ResourcesRepository(getResources());
+            }
+            set(Collections.emptyList());
+            mavenRevisions.clear();
+        }
         Collection<String> artifactIds = findArtifactIds(groupId);
         for (String artifactId : artifactIds) {
             Program program = Program.valueOf(groupId, artifactId);
@@ -210,20 +227,9 @@ public class MavenGroupRepository extends ResourcesRepository {
                 continue;
             }
 
-            // Index the revisions.
+            // Add the revisions.
             for (BoundRevision rev : revisions) {
-                List<Capability> cap = oldRepo.findProvider(
-                    oldRepo.newRequirementBuilder("bnd.info")
-                        .addAttribute("from", rev.revision().toString())
-                        .build());
-                if (!cap.isEmpty()) { // NOPMD
-                    // Reuse existing
-                    add(cap.get(0).getResource());
-                } else {
-                    // Extract information from artifact.
-                    indexer.indexRevision(rev, dependencyHandler);
-                }
-                mavenRevisions.add(rev.revision());
+                addRevision(rev, dependencyHandler);
             }
         }
         indexChanged = true;
@@ -268,19 +274,41 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @param dependencyHandler the dependency handler
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public void addRevision(Revision revision,
+    public void addRevision(BoundRevision revision,
             Consumer<Collection<IPom.Dependency>> dependencyHandler)
             throws IOException {
-        if (!revision.group.equals(groupId)) {
+        if (!revision.groupId().equals(groupId)) {
             throw new IllegalArgumentException("Wrong groupId "
-                + revision.group + " (must be " + groupId + ").");
+                + revision.groupId() + " (must be " + groupId + ").");
         }
-        if (mavenRevisions.contains(revision)) {
-            return;
+        synchronized (this) {
+            if (mavenRevisions.contains(revision.unbound())) {
+                return;
+            }
         }
-        mavenRepository.toBoundRevision(revision).ifPresent(rev -> {
-            indexer.indexRevision(rev, dependencyHandler);
-            mavenRevisions.add(revision);
-        });
+        Resource resource = null;
+        if (backupRepo != null) {
+            List<Capability> cap = backupRepo.findProvider(
+                backupRepo.newRequirementBuilder("bnd.info")
+                    .addDirective("filter", String.format("(from=%s)",
+                        revision.unbound().toString()))
+                    .build());
+            if (!cap.isEmpty()) {
+                // Reuse existing
+                resource = cap.get(0).getResource();
+            }
+        }
+        if (resource == null) {
+            // Extract information from artifact.
+            resource = mavenRepository.toResource(revision,
+                dependencyHandler, BinaryLocation.REMOTE).orElse(null);
+        }
+        if (resource != null) {
+            synchronized (this) {
+                add(resource);
+                mavenRevisions.add(revision.unbound());
+                indexChanged = true;
+            }
+        }
     }
 }

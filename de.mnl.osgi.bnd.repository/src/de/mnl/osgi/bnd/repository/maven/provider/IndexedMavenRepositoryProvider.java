@@ -66,7 +66,8 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
 
     private boolean initialized;
     private IndexedMavenConfiguration configuration;
-    private String name = "MavenArtifacts";
+    private String name = "Indexed Maven";
+    private String location;
     private Registry registry;
     private Reporter reporter
         = new Slf4jReporter(IndexedMavenRepositoryProvider.class);
@@ -74,10 +75,13 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
     private BridgeRepository bridge;
 
     @Override
+    @SuppressWarnings({ "PMD.UseLocaleWithCaseConversions", "restriction" })
     public void setProperties(Map<String, String> properties) throws Exception {
         configuration
             = Converter.cnv(IndexedMavenConfiguration.class, properties);
-        name = configuration.name("MavenArtifacts");
+        name = configuration.name(name);
+        location = configuration.location(
+            "cnf/" + name.toLowerCase().replace(' ', '-').replace('/', ':'));
     }
 
     @Override
@@ -109,6 +113,7 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
     /**
      * Performs initialization. Initialization must be delayed because the
      * precise sequence of injecting dependencies seems to be undefined.
+     * 
      * @throws MalformedURLException 
      */
     private synchronized void init() {
@@ -199,7 +204,7 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
 
     @Override
     public String getLocation() {
-        return "cnf/indexed-maven";
+        return location;
     }
 
     @Override

@@ -60,13 +60,4 @@ public interface IndexedMavenConfiguration {
      * @return the result
      */
     String snapshotUrls();
-
-    /**
-     * Allow transitive dependencies
-     * 
-     * @param deflt the default value
-     * @return the result
-     */
-    boolean transitive(boolean deflt);
-
 }

@@ -26,6 +26,7 @@ import aQute.maven.api.IMavenRepo;
 import aQute.maven.api.IPom;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
+import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
 import de.mnl.osgi.bnd.maven.TaskCollection;
 
@@ -37,15 +38,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -194,8 +193,12 @@ public class IndexedMavenRepository extends ResourcesRepository {
         "PMD.SignatureDeclareThrowsException",
         "PMD.AvoidInstantiatingObjectsInLoops" })
     public boolean refresh() throws Exception {
-        AtomicInteger running = new AtomicInteger();
+        @SuppressWarnings("PMD.UseConcurrentHashMap")
+        Map<String, MavenGroupRepository> oldGroups = new HashMap<>(groups);
 
+        // Keep and clear or create new group repositories for the existing
+        // directories.
+        groups.clear();
         for (String groupId : indexDbDir.toFile().list()) {
             if (!groupId.matches("^[A-Za-z].*")
                 || "index.xml".equals(groupId)) {
@@ -204,9 +207,16 @@ public class IndexedMavenRepository extends ResourcesRepository {
             execCtx.submit(new Callable<Void>() {
                 @Override
                 public Void call() throws Exception {
-                    MavenGroupRepository group = new MavenGroupRepository(groupId,
-                        indexDbDir.resolve(groupId), mavenRepository, client);
-                    groups.put(groupId, group);
+                    if (oldGroups.containsKey(groupId)) {
+                        MavenGroupRepository groupRepo = oldGroups.get(groupId);
+                        oldGroups.clear();
+                        groups.put(groupId, groupRepo);
+                        return null;
+                    }
+                    MavenGroupRepository groupRepo = new MavenGroupRepository(
+                        groupId, indexDbDir.resolve(groupId), mavenRepository,
+                        client);
+                    groups.put(groupId, groupRepo);
                     return null;
                 }
             });
@@ -214,35 +224,78 @@ public class IndexedMavenRepository extends ResourcesRepository {
         execCtx.await();
         for (MavenGroupRepository group : new ArrayList<>(groups.values())) {
             if (group.isRequested()) {
-                execCtx.submit(() -> {
-                    LOG.debug("Refreshing {}", group.id());
-                    group.rescan(
-                        deps -> handleDependencies(deps));
+                execCtx.submit(new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        LOG.debug("Refreshing {}", group.id());
+                        group.refresh(
+                            deps -> handleDependencies(deps));
+                        return null;
+                    }
                 });
             }
         }
         execCtx.await();
-        while (true) {
-            synchronized (running) {
-                if (running.get() == 0) {
-                    break;
+        for (MavenGroupRepository groupRepo : groups.values()) {
+            execCtx.submit(new Callable<Void>() {
+                @Override
+                public Void call() throws Exception {
+                    groupRepo.flush();
+                    return null;
                 }
-                running.wait();
+            });
+        }
+        execCtx.submit(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                try (OutputStream fos
+                    = Files.newOutputStream(indexDbDir.resolve("index.xml"))) {
+                    writeFederatedIndex(fos);
+                }
+                return null;
             }
-        }
-        // Remaining tasks executed sequentially.
-        for (MavenGroupRepository gim : groups.values()) {
-            gim.flush();
-        }
-        try (OutputStream fos
-            = Files.newOutputStream(indexDbDir.resolve("index.xml"))) {
-            writeFederatedIndex(fos);
-        }
+        });
+        execCtx.submit(() -> {
+            set(Collections.emptyList());
+            for (MavenGroupRepository groupRepo : groups.values()) {
+                addAll(groupRepo.getResources());
+            }
+        });
+        execCtx.await();
         return true;
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     private void handleDependencies(Collection<IPom.Dependency> dependencies) {
-
+        for (IPom.Dependency dep : dependencies) {
+            MavenGroupRepository groupRepo = groups.computeIfAbsent(
+                dep.program.group, groupId -> {
+                    try {
+                        return new MavenGroupRepository(groupId,
+                            indexDbDir.resolve(groupId), mavenRepository,
+                            client);
+                    } catch (IOException e) {
+                        LOG.error("Cannot create group repository for {}.",
+                            groupId, e);
+                        return null;
+                    }
+                });
+            if (groupRepo == null) {
+                return;
+            }
+            execCtx.submit(new Callable<Void>() {
+                @Override
+                public Void call() throws Exception {
+                    Optional<BoundRevision> bound
+                        = mavenRepository.toBoundRevision(dep.getRevision());
+                    if (bound.isPresent()) {
+                        groupRepo.addRevision(bound.get(),
+                            deps -> handleDependencies(deps));
+                    }
+                    return null;
+                }
+            });
+        }
     }
 
     private void writeFederatedIndex(OutputStream out) {

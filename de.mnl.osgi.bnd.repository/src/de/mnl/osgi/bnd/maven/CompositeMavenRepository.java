@@ -18,21 +18,33 @@
 
 package de.mnl.osgi.bnd.maven;
 
+import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapability;
+import aQute.bnd.osgi.resource.ResourceBuilder;
 import aQute.bnd.version.MavenVersion;
 import aQute.maven.api.IMavenRepo;
+import aQute.maven.api.IPom;
+import aQute.maven.api.MavenScope;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.maven.provider.MavenRepository;
+import aQute.maven.provider.MetadataParser;
+import aQute.maven.provider.MetadataParser.RevisionMetadata;
 import aQute.service.reporter.Reporter;
 
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Executor;
+import java.util.function.Consumer;
+
+import org.osgi.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides a common {@link IMavenRepo} view on several 
@@ -41,8 +53,12 @@ import java.util.concurrent.Executor;
  * The class extends {@link MavenRepository} which lacks some
  * required functionality.
  */
+@SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class CompositeMavenRepository extends MavenRepository
         implements IMavenRepo, Closeable {
+
+    private static final Logger LOG = LoggerFactory.getLogger(
+        CompositeMavenRepository.class);
 
     /**
      * Instantiates a new merged maven repository.
@@ -141,8 +157,8 @@ public class CompositeMavenRepository extends MavenRepository
     }
 
     @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
-        "PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException",
-        "PMD.AvoidThrowingRawExceptionTypes" })
+        "PMD.AvoidRethrowingException", "PMD.AvoidThrowingRawExceptionTypes",
+        "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals" })
     private Optional<BoundRevision> toBoundRevision(MavenBackingRepository mbr,
             Revision revision) throws IOException {
         List<Revision> revs = new ArrayList<>();
@@ -171,7 +187,11 @@ public class CompositeMavenRepository extends MavenRepository
     }
 
     /**
-     * Gets the resolved archive.
+     * Gets the resolved archive. "Resolving" an archive means finding
+     * the binaries with the specified extension and classifier belonging
+     * to the given version. While this can be done with straight forward
+     * name mapping for releases, snapshots have a timestamp that has to
+     * be looked up in the backing repository.
      *
      * @param revision the revision
      * @param extension the extension
@@ -188,7 +208,7 @@ public class CompositeMavenRepository extends MavenRepository
         }
         try {
             MavenVersion version = revision.mavenBackingRepository()
-                .getVersion(revision.revision());
+                .getVersion(revision.unbound());
             if (version != null) {
                 return revision.archive(version, extension, classifier);
             }
@@ -198,6 +218,103 @@ public class CompositeMavenRepository extends MavenRepository
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    /**
+     * Converts the manifest information of a revision to a
+     * {@link Resource}. Any dependencies found in the revisions's
+     * POM are reported using the specified {@code dependencyHandler}.  
+     *
+     * @param revision the revision
+     * @param dependencyHandler the dependency handler
+     * @param location which URL to use for the binary in the {@link Resource}
+     * @return the resource
+     */
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public Optional<Resource> toResource(BoundRevision revision,
+            Consumer<Collection<IPom.Dependency>> dependencyHandler,
+            BinaryLocation location) {
+        BoundArchive archive;
+        try {
+            archive = getResolvedArchive(revision, "jar", "");
+            if (archive == null) {
+                return Optional.empty();
+            }
+        } catch (Exception e) {
+            LOG.error("Problem resolving archive for {}.", revision, e);
+            return Optional.empty();
+        }
+        if (archive.isSnapshot()) {
+            refreshSnapshot(archive);
+        }
+        // Get POM for dependencies
+        try {
+            IPom pom = getPom(archive.getRevision());
+            if (pom != null) {
+                Collection<IPom.Dependency> deps = pom
+                    .getDependencies(MavenScope.compile, false).values();
+                if (!deps.isEmpty()) {
+                    dependencyHandler.accept(deps);
+                }
+                deps = pom.getDependencies(MavenScope.runtime, false).values();
+                if (!deps.isEmpty()) {
+                    dependencyHandler.accept(deps);
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Problem processing POM of {}.", revision, e);
+        }
+        return Optional.ofNullable(parseResource(archive, location));
+    }
+
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    private void refreshSnapshot(BoundArchive archive) {
+        File metaFile = toLocalFile(
+            archive.getRevision()
+                .metadata(archive.mavenBackingRepository().getId()));
+        RevisionMetadata metaData;
+        try {
+            metaData = MetadataParser.parseRevisionMetadata(metaFile);
+        } catch (Exception e) {
+            LOG.error("Problem accessing {}.", archive, e);
+            return;
+        }
+        File archiveFile = toLocalFile(archive);
+        if (archiveFile.lastModified() < metaData.lastUpdated) {
+            archiveFile.delete();
+        }
+        File pomFile = toLocalFile(archive.getPomArchive());
+        if (pomFile.lastModified() < metaData.lastUpdated) {
+            pomFile.delete();
+        }
+    }
+
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    private Resource parseResource(BoundArchive archive,
+            BinaryLocation location) {
+        ResourceBuilder builder = new ResourceBuilder();
+        try {
+            File binary = get(archive).getValue();
+            if (location == BinaryLocation.LOCAL) {
+                builder.addFile(binary, binary.toURI());
+            } else {
+                builder.addFile(binary, archive.mavenBackingRepository()
+                    .toURI(archive.remotePath));
+            }
+            addInformationCapability(builder, archive.toString(),
+                archive.getRevision().toString(), null);
+        } catch (Exception e) {
+            LOG.error("Problem accessing {}.", archive, e);
+            return null;
+        }
+        return builder.build();
+    }
+
+    /**
+     * Use local or remote URL in index.
+     */
+    public enum BinaryLocation {
+        LOCAL, REMOTE
     }
 
 }

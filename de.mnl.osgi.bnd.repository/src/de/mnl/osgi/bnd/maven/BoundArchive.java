@@ -42,7 +42,7 @@ public class BoundArchive extends Archive {
      */
     public BoundArchive(BoundRevision revision, MavenVersion snapshot,
             String extension, String classifier) {
-        super(revision.revision(), snapshot, extension, classifier);
+        super(revision.unbound(), snapshot, extension, classifier);
         this.revision = revision;
     }
 
