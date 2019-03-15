@@ -281,8 +281,8 @@ public abstract class LocalMavenBackedOsgiRepository
         private void bindToVersion(Dependency dependency) throws Exception {
             if (MavenVersionRange.isRange(dependency.version)) {
 
-                BndMavenVersionRangeFixed range
-                    = new BndMavenVersionRangeFixed(dependency.version);
+                MavenVersionRange range
+                    = new MavenVersionRange(dependency.version);
                 List<Revision> revisions
                     = mavenRepository.getRevisions(dependency.program);
 
