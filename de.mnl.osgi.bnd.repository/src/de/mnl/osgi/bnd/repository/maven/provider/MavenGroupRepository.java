@@ -32,6 +32,7 @@ import de.mnl.osgi.bnd.maven.CompositeMavenRepository.BinaryLocation;
 import de.mnl.osgi.bnd.maven.MavenVersionRange;
 import de.mnl.osgi.bnd.maven.RepositoryUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -40,6 +41,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +73,7 @@ public class MavenGroupRepository extends ResourcesRepository {
     private final String groupId;
     private final CompositeMavenRepository mavenRepository;
     private final HttpClient client;
+    private final Path groupDir;
     private final Path groupPropsPath;
     private final Path groupIndexPath;
     private final Set<Revision> mavenRevisions = new HashSet<>();
@@ -99,6 +102,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             CompositeMavenRepository mavenRepository, HttpClient client)
             throws IOException {
         this.groupId = groupId;
+        this.groupDir = directory;
         this.mavenRepository = mavenRepository;
         this.client = client;
 
@@ -164,6 +168,27 @@ public class MavenGroupRepository extends ResourcesRepository {
             }
             indexChanged = false;
         }
+    }
+
+    /**
+     * Removes the group directory if empty.
+     *
+     * @return true, if removed
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public boolean removeIfRedundant() throws IOException {
+        if (isRequested()) {
+            return false;
+        }
+        if (mavenRevisions.isEmpty()) {
+            // Nothing in this group
+            Files.walk(groupDir)
+                .sorted(Comparator.reverseOrder())
+                .map(Path::toFile)
+                .forEach(File::delete);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -361,6 +386,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         }
     }
 
+    @SuppressWarnings("PMD.CompareObjectsWithEquals")
     private String searchProperty(String artifactId, String qualifier) {
         String queryKey = artifactId + ";" + qualifier;
         // Attempt to get from cache.

@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -236,6 +237,13 @@ public class IndexedMavenRepository extends ResourcesRepository {
             }
         }
         execCtx.await();
+        for (Iterator<Map.Entry<String, MavenGroupRepository>> iter
+            = groups.entrySet().iterator(); iter.hasNext();) {
+            Map.Entry<String, MavenGroupRepository> entry = iter.next();
+            if (entry.getValue().removeIfRedundant()) {
+                iter.remove();
+            }
+        }
         for (MavenGroupRepository groupRepo : groups.values()) {
             execCtx.submit(new Callable<Void>() {
                 @Override
