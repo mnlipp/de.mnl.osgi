@@ -199,7 +199,7 @@ public class MavenGroupRepository extends ResourcesRepository {
      * existing information is re-used.  
      *
      * @param dependencyHandler the dependency handler
-     * @throws IOException 
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings({ "PMD.AvoidReassigningLoopVariables",
         "PMD.AvoidCatchingGenericException" })

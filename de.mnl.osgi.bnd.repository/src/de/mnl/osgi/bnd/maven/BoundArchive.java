@@ -26,7 +26,7 @@ import static de.mnl.osgi.bnd.maven.MavenVersion.toBndMavenVersion;
 /**
  * An {@link Archive} with a reference to the maven repository
  * in which it was found.
- * <P>
+ * 
  * @see BoundRevision 
  */
 public class BoundArchive extends Archive {

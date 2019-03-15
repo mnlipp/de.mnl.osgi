@@ -158,7 +158,7 @@ public class CompositeMavenRepository extends MavenRepository
      *
      * @param program the program
      * @return the bound revisions
-     * @throws Exception the exception
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public Stream<BoundRevision> boundRevisions(Program program)
             throws IOException {

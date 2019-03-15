@@ -243,7 +243,8 @@ public class MavenVersion implements ArtifactVersion {
      * bnd {@link aQute.bnd.version.MavenVersion}.
      * Propagates {@code null} pointers.
      *
-     * @return the a qute.bnd.version. maven version
+     * @param version the version
+     * @return the bnd maven version
      */
     public static aQute.bnd.version.MavenVersion
             toBndMavenVersion(MavenVersion version) {

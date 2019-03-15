@@ -71,7 +71,7 @@ public class MavenVersionRange {
     /**
      * Creates a new maven version range from the given representation.
      *
-     * @param range the range
+     * @param version the string representation
      * @return the maven version range
      */
     public static MavenVersionRange parseRange(String version) {
