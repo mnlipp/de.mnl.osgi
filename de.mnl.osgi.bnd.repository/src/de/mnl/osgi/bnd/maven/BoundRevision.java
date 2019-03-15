@@ -38,10 +38,10 @@ import aQute.maven.provider.MavenBackingRepository;
  * @see <a href="https://github.com/bndtools/bnd/issues/3058">Related 
  * bnd issue</a>
  */
-public class BoundRevision {
+public class BoundRevision implements Comparable<BoundRevision> {
 
     private final MavenBackingRepository mavenBackingRepository;
-    private final Revision revision;
+    private final Revision unbound;
 
     /**
      * Instantiates a new bound revision.
@@ -52,7 +52,7 @@ public class BoundRevision {
     public BoundRevision(MavenBackingRepository mavenBackingRepository,
             Revision revision) {
         this.mavenBackingRepository = mavenBackingRepository;
-        this.revision = revision;
+        this.unbound = revision;
     }
 
     /**
@@ -70,7 +70,7 @@ public class BoundRevision {
      * @return the revision
      */
     public Revision unbound() {
-        return revision;
+        return unbound;
     }
 
     /**
@@ -79,7 +79,7 @@ public class BoundRevision {
      * @return the id
      */
     public String groupId() {
-        return revision.group;
+        return unbound.group;
     }
 
     /**
@@ -88,7 +88,7 @@ public class BoundRevision {
      * @return the id
      */
     public String artifactId() {
-        return revision.artifact;
+        return unbound.artifact;
     }
 
     /**
@@ -97,7 +97,7 @@ public class BoundRevision {
      * @return the version
      */
     public MavenVersion version() {
-        return revision.version;
+        return unbound.version;
     }
 
     /**
@@ -107,7 +107,7 @@ public class BoundRevision {
      * @see aQute.maven.api.Revision#isSnapshot()
      */
     public boolean isSnapshot() {
-        return revision.isSnapshot();
+        return unbound.isSnapshot();
     }
 
     /**
@@ -142,7 +142,7 @@ public class BoundRevision {
      * @see aQute.maven.api.Revision#metadata()
      */
     public String metadata() {
-        return revision.metadata();
+        return unbound.metadata();
     }
 
     /**
@@ -154,7 +154,7 @@ public class BoundRevision {
      */
     @SuppressWarnings("PMD.ShortVariable")
     public String metadata(String id) {
-        return revision.metadata(id);
+        return unbound.metadata(id);
     }
 
     /**
@@ -165,7 +165,7 @@ public class BoundRevision {
      * @see aQute.maven.api.Revision#toString()
      */
     public String toString() {
-        return revision.toString() + "[" + mavenBackingRepository.toString()
+        return unbound.toString() + "[" + mavenBackingRepository.toString()
             + "]";
     }
 
@@ -176,7 +176,7 @@ public class BoundRevision {
      * @see aQute.maven.api.Revision#pomArchive()
      */
     public Archive pomArchive() {
-        return revision.pomArchive();
+        return unbound.pomArchive();
     }
 
     /**
@@ -186,7 +186,7 @@ public class BoundRevision {
      * @see aQute.maven.api.Revision#getPomArchive()
      */
     public Archive getPomArchive() {
-        return revision.getPomArchive();
+        return unbound.getPomArchive();
     }
 
     /**
@@ -197,7 +197,18 @@ public class BoundRevision {
      * @see aQute.maven.api.Revision#compareTo(aQute.maven.api.Revision)
      */
     public int compareTo(Revision other) {
-        return revision.compareTo(other);
+        return unbound.compareTo(other);
+    }
+
+    /**
+     * Compare to other revision. Ignores repository.
+     *
+     * @param other the other
+     * @return the int
+     * @see aQute.maven.api.Revision#compareTo(aQute.maven.api.Revision)
+     */
+    public int compareTo(BoundRevision other) {
+        return unbound.compareTo(other.unbound());
     }
 
     /**
@@ -207,7 +218,7 @@ public class BoundRevision {
      * @see aQute.maven.api.Revision#hashCode()
      */
     public int hashCode() {
-        return revision.hashCode();
+        return unbound.hashCode();
     }
 
     /**
@@ -219,9 +230,9 @@ public class BoundRevision {
      */
     public boolean equals(Object obj) {
         if (obj instanceof BoundRevision) {
-            return revision.equals(((BoundRevision) obj).revision);
+            return unbound.equals(((BoundRevision) obj).unbound);
         }
-        return revision.equals(obj);
+        return unbound.equals(obj);
     }
 
 }

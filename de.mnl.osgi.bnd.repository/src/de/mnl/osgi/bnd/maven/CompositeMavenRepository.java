@@ -19,10 +19,14 @@
 package de.mnl.osgi.bnd.maven;
 
 import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapability;
+
+import aQute.bnd.osgi.resource.RequirementBuilder;
 import aQute.bnd.osgi.resource.ResourceBuilder;
 import aQute.bnd.version.MavenVersion;
+import aQute.bnd.version.MavenVersionRange;
 import aQute.maven.api.IMavenRepo;
 import aQute.maven.api.IPom;
+import aQute.maven.api.IPom.Dependency;
 import aQute.maven.api.MavenScope;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
@@ -37,10 +41,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Executor;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import org.osgi.resource.Resource;
 import org.slf4j.Logger;
@@ -82,9 +88,9 @@ public class CompositeMavenRepository extends MavenRepository
     }
 
     /**
-     * Returns all repositories.
+     * Returns all backing repositories.
      *
-     * @return the list
+     * @return the list of all repositories
      */
     public List<MavenBackingRepository> allRepositories() {
         List<MavenBackingRepository> result
@@ -94,37 +100,71 @@ public class CompositeMavenRepository extends MavenRepository
     }
 
     /**
+     * All repositories as stream.
+     *
+     * @return the repositories as stream
+     */
+    public Stream<MavenBackingRepository> repositoriesAsStream() {
+        return Stream.concat(getReleaseRepositories().stream(),
+            getSnapshotRepositories().stream()).distinct();
+    }
+
+    /**
+     * Wrapper for {@link MavenBackingRepository#getRevisions(Program, List)}
+     * that returns the result instead of accumulating it and maps the
+     * (too general) exception.
+     *
+     * @param mbr the backing repository
+     * @param program the program
+     * @return the revisions
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @SuppressWarnings({ "PMD.LinguisticNaming", "PMD.AvoidRethrowingException",
+        "PMD.AvoidCatchingGenericException",
+        "PMD.AvoidThrowingRawExceptionTypes", "PMD.AvoidDuplicateLiterals" })
+    private static List<Revision> getRevisions(MavenBackingRepository mbr,
+            Program program) throws IOException {
+        List<Revision> result = new ArrayList<>();
+        try {
+            mbr.getRevisions(program, result);
+        } catch (IOException e) {
+            // Should be the only reason.
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    private static Stream<BoundRevision> boundRevisions(
+            MavenBackingRepository mbr, Program program) throws IOException {
+        return getRevisions(mbr, program).stream()
+            .map(revision -> new BoundRevision(mbr, revision));
+    }
+
+    /**
      * Returns all known revisions as {@link BoundRevision}s.
      *
      * @param program the program
      * @return the bound revisions
      * @throws Exception the exception
      */
-    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
-    public List<BoundRevision> boundRevisions(Program program)
-            throws Exception {
-        List<BoundRevision> revisions = new ArrayList<>();
-
-        for (MavenBackingRepository mbr : getReleaseRepositories()) {
-            addRevisions(mbr, program, revisions);
-        }
-        for (MavenBackingRepository mbr : getSnapshotRepositories()) {
-            if (!getReleaseRepositories().contains(mbr)) {
-                addRevisions(mbr, program, revisions);
+    public Stream<BoundRevision> boundRevisions(Program program)
+            throws IOException {
+        IOException[] exc = new IOException[1];
+        @SuppressWarnings("PMD.PrematureDeclaration")
+        Stream<BoundRevision> result = repositoriesAsStream().flatMap(mbr -> {
+            try {
+                return boundRevisions(mbr, program);
+            } catch (IOException e) {
+                exc[0] = e;
+                return Stream.empty();
             }
+        });
+        if (exc[0] != null) {
+            throw exc[0];
         }
-        return revisions;
-    }
-
-    @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
-        "PMD.AvoidInstantiatingObjectsInLoops" })
-    private void addRevisions(MavenBackingRepository mbr, Program program,
-            List<BoundRevision> revisions) throws Exception {
-        List<Revision> revs = new ArrayList<>();
-        mbr.getRevisions(program, revs);
-        for (Revision rev : revs) {
-            revisions.add(new BoundRevision(mbr, rev));
-        }
+        return result;
     }
 
     /**
@@ -137,43 +177,60 @@ public class CompositeMavenRepository extends MavenRepository
     @SuppressWarnings("PMD.SignatureDeclareThrowsException")
     public Optional<BoundRevision> toBoundRevision(Revision revision)
             throws IOException {
-        for (MavenBackingRepository mbr : getReleaseRepositories()) {
-            Optional<BoundRevision> checkResult
-                = toBoundRevision(mbr, revision);
-            if (checkResult.isPresent()) {
-                return checkResult;
-            }
-        }
-        for (MavenBackingRepository mbr : getSnapshotRepositories()) {
-            if (!getReleaseRepositories().contains(mbr)) {
-                Optional<BoundRevision> checkResult
-                    = toBoundRevision(mbr, revision);
-                if (checkResult.isPresent()) {
-                    return checkResult;
-                }
-            }
-        }
-        return Optional.empty();
+        return boundRevisions(revision.program)
+            .filter(rev -> rev.unbound().equals(revision)).findFirst();
     }
 
-    @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
-        "PMD.AvoidRethrowingException", "PMD.AvoidThrowingRawExceptionTypes",
-        "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals" })
-    private Optional<BoundRevision> toBoundRevision(MavenBackingRepository mbr,
-            Revision revision) throws IOException {
-        List<Revision> revs = new ArrayList<>();
+    /**
+     * Converts a {@link Program} and a version, which
+     * may be a range, to a {@link BoundRevision}.
+     *
+     * @param program the program
+     * @param version the version
+     * @return the bound revision
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+    public Optional<BoundRevision> toBoundRevision(Program program,
+            String version) throws IOException {
+        if (!MavenVersionRange.isRange(version)) {
+            return toBoundRevision(program.version(version));
+        }
+        MavenVersionRange range = new MavenVersionRange(version);
+        return boundRevisions(program)
+            .filter(rev -> range.includes(rev.version()))
+            .max(Comparator.naturalOrder());
+    }
+
+    /**
+     * Converts the manifest information of a revision to a
+     * {@link Resource}. Any dependencies found in the revisions's
+     * POM are reported using the specified {@code dependencyHandler}.  
+     *
+     * @param revision the revision
+     * @param dependencyHandler the dependency handler
+     * @param location which URL to use for the binary in the {@link Resource}
+     * @return the resource
+     */
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public Optional<Resource> toResource(BoundRevision revision,
+            Consumer<Collection<IPom.Dependency>> dependencyHandler,
+            BinaryLocation location) {
+        BoundArchive archive;
         try {
-            mbr.getRevisions(revision.program, revs);
-        } catch (IOException e) {
-            // Should be the only reason.
-            throw e;
+            archive = getResolvedArchive(revision, "jar", "");
+            if (archive == null) {
+                return Optional.empty();
+            }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            LOG.error("Problem resolving archive for {}.", revision, e);
+            return Optional.empty();
         }
-        if (revs.contains(revision)) {
-            return Optional.of(new BoundRevision(mbr, revision));
+        if (archive.isSnapshot()) {
+            refreshSnapshot(archive);
         }
-        return Optional.empty();
+        return Optional
+            .ofNullable(parseResource(archive, location, dependencyHandler));
     }
 
     @Override
@@ -220,53 +277,6 @@ public class CompositeMavenRepository extends MavenRepository
         return null;
     }
 
-    /**
-     * Converts the manifest information of a revision to a
-     * {@link Resource}. Any dependencies found in the revisions's
-     * POM are reported using the specified {@code dependencyHandler}.  
-     *
-     * @param revision the revision
-     * @param dependencyHandler the dependency handler
-     * @param location which URL to use for the binary in the {@link Resource}
-     * @return the resource
-     */
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public Optional<Resource> toResource(BoundRevision revision,
-            Consumer<Collection<IPom.Dependency>> dependencyHandler,
-            BinaryLocation location) {
-        BoundArchive archive;
-        try {
-            archive = getResolvedArchive(revision, "jar", "");
-            if (archive == null) {
-                return Optional.empty();
-            }
-        } catch (Exception e) {
-            LOG.error("Problem resolving archive for {}.", revision, e);
-            return Optional.empty();
-        }
-        if (archive.isSnapshot()) {
-            refreshSnapshot(archive);
-        }
-        // Get POM for dependencies
-        try {
-            IPom pom = getPom(archive.getRevision());
-            if (pom != null) {
-                Collection<IPom.Dependency> deps = pom
-                    .getDependencies(MavenScope.compile, false).values();
-                if (!deps.isEmpty()) {
-                    dependencyHandler.accept(deps);
-                }
-                deps = pom.getDependencies(MavenScope.runtime, false).values();
-                if (!deps.isEmpty()) {
-                    dependencyHandler.accept(deps);
-                }
-            }
-        } catch (Exception e) {
-            LOG.error("Problem processing POM of {}.", revision, e);
-        }
-        return Optional.ofNullable(parseResource(archive, location));
-    }
-
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     private void refreshSnapshot(BoundArchive archive) {
         File metaFile = toLocalFile(
@@ -291,7 +301,8 @@ public class CompositeMavenRepository extends MavenRepository
 
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     private Resource parseResource(BoundArchive archive,
-            BinaryLocation location) {
+            BinaryLocation location,
+            Consumer<Collection<Dependency>> dependencyHandler) {
         ResourceBuilder builder = new ResourceBuilder();
         try {
             File binary = get(archive).getValue();
@@ -303,11 +314,50 @@ public class CompositeMavenRepository extends MavenRepository
             }
             addInformationCapability(builder, archive.toString(),
                 archive.getRevision().toString(), null);
+            // Add dependency infos
+            // Get POM for dependencies
+            try {
+                IPom pom = getPom(archive.getRevision());
+                if (pom != null) {
+                    RequirementBuilder req = null;
+                    Collection<IPom.Dependency> rtDeps = pom.getDependencies(
+                        MavenScope.runtime, false).values();
+                    Collection<IPom.Dependency> cpDeps = pom
+                        .getDependencies(MavenScope.compile, false).values();
+                    if (!cpDeps.isEmpty() || !rtDeps.isEmpty()) {
+                        req = new RequirementBuilder("maven.dependencies");
+                        if (!cpDeps.isEmpty()) {
+                            dependencyHandler.accept(cpDeps);
+                            req.addAttribute("compile", toVersionList(cpDeps));
+                        }
+                        if (!rtDeps.isEmpty()) {
+                            dependencyHandler.accept(rtDeps);
+                            req.addAttribute("runtime", toVersionList(rtDeps));
+                        }
+                        builder.addRequirement(req);
+                    }
+                }
+            } catch (Exception e) {
+                LOG.error("Problem processing POM of {}.", archive, e);
+            }
         } catch (Exception e) {
             LOG.error("Problem accessing {}.", archive, e);
             return null;
         }
         return builder.build();
+    }
+
+    private String toVersionList(Collection<IPom.Dependency> deps) {
+        StringBuilder depsList = new StringBuilder("");
+        for (IPom.Dependency dep : deps) {
+            if (depsList.length() > 0) {
+                depsList.append(',');
+            }
+            depsList.append(dep.program.toString());
+            depsList.append(':');
+            depsList.append(dep.version);
+        }
+        return depsList.toString();
     }
 
     /**

@@ -29,6 +29,7 @@ import aQute.maven.provider.MavenBackingRepository;
 import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository.BinaryLocation;
+import de.mnl.osgi.bnd.maven.RepositoryUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,13 +41,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.osgi.resource.Capability;
+import org.osgi.resource.Requirement;
 import org.osgi.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -217,19 +221,18 @@ public class MavenGroupRepository extends ResourcesRepository {
             Program program = Program.valueOf(groupId, artifactId);
 
             // Get revisions of program.
-            List<BoundRevision> revisions;
-            try {
-                revisions = mavenRepository.boundRevisions(program);
-            } catch (Exception e) {
-                // Strange name in parsed result.
-                LOG.warn("Couldn't get revisions for {}" // NOPMD (constant)
-                    + " (found in maven-metadata.xml).", program, e);
-                continue;
-            }
-
-            // Add the revisions.
-            for (BoundRevision rev : revisions) {
-                addRevision(rev, dependencyHandler);
+            @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+            IOException[] exc = new IOException[1];
+            mavenRepository.boundRevisions(program).forEach(
+                revision -> {
+                    try {
+                        addRevision(revision, dependencyHandler);
+                    } catch (IOException e) {
+                        exc[0] = e;
+                    }
+                });
+            if (exc[0] != null) {
+                throw exc[0];
             }
         }
         indexChanged = true;
@@ -296,6 +299,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             if (!cap.isEmpty()) {
                 // Reuse existing
                 resource = cap.get(0).getResource();
+                replayDependencies(resource, dependencyHandler);
             }
         }
         if (resource == null) {
@@ -309,6 +313,26 @@ public class MavenGroupRepository extends ResourcesRepository {
                 mavenRevisions.add(revision.unbound());
                 indexChanged = true;
             }
+        }
+    }
+
+    private void replayDependencies(Resource resource,
+            Consumer<Collection<IPom.Dependency>> dependencyHandler) {
+        for (Requirement requirement : resource
+            .getRequirements("maven.dependencies")) {
+            Map<String, Object> depAttrs = requirement.getAttributes();
+            @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+            Collection<IPom.Dependency> dependencies
+                = depAttrs.values().stream()
+                    .flatMap(val -> RepositoryUtils.itemizeList((String) val))
+                    .map(rev -> {
+                        String[] parts = rev.split(":");
+                        IPom.Dependency dep = new IPom.Dependency();
+                        dep.program = Program.valueOf(parts[0], parts[1]);
+                        dep.version = parts[2];
+                        return dep;
+                    }).collect(Collectors.toList());
+            dependencyHandler.accept(dependencies);
         }
     }
 }

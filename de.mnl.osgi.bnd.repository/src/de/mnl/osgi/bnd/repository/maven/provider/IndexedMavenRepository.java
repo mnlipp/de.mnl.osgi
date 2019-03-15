@@ -268,33 +268,37 @@ public class IndexedMavenRepository extends ResourcesRepository {
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     private void handleDependencies(Collection<IPom.Dependency> dependencies) {
         for (IPom.Dependency dep : dependencies) {
-            MavenGroupRepository groupRepo = groups.computeIfAbsent(
-                dep.program.group, groupId -> {
-                    try {
-                        return new MavenGroupRepository(groupId,
-                            indexDbDir.resolve(groupId), mavenRepository,
-                            client);
-                    } catch (IOException e) {
-                        LOG.error("Cannot create group repository for {}.",
-                            groupId, e);
+            try {
+                MavenGroupRepository groupRepo = groups.computeIfAbsent(
+                    dep.program.group, groupId -> {
+                        try {
+                            return new MavenGroupRepository(groupId,
+                                indexDbDir.resolve(groupId), mavenRepository,
+                                client);
+                        } catch (IOException e) {
+                            LOG.error("Cannot create group repository for {}.",
+                                groupId, e);
+                            return null;
+                        }
+                    });
+                if (groupRepo == null) {
+                    return;
+                }
+                execCtx.submit(new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        Optional<BoundRevision> bound = mavenRepository
+                            .toBoundRevision(dep.program, dep.version);
+                        if (bound.isPresent()) {
+                            groupRepo.addRevision(bound.get(),
+                                deps -> handleDependencies(deps));
+                        }
                         return null;
                     }
                 });
-            if (groupRepo == null) {
-                return;
+            } catch (Exception e1) {
+                LOG.error("Problem processing dependency {}.", dep, e1);
             }
-            execCtx.submit(new Callable<Void>() {
-                @Override
-                public Void call() throws Exception {
-                    Optional<BoundRevision> bound
-                        = mavenRepository.toBoundRevision(dep.getRevision());
-                    if (bound.isPresent()) {
-                        groupRepo.addRevision(bound.get(),
-                            deps -> handleDependencies(deps));
-                    }
-                    return null;
-                }
-            });
         }
     }
 
