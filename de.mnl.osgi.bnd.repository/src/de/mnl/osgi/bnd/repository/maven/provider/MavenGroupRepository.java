@@ -46,6 +46,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,6 +66,7 @@ public class MavenGroupRepository extends ResourcesRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(
         MavenGroupRepository.class);
+    private static final String NOT_AVAILABLE = "_NOT_AVAILABLE_";
 
     private final String groupId;
     private final CompositeMavenRepository mavenRepository;
@@ -73,6 +75,8 @@ public class MavenGroupRepository extends ResourcesRepository {
     private final Path groupIndexPath;
     private final Set<Revision> mavenRevisions = new HashSet<>();
     private final Properties groupProps;
+    private final Map<String, String> propQueryCache
+        = new ConcurrentHashMap<>();
     private boolean propsChanged;
     private boolean indexChanged;
     private ResourcesRepository backupRepo;
@@ -191,6 +195,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             backupRepo = new ResourcesRepository(getResources());
             set(Collections.emptyList());
             mavenRevisions.clear();
+            propQueryCache.clear();
         }
     }
 
@@ -222,6 +227,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             }
             set(Collections.emptyList());
             mavenRevisions.clear();
+            propQueryCache.clear();
         }
         Collection<String> artifactIds = findArtifactIds(groupId);
         for (String artifactId : artifactIds) {
@@ -230,11 +236,9 @@ public class MavenGroupRepository extends ResourcesRepository {
             // Get revisions of program.
             @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
             IOException[] exc = new IOException[1];
-            MavenVersionRange range = Optional.ofNullable(
-                Optional.ofNullable(
-                    groupProps.getProperty(artifactId + ";versions"))
-                    .orElse(groupProps.getProperty("versions")))
-                .map(MavenVersionRange::parseRange).orElse(null);
+            MavenVersionRange range
+                = Optional.ofNullable(searchProperty(artifactId, "versions"))
+                    .map(MavenVersionRange::parseRange).orElse(null);
             mavenRepository.boundRevisions(program).forEach(
                 revision -> {
                     if (range != null && !range.includes(revision.version())) {
@@ -304,6 +308,12 @@ public class MavenGroupRepository extends ResourcesRepository {
                 return;
             }
         }
+        MavenVersionRange excludeRange = Optional.ofNullable(
+            searchProperty(revision.artifactId(), "exclude"))
+            .map(MavenVersionRange::parseRange).orElse(null);
+        if (excludeRange != null && excludeRange.includes(revision.version())) {
+            return;
+        }
         Resource resource = null;
         if (backupRepo != null) {
             List<Capability> cap = backupRepo.findProvider(
@@ -349,5 +359,41 @@ public class MavenGroupRepository extends ResourcesRepository {
                     }).collect(Collectors.toList());
             dependencyHandler.accept(dependencies);
         }
+    }
+
+    private String searchProperty(String artifactId, String qualifier) {
+        String queryKey = artifactId + ";" + qualifier;
+        // Attempt to get from cache.
+        String prop = propQueryCache.get(queryKey);
+        // Special value, because ConcurrentHashMap cannot have null values.
+        if (prop == NOT_AVAILABLE) {
+            return null;
+        }
+        // Found in cache return.
+        if (prop != null) {
+            return prop;
+        }
+        // Try query key unmodified
+        prop = groupProps.getProperty(queryKey);
+        if (prop == null) {
+            // Try <id>.*, successively removing trailing parts.
+            String rest = artifactId;
+            while (true) {
+                prop = groupProps.getProperty(rest + ".*;" + qualifier);
+                if (prop != null) {
+                    break;
+                }
+                int lastDot = rest.lastIndexOf('.');
+                if (lastDot < 0) {
+                    break;
+                }
+                rest = rest.substring(0, lastDot);
+            }
+        }
+        if (prop == null) {
+            prop = groupProps.getProperty(qualifier);
+        }
+        propQueryCache.put(queryKey, prop == null ? NOT_AVAILABLE : prop);
+        return prop;
     }
 }
