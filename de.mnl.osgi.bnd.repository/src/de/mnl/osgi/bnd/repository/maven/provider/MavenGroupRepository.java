@@ -29,6 +29,7 @@ import aQute.maven.provider.MavenBackingRepository;
 import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository.BinaryLocation;
+import de.mnl.osgi.bnd.maven.MavenVersionRange;
 import de.mnl.osgi.bnd.maven.RepositoryUtils;
 
 import java.io.IOException;
@@ -42,6 +43,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -209,6 +211,11 @@ public class MavenGroupRepository extends ResourcesRepository {
         if (!isRequested()) {
             return;
         }
+        if (groupPropsPath.toFile().canRead()) {
+            try (InputStream input = Files.newInputStream(groupPropsPath)) {
+                groupProps.load(input);
+            }
+        }
         synchronized (this) {
             if (backupRepo == null) {
                 backupRepo = new ResourcesRepository(getResources());
@@ -223,8 +230,16 @@ public class MavenGroupRepository extends ResourcesRepository {
             // Get revisions of program.
             @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
             IOException[] exc = new IOException[1];
+            MavenVersionRange range = Optional.ofNullable(
+                Optional.ofNullable(
+                    groupProps.getProperty(artifactId + ";versions"))
+                    .orElse(groupProps.getProperty("versions")))
+                .map(MavenVersionRange::parseRange).orElse(null);
             mavenRepository.boundRevisions(program).forEach(
                 revision -> {
+                    if (range != null && !range.includes(revision.version())) {
+                        return;
+                    }
                     try {
                         addRevision(revision, dependencyHandler);
                     } catch (IOException e) {
