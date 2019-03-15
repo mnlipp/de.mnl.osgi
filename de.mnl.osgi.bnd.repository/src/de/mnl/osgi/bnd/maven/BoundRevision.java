@@ -18,7 +18,6 @@
 
 package de.mnl.osgi.bnd.maven;
 
-import aQute.bnd.version.MavenVersion;
 import aQute.maven.api.Archive;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
@@ -97,7 +96,7 @@ public class BoundRevision implements Comparable<BoundRevision> {
      * @return the version
      */
     public MavenVersion version() {
-        return unbound.version;
+        return MavenVersion.from(unbound.version);
     }
 
     /**
@@ -119,7 +118,8 @@ public class BoundRevision implements Comparable<BoundRevision> {
      * @see aQute.maven.api.Revision#archive(java.lang.String, java.lang.String)
      */
     public BoundArchive archive(String extension, String classifier) {
-        return new BoundArchive(this, null, extension, classifier);
+        return new BoundArchive(this, (MavenVersion) null, extension,
+            classifier);
     }
 
     /**

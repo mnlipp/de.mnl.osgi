@@ -22,14 +22,24 @@ import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException
 import org.apache.maven.artifact.versioning.Restriction;
 
 /**
- * Provides a representation of a maven version range. The implementation is a
- * small wrapper around
+ * Provides a representation of a maven version range. The implementation 
+ * is a small wrapper around
+ * {@link org.apache.maven.artifact.versioning.VersionRange}.
+ * <P>
+ * Because {@link org.apache.maven.artifact.versioning.VersionRange} has 
+ * only a private constructor and cannot be extended, the wrapper
+ * delegates to an instance of 
  * {@link org.apache.maven.artifact.versioning.VersionRange}.
  */
 public class MavenVersionRange {
 
     private org.apache.maven.artifact.versioning.VersionRange range;
 
+    /**
+     * Instantiates a new maven version range from the given representation.
+     *
+     * @param range the range
+     */
     public MavenVersionRange(String range) {
         try {
             this.range = org.apache.maven.artifact.versioning.VersionRange
@@ -39,22 +49,37 @@ public class MavenVersionRange {
         }
     }
 
-    public boolean includes(MavenVersion mvr) {
-        return range.containsVersion(mvr);
+    /**
+     * Returns the version range that this instance delegates to.
+     *
+     * @return the org.apache.maven.artifact.versioning. version range
+     */
+    public org.apache.maven.artifact.versioning.VersionRange versionRange() {
+        return range;
     }
 
+    /**
+     * Checks if this version range includes the specified version.
+     *
+     * @param mavenVersion the maven version
+     * @return the result
+     */
+    public boolean includes(MavenVersion mavenVersion) {
+        return range.containsVersion(mavenVersion);
+    }
+
+    /**
+     * Creates a new maven version range from the given representation.
+     *
+     * @param range the range
+     * @return the maven version range
+     */
     public static MavenVersionRange parseRange(String version) {
-        try {
-            return new MavenVersionRange(version);
-        } catch (Exception e) {
-            // ignore
-        }
-        return null;
+        return new MavenVersionRange(version);
     }
 
     public boolean wasSingle() {
-        if (range.getRestrictions()
-            .size() != 1) {
+        if (range.getRestrictions().size() != 1) {
             return false;
         }
         Restriction rstrct = range.getRestrictions().get(0);
@@ -73,4 +98,32 @@ public class MavenVersionRange {
     public String toString() {
         return range.toString();
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return range.hashCode();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof MavenVersionRange) {
+            return range.equals(((MavenVersionRange) obj).range);
+        }
+        if (obj instanceof org.apache.maven.artifact.versioning.VersionRange) {
+            return range.equals(
+                (org.apache.maven.artifact.versioning.VersionRange) obj);
+        }
+        return false;
+    }
+
 }

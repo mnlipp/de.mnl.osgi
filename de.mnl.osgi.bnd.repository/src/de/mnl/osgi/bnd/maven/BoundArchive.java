@@ -18,9 +18,10 @@
 
 package de.mnl.osgi.bnd.maven;
 
-import aQute.bnd.version.MavenVersion;
 import aQute.maven.api.Archive;
 import aQute.maven.provider.MavenBackingRepository;
+
+import static de.mnl.osgi.bnd.maven.MavenVersion.toBndMavenVersion;
 
 /**
  * An {@link Archive} with a reference to the maven repository
@@ -42,6 +43,22 @@ public class BoundArchive extends Archive {
      */
     public BoundArchive(BoundRevision revision, MavenVersion snapshot,
             String extension, String classifier) {
+        super(revision.unbound(), toBndMavenVersion(snapshot), extension,
+            classifier);
+        this.revision = revision;
+    }
+
+    /**
+     * Instantiates a new bound archive.
+     *
+     * @param revision the revision
+     * @param snapshot the snapshot
+     * @param extension the extension
+     * @param classifier the classifier
+     */
+    public BoundArchive(BoundRevision revision,
+            aQute.bnd.version.MavenVersion snapshot, String extension,
+            String classifier) {
         super(revision.unbound(), snapshot, extension, classifier);
         this.revision = revision;
     }

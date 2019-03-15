@@ -19,7 +19,6 @@
 package de.mnl.osgi.bnd.maven;
 
 import aQute.bnd.version.Version;
-import aQute.bnd.version.VersionRange;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -52,37 +51,36 @@ import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
  * always the original, unparsed (or "literal") representation because due to
  * the permissive parsing algorithm used, the original representation cannot
  * faithfully be reconstructed from the parsed components.
+ * <P>
+ * Contrary to bnd's {@link aQute.bnd.version.MavenVersion}, this 
+ * implementation inherits from {@link ArtifactVersion}, i.e. from the
+ * version as implemented by maven.
  */
+@SuppressWarnings("PMD.GodClass")
 public class MavenVersion implements ArtifactVersion {
 
-    static Pattern fuzzyVersion = Pattern
-        .compile("(\\d+)(\\.(\\d+)(\\.(\\d+))?)?([^a-zA-Z0-9](.*))?",
-            Pattern.DOTALL);
-    static Pattern fuzzyVersionRange = Pattern
-        .compile(
-            "(\\(|\\[)\\s*([-\\da-zA-Z.]+)\\s*,\\s*([-\\da-zA-Z.]+)\\s*(\\]|\\))",
-            Pattern.DOTALL);
-    static Pattern fuzzyModifier
-        = Pattern.compile("(\\d+[.-])*(.*)", Pattern.DOTALL);
+    /** The usual format of a verson string. */
     public static final String VERSION_STRING
         = "(\\d{1,15})(\\.(\\d{1,9})(\\.(\\d{1,9}))?)?([-\\.]?([-_\\.\\da-zA-Z]+))?";
-    static final SimpleDateFormat snapshotTimestamp
-        = new SimpleDateFormat("yyyyMMdd.HHmmss", Locale.ROOT);
-    public static final Pattern VERSIONRANGE = Pattern.compile("((\\(|\\[)"
 
-        + VERSION_STRING + "," + VERSION_STRING + "(\\]|\\)))|"
-        + VERSION_STRING);
+    /** The usual format for a snapshot timestamp. */
+    public static final SimpleDateFormat SNAPSHOT_TIMESTAMP
+        = new SimpleDateFormat("yyyyMMdd.HHmmss", Locale.ROOT);
 
     static {
-        snapshotTimestamp.setTimeZone(TimeZone.getTimeZone("UTC"));
+        SNAPSHOT_TIMESTAMP.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
     private static final Pattern VERSION = Pattern.compile(VERSION_STRING);
-    public static MavenVersion UNRESOLVED = new MavenVersion("0-UNRESOLVED");
 
-    static final String SNAPSHOT = "SNAPSHOT";
+    /** The snapshot identifier. */
+    public static final String SNAPSHOT = "SNAPSHOT";
+
+    /** The Constant HIGHEST. */
     public static final MavenVersion HIGHEST
         = new MavenVersion(Version.HIGHEST);
+
+    /** The Constant LOWEST. */
     public static final MavenVersion LOWEST = new MavenVersion("0");
 
     // Used as "container" for the components of the maven version number
@@ -96,6 +94,23 @@ public class MavenVersion implements ArtifactVersion {
     private final boolean snapshot;
 
     /**
+     * Creates a new instance. The maven version is parsed by an instance
+     * of {@link DefaultArtifactVersion}. The parsing is thus fully
+     * maven compliant.
+     *
+     * @param maven the version
+     */
+    public MavenVersion(String maven) {
+        this.literal = maven;
+        this.comparable = new ComparableVersion(literal);
+        DefaultArtifactVersion artVer = new DefaultArtifactVersion(maven);
+        this.version
+            = new Version(artVer.getMajorVersion(), artVer.getMinorVersion(),
+                artVer.getIncrementalVersion(), artVer.getQualifier());
+        this.snapshot = version.isSnapshot();
+    }
+
+    /**
      * Creates a new maven version from an osgi version. The version components
      * are copied, the string representation is built from the components as
      * "&lt;major&gt;.&lt;minor&gt;.&lt;micro&gt;.&lt;qualifier&gt;"
@@ -104,9 +119,10 @@ public class MavenVersion implements ArtifactVersion {
      */
     public MavenVersion(Version osgiVersion) {
         this.version = osgiVersion;
-        String qual = "";
+        StringBuilder qual = new StringBuilder("");
         if (this.version.getQualifier() != null) {
-            qual += "-" + this.version.getQualifier();
+            qual.append('-');
+            qual.append(this.version.getQualifier());
         }
         this.literal = osgiVersion.getWithoutQualifier().toString() + qual;
         this.comparable = new ComparableVersion(literal);
@@ -114,18 +130,21 @@ public class MavenVersion implements ArtifactVersion {
     }
 
     /**
-     * Instantiates a new maven version representing the information from the
-     * argument. In addition to allowing the formats supported by
-     * {@link #parseString(String)}, this constructor supports formats such as
-     * "1.2rc1", i.e. without a separator before the qualifier.
+     * Creates a new maven version from an osgi version and an unparsed 
+     * literal. The version components are copied, the literal is used
+     * as string representation, the snapshot property is taken from
+     * the argument.
      *
-     * @param maven the version
+     * @param osgiVersion the osgi version
+     * @param literal the literal
+     * @param isSnapshot whether it is a snapshot version
      */
-    public MavenVersion(String maven) {
-        this.version = new Version(cleanupVersion(maven));
-        this.literal = maven;
+    public MavenVersion(Version osgiVersion, String literal,
+            boolean isSnapshot) {
+        this.literal = literal;
         this.comparable = new ComparableVersion(literal);
-        this.snapshot = maven.endsWith("-" + SNAPSHOT);
+        this.version = osgiVersion;
+        this.snapshot = isSnapshot;
     }
 
     /**
@@ -162,12 +181,14 @@ public class MavenVersion implements ArtifactVersion {
                 "Invalid syntax for version: " + versionStr);
         }
         int major = Integer.parseInt(matcher.group(1));
-        int minor
-            = (matcher.group(3) != null) ? Integer.parseInt(matcher.group(3))
-                : 0;
-        int micro
-            = (matcher.group(5) != null) ? Integer.parseInt(matcher.group(5))
-                : 0;
+        @SuppressWarnings("PMD.ConfusingTernary")
+        int minor = (matcher.group(3) != null)
+            ? Integer.parseInt(matcher.group(3))
+            : 0;
+        @SuppressWarnings("PMD.ConfusingTernary")
+        int micro = (matcher.group(5) != null)
+            ? Integer.parseInt(matcher.group(5))
+            : 0;
         String qualifier = matcher.group(7);
         Version version = new Version(major, minor, micro, qualifier);
         return new MavenVersion(version);
@@ -180,6 +201,7 @@ public class MavenVersion implements ArtifactVersion {
      * @param versionStr the version string
      * @return the maven version
      */
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public static final MavenVersion parseMavenString(String versionStr) {
         try {
             return new MavenVersion(versionStr);
@@ -188,9 +210,57 @@ public class MavenVersion implements ArtifactVersion {
         }
     }
 
+    /**
+     * Creates a new {@link MavenVersion} from a 
+     * the given representation, see {@link #MavenVersion(String)}.
+     *
+     * @param maven the maven version string
+     * @return the maven version
+     */
+    public static final MavenVersion from(String maven) {
+        return new MavenVersion(maven);
+    }
+
+    /**
+     * Creates a new {@link MavenVersion} from a 
+     * bnd {@link aQute.bnd.version.MavenVersion}.
+     * Propagates {@code null} values.
+     *
+     * @param bndVer the bnd maven version
+     * @return the maven version
+     */
     public static final MavenVersion
             from(aQute.bnd.version.MavenVersion bndVer) {
-        return new MavenVersion(bndVer.getOSGiVersion());
+        if (bndVer == null) {
+            return null;
+        }
+        return new MavenVersion(bndVer.getOSGiVersion(), bndVer.toString(),
+            bndVer.isSnapshot());
+    }
+
+    /**
+     * Converts this version to a
+     * bnd {@link aQute.bnd.version.MavenVersion}.
+     * Propagates {@code null} pointers.
+     *
+     * @return the a qute.bnd.version. maven version
+     */
+    public static aQute.bnd.version.MavenVersion
+            toBndMavenVersion(MavenVersion version) {
+        if (version == null) {
+            return null;
+        }
+        return new aQute.bnd.version.MavenVersion(version.version);
+    }
+
+    /**
+     * Converts this version to a
+     * bnd {@link aQute.bnd.version.MavenVersion}.
+     *
+     * @return the a qute.bnd.version. maven version
+     */
+    public aQute.bnd.version.MavenVersion asBndMavenVersion() {
+        return new aQute.bnd.version.MavenVersion(version);
     }
 
     /**
@@ -207,35 +277,74 @@ public class MavenVersion implements ArtifactVersion {
         throw new UnsupportedOperationException("Not implemented.");
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.apache.maven.artifact.versioning.ArtifactVersion#getMajorVersion()
+     */
     @Override
     public int getMajorVersion() {
         return version.getMajor();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.apache.maven.artifact.versioning.ArtifactVersion#getMinorVersion()
+     */
     @Override
     public int getMinorVersion() {
         return version.getMinor();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.apache.maven.artifact.versioning.ArtifactVersion#
+     * getIncrementalVersion()
+     */
     @Override
     public int getIncrementalVersion() {
         return version.getMicro();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.apache.maven.artifact.versioning.ArtifactVersion#getBuildNumber()
+     */
     @Override
     public int getBuildNumber() {
         return new DefaultArtifactVersion(literal).getBuildNumber();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.apache.maven.artifact.versioning.ArtifactVersion#getQualifier()
+     */
     @Override
     public String getQualifier() {
         return version.getQualifier();
     }
 
+    /**
+     * Gets the comparable.
+     *
+     * @return the comparable
+     */
     public ComparableVersion getComparable() {
         return comparable;
     }
 
+    /**
+     * Gets the osgi version.
+     *
+     * @return the osgi version
+     */
     public Version getOsgiVersion() {
         return version;
     }
@@ -255,6 +364,9 @@ public class MavenVersion implements ArtifactVersion {
      * <a href=
      * "https://maven.apache.org/pom.html#Version_Order_Specification">POM
      * reference</a>.
+     *
+     * @param other the other
+     * @return the int
      */
     @Override
     public int compareTo(ArtifactVersion other) {
@@ -264,19 +376,36 @@ public class MavenVersion implements ArtifactVersion {
         return comparable.compareTo(new ComparableVersion(other.toString()));
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return literal;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
     @Override
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
     public int hashCode() {
+        @SuppressWarnings("PMD.AvoidFinalLocalVariable")
         final int prime = 31;
         int result = 1;
         result = prime * result + ((literal == null) ? 0 : literal.hashCode());
         return result;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -292,16 +421,35 @@ public class MavenVersion implements ArtifactVersion {
         return literal.equals(other.literal);
     }
 
+    /**
+     * To snapshot.
+     *
+     * @return the maven version
+     */
     public MavenVersion toSnapshot() {
         Version newv = new Version(version.getMajor(), version.getMinor(),
             version.getMicro(), SNAPSHOT);
         return new MavenVersion(newv);
     }
 
+    /**
+     * To snapshot.
+     *
+     * @param epoch the epoch
+     * @param build the build
+     * @return the maven version
+     */
     public MavenVersion toSnapshot(long epoch, String build) {
         return toSnapshot(toDateStamp(epoch, build));
     }
 
+    /**
+     * To snapshot.
+     *
+     * @param timestamp the timestamp
+     * @param build the build
+     * @return the maven version
+     */
     public MavenVersion toSnapshot(String timestamp, String build) {
         if (build != null) {
             timestamp += "-" + build;
@@ -309,6 +457,12 @@ public class MavenVersion implements ArtifactVersion {
         return toSnapshot(timestamp);
     }
 
+    /**
+     * To snapshot.
+     *
+     * @param dateStamp the date stamp
+     * @return the maven version
+     */
     public MavenVersion toSnapshot(String dateStamp) {
         // -SNAPSHOT == 9 characters
         String clean = literal.substring(0, literal.length() - 9);
@@ -317,6 +471,12 @@ public class MavenVersion implements ArtifactVersion {
         return new MavenVersion(result);
     }
 
+    /**
+     * Validate.
+     *
+     * @param value the value
+     * @return the string
+     */
     public static String validate(String value) {
         if (value == null) {
             return "Version is null";
@@ -327,145 +487,45 @@ public class MavenVersion implements ArtifactVersion {
         return null;
     }
 
+    /**
+     * To date stamp.
+     *
+     * @param epoch the epoch
+     * @return the string
+     */
     public static String toDateStamp(long epoch) {
         String datestamp;
-        synchronized (snapshotTimestamp) {
-            datestamp = snapshotTimestamp.format(new Date(epoch));
+        synchronized (SNAPSHOT_TIMESTAMP) {
+            datestamp = SNAPSHOT_TIMESTAMP.format(new Date(epoch));
         }
         return datestamp;
 
     }
 
+    /**
+     * To date stamp.
+     *
+     * @param epoch the epoch
+     * @param build the build
+     * @return the string
+     */
     public static String toDateStamp(long epoch, String build) {
-        String str = toDateStamp(epoch);
+        StringBuilder str = new StringBuilder(toDateStamp(epoch));
         if (build != null) {
-            str += "-" + build;
+            str.append('-');
+            str.append(build);
         }
-        return str;
-    }
-
-    public static String cleanupVersion(String version) {
-        if (version == null || version.trim().isEmpty()) {
-            return "0";
-        }
-
-        Matcher matcher = VERSIONRANGE.matcher(version);
-
-        if (matcher.matches()) {
-            try {
-                // Test if version ramge can be created without problems.
-                new VersionRange(version);
-                return version;
-            } catch (Exception e) {
-                // ignore
-            }
-        }
-
-        matcher = fuzzyVersionRange.matcher(version);
-        if (matcher.matches()) {
-            String prefix = matcher.group(1);
-            String first = matcher.group(2);
-            String last = matcher.group(3);
-            String suffix = matcher.group(4);
-            return prefix + cleanupVersion(first) + "," + cleanupVersion(last)
-                + suffix;
-        }
-
-        matcher = fuzzyVersion.matcher(version);
-        if (matcher.matches()) {
-            StringBuilder result = new StringBuilder();
-            String major = removeLeadingZeroes(matcher.group(1));
-            String minor = removeLeadingZeroes(matcher.group(3));
-            String micro = removeLeadingZeroes(matcher.group(5));
-            String qualifier = matcher.group(7);
-
-            if (qualifier == null) {
-                if (!isInteger(minor)) {
-                    qualifier = minor;
-                    minor = "0";
-                } else if (!isInteger(micro)) {
-                    qualifier = micro;
-                    micro = "0";
-                }
-            }
-            if (major != null) {
-                result.append(major);
-                if (minor != null) {
-                    result.append(".");
-                    result.append(minor);
-                    if (micro != null) {
-                        result.append(".");
-                        result.append(micro);
-                        if (qualifier != null) {
-                            result.append(".");
-                            cleanupModifier(result, qualifier);
-                        }
-                    } else if (qualifier != null) {
-                        result.append(".0.");
-                        cleanupModifier(result, qualifier);
-                    }
-                } else if (qualifier != null) {
-                    result.append(".0.0.");
-                    cleanupModifier(result, qualifier);
-                }
-                return result.toString();
-            }
-        }
-        StringBuilder sb = new StringBuilder();
-        sb.append("0.0.0.");
-        cleanupModifier(sb, version);
-
-        return sb.toString();
+        return str.toString();
     }
 
     /**
-     * TRhe cleanup version got confused when people used numeric dates like
-     * 201209091230120 as qualifiers. These are too large for Integers. This
-     * method checks if the all digit string fits in an integer.
+     * Cleanup version.
      *
-     * <pre>
-     *  maxint =
-     * 2,147,483,647 = 10 digits
-     * </pre>
-     *
-     * @param integer
-     * @return if this fits in an integer
+     * @param version the version
+     * @return the string
      */
-    private static boolean isInteger(String minor) {
-        return minor.length() < 10
-            || (minor.length() == 10 && minor.compareTo("2147483647") <= 0);
-    }
-
-    private static String removeLeadingZeroes(String group) {
-        if (group == null) {
-            return "0";
-        }
-        int count = 0;
-        while (count < group.length() - 1 && group.charAt(count) == '0') {
-            count++;
-        }
-        if (count == 0) {
-            return group;
-        }
-        return group.substring(count);
-    }
-
-    static void cleanupModifier(StringBuilder result, String modifier) {
-        int len = result.length();
-        Matcher matcher = fuzzyModifier.matcher(modifier);
-        if (matcher.matches()) {
-            modifier = matcher.group(2);
-        }
-        for (int i = 0; i < modifier.length(); i++) {
-            char chr = modifier.charAt(i);
-            if ((chr >= '0' && chr <= '9') || (chr >= 'a' && chr <= 'z')
-                || (chr >= 'A' && chr <= 'Z') || chr == '_' || chr == '-') {
-                result.append(chr);
-            }
-        }
-        if (len == result.length()) {
-            result.append("_");
-        }
+    public static String cleanupVersion(String version) {
+        return aQute.bnd.version.MavenVersion.cleanupVersion(version);
     }
 
 }

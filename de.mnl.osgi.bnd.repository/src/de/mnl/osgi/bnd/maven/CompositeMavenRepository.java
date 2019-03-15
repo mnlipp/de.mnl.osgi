@@ -22,8 +22,6 @@ import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapabilit
 
 import aQute.bnd.osgi.resource.RequirementBuilder;
 import aQute.bnd.osgi.resource.ResourceBuilder;
-import aQute.bnd.version.MavenVersion;
-import aQute.bnd.version.MavenVersionRange;
 import aQute.maven.api.IMavenRepo;
 import aQute.maven.api.IPom;
 import aQute.maven.api.IPom.Dependency;
@@ -53,11 +51,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Provides a common {@link IMavenRepo} view on several 
+ * Provides a composite {@link IMavenRepo} view on several 
  * {@link MavenBackingRepository} instances.
  * <P>
  * The class extends {@link MavenRepository} which lacks some
- * required functionality.
+ * required functionality. Besides, this class has a more
+ * appropriate name.
  */
 @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class CompositeMavenRepository extends MavenRepository
@@ -67,7 +66,7 @@ public class CompositeMavenRepository extends MavenRepository
         CompositeMavenRepository.class);
 
     /**
-     * Instantiates a new merged maven repository.
+     * Instantiates a new composite maven repository.
      *
      * @param base the base
      * @param repoId the repository id
@@ -100,7 +99,7 @@ public class CompositeMavenRepository extends MavenRepository
     }
 
     /**
-     * All repositories as stream.
+     * Returns all repositories as a stream.
      *
      * @return the repositories as stream
      */
@@ -136,6 +135,17 @@ public class CompositeMavenRepository extends MavenRepository
         return result;
     }
 
+    /**
+     * Wrapper for {@link MavenBackingRepository#getRevisions(Program, List)}
+     * that returns the result instead of accumulating it, maps the
+     * (too general) exception and converts the {@link Revision}s to
+     * {@link BoundRevision}s.
+     *
+     * @param mbr the mbr
+     * @param program the program
+     * @return the stream
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private static Stream<BoundRevision> boundRevisions(
             MavenBackingRepository mbr, Program program) throws IOException {
         return getRevisions(mbr, program).stream()
@@ -143,7 +153,8 @@ public class CompositeMavenRepository extends MavenRepository
     }
 
     /**
-     * Returns all known revisions as {@link BoundRevision}s.
+     * Returns all known revisions of the specified program 
+     * as {@link BoundRevision}s.
      *
      * @param program the program
      * @return the bound revisions
@@ -264,8 +275,8 @@ public class CompositeMavenRepository extends MavenRepository
             return revision.archive(extension, classifier);
         }
         try {
-            MavenVersion version = revision.mavenBackingRepository()
-                .getVersion(revision.unbound());
+            MavenVersion version = MavenVersion.from(revision
+                .mavenBackingRepository().getVersion(revision.unbound()));
             if (version != null) {
                 return revision.archive(version, extension, classifier);
             }
