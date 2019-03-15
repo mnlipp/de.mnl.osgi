@@ -294,8 +294,8 @@
 <span class="sourceLineNo">286</span>            execCtx.submit(new Callable&lt;Void&gt;() {<a name="line.286"></a>
 <span class="sourceLineNo">287</span>                @Override<a name="line.287"></a>
 <span class="sourceLineNo">288</span>                public Void call() throws Exception {<a name="line.288"></a>
-<span class="sourceLineNo">289</span>                    Optional&lt;BoundRevision&gt; bound<a name="line.289"></a>
-<span class="sourceLineNo">290</span>                        = mavenRepository.toBoundRevision(dep.getRevision());<a name="line.290"></a>
+<span class="sourceLineNo">289</span>                    Optional&lt;BoundRevision&gt; bound = mavenRepository<a name="line.289"></a>
+<span class="sourceLineNo">290</span>                        .toBoundRevision(dep.program, dep.version);<a name="line.290"></a>
 <span class="sourceLineNo">291</span>                    if (bound.isPresent()) {<a name="line.291"></a>
 <span class="sourceLineNo">292</span>                        groupRepo.addRevision(bound.get(),<a name="line.292"></a>
 <span class="sourceLineNo">293</span>                            deps -&gt; handleDependencies(deps));<a name="line.293"></a>
