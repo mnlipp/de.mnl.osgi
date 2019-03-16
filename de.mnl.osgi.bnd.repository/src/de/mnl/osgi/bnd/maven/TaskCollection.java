@@ -18,6 +18,8 @@
 
 package de.mnl.osgi.bnd.maven;
 
+import aQute.service.reporter.Reporter;
+
 import java.util.Queue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -25,17 +27,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * A helper for awaiting asynchronously executing tasks.
  */
 public class TaskCollection {
 
-    private static final Logger LOG = LoggerFactory.getLogger(
-        TaskCollection.class);
-
+    private final Reporter reporter;
     private final ExecutorService execSvc;
     private final Queue<Future<?>> executing = new ConcurrentLinkedQueue<>();
 
@@ -45,7 +42,8 @@ public class TaskCollection {
      *
      * @param executorService the executor service
      */
-    public TaskCollection(ExecutorService executorService) {
+    public TaskCollection(ExecutorService executorService, Reporter reporter) {
+        this.reporter = reporter;
         execSvc = executorService;
     }
 
@@ -84,8 +82,8 @@ public class TaskCollection {
             try {
                 executing.poll().get();
             } catch (ExecutionException e) {
-                LOG.error("Asynchronously executed task failed: {}",
-                    e.getMessage(), e);
+                reporter.exception(e.getCause(),
+                    "Asynchronously executed task failed: %s", e.getMessage());
             }
         }
     }

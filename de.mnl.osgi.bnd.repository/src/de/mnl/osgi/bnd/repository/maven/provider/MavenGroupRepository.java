@@ -26,6 +26,7 @@ import aQute.maven.api.IPom;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
+import aQute.service.reporter.Reporter;
 import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository.BinaryLocation;
@@ -73,6 +74,7 @@ public class MavenGroupRepository extends ResourcesRepository {
     private final String groupId;
     private final CompositeMavenRepository mavenRepository;
     private final HttpClient client;
+    private final Reporter reporter;
     private final Path groupDir;
     private final Path groupPropsPath;
     private final Path groupIndexPath;
@@ -99,12 +101,14 @@ public class MavenGroupRepository extends ResourcesRepository {
      */
     @SuppressWarnings("PMD.ConfusingTernary")
     public MavenGroupRepository(String groupId, Path directory,
-            CompositeMavenRepository mavenRepository, HttpClient client)
+            CompositeMavenRepository mavenRepository, HttpClient client,
+            Reporter reporter)
             throws IOException {
         this.groupId = groupId;
         this.groupDir = directory;
         this.mavenRepository = mavenRepository;
         this.client = client;
+        this.reporter = reporter;
 
         // Prepare directory and files
         groupPropsPath = directory.resolve("group.properties");
@@ -132,7 +136,8 @@ public class MavenGroupRepository extends ResourcesRepository {
                 = new XMLResourceParser(groupIndexPath.toFile())) {
                 addAll(parser.parse());
             } catch (Exception e) { // NOPMD
-                LOG.warn("Cannot parse {}, ignored.", groupIndexPath, e);
+                reporter.warning("Cannot parse %s, ignored: %s", groupIndexPath,
+                    e.getMessage());
             }
         } else {
             indexChanged = true;
@@ -143,6 +148,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             mavenRevisions.add(
                 Revision.valueOf((String) cap.getAttributes().get("from")));
         }
+        LOG.debug("Created group repository for {}.", groupId);
     }
 
     /**
@@ -164,7 +170,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             try {
                 generator.save(groupIndexPath.toFile());
             } catch (IOException e) {
-                LOG.error("Cannot save {}.", groupIndexPath, e);
+                reporter.exception(e, "Cannot save %s.", groupIndexPath);
             }
             indexChanged = false;
         }
@@ -308,7 +314,8 @@ public class MavenGroupRepository extends ResourcesRepository {
                     result.add(artifactId);
                 }
             } catch (Exception e) {
-                LOG.warn("Problem retrieving {}, skipped.", groupUri, e);
+                reporter.warning("Problem retrieving %s, skipped: %s", groupUri,
+                    e.getMessage());
             }
         }
         return result;

@@ -109,11 +109,12 @@ public class IndexedMavenRepository extends ResourcesRepository {
         this.localRepo = localRepo;
         this.reporter = reporter;
         this.client = client;
-        execCtx = new TaskCollection(Processor.getScheduledExecutor());
+        execCtx = new TaskCollection(
+            Processor.getScheduledExecutor(), reporter);
 
         // Check prerequisites
         if (indexDbDir.exists() && !indexDbDir.isDirectory()) {
-            LOG.error("{} must be a directory.", indexDbDir);
+            reporter.error("%s must be a directory.", indexDbDir);
             throw new IOException(indexDbDir + "must be a directory.");
         }
         if (!indexDbDir.exists()) {
@@ -130,7 +131,8 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 = new XMLResourceParser(federatedIndex)) {
                 addAll(parser.parse());
             } catch (Exception e) {
-                LOG.warn("Cannot parse federated index (ignored).", e);
+                reporter.warning("Cannot parse federated index (ignored): %s",
+                    e.getMessage());
             }
         }
     }
@@ -192,7 +194,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
      */
     @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition",
         "PMD.SignatureDeclareThrowsException",
-        "PMD.AvoidInstantiatingObjectsInLoops" })
+        "PMD.AvoidInstantiatingObjectsInLoops", "PMD.NPathComplexity" })
     public boolean refresh() throws Exception {
         @SuppressWarnings("PMD.UseConcurrentHashMap")
         Map<String, MavenGroupRepository> oldGroups = new HashMap<>(groups);
@@ -216,7 +218,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
                     }
                     MavenGroupRepository groupRepo = new MavenGroupRepository(
                         groupId, indexDbDir.resolve(groupId), mavenRepository,
-                        client);
+                        client, reporter);
                     groups.put(groupId, groupRepo);
                     return null;
                 }
@@ -281,10 +283,10 @@ public class IndexedMavenRepository extends ResourcesRepository {
                     try {
                         return new MavenGroupRepository(groupId,
                             indexDbDir.resolve(groupId), mavenRepository,
-                            client);
+                            client, reporter);
                     } catch (IOException e) {
-                        LOG.error("Cannot create group repository for {}.",
-                            groupId, e);
+                        reporter.exception(e,
+                            "Cannot create group repository for %s.", groupId);
                         return null;
                     }
                 });
@@ -337,7 +339,8 @@ public class IndexedMavenRepository extends ResourcesRepository {
             DOMSource source = new DOMSource(doc);
             transformer.transform(source, new StreamResult(out));
         } catch (TransformerException e) {
-            LOG.error("Cannot write federated index.", e);
+            reporter.exception(e, "Cannot write federated index: %s",
+                e.getMessage());
         }
     }
 }

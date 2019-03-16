@@ -36,7 +36,9 @@ import aQute.service.reporter.Reporter;
 
 import java.io.Closeable;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -47,8 +49,6 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.osgi.resource.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Provides a composite {@link IMavenRepo} view on several 
@@ -62,8 +62,7 @@ import org.slf4j.LoggerFactory;
 public class CompositeMavenRepository extends MavenRepository
         implements IMavenRepo, Closeable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(
-        CompositeMavenRepository.class);
+    private final Reporter reporter;
 
     /**
      * Instantiates a new composite maven repository.
@@ -84,6 +83,7 @@ public class CompositeMavenRepository extends MavenRepository
             Reporter reporter)
             throws Exception {
         super(base, repoId, releaseRepos, snapshotRepos, executor, reporter);
+        this.reporter = reporter;
     }
 
     /**
@@ -234,7 +234,8 @@ public class CompositeMavenRepository extends MavenRepository
                 return Optional.empty();
             }
         } catch (Exception e) {
-            LOG.error("Problem resolving archive for {}.", revision, e);
+            reporter.exception(e, "Problem resolving archive for %s.",
+                revision);
             return Optional.empty();
         }
         if (archive.isSnapshot()) {
@@ -297,7 +298,7 @@ public class CompositeMavenRepository extends MavenRepository
         try {
             metaData = MetadataParser.parseRevisionMetadata(metaFile);
         } catch (Exception e) {
-            LOG.error("Problem accessing {}.", archive, e);
+            reporter.exception(e, "Problem accessing %s.", archive);
             return;
         }
         File archiveFile = toLocalFile(archive);
@@ -310,7 +311,8 @@ public class CompositeMavenRepository extends MavenRepository
         }
     }
 
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
+        "PMD.UselessParentheses", "PMD.AvoidInstanceofChecksInCatchClause" })
     private Resource parseResource(BoundArchive archive,
             BinaryLocation location,
             Consumer<Collection<Dependency>> dependencyHandler) {
@@ -327,32 +329,35 @@ public class CompositeMavenRepository extends MavenRepository
                 archive.getRevision().toString(), null);
             // Add dependency infos
             // Get POM for dependencies
-            try {
-                IPom pom = getPom(archive.getRevision());
-                if (pom != null) {
-                    RequirementBuilder req = null;
-                    Collection<IPom.Dependency> rtDeps = pom.getDependencies(
-                        MavenScope.runtime, false).values();
-                    Collection<IPom.Dependency> cpDeps = pom
-                        .getDependencies(MavenScope.compile, false).values();
-                    if (!cpDeps.isEmpty() || !rtDeps.isEmpty()) {
-                        req = new RequirementBuilder("maven.dependencies");
-                        if (!cpDeps.isEmpty()) {
-                            dependencyHandler.accept(cpDeps);
-                            req.addAttribute("compile", toVersionList(cpDeps));
-                        }
-                        if (!rtDeps.isEmpty()) {
-                            dependencyHandler.accept(rtDeps);
-                            req.addAttribute("runtime", toVersionList(rtDeps));
-                        }
-                        builder.addRequirement(req);
+            IPom pom = getPom(archive.getRevision());
+            if (pom != null) {
+                RequirementBuilder req = null;
+                Collection<IPom.Dependency> rtDeps = pom.getDependencies(
+                    MavenScope.runtime, false).values();
+                Collection<IPom.Dependency> cpDeps = pom
+                    .getDependencies(MavenScope.compile, false).values();
+                if (!cpDeps.isEmpty() || !rtDeps.isEmpty()) {
+                    req = new RequirementBuilder("maven.dependencies");
+                    if (!cpDeps.isEmpty()) {
+                        dependencyHandler.accept(cpDeps);
+                        req.addAttribute("compile", toVersionList(cpDeps));
                     }
+                    if (!rtDeps.isEmpty()) {
+                        dependencyHandler.accept(rtDeps);
+                        req.addAttribute("runtime", toVersionList(rtDeps));
+                    }
+                    builder.addRequirement(req);
                 }
-            } catch (Exception e) {
-                LOG.error("Problem processing POM of {}.", archive, e);
             }
         } catch (Exception e) {
-            LOG.error("Problem accessing {}.", archive, e);
+            if (e instanceof InvocationTargetException
+                && ((InvocationTargetException) e)
+                    .getTargetException() instanceof FileNotFoundException) {
+                reporter.exception(e, "POM of %s not found: %s", archive,
+                    ((InvocationTargetException) e).getTargetException()
+                        .getMessage());
+            }
+            reporter.exception(e, "Problem processing POM of %s: %s", archive, e.getMessage());
             return null;
         }
         return builder.build();
