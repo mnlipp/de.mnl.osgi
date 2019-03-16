@@ -82,276 +82,319 @@
 <span class="sourceLineNo">074</span>        IndexedMavenRepository.class);<a name="line.74"></a>
 <span class="sourceLineNo">075</span>    private final String name;<a name="line.75"></a>
 <span class="sourceLineNo">076</span>    private final Path indexDbDir;<a name="line.76"></a>
-<span class="sourceLineNo">077</span>    private final List&lt;URL&gt; releaseUrls;<a name="line.77"></a>
-<span class="sourceLineNo">078</span>    private final List&lt;URL&gt; snapshotUrls;<a name="line.78"></a>
-<span class="sourceLineNo">079</span>    private final File localRepo;<a name="line.79"></a>
-<span class="sourceLineNo">080</span>    private final Reporter reporter;<a name="line.80"></a>
-<span class="sourceLineNo">081</span>    private final HttpClient client;<a name="line.81"></a>
-<span class="sourceLineNo">082</span>    private final CompositeMavenRepository mavenRepository;<a name="line.82"></a>
-<span class="sourceLineNo">083</span>    private final TaskCollection execCtx;<a name="line.83"></a>
-<span class="sourceLineNo">084</span>    private final Map&lt;String, MavenGroupRepository&gt; groups<a name="line.84"></a>
-<span class="sourceLineNo">085</span>        = new ConcurrentHashMap&lt;&gt;();<a name="line.85"></a>
-<span class="sourceLineNo">086</span><a name="line.86"></a>
-<span class="sourceLineNo">087</span>    /**<a name="line.87"></a>
-<span class="sourceLineNo">088</span>     * Create a new instance that uses the provided information/resources to perform<a name="line.88"></a>
-<span class="sourceLineNo">089</span>     * its work.<a name="line.89"></a>
-<span class="sourceLineNo">090</span>     *<a name="line.90"></a>
-<span class="sourceLineNo">091</span>     * @param name the name<a name="line.91"></a>
-<span class="sourceLineNo">092</span>     * @param releaseUrls the release urls<a name="line.92"></a>
-<span class="sourceLineNo">093</span>     * @param snapshotUrls the snapshot urls<a name="line.93"></a>
-<span class="sourceLineNo">094</span>     * @param localRepo the local Maven repository (cache)<a name="line.94"></a>
-<span class="sourceLineNo">095</span>     * @param indexDbDir the persistent representation of this repository's content<a name="line.95"></a>
-<span class="sourceLineNo">096</span>     * @param reporter a reporter for reporting the progress<a name="line.96"></a>
-<span class="sourceLineNo">097</span>     * @param client an HTTP client for obtaining information from the Nexus server<a name="line.97"></a>
-<span class="sourceLineNo">098</span>     * @throws Exception the exception<a name="line.98"></a>
-<span class="sourceLineNo">099</span>     */<a name="line.99"></a>
-<span class="sourceLineNo">100</span>    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",<a name="line.100"></a>
-<span class="sourceLineNo">101</span>        "PMD.SignatureDeclareThrowsException", "PMD.AvoidDuplicateLiterals" })<a name="line.101"></a>
-<span class="sourceLineNo">102</span>    public IndexedMavenRepository(String name, List&lt;URL&gt; releaseUrls,<a name="line.102"></a>
-<span class="sourceLineNo">103</span>            List&lt;URL&gt; snapshotUrls, File localRepo, File indexDbDir,<a name="line.103"></a>
-<span class="sourceLineNo">104</span>            Reporter reporter, HttpClient client) throws Exception {<a name="line.104"></a>
-<span class="sourceLineNo">105</span>        this.name = name;<a name="line.105"></a>
-<span class="sourceLineNo">106</span>        this.indexDbDir = indexDbDir.toPath();<a name="line.106"></a>
-<span class="sourceLineNo">107</span>        this.releaseUrls = releaseUrls;<a name="line.107"></a>
-<span class="sourceLineNo">108</span>        this.snapshotUrls = snapshotUrls;<a name="line.108"></a>
-<span class="sourceLineNo">109</span>        this.localRepo = localRepo;<a name="line.109"></a>
-<span class="sourceLineNo">110</span>        this.reporter = reporter;<a name="line.110"></a>
-<span class="sourceLineNo">111</span>        this.client = client;<a name="line.111"></a>
-<span class="sourceLineNo">112</span>        execCtx = new TaskCollection(<a name="line.112"></a>
-<span class="sourceLineNo">113</span>            Processor.getScheduledExecutor(), reporter);<a name="line.113"></a>
-<span class="sourceLineNo">114</span><a name="line.114"></a>
-<span class="sourceLineNo">115</span>        // Check prerequisites<a name="line.115"></a>
-<span class="sourceLineNo">116</span>        if (indexDbDir.exists() &amp;&amp; !indexDbDir.isDirectory()) {<a name="line.116"></a>
-<span class="sourceLineNo">117</span>            reporter.error("%s must be a directory.", indexDbDir);<a name="line.117"></a>
-<span class="sourceLineNo">118</span>            throw new IOException(indexDbDir + "must be a directory.");<a name="line.118"></a>
-<span class="sourceLineNo">119</span>        }<a name="line.119"></a>
-<span class="sourceLineNo">120</span>        if (!indexDbDir.exists()) {<a name="line.120"></a>
-<span class="sourceLineNo">121</span>            indexDbDir.mkdirs();<a name="line.121"></a>
-<span class="sourceLineNo">122</span>        }<a name="line.122"></a>
-<span class="sourceLineNo">123</span><a name="line.123"></a>
-<span class="sourceLineNo">124</span>        // Our repository<a name="line.124"></a>
-<span class="sourceLineNo">125</span>        mavenRepository = createMavenRepository();<a name="line.125"></a>
-<span class="sourceLineNo">126</span><a name="line.126"></a>
-<span class="sourceLineNo">127</span>        // Restore<a name="line.127"></a>
-<span class="sourceLineNo">128</span>        File federatedIndex = this.indexDbDir.resolve("index.xml").toFile();<a name="line.128"></a>
-<span class="sourceLineNo">129</span>        if (federatedIndex.canRead()) {<a name="line.129"></a>
-<span class="sourceLineNo">130</span>            try (XMLResourceParser parser<a name="line.130"></a>
-<span class="sourceLineNo">131</span>                = new XMLResourceParser(federatedIndex)) {<a name="line.131"></a>
-<span class="sourceLineNo">132</span>                addAll(parser.parse());<a name="line.132"></a>
-<span class="sourceLineNo">133</span>            } catch (Exception e) {<a name="line.133"></a>
-<span class="sourceLineNo">134</span>                reporter.warning("Cannot parse federated index (ignored): %s",<a name="line.134"></a>
-<span class="sourceLineNo">135</span>                    e.getMessage());<a name="line.135"></a>
-<span class="sourceLineNo">136</span>            }<a name="line.136"></a>
-<span class="sourceLineNo">137</span>        }<a name="line.137"></a>
-<span class="sourceLineNo">138</span>    }<a name="line.138"></a>
-<span class="sourceLineNo">139</span><a name="line.139"></a>
-<span class="sourceLineNo">140</span>    @SuppressWarnings("PMD.SignatureDeclareThrowsException")<a name="line.140"></a>
-<span class="sourceLineNo">141</span>    private CompositeMavenRepository createMavenRepository() throws Exception {<a name="line.141"></a>
-<span class="sourceLineNo">142</span>        // Create repository from URLs<a name="line.142"></a>
-<span class="sourceLineNo">143</span>        List&lt;MavenBackingRepository&gt; releaseBackers = new ArrayList&lt;&gt;();<a name="line.143"></a>
-<span class="sourceLineNo">144</span>        for (URL url : releaseUrls) {<a name="line.144"></a>
-<span class="sourceLineNo">145</span>            releaseBackers.addAll(MavenBackingRepository.create(<a name="line.145"></a>
-<span class="sourceLineNo">146</span>                url.toString(), reporter, localRepo, client));<a name="line.146"></a>
-<span class="sourceLineNo">147</span>        }<a name="line.147"></a>
-<span class="sourceLineNo">148</span>        List&lt;MavenBackingRepository&gt; snapshotBackers = new ArrayList&lt;&gt;();<a name="line.148"></a>
-<span class="sourceLineNo">149</span>        for (URL url : snapshotUrls) {<a name="line.149"></a>
-<span class="sourceLineNo">150</span>            snapshotBackers.addAll(MavenBackingRepository.create(<a name="line.150"></a>
+<span class="sourceLineNo">077</span>    private final Path depsDir;<a name="line.77"></a>
+<span class="sourceLineNo">078</span>    private final List&lt;URL&gt; releaseUrls;<a name="line.78"></a>
+<span class="sourceLineNo">079</span>    private final List&lt;URL&gt; snapshotUrls;<a name="line.79"></a>
+<span class="sourceLineNo">080</span>    private final File localRepo;<a name="line.80"></a>
+<span class="sourceLineNo">081</span>    private final Reporter reporter;<a name="line.81"></a>
+<span class="sourceLineNo">082</span>    private final HttpClient client;<a name="line.82"></a>
+<span class="sourceLineNo">083</span>    private final CompositeMavenRepository mavenRepository;<a name="line.83"></a>
+<span class="sourceLineNo">084</span>    private final TaskCollection execCtx;<a name="line.84"></a>
+<span class="sourceLineNo">085</span>    private final Map&lt;String, MavenGroupRepository&gt; groups<a name="line.85"></a>
+<span class="sourceLineNo">086</span>        = new ConcurrentHashMap&lt;&gt;();<a name="line.86"></a>
+<span class="sourceLineNo">087</span><a name="line.87"></a>
+<span class="sourceLineNo">088</span>    /**<a name="line.88"></a>
+<span class="sourceLineNo">089</span>     * Create a new instance that uses the provided information/resources to perform<a name="line.89"></a>
+<span class="sourceLineNo">090</span>     * its work.<a name="line.90"></a>
+<span class="sourceLineNo">091</span>     *<a name="line.91"></a>
+<span class="sourceLineNo">092</span>     * @param name the name<a name="line.92"></a>
+<span class="sourceLineNo">093</span>     * @param releaseUrls the release urls<a name="line.93"></a>
+<span class="sourceLineNo">094</span>     * @param snapshotUrls the snapshot urls<a name="line.94"></a>
+<span class="sourceLineNo">095</span>     * @param localRepo the local Maven repository (cache)<a name="line.95"></a>
+<span class="sourceLineNo">096</span>     * @param indexDbDir the persistent representation of this repository's content<a name="line.96"></a>
+<span class="sourceLineNo">097</span>     * @param reporter a reporter for reporting the progress<a name="line.97"></a>
+<span class="sourceLineNo">098</span>     * @param client an HTTP client for obtaining information from the Nexus server<a name="line.98"></a>
+<span class="sourceLineNo">099</span>     * @throws Exception the exception<a name="line.99"></a>
+<span class="sourceLineNo">100</span>     */<a name="line.100"></a>
+<span class="sourceLineNo">101</span>    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",<a name="line.101"></a>
+<span class="sourceLineNo">102</span>        "PMD.SignatureDeclareThrowsException", "PMD.AvoidDuplicateLiterals" })<a name="line.102"></a>
+<span class="sourceLineNo">103</span>    public IndexedMavenRepository(String name, List&lt;URL&gt; releaseUrls,<a name="line.103"></a>
+<span class="sourceLineNo">104</span>            List&lt;URL&gt; snapshotUrls, File localRepo, File indexDbDir,<a name="line.104"></a>
+<span class="sourceLineNo">105</span>            Reporter reporter, HttpClient client) throws Exception {<a name="line.105"></a>
+<span class="sourceLineNo">106</span>        this.name = name;<a name="line.106"></a>
+<span class="sourceLineNo">107</span>        this.indexDbDir = indexDbDir.toPath();<a name="line.107"></a>
+<span class="sourceLineNo">108</span>        depsDir = this.indexDbDir.resolve("dependencies");<a name="line.108"></a>
+<span class="sourceLineNo">109</span>        this.releaseUrls = releaseUrls;<a name="line.109"></a>
+<span class="sourceLineNo">110</span>        this.snapshotUrls = snapshotUrls;<a name="line.110"></a>
+<span class="sourceLineNo">111</span>        this.localRepo = localRepo;<a name="line.111"></a>
+<span class="sourceLineNo">112</span>        this.reporter = reporter;<a name="line.112"></a>
+<span class="sourceLineNo">113</span>        this.client = client;<a name="line.113"></a>
+<span class="sourceLineNo">114</span>        execCtx = new TaskCollection(<a name="line.114"></a>
+<span class="sourceLineNo">115</span>            Processor.getScheduledExecutor(), reporter);<a name="line.115"></a>
+<span class="sourceLineNo">116</span><a name="line.116"></a>
+<span class="sourceLineNo">117</span>        // Check prerequisites<a name="line.117"></a>
+<span class="sourceLineNo">118</span>        if (indexDbDir.exists() &amp;&amp; !indexDbDir.isDirectory()) {<a name="line.118"></a>
+<span class="sourceLineNo">119</span>            reporter.error("%s must be a directory.", indexDbDir);<a name="line.119"></a>
+<span class="sourceLineNo">120</span>            throw new IOException(indexDbDir + "must be a directory.");<a name="line.120"></a>
+<span class="sourceLineNo">121</span>        }<a name="line.121"></a>
+<span class="sourceLineNo">122</span>        if (!indexDbDir.exists()) {<a name="line.122"></a>
+<span class="sourceLineNo">123</span>            indexDbDir.mkdirs();<a name="line.123"></a>
+<span class="sourceLineNo">124</span>        }<a name="line.124"></a>
+<span class="sourceLineNo">125</span>        if (!depsDir.toFile().exists()) {<a name="line.125"></a>
+<span class="sourceLineNo">126</span>            depsDir.toFile().mkdir();<a name="line.126"></a>
+<span class="sourceLineNo">127</span>        }<a name="line.127"></a>
+<span class="sourceLineNo">128</span><a name="line.128"></a>
+<span class="sourceLineNo">129</span>        // Our repository<a name="line.129"></a>
+<span class="sourceLineNo">130</span>        mavenRepository = createMavenRepository();<a name="line.130"></a>
+<span class="sourceLineNo">131</span><a name="line.131"></a>
+<span class="sourceLineNo">132</span>        // Restore<a name="line.132"></a>
+<span class="sourceLineNo">133</span>        File federatedIndex = this.indexDbDir.resolve("index.xml").toFile();<a name="line.133"></a>
+<span class="sourceLineNo">134</span>        if (federatedIndex.canRead()) {<a name="line.134"></a>
+<span class="sourceLineNo">135</span>            try (XMLResourceParser parser<a name="line.135"></a>
+<span class="sourceLineNo">136</span>                = new XMLResourceParser(federatedIndex)) {<a name="line.136"></a>
+<span class="sourceLineNo">137</span>                addAll(parser.parse());<a name="line.137"></a>
+<span class="sourceLineNo">138</span>            } catch (Exception e) {<a name="line.138"></a>
+<span class="sourceLineNo">139</span>                reporter.warning("Cannot parse federated index (ignored): %s",<a name="line.139"></a>
+<span class="sourceLineNo">140</span>                    e.getMessage());<a name="line.140"></a>
+<span class="sourceLineNo">141</span>            }<a name="line.141"></a>
+<span class="sourceLineNo">142</span>        }<a name="line.142"></a>
+<span class="sourceLineNo">143</span>    }<a name="line.143"></a>
+<span class="sourceLineNo">144</span><a name="line.144"></a>
+<span class="sourceLineNo">145</span>    @SuppressWarnings("PMD.SignatureDeclareThrowsException")<a name="line.145"></a>
+<span class="sourceLineNo">146</span>    private CompositeMavenRepository createMavenRepository() throws Exception {<a name="line.146"></a>
+<span class="sourceLineNo">147</span>        // Create repository from URLs<a name="line.147"></a>
+<span class="sourceLineNo">148</span>        List&lt;MavenBackingRepository&gt; releaseBackers = new ArrayList&lt;&gt;();<a name="line.148"></a>
+<span class="sourceLineNo">149</span>        for (URL url : releaseUrls) {<a name="line.149"></a>
+<span class="sourceLineNo">150</span>            releaseBackers.addAll(MavenBackingRepository.create(<a name="line.150"></a>
 <span class="sourceLineNo">151</span>                url.toString(), reporter, localRepo, client));<a name="line.151"></a>
 <span class="sourceLineNo">152</span>        }<a name="line.152"></a>
-<span class="sourceLineNo">153</span>        return new CompositeMavenRepository(localRepo, name(), releaseBackers,<a name="line.153"></a>
-<span class="sourceLineNo">154</span>            snapshotBackers, Processor.getExecutor(), reporter);<a name="line.154"></a>
-<span class="sourceLineNo">155</span>    }<a name="line.155"></a>
-<span class="sourceLineNo">156</span><a name="line.156"></a>
-<span class="sourceLineNo">157</span>    /**<a name="line.157"></a>
-<span class="sourceLineNo">158</span>     * Return the name of this repository.<a name="line.158"></a>
-<span class="sourceLineNo">159</span>     * <a name="line.159"></a>
-<span class="sourceLineNo">160</span>     * @return the name;<a name="line.160"></a>
-<span class="sourceLineNo">161</span>     */<a name="line.161"></a>
-<span class="sourceLineNo">162</span>    public final String name() {<a name="line.162"></a>
-<span class="sourceLineNo">163</span>        return name;<a name="line.163"></a>
-<span class="sourceLineNo">164</span>    }<a name="line.164"></a>
-<span class="sourceLineNo">165</span><a name="line.165"></a>
-<span class="sourceLineNo">166</span>    /**<a name="line.166"></a>
-<span class="sourceLineNo">167</span>     * Return the representation of this repository in the local file system.<a name="line.167"></a>
-<span class="sourceLineNo">168</span>     * <a name="line.168"></a>
-<span class="sourceLineNo">169</span>     * @return the location<a name="line.169"></a>
-<span class="sourceLineNo">170</span>     */<a name="line.170"></a>
-<span class="sourceLineNo">171</span>    public final File location() {<a name="line.171"></a>
-<span class="sourceLineNo">172</span>        return indexDbDir.toFile();<a name="line.172"></a>
-<span class="sourceLineNo">173</span>    }<a name="line.173"></a>
-<span class="sourceLineNo">174</span><a name="line.174"></a>
-<span class="sourceLineNo">175</span>    /**<a name="line.175"></a>
-<span class="sourceLineNo">176</span>     * Return the Maven repository object used to implements this repository.<a name="line.176"></a>
-<span class="sourceLineNo">177</span>     * <a name="line.177"></a>
-<span class="sourceLineNo">178</span>     * @return the repository object<a name="line.178"></a>
-<span class="sourceLineNo">179</span>     * @throws Exception if a problem occurs<a name="line.179"></a>
-<span class="sourceLineNo">180</span>     */<a name="line.180"></a>
-<span class="sourceLineNo">181</span>    @SuppressWarnings("PMD.SignatureDeclareThrowsException")<a name="line.181"></a>
-<span class="sourceLineNo">182</span>    public IMavenRepo mavenRepository() throws Exception {<a name="line.182"></a>
-<span class="sourceLineNo">183</span>        if (mavenRepository == null) {<a name="line.183"></a>
-<span class="sourceLineNo">184</span>            refresh();<a name="line.184"></a>
-<span class="sourceLineNo">185</span>        }<a name="line.185"></a>
-<span class="sourceLineNo">186</span>        return mavenRepository;<a name="line.186"></a>
-<span class="sourceLineNo">187</span>    }<a name="line.187"></a>
-<span class="sourceLineNo">188</span><a name="line.188"></a>
-<span class="sourceLineNo">189</span>    /**<a name="line.189"></a>
-<span class="sourceLineNo">190</span>     * Refresh this repository's content.<a name="line.190"></a>
-<span class="sourceLineNo">191</span>     * <a name="line.191"></a>
-<span class="sourceLineNo">192</span>     * @return true if refreshed, false if not refreshed possibly due to error<a name="line.192"></a>
-<span class="sourceLineNo">193</span>     * @throws Exception if a problem occurs<a name="line.193"></a>
-<span class="sourceLineNo">194</span>     */<a name="line.194"></a>
-<span class="sourceLineNo">195</span>    @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition",<a name="line.195"></a>
-<span class="sourceLineNo">196</span>        "PMD.SignatureDeclareThrowsException",<a name="line.196"></a>
-<span class="sourceLineNo">197</span>        "PMD.AvoidInstantiatingObjectsInLoops", "PMD.NPathComplexity" })<a name="line.197"></a>
-<span class="sourceLineNo">198</span>    public boolean refresh() throws Exception {<a name="line.198"></a>
-<span class="sourceLineNo">199</span>        @SuppressWarnings("PMD.UseConcurrentHashMap")<a name="line.199"></a>
-<span class="sourceLineNo">200</span>        Map&lt;String, MavenGroupRepository&gt; oldGroups = new HashMap&lt;&gt;(groups);<a name="line.200"></a>
-<span class="sourceLineNo">201</span><a name="line.201"></a>
-<span class="sourceLineNo">202</span>        // Keep and clear or create new group repositories for the existing<a name="line.202"></a>
-<span class="sourceLineNo">203</span>        // directories.<a name="line.203"></a>
-<span class="sourceLineNo">204</span>        groups.clear();<a name="line.204"></a>
-<span class="sourceLineNo">205</span>        for (String groupId : indexDbDir.toFile().list()) {<a name="line.205"></a>
-<span class="sourceLineNo">206</span>            if (!groupId.matches("^[A-Za-z].*")<a name="line.206"></a>
-<span class="sourceLineNo">207</span>                || "index.xml".equals(groupId)) {<a name="line.207"></a>
-<span class="sourceLineNo">208</span>                continue;<a name="line.208"></a>
-<span class="sourceLineNo">209</span>            }<a name="line.209"></a>
-<span class="sourceLineNo">210</span>            execCtx.submit(new Callable&lt;Void&gt;() {<a name="line.210"></a>
-<span class="sourceLineNo">211</span>                @Override<a name="line.211"></a>
-<span class="sourceLineNo">212</span>                public Void call() throws Exception {<a name="line.212"></a>
-<span class="sourceLineNo">213</span>                    if (oldGroups.containsKey(groupId)) {<a name="line.213"></a>
-<span class="sourceLineNo">214</span>                        MavenGroupRepository groupRepo = oldGroups.get(groupId);<a name="line.214"></a>
-<span class="sourceLineNo">215</span>                        oldGroups.clear();<a name="line.215"></a>
-<span class="sourceLineNo">216</span>                        groups.put(groupId, groupRepo);<a name="line.216"></a>
-<span class="sourceLineNo">217</span>                        return null;<a name="line.217"></a>
-<span class="sourceLineNo">218</span>                    }<a name="line.218"></a>
-<span class="sourceLineNo">219</span>                    MavenGroupRepository groupRepo = new MavenGroupRepository(<a name="line.219"></a>
-<span class="sourceLineNo">220</span>                        groupId, indexDbDir.resolve(groupId), mavenRepository,<a name="line.220"></a>
-<span class="sourceLineNo">221</span>                        client, reporter);<a name="line.221"></a>
-<span class="sourceLineNo">222</span>                    groups.put(groupId, groupRepo);<a name="line.222"></a>
-<span class="sourceLineNo">223</span>                    return null;<a name="line.223"></a>
-<span class="sourceLineNo">224</span>                }<a name="line.224"></a>
-<span class="sourceLineNo">225</span>            });<a name="line.225"></a>
-<span class="sourceLineNo">226</span>        }<a name="line.226"></a>
-<span class="sourceLineNo">227</span>        execCtx.await();<a name="line.227"></a>
-<span class="sourceLineNo">228</span>        for (MavenGroupRepository group : new ArrayList&lt;&gt;(groups.values())) {<a name="line.228"></a>
-<span class="sourceLineNo">229</span>            if (group.isRequested()) {<a name="line.229"></a>
-<span class="sourceLineNo">230</span>                execCtx.submit(new Callable&lt;Void&gt;() {<a name="line.230"></a>
-<span class="sourceLineNo">231</span>                    @Override<a name="line.231"></a>
-<span class="sourceLineNo">232</span>                    public Void call() throws Exception {<a name="line.232"></a>
-<span class="sourceLineNo">233</span>                        LOG.debug("Refreshing {}", group.id());<a name="line.233"></a>
-<span class="sourceLineNo">234</span>                        group.refresh(<a name="line.234"></a>
-<span class="sourceLineNo">235</span>                            deps -&gt; handleDependencies(deps));<a name="line.235"></a>
-<span class="sourceLineNo">236</span>                        return null;<a name="line.236"></a>
-<span class="sourceLineNo">237</span>                    }<a name="line.237"></a>
-<span class="sourceLineNo">238</span>                });<a name="line.238"></a>
-<span class="sourceLineNo">239</span>            }<a name="line.239"></a>
-<span class="sourceLineNo">240</span>        }<a name="line.240"></a>
-<span class="sourceLineNo">241</span>        execCtx.await();<a name="line.241"></a>
-<span class="sourceLineNo">242</span>        for (Iterator&lt;Map.Entry&lt;String, MavenGroupRepository&gt;&gt; iter<a name="line.242"></a>
-<span class="sourceLineNo">243</span>            = groups.entrySet().iterator(); iter.hasNext();) {<a name="line.243"></a>
-<span class="sourceLineNo">244</span>            Map.Entry&lt;String, MavenGroupRepository&gt; entry = iter.next();<a name="line.244"></a>
-<span class="sourceLineNo">245</span>            if (entry.getValue().removeIfRedundant()) {<a name="line.245"></a>
-<span class="sourceLineNo">246</span>                iter.remove();<a name="line.246"></a>
-<span class="sourceLineNo">247</span>            }<a name="line.247"></a>
-<span class="sourceLineNo">248</span>        }<a name="line.248"></a>
-<span class="sourceLineNo">249</span>        for (MavenGroupRepository groupRepo : groups.values()) {<a name="line.249"></a>
-<span class="sourceLineNo">250</span>            execCtx.submit(new Callable&lt;Void&gt;() {<a name="line.250"></a>
-<span class="sourceLineNo">251</span>                @Override<a name="line.251"></a>
-<span class="sourceLineNo">252</span>                public Void call() throws Exception {<a name="line.252"></a>
-<span class="sourceLineNo">253</span>                    groupRepo.flush();<a name="line.253"></a>
-<span class="sourceLineNo">254</span>                    return null;<a name="line.254"></a>
-<span class="sourceLineNo">255</span>                }<a name="line.255"></a>
-<span class="sourceLineNo">256</span>            });<a name="line.256"></a>
-<span class="sourceLineNo">257</span>        }<a name="line.257"></a>
-<span class="sourceLineNo">258</span>        execCtx.submit(new Callable&lt;Void&gt;() {<a name="line.258"></a>
-<span class="sourceLineNo">259</span>            @Override<a name="line.259"></a>
-<span class="sourceLineNo">260</span>            public Void call() throws Exception {<a name="line.260"></a>
-<span class="sourceLineNo">261</span>                try (OutputStream fos<a name="line.261"></a>
-<span class="sourceLineNo">262</span>                    = Files.newOutputStream(indexDbDir.resolve("index.xml"))) {<a name="line.262"></a>
-<span class="sourceLineNo">263</span>                    writeFederatedIndex(fos);<a name="line.263"></a>
-<span class="sourceLineNo">264</span>                }<a name="line.264"></a>
-<span class="sourceLineNo">265</span>                return null;<a name="line.265"></a>
-<span class="sourceLineNo">266</span>            }<a name="line.266"></a>
-<span class="sourceLineNo">267</span>        });<a name="line.267"></a>
-<span class="sourceLineNo">268</span>        execCtx.submit(() -&gt; {<a name="line.268"></a>
-<span class="sourceLineNo">269</span>            set(Collections.emptyList());<a name="line.269"></a>
-<span class="sourceLineNo">270</span>            for (MavenGroupRepository groupRepo : groups.values()) {<a name="line.270"></a>
-<span class="sourceLineNo">271</span>                addAll(groupRepo.getResources());<a name="line.271"></a>
-<span class="sourceLineNo">272</span>            }<a name="line.272"></a>
-<span class="sourceLineNo">273</span>        });<a name="line.273"></a>
-<span class="sourceLineNo">274</span>        execCtx.await();<a name="line.274"></a>
-<span class="sourceLineNo">275</span>        return true;<a name="line.275"></a>
-<span class="sourceLineNo">276</span>    }<a name="line.276"></a>
-<span class="sourceLineNo">277</span><a name="line.277"></a>
-<span class="sourceLineNo">278</span>    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")<a name="line.278"></a>
-<span class="sourceLineNo">279</span>    private void handleDependencies(Collection&lt;IPom.Dependency&gt; dependencies) {<a name="line.279"></a>
-<span class="sourceLineNo">280</span>        for (IPom.Dependency dep : dependencies) {<a name="line.280"></a>
-<span class="sourceLineNo">281</span>            MavenGroupRepository groupRepo = groups.computeIfAbsent(<a name="line.281"></a>
-<span class="sourceLineNo">282</span>                dep.program.group, groupId -&gt; {<a name="line.282"></a>
-<span class="sourceLineNo">283</span>                    try {<a name="line.283"></a>
-<span class="sourceLineNo">284</span>                        return new MavenGroupRepository(groupId,<a name="line.284"></a>
-<span class="sourceLineNo">285</span>                            indexDbDir.resolve(groupId), mavenRepository,<a name="line.285"></a>
-<span class="sourceLineNo">286</span>                            client, reporter);<a name="line.286"></a>
-<span class="sourceLineNo">287</span>                    } catch (IOException e) {<a name="line.287"></a>
-<span class="sourceLineNo">288</span>                        reporter.exception(e,<a name="line.288"></a>
-<span class="sourceLineNo">289</span>                            "Cannot create group repository for %s.", groupId);<a name="line.289"></a>
-<span class="sourceLineNo">290</span>                        return null;<a name="line.290"></a>
-<span class="sourceLineNo">291</span>                    }<a name="line.291"></a>
-<span class="sourceLineNo">292</span>                });<a name="line.292"></a>
-<span class="sourceLineNo">293</span>            if (groupRepo == null) {<a name="line.293"></a>
-<span class="sourceLineNo">294</span>                return;<a name="line.294"></a>
-<span class="sourceLineNo">295</span>            }<a name="line.295"></a>
-<span class="sourceLineNo">296</span>            execCtx.submit(new Callable&lt;Void&gt;() {<a name="line.296"></a>
-<span class="sourceLineNo">297</span>                @Override<a name="line.297"></a>
-<span class="sourceLineNo">298</span>                public Void call() throws Exception {<a name="line.298"></a>
-<span class="sourceLineNo">299</span>                    Optional&lt;BoundRevision&gt; bound = mavenRepository<a name="line.299"></a>
-<span class="sourceLineNo">300</span>                        .toBoundRevision(dep.program, dep.version);<a name="line.300"></a>
-<span class="sourceLineNo">301</span>                    if (bound.isPresent()) {<a name="line.301"></a>
-<span class="sourceLineNo">302</span>                        groupRepo.addRevision(bound.get(),<a name="line.302"></a>
-<span class="sourceLineNo">303</span>                            deps -&gt; handleDependencies(deps));<a name="line.303"></a>
-<span class="sourceLineNo">304</span>                    }<a name="line.304"></a>
-<span class="sourceLineNo">305</span>                    return null;<a name="line.305"></a>
-<span class="sourceLineNo">306</span>                }<a name="line.306"></a>
-<span class="sourceLineNo">307</span>            });<a name="line.307"></a>
-<span class="sourceLineNo">308</span>        }<a name="line.308"></a>
-<span class="sourceLineNo">309</span>    }<a name="line.309"></a>
-<span class="sourceLineNo">310</span><a name="line.310"></a>
-<span class="sourceLineNo">311</span>    private void writeFederatedIndex(OutputStream out) {<a name="line.311"></a>
-<span class="sourceLineNo">312</span>        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();<a name="line.312"></a>
-<span class="sourceLineNo">313</span>        dbf.setNamespaceAware(true);<a name="line.313"></a>
-<span class="sourceLineNo">314</span>        Document doc;<a name="line.314"></a>
-<span class="sourceLineNo">315</span>        try {<a name="line.315"></a>
-<span class="sourceLineNo">316</span>            doc = dbf.newDocumentBuilder().newDocument();<a name="line.316"></a>
-<span class="sourceLineNo">317</span>        } catch (ParserConfigurationException e) {<a name="line.317"></a>
-<span class="sourceLineNo">318</span>            return;<a name="line.318"></a>
-<span class="sourceLineNo">319</span>        }<a name="line.319"></a>
-<span class="sourceLineNo">320</span>        @SuppressWarnings("PMD.AvoidFinalLocalVariable")<a name="line.320"></a>
-<span class="sourceLineNo">321</span>        final String repoNs = "http://www.osgi.org/xmlns/repository/v1.0.0";<a name="line.321"></a>
-<span class="sourceLineNo">322</span>        // &lt;repository name=... increment=...&gt;<a name="line.322"></a>
-<span class="sourceLineNo">323</span>        Element repoNode = doc.createElementNS(repoNs, "repository");<a name="line.323"></a>
-<span class="sourceLineNo">324</span>        repoNode.setAttribute("name", name);<a name="line.324"></a>
-<span class="sourceLineNo">325</span>        repoNode.setAttribute("increment",<a name="line.325"></a>
-<span class="sourceLineNo">326</span>            Long.toString(System.currentTimeMillis()));<a name="line.326"></a>
-<span class="sourceLineNo">327</span>        doc.appendChild(repoNode);<a name="line.327"></a>
-<span class="sourceLineNo">328</span>        for (String groupId : groups.keySet()) {<a name="line.328"></a>
-<span class="sourceLineNo">329</span>            // &lt;referral url=...&gt;<a name="line.329"></a>
-<span class="sourceLineNo">330</span>            Element referral = doc.createElementNS(repoNs, "referral");<a name="line.330"></a>
-<span class="sourceLineNo">331</span>            referral.setAttribute("url", groupId + "/index.xml");<a name="line.331"></a>
-<span class="sourceLineNo">332</span>            repoNode.appendChild(referral);<a name="line.332"></a>
-<span class="sourceLineNo">333</span>        }<a name="line.333"></a>
-<span class="sourceLineNo">334</span>        // Write federated index.<a name="line.334"></a>
-<span class="sourceLineNo">335</span>        try {<a name="line.335"></a>
-<span class="sourceLineNo">336</span>            Transformer transformer<a name="line.336"></a>
-<span class="sourceLineNo">337</span>                = TransformerFactory.newInstance().newTransformer();<a name="line.337"></a>
-<span class="sourceLineNo">338</span>            transformer.setOutputProperty(OutputKeys.INDENT, "yes");<a name="line.338"></a>
-<span class="sourceLineNo">339</span>            DOMSource source = new DOMSource(doc);<a name="line.339"></a>
-<span class="sourceLineNo">340</span>            transformer.transform(source, new StreamResult(out));<a name="line.340"></a>
-<span class="sourceLineNo">341</span>        } catch (TransformerException e) {<a name="line.341"></a>
-<span class="sourceLineNo">342</span>            reporter.exception(e, "Cannot write federated index: %s",<a name="line.342"></a>
-<span class="sourceLineNo">343</span>                e.getMessage());<a name="line.343"></a>
-<span class="sourceLineNo">344</span>        }<a name="line.344"></a>
-<span class="sourceLineNo">345</span>    }<a name="line.345"></a>
-<span class="sourceLineNo">346</span>}<a name="line.346"></a>
+<span class="sourceLineNo">153</span>        List&lt;MavenBackingRepository&gt; snapshotBackers = new ArrayList&lt;&gt;();<a name="line.153"></a>
+<span class="sourceLineNo">154</span>        for (URL url : snapshotUrls) {<a name="line.154"></a>
+<span class="sourceLineNo">155</span>            snapshotBackers.addAll(MavenBackingRepository.create(<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                url.toString(), reporter, localRepo, client));<a name="line.156"></a>
+<span class="sourceLineNo">157</span>        }<a name="line.157"></a>
+<span class="sourceLineNo">158</span>        return new CompositeMavenRepository(localRepo, name(), releaseBackers,<a name="line.158"></a>
+<span class="sourceLineNo">159</span>            snapshotBackers, Processor.getExecutor(), reporter);<a name="line.159"></a>
+<span class="sourceLineNo">160</span>    }<a name="line.160"></a>
+<span class="sourceLineNo">161</span><a name="line.161"></a>
+<span class="sourceLineNo">162</span>    /**<a name="line.162"></a>
+<span class="sourceLineNo">163</span>     * Return the name of this repository.<a name="line.163"></a>
+<span class="sourceLineNo">164</span>     * <a name="line.164"></a>
+<span class="sourceLineNo">165</span>     * @return the name;<a name="line.165"></a>
+<span class="sourceLineNo">166</span>     */<a name="line.166"></a>
+<span class="sourceLineNo">167</span>    public final String name() {<a name="line.167"></a>
+<span class="sourceLineNo">168</span>        return name;<a name="line.168"></a>
+<span class="sourceLineNo">169</span>    }<a name="line.169"></a>
+<span class="sourceLineNo">170</span><a name="line.170"></a>
+<span class="sourceLineNo">171</span>    /**<a name="line.171"></a>
+<span class="sourceLineNo">172</span>     * Return the representation of this repository in the local file system.<a name="line.172"></a>
+<span class="sourceLineNo">173</span>     * <a name="line.173"></a>
+<span class="sourceLineNo">174</span>     * @return the location<a name="line.174"></a>
+<span class="sourceLineNo">175</span>     */<a name="line.175"></a>
+<span class="sourceLineNo">176</span>    public final File location() {<a name="line.176"></a>
+<span class="sourceLineNo">177</span>        return indexDbDir.toFile();<a name="line.177"></a>
+<span class="sourceLineNo">178</span>    }<a name="line.178"></a>
+<span class="sourceLineNo">179</span><a name="line.179"></a>
+<span class="sourceLineNo">180</span>    /**<a name="line.180"></a>
+<span class="sourceLineNo">181</span>     * Return the Maven repository object used to implements this repository.<a name="line.181"></a>
+<span class="sourceLineNo">182</span>     * <a name="line.182"></a>
+<span class="sourceLineNo">183</span>     * @return the repository object<a name="line.183"></a>
+<span class="sourceLineNo">184</span>     * @throws Exception if a problem occurs<a name="line.184"></a>
+<span class="sourceLineNo">185</span>     */<a name="line.185"></a>
+<span class="sourceLineNo">186</span>    @SuppressWarnings("PMD.SignatureDeclareThrowsException")<a name="line.186"></a>
+<span class="sourceLineNo">187</span>    public IMavenRepo mavenRepository() throws Exception {<a name="line.187"></a>
+<span class="sourceLineNo">188</span>        if (mavenRepository == null) {<a name="line.188"></a>
+<span class="sourceLineNo">189</span>            refresh();<a name="line.189"></a>
+<span class="sourceLineNo">190</span>        }<a name="line.190"></a>
+<span class="sourceLineNo">191</span>        return mavenRepository;<a name="line.191"></a>
+<span class="sourceLineNo">192</span>    }<a name="line.192"></a>
+<span class="sourceLineNo">193</span><a name="line.193"></a>
+<span class="sourceLineNo">194</span>    /**<a name="line.194"></a>
+<span class="sourceLineNo">195</span>     * Refresh this repository's content.<a name="line.195"></a>
+<span class="sourceLineNo">196</span>     * <a name="line.196"></a>
+<span class="sourceLineNo">197</span>     * @return true if refreshed, false if not refreshed possibly due to error<a name="line.197"></a>
+<span class="sourceLineNo">198</span>     * @throws Exception if a problem occurs<a name="line.198"></a>
+<span class="sourceLineNo">199</span>     */<a name="line.199"></a>
+<span class="sourceLineNo">200</span>    @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition",<a name="line.200"></a>
+<span class="sourceLineNo">201</span>        "PMD.SignatureDeclareThrowsException", "PMD.NPathComplexity",<a name="line.201"></a>
+<span class="sourceLineNo">202</span>        "PMD.AvoidInstantiatingObjectsInLoops", "PMD.AvoidDuplicateLiterals" })<a name="line.202"></a>
+<span class="sourceLineNo">203</span>    public boolean refresh() throws Exception {<a name="line.203"></a>
+<span class="sourceLineNo">204</span>        @SuppressWarnings("PMD.UseConcurrentHashMap")<a name="line.204"></a>
+<span class="sourceLineNo">205</span>        Map&lt;String, MavenGroupRepository&gt; oldGroups = new HashMap&lt;&gt;(groups);<a name="line.205"></a>
+<span class="sourceLineNo">206</span><a name="line.206"></a>
+<span class="sourceLineNo">207</span>        // Reuse and clear (or create new) group repositories for the existing<a name="line.207"></a>
+<span class="sourceLineNo">208</span>        // directories, first for explicitly requested group ids...<a name="line.208"></a>
+<span class="sourceLineNo">209</span>        groups.clear();<a name="line.209"></a>
+<span class="sourceLineNo">210</span>        scanRequested(oldGroups);<a name="line.210"></a>
+<span class="sourceLineNo">211</span>        // ... now scan directories with groups created as dependencies<a name="line.211"></a>
+<span class="sourceLineNo">212</span>        scanDependencies(oldGroups);<a name="line.212"></a>
+<span class="sourceLineNo">213</span>        execCtx.await();<a name="line.213"></a>
+<span class="sourceLineNo">214</span>        // Refresh them all.<a name="line.214"></a>
+<span class="sourceLineNo">215</span>        for (MavenGroupRepository group : new ArrayList&lt;&gt;(groups.values())) {<a name="line.215"></a>
+<span class="sourceLineNo">216</span>            execCtx.submit(new Callable&lt;Void&gt;() {<a name="line.216"></a>
+<span class="sourceLineNo">217</span>                @Override<a name="line.217"></a>
+<span class="sourceLineNo">218</span>                public Void call() throws Exception {<a name="line.218"></a>
+<span class="sourceLineNo">219</span>                    LOG.debug("Refreshing {}", group.id());<a name="line.219"></a>
+<span class="sourceLineNo">220</span>                    group.reload(deps -&gt; handleDependencies(deps));<a name="line.220"></a>
+<span class="sourceLineNo">221</span>                    return null;<a name="line.221"></a>
+<span class="sourceLineNo">222</span>                }<a name="line.222"></a>
+<span class="sourceLineNo">223</span>            });<a name="line.223"></a>
+<span class="sourceLineNo">224</span>        }<a name="line.224"></a>
+<span class="sourceLineNo">225</span>        execCtx.await();<a name="line.225"></a>
+<span class="sourceLineNo">226</span>        // Remove no longer required group repositories.<a name="line.226"></a>
+<span class="sourceLineNo">227</span>        for (Iterator&lt;Map.Entry&lt;String, MavenGroupRepository&gt;&gt; iter<a name="line.227"></a>
+<span class="sourceLineNo">228</span>            = groups.entrySet().iterator(); iter.hasNext();) {<a name="line.228"></a>
+<span class="sourceLineNo">229</span>            Map.Entry&lt;String, MavenGroupRepository&gt; entry = iter.next();<a name="line.229"></a>
+<span class="sourceLineNo">230</span>            if (entry.getValue().removeIfRedundant()) {<a name="line.230"></a>
+<span class="sourceLineNo">231</span>                iter.remove();<a name="line.231"></a>
+<span class="sourceLineNo">232</span>            }<a name="line.232"></a>
+<span class="sourceLineNo">233</span>        }<a name="line.233"></a>
+<span class="sourceLineNo">234</span>        // Persist updated data.<a name="line.234"></a>
+<span class="sourceLineNo">235</span>        for (MavenGroupRepository groupRepo : groups.values()) {<a name="line.235"></a>
+<span class="sourceLineNo">236</span>            execCtx.submit(new Callable&lt;Void&gt;() {<a name="line.236"></a>
+<span class="sourceLineNo">237</span>                @Override<a name="line.237"></a>
+<span class="sourceLineNo">238</span>                public Void call() throws Exception {<a name="line.238"></a>
+<span class="sourceLineNo">239</span>                    groupRepo.flush();<a name="line.239"></a>
+<span class="sourceLineNo">240</span>                    return null;<a name="line.240"></a>
+<span class="sourceLineNo">241</span>                }<a name="line.241"></a>
+<span class="sourceLineNo">242</span>            });<a name="line.242"></a>
+<span class="sourceLineNo">243</span>        }<a name="line.243"></a>
+<span class="sourceLineNo">244</span>        // Write federated index.<a name="line.244"></a>
+<span class="sourceLineNo">245</span>        execCtx.submit(new Callable&lt;Void&gt;() {<a name="line.245"></a>
+<span class="sourceLineNo">246</span>            @Override<a name="line.246"></a>
+<span class="sourceLineNo">247</span>            public Void call() throws Exception {<a name="line.247"></a>
+<span class="sourceLineNo">248</span>                try (OutputStream fos<a name="line.248"></a>
+<span class="sourceLineNo">249</span>                    = Files.newOutputStream(indexDbDir.resolve("index.xml"))) {<a name="line.249"></a>
+<span class="sourceLineNo">250</span>                    writeFederatedIndex(fos);<a name="line.250"></a>
+<span class="sourceLineNo">251</span>                }<a name="line.251"></a>
+<span class="sourceLineNo">252</span>                return null;<a name="line.252"></a>
+<span class="sourceLineNo">253</span>            }<a name="line.253"></a>
+<span class="sourceLineNo">254</span>        });<a name="line.254"></a>
+<span class="sourceLineNo">255</span>        // Add collected to root (this).<a name="line.255"></a>
+<span class="sourceLineNo">256</span>        execCtx.submit(() -&gt; {<a name="line.256"></a>
+<span class="sourceLineNo">257</span>            set(Collections.emptyList());<a name="line.257"></a>
+<span class="sourceLineNo">258</span>            for (MavenGroupRepository groupRepo : groups.values()) {<a name="line.258"></a>
+<span class="sourceLineNo">259</span>                addAll(groupRepo.getResources());<a name="line.259"></a>
+<span class="sourceLineNo">260</span>            }<a name="line.260"></a>
+<span class="sourceLineNo">261</span>        });<a name="line.261"></a>
+<span class="sourceLineNo">262</span>        execCtx.await();<a name="line.262"></a>
+<span class="sourceLineNo">263</span>        return true;<a name="line.263"></a>
+<span class="sourceLineNo">264</span>    }<a name="line.264"></a>
+<span class="sourceLineNo">265</span><a name="line.265"></a>
+<span class="sourceLineNo">266</span>    @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition",<a name="line.266"></a>
+<span class="sourceLineNo">267</span>        "PMD.AvoidInstantiatingObjectsInLoops" })<a name="line.267"></a>
+<span class="sourceLineNo">268</span>    private void scanRequested(Map&lt;String, MavenGroupRepository&gt; oldGroups) {<a name="line.268"></a>
+<span class="sourceLineNo">269</span>        for (String groupId : indexDbDir.toFile().list()) {<a name="line.269"></a>
+<span class="sourceLineNo">270</span>            if (!groupId.matches("^[A-Za-z].*")<a name="line.270"></a>
+<span class="sourceLineNo">271</span>                || "index.xml".equals(groupId)<a name="line.271"></a>
+<span class="sourceLineNo">272</span>                || "dependencies".equals(groupId)) {<a name="line.272"></a>
+<span class="sourceLineNo">273</span>                continue;<a name="line.273"></a>
+<span class="sourceLineNo">274</span>            }<a name="line.274"></a>
+<span class="sourceLineNo">275</span>            execCtx.submit(new Callable&lt;Void&gt;() {<a name="line.275"></a>
+<span class="sourceLineNo">276</span>                @Override<a name="line.276"></a>
+<span class="sourceLineNo">277</span>                public Void call() throws Exception {<a name="line.277"></a>
+<span class="sourceLineNo">278</span>                    if (oldGroups.containsKey(groupId)) {<a name="line.278"></a>
+<span class="sourceLineNo">279</span>                        MavenGroupRepository groupRepo = oldGroups.get(groupId);<a name="line.279"></a>
+<span class="sourceLineNo">280</span>                        groupRepo.reset(true);<a name="line.280"></a>
+<span class="sourceLineNo">281</span>                        groups.put(groupId, groupRepo);<a name="line.281"></a>
+<span class="sourceLineNo">282</span>                        return null;<a name="line.282"></a>
+<span class="sourceLineNo">283</span>                    }<a name="line.283"></a>
+<span class="sourceLineNo">284</span>                    MavenGroupRepository groupRepo = new MavenGroupRepository(<a name="line.284"></a>
+<span class="sourceLineNo">285</span>                        groupId, indexDbDir.resolve(groupId), true,<a name="line.285"></a>
+<span class="sourceLineNo">286</span>                        mavenRepository, client, reporter);<a name="line.286"></a>
+<span class="sourceLineNo">287</span>                    groups.put(groupId, groupRepo);<a name="line.287"></a>
+<span class="sourceLineNo">288</span>                    return null;<a name="line.288"></a>
+<span class="sourceLineNo">289</span>                }<a name="line.289"></a>
+<span class="sourceLineNo">290</span>            });<a name="line.290"></a>
+<span class="sourceLineNo">291</span>        }<a name="line.291"></a>
+<span class="sourceLineNo">292</span>    }<a name="line.292"></a>
+<span class="sourceLineNo">293</span><a name="line.293"></a>
+<span class="sourceLineNo">294</span>    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")<a name="line.294"></a>
+<span class="sourceLineNo">295</span>    private void scanDependencies(Map&lt;String, MavenGroupRepository&gt; oldGroups) {<a name="line.295"></a>
+<span class="sourceLineNo">296</span>        for (String groupId : depsDir.toFile().list()) {<a name="line.296"></a>
+<span class="sourceLineNo">297</span>            if (!groupId.matches("^[A-Za-z].*")) {<a name="line.297"></a>
+<span class="sourceLineNo">298</span>                continue;<a name="line.298"></a>
+<span class="sourceLineNo">299</span>            }<a name="line.299"></a>
+<span class="sourceLineNo">300</span>            execCtx.submit(new Callable&lt;Void&gt;() {<a name="line.300"></a>
+<span class="sourceLineNo">301</span>                @Override<a name="line.301"></a>
+<span class="sourceLineNo">302</span>                public Void call() throws Exception {<a name="line.302"></a>
+<span class="sourceLineNo">303</span>                    if (oldGroups.containsKey(groupId)) {<a name="line.303"></a>
+<span class="sourceLineNo">304</span>                        MavenGroupRepository groupRepo = oldGroups.get(groupId);<a name="line.304"></a>
+<span class="sourceLineNo">305</span>                        groupRepo.reset(false);<a name="line.305"></a>
+<span class="sourceLineNo">306</span>                        groups.put(groupId, groupRepo);<a name="line.306"></a>
+<span class="sourceLineNo">307</span>                        return null;<a name="line.307"></a>
+<span class="sourceLineNo">308</span>                    }<a name="line.308"></a>
+<span class="sourceLineNo">309</span>                    MavenGroupRepository groupRepo = new MavenGroupRepository(<a name="line.309"></a>
+<span class="sourceLineNo">310</span>                        groupId, depsDir.resolve(groupId), false,<a name="line.310"></a>
+<span class="sourceLineNo">311</span>                        mavenRepository, client, reporter);<a name="line.311"></a>
+<span class="sourceLineNo">312</span>                    groups.put(groupId, groupRepo);<a name="line.312"></a>
+<span class="sourceLineNo">313</span>                    return null;<a name="line.313"></a>
+<span class="sourceLineNo">314</span>                }<a name="line.314"></a>
+<span class="sourceLineNo">315</span>            });<a name="line.315"></a>
+<span class="sourceLineNo">316</span>        }<a name="line.316"></a>
+<span class="sourceLineNo">317</span>    }<a name="line.317"></a>
+<span class="sourceLineNo">318</span><a name="line.318"></a>
+<span class="sourceLineNo">319</span>    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")<a name="line.319"></a>
+<span class="sourceLineNo">320</span>    private void handleDependencies(Collection&lt;IPom.Dependency&gt; dependencies) {<a name="line.320"></a>
+<span class="sourceLineNo">321</span>        for (IPom.Dependency dep : dependencies) {<a name="line.321"></a>
+<span class="sourceLineNo">322</span>            MavenGroupRepository groupRepo = groups.computeIfAbsent(<a name="line.322"></a>
+<span class="sourceLineNo">323</span>                dep.program.group, groupId -&gt; {<a name="line.323"></a>
+<span class="sourceLineNo">324</span>                    try {<a name="line.324"></a>
+<span class="sourceLineNo">325</span>                        return new MavenGroupRepository(groupId,<a name="line.325"></a>
+<span class="sourceLineNo">326</span>                            depsDir.resolve(groupId), false, mavenRepository,<a name="line.326"></a>
+<span class="sourceLineNo">327</span>                            client, reporter);<a name="line.327"></a>
+<span class="sourceLineNo">328</span>                    } catch (IOException e) {<a name="line.328"></a>
+<span class="sourceLineNo">329</span>                        reporter.exception(e,<a name="line.329"></a>
+<span class="sourceLineNo">330</span>                            "Cannot create group repository for %s.", groupId);<a name="line.330"></a>
+<span class="sourceLineNo">331</span>                        return null;<a name="line.331"></a>
+<span class="sourceLineNo">332</span>                    }<a name="line.332"></a>
+<span class="sourceLineNo">333</span>                });<a name="line.333"></a>
+<span class="sourceLineNo">334</span>            if (groupRepo == null) {<a name="line.334"></a>
+<span class="sourceLineNo">335</span>                return;<a name="line.335"></a>
+<span class="sourceLineNo">336</span>            }<a name="line.336"></a>
+<span class="sourceLineNo">337</span>            execCtx.submit(new Callable&lt;Void&gt;() {<a name="line.337"></a>
+<span class="sourceLineNo">338</span>                @Override<a name="line.338"></a>
+<span class="sourceLineNo">339</span>                public Void call() throws Exception {<a name="line.339"></a>
+<span class="sourceLineNo">340</span>                    Optional&lt;BoundRevision&gt; bound = mavenRepository<a name="line.340"></a>
+<span class="sourceLineNo">341</span>                        .toBoundRevision(dep.program, dep.version);<a name="line.341"></a>
+<span class="sourceLineNo">342</span>                    if (bound.isPresent()) {<a name="line.342"></a>
+<span class="sourceLineNo">343</span>                        groupRepo.addRevision(bound.get(),<a name="line.343"></a>
+<span class="sourceLineNo">344</span>                            deps -&gt; handleDependencies(deps));<a name="line.344"></a>
+<span class="sourceLineNo">345</span>                    }<a name="line.345"></a>
+<span class="sourceLineNo">346</span>                    return null;<a name="line.346"></a>
+<span class="sourceLineNo">347</span>                }<a name="line.347"></a>
+<span class="sourceLineNo">348</span>            });<a name="line.348"></a>
+<span class="sourceLineNo">349</span>        }<a name="line.349"></a>
+<span class="sourceLineNo">350</span>    }<a name="line.350"></a>
+<span class="sourceLineNo">351</span><a name="line.351"></a>
+<span class="sourceLineNo">352</span>    private void writeFederatedIndex(OutputStream out) {<a name="line.352"></a>
+<span class="sourceLineNo">353</span>        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();<a name="line.353"></a>
+<span class="sourceLineNo">354</span>        dbf.setNamespaceAware(true);<a name="line.354"></a>
+<span class="sourceLineNo">355</span>        Document doc;<a name="line.355"></a>
+<span class="sourceLineNo">356</span>        try {<a name="line.356"></a>
+<span class="sourceLineNo">357</span>            doc = dbf.newDocumentBuilder().newDocument();<a name="line.357"></a>
+<span class="sourceLineNo">358</span>        } catch (ParserConfigurationException e) {<a name="line.358"></a>
+<span class="sourceLineNo">359</span>            return;<a name="line.359"></a>
+<span class="sourceLineNo">360</span>        }<a name="line.360"></a>
+<span class="sourceLineNo">361</span>        @SuppressWarnings("PMD.AvoidFinalLocalVariable")<a name="line.361"></a>
+<span class="sourceLineNo">362</span>        final String repoNs = "http://www.osgi.org/xmlns/repository/v1.0.0";<a name="line.362"></a>
+<span class="sourceLineNo">363</span>        // &lt;repository name=... increment=...&gt;<a name="line.363"></a>
+<span class="sourceLineNo">364</span>        Element repoNode = doc.createElementNS(repoNs, "repository");<a name="line.364"></a>
+<span class="sourceLineNo">365</span>        repoNode.setAttribute("name", name);<a name="line.365"></a>
+<span class="sourceLineNo">366</span>        repoNode.setAttribute("increment",<a name="line.366"></a>
+<span class="sourceLineNo">367</span>            Long.toString(System.currentTimeMillis()));<a name="line.367"></a>
+<span class="sourceLineNo">368</span>        doc.appendChild(repoNode);<a name="line.368"></a>
+<span class="sourceLineNo">369</span>        for (Map.Entry&lt;String, MavenGroupRepository&gt; repo : groups.entrySet()) {<a name="line.369"></a>
+<span class="sourceLineNo">370</span>            // &lt;referral url=...&gt;<a name="line.370"></a>
+<span class="sourceLineNo">371</span>            Element referral = doc.createElementNS(repoNs, "referral");<a name="line.371"></a>
+<span class="sourceLineNo">372</span>            referral.setAttribute("url",<a name="line.372"></a>
+<span class="sourceLineNo">373</span>                (repo.getValue().isRequested() ? "" : "dependencies/")<a name="line.373"></a>
+<span class="sourceLineNo">374</span>                    + repo.getKey() + "/index.xml");<a name="line.374"></a>
+<span class="sourceLineNo">375</span>            repoNode.appendChild(referral);<a name="line.375"></a>
+<span class="sourceLineNo">376</span>        }<a name="line.376"></a>
+<span class="sourceLineNo">377</span>        // Write federated index.<a name="line.377"></a>
+<span class="sourceLineNo">378</span>        try {<a name="line.378"></a>
+<span class="sourceLineNo">379</span>            Transformer transformer<a name="line.379"></a>
+<span class="sourceLineNo">380</span>                = TransformerFactory.newInstance().newTransformer();<a name="line.380"></a>
+<span class="sourceLineNo">381</span>            transformer.setOutputProperty(OutputKeys.INDENT, "yes");<a name="line.381"></a>
+<span class="sourceLineNo">382</span>            DOMSource source = new DOMSource(doc);<a name="line.382"></a>
+<span class="sourceLineNo">383</span>            transformer.transform(source, new StreamResult(out));<a name="line.383"></a>
+<span class="sourceLineNo">384</span>        } catch (TransformerException e) {<a name="line.384"></a>
+<span class="sourceLineNo">385</span>            reporter.exception(e, "Cannot write federated index: %s",<a name="line.385"></a>
+<span class="sourceLineNo">386</span>                e.getMessage());<a name="line.386"></a>
+<span class="sourceLineNo">387</span>        }<a name="line.387"></a>
+<span class="sourceLineNo">388</span>    }<a name="line.388"></a>
+<span class="sourceLineNo">389</span>}<a name="line.389"></a>
 
 
 
