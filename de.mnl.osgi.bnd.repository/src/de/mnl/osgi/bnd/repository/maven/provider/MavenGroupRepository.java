@@ -97,6 +97,7 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @param directory the directory used to persist data
      * @param mavenRepository the maven repository
      * @param client the client used for remote access
+     * @param reporter the reporter
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings("PMD.ConfusingTernary")

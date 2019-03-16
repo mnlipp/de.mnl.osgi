@@ -41,6 +41,7 @@ public class TaskCollection {
      * executor service for executing tasks.
      *
      * @param executorService the executor service
+     * @param reporter the reporter
      */
     public TaskCollection(ExecutorService executorService, Reporter reporter) {
         this.reporter = reporter;
