@@ -44,19 +44,19 @@
 <span class="sourceLineNo">036</span><a name="line.36"></a>
 <span class="sourceLineNo">037</span>import java.io.Closeable;<a name="line.37"></a>
 <span class="sourceLineNo">038</span>import java.io.File;<a name="line.38"></a>
-<span class="sourceLineNo">039</span>import java.io.IOException;<a name="line.39"></a>
-<span class="sourceLineNo">040</span>import java.util.ArrayList;<a name="line.40"></a>
-<span class="sourceLineNo">041</span>import java.util.Collection;<a name="line.41"></a>
-<span class="sourceLineNo">042</span>import java.util.Comparator;<a name="line.42"></a>
-<span class="sourceLineNo">043</span>import java.util.List;<a name="line.43"></a>
-<span class="sourceLineNo">044</span>import java.util.Optional;<a name="line.44"></a>
-<span class="sourceLineNo">045</span>import java.util.concurrent.Executor;<a name="line.45"></a>
-<span class="sourceLineNo">046</span>import java.util.function.Consumer;<a name="line.46"></a>
-<span class="sourceLineNo">047</span>import java.util.stream.Stream;<a name="line.47"></a>
-<span class="sourceLineNo">048</span><a name="line.48"></a>
-<span class="sourceLineNo">049</span>import org.osgi.resource.Resource;<a name="line.49"></a>
-<span class="sourceLineNo">050</span>import org.slf4j.Logger;<a name="line.50"></a>
-<span class="sourceLineNo">051</span>import org.slf4j.LoggerFactory;<a name="line.51"></a>
+<span class="sourceLineNo">039</span>import java.io.FileNotFoundException;<a name="line.39"></a>
+<span class="sourceLineNo">040</span>import java.io.IOException;<a name="line.40"></a>
+<span class="sourceLineNo">041</span>import java.lang.reflect.InvocationTargetException;<a name="line.41"></a>
+<span class="sourceLineNo">042</span>import java.util.ArrayList;<a name="line.42"></a>
+<span class="sourceLineNo">043</span>import java.util.Collection;<a name="line.43"></a>
+<span class="sourceLineNo">044</span>import java.util.Comparator;<a name="line.44"></a>
+<span class="sourceLineNo">045</span>import java.util.List;<a name="line.45"></a>
+<span class="sourceLineNo">046</span>import java.util.Optional;<a name="line.46"></a>
+<span class="sourceLineNo">047</span>import java.util.concurrent.Executor;<a name="line.47"></a>
+<span class="sourceLineNo">048</span>import java.util.function.Consumer;<a name="line.48"></a>
+<span class="sourceLineNo">049</span>import java.util.stream.Stream;<a name="line.49"></a>
+<span class="sourceLineNo">050</span><a name="line.50"></a>
+<span class="sourceLineNo">051</span>import org.osgi.resource.Resource;<a name="line.51"></a>
 <span class="sourceLineNo">052</span><a name="line.52"></a>
 <span class="sourceLineNo">053</span>/**<a name="line.53"></a>
 <span class="sourceLineNo">054</span> * Provides a composite {@link IMavenRepo} view on several <a name="line.54"></a>
@@ -70,28 +70,28 @@
 <span class="sourceLineNo">062</span>public class CompositeMavenRepository extends MavenRepository<a name="line.62"></a>
 <span class="sourceLineNo">063</span>        implements IMavenRepo, Closeable {<a name="line.63"></a>
 <span class="sourceLineNo">064</span><a name="line.64"></a>
-<span class="sourceLineNo">065</span>    private static final Logger LOG = LoggerFactory.getLogger(<a name="line.65"></a>
-<span class="sourceLineNo">066</span>        CompositeMavenRepository.class);<a name="line.66"></a>
-<span class="sourceLineNo">067</span><a name="line.67"></a>
-<span class="sourceLineNo">068</span>    /**<a name="line.68"></a>
-<span class="sourceLineNo">069</span>     * Instantiates a new composite maven repository.<a name="line.69"></a>
-<span class="sourceLineNo">070</span>     *<a name="line.70"></a>
-<span class="sourceLineNo">071</span>     * @param base the base<a name="line.71"></a>
-<span class="sourceLineNo">072</span>     * @param repoId the repository id<a name="line.72"></a>
-<span class="sourceLineNo">073</span>     * @param releaseRepos the backing release repositories<a name="line.73"></a>
-<span class="sourceLineNo">074</span>     * @param snapshotRepos the backing snapshot repositories<a name="line.74"></a>
-<span class="sourceLineNo">075</span>     * @param executor an executor<a name="line.75"></a>
-<span class="sourceLineNo">076</span>     * @param reporter the reporter<a name="line.76"></a>
-<span class="sourceLineNo">077</span>     * @throws Exception the exception<a name="line.77"></a>
-<span class="sourceLineNo">078</span>     */<a name="line.78"></a>
-<span class="sourceLineNo">079</span>    @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",<a name="line.79"></a>
-<span class="sourceLineNo">080</span>        "PMD.AvoidDuplicateLiterals" })<a name="line.80"></a>
-<span class="sourceLineNo">081</span>    public CompositeMavenRepository(File base, String repoId,<a name="line.81"></a>
-<span class="sourceLineNo">082</span>            List&lt;MavenBackingRepository&gt; releaseRepos,<a name="line.82"></a>
-<span class="sourceLineNo">083</span>            List&lt;MavenBackingRepository&gt; snapshotRepos, Executor executor,<a name="line.83"></a>
-<span class="sourceLineNo">084</span>            Reporter reporter)<a name="line.84"></a>
-<span class="sourceLineNo">085</span>            throws Exception {<a name="line.85"></a>
-<span class="sourceLineNo">086</span>        super(base, repoId, releaseRepos, snapshotRepos, executor, reporter);<a name="line.86"></a>
+<span class="sourceLineNo">065</span>    private final Reporter reporter;<a name="line.65"></a>
+<span class="sourceLineNo">066</span><a name="line.66"></a>
+<span class="sourceLineNo">067</span>    /**<a name="line.67"></a>
+<span class="sourceLineNo">068</span>     * Instantiates a new composite maven repository.<a name="line.68"></a>
+<span class="sourceLineNo">069</span>     *<a name="line.69"></a>
+<span class="sourceLineNo">070</span>     * @param base the base<a name="line.70"></a>
+<span class="sourceLineNo">071</span>     * @param repoId the repository id<a name="line.71"></a>
+<span class="sourceLineNo">072</span>     * @param releaseRepos the backing release repositories<a name="line.72"></a>
+<span class="sourceLineNo">073</span>     * @param snapshotRepos the backing snapshot repositories<a name="line.73"></a>
+<span class="sourceLineNo">074</span>     * @param executor an executor<a name="line.74"></a>
+<span class="sourceLineNo">075</span>     * @param reporter the reporter<a name="line.75"></a>
+<span class="sourceLineNo">076</span>     * @throws Exception the exception<a name="line.76"></a>
+<span class="sourceLineNo">077</span>     */<a name="line.77"></a>
+<span class="sourceLineNo">078</span>    @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",<a name="line.78"></a>
+<span class="sourceLineNo">079</span>        "PMD.AvoidDuplicateLiterals" })<a name="line.79"></a>
+<span class="sourceLineNo">080</span>    public CompositeMavenRepository(File base, String repoId,<a name="line.80"></a>
+<span class="sourceLineNo">081</span>            List&lt;MavenBackingRepository&gt; releaseRepos,<a name="line.81"></a>
+<span class="sourceLineNo">082</span>            List&lt;MavenBackingRepository&gt; snapshotRepos, Executor executor,<a name="line.82"></a>
+<span class="sourceLineNo">083</span>            Reporter reporter)<a name="line.83"></a>
+<span class="sourceLineNo">084</span>            throws Exception {<a name="line.84"></a>
+<span class="sourceLineNo">085</span>        super(base, repoId, releaseRepos, snapshotRepos, executor, reporter);<a name="line.85"></a>
+<span class="sourceLineNo">086</span>        this.reporter = reporter;<a name="line.86"></a>
 <span class="sourceLineNo">087</span>    }<a name="line.87"></a>
 <span class="sourceLineNo">088</span><a name="line.88"></a>
 <span class="sourceLineNo">089</span>    /**<a name="line.89"></a>
@@ -242,151 +242,156 @@
 <span class="sourceLineNo">234</span>                return Optional.empty();<a name="line.234"></a>
 <span class="sourceLineNo">235</span>            }<a name="line.235"></a>
 <span class="sourceLineNo">236</span>        } catch (Exception e) {<a name="line.236"></a>
-<span class="sourceLineNo">237</span>            LOG.error("Problem resolving archive for {}.", revision, e);<a name="line.237"></a>
-<span class="sourceLineNo">238</span>            return Optional.empty();<a name="line.238"></a>
-<span class="sourceLineNo">239</span>        }<a name="line.239"></a>
-<span class="sourceLineNo">240</span>        if (archive.isSnapshot()) {<a name="line.240"></a>
-<span class="sourceLineNo">241</span>            refreshSnapshot(archive);<a name="line.241"></a>
-<span class="sourceLineNo">242</span>        }<a name="line.242"></a>
-<span class="sourceLineNo">243</span>        return Optional<a name="line.243"></a>
-<span class="sourceLineNo">244</span>            .ofNullable(parseResource(archive, location, dependencyHandler));<a name="line.244"></a>
-<span class="sourceLineNo">245</span>    }<a name="line.245"></a>
-<span class="sourceLineNo">246</span><a name="line.246"></a>
-<span class="sourceLineNo">247</span>    @Override<a name="line.247"></a>
-<span class="sourceLineNo">248</span>    public BoundArchive getResolvedArchive(Revision revision, String extension,<a name="line.248"></a>
-<span class="sourceLineNo">249</span>            String classifier) throws IOException {<a name="line.249"></a>
-<span class="sourceLineNo">250</span>        Optional&lt;BoundRevision&gt; bound = toBoundRevision(revision);<a name="line.250"></a>
-<span class="sourceLineNo">251</span>        if (bound.isPresent()) {<a name="line.251"></a>
-<span class="sourceLineNo">252</span>            return getResolvedArchive(bound.get(), extension, classifier);<a name="line.252"></a>
-<span class="sourceLineNo">253</span>        }<a name="line.253"></a>
-<span class="sourceLineNo">254</span>        return null;<a name="line.254"></a>
-<span class="sourceLineNo">255</span>    }<a name="line.255"></a>
-<span class="sourceLineNo">256</span><a name="line.256"></a>
-<span class="sourceLineNo">257</span>    /**<a name="line.257"></a>
-<span class="sourceLineNo">258</span>     * Gets the resolved archive. "Resolving" an archive means finding<a name="line.258"></a>
-<span class="sourceLineNo">259</span>     * the binaries with the specified extension and classifier belonging<a name="line.259"></a>
-<span class="sourceLineNo">260</span>     * to the given version. While this can be done with straight forward<a name="line.260"></a>
-<span class="sourceLineNo">261</span>     * name mapping for releases, snapshots have a timestamp that has to<a name="line.261"></a>
-<span class="sourceLineNo">262</span>     * be looked up in the backing repository.<a name="line.262"></a>
-<span class="sourceLineNo">263</span>     *<a name="line.263"></a>
-<span class="sourceLineNo">264</span>     * @param revision the revision<a name="line.264"></a>
-<span class="sourceLineNo">265</span>     * @param extension the extension<a name="line.265"></a>
-<span class="sourceLineNo">266</span>     * @param classifier the classifier<a name="line.266"></a>
-<span class="sourceLineNo">267</span>     * @return the resolved archive<a name="line.267"></a>
-<span class="sourceLineNo">268</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.268"></a>
-<span class="sourceLineNo">269</span>     */<a name="line.269"></a>
-<span class="sourceLineNo">270</span>    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",<a name="line.270"></a>
-<span class="sourceLineNo">271</span>        "PMD.AvoidThrowingRawExceptionTypes", "PMD.AvoidRethrowingException" })<a name="line.271"></a>
-<span class="sourceLineNo">272</span>    public BoundArchive getResolvedArchive(BoundRevision revision,<a name="line.272"></a>
-<span class="sourceLineNo">273</span>            String extension, String classifier) throws IOException {<a name="line.273"></a>
-<span class="sourceLineNo">274</span>        if (!revision.isSnapshot()) {<a name="line.274"></a>
-<span class="sourceLineNo">275</span>            return revision.archive(extension, classifier);<a name="line.275"></a>
-<span class="sourceLineNo">276</span>        }<a name="line.276"></a>
-<span class="sourceLineNo">277</span>        try {<a name="line.277"></a>
-<span class="sourceLineNo">278</span>            MavenVersion version = MavenVersion.from(revision<a name="line.278"></a>
-<span class="sourceLineNo">279</span>                .mavenBackingRepository().getVersion(revision.unbound()));<a name="line.279"></a>
-<span class="sourceLineNo">280</span>            if (version != null) {<a name="line.280"></a>
-<span class="sourceLineNo">281</span>                return revision.archive(version, extension, classifier);<a name="line.281"></a>
-<span class="sourceLineNo">282</span>            }<a name="line.282"></a>
-<span class="sourceLineNo">283</span>        } catch (IOException e) {<a name="line.283"></a>
-<span class="sourceLineNo">284</span>            throw e;<a name="line.284"></a>
-<span class="sourceLineNo">285</span>        } catch (Exception e) {<a name="line.285"></a>
-<span class="sourceLineNo">286</span>            throw new RuntimeException(e);<a name="line.286"></a>
-<span class="sourceLineNo">287</span>        }<a name="line.287"></a>
-<span class="sourceLineNo">288</span>        return null;<a name="line.288"></a>
-<span class="sourceLineNo">289</span>    }<a name="line.289"></a>
-<span class="sourceLineNo">290</span><a name="line.290"></a>
-<span class="sourceLineNo">291</span>    @SuppressWarnings("PMD.AvoidCatchingGenericException")<a name="line.291"></a>
-<span class="sourceLineNo">292</span>    private void refreshSnapshot(BoundArchive archive) {<a name="line.292"></a>
-<span class="sourceLineNo">293</span>        File metaFile = toLocalFile(<a name="line.293"></a>
-<span class="sourceLineNo">294</span>            archive.getRevision()<a name="line.294"></a>
-<span class="sourceLineNo">295</span>                .metadata(archive.mavenBackingRepository().getId()));<a name="line.295"></a>
-<span class="sourceLineNo">296</span>        RevisionMetadata metaData;<a name="line.296"></a>
-<span class="sourceLineNo">297</span>        try {<a name="line.297"></a>
-<span class="sourceLineNo">298</span>            metaData = MetadataParser.parseRevisionMetadata(metaFile);<a name="line.298"></a>
-<span class="sourceLineNo">299</span>        } catch (Exception e) {<a name="line.299"></a>
-<span class="sourceLineNo">300</span>            LOG.error("Problem accessing {}.", archive, e);<a name="line.300"></a>
-<span class="sourceLineNo">301</span>            return;<a name="line.301"></a>
-<span class="sourceLineNo">302</span>        }<a name="line.302"></a>
-<span class="sourceLineNo">303</span>        File archiveFile = toLocalFile(archive);<a name="line.303"></a>
-<span class="sourceLineNo">304</span>        if (archiveFile.lastModified() &lt; metaData.lastUpdated) {<a name="line.304"></a>
-<span class="sourceLineNo">305</span>            archiveFile.delete();<a name="line.305"></a>
-<span class="sourceLineNo">306</span>        }<a name="line.306"></a>
-<span class="sourceLineNo">307</span>        File pomFile = toLocalFile(archive.getPomArchive());<a name="line.307"></a>
-<span class="sourceLineNo">308</span>        if (pomFile.lastModified() &lt; metaData.lastUpdated) {<a name="line.308"></a>
-<span class="sourceLineNo">309</span>            pomFile.delete();<a name="line.309"></a>
-<span class="sourceLineNo">310</span>        }<a name="line.310"></a>
-<span class="sourceLineNo">311</span>    }<a name="line.311"></a>
-<span class="sourceLineNo">312</span><a name="line.312"></a>
-<span class="sourceLineNo">313</span>    @SuppressWarnings("PMD.AvoidCatchingGenericException")<a name="line.313"></a>
-<span class="sourceLineNo">314</span>    private Resource parseResource(BoundArchive archive,<a name="line.314"></a>
-<span class="sourceLineNo">315</span>            BinaryLocation location,<a name="line.315"></a>
-<span class="sourceLineNo">316</span>            Consumer&lt;Collection&lt;Dependency&gt;&gt; dependencyHandler) {<a name="line.316"></a>
-<span class="sourceLineNo">317</span>        ResourceBuilder builder = new ResourceBuilder();<a name="line.317"></a>
-<span class="sourceLineNo">318</span>        try {<a name="line.318"></a>
-<span class="sourceLineNo">319</span>            File binary = get(archive).getValue();<a name="line.319"></a>
-<span class="sourceLineNo">320</span>            if (location == BinaryLocation.LOCAL) {<a name="line.320"></a>
-<span class="sourceLineNo">321</span>                builder.addFile(binary, binary.toURI());<a name="line.321"></a>
-<span class="sourceLineNo">322</span>            } else {<a name="line.322"></a>
-<span class="sourceLineNo">323</span>                builder.addFile(binary, archive.mavenBackingRepository()<a name="line.323"></a>
-<span class="sourceLineNo">324</span>                    .toURI(archive.remotePath));<a name="line.324"></a>
-<span class="sourceLineNo">325</span>            }<a name="line.325"></a>
-<span class="sourceLineNo">326</span>            addInformationCapability(builder, archive.toString(),<a name="line.326"></a>
-<span class="sourceLineNo">327</span>                archive.getRevision().toString(), null);<a name="line.327"></a>
-<span class="sourceLineNo">328</span>            // Add dependency infos<a name="line.328"></a>
-<span class="sourceLineNo">329</span>            // Get POM for dependencies<a name="line.329"></a>
-<span class="sourceLineNo">330</span>            try {<a name="line.330"></a>
-<span class="sourceLineNo">331</span>                IPom pom = getPom(archive.getRevision());<a name="line.331"></a>
-<span class="sourceLineNo">332</span>                if (pom != null) {<a name="line.332"></a>
-<span class="sourceLineNo">333</span>                    RequirementBuilder req = null;<a name="line.333"></a>
-<span class="sourceLineNo">334</span>                    Collection&lt;IPom.Dependency&gt; rtDeps = pom.getDependencies(<a name="line.334"></a>
-<span class="sourceLineNo">335</span>                        MavenScope.runtime, false).values();<a name="line.335"></a>
-<span class="sourceLineNo">336</span>                    Collection&lt;IPom.Dependency&gt; cpDeps = pom<a name="line.336"></a>
-<span class="sourceLineNo">337</span>                        .getDependencies(MavenScope.compile, false).values();<a name="line.337"></a>
-<span class="sourceLineNo">338</span>                    if (!cpDeps.isEmpty() || !rtDeps.isEmpty()) {<a name="line.338"></a>
-<span class="sourceLineNo">339</span>                        req = new RequirementBuilder("maven.dependencies");<a name="line.339"></a>
-<span class="sourceLineNo">340</span>                        if (!cpDeps.isEmpty()) {<a name="line.340"></a>
-<span class="sourceLineNo">341</span>                            dependencyHandler.accept(cpDeps);<a name="line.341"></a>
-<span class="sourceLineNo">342</span>                            req.addAttribute("compile", toVersionList(cpDeps));<a name="line.342"></a>
-<span class="sourceLineNo">343</span>                        }<a name="line.343"></a>
-<span class="sourceLineNo">344</span>                        if (!rtDeps.isEmpty()) {<a name="line.344"></a>
-<span class="sourceLineNo">345</span>                            dependencyHandler.accept(rtDeps);<a name="line.345"></a>
-<span class="sourceLineNo">346</span>                            req.addAttribute("runtime", toVersionList(rtDeps));<a name="line.346"></a>
-<span class="sourceLineNo">347</span>                        }<a name="line.347"></a>
-<span class="sourceLineNo">348</span>                        builder.addRequirement(req);<a name="line.348"></a>
-<span class="sourceLineNo">349</span>                    }<a name="line.349"></a>
+<span class="sourceLineNo">237</span>            reporter.exception(e, "Problem resolving archive for %s.",<a name="line.237"></a>
+<span class="sourceLineNo">238</span>                revision);<a name="line.238"></a>
+<span class="sourceLineNo">239</span>            return Optional.empty();<a name="line.239"></a>
+<span class="sourceLineNo">240</span>        }<a name="line.240"></a>
+<span class="sourceLineNo">241</span>        if (archive.isSnapshot()) {<a name="line.241"></a>
+<span class="sourceLineNo">242</span>            refreshSnapshot(archive);<a name="line.242"></a>
+<span class="sourceLineNo">243</span>        }<a name="line.243"></a>
+<span class="sourceLineNo">244</span>        return Optional<a name="line.244"></a>
+<span class="sourceLineNo">245</span>            .ofNullable(parseResource(archive, location, dependencyHandler));<a name="line.245"></a>
+<span class="sourceLineNo">246</span>    }<a name="line.246"></a>
+<span class="sourceLineNo">247</span><a name="line.247"></a>
+<span class="sourceLineNo">248</span>    @Override<a name="line.248"></a>
+<span class="sourceLineNo">249</span>    public BoundArchive getResolvedArchive(Revision revision, String extension,<a name="line.249"></a>
+<span class="sourceLineNo">250</span>            String classifier) throws IOException {<a name="line.250"></a>
+<span class="sourceLineNo">251</span>        Optional&lt;BoundRevision&gt; bound = toBoundRevision(revision);<a name="line.251"></a>
+<span class="sourceLineNo">252</span>        if (bound.isPresent()) {<a name="line.252"></a>
+<span class="sourceLineNo">253</span>            return getResolvedArchive(bound.get(), extension, classifier);<a name="line.253"></a>
+<span class="sourceLineNo">254</span>        }<a name="line.254"></a>
+<span class="sourceLineNo">255</span>        return null;<a name="line.255"></a>
+<span class="sourceLineNo">256</span>    }<a name="line.256"></a>
+<span class="sourceLineNo">257</span><a name="line.257"></a>
+<span class="sourceLineNo">258</span>    /**<a name="line.258"></a>
+<span class="sourceLineNo">259</span>     * Gets the resolved archive. "Resolving" an archive means finding<a name="line.259"></a>
+<span class="sourceLineNo">260</span>     * the binaries with the specified extension and classifier belonging<a name="line.260"></a>
+<span class="sourceLineNo">261</span>     * to the given version. While this can be done with straight forward<a name="line.261"></a>
+<span class="sourceLineNo">262</span>     * name mapping for releases, snapshots have a timestamp that has to<a name="line.262"></a>
+<span class="sourceLineNo">263</span>     * be looked up in the backing repository.<a name="line.263"></a>
+<span class="sourceLineNo">264</span>     *<a name="line.264"></a>
+<span class="sourceLineNo">265</span>     * @param revision the revision<a name="line.265"></a>
+<span class="sourceLineNo">266</span>     * @param extension the extension<a name="line.266"></a>
+<span class="sourceLineNo">267</span>     * @param classifier the classifier<a name="line.267"></a>
+<span class="sourceLineNo">268</span>     * @return the resolved archive<a name="line.268"></a>
+<span class="sourceLineNo">269</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.269"></a>
+<span class="sourceLineNo">270</span>     */<a name="line.270"></a>
+<span class="sourceLineNo">271</span>    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",<a name="line.271"></a>
+<span class="sourceLineNo">272</span>        "PMD.AvoidThrowingRawExceptionTypes", "PMD.AvoidRethrowingException" })<a name="line.272"></a>
+<span class="sourceLineNo">273</span>    public BoundArchive getResolvedArchive(BoundRevision revision,<a name="line.273"></a>
+<span class="sourceLineNo">274</span>            String extension, String classifier) throws IOException {<a name="line.274"></a>
+<span class="sourceLineNo">275</span>        if (!revision.isSnapshot()) {<a name="line.275"></a>
+<span class="sourceLineNo">276</span>            return revision.archive(extension, classifier);<a name="line.276"></a>
+<span class="sourceLineNo">277</span>        }<a name="line.277"></a>
+<span class="sourceLineNo">278</span>        try {<a name="line.278"></a>
+<span class="sourceLineNo">279</span>            MavenVersion version = MavenVersion.from(revision<a name="line.279"></a>
+<span class="sourceLineNo">280</span>                .mavenBackingRepository().getVersion(revision.unbound()));<a name="line.280"></a>
+<span class="sourceLineNo">281</span>            if (version != null) {<a name="line.281"></a>
+<span class="sourceLineNo">282</span>                return revision.archive(version, extension, classifier);<a name="line.282"></a>
+<span class="sourceLineNo">283</span>            }<a name="line.283"></a>
+<span class="sourceLineNo">284</span>        } catch (IOException e) {<a name="line.284"></a>
+<span class="sourceLineNo">285</span>            throw e;<a name="line.285"></a>
+<span class="sourceLineNo">286</span>        } catch (Exception e) {<a name="line.286"></a>
+<span class="sourceLineNo">287</span>            throw new RuntimeException(e);<a name="line.287"></a>
+<span class="sourceLineNo">288</span>        }<a name="line.288"></a>
+<span class="sourceLineNo">289</span>        return null;<a name="line.289"></a>
+<span class="sourceLineNo">290</span>    }<a name="line.290"></a>
+<span class="sourceLineNo">291</span><a name="line.291"></a>
+<span class="sourceLineNo">292</span>    @SuppressWarnings("PMD.AvoidCatchingGenericException")<a name="line.292"></a>
+<span class="sourceLineNo">293</span>    private void refreshSnapshot(BoundArchive archive) {<a name="line.293"></a>
+<span class="sourceLineNo">294</span>        File metaFile = toLocalFile(<a name="line.294"></a>
+<span class="sourceLineNo">295</span>            archive.getRevision()<a name="line.295"></a>
+<span class="sourceLineNo">296</span>                .metadata(archive.mavenBackingRepository().getId()));<a name="line.296"></a>
+<span class="sourceLineNo">297</span>        RevisionMetadata metaData;<a name="line.297"></a>
+<span class="sourceLineNo">298</span>        try {<a name="line.298"></a>
+<span class="sourceLineNo">299</span>            metaData = MetadataParser.parseRevisionMetadata(metaFile);<a name="line.299"></a>
+<span class="sourceLineNo">300</span>        } catch (Exception e) {<a name="line.300"></a>
+<span class="sourceLineNo">301</span>            reporter.exception(e, "Problem accessing %s.", archive);<a name="line.301"></a>
+<span class="sourceLineNo">302</span>            return;<a name="line.302"></a>
+<span class="sourceLineNo">303</span>        }<a name="line.303"></a>
+<span class="sourceLineNo">304</span>        File archiveFile = toLocalFile(archive);<a name="line.304"></a>
+<span class="sourceLineNo">305</span>        if (archiveFile.lastModified() &lt; metaData.lastUpdated) {<a name="line.305"></a>
+<span class="sourceLineNo">306</span>            archiveFile.delete();<a name="line.306"></a>
+<span class="sourceLineNo">307</span>        }<a name="line.307"></a>
+<span class="sourceLineNo">308</span>        File pomFile = toLocalFile(archive.getPomArchive());<a name="line.308"></a>
+<span class="sourceLineNo">309</span>        if (pomFile.lastModified() &lt; metaData.lastUpdated) {<a name="line.309"></a>
+<span class="sourceLineNo">310</span>            pomFile.delete();<a name="line.310"></a>
+<span class="sourceLineNo">311</span>        }<a name="line.311"></a>
+<span class="sourceLineNo">312</span>    }<a name="line.312"></a>
+<span class="sourceLineNo">313</span><a name="line.313"></a>
+<span class="sourceLineNo">314</span>    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",<a name="line.314"></a>
+<span class="sourceLineNo">315</span>        "PMD.UselessParentheses", "PMD.AvoidInstanceofChecksInCatchClause" })<a name="line.315"></a>
+<span class="sourceLineNo">316</span>    private Resource parseResource(BoundArchive archive,<a name="line.316"></a>
+<span class="sourceLineNo">317</span>            BinaryLocation location,<a name="line.317"></a>
+<span class="sourceLineNo">318</span>            Consumer&lt;Collection&lt;Dependency&gt;&gt; dependencyHandler) {<a name="line.318"></a>
+<span class="sourceLineNo">319</span>        ResourceBuilder builder = new ResourceBuilder();<a name="line.319"></a>
+<span class="sourceLineNo">320</span>        try {<a name="line.320"></a>
+<span class="sourceLineNo">321</span>            File binary = get(archive).getValue();<a name="line.321"></a>
+<span class="sourceLineNo">322</span>            if (location == BinaryLocation.LOCAL) {<a name="line.322"></a>
+<span class="sourceLineNo">323</span>                builder.addFile(binary, binary.toURI());<a name="line.323"></a>
+<span class="sourceLineNo">324</span>            } else {<a name="line.324"></a>
+<span class="sourceLineNo">325</span>                builder.addFile(binary, archive.mavenBackingRepository()<a name="line.325"></a>
+<span class="sourceLineNo">326</span>                    .toURI(archive.remotePath));<a name="line.326"></a>
+<span class="sourceLineNo">327</span>            }<a name="line.327"></a>
+<span class="sourceLineNo">328</span>            addInformationCapability(builder, archive.toString(),<a name="line.328"></a>
+<span class="sourceLineNo">329</span>                archive.getRevision().toString(), null);<a name="line.329"></a>
+<span class="sourceLineNo">330</span>            // Add dependency infos<a name="line.330"></a>
+<span class="sourceLineNo">331</span>            // Get POM for dependencies<a name="line.331"></a>
+<span class="sourceLineNo">332</span>            IPom pom = getPom(archive.getRevision());<a name="line.332"></a>
+<span class="sourceLineNo">333</span>            if (pom != null) {<a name="line.333"></a>
+<span class="sourceLineNo">334</span>                RequirementBuilder req = null;<a name="line.334"></a>
+<span class="sourceLineNo">335</span>                Collection&lt;IPom.Dependency&gt; rtDeps = pom.getDependencies(<a name="line.335"></a>
+<span class="sourceLineNo">336</span>                    MavenScope.runtime, false).values();<a name="line.336"></a>
+<span class="sourceLineNo">337</span>                Collection&lt;IPom.Dependency&gt; cpDeps = pom<a name="line.337"></a>
+<span class="sourceLineNo">338</span>                    .getDependencies(MavenScope.compile, false).values();<a name="line.338"></a>
+<span class="sourceLineNo">339</span>                if (!cpDeps.isEmpty() || !rtDeps.isEmpty()) {<a name="line.339"></a>
+<span class="sourceLineNo">340</span>                    req = new RequirementBuilder("maven.dependencies");<a name="line.340"></a>
+<span class="sourceLineNo">341</span>                    if (!cpDeps.isEmpty()) {<a name="line.341"></a>
+<span class="sourceLineNo">342</span>                        dependencyHandler.accept(cpDeps);<a name="line.342"></a>
+<span class="sourceLineNo">343</span>                        req.addAttribute("compile", toVersionList(cpDeps));<a name="line.343"></a>
+<span class="sourceLineNo">344</span>                    }<a name="line.344"></a>
+<span class="sourceLineNo">345</span>                    if (!rtDeps.isEmpty()) {<a name="line.345"></a>
+<span class="sourceLineNo">346</span>                        dependencyHandler.accept(rtDeps);<a name="line.346"></a>
+<span class="sourceLineNo">347</span>                        req.addAttribute("runtime", toVersionList(rtDeps));<a name="line.347"></a>
+<span class="sourceLineNo">348</span>                    }<a name="line.348"></a>
+<span class="sourceLineNo">349</span>                    builder.addRequirement(req);<a name="line.349"></a>
 <span class="sourceLineNo">350</span>                }<a name="line.350"></a>
-<span class="sourceLineNo">351</span>            } catch (Exception e) {<a name="line.351"></a>
-<span class="sourceLineNo">352</span>                LOG.error("Problem processing POM of {}.", archive, e);<a name="line.352"></a>
-<span class="sourceLineNo">353</span>            }<a name="line.353"></a>
-<span class="sourceLineNo">354</span>        } catch (Exception e) {<a name="line.354"></a>
-<span class="sourceLineNo">355</span>            LOG.error("Problem accessing {}.", archive, e);<a name="line.355"></a>
-<span class="sourceLineNo">356</span>            return null;<a name="line.356"></a>
-<span class="sourceLineNo">357</span>        }<a name="line.357"></a>
-<span class="sourceLineNo">358</span>        return builder.build();<a name="line.358"></a>
-<span class="sourceLineNo">359</span>    }<a name="line.359"></a>
-<span class="sourceLineNo">360</span><a name="line.360"></a>
-<span class="sourceLineNo">361</span>    private String toVersionList(Collection&lt;IPom.Dependency&gt; deps) {<a name="line.361"></a>
-<span class="sourceLineNo">362</span>        StringBuilder depsList = new StringBuilder("");<a name="line.362"></a>
-<span class="sourceLineNo">363</span>        for (IPom.Dependency dep : deps) {<a name="line.363"></a>
-<span class="sourceLineNo">364</span>            if (depsList.length() &gt; 0) {<a name="line.364"></a>
-<span class="sourceLineNo">365</span>                depsList.append(',');<a name="line.365"></a>
-<span class="sourceLineNo">366</span>            }<a name="line.366"></a>
-<span class="sourceLineNo">367</span>            depsList.append(dep.program.toString());<a name="line.367"></a>
-<span class="sourceLineNo">368</span>            depsList.append(':');<a name="line.368"></a>
-<span class="sourceLineNo">369</span>            depsList.append(dep.version);<a name="line.369"></a>
-<span class="sourceLineNo">370</span>        }<a name="line.370"></a>
-<span class="sourceLineNo">371</span>        return depsList.toString();<a name="line.371"></a>
-<span class="sourceLineNo">372</span>    }<a name="line.372"></a>
-<span class="sourceLineNo">373</span><a name="line.373"></a>
-<span class="sourceLineNo">374</span>    /**<a name="line.374"></a>
-<span class="sourceLineNo">375</span>     * Use local or remote URL in index.<a name="line.375"></a>
-<span class="sourceLineNo">376</span>     */<a name="line.376"></a>
-<span class="sourceLineNo">377</span>    public enum BinaryLocation {<a name="line.377"></a>
-<span class="sourceLineNo">378</span>        LOCAL, REMOTE<a name="line.378"></a>
-<span class="sourceLineNo">379</span>    }<a name="line.379"></a>
-<span class="sourceLineNo">380</span><a name="line.380"></a>
-<span class="sourceLineNo">381</span>}<a name="line.381"></a>
+<span class="sourceLineNo">351</span>            }<a name="line.351"></a>
+<span class="sourceLineNo">352</span>        } catch (Exception e) {<a name="line.352"></a>
+<span class="sourceLineNo">353</span>            if (e instanceof InvocationTargetException<a name="line.353"></a>
+<span class="sourceLineNo">354</span>                &amp;&amp; ((InvocationTargetException) e)<a name="line.354"></a>
+<span class="sourceLineNo">355</span>                    .getTargetException() instanceof FileNotFoundException) {<a name="line.355"></a>
+<span class="sourceLineNo">356</span>                reporter.exception(e, "POM of %s not found: %s", archive,<a name="line.356"></a>
+<span class="sourceLineNo">357</span>                    ((InvocationTargetException) e).getTargetException()<a name="line.357"></a>
+<span class="sourceLineNo">358</span>                        .getMessage());<a name="line.358"></a>
+<span class="sourceLineNo">359</span>            }<a name="line.359"></a>
+<span class="sourceLineNo">360</span>            reporter.exception(e, "Problem processing POM of %s: %s", archive, e.getMessage());<a name="line.360"></a>
+<span class="sourceLineNo">361</span>            return null;<a name="line.361"></a>
+<span class="sourceLineNo">362</span>        }<a name="line.362"></a>
+<span class="sourceLineNo">363</span>        return builder.build();<a name="line.363"></a>
+<span class="sourceLineNo">364</span>    }<a name="line.364"></a>
+<span class="sourceLineNo">365</span><a name="line.365"></a>
+<span class="sourceLineNo">366</span>    private String toVersionList(Collection&lt;IPom.Dependency&gt; deps) {<a name="line.366"></a>
+<span class="sourceLineNo">367</span>        StringBuilder depsList = new StringBuilder("");<a name="line.367"></a>
+<span class="sourceLineNo">368</span>        for (IPom.Dependency dep : deps) {<a name="line.368"></a>
+<span class="sourceLineNo">369</span>            if (depsList.length() &gt; 0) {<a name="line.369"></a>
+<span class="sourceLineNo">370</span>                depsList.append(',');<a name="line.370"></a>
+<span class="sourceLineNo">371</span>            }<a name="line.371"></a>
+<span class="sourceLineNo">372</span>            depsList.append(dep.program.toString());<a name="line.372"></a>
+<span class="sourceLineNo">373</span>            depsList.append(':');<a name="line.373"></a>
+<span class="sourceLineNo">374</span>            depsList.append(dep.version);<a name="line.374"></a>
+<span class="sourceLineNo">375</span>        }<a name="line.375"></a>
+<span class="sourceLineNo">376</span>        return depsList.toString();<a name="line.376"></a>
+<span class="sourceLineNo">377</span>    }<a name="line.377"></a>
+<span class="sourceLineNo">378</span><a name="line.378"></a>
+<span class="sourceLineNo">379</span>    /**<a name="line.379"></a>
+<span class="sourceLineNo">380</span>     * Use local or remote URL in index.<a name="line.380"></a>
+<span class="sourceLineNo">381</span>     */<a name="line.381"></a>
+<span class="sourceLineNo">382</span>    public enum BinaryLocation {<a name="line.382"></a>
+<span class="sourceLineNo">383</span>        LOCAL, REMOTE<a name="line.383"></a>
+<span class="sourceLineNo">384</span>    }<a name="line.384"></a>
+<span class="sourceLineNo">385</span><a name="line.385"></a>
+<span class="sourceLineNo">386</span>}<a name="line.386"></a>
 
 
 
