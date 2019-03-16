@@ -72,6 +72,7 @@ public class MavenGroupRepository extends ResourcesRepository {
     private static final String NOT_AVAILABLE = "_NOT_AVAILABLE_";
 
     private final String groupId;
+    private boolean requested;
     private final CompositeMavenRepository mavenRepository;
     private final HttpClient client;
     private final Reporter reporter;
@@ -102,11 +103,11 @@ public class MavenGroupRepository extends ResourcesRepository {
      */
     @SuppressWarnings("PMD.ConfusingTernary")
     public MavenGroupRepository(String groupId, Path directory,
-            CompositeMavenRepository mavenRepository, HttpClient client,
-            Reporter reporter)
-            throws IOException {
+            boolean requested, CompositeMavenRepository mavenRepository,
+            HttpClient client, Reporter reporter) throws IOException {
         this.groupId = groupId;
         this.groupDir = directory;
+        this.requested = requested;
         this.mavenRepository = mavenRepository;
         this.client = client;
         this.reporter = reporter;
@@ -117,7 +118,6 @@ public class MavenGroupRepository extends ResourcesRepository {
         // If directory does not exist, it's not from a request.
         if (!directory.toFile().exists()) {
             directory.toFile().mkdir();
-            groupProps.setProperty("requested", "false");
             propsChanged = true;
         } else {
             // Directory exists, either as newly created or as "old"
@@ -153,6 +153,15 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
+     * Checks if is requested.
+     *
+     * @return the requested
+     */
+    public final boolean isRequested() {
+        return requested;
+    }
+
+    /**
      * Writes all changes to persistent storage.
      *
      * @throws IOException Signals that an I/O exception has occurred.
@@ -184,9 +193,6 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public boolean removeIfRedundant() throws IOException {
-        if (isRequested()) {
-            return false;
-        }
         if (mavenRevisions.isEmpty()) {
             // Nothing in this group
             Files.walk(groupDir)
@@ -209,21 +215,13 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
-     * Checks if the group has explicitly been requested.
-     *
-     * @return true, if is requested
+     * Clears this repository and updates the requested flag. 
+     * Keeps the current content as backup for reuse in a 
+     * subsequent call to {@link #reload(Consumer)}.
      */
-    public boolean isRequested() {
-        return Boolean
-            .parseBoolean(groupProps.getProperty("requested", "true"));
-    }
-
-    /**
-     * Clears this repository. Keeps the current content as
-     * backup for reuse in a subsequent call to {@link #refresh(Consumer)}.
-     */
-    public void clear() {
+    public void reset(boolean requested) {
         synchronized (this) {
+            this.requested = requested;
             backupRepo = new ResourcesRepository(getResources());
             set(Collections.emptyList());
             mavenRevisions.clear();
@@ -232,33 +230,30 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
-     * Refresh the repository. This retrieves the list of known
-     * artifactIds from the remote repository and adds the
-     * versions. For versions already in the repository, the
-     * existing information is re-used.  
+     * Reload the repository. Requested repositories retrieve
+     * the list of known artifactIds from the remote repository 
+     * and add the versions. For versions already in the repository, 
+     * the backup information is re-used.
      *
      * @param dependencyHandler the dependency handler
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings({ "PMD.AvoidReassigningLoopVariables",
         "PMD.AvoidCatchingGenericException" })
-    public void
-            refresh(Consumer<Collection<IPom.Dependency>> dependencyHandler)
-                    throws IOException {
-        if (!isRequested()) {
-            return;
-        }
+    public void reload(Consumer<Collection<IPom.Dependency>> dependencyHandler)
+            throws IOException {
         if (groupPropsPath.toFile().canRead()) {
             try (InputStream input = Files.newInputStream(groupPropsPath)) {
                 groupProps.load(input);
             }
         }
+        if (!isRequested()) {
+            return;
+        }
         synchronized (this) {
             if (backupRepo == null) {
                 backupRepo = new ResourcesRepository(getResources());
             }
-            set(Collections.emptyList());
-            mavenRevisions.clear();
             propQueryCache.clear();
         }
         Collection<String> artifactIds = findArtifactIds(groupId);

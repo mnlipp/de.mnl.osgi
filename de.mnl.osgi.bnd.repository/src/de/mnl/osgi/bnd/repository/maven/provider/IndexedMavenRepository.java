@@ -74,6 +74,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
         IndexedMavenRepository.class);
     private final String name;
     private final Path indexDbDir;
+    private final Path depsDir;
     private final List<URL> releaseUrls;
     private final List<URL> snapshotUrls;
     private final File localRepo;
@@ -104,6 +105,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
             Reporter reporter, HttpClient client) throws Exception {
         this.name = name;
         this.indexDbDir = indexDbDir.toPath();
+        depsDir = this.indexDbDir.resolve("dependencies");
         this.releaseUrls = releaseUrls;
         this.snapshotUrls = snapshotUrls;
         this.localRepo = localRepo;
@@ -119,6 +121,9 @@ public class IndexedMavenRepository extends ResourcesRepository {
         }
         if (!indexDbDir.exists()) {
             indexDbDir.mkdirs();
+        }
+        if (!depsDir.toFile().exists()) {
+            depsDir.toFile().mkdir();
         }
 
         // Our repository
@@ -193,52 +198,32 @@ public class IndexedMavenRepository extends ResourcesRepository {
      * @throws Exception if a problem occurs
      */
     @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition",
-        "PMD.SignatureDeclareThrowsException",
-        "PMD.AvoidInstantiatingObjectsInLoops", "PMD.NPathComplexity" })
+        "PMD.SignatureDeclareThrowsException", "PMD.NPathComplexity",
+        "PMD.AvoidInstantiatingObjectsInLoops", "PMD.AvoidDuplicateLiterals" })
     public boolean refresh() throws Exception {
         @SuppressWarnings("PMD.UseConcurrentHashMap")
         Map<String, MavenGroupRepository> oldGroups = new HashMap<>(groups);
 
-        // Keep and clear or create new group repositories for the existing
-        // directories.
+        // Reuse and clear (or create new) group repositories for the existing
+        // directories, first for explicitly requested group ids...
         groups.clear();
-        for (String groupId : indexDbDir.toFile().list()) {
-            if (!groupId.matches("^[A-Za-z].*")
-                || "index.xml".equals(groupId)) {
-                continue;
-            }
+        scanRequested(oldGroups);
+        // ... now scan directories with groups created as dependencies
+        scanDependencies(oldGroups);
+        execCtx.await();
+        // Refresh them all.
+        for (MavenGroupRepository group : new ArrayList<>(groups.values())) {
             execCtx.submit(new Callable<Void>() {
                 @Override
                 public Void call() throws Exception {
-                    if (oldGroups.containsKey(groupId)) {
-                        MavenGroupRepository groupRepo = oldGroups.get(groupId);
-                        oldGroups.clear();
-                        groups.put(groupId, groupRepo);
-                        return null;
-                    }
-                    MavenGroupRepository groupRepo = new MavenGroupRepository(
-                        groupId, indexDbDir.resolve(groupId), mavenRepository,
-                        client, reporter);
-                    groups.put(groupId, groupRepo);
+                    LOG.debug("Refreshing {}", group.id());
+                    group.reload(deps -> handleDependencies(deps));
                     return null;
                 }
             });
         }
         execCtx.await();
-        for (MavenGroupRepository group : new ArrayList<>(groups.values())) {
-            if (group.isRequested()) {
-                execCtx.submit(new Callable<Void>() {
-                    @Override
-                    public Void call() throws Exception {
-                        LOG.debug("Refreshing {}", group.id());
-                        group.refresh(
-                            deps -> handleDependencies(deps));
-                        return null;
-                    }
-                });
-            }
-        }
-        execCtx.await();
+        // Remove no longer required group repositories.
         for (Iterator<Map.Entry<String, MavenGroupRepository>> iter
             = groups.entrySet().iterator(); iter.hasNext();) {
             Map.Entry<String, MavenGroupRepository> entry = iter.next();
@@ -246,6 +231,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 iter.remove();
             }
         }
+        // Persist updated data.
         for (MavenGroupRepository groupRepo : groups.values()) {
             execCtx.submit(new Callable<Void>() {
                 @Override
@@ -255,6 +241,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 }
             });
         }
+        // Write federated index.
         execCtx.submit(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
@@ -265,6 +252,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 return null;
             }
         });
+        // Add collected to root (this).
         execCtx.submit(() -> {
             set(Collections.emptyList());
             for (MavenGroupRepository groupRepo : groups.values()) {
@@ -275,6 +263,59 @@ public class IndexedMavenRepository extends ResourcesRepository {
         return true;
     }
 
+    @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition",
+        "PMD.AvoidInstantiatingObjectsInLoops" })
+    private void scanRequested(Map<String, MavenGroupRepository> oldGroups) {
+        for (String groupId : indexDbDir.toFile().list()) {
+            if (!groupId.matches("^[A-Za-z].*")
+                || "index.xml".equals(groupId)
+                || "dependencies".equals(groupId)) {
+                continue;
+            }
+            execCtx.submit(new Callable<Void>() {
+                @Override
+                public Void call() throws Exception {
+                    if (oldGroups.containsKey(groupId)) {
+                        MavenGroupRepository groupRepo = oldGroups.get(groupId);
+                        groupRepo.reset(true);
+                        groups.put(groupId, groupRepo);
+                        return null;
+                    }
+                    MavenGroupRepository groupRepo = new MavenGroupRepository(
+                        groupId, indexDbDir.resolve(groupId), true,
+                        mavenRepository, client, reporter);
+                    groups.put(groupId, groupRepo);
+                    return null;
+                }
+            });
+        }
+    }
+
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+    private void scanDependencies(Map<String, MavenGroupRepository> oldGroups) {
+        for (String groupId : depsDir.toFile().list()) {
+            if (!groupId.matches("^[A-Za-z].*")) {
+                continue;
+            }
+            execCtx.submit(new Callable<Void>() {
+                @Override
+                public Void call() throws Exception {
+                    if (oldGroups.containsKey(groupId)) {
+                        MavenGroupRepository groupRepo = oldGroups.get(groupId);
+                        groupRepo.reset(false);
+                        groups.put(groupId, groupRepo);
+                        return null;
+                    }
+                    MavenGroupRepository groupRepo = new MavenGroupRepository(
+                        groupId, depsDir.resolve(groupId), false,
+                        mavenRepository, client, reporter);
+                    groups.put(groupId, groupRepo);
+                    return null;
+                }
+            });
+        }
+    }
+
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     private void handleDependencies(Collection<IPom.Dependency> dependencies) {
         for (IPom.Dependency dep : dependencies) {
@@ -282,7 +323,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 dep.program.group, groupId -> {
                     try {
                         return new MavenGroupRepository(groupId,
-                            indexDbDir.resolve(groupId), mavenRepository,
+                            depsDir.resolve(groupId), false, mavenRepository,
                             client, reporter);
                     } catch (IOException e) {
                         reporter.exception(e,
@@ -325,10 +366,12 @@ public class IndexedMavenRepository extends ResourcesRepository {
         repoNode.setAttribute("increment",
             Long.toString(System.currentTimeMillis()));
         doc.appendChild(repoNode);
-        for (String groupId : groups.keySet()) {
+        for (Map.Entry<String, MavenGroupRepository> repo : groups.entrySet()) {
             // <referral url=...>
             Element referral = doc.createElementNS(repoNs, "referral");
-            referral.setAttribute("url", groupId + "/index.xml");
+            referral.setAttribute("url",
+                (repo.getValue().isRequested() ? "" : "dependencies/")
+                    + repo.getKey() + "/index.xml");
             repoNode.appendChild(referral);
         }
         // Write federated index.
