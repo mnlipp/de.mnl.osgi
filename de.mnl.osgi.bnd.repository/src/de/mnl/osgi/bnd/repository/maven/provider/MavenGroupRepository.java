@@ -244,6 +244,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             throws IOException {
         if (groupPropsPath.toFile().canRead()) {
             try (InputStream input = Files.newInputStream(groupPropsPath)) {
+                groupProps.clear();
                 groupProps.load(input);
             }
         }
