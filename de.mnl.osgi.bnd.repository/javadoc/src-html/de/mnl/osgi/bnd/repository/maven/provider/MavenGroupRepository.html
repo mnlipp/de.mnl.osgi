@@ -379,9 +379,9 @@
 <span class="sourceLineNo">371</span><a name="line.371"></a>
 <span class="sourceLineNo">372</span>    private void replayDependencies(Resource resource,<a name="line.372"></a>
 <span class="sourceLineNo">373</span>            Consumer&lt;Collection&lt;IPom.Dependency&gt;&gt; dependencyHandler) {<a name="line.373"></a>
-<span class="sourceLineNo">374</span>        for (Requirement requirement : resource<a name="line.374"></a>
-<span class="sourceLineNo">375</span>            .getRequirements("maven.dependencies")) {<a name="line.375"></a>
-<span class="sourceLineNo">376</span>            Map&lt;String, Object&gt; depAttrs = requirement.getAttributes();<a name="line.376"></a>
+<span class="sourceLineNo">374</span>        for (Capability capability : resource<a name="line.374"></a>
+<span class="sourceLineNo">375</span>            .getCapabilities(CompositeMavenRepository.MAVEN_DEPENDENCIES_NS)) {<a name="line.375"></a>
+<span class="sourceLineNo">376</span>            Map&lt;String, Object&gt; depAttrs = capability.getAttributes();<a name="line.376"></a>
 <span class="sourceLineNo">377</span>            @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")<a name="line.377"></a>
 <span class="sourceLineNo">378</span>            Collection&lt;IPom.Dependency&gt; dependencies<a name="line.378"></a>
 <span class="sourceLineNo">379</span>                = depAttrs.values().stream()<a name="line.379"></a>
