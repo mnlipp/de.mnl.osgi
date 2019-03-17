@@ -371,9 +371,9 @@ public class MavenGroupRepository extends ResourcesRepository {
 
     private void replayDependencies(Resource resource,
             Consumer<Collection<IPom.Dependency>> dependencyHandler) {
-        for (Requirement requirement : resource
-            .getRequirements("maven.dependencies")) {
-            Map<String, Object> depAttrs = requirement.getAttributes();
+        for (Capability capability : resource
+            .getCapabilities(CompositeMavenRepository.MAVEN_DEPENDENCIES_NS)) {
+            Map<String, Object> depAttrs = capability.getAttributes();
             @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
             Collection<IPom.Dependency> dependencies
                 = depAttrs.values().stream()

@@ -20,7 +20,7 @@ package de.mnl.osgi.bnd.maven;
 
 import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapability;
 
-import aQute.bnd.osgi.resource.RequirementBuilder;
+import aQute.bnd.osgi.resource.CapabilityBuilder;
 import aQute.bnd.osgi.resource.ResourceBuilder;
 import aQute.maven.api.IMavenRepo;
 import aQute.maven.api.IPom;
@@ -62,6 +62,9 @@ import org.osgi.resource.Resource;
 public class CompositeMavenRepository extends MavenRepository
         implements IMavenRepo, Closeable {
 
+    /** The namespace used to store the maven dependencies information. */
+    public static final String MAVEN_DEPENDENCIES_NS
+        = "maven.dependencies.info";
     private final Reporter reporter;
 
     /**
@@ -331,22 +334,22 @@ public class CompositeMavenRepository extends MavenRepository
             // Get POM for dependencies
             IPom pom = getPom(archive.getRevision());
             if (pom != null) {
-                RequirementBuilder req = null;
+                CapabilityBuilder cap = null;
                 Collection<IPom.Dependency> rtDeps = pom.getDependencies(
                     MavenScope.runtime, false).values();
                 Collection<IPom.Dependency> cpDeps = pom
                     .getDependencies(MavenScope.compile, false).values();
                 if (!cpDeps.isEmpty() || !rtDeps.isEmpty()) {
-                    req = new RequirementBuilder("maven.dependencies");
+                    cap = new CapabilityBuilder(MAVEN_DEPENDENCIES_NS);
                     if (!cpDeps.isEmpty()) {
                         dependencyHandler.accept(cpDeps);
-                        req.addAttribute("compile", toVersionList(cpDeps));
+                        cap.addAttribute("compile", toVersionList(cpDeps));
                     }
                     if (!rtDeps.isEmpty()) {
                         dependencyHandler.accept(rtDeps);
-                        req.addAttribute("runtime", toVersionList(rtDeps));
+                        cap.addAttribute("runtime", toVersionList(rtDeps));
                     }
-                    builder.addRequirement(req);
+                    builder.addCapability(cap);
                 }
             }
         } catch (Exception e) {
@@ -357,7 +360,8 @@ public class CompositeMavenRepository extends MavenRepository
                     ((InvocationTargetException) e).getTargetException()
                         .getMessage());
             }
-            reporter.exception(e, "Problem processing POM of %s: %s", archive, e.getMessage());
+            reporter.exception(e, "Problem processing POM of %s: %s", archive,
+                e.getMessage());
             return null;
         }
         return builder.build();
