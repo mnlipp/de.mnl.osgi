@@ -33,7 +33,6 @@ import aQute.bnd.util.repository.DownloadListenerPromise;
 import aQute.bnd.version.Version;
 import aQute.lib.converter.Converter;
 import aQute.lib.io.IO;
-import aQute.lib.strings.Strings;
 import aQute.libg.reporter.slf4j.Slf4jReporter;
 import aQute.maven.api.Archive;
 import aQute.service.reporter.Reporter;
@@ -116,25 +115,31 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
      * 
      * @throws MalformedURLException 
      */
-    private synchronized void init() {
-        if (initialized) {
-            return;
-        }
-        initialized = true;
-        Workspace workspace = registry.getPlugin(Workspace.class);
-        HttpClient client = registry.getPlugin(HttpClient.class);
-        File indexDb = workspace.getFile(getLocation());
-        File localRepo = IO.getFile(configuration.local(MAVEN_REPO_LOCAL));
-        try {
-            osgiRepository = new IndexedMavenRepository(name,
-                RepositoryUtils.itemizeList(configuration.releaseUrls()).map(
-                    ru -> stringToUrl(ru)).collect(Collectors.toList()),
-                RepositoryUtils.itemizeList(configuration.snapshotUrls()).map(
-                    ru -> stringToUrl(ru)).collect(Collectors.toList()),
-                localRepo, indexDb, reporter, client);
-            bridge = new BridgeRepository(osgiRepository);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    private void init() {
+        synchronized (this) {
+            if (initialized) {
+                return;
+            }
+            initialized = true;
+            Workspace workspace = registry.getPlugin(Workspace.class);
+            HttpClient client = registry.getPlugin(HttpClient.class);
+            File indexDb = workspace.getFile(getLocation());
+            File localRepo = IO.getFile(configuration.local(MAVEN_REPO_LOCAL));
+            try {
+                osgiRepository = new IndexedMavenRepository(name,
+                    RepositoryUtils.itemizeList(configuration.releaseUrls())
+                        .map(
+                            ru -> stringToUrl(ru))
+                        .collect(Collectors.toList()),
+                    RepositoryUtils.itemizeList(configuration.snapshotUrls())
+                        .map(
+                            ru -> stringToUrl(ru))
+                        .collect(Collectors.toList()),
+                    localRepo, indexDb, reporter, client);
+                bridge = new BridgeRepository(osgiRepository);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
