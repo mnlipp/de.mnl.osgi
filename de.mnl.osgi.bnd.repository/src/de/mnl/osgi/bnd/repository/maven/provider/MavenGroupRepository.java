@@ -23,6 +23,7 @@ import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.bnd.osgi.repository.XMLResourceGenerator;
 import aQute.bnd.osgi.repository.XMLResourceParser;
 import aQute.maven.api.IPom;
+import aQute.maven.api.IPom.Dependency;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
@@ -37,6 +38,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UncheckedIOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -49,14 +51,19 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.swing.plaf.BorderUIResource.CompoundBorderUIResource;
 
 import org.osgi.resource.Capability;
-import org.osgi.resource.Requirement;
 import org.osgi.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +71,8 @@ import org.slf4j.LoggerFactory;
 /**
  * A repository with artifacts from a single group.
  */
-@SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+@SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.TooManyFields",
+    "PMD.ExcessiveImports" })
 public class MavenGroupRepository extends ResourcesRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(
@@ -73,15 +81,18 @@ public class MavenGroupRepository extends ResourcesRepository {
 
     private final String groupId;
     private boolean requested;
-    private final CompositeMavenRepository mavenRepository;
+    private final IndexedMavenRepository indexedRepository;
     private final HttpClient client;
     private final Reporter reporter;
     private final Path groupDir;
     private final Path groupPropsPath;
     private final Path groupIndexPath;
     private final Set<Revision> mavenRevisions = new HashSet<>();
+    private final Set<BoundRevision> loadingRevisions = new HashSet<>();
     private final Properties groupProps;
     private final Map<String, String> propQueryCache
+        = new ConcurrentHashMap<>();
+    private final Map<Program, List<BoundRevision>> revsCache
         = new ConcurrentHashMap<>();
     private boolean propsChanged;
     private boolean indexChanged;
@@ -96,19 +107,20 @@ public class MavenGroupRepository extends ResourcesRepository {
      *
      * @param groupId the maven groupId indexed by this repository
      * @param directory the directory used to persist data
-     * @param mavenRepository the maven repository
+     * @param requested if it is a requested group id
+     * @param indexedRepository the indexed maven repository
      * @param client the client used for remote access
      * @param reporter the reporter
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings("PMD.ConfusingTernary")
     public MavenGroupRepository(String groupId, Path directory,
-            boolean requested, CompositeMavenRepository mavenRepository,
+            boolean requested, IndexedMavenRepository indexedRepository,
             HttpClient client, Reporter reporter) throws IOException {
         this.groupId = groupId;
         this.groupDir = directory;
         this.requested = requested;
-        this.mavenRepository = mavenRepository;
+        this.indexedRepository = indexedRepository;
         this.client = client;
         this.reporter = reporter;
 
@@ -135,7 +147,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         if (groupIndexPath.toFile().canRead()) {
             try (XMLResourceParser parser
                 = new XMLResourceParser(groupIndexPath.toFile())) {
-                addAll(parser.parse());
+                // addAll(parser.parse());
             } catch (Exception e) { // NOPMD
                 reporter.warning("Cannot parse %s, ignored: %s", groupIndexPath,
                     e.getMessage());
@@ -162,7 +174,8 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
-     * Writes all changes to persistent storage.
+     * Writes all changes to persistent storage and removes
+     * any backup information prepared by {@link #reset(boolean)}.
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -176,7 +189,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         if (indexChanged) {
             XMLResourceGenerator generator = new XMLResourceGenerator();
             generator.resources(getResources());
-            generator.name(mavenRepository.getName());
+            generator.name(indexedRepository.mavenRepository().getName());
             try {
                 generator.save(groupIndexPath.toFile());
             } catch (IOException e) {
@@ -184,6 +197,8 @@ public class MavenGroupRepository extends ResourcesRepository {
             }
             indexChanged = false;
         }
+        backupRepo = null;
+        revsCache.clear();
     }
 
     /**
@@ -193,6 +208,9 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public boolean removeIfRedundant() throws IOException {
+        if (isRequested()) {
+            return false;
+        }
         if (mavenRevisions.isEmpty()) {
             // Nothing in this group
             Files.walk(groupDir)
@@ -225,7 +243,28 @@ public class MavenGroupRepository extends ResourcesRepository {
             backupRepo = new ResourcesRepository(getResources());
             set(Collections.emptyList());
             mavenRevisions.clear();
+            loadingRevisions.clear();
             propQueryCache.clear();
+            revsCache.clear();
+        }
+    }
+
+    @SuppressWarnings("PMD.ExceptionAsFlowControl")
+    private List<BoundRevision> boundRevisions(Program program)
+            throws IOException {
+        try {
+            return revsCache.computeIfAbsent(program,
+                prg -> {
+                    try {
+                        return indexedRepository.mavenRepository()
+                            .boundRevisions(prg)
+                            .collect(Collectors.toList());
+                    } catch (IOException e) {
+                        throw new UncheckedIOException(e);
+                    }
+                });
+        } catch (UncheckedIOException e) {
+            throw e.getCause();
         }
     }
 
@@ -239,60 +278,130 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings({ "PMD.AvoidReassigningLoopVariables",
-        "PMD.AvoidCatchingGenericException" })
-    public void reload(Consumer<Collection<IPom.Dependency>> dependencyHandler)
-            throws IOException {
+        "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals",
+        "PMD.AvoidInstantiatingObjectsInLoops",
+        "PMD.AvoidThrowingRawExceptionTypes", "PMD.PreserveStackTrace" })
+    public void reload() throws IOException {
         if (groupPropsPath.toFile().canRead()) {
             try (InputStream input = Files.newInputStream(groupPropsPath)) {
                 groupProps.clear();
+                propQueryCache.clear();
                 groupProps.load(input);
             }
         }
         if (!isRequested()) {
+            // Will be filled with dependencies only
             return;
         }
+        // Actively filled.
         synchronized (this) {
             if (backupRepo == null) {
                 backupRepo = new ResourcesRepository(getResources());
             }
             propQueryCache.clear();
         }
-        Collection<String> artifactIds = findArtifactIds(groupId);
-        for (String artifactId : artifactIds) {
-            Program program = Program.valueOf(groupId, artifactId);
-
-            // Get revisions of program.
-            @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-            IOException[] exc = new IOException[1];
-            MavenVersionRange range
-                = Optional.ofNullable(searchProperty(artifactId, "versions"))
-                    .map(MavenVersionRange::parseRange).orElse(null);
-            mavenRepository.boundRevisions(program).forEach(
-                revision -> {
-                    if (range != null && !range.includes(revision.version())) {
-                        return;
-                    }
-                    try {
-                        addRevision(revision, dependencyHandler);
-                    } catch (IOException e) {
-                        exc[0] = e;
-                    }
-                });
-            if (exc[0] != null) {
-                throw exc[0];
+        try {
+            CompletableFuture<Void> actions
+                = CompletableFuture.allOf(findArtifactIds().stream().map(
+                    artifactId -> loadProgram(Program.valueOf(groupId,
+                        artifactId)))
+                    .toArray(CompletableFuture[]::new));
+            actions.get();
+        } catch (ExecutionException e) {
+            if (e.getCause() instanceof IOException) {
+                throw (IOException) e.getCause();
             }
+            throw new RuntimeException(e.getCause());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
         indexChanged = true;
     }
 
+    @SuppressWarnings("PMD.ForLoopCanBeForeach")
+    private CompletableFuture<Void> loadProgram(Program program) {
+        // Get revisions of program and process.
+        CompletableFuture<Void> result = new CompletableFuture<>();
+        IndexedMavenRepository.programLoaders.submit(() -> {
+            try {
+                Stream<CompletableFuture<Void>> revLoaderStream
+                    = boundRevisions(program).parallelStream()
+                        .map(revision -> loadRevision(revision));
+                try {
+                    for (CompletableFuture<Void> revLoad : (Iterable<
+                            CompletableFuture<
+                                    Void>>) revLoaderStream::iterator) {
+                        revLoad.get();
+                    }
+                } catch (InterruptedException e) {
+                    result.completeExceptionally(e);
+                    return;
+                } catch (ExecutionException e) {
+                    result.completeExceptionally(e.getCause());
+                    return;
+                }
+                result.complete(null);
+            } catch (IOException e) {
+                result.completeExceptionally(e);
+            }
+        });
+        return result;
+    }
+
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    private CompletableFuture<Void> loadRevision(BoundRevision revision) {
+        return CompletableFuture.runAsync(() -> {
+            synchronized (this) {
+                if (loadingRevisions.contains(revision)) {
+                    return;
+                }
+                loadingRevisions.add(revision);
+            }
+            MavenVersionRange acceptedRange = Optional.ofNullable(
+                searchProperty(revision.artifactId(), "versions"))
+                .map(MavenVersionRange::parseRange).orElse(null);
+            MavenVersionRange forcedRange = Optional.ofNullable(
+                searchProperty(revision.artifactId(), "forcedVersions"))
+                .map(MavenVersionRange::parseRange).orElse(null);
+            boolean inForced = forcedRange != null
+                && forcedRange.includes(revision.version());
+            if (acceptedRange != null || forcedRange != null) {
+                boolean inVersions = acceptedRange != null
+                    && acceptedRange.includes(revision.version());
+                if (!inVersions && !inForced) {
+                    return;
+                }
+            }
+            try {
+                Set<Dependency> deps = new HashSet<>();
+                collectDependencies(revision, deps);
+                Set<BoundRevision> depRevs = new HashSet<>();
+                if (indexedRepository.toRevisions(deps, depRevs, !inForced)) {
+                    addRevision(revision);
+                    for (BoundRevision rev : depRevs) {
+                        indexedRepository
+                            .getOrCreateGroupRepository(rev.groupId())
+                            .addRevision(rev);
+                    }
+                }
+            } catch (Exception e) {
+                // Load "in isolation", don't propagate individual failure.
+                reporter.exception(e, "Failed to load %s: %s", revision,
+                    e.getMessage());
+            }
+        }, IndexedMavenRepository.revisionLoaders);
+    }
+
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
         "PMD.AvoidInstantiatingObjectsInLoops" })
-    private Collection<String> findArtifactIds(String dir) {
+    private Collection<String> findArtifactIds() {
         Set<String> result = new HashSet<>();
-        for (MavenBackingRepository repo : mavenRepository.allRepositories()) {
+        for (MavenBackingRepository repo : indexedRepository.mavenRepository()
+            .allRepositories()) {
             URI groupUri = null;
             try {
-                groupUri = repo.toURI("").resolve(dir.replace('.', '/') + "/");
+                groupUri
+                    = repo.toURI("").resolve(groupId.replace('.', '/') + "/");
                 String page = client.build().headers("User-Agent", "Bnd")
                     .get(String.class)
                     .go(groupUri);
@@ -319,28 +428,36 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
-     * Adds the specified revision.
+     * Checks if the given revision is excluded from the group.
      *
      * @param revision the revision
-     * @param dependencyHandler the dependency handler
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @return true, if excluded
      */
-    public void addRevision(BoundRevision revision,
-            Consumer<Collection<IPom.Dependency>> dependencyHandler)
-            throws IOException {
+    public boolean isExcluded(BoundRevision revision) {
         if (!revision.groupId().equals(groupId)) {
             throw new IllegalArgumentException("Wrong groupId "
                 + revision.groupId() + " (must be " + groupId + ").");
         }
+        return Optional.ofNullable(
+            searchProperty(revision.artifactId(), "exclude"))
+            .map(MavenVersionRange::parseRange)
+            .map(range -> range.includes(revision.version()))
+            .orElse(false);
+    }
+
+    /**
+     * Adds the specified revision unless it matches an exclude.
+     *
+     * @param revision the revision to add
+     */
+    public void addRevision(BoundRevision revision) {
         synchronized (this) {
+            // Initial check, but we don't want to keep the lock.
             if (mavenRevisions.contains(revision.unbound())) {
                 return;
             }
         }
-        MavenVersionRange excludeRange = Optional.ofNullable(
-            searchProperty(revision.artifactId(), "exclude"))
-            .map(MavenVersionRange::parseRange).orElse(null);
-        if (excludeRange != null && excludeRange.includes(revision.version())) {
+        if (isExcluded(revision)) {
             return;
         }
         Resource resource = null;
@@ -353,16 +470,23 @@ public class MavenGroupRepository extends ResourcesRepository {
             if (!cap.isEmpty()) {
                 // Reuse existing
                 resource = cap.get(0).getResource();
-                replayDependencies(resource, dependencyHandler);
             }
         }
         if (resource == null) {
             // Extract information from artifact.
-            resource = mavenRepository.toResource(revision,
-                dependencyHandler, BinaryLocation.REMOTE).orElse(null);
+            resource = indexedRepository.mavenRepository()
+                .toResource(revision, deps -> {
+                }, BinaryLocation.REMOTE).orElse(null);
+            if (resource == null) {
+                return;
+            }
         }
         if (resource != null) {
             synchronized (this) {
+                // Check again, now with lock
+                if (mavenRevisions.contains(revision.unbound())) {
+                    return;
+                }
                 add(resource);
                 mavenRevisions.add(revision.unbound());
                 indexChanged = true;
@@ -370,23 +494,49 @@ public class MavenGroupRepository extends ResourcesRepository {
         }
     }
 
-    private void replayDependencies(Resource resource,
-            Consumer<Collection<IPom.Dependency>> dependencyHandler) {
+    /**
+     * Collects the revisions that are immediate dependencies 
+     * of the revision passed as argument. This method uses
+     * any cached information first before resorting to
+     * {@link CompositeMavenRepository#toResource(BoundRevision, 
+     * CompositeMavenRepository.DependencyHandler, BinaryLocation)}.
+     *
+     * @param revision the revision to examine
+     * @param dependencies the dependencies
+     */
+    @SuppressWarnings({ "PMD.AssignmentInOperand", "PMD.ConfusingTernary" })
+    public void collectDependencies(BoundRevision revision,
+            Collection<Dependency> dependencies) {
+        List<Capability> cap = null;
+        if (backupRepo != null && !(cap = backupRepo.findProvider(
+            backupRepo.newRequirementBuilder("bnd.info")
+                .addDirective("filter", String.format("(from=%s)",
+                    revision.unbound().toString()))
+                .build())).isEmpty()) {
+            restoreDependencies(cap.get(0).getResource(), dependencies);
+        } else {
+            // Extract information from artifact.
+            indexedRepository.mavenRepository().toResource(revision,
+                deps -> dependencies.addAll(deps), BinaryLocation.REMOTE);
+        }
+    }
+
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+    private void restoreDependencies(Resource resource,
+            Collection<Dependency> dependencies) {
+        // Actually, there should be only one such capability per resource.
         for (Capability capability : resource
             .getCapabilities(CompositeMavenRepository.MAVEN_DEPENDENCIES_NS)) {
             Map<String, Object> depAttrs = capability.getAttributes();
-            @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-            Collection<IPom.Dependency> dependencies
-                = depAttrs.values().stream()
-                    .flatMap(val -> RepositoryUtils.itemizeList((String) val))
-                    .map(rev -> {
-                        String[] parts = rev.split(":");
-                        IPom.Dependency dep = new IPom.Dependency();
-                        dep.program = Program.valueOf(parts[0], parts[1]);
-                        dep.version = parts[2];
-                        return dep;
-                    }).collect(Collectors.toList());
-            dependencyHandler.accept(dependencies);
+            depAttrs.values().stream()
+                .flatMap(val -> RepositoryUtils.itemizeList((String) val))
+                .map(rev -> {
+                    String[] parts = rev.split(":");
+                    IPom.Dependency dep = new IPom.Dependency();
+                    dep.program = Program.valueOf(parts[0], parts[1]);
+                    dep.version = parts[2];
+                    return dep;
+                }).forEach(dependencies::add);
         }
     }
 
@@ -426,4 +576,5 @@ public class MavenGroupRepository extends ResourcesRepository {
         propQueryCache.put(queryKey, prop == null ? NOT_AVAILABLE : prop);
         return prop;
     }
+
 }

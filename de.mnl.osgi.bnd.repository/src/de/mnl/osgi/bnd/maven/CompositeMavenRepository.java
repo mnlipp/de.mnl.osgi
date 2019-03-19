@@ -39,17 +39,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Executor;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.osgi.resource.Resource;
 
+// TODO: Auto-generated Javadoc
 /**
  * Provides a composite {@link IMavenRepo} view on several 
  * {@link MavenBackingRepository} instances.
@@ -163,22 +164,23 @@ public class CompositeMavenRepository extends MavenRepository
      * @return the bound revisions
      * @throws IOException Signals that an I/O exception has occurred.
      */
+    @SuppressWarnings("PMD.ExceptionAsFlowControl")
     public Stream<BoundRevision> boundRevisions(Program program)
             throws IOException {
-        IOException[] exc = new IOException[1];
-        @SuppressWarnings("PMD.PrematureDeclaration")
-        Stream<BoundRevision> result = repositoriesAsStream().flatMap(mbr -> {
-            try {
-                return boundRevisions(mbr, program);
-            } catch (IOException e) {
-                exc[0] = e;
-                return Stream.empty();
+        try {
+            return repositoriesAsStream().flatMap(mbr -> {
+                try {
+                    return boundRevisions(mbr, program);
+                } catch (IOException e) {
+                    throw new UndeclaredThrowableException(e);
+                }
+            });
+        } catch (UndeclaredThrowableException e) {
+            if (e.getUndeclaredThrowable() instanceof IOException) {
+                throw (IOException) e.getUndeclaredThrowable();
             }
-        });
-        if (exc[0] != null) {
-            throw exc[0];
+            throw e;
         }
-        return result;
     }
 
     /**
@@ -228,8 +230,7 @@ public class CompositeMavenRepository extends MavenRepository
      */
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public Optional<Resource> toResource(BoundRevision revision,
-            Consumer<Collection<IPom.Dependency>> dependencyHandler,
-            BinaryLocation location) {
+            DependencyHandler dependencyHandler, BinaryLocation location) {
         BoundArchive archive;
         try {
             archive = getResolvedArchive(revision, "jar", "");
@@ -248,6 +249,13 @@ public class CompositeMavenRepository extends MavenRepository
             .ofNullable(parseResource(archive, location, dependencyHandler));
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * aQute.maven.provider.MavenRepository#getResolvedArchive(aQute.maven.api.
+     * Revision, java.lang.String, java.lang.String)
+     */
     @Override
     public BoundArchive getResolvedArchive(Revision revision, String extension,
             String classifier) throws IOException {
@@ -317,8 +325,7 @@ public class CompositeMavenRepository extends MavenRepository
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
         "PMD.UselessParentheses", "PMD.AvoidInstanceofChecksInCatchClause" })
     private Resource parseResource(BoundArchive archive,
-            BinaryLocation location,
-            Consumer<Collection<Dependency>> dependencyHandler) {
+            BinaryLocation location, DependencyHandler dependencyHandler) {
         ResourceBuilder builder = new ResourceBuilder();
         try {
             File binary = get(archive).getValue();
@@ -342,11 +349,11 @@ public class CompositeMavenRepository extends MavenRepository
                 if (!cpDeps.isEmpty() || !rtDeps.isEmpty()) {
                     cap = new CapabilityBuilder(MAVEN_DEPENDENCIES_NS);
                     if (!cpDeps.isEmpty()) {
-                        dependencyHandler.accept(cpDeps);
+                        dependencyHandler.handle(cpDeps);
                         cap.addAttribute("compile", toVersionList(cpDeps));
                     }
                     if (!rtDeps.isEmpty()) {
-                        dependencyHandler.accept(rtDeps);
+                        dependencyHandler.handle(rtDeps);
                         cap.addAttribute("runtime", toVersionList(rtDeps));
                     }
                     builder.addCapability(cap);
@@ -387,4 +394,18 @@ public class CompositeMavenRepository extends MavenRepository
         LOCAL, REMOTE
     }
 
+    /**
+     * A functional interface used to report the dependency
+     * information to a caller.
+     */
+    @FunctionalInterface
+    public interface DependencyHandler {
+
+        /**
+         * Handles the dependency information.
+         *
+         * @param dependencies the dependencies
+         */
+        void handle(Collection<Dependency> dependencies);
+    }
 }

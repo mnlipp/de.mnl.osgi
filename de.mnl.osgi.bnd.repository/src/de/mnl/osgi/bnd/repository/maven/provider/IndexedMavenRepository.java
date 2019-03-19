@@ -22,13 +22,12 @@ import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.Processor;
 import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.bnd.osgi.repository.XMLResourceParser;
-import aQute.maven.api.IMavenRepo;
 import aQute.maven.api.IPom;
+import aQute.maven.api.IPom.Dependency;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
 import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
-import de.mnl.osgi.bnd.maven.TaskCollection;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,15 +36,21 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.Callable;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -70,6 +75,11 @@ import org.w3c.dom.Element;
 @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class IndexedMavenRepository extends ResourcesRepository {
 
+    /* default */ static ExecutorService programLoaders
+        = Executors.newFixedThreadPool(16);
+    /* default */ static ExecutorService revisionLoaders
+        = Executors.newFixedThreadPool(16);
+
     private static final Logger LOG = LoggerFactory.getLogger(
         IndexedMavenRepository.class);
     private final String name;
@@ -81,7 +91,6 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private final Reporter reporter;
     private final HttpClient client;
     private final CompositeMavenRepository mavenRepository;
-    private final TaskCollection execCtx;
     private final Map<String, MavenGroupRepository> groups
         = new ConcurrentHashMap<>();
 
@@ -111,8 +120,6 @@ public class IndexedMavenRepository extends ResourcesRepository {
         this.localRepo = localRepo;
         this.reporter = reporter;
         this.client = client;
-        execCtx = new TaskCollection(
-            Processor.getScheduledExecutor(), reporter);
 
         // Check prerequisites
         if (indexDbDir.exists() && !indexDbDir.isDirectory()) {
@@ -183,12 +190,39 @@ public class IndexedMavenRepository extends ResourcesRepository {
      * @return the repository object
      * @throws Exception if a problem occurs
      */
-    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
-    public IMavenRepo mavenRepository() throws Exception {
-        if (mavenRepository == null) {
-            refresh();
-        }
+    public CompositeMavenRepository mavenRepository() {
         return mavenRepository;
+    }
+
+    /**
+     * Get or create the group repository for the given group id.
+     * If the repository is created, it is created as a repository
+     * for dependencies.
+     *
+     * @param groupId the group id
+     * @return the repository
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public MavenGroupRepository getOrCreateGroupRepository(String groupId)
+            throws IOException {
+        IOException[] exc = new IOException[1];
+        @SuppressWarnings("PMD.PrematureDeclaration")
+        MavenGroupRepository result = groups.computeIfAbsent(
+            groupId, grp -> {
+                try {
+                    return new MavenGroupRepository(grp, depsDir.resolve(grp),
+                        false, this, client, reporter);
+                } catch (IOException e) {
+                    exc[0] = e;
+                    return null;
+                }
+            });
+        if (exc[0] != null) {
+            reporter.exception(exc[0], "Cannot create group repository for %s.",
+                groupId);
+            throw exc[0];
+        }
+        return result;
     }
 
     /**
@@ -197,8 +231,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
      * @return true if refreshed, false if not refreshed possibly due to error
      * @throws Exception if a problem occurs
      */
-    @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition",
-        "PMD.SignatureDeclareThrowsException", "PMD.NPathComplexity",
+    @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
         "PMD.AvoidInstantiatingObjectsInLoops", "PMD.AvoidDuplicateLiterals" })
     public boolean refresh() throws Exception {
         @SuppressWarnings("PMD.UseConcurrentHashMap")
@@ -207,22 +240,19 @@ public class IndexedMavenRepository extends ResourcesRepository {
         // Reuse and clear (or create new) group repositories for the existing
         // directories, first for explicitly requested group ids...
         groups.clear();
-        scanRequested(oldGroups);
-        // ... now scan directories with groups created as dependencies
-        scanDependencies(oldGroups);
-        execCtx.await();
+        CompletableFuture
+            .allOf(scanRequested(oldGroups), scanDependencies(oldGroups)).get();
         // Refresh them all.
-        for (MavenGroupRepository group : new ArrayList<>(groups.values())) {
-            execCtx.submit(new Callable<Void>() {
-                @Override
-                public Void call() throws Exception {
-                    LOG.debug("Refreshing {}", group.id());
-                    group.reload(deps -> handleDependencies(deps));
-                    return null;
+        CompletableFuture.allOf(new ArrayList<>(groups.values()).stream()
+            .map(repo -> CompletableFuture.runAsync(() -> {
+                try {
+                    LOG.debug("Reloading %s...", repo.id());
+                    repo.reload();
+                } catch (IOException e) {
+                    throw new CompletionException(e);
                 }
-            });
-        }
-        execCtx.await();
+            }, Processor.getScheduledExecutor()))
+            .toArray(CompletableFuture[]::new)).get();
         // Remove no longer required group repositories.
         for (Iterator<Map.Entry<String, MavenGroupRepository>> iter
             = groups.entrySet().iterator(); iter.hasNext();) {
@@ -231,121 +261,79 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 iter.remove();
             }
         }
-        // Persist updated data.
-        for (MavenGroupRepository groupRepo : groups.values()) {
-            execCtx.submit(new Callable<Void>() {
-                @Override
-                public Void call() throws Exception {
-                    groupRepo.flush();
-                    return null;
-                }
-            });
-        }
-        // Write federated index.
-        execCtx.submit(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
+        CompletableFuture.allOf(
+            // Persist updated data.
+            CompletableFuture.allOf(new ArrayList<>(groups.values()).stream()
+                .map(repo -> CompletableFuture.runAsync(() -> {
+                    try {
+                        repo.flush();
+                    } catch (IOException e) {
+                        throw new CompletionException(e);
+                    }
+                }, Processor.getScheduledExecutor()))
+                .toArray(CompletableFuture[]::new)),
+            // Write federated index.
+            CompletableFuture.runAsync(() -> {
                 try (OutputStream fos
                     = Files.newOutputStream(indexDbDir.resolve("index.xml"))) {
                     writeFederatedIndex(fos);
+                } catch (IOException e) {
+                    throw new CompletionException(e);
                 }
-                return null;
-            }
-        });
-        // Add collected to root (this).
-        execCtx.submit(() -> {
-            set(Collections.emptyList());
-            for (MavenGroupRepository groupRepo : groups.values()) {
-                addAll(groupRepo.getResources());
-            }
-        });
-        execCtx.await();
+            }, Processor.getScheduledExecutor()),
+            // Add collected to root (this).
+            CompletableFuture.runAsync(() -> {
+                set(Collections.emptyList());
+                for (MavenGroupRepository groupRepo : groups.values()) {
+                    addAll(groupRepo.getResources());
+                }
+            }, Processor.getScheduledExecutor())).get();
         return true;
     }
 
-    @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition",
-        "PMD.AvoidInstantiatingObjectsInLoops" })
-    private void scanRequested(Map<String, MavenGroupRepository> oldGroups) {
-        for (String groupId : indexDbDir.toFile().list()) {
-            if (!groupId.matches("^[A-Za-z].*")
-                || "index.xml".equals(groupId)
-                || "dependencies".equals(groupId)) {
-                continue;
-            }
-            execCtx.submit(new Callable<Void>() {
-                @Override
-                public Void call() throws Exception {
-                    if (oldGroups.containsKey(groupId)) {
-                        MavenGroupRepository groupRepo = oldGroups.get(groupId);
-                        groupRepo.reset(true);
-                        groups.put(groupId, groupRepo);
-                        return null;
-                    }
-                    MavenGroupRepository groupRepo = new MavenGroupRepository(
-                        groupId, indexDbDir.resolve(groupId), true,
-                        mavenRepository, client, reporter);
-                    groups.put(groupId, groupRepo);
-                    return null;
-                }
-            });
-        }
+    private CompletableFuture<Void>
+            scanRequested(Map<String, MavenGroupRepository> oldGroups) {
+        return CompletableFuture.allOf(
+            Arrays.stream(indexDbDir.toFile().list()).parallel()
+                .filter(dir -> dir.matches("^[A-Za-z].*")
+                    && !"index.xml".equals(dir)
+                    && !"dependencies".equals(dir))
+                .map(groupId -> CompletableFuture
+                    .runAsync(() -> restoreGroup(oldGroups, groupId, true),
+                        Processor.getScheduledExecutor()))
+                .toArray(CompletableFuture[]::new));
     }
 
-    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    private void scanDependencies(Map<String, MavenGroupRepository> oldGroups) {
-        for (String groupId : depsDir.toFile().list()) {
-            if (!groupId.matches("^[A-Za-z].*")) {
-                continue;
-            }
-            execCtx.submit(new Callable<Void>() {
-                @Override
-                public Void call() throws Exception {
-                    if (oldGroups.containsKey(groupId)) {
-                        MavenGroupRepository groupRepo = oldGroups.get(groupId);
-                        groupRepo.reset(false);
-                        groups.put(groupId, groupRepo);
-                        return null;
-                    }
-                    MavenGroupRepository groupRepo = new MavenGroupRepository(
-                        groupId, depsDir.resolve(groupId), false,
-                        mavenRepository, client, reporter);
-                    groups.put(groupId, groupRepo);
-                    return null;
-                }
-            });
-        }
+    private CompletableFuture<Void>
+            scanDependencies(Map<String, MavenGroupRepository> oldGroups) {
+        return CompletableFuture.allOf(
+            Arrays.stream(depsDir.toFile().list()).parallel()
+                .filter(dir -> dir.matches("^[A-Za-z].*"))
+                .map(groupId -> CompletableFuture
+                    .runAsync(() -> restoreGroup(oldGroups, groupId, false),
+                        Processor.getScheduledExecutor()))
+                .toArray(CompletableFuture[]::new));
     }
 
-    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    private void handleDependencies(Collection<IPom.Dependency> dependencies) {
-        for (IPom.Dependency dep : dependencies) {
-            MavenGroupRepository groupRepo = groups.computeIfAbsent(
-                dep.program.group, groupId -> {
-                    try {
-                        return new MavenGroupRepository(groupId,
-                            depsDir.resolve(groupId), false, mavenRepository,
-                            client, reporter);
-                    } catch (IOException e) {
-                        reporter.exception(e,
-                            "Cannot create group repository for %s.", groupId);
-                        return null;
-                    }
-                });
-            if (groupRepo == null) {
-                return;
-            }
-            execCtx.submit(new Callable<Void>() {
-                @Override
-                public Void call() throws Exception {
-                    Optional<BoundRevision> bound = mavenRepository
-                        .toBoundRevision(dep.program, dep.version);
-                    if (bound.isPresent()) {
-                        groupRepo.addRevision(bound.get(),
-                            deps -> handleDependencies(deps));
-                    }
-                    return null;
-                }
-            });
+    private void restoreGroup(Map<String, MavenGroupRepository> oldGroups,
+            String groupId, boolean requested) {
+        if (oldGroups.containsKey(groupId)) {
+            MavenGroupRepository groupRepo
+                = oldGroups.get(groupId);
+            groupRepo.reset(true);
+            groups.put(groupId, groupRepo);
+        }
+        try {
+            MavenGroupRepository groupRepo
+                = new MavenGroupRepository(
+                    groupId,
+                    (requested ? indexDbDir : depsDir).resolve(groupId),
+                    requested, this, client, reporter);
+            groups.put(groupId, groupRepo);
+        } catch (IOException e) {
+            reporter.exception(e,
+                "Cannot create group repository for %s: %s",
+                groupId, e.getMessage());
         }
     }
 
@@ -386,4 +374,62 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 e.getMessage());
         }
     }
+
+    /**
+     * Convert the given dependencies to the set of transitive
+     * dependencies as {@link BoundRevision}s. For each revision, 
+     * a check is performed whether it is excluded or depends 
+     * on another revision that is excluded.
+     *
+     * @param dependencies the dependencies
+     * @param revisions the revisions
+     * @param stopOnExcluded stop processing if an excluded revision is found
+     * @return true, if no dependencies is excluded
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+    public boolean toRevisions(Collection<IPom.Dependency> dependencies,
+            Collection<BoundRevision> revisions, boolean stopOnExcluded)
+            throws IOException {
+        boolean noneExcluded = true;
+        // First get revisions and check if they may be added
+        for (IPom.Dependency dep : dependencies) {
+            // Bind to revision.
+            Optional<BoundRevision> bound;
+            try {
+                bound = mavenRepository.toBoundRevision(
+                    dep.program, dep.version);
+            } catch (IOException e) {
+                reporter.exception(e, "Cannot get revision for %s:%s.",
+                    dep.program, dep.version);
+                continue;
+            }
+            if (!bound.isPresent()) {
+                continue;
+            }
+            // Get referenced group, creating it if not already there.
+            MavenGroupRepository groupRepo
+                = getOrCreateGroupRepository(dep.program.group);
+            // Check if revision may be added to group.
+            if (groupRepo.isExcluded(bound.get())) {
+                noneExcluded = false;
+                if (stopOnExcluded) {
+                    return false;
+                }
+            }
+            // Get dependency's dependencies
+            Set<Dependency> childDeps = new HashSet<>();
+            groupRepo.collectDependencies(bound.get(), childDeps);
+            if (toRevisions(childDeps, revisions, stopOnExcluded)) {
+                revisions.add(bound.get());
+                continue;
+            }
+            noneExcluded = false;
+            if (stopOnExcluded) {
+                return false;
+            }
+        }
+        return noneExcluded;
+    }
+
 }
