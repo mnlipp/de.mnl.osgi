@@ -231,7 +231,9 @@ public class MavenGroupRepository extends ResourcesRepository {
     /**
      * Clears this repository and updates the requested flag. 
      * Keeps the current content as backup for reuse in a 
-     * subsequent call to {@link #reload(Consumer)}.
+     * subsequent call to {@link #reload()}.
+     *
+     * @param requested whether this is a requested group
      */
     public void reset(boolean requested) {
         synchronized (this) {
@@ -270,7 +272,6 @@ public class MavenGroupRepository extends ResourcesRepository {
      * and add the versions. For versions already in the repository, 
      * the backup information is re-used.
      *
-     * @param dependencyHandler the dependency handler
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings({ "PMD.AvoidReassigningLoopVariables",

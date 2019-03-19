@@ -186,9 +186,8 @@ public class IndexedMavenRepository extends ResourcesRepository {
 
     /**
      * Return the Maven repository object used to implements this repository.
-     * 
-     * @return the repository object
-     * @throws Exception if a problem occurs
+     *
+     * @return the repository 
      */
     public CompositeMavenRepository mavenRepository() {
         return mavenRepository;
