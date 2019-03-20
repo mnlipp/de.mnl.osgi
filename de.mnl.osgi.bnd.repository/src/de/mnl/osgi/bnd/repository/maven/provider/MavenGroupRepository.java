@@ -211,7 +211,8 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public boolean removeIfRedundant() throws IOException {
-        if (isRequested() || !groupProps.isEmpty()) {
+        if (isRequested() || !groupProps.isEmpty()
+            || !getResources().isEmpty()) {
             return false;
         }
         // Nothing in this group
@@ -364,9 +365,8 @@ public class MavenGroupRepository extends ResourcesRepository {
                 if (isIndexable(revision, deps, inForced)) {
                     addRevision(revision);
                     for (BoundRevision rev : deps) {
-                        indexedRepository
-                            .getOrCreateGroupRepository(rev.groupId())
-                            .addRevision(rev);
+                        indexedRepository.getOrCreateGroupRepository(
+                            rev.groupId()).addRevision(rev);
                     }
                 }
             } catch (Exception e) {
@@ -482,6 +482,7 @@ public class MavenGroupRepository extends ResourcesRepository {
                     return false;
                 }
             }
+            dependencies.add(boundDep.get());
         }
         return true;
     }
