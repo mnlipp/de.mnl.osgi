@@ -21,7 +21,6 @@ package de.mnl.osgi.bnd.repository.maven.provider;
 import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.Processor;
 import aQute.bnd.osgi.repository.ResourcesRepository;
-import aQute.bnd.osgi.repository.XMLResourceParser;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
@@ -132,15 +131,12 @@ public class IndexedMavenRepository extends ResourcesRepository {
         mavenRepository = createMavenRepository();
 
         // Restore
-        File federatedIndex = this.indexDbDir.resolve("index.xml").toFile();
-        if (federatedIndex.canRead()) {
-            try (XMLResourceParser parser
-                = new XMLResourceParser(federatedIndex)) {
-                addAll(parser.parse());
-            } catch (Exception e) {
-                reporter.warning("Cannot parse federated index (ignored): %s",
-                    e.getMessage());
-            }
+        @SuppressWarnings("PMD.UseConcurrentHashMap")
+        Map<String, MavenGroupRepository> oldGroups = new HashMap<>();
+        CompletableFuture
+            .allOf(scanRequested(oldGroups), scanDependencies(oldGroups)).get();
+        for (MavenGroupRepository groupRepo : groups.values()) {
+            addAll(groupRepo.getResources());
         }
     }
 
@@ -268,6 +264,9 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 .toArray(CompletableFuture[]::new)),
             // Write federated index.
             CompletableFuture.runAsync(() -> {
+                if (groups.keySet().equals(oldGroups.keySet())) {
+                    return;
+                }
                 try (OutputStream fos
                     = Files.newOutputStream(indexDbDir.resolve("index.xml"))) {
                     writeFederatedIndex(fos);
