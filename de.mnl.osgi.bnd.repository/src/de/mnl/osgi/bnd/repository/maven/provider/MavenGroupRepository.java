@@ -115,7 +115,8 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @param reporter the reporter
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    @SuppressWarnings("PMD.ConfusingTernary")
+    @SuppressWarnings({ "PMD.ConfusingTernary",
+        "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals" })
     public MavenGroupRepository(String groupId, Path directory,
             boolean requested, IndexedMavenRepository indexedRepository,
             HttpClient client, Reporter reporter) throws IOException {
@@ -145,11 +146,11 @@ public class MavenGroupRepository extends ResourcesRepository {
         }
 
         // Prepare OSGi repository
-        groupIndexPath = directory.resolve("index.xml");
+        groupIndexPath = groupDir.resolve("index.xml");
         if (groupIndexPath.toFile().canRead()) {
             try (XMLResourceParser parser
                 = new XMLResourceParser(groupIndexPath.toFile())) {
-                // addAll(parser.parse());
+                addAll(parser.parse());
             } catch (Exception e) { // NOPMD
                 reporter.warning("Cannot parse %s, ignored: %s", groupIndexPath,
                     e.getMessage());
@@ -188,6 +189,15 @@ public class MavenGroupRepository extends ResourcesRepository {
                 groupProps.store(out, "Group properties");
             }
             propsChanged = false;
+        }
+        if (indexChanged && backupRepo != null) {
+            // Only a rough guess, verify to avoid unnecessary new versions
+            // of the generated file.
+            Set<Resource> oldSet = new HashSet<>(backupRepo.getResources());
+            Set<Resource> newSet = new HashSet<>(getResources());
+            if (newSet.equals(oldSet)) {
+                indexChanged = false;
+            }
         }
         if (indexChanged) {
             XMLResourceGenerator generator = new XMLResourceGenerator();
@@ -618,6 +628,16 @@ public class MavenGroupRepository extends ResourcesRepository {
         }
         propQueryCache.put(queryKey, prop == null ? NOT_AVAILABLE : prop);
         return prop;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "MavenGroupRepository [groupId=" + groupId + "]";
     }
 
 }
