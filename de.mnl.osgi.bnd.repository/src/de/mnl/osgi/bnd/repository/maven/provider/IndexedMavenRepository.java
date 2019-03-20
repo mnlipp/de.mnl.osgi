@@ -22,11 +22,8 @@ import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.Processor;
 import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.bnd.osgi.repository.XMLResourceParser;
-import aQute.maven.api.IPom;
-import aQute.maven.api.IPom.Dependency;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
-import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
 
 import java.io.File;
@@ -37,15 +34,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.ConcurrentHashMap;
@@ -374,63 +367,6 @@ public class IndexedMavenRepository extends ResourcesRepository {
             reporter.exception(e, "Cannot write federated index: %s",
                 e.getMessage());
         }
-    }
-
-    /**
-     * Convert the given dependencies to the set of transitive
-     * dependencies as {@link BoundRevision}s. For each revision, 
-     * a check is performed whether it is excluded or depends 
-     * on another revision that is excluded.
-     *
-     * @param dependencies the dependencies
-     * @param revisions the revisions
-     * @param stopOnExcluded stop processing if an excluded revision is found
-     * @return true, if no dependencies is excluded
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    public boolean toRevisions(Collection<IPom.Dependency> dependencies,
-            Collection<BoundRevision> revisions, boolean stopOnExcluded)
-            throws IOException {
-        boolean noneExcluded = true;
-        // First get revisions and check if they may be added
-        for (IPom.Dependency dep : dependencies) {
-            // Bind to revision.
-            Optional<BoundRevision> bound;
-            try {
-                bound = mavenRepository.toBoundRevision(
-                    dep.program, dep.version);
-            } catch (IOException e) {
-                reporter.exception(e, "Cannot get revision for %s:%s.",
-                    dep.program, dep.version);
-                continue;
-            }
-            if (!bound.isPresent()) {
-                continue;
-            }
-            // Get referenced group, creating it if not already there.
-            MavenGroupRepository groupRepo
-                = getOrCreateGroupRepository(dep.program.group);
-            // Check if revision may be added to group.
-            if (groupRepo.isExcluded(bound.get())) {
-                noneExcluded = false;
-                if (stopOnExcluded) {
-                    return false;
-                }
-            }
-            // Get dependency's dependencies
-            Set<Dependency> childDeps = new HashSet<>();
-            groupRepo.collectDependencies(bound.get(), childDeps);
-            if (toRevisions(childDeps, revisions, stopOnExcluded)) {
-                revisions.add(bound.get());
-                continue;
-            }
-            noneExcluded = false;
-            if (stopOnExcluded) {
-                return false;
-            }
-        }
-        return noneExcluded;
     }
 
 }
