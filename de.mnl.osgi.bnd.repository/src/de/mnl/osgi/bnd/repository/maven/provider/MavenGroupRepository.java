@@ -76,7 +76,7 @@ public class MavenGroupRepository extends ResourcesRepository {
 
     /** Indexing state. */
     private enum IndexingState {
-        NONE, EXCLUDED, INDEXING, INDEXED
+        NONE, EXCL_BY_DEP, INDEXING, INDEXED
     }
 
     private static final Set<IndexingState> INDEXING_OR_INDEXED
@@ -418,7 +418,7 @@ public class MavenGroupRepository extends ResourcesRepository {
      * indexable if it is not excluded and its dependencies aren't
      * excluded either.
      *
-     * @param revision the revision
+     * @param revision the revision to check
      * @param dependencies revisions that must additionally be included
      *    when the checked revision is added
      * @param ignoreExcludedDependencies evaluate as indexable even
@@ -426,7 +426,7 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @return true, if the revision can be added to the index
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    @SuppressWarnings("PMD.LongVariable")
+    @SuppressWarnings({ "PMD.LongVariable", "PMD.NPathComplexity" })
     public boolean isIndexable(BoundRevision revision,
             Set<BoundRevision> dependencies,
             boolean ignoreExcludedDependencies) throws IOException {
@@ -450,7 +450,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         }
         if (!ignoreExcludedDependencies
             && indexingState.getOrDefault(revision.unbound(),
-                IndexingState.NONE) == IndexingState.EXCLUDED) {
+                IndexingState.NONE) == IndexingState.EXCL_BY_DEP) {
             // Has been found un-indexable before
             return false;
         }
@@ -473,8 +473,14 @@ public class MavenGroupRepository extends ResourcesRepository {
             MavenGroupRepository depRepo = indexedRepository
                 .getOrCreateGroupRepository(dep.program.group);
             if (!depRepo.isIndexable(boundDep.get(), dependencies,
-                ignoreExcludedDependencies) && !ignoreExcludedDependencies) {
-                return false;
+                ignoreExcludedDependencies)) {
+                // Not that the revision to check is not indexable
+                // due to a dependency that is not indexable
+                indexingState.put(revision.unbound(),
+                    IndexingState.EXCL_BY_DEP);
+                if (!ignoreExcludedDependencies) {
+                    return false;
+                }
             }
         }
         return true;
