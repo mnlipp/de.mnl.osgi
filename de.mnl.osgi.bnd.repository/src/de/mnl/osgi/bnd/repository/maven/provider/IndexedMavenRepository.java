@@ -300,6 +300,9 @@ public class IndexedMavenRepository extends ResourcesRepository {
 
     private CompletableFuture<Void>
             scanDependencies(Map<String, MavenGroupRepository> oldGroups) {
+        if (!depsDir.toFile().canRead() || !depsDir.toFile().isDirectory()) {
+            return CompletableFuture.completedFuture(null);
+        }
         return CompletableFuture.allOf(
             Arrays.stream(depsDir.toFile().list()).parallel()
                 .filter(dir -> dir.matches("^[A-Za-z].*"))
@@ -312,10 +315,11 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private void restoreGroup(Map<String, MavenGroupRepository> oldGroups,
             String groupId, boolean requested) {
         if (oldGroups.containsKey(groupId)) {
-            MavenGroupRepository groupRepo
-                = oldGroups.get(groupId);
-            groupRepo.reset(true);
+            // Reuse existing.
+            MavenGroupRepository groupRepo = oldGroups.get(groupId);
+            groupRepo.reset(requested);
             groups.put(groupId, groupRepo);
+            return;
         }
         try {
             MavenGroupRepository groupRepo
