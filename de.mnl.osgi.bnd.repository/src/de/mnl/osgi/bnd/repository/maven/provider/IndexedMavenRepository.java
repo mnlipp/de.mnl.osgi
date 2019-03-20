@@ -90,6 +90,8 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private final File localRepo;
     private final Reporter reporter;
     private final HttpClient client;
+    private final ExecutorService groupLoaders
+        = Executors.newFixedThreadPool(16);
     private final CompositeMavenRepository mavenRepository;
     private final Map<String, MavenGroupRepository> groups
         = new ConcurrentHashMap<>();
@@ -250,7 +252,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 } catch (IOException e) {
                     throw new CompletionException(e);
                 }
-            }, Processor.getScheduledExecutor()))
+            }, groupLoaders))
             .toArray(CompletableFuture[]::new)).get();
         // Remove no longer required group repositories.
         for (Iterator<Map.Entry<String, MavenGroupRepository>> iter
@@ -269,7 +271,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
                     } catch (IOException e) {
                         throw new CompletionException(e);
                     }
-                }, Processor.getScheduledExecutor()))
+                }, groupLoaders))
                 .toArray(CompletableFuture[]::new)),
             // Write federated index.
             CompletableFuture.runAsync(() -> {
@@ -279,14 +281,14 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 } catch (IOException e) {
                     throw new CompletionException(e);
                 }
-            }, Processor.getScheduledExecutor()),
+            }, groupLoaders),
             // Add collected to root (this).
             CompletableFuture.runAsync(() -> {
                 set(Collections.emptyList());
                 for (MavenGroupRepository groupRepo : groups.values()) {
                     addAll(groupRepo.getResources());
                 }
-            }, Processor.getScheduledExecutor())).get();
+            }, groupLoaders)).get();
         return true;
     }
 
@@ -299,7 +301,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
                     && !"dependencies".equals(dir))
                 .map(groupId -> CompletableFuture
                     .runAsync(() -> restoreGroup(oldGroups, groupId, true),
-                        Processor.getScheduledExecutor()))
+                        groupLoaders))
                 .toArray(CompletableFuture[]::new));
     }
 
@@ -310,7 +312,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 .filter(dir -> dir.matches("^[A-Za-z].*"))
                 .map(groupId -> CompletableFuture
                     .runAsync(() -> restoreGroup(oldGroups, groupId, false),
-                        Processor.getScheduledExecutor()))
+                        groupLoaders))
                 .toArray(CompletableFuture[]::new));
     }
 
