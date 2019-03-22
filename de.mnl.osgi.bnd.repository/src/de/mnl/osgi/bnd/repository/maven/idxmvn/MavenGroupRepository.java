@@ -16,7 +16,7 @@
  * with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.mnl.osgi.bnd.repository.maven.provider;
+package de.mnl.osgi.bnd.repository.maven.idxmvn;
 
 import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.repository.ResourcesRepository;

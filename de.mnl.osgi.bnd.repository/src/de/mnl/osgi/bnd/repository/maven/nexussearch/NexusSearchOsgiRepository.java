@@ -16,7 +16,7 @@
  * with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.mnl.osgi.bnd.repository.maven.provider;
+package de.mnl.osgi.bnd.repository.maven.nexussearch;
 
 import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.Processor;
@@ -27,8 +27,7 @@ import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.maven.provider.MavenRepository;
 import aQute.service.reporter.Reporter;
-import de.mnl.osgi.bnd.maven.LocalMavenBackedOsgiRepository;
-import de.mnl.osgi.bnd.repository.maven.provider.NexusSearchNGResponseParser.ParseResult;
+import de.mnl.osgi.bnd.repository.maven.nexussearch.NexusSearchNGResponseParser.ParseResult;
 
 import java.io.File;
 import java.io.FileInputStream;

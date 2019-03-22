@@ -35,6 +35,8 @@ import aQute.lib.converter.Converter;
 import aQute.lib.io.IO;
 import aQute.maven.api.Archive;
 import aQute.service.reporter.Reporter;
+import de.mnl.osgi.bnd.repository.maven.nexussearch.NexusSearchConfiguration;
+import de.mnl.osgi.bnd.repository.maven.nexussearch.NexusSearchOsgiRepository;
 
 import java.io.File;
 import java.io.InputStream;

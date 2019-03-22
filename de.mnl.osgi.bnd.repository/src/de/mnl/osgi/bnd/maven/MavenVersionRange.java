@@ -19,7 +19,6 @@
 package de.mnl.osgi.bnd.maven;
 
 import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException;
-import org.apache.maven.artifact.versioning.Restriction;
 
 /**
  * Provides a representation of a maven version range. The implementation 
@@ -78,14 +77,12 @@ public class MavenVersionRange {
         return new MavenVersionRange(version);
     }
 
-    public boolean wasSingle() {
-        if (range.getRestrictions().size() != 1) {
-            return false;
-        }
-        Restriction rstrct = range.getRestrictions().get(0);
-        return rstrct.getLowerBound() == null && rstrct.getUpperBound() == null;
-    }
-
+    /**
+     * Checks if is the provided version representation is a range.
+     *
+     * @param version the version
+     * @return true, if is range
+     */
     public static boolean isRange(String version) {
         if (version == null) {
             return false;

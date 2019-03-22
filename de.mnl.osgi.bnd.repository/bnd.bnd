@@ -8,8 +8,21 @@ Bundle-Copyright: Michael N. Lipp (C) 2018
 Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
 Bundle-Version: 0.0.18.${bundleVersionQualifier}
 Export-Package: \
-	de.mnl.osgi.bnd.repository.maven.provider;bnd-plugins=true,\
-	de.mnl.osgi.bnd.maven
+	org.apache.maven.artifact,\
+	org.apache.maven.artifact.versioning,\
+	org.apache.maven.artifact.repository,\
+	org.apache.maven.artifact.repository.layout,\
+	org.apache.maven.artifact.repository.metadata,\
+	org.apache.maven.artifact.repository.legacy.metadata,\
+	org.apache.maven.artifact.resolver,\
+	org.apache.maven.artifact.resolver.filter,\
+	org.apache.maven.artifact.handler,\
+	org.apache.maven.artifact.metadata,\
+	org.apache.maven.repository,\
+	org.apache.maven.repository.metadata,\
+	org.apache.maven.repository.legacy.metadata,\
+	de.mnl.osgi.bnd.maven,\
+	de.mnl.osgi.bnd.repository.maven.provider;bnd-plugins=true
 
 -buildpath: \
 	osgi.core;version=@6,\
@@ -30,3 +43,7 @@ Include-Resource: ${replace;${lsr;jar};^(.*)$;@jar/$1}
 bin=bin/main
 testbin=bin/test
 	
+-privatepackage: \
+	org.apache.maven.artifact.versioning,\
+	de.mnl.osgi.bnd.repository.maven.nexussearch,\
+	de.mnl.osgi.bnd.repository.maven.idxmvn
