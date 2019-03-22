@@ -23,11 +23,13 @@ import java.util.concurrent.Callable;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Utils.
  */
 public final class RepositoryUtils {
 
+    /** The Constant LIST_ITEM_SEPARATOR. */
     public static final Pattern LIST_ITEM_SEPARATOR
         = Pattern.compile("\\s*,\\s*");
 
@@ -48,6 +50,21 @@ public final class RepositoryUtils {
     }
 
     /**
+     * A runnable that may throw an exception.
+     */
+    @FunctionalInterface
+    public interface ThrowingRunnable {
+
+        /**
+         * The operation to run.
+         *
+         * @throws Exception the exception
+         */
+        @SuppressWarnings("PMD.SignatureDeclareThrowsException")
+        void run() throws Exception;
+    }
+
+    /**
      * Converts any exception thrown by the supplier to an
      * {@link UndeclaredThrowableException}.
      *
@@ -59,6 +76,22 @@ public final class RepositoryUtils {
     public static <T> T unthrow(Callable<T> supplier) {
         try {
             return supplier.call();
+        } catch (Throwable t) {
+            throw new UndeclaredThrowableException(t);
+        }
+    }
+
+    /**
+     * Converts any exception thrown by the runnable to an
+     * {@link UndeclaredThrowableException}.
+     *
+     * @param runnable the runnable
+     * @return the t
+     */
+    @SuppressWarnings("PMD.AvoidCatchingThrowable")
+    public static void unthrow(ThrowingRunnable runnable) {
+        try {
+            runnable.run();
         } catch (Throwable t) {
             throw new UndeclaredThrowableException(t);
         }
@@ -80,6 +113,33 @@ public final class RepositoryUtils {
             Callable<T> supplier) throws E {
         try {
             return supplier.call();
+        } catch (UndeclaredThrowableException e) {
+            if (rethrown
+                .isAssignableFrom(e.getUndeclaredThrowable().getClass())) {
+                throw (E) e.getUndeclaredThrowable();
+            }
+            throw e;
+        } catch (Exception e) {
+            throw new UndeclaredThrowableException(e);
+        }
+    }
+
+    /**
+     * Catches {@link UndeclaredThrowableException}s and unwraps
+     * any underlying exception of the given type.
+     *
+     * @param <T> the return type
+     * @param <E> the type of exception that is unwrapped
+     * @param rethrown the type of exception that is rethrown
+     * @param runnable the runnable
+     * @return the result from invoking the {@code supplier}
+     * @throws E the exception type
+     */
+    @SuppressWarnings({ "unchecked", "PMD.AvoidCatchingGenericException" })
+    public static <E extends Throwable> void rethrow(Class<E> rethrown,
+            ThrowingRunnable runnable) throws E {
+        try {
+            runnable.run();
         } catch (UndeclaredThrowableException e) {
             if (rethrown
                 .isAssignableFrom(e.getUndeclaredThrowable().getClass())) {

@@ -218,7 +218,7 @@ public class CompositeMavenRepository extends MavenRepository
      * @return the resource
      */
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public Optional<Resource> toResource(BoundRevision revision,
+    public Optional<MavenResource> toResource(BoundRevision revision,
             DependencyHandler dependencyHandler, BinaryLocation location) {
         BoundArchive archive;
         try {
@@ -313,7 +313,7 @@ public class CompositeMavenRepository extends MavenRepository
 
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
         "PMD.UselessParentheses", "PMD.AvoidInstanceofChecksInCatchClause" })
-    private Resource parseResource(BoundArchive archive,
+    private MavenResource parseResource(BoundArchive archive,
             BinaryLocation location, DependencyHandler dependencyHandler) {
         ResourceBuilder builder = new ResourceBuilder();
         try {
@@ -360,7 +360,7 @@ public class CompositeMavenRepository extends MavenRepository
                 e.getMessage());
             return null;
         }
-        return builder.build();
+        return new MavenResource(archive.getBoundRevision(), builder.build());
     }
 
     private String toVersionList(Collection<IPom.Dependency> deps) {

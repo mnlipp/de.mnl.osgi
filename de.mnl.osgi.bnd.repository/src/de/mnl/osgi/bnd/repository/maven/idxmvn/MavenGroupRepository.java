@@ -31,8 +31,12 @@ import aQute.service.reporter.Reporter;
 import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository.BinaryLocation;
+import de.mnl.osgi.bnd.maven.MavenResource;
 import de.mnl.osgi.bnd.maven.MavenVersionRange;
 import de.mnl.osgi.bnd.maven.RepositoryUtils;
+
+import static de.mnl.osgi.bnd.maven.RepositoryUtils.rethrow;
+import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +58,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -347,7 +352,9 @@ public class MavenGroupRepository extends ResourcesRepository {
         return result;
     }
 
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
+        "PMD.AvoidDuplicateLiterals",
+        "PMD.PositionLiteralsFirstInComparisons" })
     private CompletableFuture<Void> loadRevision(BoundRevision revision) {
         return CompletableFuture.runAsync(() -> {
             if (indexingState.getOrDefault(revision.unbound(),
@@ -371,13 +378,23 @@ public class MavenGroupRepository extends ResourcesRepository {
                 }
             }
             try {
+                Optional<MavenResource> resource = toResource(revision);
+                if (!resource.isPresent()) {
+                    return;
+                }
                 Set<BoundRevision> deps = new HashSet<>();
                 if (isIndexable(revision, deps, inForced)) {
-                    addRevision(revision);
-                    for (BoundRevision rev : deps) {
-                        indexedRepository.getOrCreateGroupRepository(
-                            rev.groupId()).addRevision(rev);
+                    if (isBundle(resource.get())) {
+                        addResource(resource.get());
                     }
+                    rethrow(IOException.class, () -> deps.stream()
+                        .map(dep -> toResource(dep))
+                        .filter(Optional::isPresent).map(Optional::get)
+                        .filter(this::isBundle)
+                        .forEach(res -> unthrow(() -> indexedRepository
+                            .getOrCreateGroupRepository(
+                                res.getRevision().groupId())
+                            .addResource(res))));
                 }
             } catch (Exception e) {
                 // Load "in isolation", don't propagate individual failure.
@@ -386,6 +403,14 @@ public class MavenGroupRepository extends ResourcesRepository {
             }
         }, IndexedMavenRepository.revisionLoaders);
 
+    }
+
+    @SuppressWarnings("PMD.PositionLiteralsFirstInComparisons")
+    private boolean isBundle(Resource resource) {
+        return resource.getCapabilities("osgi.identity").stream()
+            .map(cap -> cap.getAttributes().keySet().stream())
+            .flatMap(Function.identity())
+            .anyMatch(key -> key.equals("osgi.identity"));
     }
 
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
@@ -502,47 +527,15 @@ public class MavenGroupRepository extends ResourcesRepository {
      *
      * @param revision the revision to add
      */
-    private void addRevision(BoundRevision revision) {
+    private void addResource(MavenResource resource) {
         synchronized (indexingState) {
-            // Check, but don't keep the lock
-            if (INDEXING_OR_INDEXED.contains(indexingState
-                .getOrDefault(revision.unbound(), IndexingState.NONE))) {
-                return;
-            }
-            indexingState.put(revision.unbound(), IndexingState.INDEXING);
-        }
-        Resource resource = null;
-        if (backupRepo != null) {
-            List<Capability> cap = backupRepo.findProvider(
-                backupRepo.newRequirementBuilder("bnd.info")
-                    .addDirective("filter", String.format("(from=%s)",
-                        revision.unbound().toString()))
-                    .build());
-            if (!cap.isEmpty()) {
-                // Reuse existing
-                resource = cap.get(0).getResource();
-            }
-        }
-        if (resource == null) {
-            // Extract information from artifact.
-            resource = indexedRepository.mavenRepository()
-                .toResource(revision, deps -> {
-                }, BinaryLocation.REMOTE).orElse(null);
-        }
-        if (resource == null) {
-            // No such resource
-            synchronized (indexingState) {
-                indexingState.remove(revision.unbound());
-            }
-            return;
-        }
-        // Check again, now with lock, and add
-        synchronized (indexingState) {
-            if (indexingState.getOrDefault(revision.unbound(),
+            if (indexingState.getOrDefault(resource.getRevision().unbound(),
                 IndexingState.NONE) == IndexingState.INDEXED) {
                 return;
             }
             add(resource);
+            indexingState.put(resource.getRevision().unbound(),
+                IndexingState.INDEXED);
         }
         indexChanged = true;
     }
@@ -572,6 +565,36 @@ public class MavenGroupRepository extends ResourcesRepository {
             indexedRepository.mavenRepository().toResource(revision,
                 deps -> dependencies.addAll(deps), BinaryLocation.REMOTE);
         }
+    }
+
+    /**
+     * Similar to {@link CompositeMavenRepository#toResource}
+     * but checks backup first.
+     *
+     * @param revision the revision
+     * @return the maven resource
+     */
+    private Optional<MavenResource> toResource(BoundRevision revision) {
+        MavenResource resource = null;
+        if (backupRepo != null) {
+            List<Capability> cap = backupRepo.findProvider(
+                backupRepo.newRequirementBuilder("bnd.info")
+                    .addDirective("filter", String.format("(from=%s)",
+                        revision.unbound().toString()))
+                    .build());
+            if (!cap.isEmpty()) {
+                // Reuse existing
+                resource
+                    = new MavenResource(revision, cap.get(0).getResource());
+            }
+        }
+        if (resource == null) {
+            // Extract information from artifact.
+            resource = indexedRepository.mavenRepository()
+                .toResource(revision, deps -> {
+                }, BinaryLocation.REMOTE).orElse(null);
+        }
+        return Optional.ofNullable(resource);
     }
 
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
