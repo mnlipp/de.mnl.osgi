@@ -1,2 +1,4 @@
 de.mnl.osgi.bnd.maven
+de.mnl.osgi.bnd.repository.maven.idxmvn
+de.mnl.osgi.bnd.repository.maven.nexussearch
 de.mnl.osgi.bnd.repository.maven.provider
