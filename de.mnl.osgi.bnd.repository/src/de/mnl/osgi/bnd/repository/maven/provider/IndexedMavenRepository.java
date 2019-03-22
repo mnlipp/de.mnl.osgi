@@ -24,6 +24,8 @@ import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
+import static de.mnl.osgi.bnd.maven.RepositoryUtils.rethrow;
+import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
 
 import java.io.File;
 import java.io.IOException;
@@ -195,23 +197,11 @@ public class IndexedMavenRepository extends ResourcesRepository {
      */
     public MavenGroupRepository getOrCreateGroupRepository(String groupId)
             throws IOException {
-        IOException[] exc = new IOException[1];
         @SuppressWarnings("PMD.PrematureDeclaration")
-        MavenGroupRepository result = groups.computeIfAbsent(
-            groupId, grp -> {
-                try {
-                    return new MavenGroupRepository(grp, depsDir.resolve(grp),
-                        false, this, client, reporter);
-                } catch (IOException e) {
-                    exc[0] = e;
-                    return null;
-                }
-            });
-        if (exc[0] != null) {
-            reporter.exception(exc[0], "Cannot create group repository for %s.",
-                groupId);
-            throw exc[0];
-        }
+        MavenGroupRepository result = rethrow(IOException.class,
+            () -> groups.computeIfAbsent(groupId,
+                grp -> unthrow(() -> new MavenGroupRepository(grp,
+                    depsDir.resolve(grp), false, this, client, reporter))));
         return result;
     }
 

@@ -18,6 +18,8 @@
 
 package de.mnl.osgi.bnd.maven;
 
+import java.lang.reflect.UndeclaredThrowableException;
+import java.util.concurrent.Callable;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -43,5 +45,49 @@ public final class RepositoryUtils {
             return Stream.empty();
         }
         return LIST_ITEM_SEPARATOR.splitAsStream(list);
+    }
+
+    /**
+     * Converts any exception thrown by the supplier to an
+     * {@link UndeclaredThrowableException}.
+     *
+     * @param <T> the return value
+     * @param supplier the supplier
+     * @return the t
+     */
+    @SuppressWarnings("PMD.AvoidCatchingThrowable")
+    public static <T> T unthrow(Callable<T> supplier) {
+        try {
+            return supplier.call();
+        } catch (Throwable t) {
+            throw new UndeclaredThrowableException(t);
+        }
+    }
+
+    /**
+     * Catches {@link UndeclaredThrowableException}s and unwraps
+     * any underlying exception of the given type.
+     *
+     * @param <T> the return type
+     * @param <E> the type of exception that is unwrapped
+     * @param rethrown the type of exception that is rethrown
+     * @param supplier the supplier
+     * @return the result from invoking the {@code supplier}
+     * @throws E the exception type
+     */
+    @SuppressWarnings({ "unchecked", "PMD.AvoidCatchingGenericException" })
+    public static <T, E extends Throwable> T rethrow(Class<E> rethrown,
+            Callable<T> supplier) throws E {
+        try {
+            return supplier.call();
+        } catch (UndeclaredThrowableException e) {
+            if (rethrown
+                .isAssignableFrom(e.getUndeclaredThrowable().getClass())) {
+                throw (E) e.getUndeclaredThrowable();
+            }
+            throw e;
+        } catch (Exception e) {
+            throw new UndeclaredThrowableException(e);
+        }
     }
 }

@@ -34,6 +34,9 @@ import aQute.maven.provider.MetadataParser;
 import aQute.maven.provider.MetadataParser.RevisionMetadata;
 import aQute.service.reporter.Reporter;
 
+import static de.mnl.osgi.bnd.maven.RepositoryUtils.rethrow;
+import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
+
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,7 +53,6 @@ import java.util.stream.Stream;
 
 import org.osgi.resource.Resource;
 
-// TODO: Auto-generated Javadoc
 /**
  * Provides a composite {@link IMavenRepo} view on several 
  * {@link MavenBackingRepository} instances.
@@ -167,20 +169,8 @@ public class CompositeMavenRepository extends MavenRepository
     @SuppressWarnings("PMD.ExceptionAsFlowControl")
     public Stream<BoundRevision> boundRevisions(Program program)
             throws IOException {
-        try {
-            return repositoriesAsStream().flatMap(mbr -> {
-                try {
-                    return boundRevisions(mbr, program);
-                } catch (IOException e) {
-                    throw new UndeclaredThrowableException(e);
-                }
-            });
-        } catch (UndeclaredThrowableException e) {
-            if (e.getUndeclaredThrowable() instanceof IOException) {
-                throw (IOException) e.getUndeclaredThrowable();
-            }
-            throw e;
-        }
+        return rethrow(IOException.class, () -> repositoriesAsStream()
+            .flatMap(mbr -> unthrow(() -> boundRevisions(mbr, program))));
     }
 
     /**
