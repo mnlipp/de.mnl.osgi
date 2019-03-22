@@ -17,6 +17,7 @@
  */
 
 /**
- * 
+ * Some classes that may be helpful for any repository provider 
+ * implementation that uses (backing) maven repositories.  
  */
 package de.mnl.osgi.bnd.maven;
