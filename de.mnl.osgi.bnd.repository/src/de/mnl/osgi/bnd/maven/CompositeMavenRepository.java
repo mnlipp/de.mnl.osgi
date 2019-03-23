@@ -39,7 +39,6 @@ import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
 
 import java.io.Closeable;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -351,10 +350,12 @@ public class CompositeMavenRepository extends MavenRepository
         } catch (Exception e) {
             if (e instanceof InvocationTargetException
                 && ((InvocationTargetException) e)
-                    .getTargetException() instanceof FileNotFoundException) {
-                reporter.exception(e, "POM of %s not found: %s", archive,
-                    ((InvocationTargetException) e).getTargetException()
-                        .getMessage());
+                    .getTargetException() instanceof IOException) {
+                reporter.exception(((InvocationTargetException) e)
+                    .getTargetException(), "Problem accessing POM of %s: %s",
+                    archive, ((InvocationTargetException) e)
+                        .getTargetException().getMessage());
+                return null;
             }
             reporter.exception(e, "Problem processing POM of %s: %s", archive,
                 e.getMessage());
