@@ -28,7 +28,6 @@ import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
 import de.mnl.osgi.bnd.maven.BoundRevision;
-import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository.BinaryLocation;
 import de.mnl.osgi.bnd.maven.MavenResource;
 import de.mnl.osgi.bnd.maven.MavenVersion;
@@ -96,8 +95,6 @@ public class MavenGroupRepository extends ResourcesRepository {
     private final Path groupIndexPath;
     private final Properties groupProps;
     private final Map<String, String> propQueryCache
-        = new ConcurrentHashMap<>();
-    private final Map<Revision, MavenResource> resourceCache
         = new ConcurrentHashMap<>();
     private final Map<Revision, IndexingState> indexingState
         = new ConcurrentHashMap<>();
@@ -218,7 +215,6 @@ public class MavenGroupRepository extends ResourcesRepository {
         }
         backupRepo = null;
         indexingState.clear();
-        resourceCache.clear();
     }
 
     /**
@@ -278,7 +274,6 @@ public class MavenGroupRepository extends ResourcesRepository {
             // Clear remaining caches.
             indexingState.clear();
             propQueryCache.clear();
-            resourceCache.clear();
         }
     }
 
@@ -381,7 +376,8 @@ public class MavenGroupRepository extends ResourcesRepository {
                 }
             }
             try {
-                MavenResource resource = toResource(revision);
+                MavenResource resource = indexedRepository.mavenRepository()
+                    .toResource(revision, BinaryLocation.REMOTE);
                 Set<MavenResource> allDeps = new HashSet<>();
                 if (!isIndexable(resource, allDeps, inForced)) {
                     return;
@@ -508,8 +504,8 @@ public class MavenGroupRepository extends ResourcesRepository {
             }
             Optional<MavenResource> depRes;
             try {
-                depRes
-                    = indexedRepository.toResource(dep.program, dep.version);
+                depRes = indexedRepository.mavenRepository().toResource(
+                    dep.program, dep.version, BinaryLocation.REMOTE);
             } catch (IOException e) {
                 continue;
             }
@@ -547,88 +543,12 @@ public class MavenGroupRepository extends ResourcesRepository {
         indexChanged = true;
     }
 
-    /**
-     * Similar to 
-     * {@link CompositeMavenRepository#toResource(BoundRevision, BinaryLocation)}
-     * (with location {@link BinaryLocation#REMOTE}) but checks backup first.
-     *
-     * @param revision the revision
-     * @return the maven resource
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    public MavenResource toResource(Revision revision) throws IOException {
-        if (!revision.group.equals(groupId)) {
-            return indexedRepository.toResource(revision);
-        }
-        return resourceCache.computeIfAbsent(revision,
-            rev -> Optional.ofNullable(backupRepo)
-                .flatMap(repo -> searchInRepository(repo, rev))
-                .map(res -> indexedRepository.mavenRepository()
-                    .toResource(rev, res))
-                .orElse(indexedRepository.mavenRepository()
-                    .toResource(rev, BinaryLocation.REMOTE)));
-    }
-
-    /**
-     * Similar to 
-     * {@link CompositeMavenRepository#toResource(BoundRevision, BinaryLocation)}
-     * but checks backup first.
-     *
-     * @param revision the revision
-     * @return the maven resource
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    public MavenResource toResource(BoundRevision revision)
-            throws IOException {
-        if (!revision.groupId().equals(groupId)) {
-            indexedRepository.toResource(revision);
-        }
-        return resourceCache.computeIfAbsent(revision.unbound(),
-            rev -> Optional.ofNullable(backupRepo)
-                .flatMap(repo -> searchInRepository(repo, rev))
-                .map(res -> indexedRepository.mavenRepository()
-                    .toResource(revision, res))
-                .orElse(indexedRepository.mavenRepository()
-                    .toResource(revision, BinaryLocation.REMOTE)));
-    }
-
-    /**
-     * Checks indexing cache and if not found, binds to revision
-     * and calls {@link #toResource(BoundRevision)}.
-     *
-     * @param program the program
-     * @param version the version
-     * @return the maven resource
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    public Optional<MavenResource> toResource(Program program,
-            String version) throws IOException {
-        if (indexingState.getOrDefault(cacheable(program, version),
-            IndexingState.NONE) == IndexingState.FAILED) {
+    /* package */ Optional<Resource> searchInBackup(Revision revision) {
+        if (backupRepo == null) {
             return Optional.empty();
         }
-        if (!program.group.equals(groupId)) {
-            indexedRepository.toResource(program, version);
-        }
-        if (!MavenVersionRange.isRange(version)) {
-            return Optional.of(toResource(program.version(version)));
-        }
-        try {
-            return rethrow(IOException.class,
-                () -> indexedRepository.mavenRepository()
-                    .toBoundRevision(program, version)
-                    .map(revision -> unthrow(() -> toResource(revision))));
-        } catch (IOException e) {
-            indexingState.put(cacheable(program, version),
-                IndexingState.FAILED);
-            throw e;
-        }
-    }
-
-    private Optional<Resource> searchInRepository(
-            ResourcesRepository repository, Revision revision) {
-        return repository
-            .findProvider(repository.newRequirementBuilder("bnd.info")
+        return backupRepo.findProvider(
+            backupRepo.newRequirementBuilder("bnd.info")
                 .addDirective("filter",
                     String.format("(from=%s)", revision.toString()))
                 .build())
@@ -680,13 +600,6 @@ public class MavenGroupRepository extends ResourcesRepository {
     @Override
     public String toString() {
         return "MavenGroupRepository [groupId=" + groupId + "]";
-    }
-
-    private static Revision cacheable(Program program, String version) {
-        if (version == null) {
-            return program.version("[0,)");
-        }
-        return program.version(version);
     }
 
 }

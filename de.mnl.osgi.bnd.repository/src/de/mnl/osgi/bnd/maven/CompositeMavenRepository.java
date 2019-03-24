@@ -53,6 +53,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -76,7 +77,11 @@ public class CompositeMavenRepository extends MavenRepository
     public static final String MAVEN_DEPENDENCIES_NS
         = "maven.dependencies.info";
     private final Reporter reporter;
+    private Function<Revision, Optional<Resource>> resourceSupplier
+        = resource -> Optional.empty();
     private final Map<Program, List<BoundRevision>> programCache
+        = new ConcurrentHashMap<>();
+    private final Map<Revision, MavenResource> resourceCache
         = new ConcurrentHashMap<>();
 
     /**
@@ -109,10 +114,29 @@ public class CompositeMavenRepository extends MavenRepository
     }
 
     /**
+     * Sets a function that can provide resource information more
+     * efficiently (e.g. from some local persistent cache) than
+     * the remote maven repository.
+     * <P>
+     * Any resource information provided by the function must be
+     * complete, i.e. must hold the information from the "bnd.info"
+     * namespace and from the "maven.dependencies.info" namespace.
+     *
+     * @param resourceSupplier the resource supplier
+     * @return the composite maven repository
+     */
+    public CompositeMavenRepository setResourceSupplier(
+            Function<Revision, Optional<Resource>> resourceSupplier) {
+        this.resourceSupplier = resourceSupplier;
+        return this;
+    }
+
+    /**
      * Reset any cached information.
      */
     public void reset() {
         programCache.clear();
+        resourceCache.clear();
     }
 
     /**
@@ -369,7 +393,10 @@ public class CompositeMavenRepository extends MavenRepository
      */
     public MavenResource toResource(Revision revision,
             BinaryLocation location) {
-        return new MavenResourceImpl(revision, location);
+        return resourceCache.computeIfAbsent(revision,
+            rev -> resourceSupplier.apply(rev)
+                .map(resource -> new MavenResourceImpl(revision, resource))
+                .orElseGet(() -> new MavenResourceImpl(revision, location)));
     }
 
     /**
@@ -381,32 +408,32 @@ public class CompositeMavenRepository extends MavenRepository
      */
     public MavenResource toResource(
             BoundRevision revision, BinaryLocation location) {
-        return new MavenResourceImpl(revision, location);
+        return resourceCache.computeIfAbsent(revision.unbound(),
+            rev -> resourceSupplier.apply(rev)
+                .map(resource -> new MavenResourceImpl(revision, resource))
+                .orElseGet(() -> new MavenResourceImpl(revision, location)));
     }
 
     /**
-     * Creates a {@link MavenResource} for the given revision,
-     * using the information from the given resource. 
+     * Creates a {@link MavenResource} for the given program and version. 
      *
-     * @param revision the revision
-     * @param resource the resource
+     * @param program the program
+     * @param version the version
+     * @param location which URL to use for the binary in the {@link Resource}
      * @return the resource
+     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public MavenResource toResource(Revision revision, Resource resource) {
-        return new MavenResourceImpl(revision, resource);
+    public Optional<MavenResource> toResource(Program program, String version,
+            BinaryLocation location) throws IOException {
+        return toBoundRevision(program, version)
+            .map(revision -> toResource(revision, location));
     }
 
-    /**
-     * Creates a {@link MavenResource} for the given revision,
-     * using the information from the given resource. 
-     *
-     * @param revision the revision
-     * @param resource the resource
-     * @return the resource
-     */
-    public MavenResource toResource(BoundRevision revision,
-            Resource resource) {
-        return new MavenResourceImpl(revision, resource);
+    private static Revision cacheable(Program program, String version) {
+        if (version == null) {
+            return program.version("[0,)");
+        }
+        return program.version(version);
     }
 
     /**

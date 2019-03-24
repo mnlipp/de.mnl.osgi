@@ -21,14 +21,10 @@ package de.mnl.osgi.bnd.repository.maven.idxmvn;
 import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.Processor;
 import aQute.bnd.osgi.repository.ResourcesRepository;
-import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
-import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
-import de.mnl.osgi.bnd.maven.CompositeMavenRepository.BinaryLocation;
-import de.mnl.osgi.bnd.maven.MavenResource;
 
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.rethrow;
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
@@ -96,6 +92,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private final CompositeMavenRepository mavenRepository;
     private final Map<String, MavenGroupRepository> groups
         = new ConcurrentHashMap<>();
+    private Map<String, MavenGroupRepository> backupGroups;
 
     /**
      * Create a new instance that uses the provided information/resources to perform
@@ -147,9 +144,10 @@ public class IndexedMavenRepository extends ResourcesRepository {
         for (MavenGroupRepository groupRepo : groups.values()) {
             addAll(groupRepo.getResources());
         }
+        backupGroups = groups;
     }
 
-    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
+    @SuppressWarnings({ "PMD.SignatureDeclareThrowsException", "resource" })
     private CompositeMavenRepository createMavenRepository() throws Exception {
         // Create repository from URLs
         List<MavenBackingRepository> releaseBackers = new ArrayList<>();
@@ -162,8 +160,15 @@ public class IndexedMavenRepository extends ResourcesRepository {
             snapshotBackers.addAll(MavenBackingRepository.create(
                 url.toString(), reporter, localRepo, client));
         }
-        return new CompositeMavenRepository(localRepo, name(), releaseBackers,
-            snapshotBackers, Processor.getExecutor(), reporter);
+        return new CompositeMavenRepository(
+            localRepo, name(), releaseBackers,
+            snapshotBackers, Processor.getExecutor(), reporter)
+                .setResourceSupplier(this::restoreResource);
+    }
+
+    private Optional<Resource> restoreResource(Revision revision) {
+        return Optional.ofNullable(backupGroups.get(revision.group))
+            .flatMap(group -> group.searchInBackup(revision));
     }
 
     /**
@@ -222,14 +227,14 @@ public class IndexedMavenRepository extends ResourcesRepository {
         "PMD.AvoidInstantiatingObjectsInLoops", "PMD.AvoidDuplicateLiterals" })
     public boolean refresh() throws Exception {
         mavenRepository.reset();
-        @SuppressWarnings("PMD.UseConcurrentHashMap")
-        Map<String, MavenGroupRepository> oldGroups = new HashMap<>(groups);
+        backupGroups = new HashMap<>(groups);
 
         // Reuse and clear (or create new) group repositories for the existing
         // directories, first for explicitly requested group ids...
         groups.clear();
         CompletableFuture
-            .allOf(scanRequested(oldGroups), scanDependencies(oldGroups)).get();
+            .allOf(scanRequested(backupGroups), scanDependencies(backupGroups))
+            .get();
         // Refresh them all.
         CompletableFuture.allOf(new ArrayList<>(groups.values()).stream()
             .map(repo -> CompletableFuture.runAsync(() -> {
@@ -262,7 +267,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 .toArray(CompletableFuture[]::new)),
             // Write federated index.
             CompletableFuture.runAsync(() -> {
-                if (groups.keySet().equals(oldGroups.keySet())) {
+                if (groups.keySet().equals(backupGroups.keySet())) {
                     return;
                 }
                 try (OutputStream fos
@@ -279,6 +284,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
                     addAll(groupRepo.getResources());
                 }
             }, groupLoaders)).get();
+        backupGroups = groups;
         return true;
     }
 
@@ -368,55 +374,6 @@ public class IndexedMavenRepository extends ResourcesRepository {
             reporter.exception(e, "Cannot write federated index: %s",
                 e.getMessage());
         }
-    }
-
-    /**
-     * Gets the resource just like 
-     * {@link CompositeMavenRepository#toResource(BoundRevision, 
-     * CompositeMavenRepository.BinaryLocation)} (called with
-     * {@link BinaryLocation#REMOTE} but uses
-     * {@link MavenGroupRepository#toResource(Revision)}
-     * to profit from the group respository's caching.
-     *
-     * @param revision the version
-     * @return the resource
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    public MavenResource toResource(BoundRevision revision)
-            throws IOException {
-        return getOrCreateGroupRepository(revision.groupId())
-            .toResource(revision);
-    }
-
-    /**
-     * Gets the resource just like 
-     * {@link CompositeMavenRepository#toResource(Revision, 
-     * CompositeMavenRepository.BinaryLocation)} (called with
-     * {@link BinaryLocation#REMOTE} but uses
-     * {@link MavenGroupRepository#toResource(Revision)}
-     * to profit from the group respository's caching.
-     *
-     * @param revision the version
-     * @return the resource
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    public MavenResource toResource(Revision revision) throws IOException {
-        return getOrCreateGroupRepository(revision.group).toResource(revision);
-    }
-
-    /**
-     * Gets the resource from a {@link Program} and a version, which
-     * may be a range.
-     *
-     * @param program the program
-     * @param version the version
-     * @return the resource
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    public Optional<MavenResource> toResource(Program program, String version)
-            throws IOException {
-        return getOrCreateGroupRepository(program.group).toResource(
-            program, version);
     }
 
 }
