@@ -39,7 +39,6 @@ import aQute.service.reporter.Reporter;
 import de.mnl.osgi.bnd.maven.RepositoryUtils;
 import de.mnl.osgi.bnd.repository.maven.idxmvn.IndexedMavenConfiguration;
 import de.mnl.osgi.bnd.repository.maven.idxmvn.IndexedMavenRepository;
-import de.mnl.osgi.bnd.repository.maven.nexussearch.NexusSearchOsgiRepository;
 
 import java.io.File;
 import java.io.InputStream;
@@ -57,8 +56,8 @@ import org.osgi.service.repository.Repository;
 import org.osgi.util.promise.Promise;
 
 /**
- * Provide a {@link NexusSearchOsgiRepository} as a bnd repository. The interesting
- * work is done by the {@link NexusSearchOsgiRepository}.
+ * Maintains an index of a subset of one or more maven repositories
+ * and provides it as an OSGi repository.
  */
 public class IndexedMavenRepositoryProvider extends BaseRepository
         implements Repository, Plugin, RegistryPlugin, RepositoryPlugin,
