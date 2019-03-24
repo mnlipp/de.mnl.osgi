@@ -1,0 +1,108 @@
+import aQute.bnd.osgi.Processor
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.1.0'
+    }
+}
+
+plugins {
+	id "maven-publish"
+	id "signing"
+	id "org.jdrupes.mdoclet" version "1.0.5"
+	id "com.moowork.node" version "1.2.0"
+	id 'org.ajoberstar.git-publish' version '1.0.1'
+}
+
+ext {
+	isTravisBuild = System.getenv().get("TRAVIS") == 'true'
+    isJitPackBuild = System.getenv().get("JITPACK") == 'true'
+}
+
+// Prepare github authentication for plugins
+if (System.properties['org.ajoberstar.grgit.auth.username'] == null) {
+	System.setProperty('org.ajoberstar.grgit.auth.username',
+		System.getenv("GH_TOKEN") ?: project.properties['github.token'] ?: "nouser")
+}
+
+allprojects {
+    group = 'org.jgrapes'
+    
+    ext.releaseVersion = "1.0.3"
+    ext.isSnapshot = true
+
+    // Default values, can be overridden in subproject
+    version = "${-> releaseVersion + (isSnapshot ? '-SNAPSHOT' : '') }"
+    
+    repositories {
+        jcenter()
+        mavenCentral()
+        // Sometimes, synchronization with central is too slow
+        maven { url 'https://oss.sonatype.org/content/repositories/releases/' }
+        // Snapshots
+        if (isSnapshot) {
+            maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        }
+        // Experimental, not sure if this is the way tpo go...
+        maven { url 'https://jitpack.io' }
+    }
+	
+	// Makes Eclipse-groovy handle *.gradle file properly
+	apply plugin:'groovy'
+}
+
+subprojects {
+    apply from: "${project.rootDir}/gradle/subprojects.gradle"
+}
+
+configurations {
+    javadocTaglets
+}
+
+dependencies {
+    javadocTaglets "org.jdrupes.taglets:plantuml-taglet:1.0.+"
+    // javadocTaglets "com.github.mnlipp:jdrupes-taglets:master-SNAPSHOT"
+}
+
+gitPublish {
+	repoUri = 'https://github.com/mnlipp/jgrapes.git'
+	branch = 'gh-pages'
+	contents {
+		from("${buildDir}/javadoc") {
+			into 'javadoc'
+		}
+		if (!isSnapshot) {
+			from("${buildDir}/javadoc") {
+				into 'latest-release/javadoc'
+			}
+		}
+	}
+	preserve { include '**/*' }
+	commitMessage = "Updated."
+}
+
+// Until https://github.com/ajoberstar/gradle-git-publish/issues/41 is fixed
+tasks.gitPublishCopy.dependsOn(":org.jgrapes.core:javadoc")
+
+task stage {
+	description = 'To be executed by travis, build and update JavaDoc.'
+	group = 'build'
+
+    // Build everything first
+    subprojects.tasks.each { tc -> dependsOn tc.findByName("build") }
+	
+    if (!isTravisBuild || JavaVersion.current().isJava8()) {
+    	// Publish JavaDoc
+    	dependsOn gitPublishPush
+    }	
+}
+
+apply plugin: 'eclipse'
+
+tasks.eclipse.dependsOn(cleanEclipse)
