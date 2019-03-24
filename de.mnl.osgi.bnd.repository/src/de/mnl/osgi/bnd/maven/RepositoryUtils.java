@@ -86,7 +86,6 @@ public final class RepositoryUtils {
      * {@link UndeclaredThrowableException}.
      *
      * @param runnable the runnable
-     * @return the t
      */
     @SuppressWarnings("PMD.AvoidCatchingThrowable")
     public static void unthrow(ThrowingRunnable runnable) {
@@ -128,11 +127,9 @@ public final class RepositoryUtils {
      * Catches {@link UndeclaredThrowableException}s and unwraps
      * any underlying exception of the given type.
      *
-     * @param <T> the return type
      * @param <E> the type of exception that is unwrapped
      * @param rethrown the type of exception that is rethrown
      * @param runnable the runnable
-     * @return the result from invoking the {@code supplier}
      * @throws E the exception type
      */
     @SuppressWarnings({ "unchecked", "PMD.AvoidCatchingGenericException" })

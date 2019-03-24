@@ -21,9 +21,15 @@ package de.mnl.osgi.bnd.repository.maven.idxmvn;
 import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.Processor;
 import aQute.bnd.osgi.repository.ResourcesRepository;
+import aQute.maven.api.Program;
+import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
+import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
+import de.mnl.osgi.bnd.maven.CompositeMavenRepository.BinaryLocation;
+import de.mnl.osgi.bnd.maven.MavenResource;
+
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.rethrow;
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
 
@@ -40,6 +46,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.ConcurrentHashMap;
@@ -70,9 +77,9 @@ import org.w3c.dom.Element;
 public class IndexedMavenRepository extends ResourcesRepository {
 
     /* default */ static ExecutorService programLoaders
-        = Executors.newFixedThreadPool(16);
+        = Executors.newFixedThreadPool(4);
     /* default */ static ExecutorService revisionLoaders
-        = Executors.newFixedThreadPool(16);
+        = Executors.newFixedThreadPool(8);
 
     private static final Logger LOG = LoggerFactory.getLogger(
         IndexedMavenRepository.class);
@@ -85,7 +92,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private final Reporter reporter;
     private final HttpClient client;
     private final ExecutorService groupLoaders
-        = Executors.newFixedThreadPool(16);
+        = Executors.newFixedThreadPool(4);
     private final CompositeMavenRepository mavenRepository;
     private final Map<String, MavenGroupRepository> groups
         = new ConcurrentHashMap<>();
@@ -214,6 +221,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
     @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
         "PMD.AvoidInstantiatingObjectsInLoops", "PMD.AvoidDuplicateLiterals" })
     public boolean refresh() throws Exception {
+        mavenRepository.reset();
         @SuppressWarnings("PMD.UseConcurrentHashMap")
         Map<String, MavenGroupRepository> oldGroups = new HashMap<>(groups);
 
@@ -360,6 +368,55 @@ public class IndexedMavenRepository extends ResourcesRepository {
             reporter.exception(e, "Cannot write federated index: %s",
                 e.getMessage());
         }
+    }
+
+    /**
+     * Gets the resource just like 
+     * {@link CompositeMavenRepository#toResource(BoundRevision, 
+     * CompositeMavenRepository.BinaryLocation)} (called with
+     * {@link BinaryLocation#REMOTE} but uses
+     * {@link MavenGroupRepository#toResource(Revision)}
+     * to profit from the group respository's caching.
+     *
+     * @param revision the version
+     * @return the resource
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public MavenResource toResource(BoundRevision revision)
+            throws IOException {
+        return getOrCreateGroupRepository(revision.groupId())
+            .toResource(revision);
+    }
+
+    /**
+     * Gets the resource just like 
+     * {@link CompositeMavenRepository#toResource(Revision, 
+     * CompositeMavenRepository.BinaryLocation)} (called with
+     * {@link BinaryLocation#REMOTE} but uses
+     * {@link MavenGroupRepository#toResource(Revision)}
+     * to profit from the group respository's caching.
+     *
+     * @param revision the version
+     * @return the resource
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public MavenResource toResource(Revision revision) throws IOException {
+        return getOrCreateGroupRepository(revision.group).toResource(revision);
+    }
+
+    /**
+     * Gets the resource from a {@link Program} and a version, which
+     * may be a range.
+     *
+     * @param program the program
+     * @param version the version
+     * @return the resource
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public Optional<MavenResource> toResource(Program program, String version)
+            throws IOException {
+        return getOrCreateGroupRepository(program.group).toResource(
+            program, version);
     }
 
 }

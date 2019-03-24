@@ -18,7 +18,12 @@
 
 package de.mnl.osgi.bnd.maven;
 
+import aQute.maven.api.IPom.Dependency;
+import aQute.maven.api.Revision;
+
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import org.osgi.resource.Capability;
 import org.osgi.resource.Requirement;
@@ -27,61 +32,64 @@ import org.osgi.resource.Resource;
 /**
  * A resource that is backed by a maven revision.
  */
-public class MavenResource implements Resource {
-
-    private final BoundRevision revision;
-    private final Resource delegee;
+public interface MavenResource {
 
     /**
-     * Instantiates a new maven resource from the given data.
-     *
-     * @param revision the revision
-     * @param resource the delegee
-     */
-    public MavenResource(BoundRevision revision, Resource resource) {
-        this.revision = revision;
-        this.delegee = resource;
-    }
-
-    /**
-     * Gets the revision.
+     * Returns the revision.
      *
      * @return the revision
      */
-    public BoundRevision getRevision() {
-        return revision;
-    }
+    Revision revision();
 
-    @Override
-    public List<Capability> getCapabilities(String namespace) {
-        return delegee.getCapabilities(namespace);
-    }
-
-    @Override
-    public List<Requirement> getRequirements(String namespace) {
-        return delegee.getRequirements(namespace);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof MavenResource) {
-            return delegee.equals(((MavenResource) obj).delegee);
-        }
-        return delegee.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return delegee.hashCode();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
+    /**
+     * Returns the bound revision.
+     *
+     * @return the revision
+     * @throws IOException Signals that an I/O exception has occurred.
      */
+    BoundRevision boundRevision() throws IOException;
+
+    /**
+     * Returns the dependencies.
+     *
+     * @return the dependencies
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    Set<Dependency> dependencies() throws IOException;
+
+    /**
+     * Gets the underlying "ordinary" resource.
+     *
+     * @return the resource
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    Resource asResource() throws IOException;
+
+    /**
+     * Gets the capabilities from the given namespace.
+     *
+     * @param namespace the namespace
+     * @return the capabilities
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    List<Capability> getCapabilities(String namespace) throws IOException;
+
+    /**
+     * Gets the requirements from the given namespace.
+     *
+     * @param namespace the namespace
+     * @return the requirements
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    List<Requirement> getRequirements(String namespace) throws IOException;
+
     @Override
-    public String toString() {
-        return delegee.toString();
-    }
+    boolean equals(Object obj);
+
+    @Override
+    int hashCode();
+
+    @Override
+    String toString();
+
 }

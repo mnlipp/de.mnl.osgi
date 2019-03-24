@@ -32,14 +32,43 @@ import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException
  */
 public class MavenVersionRange {
 
+    public static final MavenVersionRange ALL;
     private org.apache.maven.artifact.versioning.VersionRange range;
+
+    static {
+        org.apache.maven.artifact.versioning.VersionRange range;
+        try {
+            range = org.apache.maven.artifact.versioning.VersionRange
+                .createFromVersionSpec("[0,)");
+        } catch (InvalidVersionSpecificationException e) {
+            // Won't happen (checked).
+            range = null;
+        }
+        ALL = new MavenVersionRange(range);
+    }
+
+    /**
+     * Instantiates a new maven version range from the given range.
+     *
+     * @param range the range
+     */
+    public MavenVersionRange(
+            org.apache.maven.artifact.versioning.VersionRange range) {
+        this.range = range;
+    }
 
     /**
      * Instantiates a new maven version range from the given representation.
+     * If {@code version} is {@code} null it is considered to be
+     * the "all inclusive range" ("[0,)").
      *
      * @param range the range
      */
     public MavenVersionRange(String range) {
+        if (range == null) {
+            this.range = ALL.range;
+            return;
+        }
         try {
             this.range = org.apache.maven.artifact.versioning.VersionRange
                 .createFromVersionSpec(range);
@@ -79,13 +108,15 @@ public class MavenVersionRange {
 
     /**
      * Checks if is the provided version representation is a range.
+     * If {@code version} is {@code} null it is considered to be
+     * the "all inclusive range" ("[0,)").
      *
      * @param version the version
      * @return true, if is range
      */
     public static boolean isRange(String version) {
         if (version == null) {
-            return false;
+            return true;
         }
         version = version.trim();
         return version.startsWith("[") || version.startsWith("(");

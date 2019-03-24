@@ -22,7 +22,6 @@ import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.bnd.osgi.repository.XMLResourceGenerator;
 import aQute.bnd.osgi.repository.XMLResourceParser;
-import aQute.maven.api.IPom;
 import aQute.maven.api.IPom.Dependency;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
@@ -32,8 +31,8 @@ import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository.BinaryLocation;
 import de.mnl.osgi.bnd.maven.MavenResource;
+import de.mnl.osgi.bnd.maven.MavenVersion;
 import de.mnl.osgi.bnd.maven.MavenVersionRange;
-import de.mnl.osgi.bnd.maven.RepositoryUtils;
 
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.rethrow;
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
@@ -50,7 +49,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
@@ -81,7 +79,7 @@ public class MavenGroupRepository extends ResourcesRepository {
 
     /** Indexing state. */
     private enum IndexingState {
-        NONE, EXCL_BY_DEP, INDEXING, INDEXED
+        NONE, FAILED, EXCL_BY_DEP, INDEXING, INDEXED
     }
 
     private static final Set<IndexingState> INDEXING_OR_INDEXED
@@ -99,12 +97,15 @@ public class MavenGroupRepository extends ResourcesRepository {
     private final Properties groupProps;
     private final Map<String, String> propQueryCache
         = new ConcurrentHashMap<>();
+    private final Map<Revision, MavenResource> resourceCache
+        = new ConcurrentHashMap<>();
     private final Map<Revision, IndexingState> indexingState
         = new ConcurrentHashMap<>();
     private boolean propsChanged;
     private boolean indexChanged;
     private ResourcesRepository backupRepo;
-    private final Pattern hrefPattern = Pattern.compile(
+    @SuppressWarnings("PMD.FieldNamingConventions")
+    private static final Pattern hrefPattern = Pattern.compile(
         "<[aA]\\s+(?:[^>]*?\\s+)?href=(?<quote>[\"'])"
             + "(?<href>[a-zA-Z].*?)\\k<quote>");
 
@@ -217,6 +218,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         }
         backupRepo = null;
         indexingState.clear();
+        resourceCache.clear();
     }
 
     /**
@@ -276,6 +278,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             // Clear remaining caches.
             indexingState.clear();
             propQueryCache.clear();
+            resourceCache.clear();
         }
     }
 
@@ -378,24 +381,22 @@ public class MavenGroupRepository extends ResourcesRepository {
                 }
             }
             try {
-                Optional<MavenResource> resource = toResource(revision);
-                if (!resource.isPresent()) {
+                MavenResource resource = toResource(revision);
+                Set<MavenResource> allDeps = new HashSet<>();
+                if (!isIndexable(resource, allDeps, inForced)) {
                     return;
                 }
-                Set<BoundRevision> deps = new HashSet<>();
-                if (isIndexable(revision, deps, inForced)) {
-                    if (isBundle(resource.get())) {
-                        addResource(resource.get());
-                    }
-                    rethrow(IOException.class, () -> deps.stream()
-                        .map(dep -> toResource(dep))
-                        .filter(Optional::isPresent).map(Optional::get)
-                        .filter(this::isBundle)
-                        .forEach(res -> unthrow(() -> indexedRepository
-                            .getOrCreateGroupRepository(
-                                res.getRevision().groupId())
-                            .addResource(res))));
+                if (isBundle(resource)) {
+                    addResource(resource);
                 }
+                rethrow(IOException.class, () -> allDeps.stream()
+                    .filter(res -> unthrow(() -> isBundle(res)))
+                    .filter(res -> indexingState.getOrDefault(
+                        res.revision(),
+                        IndexingState.NONE) == IndexingState.NONE)
+                    .forEach(res -> unthrow(() -> indexedRepository
+                        .getOrCreateGroupRepository(res.revision().group)
+                        .addResource(res))));
             } catch (Exception e) {
                 // Load "in isolation", don't propagate individual failure.
                 reporter.exception(e, "Failed to load %s: %s", revision,
@@ -406,7 +407,7 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     @SuppressWarnings("PMD.PositionLiteralsFirstInComparisons")
-    private boolean isBundle(Resource resource) {
+    private boolean isBundle(MavenResource resource) throws IOException {
         return resource.getCapabilities("osgi.identity").stream()
             .map(cap -> cap.getAttributes().keySet().stream())
             .flatMap(Function.identity())
@@ -453,167 +454,185 @@ public class MavenGroupRepository extends ResourcesRepository {
      * indexable if it is not excluded and its dependencies aren't
      * excluded either.
      *
-     * @param revision the revision to check
+     * @param resource the resource to check
      * @param dependencies revisions that must additionally be included
      *    when the checked revision is added
      * @param ignoreExcludedDependencies evaluate as indexable even
      *    if some dependencies aren't indexable
      * @return true, if the revision can be added to the index
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings({ "PMD.LongVariable", "PMD.NPathComplexity" })
-    public boolean isIndexable(BoundRevision revision,
-            Set<BoundRevision> dependencies,
-            boolean ignoreExcludedDependencies) throws IOException {
-        if (!revision.groupId().equals(groupId)) {
+    private boolean isIndexable(MavenResource resource,
+            Set<MavenResource> dependencies,
+            boolean ignoreExcludedDependencies) {
+        Revision revision = resource.revision();
+        if (!revision.group.equals(groupId)) {
             throw new IllegalArgumentException("Wrong groupId "
-                + revision.groupId() + " (must be " + groupId + ").");
+                + revision.group + " (must be " + groupId + ").");
         }
         // Check if already there (or being added)
         if (INDEXING_OR_INDEXED.contains(indexingState
-            .getOrDefault(revision.unbound(), IndexingState.NONE))) {
+            .getOrDefault(revision, IndexingState.NONE))) {
             // Obviously indexable and no additional resources needed.
             return true;
         }
         // Check if excluded by rule.
         if (Optional.ofNullable(
-            searchProperty(revision.artifactId(), "exclude"))
+            searchProperty(revision.artifact, "exclude"))
             .map(MavenVersionRange::parseRange)
-            .map(range -> range.includes(revision.version()))
+            .map(range -> range.includes(MavenVersion.from(revision.version)))
             .orElse(false)) {
             return false;
         }
+        // Check if has been found un-indexable before
         if (!ignoreExcludedDependencies
-            && indexingState.getOrDefault(revision.unbound(),
+            && indexingState.getOrDefault(revision,
                 IndexingState.NONE) == IndexingState.EXCL_BY_DEP) {
-            // Has been found un-indexable before
             return false;
         }
         // Check whether excluded because dependency is excluded
-        Set<Dependency> childDeps = new HashSet<>();
-        collectDependencies(revision, childDeps);
-        for (IPom.Dependency dep : childDeps) {
-            Optional<BoundRevision> boundDep;
+        Set<Dependency> deps;
+        try {
+            deps = resource.dependencies();
+        } catch (IOException e) {
+            // Failing to get the dependencies is no reason to fail.
+            return true;
+        }
+        for (Dependency dep : deps) {
+            MavenGroupRepository depRepo;
             try {
-                boundDep = indexedRepository.mavenRepository().toBoundRevision(
-                    dep.program, dep.version);
+                depRepo = indexedRepository
+                    .getOrCreateGroupRepository(dep.program.group);
             } catch (IOException e) {
-                reporter.exception(e, "Cannot get revision for %s:%s.",
-                    dep.program, dep.version);
                 continue;
             }
-            if (!boundDep.isPresent()) {
+            Optional<MavenResource> depRes;
+            try {
+                depRes
+                    = indexedRepository.toResource(dep.program, dep.version);
+            } catch (IOException e) {
                 continue;
             }
-            MavenGroupRepository depRepo = indexedRepository
-                .getOrCreateGroupRepository(dep.program.group);
-            if (!depRepo.isIndexable(boundDep.get(), dependencies,
+            if (!depRes.isPresent()) {
+                continue;
+            }
+            if (!depRepo.isIndexable(depRes.get(), dependencies,
                 ignoreExcludedDependencies)) {
                 // Not that the revision to check is not indexable
                 // due to a dependency that is not indexable
-                indexingState.put(revision.unbound(),
-                    IndexingState.EXCL_BY_DEP);
+                indexingState.put(revision, IndexingState.EXCL_BY_DEP);
                 if (!ignoreExcludedDependencies) {
                     return false;
                 }
             }
-            dependencies.add(boundDep.get());
+            dependencies.add(depRes.get());
         }
         return true;
     }
 
     /**
-     * Adds the specified revision unless it matches an exclude.
+     * Adds the specified revision.
      *
      * @param revision the revision to add
      */
-    private void addResource(MavenResource resource) {
+    private void addResource(MavenResource resource) throws IOException {
         synchronized (indexingState) {
-            if (indexingState.getOrDefault(resource.getRevision().unbound(),
+            if (indexingState.getOrDefault(resource.revision(),
                 IndexingState.NONE) == IndexingState.INDEXED) {
                 return;
             }
-            add(resource);
-            indexingState.put(resource.getRevision().unbound(),
-                IndexingState.INDEXED);
+            add(resource.asResource());
+            indexingState.put(resource.revision(), IndexingState.INDEXED);
         }
         indexChanged = true;
     }
 
     /**
-     * Collects the revisions that are immediate dependencies 
-     * of the revision passed as argument. This method uses
-     * any cached information first before resorting to
-     * {@link CompositeMavenRepository#toResource(BoundRevision, 
-     * CompositeMavenRepository.DependencyHandler, BinaryLocation)}.
+     * Similar to 
+     * {@link CompositeMavenRepository#toResource(BoundRevision, BinaryLocation)}
+     * (with location {@link BinaryLocation#REMOTE}) but checks backup first.
      *
-     * @param revision the revision to examine
-     * @param dependencies the dependencies
+     * @param revision the revision
+     * @return the maven resource
+     * @throws IOException Signals that an I/O exception has occurred.
      */
-    @SuppressWarnings({ "PMD.AssignmentInOperand", "PMD.ConfusingTernary" })
-    public void collectDependencies(BoundRevision revision,
-            Collection<Dependency> dependencies) {
-        List<Capability> cap = null;
-        if (backupRepo != null && !(cap = backupRepo.findProvider(
-            backupRepo.newRequirementBuilder("bnd.info")
-                .addDirective("filter", String.format("(from=%s)",
-                    revision.unbound().toString()))
-                .build())).isEmpty()) {
-            restoreDependencies(cap.get(0).getResource(), dependencies);
-        } else {
-            // Extract information from artifact.
-            indexedRepository.mavenRepository().toResource(revision,
-                deps -> dependencies.addAll(deps), BinaryLocation.REMOTE);
+    public MavenResource toResource(Revision revision) throws IOException {
+        if (!revision.group.equals(groupId)) {
+            return indexedRepository.toResource(revision);
         }
+        return resourceCache.computeIfAbsent(revision,
+            rev -> Optional.ofNullable(backupRepo)
+                .flatMap(repo -> searchInRepository(repo, rev))
+                .map(res -> indexedRepository.mavenRepository()
+                    .toResource(rev, res))
+                .orElse(indexedRepository.mavenRepository()
+                    .toResource(rev, BinaryLocation.REMOTE)));
     }
 
     /**
-     * Similar to {@link CompositeMavenRepository#toResource}
+     * Similar to 
+     * {@link CompositeMavenRepository#toResource(BoundRevision, BinaryLocation)}
      * but checks backup first.
      *
      * @param revision the revision
      * @return the maven resource
+     * @throws IOException Signals that an I/O exception has occurred.
      */
-    private Optional<MavenResource> toResource(BoundRevision revision) {
-        MavenResource resource = null;
-        if (backupRepo != null) {
-            List<Capability> cap = backupRepo.findProvider(
-                backupRepo.newRequirementBuilder("bnd.info")
-                    .addDirective("filter", String.format("(from=%s)",
-                        revision.unbound().toString()))
-                    .build());
-            if (!cap.isEmpty()) {
-                // Reuse existing
-                resource
-                    = new MavenResource(revision, cap.get(0).getResource());
-            }
+    public MavenResource toResource(BoundRevision revision)
+            throws IOException {
+        if (!revision.groupId().equals(groupId)) {
+            indexedRepository.toResource(revision);
         }
-        if (resource == null) {
-            // Extract information from artifact.
-            resource = indexedRepository.mavenRepository()
-                .toResource(revision, deps -> {
-                }, BinaryLocation.REMOTE).orElse(null);
-        }
-        return Optional.ofNullable(resource);
+        return resourceCache.computeIfAbsent(revision.unbound(),
+            rev -> Optional.ofNullable(backupRepo)
+                .flatMap(repo -> searchInRepository(repo, rev))
+                .map(res -> indexedRepository.mavenRepository()
+                    .toResource(revision, res))
+                .orElse(indexedRepository.mavenRepository()
+                    .toResource(revision, BinaryLocation.REMOTE)));
     }
 
-    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    private void restoreDependencies(Resource resource,
-            Collection<Dependency> dependencies) {
-        // Actually, there should be only one such capability per resource.
-        for (Capability capability : resource
-            .getCapabilities(CompositeMavenRepository.MAVEN_DEPENDENCIES_NS)) {
-            Map<String, Object> depAttrs = capability.getAttributes();
-            depAttrs.values().stream()
-                .flatMap(val -> RepositoryUtils.itemizeList((String) val))
-                .map(rev -> {
-                    String[] parts = rev.split(":");
-                    IPom.Dependency dep = new IPom.Dependency();
-                    dep.program = Program.valueOf(parts[0], parts[1]);
-                    dep.version = parts[2];
-                    return dep;
-                }).forEach(dependencies::add);
+    /**
+     * Checks indexing cache and if not found, binds to revision
+     * and calls {@link #toResource(BoundRevision)}.
+     *
+     * @param program the program
+     * @param version the version
+     * @return the maven resource
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public Optional<MavenResource> toResource(Program program,
+            String version) throws IOException {
+        if (indexingState.getOrDefault(cacheable(program, version),
+            IndexingState.NONE) == IndexingState.FAILED) {
+            return Optional.empty();
         }
+        if (!program.group.equals(groupId)) {
+            indexedRepository.toResource(program, version);
+        }
+        if (!MavenVersionRange.isRange(version)) {
+            return Optional.of(toResource(program.version(version)));
+        }
+        try {
+            return rethrow(IOException.class,
+                () -> indexedRepository.mavenRepository()
+                    .toBoundRevision(program, version)
+                    .map(revision -> unthrow(() -> toResource(revision))));
+        } catch (IOException e) {
+            indexingState.put(cacheable(program, version),
+                IndexingState.FAILED);
+            throw e;
+        }
+    }
+
+    private Optional<Resource> searchInRepository(
+            ResourcesRepository repository, Revision revision) {
+        return repository
+            .findProvider(repository.newRequirementBuilder("bnd.info")
+                .addDirective("filter",
+                    String.format("(from=%s)", revision.toString()))
+                .build())
+            .stream().findFirst().map(Capability::getResource);
     }
 
     @SuppressWarnings("PMD.CompareObjectsWithEquals")
@@ -661,6 +680,13 @@ public class MavenGroupRepository extends ResourcesRepository {
     @Override
     public String toString() {
         return "MavenGroupRepository [groupId=" + groupId + "]";
+    }
+
+    private static Revision cacheable(Program program, String version) {
+        if (version == null) {
+            return program.version("[0,)");
+        }
+        return program.version(version);
     }
 
 }
