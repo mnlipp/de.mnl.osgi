@@ -1,5 +1,13 @@
 # de.mnl.osgi.bnd.repository
 
+## Indexed Maven Repository
+
+The Indexed Maven Repository Plugin maintains an index of a subset 
+of one or more maven repositories and provides the information
+as an OSGi repository for building and resolving.
+
+The plugin has a [documentation page of its own](https://mnlipp.github.io/de.mnl.osgi/IndexedMavenRepository.html).
+
 ## NexusSearchRepositoryProvider
 
 A plugin for the [bnd](http://bnd.bndtools.org/) tool that provides
