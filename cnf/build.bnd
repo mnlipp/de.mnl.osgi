@@ -80,6 +80,8 @@
 Git-Descriptor:           ${system-allow-fail;git describe --dirty --always}
 Git-SHA:                  ${system-allow-fail;git rev-list -1 HEAD}
 
+-diffignore: Git-Descriptor, Git-SHA
+
 # JUnit
 junit: org.apache.servicemix.bundles.junit; version=4.12.0.1
 mockito: org.mockito.mockito-core; version=2.24.0
