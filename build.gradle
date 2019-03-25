@@ -41,7 +41,13 @@ gitPublish {
 			def javadocTask = subproject.tasks.findByName("javadoc")  
 			if (javadocTask) {
 				from(javadocTask) {
-					into subproject.name + '/javadoc'
+						into subproject.name + '/javadoc-latest'
+				}
+				// Releases only
+				if (!subproject.version.contains("SNAPSHOT")) {
+					from(javadocTask) {
+						into subproject.name + '/javadoc'
+					}
 				}
 			}
 		}
