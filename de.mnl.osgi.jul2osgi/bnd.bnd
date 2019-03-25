@@ -1,14 +1,14 @@
 Bundle-Name: JUL to OSGi Logging Forwarder
 # Choose either depending on whether we build a snapshot or a release:
-Bundle-Version: 1.4.1.-${tstamp}-SNAPSHOT
-#Bundle-Version: 1.4.0.ga
+#Bundle-Version: 1.4.1.-${tstamp}-SNAPSHOT
+Bundle-Version: 1.4.1.ga
 
 -buildpath: \
 	osgi.annotation; version=6.0.1,\
 	osgi.core; version=6.0,\
 	org.osgi.service.log;version='[1.4,2)',\
-	de.mnl.osgi.coreutils; version='[1.0.1,1.0.2)',\
-	de.mnl.osgi.jul2osgi.lib; version='[1.4.0,1.5.0)'
+	de.mnl.osgi.coreutils; version=latest,\
+	de.mnl.osgi.jul2osgi.lib; version=latest
 
 -testpath: \
 	${junit}
