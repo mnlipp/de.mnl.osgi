@@ -72,10 +72,14 @@ public final class RepositoryUtils {
      * @param supplier the supplier
      * @return the t
      */
-    @SuppressWarnings("PMD.AvoidCatchingThrowable")
+    @SuppressWarnings({ "PMD.AvoidCatchingThrowable",
+        "PMD.AvoidCatchingGenericException", "PMD.AvoidRethrowingException",
+        "PMD.AvoidDuplicateLiterals" })
     public static <T> T unthrow(Callable<T> supplier) {
         try {
             return supplier.call();
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Throwable t) {
             throw new UndeclaredThrowableException(t);
         }
@@ -87,10 +91,13 @@ public final class RepositoryUtils {
      *
      * @param runnable the runnable
      */
-    @SuppressWarnings("PMD.AvoidCatchingThrowable")
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
+        "PMD.AvoidRethrowingException", "PMD.AvoidCatchingThrowable" })
     public static void unthrow(ThrowingRunnable runnable) {
         try {
             runnable.run();
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Throwable t) {
             throw new UndeclaredThrowableException(t);
         }
@@ -107,7 +114,8 @@ public final class RepositoryUtils {
      * @return the result from invoking the {@code supplier}
      * @throws E the exception type
      */
-    @SuppressWarnings({ "unchecked", "PMD.AvoidCatchingGenericException" })
+    @SuppressWarnings({ "unchecked", "PMD.AvoidCatchingGenericException",
+        "PMD.AvoidRethrowingException" })
     public static <T, E extends Throwable> T rethrow(Class<E> rethrown,
             Callable<T> supplier) throws E {
         try {
@@ -117,6 +125,8 @@ public final class RepositoryUtils {
                 .isAssignableFrom(e.getUndeclaredThrowable().getClass())) {
                 throw (E) e.getUndeclaredThrowable();
             }
+            throw e;
+        } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
             throw new UndeclaredThrowableException(e);
