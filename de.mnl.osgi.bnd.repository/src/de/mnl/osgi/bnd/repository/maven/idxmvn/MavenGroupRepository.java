@@ -39,7 +39,6 @@ import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -98,7 +97,6 @@ public class MavenGroupRepository extends ResourcesRepository {
         = new ConcurrentHashMap<>();
     private final Map<Revision, IndexingState> indexingState
         = new ConcurrentHashMap<>();
-    private boolean propsChanged;
     private boolean indexChanged;
     private ResourcesRepository backupRepo;
     @SuppressWarnings("PMD.FieldNamingConventions")
@@ -133,18 +131,15 @@ public class MavenGroupRepository extends ResourcesRepository {
         // Prepare directory and files
         groupPropsPath = directory.resolve("group.properties");
         groupProps = new Properties();
-        // If directory does not exist, it's not from a request.
+        // If directory does not exist, create it.
         if (!directory.toFile().exists()) {
             directory.toFile().mkdir();
-            propsChanged = true;
         } else {
-            // Directory exists, either as newly created or as "old"
+            // Directory exists, check if we have properties.
             if (groupPropsPath.toFile().canRead()) {
                 try (InputStream input = Files.newInputStream(groupPropsPath)) {
                     groupProps.load(input);
                 }
-            } else {
-                propsChanged = true;
             }
         }
 
@@ -187,12 +182,6 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public void flush() throws IOException {
-        if (propsChanged) {
-            try (OutputStream out = Files.newOutputStream(groupPropsPath)) {
-                groupProps.store(out, "Group properties");
-            }
-            propsChanged = false;
-        }
         if (indexChanged && backupRepo != null) {
             // Only a rough guess, verify to avoid unnecessary new versions
             // of the generated file.
