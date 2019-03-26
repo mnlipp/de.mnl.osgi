@@ -54,6 +54,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -76,6 +77,7 @@ public class CompositeMavenRepository extends MavenRepository
     /** The namespace used to store the maven dependencies information. */
     public static final String MAVEN_DEPENDENCIES_NS
         = "maven.dependencies.info";
+    public static final Pattern COORDS_SPLITTER = Pattern.compile("\\s*;\\s*");
     private final Reporter reporter;
     private Function<Revision, Optional<Resource>> resourceSupplier
         = resource -> Optional.empty();
@@ -373,7 +375,7 @@ public class CompositeMavenRepository extends MavenRepository
                 CompositeMavenRepository.MAVEN_DEPENDENCIES_NS)) {
             Map<String, Object> depAttrs = capability.getAttributes();
             depAttrs.values().stream()
-                .flatMap(val -> RepositoryUtils.itemizeList((String) val))
+                .flatMap(val -> COORDS_SPLITTER.splitAsStream((String) val))
                 .map(rev -> {
                     String[] parts = rev.split(":");
                     IPom.Dependency dep = new IPom.Dependency();
@@ -600,7 +602,7 @@ public class CompositeMavenRepository extends MavenRepository
             StringBuilder depsList = new StringBuilder("");
             for (IPom.Dependency dep : deps) {
                 if (depsList.length() > 0) {
-                    depsList.append(',');
+                    depsList.append(';');
                 }
                 depsList.append(dep.program.toString());
                 depsList.append(':');
