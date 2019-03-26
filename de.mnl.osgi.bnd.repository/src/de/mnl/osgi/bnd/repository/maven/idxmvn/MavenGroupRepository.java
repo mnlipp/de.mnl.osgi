@@ -34,6 +34,7 @@ import de.mnl.osgi.bnd.maven.MavenVersion;
 import de.mnl.osgi.bnd.maven.MavenVersionRange;
 
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.rethrow;
+import static de.mnl.osgi.bnd.maven.RepositoryUtils.runIgnoring;
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
 
 import java.io.File;
@@ -308,42 +309,46 @@ public class MavenGroupRepository extends ResourcesRepository {
         indexChanged = true;
     }
 
-    @SuppressWarnings("PMD.ForLoopCanBeForeach")
     private CompletableFuture<Void> loadProgram(Program program) {
         // Get revisions of program and process.
         CompletableFuture<Void> result = new CompletableFuture<>();
         IndexedMavenRepository.programLoaders.submit(() -> {
+            Stream<CompletableFuture<Void>> revLoaderStream;
             try {
-                Stream<CompletableFuture<Void>> revLoaderStream
-                    = indexedRepository.mavenRepository()
-                        .boundRevisions(program).parallel()
-                        .map(revision -> loadRevision(revision));
-                try {
-                    for (CompletableFuture<Void> revLoad : (Iterable<
-                            CompletableFuture<
-                                    Void>>) revLoaderStream::iterator) {
-                        revLoad.get();
-                    }
-                } catch (InterruptedException e) {
-                    result.completeExceptionally(e);
-                    return;
-                } catch (ExecutionException e) {
-                    result.completeExceptionally(e.getCause());
-                    return;
-                }
-                result.complete(null);
+                LOG.debug("Getting list of revisions of {}.", program);
+                revLoaderStream = indexedRepository.mavenRepository()
+                    .boundRevisions(program)
+                    .map(revision -> loadRevision(revision));
             } catch (IOException e) {
-                result.completeExceptionally(e);
+                reporter.exception(e,
+                    "Failed to get list of revisions of %s: %s", program,
+                    e.getMessage());
+                result.complete(null);
+                return;
             }
+            // Ignore exceptions from loadRevision, there won't be any.
+            revLoaderStream.forEach(
+                revLoad -> unthrow(() -> revLoad.handle((res, thrw) -> {
+                    return null;
+                }).get()));
+            result.complete(null);
         });
         return result;
     }
 
+    /**
+     * Load the revision asynchronously. Calling 
+     * {@link CompletableFuture#get()} never returns an exception. 
+     *
+     * @param revision the revision
+     * @return the completable future
+     */
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
         "PMD.AvoidDuplicateLiterals",
         "PMD.PositionLiteralsFirstInComparisons" })
     private CompletableFuture<Void> loadRevision(BoundRevision revision) {
         return CompletableFuture.runAsync(() -> {
+            LOG.debug("Loading revision {}.", revision.unbound());
             if (indexingState.getOrDefault(revision.unbound(),
                 IndexingState.NONE) != IndexingState.NONE) {
                 // Already loading or handled (as dependency)
@@ -375,17 +380,16 @@ public class MavenGroupRepository extends ResourcesRepository {
                     addResource(resource);
                 }
                 rethrow(IOException.class, () -> allDeps.stream()
-                    .filter(res -> unthrow(() -> isBundle(res)))
-                    .filter(res -> indexingState.getOrDefault(
-                        res.revision(),
+                    .filter(res -> runIgnoring(() -> isBundle(res), false))
+                    .filter(res -> indexingState.getOrDefault(res.revision(),
                         IndexingState.NONE) == IndexingState.NONE)
-                    .forEach(res -> unthrow(() -> indexedRepository
+                    .forEach(res -> runIgnoring(() -> indexedRepository
                         .getOrCreateGroupRepository(res.revision().group)
                         .addResource(res))));
             } catch (Exception e) {
                 // Load "in isolation", don't propagate individual failure.
-                reporter.exception(e, "Failed to load %s: %s", revision,
-                    e.getMessage());
+                reporter.exception(e, "Failed to load revision %s: %s",
+                    revision, e.getMessage());
             }
         }, IndexedMavenRepository.revisionLoaders);
 
@@ -446,7 +450,8 @@ public class MavenGroupRepository extends ResourcesRepository {
      *    if some dependencies aren't indexable
      * @return true, if the revision can be added to the index
      */
-    @SuppressWarnings({ "PMD.LongVariable", "PMD.NPathComplexity" })
+    @SuppressWarnings({ "PMD.LongVariable", "PMD.NPathComplexity",
+        "PMD.AvoidCatchingGenericException" })
     private boolean isIndexable(MavenResource resource,
             Set<MavenResource> dependencies,
             boolean ignoreExcludedDependencies) {
@@ -495,15 +500,17 @@ public class MavenGroupRepository extends ResourcesRepository {
             try {
                 depRes = indexedRepository.mavenRepository().toResource(
                     dep.program, dep.version, BinaryLocation.REMOTE);
-            } catch (IOException e) {
+            } catch (Exception e) {
+                // Failing to get a dependency is no reason to fail.
                 continue;
             }
             if (!depRes.isPresent()) {
+                // Failing to get a dependency is no reason to fail.
                 continue;
             }
             if (!depRepo.isIndexable(depRes.get(), dependencies,
                 ignoreExcludedDependencies)) {
-                // Not that the revision to check is not indexable
+                // Note that the revision which was checked is not indexable
                 // due to a dependency that is not indexable
                 indexingState.put(revision, IndexingState.EXCL_BY_DEP);
                 if (!ignoreExcludedDependencies) {

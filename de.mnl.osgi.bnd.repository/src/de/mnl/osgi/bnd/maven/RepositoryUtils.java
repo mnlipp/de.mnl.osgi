@@ -50,6 +50,39 @@ public final class RepositoryUtils {
     }
 
     /**
+     * Run ignoring any throwable.
+     *
+     * @param runnable the function to be executed
+     */
+    @SuppressWarnings({ "PMD.AvoidCatchingThrowable", "PMD.EmptyCatchBlock",
+        "PMD.AvoidDuplicateLiterals" })
+    public static void runIgnoring(ThrowingRunnable runnable) {
+        try {
+            runnable.run();
+        } catch (Throwable t) {
+            // Ignored
+        }
+    }
+
+    /**
+     * Run ignoring any throwable. If an exception occurs, the
+     * fallback value is returned.
+     *
+     * @param <T> the return type
+     * @param callable the function to be executed
+     * @param fallback the fallback value
+     * @return the t
+     */
+    @SuppressWarnings({ "PMD.AvoidCatchingThrowable", "PMD.EmptyCatchBlock" })
+    public static <T> T runIgnoring(Callable<T> callable, T fallback) {
+        try {
+            return callable.call();
+        } catch (Throwable t) {
+            return fallback;
+        }
+    }
+
+    /**
      * A runnable that may throw an exception.
      */
     @FunctionalInterface
