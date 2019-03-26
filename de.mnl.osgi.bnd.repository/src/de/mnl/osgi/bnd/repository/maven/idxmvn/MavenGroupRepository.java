@@ -484,7 +484,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         Set<Dependency> deps;
         try {
             deps = resource.dependencies();
-        } catch (IOException e) {
+        } catch (Exception e) {
             // Failing to get the dependencies is no reason to fail.
             return true;
         }
@@ -493,7 +493,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             try {
                 depRepo = indexedRepository
                     .getOrCreateGroupRepository(dep.program.group);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 continue;
             }
             Optional<MavenResource> depRes;
