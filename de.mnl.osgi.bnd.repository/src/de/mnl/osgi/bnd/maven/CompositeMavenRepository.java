@@ -429,13 +429,6 @@ public class CompositeMavenRepository extends MavenRepository
             .map(revision -> toResource(revision, location));
     }
 
-    private static Revision cacheable(Program program, String version) {
-        if (version == null) {
-            return program.version("[0,)");
-        }
-        return program.version(version);
-    }
-
     /**
      * A maven resource that obtains its information
      * lazily from a {@link CompositeMavenRepository}.
