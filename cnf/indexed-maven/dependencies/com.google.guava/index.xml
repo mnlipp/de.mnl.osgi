@@ -1,0 +1,360 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553806566875">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="com.google.guava"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.google.guava"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.google.guava"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation,com.google.common.base,com.google.common.hash,com.google.common.io,com.google.common.primitives,com.google.common.collect,com.google.common.escape"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.net"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.escape,javax.annotation"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.html"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,javax.annotation,com.google.common.primitives,com.google.common.math"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.collect"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation,com.google.common.base,sun.misc"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.primitives"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.base"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,javax.annotation"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.escape"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.collect,com.google.common.util.concurrent,javax.annotation,com.google.common.base,com.google.common.primitives,sun.misc"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.cache"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.collect,com.google.common.cache,javax.annotation,com.google.common.base,com.google.common.util.concurrent,com.google.common.reflect"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.eventbus"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,javax.annotation,com.google.common.collect,com.google.common.primitives,com.google.common.math"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.util.concurrent"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.primitives,com.google.common.base,javax.annotation,com.google.common.math"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.hash"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation,com.google.common.base,com.google.common.math,com.google.common.hash,com.google.common.collect,com.google.common.primitives"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.escape,javax.annotation"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.xml"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation,com.google.common.base,com.google.common.collect,com.google.common.primitives"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.reflect"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,com.google.common.primitives,javax.annotation"/>
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.math"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.annotations"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="2228009" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/guava/guava/16.0.1/guava-16.0.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="A896857D07845D38C7DC5BBC0457B6D9B0F62ECFFDA010E5E9EC12D561F676D3"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.google.guava:guava:16.0.1"/>
+      <attribute name="from" value="com.google.guava:guava:16.0.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="com.google.code.findbugs:jsr305:1.3.9"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.annotation))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.inject))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=sun.misc))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="com.google.guava"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="documentation" value="https://guava-libraries.googlecode.com/"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.google.guava"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.google.guava"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation,com.google.common.base,com.google.common.hash,com.google.common.io,com.google.common.primitives,com.google.common.collect,com.google.common.escape"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.net"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.escape,javax.annotation"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.html"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,javax.annotation,com.google.common.primitives,com.google.common.math"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.collect"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,javax.annotation,sun.misc"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.primitives"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.base"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,javax.annotation"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.escape"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.collect,com.google.common.util.concurrent,javax.annotation,com.google.common.base,com.google.common.primitives,sun.misc"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.cache"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.collect,com.google.common.cache,javax.annotation,com.google.common.base,com.google.common.util.concurrent,com.google.common.reflect"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.eventbus"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,javax.annotation,com.google.common.collect,com.google.common.primitives,com.google.common.math"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.util.concurrent"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.primitives,com.google.common.base,javax.annotation,com.google.common.math"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.hash"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation,com.google.common.base,com.google.common.math,com.google.common.hash,com.google.common.collect,com.google.common.primitives"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.escape,javax.annotation"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.xml"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation,com.google.common.base,com.google.common.collect,com.google.common.primitives"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.reflect"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,com.google.common.primitives,javax.annotation"/>
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.math"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="18.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.annotations"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="2256213" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/guava/guava/18.0/guava-18.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="D664FBFC03D2E5CE9CAB2A44FB01F1D0BF9DFEBECCC1A473B1F9EA31F79F6F99"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.google.guava:guava:18.0"/>
+      <attribute name="from" value="com.google.guava:guava:18.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="com.google.code.findbugs:jsr305:1.3.9"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.annotation))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=sun.misc))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="com.google.guava"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="documentation" value="https://github.com/google/guava/"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.google.guava"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.google.guava"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.annotations"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.base"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,com.google.common.collect,com.google.common.util.concurrent,javax.annotation"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.cache"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,javax.annotation"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.collect"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,javax.annotation"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.escape"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.eventbus"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.collect,javax.annotation"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.graph"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,javax.annotation"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.hash"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.escape"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.html"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,com.google.common.collect,com.google.common.hash,javax.annotation"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.math"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,com.google.common.collect,com.google.common.escape,javax.annotation"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.net"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,javax.annotation"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.primitives"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.collect,com.google.common.io,javax.annotation"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.reflect"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.base,com.google.common.collect,javax.annotation"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.util.concurrent"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.common.escape"/>
+      <attribute name="version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.xml"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="2442625" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/guava/guava/20.0/guava-20.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="36A666E3B71AE7F0F0DCA23654B67E086E6C93D192F60BA5DFD5519DB6C288C8"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.google.guava:guava:20.0"/>
+      <attribute name="from" value="com.google.guava:guava:20.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="com.google.errorprone:error_prone_annotations:2.0.12;com.google.code.findbugs:jsr305:1.3.9;org.codehaus.mojo:animal-sniffer-annotations:1.14;com.google.j2objc:j2objc-annotations:1.1"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.annotation))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.crypto))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.crypto.spec))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=sun.misc))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
+    </requirement>
+  </resource>
+</repository>

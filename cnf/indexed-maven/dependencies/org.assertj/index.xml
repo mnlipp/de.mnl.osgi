@@ -1,0 +1,357 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553805246070">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.assertj.core"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="documentation" value="joel-costigliola.github.io/assertj/index.html"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.assertj.core"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.assertj.core"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api.filter,org.assertj.core.api.iterable,org.assertj.core.condition,org.assertj.core.data,org.assertj.core.description,org.assertj.core.error,org.assertj.core.groups,org.assertj.core.internal,org.assertj.core.internal.bytebuddy.implementation.bind.annotation,org.assertj.core.presentation,org.hamcrest,org.junit.jupiter.api.extension,org.junit.rules,org.junit.runner,org.junit.runners.model"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.exception"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.filter"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.iterable"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.condition"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.presentation"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.configuration"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.data"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.description"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api,org.assertj.core.data,org.assertj.core.description,org.assertj.core.internal,org.assertj.core.presentation,org.assertj.core.util.diff"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.error"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error.future"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.error"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error.uri"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api.iterable,org.assertj.core.groups"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.extractor"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api.iterable"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.groups"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api,org.assertj.core.data,org.assertj.core.error,org.assertj.core.presentation,org.assertj.core.util.diff"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline,org.assertj.core.internal.bytebuddy.dynamic.scaffold.subclass,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.attribute,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.matcher"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.asm,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.loading,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.pool,org.assertj.core.internal.bytebuddy.utility"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.agent.builder"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.enumeration,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.pool,org.assertj.core.internal.bytebuddy.utility.visitor"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.asm"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.matcher"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.build"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.matcher"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.enumeration,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.matcher"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description.annotation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.type"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description.enumeration"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.matcher"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description.field"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.matcher"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description.method"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description.modifier"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm.signature,org.assertj.core.internal.bytebuddy.matcher"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description.type"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.asm,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic.loading,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.attribute,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.pool,org.assertj.core.internal.bytebuddy.utility"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.dynamic"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.utility"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.dynamic.loading"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.asm,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.attribute,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.jar.asm.commons,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.pool,org.assertj.core.internal.bytebuddy.utility.visitor"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.dynamic.scaffold"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.asm,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.attribute,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.pool"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.asm,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.attribute,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.pool"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.dynamic.scaffold.subclass"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.enumeration,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation.attribute,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.implementation.bind,org.assertj.core.internal.bytebuddy.implementation.bind.annotation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.utility"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.jar.asm"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.attribute"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.auxiliary"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bind"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.implementation.bind,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bind.annotation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.jar.asm"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode.assign"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode.assign.primitive"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode.assign.reference"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode.collection"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.utility"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode.constant"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.enumeration,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.utility"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode.member"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.jar.asm"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.jar.asm.signature"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.jar.asm.commons"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.jar.asm.signature"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.utility"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.matcher"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.enumeration,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.jar.asm.signature"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.pool"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.enumeration,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.jar.asm"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.utility"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.build"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.utility.privilege"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.utility.visitor"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.matcher"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.data,org.assertj.core.groups,org.assertj.core.internal"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.presentation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api.filter,org.assertj.core.presentation"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.diff"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.util.diff"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.diff.myers"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.introspection"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.xml"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="4085398" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.11.1/assertj-core-3.11.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="2EE2BD3E81FC818D423D442B658F28ACF938D9078D6BA016A64B362FDD7779E8"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.assertj:assertj-core:3.11.1"/>
+      <attribute name="from" value="org.assertj:assertj-core:3.11.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.parsers))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.extension))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.rules))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.runner))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.runners.model))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom.bootstrap))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom.ls))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.opentest4j)(&amp;(version&gt;=1.1.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.testng))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+</repository>

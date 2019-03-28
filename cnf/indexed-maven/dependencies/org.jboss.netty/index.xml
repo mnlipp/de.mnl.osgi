@@ -1,0 +1,553 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553810692303">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0"/>
+      <attribute name="osgi.identity" value="org.jboss.netty"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="documentation" value="http://www.jboss.org/netty/"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.jboss.netty"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.jboss.netty"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.handler.codec.replay,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone,org.jboss.netty.handler.codec.frame"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.serialization"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.compression"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.util,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.execution"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel.local"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.util"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.bootstrap"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone,org.jboss.netty.util"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.base64"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.util"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.timeout"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.logging,org.jboss.netty.channel.socket,org.jboss.netty.channel,org.jboss.netty.util,org.jboss.netty.buffer"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel.socket.nio"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.util,org.jboss.netty.handler.codec.replay,org.jboss.netty.handler.codec.frame,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.http.websocket"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.replay"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.string"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.util,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,javax.net.ssl,org.jboss.netty.logging,org.jboss.netty.buffer,org.jboss.netty.handler.codec.frame"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.ssl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.container.spring"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.container.microcontainer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.http,org.jboss.netty.handler.codec.embedder"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.rtsp"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone,com.google.protobuf,org.jboss.netty.handler.codec.frame"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.protobuf"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.channel.socket,org.jboss.netty.handler.codec.http,javax.net.ssl,org.jboss.netty.handler.ssl,org.jboss.netty.buffer,org.jboss.netty.logging,javax.servlet,org.jboss.netty.channel.local,javax.servlet.http"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel.socket.http"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.buffer,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel.group"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.buffer"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.embedder"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.channel.socket,org.jboss.netty.util,org.jboss.netty.buffer,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel.socket.oio"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.frame"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.oneone"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.logging,org.osgi.framework"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.container.osgi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.commons.logging,org.jboss.logging,org.apache.log4j,org.osgi.service.log,org.osgi.util.tracker,org.osgi.framework,org.slf4j"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.logging"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.util"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.buffer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.handler.codec.frame,org.jboss.netty.channel,org.jboss.netty.util,org.jboss.netty.handler.codec.compression,org.jboss.netty.handler.codec.embedder,org.jboss.netty.handler.codec.replay,org.jboss.netty.handler.codec.oneone"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.http"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.buffer"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.queue"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel.socket"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.logging,org.jboss.netty.buffer,org.jboss.netty.channel"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.logging"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.9.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.stream"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="831420" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/jboss/netty/netty/3.2.9.Final/netty-3.2.9.Final.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="FD6D0B92308019E2091F9BD2882047CEF2777DC1F1EE0018B2E7CC712FD90C37"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.jboss.netty:netty:3.2.9.Final"/>
+      <attribute name="from" value="org.jboss.netty:netty:3.2.9.Final"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.jboss.logging:jboss-logging-spi:2.1.2.GA;org.apache.felix:org.osgi.core:1.4.0;org.slf4j:slf4j-api:1.6.4;log4j:log4j:1.2.16;com.google.protobuf:protobuf-java:2.4.1;commons-logging:commons-logging:1.1.1;javax.servlet:servlet-api:2.5;org.apache.felix:org.osgi.compendium:1.4.0"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.protobuf))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.net.ssl))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.servlet))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.servlet.http))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.logging))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.log4j))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.logging))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.bootstrap)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.buffer)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.frame)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.http.websocket)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.oneone)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.protobuf)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.serialization)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.string)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.logging)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.timeout)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.5.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.3.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.util.tracker)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0"/>
+      <attribute name="osgi.identity" value="org.jboss.netty"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="documentation" value="http://www.jboss.org/netty/"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.jboss.netty"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.jboss.netty"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.handler.codec.replay,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone,org.jboss.netty.handler.codec.frame"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.serialization"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.compression"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.util,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.execution"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel.local"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.util"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.bootstrap"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone,org.jboss.netty.util"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.base64"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.util"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.timeout"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.logging,org.jboss.netty.channel.socket,org.jboss.netty.channel,org.jboss.netty.util,org.jboss.netty.buffer"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel.socket.nio"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.util,org.jboss.netty.handler.codec.replay,org.jboss.netty.handler.codec.frame,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.http.websocket"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.replay"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.string"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.util,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,javax.net.ssl,org.jboss.netty.logging,org.jboss.netty.buffer,org.jboss.netty.handler.codec.frame"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.ssl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.container.spring"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.container.microcontainer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.http,org.jboss.netty.handler.codec.embedder"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.rtsp"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone,com.google.protobuf,org.jboss.netty.handler.codec.frame"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.protobuf"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.channel.socket,org.jboss.netty.handler.codec.http,javax.net.ssl,org.jboss.netty.handler.ssl,org.jboss.netty.buffer,org.jboss.netty.logging,javax.servlet,org.jboss.netty.channel.local,javax.servlet.http"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel.socket.http"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.buffer,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel.group"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.buffer"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.embedder"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.channel.socket,org.jboss.netty.util,org.jboss.netty.buffer,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel.socket.oio"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.oneone"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.frame"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.oneone"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.logging,org.osgi.framework"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.container.osgi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.commons.logging,org.jboss.logging,org.apache.log4j,org.osgi.service.log,org.osgi.util.tracker,org.osgi.framework,org.slf4j"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.logging"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.util"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.buffer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.handler.codec.frame,org.jboss.netty.channel,org.jboss.netty.util,org.jboss.netty.handler.codec.compression,org.jboss.netty.handler.codec.embedder,org.jboss.netty.handler.codec.replay,org.jboss.netty.handler.codec.oneone"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.codec.http"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,org.jboss.netty.buffer"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.queue"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.channel.socket"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.logging,org.jboss.netty.buffer,org.jboss.netty.channel"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.logging"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.logging"/>
+      <attribute name="version" value="3.2.7.Final" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jboss.netty.handler.stream"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="801614" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/jboss/netty/netty/3.2.7.Final/netty-3.2.7.Final.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="9ADB967FED11E49A415098949A3EDBE59B073BED7619239271D947732246AD1E"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.jboss.netty:netty:3.2.7.Final"/>
+      <attribute name="from" value="org.jboss.netty:netty:3.2.7.Final"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="commons-logging:commons-logging:1.1.1;org.jboss.logging:jboss-logging-spi:2.1.2.GA;org.apache.felix:org.osgi.core:1.4.0;org.slf4j:slf4j-api:1.6.4;com.google.protobuf:protobuf-java:2.4.1;org.apache.felix:org.osgi.compendium:1.4.0;javax.servlet:servlet-api:2.5;log4j:log4j:1.2.16"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.protobuf))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.net.ssl))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.servlet))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.servlet.http))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.logging))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.log4j))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.logging))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.bootstrap)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.buffer)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.frame)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.http.websocket)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.oneone)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.protobuf)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.serialization)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.string)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.logging)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.timeout)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.5.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.3.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.util.tracker)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+  </resource>
+</repository>

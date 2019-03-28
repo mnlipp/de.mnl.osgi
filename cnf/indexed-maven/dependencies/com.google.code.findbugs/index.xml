@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553806566857">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.jsr-305"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.0.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.0.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.jsr-305"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.0.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.jsr-305"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation.meta"/>
+      <attribute name="version" value="3.0.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.annotation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.0.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.annotation.concurrent"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation"/>
+      <attribute name="version" value="3.0.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.annotation.meta"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="19936" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="766AD2A0783F2687962C8AD74CEECC38A28B9F72A2D085EE438B7813E928D0C7"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.google.code.findbugs:jsr305:3.0.2"/>
+      <attribute name="from" value="com.google.code.findbugs:jsr305:3.0.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+</repository>

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553810692302">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="Apache 2.0"/>
+      <attribute name="osgi.identity" value="joda-time"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="joda-time"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="joda-time"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.joda.time"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.joda.time.chrono"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.joda.time.format"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="534827" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/joda-time/joda-time/1.6/joda-time-1.6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="BC96DBE7C56F4FE367EA33E66DFCF18B589E3C8EDDCFF52A78323C5E6DA2387E"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="joda-time:joda-time:1.6"/>
+      <attribute name="from" value="joda-time:joda-time:1.6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+</repository>

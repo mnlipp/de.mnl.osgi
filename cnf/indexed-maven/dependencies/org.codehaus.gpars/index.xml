@@ -1,0 +1,557 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553810692312">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="gpars.org"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="documentation" value="http://gpars.codehaus.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="gpars.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="gpars.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovy.time,groovyx.gpars.dataflow.operator,groovyx.gpars.extra166y,groovyx.gpars.forkjoin,groovyx.gpars.pa,groovyx.gpars.scheduler,groovyx.gpars.util,jsr166y,org.codehaus.groovy.transform"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.actor,groovyx.gpars.group,org.codehaus.groovy.ast,org.codehaus.groovy.control,org.codehaus.groovy.transform"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.activeobject"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovy.time,groovyx.gpars.actor.impl,groovyx.gpars.dataflow,groovyx.gpars.dataflow.expression,groovyx.gpars.group,groovyx.gpars.remote,groovyx.gpars.serial,groovyx.gpars.util"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.actor"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovy.time,groovyx.gpars.actor,groovyx.gpars.group,groovyx.gpars.remote,groovyx.gpars.serial"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.actor.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovyx.gpars.group,groovyx.gpars.scheduler"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.agent"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,org.jcsp.lang"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.csp"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovyx.gpars.csp,org.jcsp.lang"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.csp.plugAndPlay"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovyx.gpars.csp,org.jcsp.lang"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.csp.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovyx.gpars.actor.impl,groovyx.gpars.dataflow.expression,groovyx.gpars.dataflow.impl,groovyx.gpars.dataflow.operator,groovyx.gpars.dataflow.stream,groovyx.gpars.group,groovyx.gpars.remote,groovyx.gpars.scheduler,groovyx.gpars.serial"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.dataflow"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovyx.gpars.actor.impl,groovyx.gpars.dataflow,groovyx.gpars.dataflow.impl,groovyx.gpars.group,groovyx.gpars.remote,groovyx.gpars.scheduler,groovyx.gpars.serial"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.dataflow.expression"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovyx.gpars,groovyx.gpars.dataflow,groovyx.gpars.group"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.dataflow.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovyx.gpars.dataflow,groovyx.gpars.group,groovyx.gpars.scheduler"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.dataflow.operator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.dataflow,groovyx.gpars.dataflow.operator"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.dataflow.operator.component"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovyx.gpars.actor.impl,groovyx.gpars.dataflow,groovyx.gpars.dataflow.expression,groovyx.gpars.dataflow.impl,groovyx.gpars.group,groovyx.gpars.scheduler"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.dataflow.stream"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="jsr166y"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.extra166y"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="jsr166y"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.forkjoin"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovyx.gpars.actor,groovyx.gpars.agent,groovyx.gpars.dataflow,groovyx.gpars.dataflow.operator,groovyx.gpars.scheduler,jsr166y"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.group"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.memoize"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovyx.gpars.extra166y,groovyx.gpars.memoize,groovyx.gpars.scheduler,jsr166y"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.pa"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovyx.gpars.actor,groovyx.gpars.serial"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.remote"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.actor,groovyx.gpars.remote,groovyx.gpars.serial"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.remote.message"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.remote,groovyx.gpars.serial,org.jboss.netty.buffer,org.jboss.netty.channel,org.jboss.netty.handler.codec.serialization"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.remote.netty"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="jsr166y"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.scheduler"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.remote,org.codehaus.groovy.util"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.serial"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,org.multiverse.api"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.stm"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,groovyx.gpars.dataflow,groovyx.gpars.scheduler,org.codehaus.groovy.ast,org.codehaus.groovy.control,org.codehaus.groovy.transform"/>
+      <attribute name="version" value="1.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.util"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1384400" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/gpars/gpars/1.2.1/gpars-1.2.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="F9E08BF964F34D129344404C01666276EC43C6704DD74E8D4CA32DCD1D2FB4A8"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.gpars:gpars:1.2.1"/>
+      <attribute name="from" value="org.codehaus.gpars:gpars:1.2.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.jsr166-mirror:jsr166y:1.7.0;org.codehaus.groovy:groovy-all:2.1.9;org.multiverse:multiverse-core:0.7.0;org.codehaus.jcsp:jcsp:1.1-rc5;org.jboss.netty:netty:3.2.9.Final"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=groovy.lang)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=groovy.time)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=jsr166y)(&amp;(version&gt;=1.7.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.ast)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.ast.expr)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.ast.stmt)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.control)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.control.messages)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.reflection)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.runtime)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.runtime.callsite)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.runtime.powerassert)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.runtime.typehandling)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.runtime.wrappers)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.syntax)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.transform)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.util)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.bootstrap)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.buffer)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.channel)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.channel.socket.nio)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.serialization)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jcsp.awt))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jcsp.lang))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jcsp.plugNplay))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.multiverse.api))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.multiverse.api.callables))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.multiverse.api.exceptions))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=sun.misc))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="gpars.org"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="documentation" value="http://gpars.codehaus.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="gpars.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="gpars.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.actor.impl,groovy.lang,groovyx.gpars.dataflow,groovyx.gpars.dataflow.impl,groovyx.gpars.group,groovyx.gpars.dataflow.operator,groovyx.gpars.scheduler,groovyx.gpars.dataflow.expression"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.dataflow.stream"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.memoize"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.groovy.transform,groovyx.gpars.util,groovy.lang,groovyx.gpars.dataflow.operator,groovyx.gpars.scheduler,org.codehaus.groovy.runtime.typehandling,org.codehaus.groovy.reflection,org.codehaus.groovy.runtime,org.codehaus.groovy.runtime.callsite,org.codehaus.groovy.runtime.wrappers,groovyx.gpars.dataflow,groovy.time,jsr166y,groovyx.gpars.forkjoin,groovyx.gpars.extra166y,groovyx.gpars.memoize,groovyx.gpars.pa"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.dataflow.operator,groovyx.gpars.dataflow"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.dataflow.operator.component"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="jsr166y,sun.misc"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.extra166y"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,org.codehaus.groovy.runtime,groovyx.gpars.dataflow,groovyx.gpars.group,groovyx.gpars.actor.impl,groovyx.gpars.actor,groovyx.gpars.dataflow.impl,groovyx.gpars.scheduler"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.dataflow.operator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,org.codehaus.groovy.runtime.typehandling,org.codehaus.groovy.runtime.wrappers,org.codehaus.groovy.reflection,org.codehaus.groovy.runtime,org.codehaus.groovy.runtime.callsite,jsr166y,groovyx.gpars.extra166y,groovyx.gpars.scheduler,groovyx.gpars.dataflow,groovyx.gpars.memoize"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.pa"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="jsr166y,groovy.lang"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.forkjoin"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.util,jsr166y"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.scheduler"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,org.codehaus.groovy.reflection,org.codehaus.groovy.runtime,groovyx.gpars.actor,org.codehaus.groovy.runtime.callsite,org.codehaus.groovy.runtime.typehandling,groovyx.gpars.remote,groovyx.gpars.serial,groovy.time,groovyx.gpars.scheduler,groovyx.gpars.group,groovyx.gpars.dataflow.expression"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.actor.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jcsp.lang,groovy.lang,org.codehaus.groovy.runtime.typehandling,org.codehaus.groovy.reflection,org.codehaus.groovy.runtime,org.codehaus.groovy.runtime.callsite"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.csp"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.dataflow,groovy.lang,groovyx.gpars.group,groovyx.gpars.dataflow.expression,groovyx.gpars"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.dataflow.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.scheduler,groovyx.gpars.util,groovyx.gpars,groovy.lang,groovyx.gpars.actor,groovyx.gpars.dataflow,groovyx.gpars.actor.impl,groovyx.gpars.agent,groovyx.gpars.dataflow.operator,jsr166y"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.group"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jcsp.lang,groovy.lang,org.codehaus.groovy.runtime.typehandling,org.codehaus.groovy.reflection,groovyx.gpars.csp,org.codehaus.groovy.runtime,org.codehaus.groovy.runtime.callsite,org.codehaus.groovy.runtime.wrappers"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.csp.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.groovy.syntax,org.codehaus.groovy.ast,org.codehaus.groovy.control.messages,org.codehaus.groovy.control,org.codehaus.groovy.transform,groovyx.gpars,org.codehaus.groovy,org.codehaus.groovy.ast.expr,groovyx.gpars.scheduler,org.codehaus.groovy.runtime,groovy.lang,org.codehaus.groovy.runtime.typehandling,org.codehaus.groovy.reflection,org.codehaus.groovy.runtime.callsite,groovyx.gpars.dataflow"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.serial,groovyx.gpars.remote,groovyx.gpars.actor"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.remote.message"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jcsp.lang,groovy.lang,org.codehaus.groovy.runtime.typehandling,org.codehaus.groovy.reflection,org.codehaus.groovy.runtime,org.codehaus.groovy.runtime.callsite,org.codehaus.groovy.runtime.wrappers,groovyx.gpars.csp,org.jcsp.plugNplay"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.csp.plugAndPlay"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.group,groovy.lang,org.codehaus.groovy.runtime,groovyx.gpars.actor,groovyx.gpars.dataflow,groovyx.gpars.scheduler,groovyx.gpars.util"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.agent"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.actor.impl,groovyx.gpars.group,groovy.lang,groovyx.gpars.scheduler,groovyx.gpars,groovyx.gpars.dataflow.operator,groovyx.gpars.dataflow.stream,groovyx.gpars.dataflow.impl,groovyx.gpars.dataflow.expression,groovyx.gpars.serial,groovyx.gpars.remote,org.codehaus.groovy.runtime,org.codehaus.groovy.reflection,org.codehaus.groovy.runtime.callsite,org.codehaus.groovy.runtime.wrappers,org.codehaus.groovy.runtime.typehandling,org.codehaus.groovy.runtime.powerassert"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.dataflow"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovy.lang,org.multiverse.api.closures,org.multiverse.api,org.codehaus.groovy.runtime,org.multiverse.api.exceptions"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.stm"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jboss.netty.channel,groovyx.gpars.serial,groovyx.gpars.remote,org.jboss.netty.channel.socket.nio,org.jboss.netty.bootstrap,org.jboss.netty.buffer,org.jboss.netty.handler.codec.serialization"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.remote.netty"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.remote,org.codehaus.groovy.util"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.serial"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.scheduler,groovyx.gpars.actor.impl,groovy.lang,groovyx.gpars.util,groovyx.gpars.dataflow.expression,groovyx.gpars.group,groovyx.gpars,groovyx.gpars.dataflow,groovyx.gpars.serial,groovyx.gpars.remote,org.codehaus.groovy.reflection,org.codehaus.groovy.runtime,groovy.time,org.codehaus.groovy.runtime.typehandling,org.codehaus.groovy.runtime.callsite"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.actor"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.groovy.transform,org.codehaus.groovy.ast.stmt,org.codehaus.groovy.ast,org.codehaus.groovy.ast.expr,org.codehaus.groovy.control,groovyx.gpars.util,org.codehaus.groovy,groovyx.gpars.group,groovyx.gpars,groovyx.gpars.actor.impl,groovy.lang,groovyx.gpars.dataflow,org.codehaus.groovy.runtime,groovyx.gpars.actor"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.activeobject"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.serial,groovyx.gpars.actor,groovyx.gpars.group,groovy.lang,groovyx.gpars.remote.message"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.remote"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="groovyx.gpars.remote,groovyx.gpars.serial,groovyx.gpars.group,groovyx.gpars,groovyx.gpars.dataflow,groovyx.gpars.actor.impl,groovy.lang,groovyx.gpars.dataflow.operator,groovyx.gpars.actor,groovyx.gpars.scheduler,org.codehaus.groovy.runtime,groovyx.gpars.dataflow.impl"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="groovyx.gpars.dataflow.expression"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1405944" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/gpars/gpars/1.0.0/gpars-1.0.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="8256071E9D740CF7BFE1D78378D5C3B99BCD7957690F130450E042F68BC18920"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.gpars:gpars:1.0.0"/>
+      <attribute name="from" value="org.codehaus.gpars:gpars:1.0.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.jsr166-mirror:jsr166y:1.7.0;org.multiverse:multiverse-beta:0.7-RC-1;org.codehaus.jcsp:jcsp:1.1-rc5;org.jboss.netty:netty:3.2.7.Final"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=groovy.lang)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=groovy.time)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=jsr166y)(&amp;(version&gt;=1.7.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.ast)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.ast.expr)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.ast.stmt)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.control)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.control.messages)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.reflection)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.runtime)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.runtime.callsite)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.runtime.powerassert)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.runtime.typehandling)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.runtime.wrappers)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.syntax)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.transform)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.groovy.util)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.bootstrap)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.buffer)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.channel)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.channel.socket.nio)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.netty.handler.codec.serialization)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jcsp.lang))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jcsp.plugNplay))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.multiverse.api))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.multiverse.api.closures))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.multiverse.api.exceptions))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=sun.misc))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+  </resource>
+</repository>

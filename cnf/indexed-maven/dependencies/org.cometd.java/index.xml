@@ -1,0 +1,816 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553806566860">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0, http://www.opensource.org/licenses/bsd-license.html, http://opensource-definition.org/licenses/afl-2.1.html"/>
+      <attribute name="osgi.identity" value="cometd-java-client"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="documentation" value="http://docs.cometd.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="cometd-java-client"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="cometd-java-client"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.client.transport,org.cometd.bayeux.client,org.cometd.bayeux,org.cometd.common,org.slf4j"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.client"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux.client,org.cometd.bayeux"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.client.ext"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.slf4j,org.cometd.bayeux,org.cometd.common,org.eclipse.jetty.client,org.eclipse.jetty.io,org.eclipse.jetty.http,org.eclipse.jetty.util"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.client.transport"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="62774" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/cometd/java/cometd-java-client/2.4.2/cometd-java-client-2.4.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="29DB1634FDFFD4DA6381C489D51D0AF9A2299D06C13BE02C8F12DB4AFF0FBA3C"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.cometd.java:cometd-java-client:2.4.2"/>
+      <attribute name="from" value="org.cometd.java:cometd-java-client:2.4.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.cometd.java:bayeux-api:2.4.2;org.eclipse.jetty:jetty-client:7.6.3.v20120416;org.cometd.java:cometd-java-common:2.4.2;org.eclipse.jetty:jetty-util:7.6.3.v20120416;org.eclipse.jetty:jetty-io:7.6.3.v20120416;junit:junit:4.10;org.slf4j:slf4j-api:1.6.4;org.slf4j:slf4j-simple:1.6.4;org.eclipse.jetty:jetty-http:7.6.3.v20120416"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux)(&amp;(version&gt;=2.4.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.client)(&amp;(version&gt;=2.4.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.common)(&amp;(version&gt;=2.4.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.client)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.http)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.io)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0, http://www.opensource.org/licenses/bsd-license.html, http://opensource-definition.org/licenses/afl-2.1.html"/>
+      <attribute name="osgi.identity" value="cometd-java-server"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="documentation" value="http://docs.cometd.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="cometd-java-server"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="cometd-java-server"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux.server,org.slf4j,org.eclipse.jetty.util,org.cometd.bayeux,org.cometd.common,org.eclipse.jetty.util.thread,org.eclipse.jetty.util.component,org.cometd.server.transport,javax.servlet,javax.servlet.http,org.cometd.bayeux.client"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux.server,org.cometd.bayeux"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.authorizer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux.server,org.slf4j,org.eclipse.jetty.util"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.filter"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux.server,org.eclipse.jetty.jmx,org.cometd.server"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.jmx"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux.server,org.cometd.server,org.slf4j,org.cometd.bayeux,org.eclipse.jetty.util"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.ext"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.servlet,org.cometd.bayeux.server,javax.servlet.http,org.cometd.server,org.eclipse.jetty.continuation,org.slf4j"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.transport"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="99704" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/cometd/java/cometd-java-server/2.4.2/cometd-java-server-2.4.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="B380D3B96D8889F33F13CA218DA317541F412EB9E43582AFDD7E19B7CECB4CC2"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.cometd.java:cometd-java-server:2.4.2"/>
+      <attribute name="from" value="org.cometd.java:cometd-java-server:2.4.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.slf4j:slf4j-simple:1.6.4;org.eclipse.jetty:jetty-util:7.6.3.v20120416;org.codehaus.jackson:jackson-mapper-asl:1.9.3;org.eclipse.jetty:jetty-continuation:7.6.3.v20120416;junit:junit:4.10;org.cometd.java:cometd-java-common:2.4.2;org.cometd.java:bayeux-api:2.4.2;org.slf4j:slf4j-api:1.6.4;org.eclipse.jetty:jetty-jmx:7.6.3.v20120416"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.servlet))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.servlet.http))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux)(&amp;(version&gt;=2.4.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.client)(&amp;(version&gt;=2.4.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.server)(&amp;(version&gt;=2.4.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.common)(&amp;(version&gt;=2.4.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.continuation)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.jmx)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util.component)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util.thread)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0, http://www.opensource.org/licenses/bsd-license.html, http://opensource-definition.org/licenses/afl-2.1.html"/>
+      <attribute name="osgi.identity" value="cometd-java-common"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="documentation" value="http://docs.cometd.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="cometd-java-common"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="cometd-java-common"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux.client,org.slf4j,org.cometd.bayeux,org.eclipse.jetty.util,org.cometd.bayeux.server,org.codehaus.jackson.map,org.codehaus.jackson.type,org.eclipse.jetty.util.ajax"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.common"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="24142" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/cometd/java/cometd-java-common/2.4.2/cometd-java-common-2.4.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="A73379633F3F2CE1B11D7331111499FAE706BCDC161C159E680221F69A3627BF"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.cometd.java:cometd-java-common:2.4.2"/>
+      <attribute name="from" value="org.cometd.java:cometd-java-common:2.4.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.eclipse.jetty:jetty-util:7.6.3.v20120416;org.codehaus.jackson:jackson-core-asl:1.9.3;org.cometd.java:bayeux-api:2.4.2;org.slf4j:slf4j-api:1.6.4;org.codehaus.jackson:jackson-mapper-asl:1.9.3;junit:junit:4.10"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.map)(&amp;(version&gt;=1.9.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.type)(&amp;(version&gt;=1.9.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux)(&amp;(version&gt;=2.4.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.client)(&amp;(version&gt;=2.4.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.server)(&amp;(version&gt;=2.4.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util.ajax)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0, http://www.opensource.org/licenses/bsd-license.html, http://opensource-definition.org/licenses/afl-2.1.html"/>
+      <attribute name="osgi.identity" value="bayeux-api"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="documentation" value="http://docs.cometd.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="bayeux-api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="bayeux-api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.bayeux"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux,org.cometd.bayeux.client"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.bayeux.server"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux"/>
+      <attribute name="version" value="2.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.bayeux.client"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="27428" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/cometd/java/bayeux-api/2.4.2/bayeux-api-2.4.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="1DF38BB0D67B2A1F7915E8343CC536586EDFA8CF7E5B045EFAA9B8F82FAA41BF"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.cometd.java:bayeux-api:2.4.2"/>
+      <attribute name="from" value="org.cometd.java:bayeux-api:2.4.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0, http://www.opensource.org/licenses/bsd-license.html, http://opensource-definition.org/licenses/afl-2.1.html"/>
+      <attribute name="osgi.identity" value="cometd-java-client"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="documentation" value="http://docs.cometd.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="cometd-java-client"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="cometd-java-client"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux,org.cometd.bayeux.client,org.cometd.client.transport,org.cometd.common"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.client"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux,org.cometd.bayeux.client"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.client.ext"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux,org.cometd.common,org.eclipse.jetty.client,org.slf4j"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.client.transport"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="64287" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/cometd/java/cometd-java-client/2.7.0/cometd-java-client-2.7.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="666526A957E581EDEF1F8AF2AB6695236C2DF8CA50A8214FEAA543CFE355664B"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.cometd.java:cometd-java-client:2.7.0"/>
+      <attribute name="from" value="org.cometd.java:cometd-java-client:2.7.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.eclipse.jetty:jetty-util:7.6.13.v20130916;org.cometd.java:bayeux-api:2.7.0;org.eclipse.jetty:jetty-http:7.6.13.v20130916;org.cometd.java:cometd-java-common:2.7.0;org.eclipse.jetty:jetty-io:7.6.13.v20130916;org.hamcrest:hamcrest-library:1.3;org.slf4j:slf4j-api:1.7.5;junit:junit:4.11;org.eclipse.jetty:jetty-client:7.6.13.v20130916"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.client)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.http)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.io)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux)(&amp;(version&gt;=2.7.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.client)(&amp;(version&gt;=2.7.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.common)(&amp;(version&gt;=2.7.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.7.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0, http://www.opensource.org/licenses/bsd-license.html, http://opensource-definition.org/licenses/afl-2.1.html"/>
+      <attribute name="osgi.identity" value="cometd-java-server"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="documentation" value="http://docs.cometd.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="cometd-java-server"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="cometd-java-server"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.servlet,javax.servlet.http,org.cometd.bayeux,org.cometd.bayeux.client,org.cometd.bayeux.server,org.cometd.common,org.eclipse.jetty.util.component,org.eclipse.jetty.util.thread,org.slf4j"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux.server,org.eclipse.jetty.util"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.ext"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux,org.cometd.bayeux.server"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.authorizer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.eclipse.jetty.jmx"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.jmx"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.servlet,javax.servlet.http,org.cometd.bayeux.server,org.cometd.server"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.transport"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux.server"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.filter"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="103424" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/cometd/java/cometd-java-server/2.7.0/cometd-java-server-2.7.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="7912A0104CE3282EA3F003F7FDAB56F5640368D69F375DEA69B12270299BC5F1"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.cometd.java:cometd-java-server:2.7.0"/>
+      <attribute name="from" value="org.cometd.java:cometd-java-server:2.7.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.eclipse.jetty:jetty-jmx:7.6.13.v20130916;org.codehaus.jackson:jackson-mapper-asl:1.9.13;javax.servlet:servlet-api:2.5;org.slf4j:slf4j-api:1.7.5;org.eclipse.jetty:jetty-continuation:7.6.13.v20130916;org.slf4j:slf4j-log4j12:1.7.5;org.cometd.java:bayeux-api:2.7.0;org.cometd.java:cometd-java-common:2.7.0;org.eclipse.jetty:jetty-util:7.6.13.v20130916;junit:junit:4.11"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.continuation)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.jmx)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util.component)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util.thread)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.servlet))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.servlet.http))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux)(&amp;(version&gt;=2.7.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.client)(&amp;(version&gt;=2.7.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.server)(&amp;(version&gt;=2.7.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.common)(&amp;(version&gt;=2.7.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.7.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0, http://www.opensource.org/licenses/bsd-license.html, http://opensource-definition.org/licenses/afl-2.1.html"/>
+      <attribute name="osgi.identity" value="cometd-java-common"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="documentation" value="http://docs.cometd.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="cometd-java-common"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="cometd-java-common"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.map,org.cometd.bayeux,org.cometd.bayeux.client,org.cometd.bayeux.server,org.eclipse.jetty.util.ajax,org.slf4j"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.common"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="28426" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/cometd/java/cometd-java-common/2.7.0/cometd-java-common-2.7.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="A74CE00CD3A2E7233FE36E7BDCFA2CD247DC69E088B5B71C3AFF9137F444ADE9"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.cometd.java:cometd-java-common:2.7.0"/>
+      <attribute name="from" value="org.cometd.java:cometd-java-common:2.7.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.eclipse.jetty:jetty-util:7.6.13.v20130916;org.cometd.java:bayeux-api:2.7.0;org.slf4j:slf4j-api:1.7.5;org.codehaus.jackson:jackson-core-asl:1.9.13;org.codehaus.jackson:jackson-mapper-asl:1.9.13;junit:junit:4.11"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util.ajax)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.map)(&amp;(version&gt;=1.9.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.type)(&amp;(version&gt;=1.9.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux)(&amp;(version&gt;=2.7.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.client)(&amp;(version&gt;=2.7.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.server)(&amp;(version&gt;=2.7.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.7.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0, http://www.opensource.org/licenses/bsd-license.html, http://opensource-definition.org/licenses/afl-2.1.html"/>
+      <attribute name="osgi.identity" value="bayeux-api"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="documentation" value="http://docs.cometd.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="bayeux-api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="bayeux-api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux,org.cometd.bayeux.client"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.bayeux.server"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.bayeux"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux"/>
+      <attribute name="version" value="2.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.bayeux.client"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="30834" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/cometd/java/bayeux-api/2.7.0/bayeux-api-2.7.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="0B72E456ACD412858B604D3F80E905332AAA7FA5946D927220B07D9BF4694FA6"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.cometd.java:bayeux-api:2.7.0"/>
+      <attribute name="from" value="org.cometd.java:bayeux-api:2.7.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0, http://www.opensource.org/licenses/bsd-license.html, http://opensource-definition.org/licenses/afl-2.1.html"/>
+      <attribute name="osgi.identity" value="cometd-java-client"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="documentation" value="http://docs.cometd.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="cometd-java-client"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="cometd-java-client"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux,org.cometd.bayeux.client,org.cometd.client.transport,org.cometd.common"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.client"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux,org.cometd.common,org.eclipse.jetty.client,org.slf4j"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.client.transport"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux,org.cometd.bayeux.client"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.client.ext"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="67271" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/cometd/java/cometd-java-client/2.8.0/cometd-java-client-2.8.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="B8E025D077AF893E3813508248D1754332713B847E17781E7FC0421D2010301C"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.cometd.java:cometd-java-client:2.8.0"/>
+      <attribute name="from" value="org.cometd.java:cometd-java-client:2.8.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.eclipse.jetty:jetty-client:7.6.14.v20131031;org.cometd.java:bayeux-api:2.8.0;org.slf4j:slf4j-api:1.7.6;junit:junit:4.11;org.hamcrest:hamcrest-library:1.3;org.eclipse.jetty:jetty-io:7.6.14.v20131031;org.eclipse.jetty:jetty-http:7.6.14.v20131031;org.cometd.java:cometd-java-common:2.8.0;org.eclipse.jetty:jetty-util:7.6.14.v20131031"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.client)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.http)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.io)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux)(&amp;(version&gt;=2.8.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.client)(&amp;(version&gt;=2.8.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.common)(&amp;(version&gt;=2.8.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.7.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0, http://www.opensource.org/licenses/bsd-license.html, http://opensource-definition.org/licenses/afl-2.1.html"/>
+      <attribute name="osgi.identity" value="cometd-java-server"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="documentation" value="http://docs.cometd.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="cometd-java-server"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="cometd-java-server"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.servlet,javax.servlet.http,org.cometd.bayeux,org.cometd.bayeux.client,org.cometd.bayeux.server,org.cometd.common,org.eclipse.jetty.util.component,org.eclipse.jetty.util.thread,org.slf4j"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.eclipse.jetty.jmx"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.jmx"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux.server"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.filter"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux,org.cometd.bayeux.server"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.authorizer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.servlet,javax.servlet.http,org.cometd.bayeux.server,org.cometd.server,org.eclipse.jetty.continuation"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.transport"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux.server,org.eclipse.jetty.util"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.server.ext"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="103911" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/cometd/java/cometd-java-server/2.8.0/cometd-java-server-2.8.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="1DF48F2B166DCB64D241C12172475FA33F1DF751E8F4329E482E7B981A4CDFDB"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.cometd.java:cometd-java-server:2.8.0"/>
+      <attribute name="from" value="org.cometd.java:cometd-java-server:2.8.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.eclipse.jetty:jetty-jmx:7.6.14.v20131031;junit:junit:4.11;javax.servlet:servlet-api:2.5;org.slf4j:slf4j-log4j12:1.7.6;org.codehaus.jackson:jackson-mapper-asl:1.9.13;org.slf4j:slf4j-api:1.7.6;org.cometd.java:bayeux-api:2.8.0;org.cometd.java:cometd-java-common:2.8.0;org.eclipse.jetty:jetty-util:7.6.14.v20131031;org.eclipse.jetty:jetty-continuation:7.6.14.v20131031"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.continuation)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.jmx)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util.component)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util.thread)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.servlet))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.servlet.http))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux)(&amp;(version&gt;=2.8.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.client)(&amp;(version&gt;=2.8.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.server)(&amp;(version&gt;=2.8.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.common)(&amp;(version&gt;=2.8.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.7.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0, http://www.opensource.org/licenses/bsd-license.html, http://opensource-definition.org/licenses/afl-2.1.html"/>
+      <attribute name="osgi.identity" value="bayeux-api"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="documentation" value="http://docs.cometd.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="bayeux-api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="bayeux-api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.bayeux"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux,org.cometd.bayeux.client"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.bayeux.server"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.cometd.bayeux"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.bayeux.client"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="30983" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/cometd/java/bayeux-api/2.8.0/bayeux-api-2.8.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="68DC7BD075704F037DAF1E09C84FD108CAE3FDCF89F2A338C65D5472C198CFD0"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.cometd.java:bayeux-api:2.8.0"/>
+      <attribute name="from" value="org.cometd.java:bayeux-api:2.8.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0, http://www.opensource.org/licenses/bsd-license.html, http://opensource-definition.org/licenses/afl-2.1.html"/>
+      <attribute name="osgi.identity" value="cometd-java-common"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="documentation" value="http://docs.cometd.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="cometd-java-common"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="cometd-java-common"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.map,org.cometd.bayeux,org.cometd.bayeux.client,org.cometd.bayeux.server,org.eclipse.jetty.util.ajax,org.slf4j"/>
+      <attribute name="version" value="2.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.cometd.common"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="28486" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/cometd/java/cometd-java-common/2.8.0/cometd-java-common-2.8.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="C0BE266BA392372903E7BA697604C8621B2DC61D502756799F3668984B5BFEA9"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.cometd.java:cometd-java-common:2.8.0"/>
+      <attribute name="from" value="org.cometd.java:cometd-java-common:2.8.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.jackson:jackson-core-asl:1.9.13;org.cometd.java:bayeux-api:2.8.0;org.codehaus.jackson:jackson-mapper-asl:1.9.13;junit:junit:4.11;org.slf4j:slf4j-api:1.7.6;org.eclipse.jetty:jetty-util:7.6.14.v20131031"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.jetty.util.ajax)(&amp;(version&gt;=7.6.0)(!(version&gt;=9.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.map)(&amp;(version&gt;=1.9.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.type)(&amp;(version&gt;=1.9.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux)(&amp;(version&gt;=2.8.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.client)(&amp;(version&gt;=2.8.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cometd.bayeux.server)(&amp;(version&gt;=2.8.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.7.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+  </resource>
+</repository>

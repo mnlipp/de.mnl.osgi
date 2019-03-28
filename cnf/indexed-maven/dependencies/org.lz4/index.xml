@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553805246068">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="lz4-java"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="lz4-java"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="lz4-java"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="net.jpountz.util,net.jpountz.xxhash"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="net.jpountz.lz4"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="sun.misc"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="net.jpountz.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="net.jpountz.util.darwin.x86_64"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="net.jpountz.util.linux.aarch64"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="net.jpountz.util.linux.amd64"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="net.jpountz.util.linux.i386"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="net.jpountz.util.linux.ppc64le"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="net.jpountz.util.linux.s390x"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="net.jpountz.util.win32.amd64"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="net.jpountz.util"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="net.jpountz.xxhash"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="370137" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/lz4/lz4-java/1.4.1/lz4-java-1.4.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="F0EFA5CE1318F0E3E734F35238DACC441C6510CB6F3FEE6D1CFD3EBAE15E2BEF"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.lz4:lz4-java:1.4.1"/>
+      <attribute name="from" value="org.lz4:lz4-java:1.4.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=sun.misc))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+  </resource>
+</repository>

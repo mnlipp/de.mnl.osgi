@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553805246050">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="com.google.inject"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="4.0.0" type="Version"/>
+      <attribute name="documentation" value="https://github.com/google/guice"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="4.0.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.google.inject"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="4.0.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.google.inject"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.name"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.binder"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.spi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.matcher"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="668235" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/inject/guice/4.0/guice-4.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="B378FFC35E7F7125B3C5F3A461D4591AE1685E3C781392F0C854ED7B7581D6D2"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.google.inject:guice:4.0"/>
+      <attribute name="from" value="com.google.inject:guice:4.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.ow2.asm:asm:5.0.3;com.google.guava:guava:16.0.1;cglib:cglib:3.1;aopalliance:aopalliance:1.0;javax.inject:javax.inject:1"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.base)(version&gt;=16.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.cache)(version&gt;=16.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.collect)(version&gt;=16.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.inject))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.aopalliance.intercept))"/>
+    </requirement>
+  </resource>
+</repository>

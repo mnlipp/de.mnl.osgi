@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553805246065">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="https://opensource.org/licenses/BSD-2-Clause;description=BSD 2-Clause License"/>
+      <attribute name="osgi.identity" value="com.github.luben.zstd-jni"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.3.3.3" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.3.3.3" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.github.luben.zstd-jni"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.3.3.3" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.github.luben.zstd-jni"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.3.3.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.luben.zstd"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="2829330" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/github/luben/zstd-jni/1.3.3-3/zstd-jni-1.3.3-3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="A658BEDFAE87364F8F835F5AB5EC7EC501B2D465485BB8897FF7D0C37AE7E21B"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.github.luben:zstd-jni:1.3.3-3"/>
+      <attribute name="from" value="com.github.luben:zstd-jni:1.3.3-3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+</repository>

@@ -1,0 +1,602 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553806566877">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.opensource.org/licenses/bsd-license.php"/>
+      <attribute name="osgi.identity" value="org.jline"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.jline"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.jline"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.keymap,org.jline.reader,org.jline.reader.impl.completer,org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.builtins"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.editor"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.keymap"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.keymap,org.jline.reader.impl,org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.reader"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.keymap,org.jline.reader,org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.reader.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.reader,org.jline.terminal"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.reader.impl.completer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.reader"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.reader.impl.history"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.utils"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal,org.jline.terminal.impl"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jansi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal,org.jline.terminal.impl"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl.jna"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.freebsd"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl.jna"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.linux"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl.jna"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.osx"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl.jna"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.solaris"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.win"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.utils"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="420640" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/jline/jline/3.0.0/jline-3.0.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="C59CA778D23D56DF4F6610D3B676F912AF71665CF3B9F44A222193D9E83A1B61"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.jline:jline:3.0.0"/>
+      <attribute name="from" value="org.jline:jline:3.0.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.fusesource.jansi:jansi:1.14;com.googlecode.juniversalchardet:juniversalchardet:1.0.3;net.java.dev.jna:jna:4.2.2"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna.ptr))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna.win32))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.fusesource.jansi)(&amp;(version&gt;=1.14.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.fusesource.jansi.internal)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.mozilla.universalchardet))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.opensource.org/licenses/bsd-license.php"/>
+      <attribute name="osgi.identity" value="org.jline"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.jline"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.jline"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.keymap,org.jline.reader,org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.builtins"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.sshd.client,org.apache.sshd.common,org.apache.sshd.server,org.apache.sshd.server.session,org.jline.reader,org.jline.terminal"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.builtins.ssh"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.builtins.telnet"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.keymap"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.keymap,org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.reader"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.keymap,org.jline.reader,org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.reader.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.reader,org.jline.terminal"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.reader.impl.completer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.reader"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.reader.impl.history"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.utils"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal,org.jline.terminal.spi,org.jline.utils"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal,org.jline.terminal.impl,org.jline.terminal.spi"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jansi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal,org.jline.terminal.spi"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl.jna"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.freebsd"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl.jna"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.linux"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl.jna"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.osx"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl.jna"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.solaris"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.win"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.spi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.utils"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="541418" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/jline/jline/3.2.0/jline-3.2.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="179A9C156DE359B557430B440A55C1B7C0B4874528B47EDE25AB5897CBC204AD"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.jline:jline:3.2.0"/>
+      <attribute name="from" value="org.jline:jline:3.2.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="net.java.dev.jna:jna:4.2.2;com.googlecode.juniversalchardet:juniversalchardet:1.0.3;org.fusesource.jansi:jansi:1.14;org.apache.sshd:sshd-core:1.4.0"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna.ptr))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna.win32))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.client)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.client.auth.keyboard)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.client.channel)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.client.future)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.client.session)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.common)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.common.channel)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.common.config.keys)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.common.keyprovider)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.common.util.io)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.server)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.server.keyprovider)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.server.scp)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.server.session)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.server.subsystem.sftp)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.fusesource.jansi)(&amp;(version&gt;=1.14.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.fusesource.jansi.internal)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.mozilla.universalchardet))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.opensource.org/licenses/bsd-license.php"/>
+      <attribute name="osgi.identity" value="org.jline"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.jline"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.jline"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.keymap,org.jline.reader,org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.builtins"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.sshd.client,org.apache.sshd.common,org.apache.sshd.server,org.apache.sshd.server.session,org.jline.reader,org.jline.terminal"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.builtins.ssh"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.builtins.telnet"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.keymap"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.keymap,org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.reader"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.keymap,org.jline.reader,org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.reader.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.reader,org.jline.terminal"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.reader.impl.completer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.reader"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.reader.impl.history"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation,org.jline.terminal,org.jline.utils"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.style"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.utils"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal,org.jline.terminal.spi,org.jline.utils"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.fusesource.jansi.internal,org.jline.terminal,org.jline.terminal.impl,org.jline.terminal.spi"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jansi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.fusesource.jansi.internal,org.jline.terminal,org.jline.terminal.impl.jansi"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jansi.freebsd"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.fusesource.jansi.internal,org.jline.terminal,org.jline.terminal.impl.jansi"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jansi.linux"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.fusesource.jansi.internal,org.jline.terminal,org.jline.terminal.impl.jansi"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jansi.osx"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.fusesource.jansi.internal,org.jline.terminal,org.jline.terminal.impl.jansi"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jansi.solaris"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal,org.jline.terminal.impl,org.jline.utils"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jansi.win"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal,org.jline.terminal.impl,org.jline.terminal.spi"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl.jna"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.freebsd"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl.jna"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.linux"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl.jna"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.osx"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl.jna"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.solaris"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.jna,org.jline.terminal,org.jline.terminal.impl,org.jline.utils"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.impl.jna.win"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.terminal.spi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jline.terminal"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jline.utils"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="701327" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/jline/jline/3.7.0/jline-3.7.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="4273F1C18AF0E89000EB8E55FB143FB4A2136028786FAF1ACD14FF2677F94CD2"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.jline:jline:3.7.0"/>
+      <attribute name="from" value="org.jline:jline:3.7.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="net.java.dev.jna:jna:4.2.2;org.apache.sshd:sshd-core:1.4.0;org.fusesource.jansi:jansi:1.17.1;com.googlecode.juniversalchardet:juniversalchardet:1.0.3;com.google.code.findbugs:jsr305:3.0.2"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna.ptr))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna.win32))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.client)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.client.auth.keyboard)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.client.channel)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.client.future)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.client.session)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.common)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.common.channel)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.common.config.keys)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.common.keyprovider)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.common.util.io)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.server)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.server.keyprovider)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.server.scp)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.server.session)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.sshd.server.subsystem.sftp)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.fusesource.jansi)(&amp;(version&gt;=1.12.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.fusesource.jansi.internal)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.annotation)(&amp;(version&gt;=3.0.0)(!(version&gt;=4.0.0))))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.mozilla.universalchardet))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+</repository>

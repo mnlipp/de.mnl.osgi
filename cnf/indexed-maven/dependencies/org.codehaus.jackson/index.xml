@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553810692312">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="jackson-mapper-asl"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="jackson-mapper-asl"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.host" value="jackson-mapper-asl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.node,org.codehaus.jackson.map,org.codehaus.jackson.annotate,org.codehaus.jackson"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.schema"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.map.type,org.codehaus.jackson.type,org.codehaus.jackson.map.deser,org.codehaus.jackson.map,org.codehaus.jackson.util,org.codehaus.jackson.map.introspect,org.codehaus.jackson.map.util,org.codehaus.jackson.map.deser.std,org.codehaus.jackson"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.deser.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.map,org.codehaus.jackson"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.exc"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.map,org.codehaus.jackson.annotate"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.annotate"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.io,org.codehaus.jackson.map,org.codehaus.jackson.map.ser.std,org.codehaus.jackson,org.codehaus.jackson.map.ser,org.codehaus.jackson.type"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.ser.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.schema,org.codehaus.jackson.map.annotate,org.codehaus.jackson.map.ser.impl,org.codehaus.jackson.map.type,org.codehaus.jackson.type,org.codehaus.jackson.io,org.codehaus.jackson.node,org.codehaus.jackson.map,org.codehaus.jackson.util,org.codehaus.jackson.map.introspect,org.codehaus.jackson.map.util,org.codehaus.jackson,org.codehaus.jackson.map.ser"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.ser.std"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.map,org.codehaus.jackson.map.util,org.codehaus.jackson,org.codehaus.jackson.type"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.type"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.map.deser,org.codehaus.jackson.map,org.codehaus.jackson.map.type,org.codehaus.jackson,org.codehaus.jackson.type"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.module"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.io,org.codehaus.jackson.map,org.codehaus.jackson.util,org.codehaus.jackson.impl,org.codehaus.jackson"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.node"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.format,org.codehaus.jackson.schema,org.codehaus.jackson.map.annotate,org.codehaus.jackson.annotate,org.codehaus.jackson.map.type,org.codehaus.jackson.type,org.codehaus.jackson.io,org.codehaus.jackson.node,org.codehaus.jackson.map.deser,org.codehaus.jackson.util,org.codehaus.jackson.map.introspect,org.codehaus.jackson.map.jsontype,org.codehaus.jackson.map.util,org.codehaus.jackson,org.codehaus.jackson.map.ser,org.codehaus.jackson.map.jsontype.impl"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.map.exc,org.codehaus.jackson.map.deser.impl,org.codehaus.jackson.map.annotate,org.codehaus.jackson.annotate,org.codehaus.jackson.map.type,org.codehaus.jackson.type,org.codehaus.jackson.io,org.codehaus.jackson.node,org.codehaus.jackson.map,org.codehaus.jackson.util,org.codehaus.jackson.map.introspect,org.codehaus.jackson.map.jsontype,org.codehaus.jackson.map.util,org.codehaus.jackson,org.codehaus.jackson.map.deser.std"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.deser"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.map.annotate,org.codehaus.jackson.map.ser.std,org.codehaus.jackson.annotate,org.codehaus.jackson.map.type,org.codehaus.jackson.type,org.codehaus.jackson.map,org.codehaus.jackson.map.jsontype,org.codehaus.jackson.map.util,org.codehaus.jackson.map.jsontype.impl"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.introspect"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.map,org.codehaus.jackson.annotate,org.codehaus.jackson.map.introspect,org.codehaus.jackson.type"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.jsontype"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.io,org.codehaus.jackson.map,org.codehaus.jackson.map.type,org.codehaus.jackson.map.introspect,org.codehaus.jackson,org.codehaus.jackson.type"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.map.deser.impl,org.codehaus.jackson.map.annotate,org.codehaus.jackson.map.type,org.codehaus.jackson.type,org.codehaus.jackson.io,org.codehaus.jackson.node,org.codehaus.jackson.map,org.codehaus.jackson.map.deser,org.codehaus.jackson.util,org.codehaus.jackson.map.introspect,org.codehaus.jackson,org.codehaus.jackson.map.util"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.deser.std"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.annotate,org.codehaus.jackson.map.type,org.codehaus.jackson.type,org.codehaus.jackson.map,org.codehaus.jackson.util,org.codehaus.jackson.map.introspect,org.codehaus.jackson.map.jsontype,org.codehaus.jackson,org.codehaus.jackson.map.util"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.jsontype.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.schema,org.codehaus.jackson.map.annotate,org.codehaus.jackson.map.ser.impl,org.codehaus.jackson.map.ser.std,org.codehaus.jackson.map.type,org.codehaus.jackson.type,org.codehaus.jackson.node,org.codehaus.jackson.io,org.codehaus.jackson.map,org.codehaus.jackson.util,org.codehaus.jackson.map.introspect,org.codehaus.jackson.map.jsontype,org.codehaus.jackson.map.util,org.codehaus.jackson"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.map.ser"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="773019" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/jackson/jackson-mapper-asl/1.9.3/jackson-mapper-asl-1.9.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="86BD9DA29A3CC7EACE4FED7C8AA599403BA68BCCA3C7B88A4CF8806175B31BBB"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.jackson:jackson-mapper-asl:1.9.3"/>
+      <attribute name="from" value="org.codehaus.jackson:jackson-mapper-asl:1.9.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.jackson:jackson-core-asl:1.9.3"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.datatype))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.namespace))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.parsers))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.annotate)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.format)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.impl)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.io)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.type)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.util)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="jackson-core-asl"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="jackson-core-asl"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.host" value="jackson-core-asl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.io,org.codehaus.jackson"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.format"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.util,org.codehaus.jackson"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.util"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.sym"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.io,org.codehaus.jackson.impl,org.codehaus.jackson"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.annotate"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.format,org.codehaus.jackson.io,org.codehaus.jackson.sym,org.codehaus.jackson.util,org.codehaus.jackson"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.jackson.format,org.codehaus.jackson.sym,org.codehaus.jackson.annotate,org.codehaus.jackson.impl,org.codehaus.jackson.type,org.codehaus.jackson.io,org.codehaus.jackson.util"/>
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.9.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.jackson.type"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="228268" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/jackson/jackson-core-asl/1.9.3/jackson-core-asl-1.9.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="1DA86D5CC696768E5CE7804B0D1F285D7C533CB3C972CCD6F540FE67B775D1A3"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.jackson:jackson-core-asl:1.9.3"/>
+      <attribute name="from" value="org.codehaus.jackson:jackson-core-asl:1.9.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.annotate)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.format)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.impl)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.io)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.sym)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.type)(version&gt;=1.9.3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.util)(version&gt;=1.9.3))"/>
+    </requirement>
+  </resource>
+</repository>

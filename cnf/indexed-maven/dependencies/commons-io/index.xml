@@ -1,0 +1,347 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553806566870">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.commons.io"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.5.0" type="Version"/>
+      <attribute name="documentation" value="http://commons.apache.org/proper/commons-io/"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.5.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.5.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.comparator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.filefilter"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.input"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.output"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.monitor"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.serialization"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.comparator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.input"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.output"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.filefilter"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="208700" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-io/commons-io/2.5/commons-io-2.5.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="A10418348D234968600CCB1D988EFCBBD08716E1D96936CCC1880E7D22513474"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="commons-io:commons-io:2.5"/>
+      <attribute name="from" value="commons-io:commons-io:2.5"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.commons.io"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.4.0" type="Version"/>
+      <attribute name="documentation" value="http://commons.apache.org/io/"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.4.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.4.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.comparator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.filefilter"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.input"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.output"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.comparator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.filefilter"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.input"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.output"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.monitor"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="185140" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="CC6A41DC3EAACC9E440A6BD0D2890B20D36B4EE408FE2D67122F328BB6E01581"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="commons-io:commons-io:2.4"/>
+      <attribute name="from" value="commons-io:commons-io:2.4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.commons.io"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.2.0" type="Version"/>
+      <attribute name="documentation" value="http://commons.apache.org/io/"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.2.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.2.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.output"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.monitor"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.filefilter"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.comparator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.input"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="173587" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-io/commons-io/2.2/commons-io-2.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="675F60BD11A82D481736591FE4054C66471FA5463D45616652FD71585792BA87"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="commons-io:commons-io:2.2"/>
+      <attribute name="from" value="commons-io:commons-io:2.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="https://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.commons.io"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.6.0" type="Version"/>
+      <attribute name="documentation" value="http://commons.apache.org/proper/commons-io/"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.6.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.6.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.comparator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.filefilter"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.input"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.9999" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.output"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.monitor"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.serialization"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.comparator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.filefilter"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.input"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.output"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="214788" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-io/commons-io/2.6/commons-io-2.6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="F877D304660AC2A142F3865BADFC971DEC7ED73C747C7F8D5D2F5139CA736513"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="commons-io:commons-io:2.6"/>
+      <attribute name="from" value="commons-io:commons-io:2.6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.commons.io"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.4.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.comparator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.filefilter"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.input"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.io.output"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="109043" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-io/commons-io/1.4/commons-io-1.4.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="A7F713593007813BF07D19BD1DF9F81C86C0719E9A0BB2EF1B98B78313FC940D"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="commons-io:commons-io:1.4"/>
+      <attribute name="from" value="commons-io:commons-io:1.4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.io)(version&gt;=1.4.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.io.comparator)(version&gt;=1.4.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.io.filefilter)(version&gt;=1.4.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.io.input)(version&gt;=1.4.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.io.output)(version&gt;=1.4.0))"/>
+    </requirement>
+  </resource>
+</repository>
