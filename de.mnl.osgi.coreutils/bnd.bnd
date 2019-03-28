@@ -15,7 +15,7 @@ javac.target: 1.8
 
 Export-Package: de.mnl.osgi.coreutils
 
--baselinerepo: MnlOSGi
+-baselinerepo: IndexedMaven
 -baseline: *
 
 -fixupmessages: \

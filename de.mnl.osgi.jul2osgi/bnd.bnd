@@ -19,5 +19,5 @@ javac.target: 1.8
 Private-Package: de.mnl.osgi.jul2osgi
 Bundle-Activator: de.mnl.osgi.jul2osgi.Forwarder
 
--baselinerepo: MnlOSGi
+-baselinerepo: IndexedMaven
 -baseline: *

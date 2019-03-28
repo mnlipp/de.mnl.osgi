@@ -14,7 +14,7 @@ javac.target: 1.8
 
 Export-Package: de.mnl.osgi.jul2osgi.lib
 
--baselinerepo: MnlOSGi
+-baselinerepo: IndexedMaven
 -baseline: *
 
 -fixupmessages: \

@@ -20,7 +20,7 @@ Export-Package: \
 	de.mnl.osgi.lf4osgi
 
 Bundle-Activator: de.mnl.osgi.lf4osgi.core.LoggerFacadeManager
--baselinerepo: MnlOSGi
+-baselinerepo: IndexedMaven
 -baseline: *
 
 -fixupmessages: \

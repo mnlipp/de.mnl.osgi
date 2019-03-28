@@ -22,7 +22,7 @@ Fragment-Host: slf4j.api
 
 #Bundle-Activator: de.mnl.osgi.sl4j2osgi.Forwarder
 
--baselinerepo: MnlOSGi
+-baselinerepo: IndexedMaven
 -baseline: *
 
 -fixupmessages: \
