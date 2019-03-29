@@ -7,4 +7,4 @@ description: Welcome page for project documentation of de.mnl.osgi
 Welcome to de.mnl.osgi
 ======================
 
-This project is a collection of various OSGi related components.
+This project provides a collection of various OSGi related components.
