@@ -31,12 +31,42 @@ public class LoggerCallTest {
 
     protected static final Logger logger
         = LoggerFactory.getLogger("Logger Call Test");
+    protected static final Logger classLogger
+        = LoggerFactory.getLogger(LoggerCallTest.class);
 
     private final BundleContext context = FrameworkUtil
         .getBundle(LoggerCallTest.class).getBundleContext();
 
     @Test
     public void testBasicUsage() throws InterruptedException {
+        AtomicBoolean gotIt = new AtomicBoolean();
+        try (ServiceCollector<LogReaderService,
+                LogReaderService> logReaderProvider
+                    = new ServiceCollector<>(context, LogReaderService.class)) {
+            logReaderProvider.open();
+            LogReaderService logReader
+                = logReaderProvider.waitForService(1000).get();
+            CountDownLatch latch = new CountDownLatch(1);
+            logReader.addLogListener(new LogListener() {
+                @Override
+                public void logged(LogEntry entry) {
+                    if (entry.getMessage()
+                        .startsWith("Calling Logger from Test.")) {
+                        assertEquals("de.mnl.osgi.slf4j2osgi.test",
+                            entry.getBundle().getSymbolicName());
+                        gotIt.set(true);
+                        latch.countDown();
+                    }
+                }
+            });
+            classLogger.info("Calling Logger from {}.", "Test");
+            latch.await(1000, TimeUnit.MILLISECONDS);
+            assertTrue(gotIt.get());
+        }
+    }
+
+    @Test
+    public void testClassUsage() throws InterruptedException {
         AtomicBoolean gotIt = new AtomicBoolean();
         try (ServiceCollector<LogReaderService,
                 LogReaderService> logReaderProvider

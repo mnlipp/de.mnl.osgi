@@ -100,17 +100,24 @@ public class LoggerCatalogue<T> {
             if (ste.getClassName().equals(providingClass)
                 && ste.getMethodName().equals("getLogger")) {
                 Class<?>[] classes = CTX_HLPR.getClassContext();
-                // Next in stack should caller of getLogger(), but
-                // getClassContext() has added one level, so the
-                // caller of getLogger should be at i+2. But...
-                // from the JavaDoc: "Some virtual machines may, under
+                // getClassContext() adds one level, so the
+                // call of getLogger (in classes) should be at i+1.
+                i += 1;
+                // But... from the JavaDoc: "Some virtual machines may, under
                 // some circumstances, omit one or more stack frames
                 // from the stack trace." So let's make sure that we
                 // are really there.
-                while (!classes[i + 1].getName().equals(providingClass)) {
+                while (!classes[i].getName().equals(providingClass)) {
                     i += 1; // NOPMD
                 }
-                return Optional.of(classes[i + 2]);
+                // Next one should now be the caller of getLogger. But
+                // in some libraries, getLogger calls "itself", e.g.
+                // getLogger(Class<?>) calls getLogger(String), proceed
+                // until we're out of this
+                while (classes[i].getName().equals(providingClass)) {
+                    i += 1; // NOPMD
+                }
+                return Optional.of(classes[i]);
             }
         }
         return Optional.empty();
