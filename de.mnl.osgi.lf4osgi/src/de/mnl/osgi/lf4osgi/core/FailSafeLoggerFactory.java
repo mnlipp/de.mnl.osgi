@@ -87,8 +87,11 @@ import org.osgi.service.log.LoggerFactory;
             Class<L> loggerType) {
         // Work around https://issues.apache.org/jira/browse/FELIX-6077.
         // Should be (Bundle.RESOLVED | Bundle.STARTING | Bundle.ACTIVE
-        // | Bundle.STOPPING)
-        if ((bundle.getState() & (Bundle.RESOLVED | Bundle.ACTIVE)) != 0) {
+        // | Bundle.STOPPING). Another point is that -- for whatever
+        // reason -- a resolved bundle can have no bundle context, which
+        // causes Felix Logging to fail as well.
+        if ((bundle.getState() & (Bundle.RESOLVED | Bundle.ACTIVE)) != 0
+            && bundle.getBundleContext() != null) {
             return delegee.getLogger(bundle, name, loggerType);
         }
         // Return the temporary logger and prepare to replace as
@@ -106,7 +109,8 @@ import org.osgi.service.log.LoggerFactory;
                     synchronized (bundle) {
                         if (event.getBundle().equals(bundle)
                             && (bundle.getState()
-                                & (Bundle.RESOLVED | Bundle.ACTIVE)) != 0) {
+                                & (Bundle.RESOLVED | Bundle.ACTIVE)) != 0
+                            && bundle.getBundleContext() != null) {
                             context.removeBundleListener(this);
                             facade.loggerFactoryUpdated(delegee);
                         }
