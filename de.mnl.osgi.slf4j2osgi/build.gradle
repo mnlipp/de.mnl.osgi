@@ -4,7 +4,18 @@ apply from: "${project.rootDir}/gradle/publishing.gradle"
 
 configurePublishing {
     withPomXml {
+        // Replace slf4j version
+        asNode().dependencies.first().each {
+            def groupId = it.get("groupId").first().value()
+            def artifactId = it.get("artifactId").first().value()
+            def version = it.get("version").first().value();
+            if (groupId == "org.slf4j" && artifactId == "slf4j-api") {
+                it.get("version").first().setValue("[1.7.0,1.8.0)")
+            }
+        }
+                
         asNode().with {
+
             appendNode('url', 'https://github.com/mnlipp/de.mnl.osgi')
             appendNode('scm').with {
                 appendNode('url', 'scm:git@github.com:mnlipp/de.mnl.osgi.git')
