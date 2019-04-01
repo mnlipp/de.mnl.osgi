@@ -94,7 +94,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private final Map<String, MavenGroupRepository> groups
         = new ConcurrentHashMap<>();
     private Map<String, MavenGroupRepository> backupGroups;
-    private AtomicBoolean refreshing = new AtomicBoolean();
+    private final AtomicBoolean refreshing = new AtomicBoolean();
 
     /**
      * Create a new instance that uses the provided information/resources to perform
@@ -341,8 +341,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
         }
         try {
             MavenGroupRepository groupRepo
-                = new MavenGroupRepository(
-                    groupId,
+                = new MavenGroupRepository(groupId,
                     (requested ? indexDbDir : depsDir).resolve(groupId),
                     requested, this, client, reporter);
             groups.put(groupId, groupRepo);
