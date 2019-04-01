@@ -48,6 +48,7 @@ import java.util.concurrent.CompletionException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -93,6 +94,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private final Map<String, MavenGroupRepository> groups
         = new ConcurrentHashMap<>();
     private Map<String, MavenGroupRepository> backupGroups;
+    private AtomicBoolean refreshing = new AtomicBoolean();
 
     /**
      * Create a new instance that uses the provided information/resources to perform
@@ -223,9 +225,22 @@ public class IndexedMavenRepository extends ResourcesRepository {
      * @return true if refreshed, false if not refreshed possibly due to error
      * @throws Exception if a problem occurs
      */
-    @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
-        "PMD.AvoidInstantiatingObjectsInLoops", "PMD.AvoidDuplicateLiterals" })
+    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
     public boolean refresh() throws Exception {
+        if (!refreshing.compareAndSet(false, true)) {
+            reporter.warning("Repository is already refreshing.");
+            return false;
+        }
+        try {
+            return doRefresh();
+        } finally {
+            refreshing.set(false);
+        }
+    }
+
+    @SuppressWarnings({ "PMD.AvoidInstantiatingObjectsInLoops",
+        "PMD.AvoidDuplicateLiterals", "PMD.SignatureDeclareThrowsException" })
+    private boolean doRefresh() throws Exception {
         mavenRepository.reset();
         backupGroups = new HashMap<>(groups);
 
