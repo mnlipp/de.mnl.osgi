@@ -47,12 +47,13 @@ class ConfigurePublishing implements Plugin<Project> {
 							// Update dependencies with resolved versions
 							if (asNode().dependencies) {
 								asNode().dependencies.first().each {
-									def groupId = it.get("groupId").first().value().first()
-									def artifactId = it.get("artifactId").first().value().first()
-									def version = it.get("version").first().value()[0];
+									def groupId = it.get("groupId").first().value()
+									println groupId
+									def artifactId = it.get("artifactId").first().value()
+									def version = it.get("version").first().value();
 									// Leave Maven version ranges alone.
 									if (!version.startsWith('(') && !version.startsWith('[')) {
-										it.get("version").first().value = resolvedVersionMap.get("${groupId}:${artifactId}")
+										it.get("version").first().setValue(resolvedVersionMap.get("${groupId}:${artifactId}"))
 									}
 								}
 							}
