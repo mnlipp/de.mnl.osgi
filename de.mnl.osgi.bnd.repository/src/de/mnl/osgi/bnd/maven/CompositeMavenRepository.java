@@ -249,7 +249,7 @@ public class CompositeMavenRepository extends MavenRepository
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public Optional<BoundRevision> toBoundRevision(Program program,
             String version) throws IOException {
-        if (!MavenVersionRange.isRange(version)) {
+        if (!MavenVersionSpecification.isRange(version)) {
             return toBoundRevision(program.version(version));
         }
         MavenVersionRange range = new MavenVersionRange(version);

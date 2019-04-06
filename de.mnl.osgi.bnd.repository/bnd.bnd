@@ -1,12 +1,12 @@
 # Choose either depending on whether we build a snapshot or a release:
-#bundleVersionQualifier: -${tstamp}-SNAPSHOT
-bundleVersionQualifier: ga
+bundleVersionQualifier: -${tstamp}-SNAPSHOT
+#bundleVersionQualifier: ga
 
 Bundle-Name: Bnd Nexus Search Plugin
 Bundle-Category: util
 Bundle-Copyright: Michael N. Lipp (C) 2018
 Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
-Bundle-Version: 1.0.1.${bundleVersionQualifier}
+Bundle-Version: 2.0.0.${bundleVersionQualifier}
 Export-Package: \
 	org.apache.maven.artifact,\
 	org.apache.maven.artifact.versioning,\
@@ -21,6 +21,7 @@ Export-Package: \
 	org.apache.maven.repository,\
 	org.apache.maven.repository.metadata,\
 	org.apache.maven.repository.legacy.metadata,\
+	org.apache.maven.model;-split-package:=merge-first,\
 	de.mnl.osgi.bnd.maven,\
 	de.mnl.osgi.bnd.repository.maven.provider;bnd-plugins=true
 
@@ -31,6 +32,9 @@ Export-Package: \
 	biz.aQute.repository;version="[4.2.0,5)",\
 	slf4j.api;version=latest,\
 	${replace;${lsr;jar};^(.*)$;jar/$1\\;version=file}
+
+-testpath: \
+	${junit}
 
 Include-Resource: ${replace;${lsr;jar};^(.*)$;@jar/$1}
 

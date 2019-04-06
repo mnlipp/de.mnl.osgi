@@ -19,6 +19,8 @@
 package de.mnl.osgi.bnd.maven;
 
 import aQute.bnd.version.Version;
+import aQute.maven.api.Program;
+import aQute.maven.api.Revision;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,7 +59,8 @@ import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
  * version as implemented by maven.
  */
 @SuppressWarnings("PMD.GodClass")
-public class MavenVersion implements ArtifactVersion {
+public class MavenVersion extends MavenVersionSpecification
+        implements ArtifactVersion {
 
     /** The usual format of a verson string. */
     public static final String VERSION_STRING
@@ -276,6 +279,17 @@ public class MavenVersion implements ArtifactVersion {
     @Override
     public void parseVersion(String version) {
         throw new UnsupportedOperationException("Not implemented.");
+    }
+
+    /**
+     * Combines this version with a program to a revision.
+     *
+     * @param program the program
+     * @return the revision
+     */
+    @SuppressWarnings("PMD.ShortMethodName")
+    public Revision of(Program program) {
+        return program.version(asBndMavenVersion());
     }
 
     /*

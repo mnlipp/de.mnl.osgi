@@ -18,7 +18,14 @@
 
 package de.mnl.osgi.bnd.maven;
 
+import java.util.Comparator;
+import java.util.List;
+
+import org.apache.maven.artifact.versioning.ArtifactVersion;
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException;
+import org.apache.maven.artifact.versioning.Restriction;
+import org.apache.maven.artifact.versioning.VersionRange;
 
 /**
  * Provides a representation of a maven version range. The implementation 
@@ -30,21 +37,30 @@ import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException
  * delegates to an instance of 
  * {@link org.apache.maven.artifact.versioning.VersionRange}.
  */
-public class MavenVersionRange {
+@SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+public class MavenVersionRange extends MavenVersionSpecification {
 
     public static final MavenVersionRange ALL;
-    private org.apache.maven.artifact.versioning.VersionRange range;
+    public static final MavenVersionRange NONE;
+    private static final ArtifactVersion ZERO = new DefaultArtifactVersion("0");
+    private VersionRange range;
 
     static {
-        org.apache.maven.artifact.versioning.VersionRange range;
+        VersionRange range;
         try {
-            range = org.apache.maven.artifact.versioning.VersionRange
-                .createFromVersionSpec("[0,)");
+            range = VersionRange.createFromVersionSpec("[0,)");
         } catch (InvalidVersionSpecificationException e) {
             // Won't happen (checked).
             range = null;
         }
         ALL = new MavenVersionRange(range);
+        try {
+            range = VersionRange.createFromVersionSpec("[,0)");
+        } catch (InvalidVersionSpecificationException e) {
+            // Won't happen (checked).
+            range = null;
+        }
+        NONE = new MavenVersionRange(range);
     }
 
     /**
@@ -52,8 +68,7 @@ public class MavenVersionRange {
      *
      * @param range the range
      */
-    public MavenVersionRange(
-            org.apache.maven.artifact.versioning.VersionRange range) {
+    public MavenVersionRange(VersionRange range) {
         this.range = range;
     }
 
@@ -70,8 +85,7 @@ public class MavenVersionRange {
             return;
         }
         try {
-            this.range = org.apache.maven.artifact.versioning.VersionRange
-                .createFromVersionSpec(range);
+            this.range = VersionRange.createFromVersionSpec(range);
         } catch (InvalidVersionSpecificationException e) {
             throw new IllegalArgumentException(e);
         }
@@ -82,18 +96,91 @@ public class MavenVersionRange {
      *
      * @return the org.apache.maven.artifact.versioning. version range
      */
-    public org.apache.maven.artifact.versioning.VersionRange versionRange() {
+    public VersionRange versionRange() {
         return range;
     }
 
     /**
-     * Checks if this version range includes the specified version.
+     * Returns the complementary version rang.
+     *
+     * @return the maven version range
+     */
+    @SuppressWarnings("PMD.CyclomaticComplexity")
+    public MavenVersionRange complement() {
+        List<Restriction> restrictions = range.getRestrictions();
+        restrictions.sort(Comparator.comparing(Restriction::getLowerBound));
+        ArtifactVersion lastVersion = new DefaultArtifactVersion("0");
+        boolean lastUpperInclusive = false;
+        StringBuilder cmpl = new StringBuilder();
+        for (Restriction rstrct : restrictions) {
+            ArtifactVersion rstrctLower = rstrct.getLowerBound();
+            if (rstrctLower == null) {
+                rstrctLower = ZERO;
+            }
+            int cmp = lastVersion.compareTo(rstrctLower);
+            if (cmp < 0 || cmp == 0
+                && !(lastUpperInclusive || rstrct.isLowerBoundInclusive())) {
+                // Not overlap or continuation.
+                if (cmpl.length() > 0) {
+                    cmpl.append(',');
+                }
+                cmpl.append(lastUpperInclusive ? '(' : '[');
+                cmpl.append(lastVersion.toString());
+                cmpl.append(',');
+                cmpl.append(rstrct.getLowerBound().toString());
+                cmpl.append(rstrct.isLowerBoundInclusive() ? ')' : ']');
+            }
+            lastVersion = rstrct.getUpperBound();
+            lastUpperInclusive = rstrct.isUpperBoundInclusive();
+            if (lastVersion == null) {
+                // Any restriction with open upper end is final
+                // (cannot add range to maximum range).
+                break;
+            }
+        }
+        if (lastVersion == null) {
+            // Open ended, check if it was "all" ("[0,)")
+            if (cmpl.length() == 0) {
+                cmpl.append("[,0)");
+            }
+        } else {
+            // Not open ended, so we must provide the last restriction.
+            if (cmpl.length() > 0) {
+                cmpl.append(',');
+            }
+            cmpl.append(lastUpperInclusive ? '(' : '[');
+            cmpl.append(lastVersion.toString());
+            cmpl.append(",)");
+        }
+        return new MavenVersionRange(cmpl.toString());
+    }
+
+    /**
+     * Checks if this version range includes the specified version
+     * or range. A range is included if it is fully included.
      *
      * @param mavenVersion the maven version
      * @return the result
      */
-    public boolean includes(MavenVersion mavenVersion) {
-        return range.containsVersion(mavenVersion);
+    public boolean includes(MavenVersionSpecification mavenVersion) {
+        if (mavenVersion instanceof MavenVersion) {
+            return range.containsVersion((MavenVersion) mavenVersion);
+        }
+        return restrict((MavenVersionRange) mavenVersion).range
+            .getRestrictions().isEmpty();
+    }
+
+    /**
+     * Creates and returns a new VersionRange that is a restriction 
+     * of this version range and the specified version range.
+     *
+     * @see VersionRange#restrict
+     *
+     * @param restriction the restriction
+     * @return the maven version range
+     */
+    public MavenVersionRange restrict(MavenVersionRange restriction) {
+        return new MavenVersionRange(range.restrict(restriction.range));
     }
 
     /**
@@ -113,13 +200,10 @@ public class MavenVersionRange {
      *
      * @param version the version
      * @return true, if is range
+     * @deprecated Use {@link MavenVersionSpecification#isRange(String)} instead
      */
     public static boolean isRange(String version) {
-        if (version == null) {
-            return true;
-        }
-        version = version.trim();
-        return version.startsWith("[") || version.startsWith("(");
+        return MavenVersionSpecification.isRange(version);
     }
 
     @Override
@@ -147,9 +231,8 @@ public class MavenVersionRange {
         if (obj instanceof MavenVersionRange) {
             return range.equals(((MavenVersionRange) obj).range);
         }
-        if (obj instanceof org.apache.maven.artifact.versioning.VersionRange) {
-            return range.equals(
-                (org.apache.maven.artifact.versioning.VersionRange) obj);
+        if (obj instanceof VersionRange) {
+            return range.equals((VersionRange) obj);
         }
         return false;
     }
