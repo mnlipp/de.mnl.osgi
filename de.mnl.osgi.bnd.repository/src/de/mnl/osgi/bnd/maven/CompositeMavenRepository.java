@@ -25,8 +25,6 @@ import aQute.bnd.osgi.resource.ResourceBuilder;
 import aQute.bnd.service.RepositoryPlugin;
 import aQute.maven.api.Archive;
 import aQute.maven.api.IMavenRepo;
-import aQute.maven.api.IPom;
-import aQute.maven.api.MavenScope;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;

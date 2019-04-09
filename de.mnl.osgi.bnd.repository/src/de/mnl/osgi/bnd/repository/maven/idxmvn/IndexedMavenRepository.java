@@ -88,6 +88,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private final File localRepo;
     private final Reporter reporter;
     private final HttpClient client;
+    private final boolean logIndexing;
     private final ExecutorService groupLoaders
         = Executors.newFixedThreadPool(4);
     private final CompositeMavenRepository mavenRepository;
@@ -113,7 +114,8 @@ public class IndexedMavenRepository extends ResourcesRepository {
         "PMD.SignatureDeclareThrowsException", "PMD.AvoidDuplicateLiterals" })
     public IndexedMavenRepository(String name, List<URL> releaseUrls,
             List<URL> snapshotUrls, File localRepo, File indexDbDir,
-            Reporter reporter, HttpClient client) throws Exception {
+            Reporter reporter, HttpClient client, boolean logIndexing)
+            throws Exception {
         this.name = name;
         this.indexDbDir = indexDbDir.toPath();
         depsDir = this.indexDbDir.resolve("dependencies");
@@ -122,6 +124,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
         this.localRepo = localRepo;
         this.reporter = reporter;
         this.client = client;
+        this.logIndexing = logIndexing;
 
         // Check prerequisites
         if (indexDbDir.exists() && !indexDbDir.isDirectory()) {
@@ -189,6 +192,15 @@ public class IndexedMavenRepository extends ResourcesRepository {
      */
     public final File location() {
         return indexDbDir.toFile();
+    }
+
+    /**
+     * Returns true if indexing is to be logged.
+     *
+     * @return true, if indexing should be log
+     */
+    public boolean logIndexing() {
+        return logIndexing;
     }
 
     /**

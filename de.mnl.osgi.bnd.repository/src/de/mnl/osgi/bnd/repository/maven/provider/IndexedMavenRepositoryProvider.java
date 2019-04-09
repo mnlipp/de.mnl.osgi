@@ -74,6 +74,7 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
         = new Slf4jReporter(IndexedMavenRepositoryProvider.class);
     private IndexedMavenRepository osgiRepository;
     private BridgeRepository bridge;
+    private boolean logIndexing;
 
     @Override
     @SuppressWarnings({ "PMD.UseLocaleWithCaseConversions", "restriction" })
@@ -83,6 +84,7 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
         name = configuration.name(name);
         location = configuration.location(
             "cnf/" + name.toLowerCase().replace(' ', '-').replace('/', ':'));
+        logIndexing = configuration.logIndexing();
     }
 
     @Override
@@ -117,6 +119,8 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
      * 
      * @throws MalformedURLException 
      */
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
+        "PMD.AvoidThrowingRawExceptionTypes" })
     private void init() {
         synchronized (this) {
             if (initialized) {
@@ -137,7 +141,7 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
                         .map(
                             ru -> stringToUrl(ru))
                         .collect(Collectors.toList()),
-                    localRepo, indexDb, reporter, client);
+                    localRepo, indexDb, reporter, client, logIndexing);
                 bridge = new BridgeRepository(osgiRepository);
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -159,6 +163,7 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
     }
 
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public boolean refresh() throws Exception {
         init();
         if (!osgiRepository.refresh()) {

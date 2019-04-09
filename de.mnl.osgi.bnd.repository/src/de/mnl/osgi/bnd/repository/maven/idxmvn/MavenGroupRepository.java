@@ -41,9 +41,12 @@ import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Writer;
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -56,8 +59,10 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -77,7 +82,7 @@ public class MavenGroupRepository extends ResourcesRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(
         MavenGroupRepository.class);
-    private static final String NOT_AVAILABLE = "_NOT_AVAILABLE_";
+    private static final String PROP_UNAVAILABLE = "_NOT_AVAILABLE_";
 
     /** Indexing state. */
     private enum IndexingState {
@@ -99,10 +104,14 @@ public class MavenGroupRepository extends ResourcesRepository {
     private final Properties groupProps;
     private final Map<String, String> propQueryCache
         = new ConcurrentHashMap<>();
-    private final Map<Revision, IndexingState> indexingState
+    private final ConcurrentMap<Revision, IndexingState> indexingState
         = new ConcurrentHashMap<>();
     private boolean indexChanged;
     private ResourcesRepository backupRepo;
+    private Writer indexingLog;
+    private Map<Revision, List<String>> loggedMessages
+        = new ConcurrentHashMap<>();
+
     @SuppressWarnings("PMD.FieldNamingConventions")
     private static final Pattern hrefPattern = Pattern.compile(
         "<[aA]\\s+(?:[^>]*?\\s+)?href=(?<quote>[\"'])"
@@ -207,6 +216,16 @@ public class MavenGroupRepository extends ResourcesRepository {
             indexChanged = false;
         }
         backupRepo = null;
+        if (indexingLog != null) {
+            rethrow(IOException.class, () -> loggedMessages.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .flatMap(e -> e.getValue().stream())
+                .forEach(msg -> unthrow(() -> indexingLog
+                    .write(msg + System.lineSeparator()))));
+            indexingLog.close();
+            indexingLog = null;
+        }
+        loggedMessages.clear();
         indexingState.clear();
     }
 
@@ -271,6 +290,20 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
+     * Returns the excluded versions of the specified artifact id.
+     *
+     * @param artifactId the artifact id
+     * @return the maven version range
+     */
+    private MavenVersionRange excludedRange(String artifactId) {
+        // Check if excluded by rule.
+        return Optional
+            .ofNullable(searchProperty(artifactId, "exclude"))
+            .map(MavenVersionRange::parseRange)
+            .orElse(MavenVersionRange.NONE);
+    }
+
+    /**
      * Reload the repository. Requested repositories retrieve
      * the list of known artifactIds from the remote repository 
      * and add the versions. For versions already in the repository, 
@@ -283,6 +316,14 @@ public class MavenGroupRepository extends ResourcesRepository {
         "PMD.AvoidInstantiatingObjectsInLoops",
         "PMD.AvoidThrowingRawExceptionTypes", "PMD.PreserveStackTrace" })
     public void reload() throws IOException {
+        if (indexedRepository.logIndexing()) {
+            indexingLog = Files.newBufferedWriter(
+                groupDir.resolve("indexing.log"), Charset.defaultCharset());
+        } else {
+            // Don't keep out-dated log files, it's irritating.
+            groupDir.resolve("indexing.log").toFile().delete();
+        }
+        loggedMessages.clear();
         if (!isRequested()) {
             // Will be filled with dependencies only
             return;
@@ -386,6 +427,7 @@ public class MavenGroupRepository extends ResourcesRepository {
                 } catch (Exception e) {
                     // TODO
                 }
+                // Add the dependencies found while checking to the index.
                 rethrow(IOException.class, () -> allDeps.stream()
                     .filter(res -> runIgnoring(() -> isBundle(res), false))
                     .filter(res -> indexingState.getOrDefault(res.revision(),
@@ -397,9 +439,10 @@ public class MavenGroupRepository extends ResourcesRepository {
                 // Load "in isolation", don't propagate individual failure.
                 reporter.exception(e, "Failed to load revision %s: %s",
                     revision, e.getMessage());
+                logIndexing(revision.unbound(), () -> String.format(
+                    "%s failed to load.", revision.unbound()));
             }
         }, IndexedMavenRepository.revisionLoaders);
-
     }
 
     @SuppressWarnings("PMD.PositionLiteralsFirstInComparisons")
@@ -447,9 +490,9 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
-     * Checks if the given revision is indexable. A revision is
-     * indexable if it is not excluded and its dependencies aren't
-     * excluded either.
+     * Checks if the given revision is indexable, considering its 
+     * dependencies. A revision is indexable if its dependencies aren't
+     * excluded.
      *
      * @param resource the resource to check
      * @param dependencies revisions that must additionally be included
@@ -568,7 +611,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         // Attempt to get from cache.
         String prop = propQueryCache.get(queryKey);
         // Special value, because ConcurrentHashMap cannot have null values.
-        if (prop == NOT_AVAILABLE) {
+        if (prop == PROP_UNAVAILABLE) {
             return null;
         }
         // Found in cache return.
@@ -595,8 +638,13 @@ public class MavenGroupRepository extends ResourcesRepository {
         if (prop == null) {
             prop = groupProps.getProperty(qualifier);
         }
-        propQueryCache.put(queryKey, prop == null ? NOT_AVAILABLE : prop);
+        propQueryCache.put(queryKey, prop == null ? PROP_UNAVAILABLE : prop);
         return prop;
+    }
+
+    private void logIndexing(Revision revision, Supplier<String> msgSupplier) {
+        loggedMessages.computeIfAbsent(revision, rev -> new ArrayList<>())
+            .add(msgSupplier.get());
     }
 
     /*
@@ -608,5 +656,4 @@ public class MavenGroupRepository extends ResourcesRepository {
     public String toString() {
         return "MavenGroupRepository [groupId=" + groupId + "]";
     }
-
 }

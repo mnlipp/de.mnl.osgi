@@ -63,4 +63,11 @@ public interface IndexedMavenConfiguration {
      * @return the result
      */
     String snapshotUrls();
+
+    /**
+     * Must be set to get a log of the indexing operation.
+     *
+     * @return true, if a log is to be written
+     */
+    boolean logIndexing();
 }
