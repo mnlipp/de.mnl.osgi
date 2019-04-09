@@ -170,6 +170,41 @@ public final class RepositoryUtils {
      * Catches {@link UndeclaredThrowableException}s and unwraps
      * any underlying exception of the given type.
      *
+     * @param <T> the return type
+     * @param <E> the type of exception that is unwrapped
+     * @param rethrown the type of exception that is rethrown
+     * @param supplier the supplier
+     * @return the result from invoking the {@code supplier}
+     * @throws E the exception type
+     */
+    @SuppressWarnings({ "unchecked", "PMD.AvoidCatchingGenericException",
+        "PMD.AvoidRethrowingException" })
+    public static <T, E1 extends Throwable, E2 extends Throwable> T
+            rethrow(Class<E1> rethrown1, Class<E2> rethrown2,
+                    Callable<T> supplier) throws E1, E2 {
+        try {
+            return supplier.call();
+        } catch (UndeclaredThrowableException e) {
+            if (rethrown1
+                .isAssignableFrom(e.getUndeclaredThrowable().getClass())) {
+                throw (E1) e.getUndeclaredThrowable();
+            }
+            if (rethrown2
+                .isAssignableFrom(e.getUndeclaredThrowable().getClass())) {
+                throw (E2) e.getUndeclaredThrowable();
+            }
+            throw e;
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new UndeclaredThrowableException(e);
+        }
+    }
+
+    /**
+     * Catches {@link UndeclaredThrowableException}s and unwraps
+     * any underlying exception of the given type.
+     *
      * @param <E> the type of exception that is unwrapped
      * @param rethrown the type of exception that is rethrown
      * @param runnable the runnable

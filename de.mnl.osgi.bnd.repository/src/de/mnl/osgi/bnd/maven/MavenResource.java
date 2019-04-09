@@ -18,13 +18,11 @@
 
 package de.mnl.osgi.bnd.maven;
 
-import aQute.maven.api.IPom.Dependency;
 import aQute.maven.api.Revision;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
+import org.apache.maven.model.Dependency;
 import org.osgi.resource.Capability;
 import org.osgi.resource.Requirement;
 import org.osgi.resource.Resource;
@@ -35,7 +33,15 @@ import org.osgi.resource.Resource;
 public interface MavenResource {
 
     /**
-     * Returns the revision.
+     * Returns the revision. The revision is the only mandatory
+     * information when creating a {@link MavenResource}. The other
+     * informations that can be obtained can be made available
+     * lazily, i.e. can be loaded on demand. 
+     * <P>
+     * This implies that a {@link MavenResource} can be created 
+     * that does not exist in the backing maven repositories. 
+     * If not obvious from the context, a call to {@link #boundRevision()}
+     * can be used to verify that the resource exists.
      *
      * @return the revision
      */
@@ -45,47 +51,67 @@ public interface MavenResource {
      * Returns the bound revision.
      *
      * @return the revision
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws MavenResourceException the maven resource exception
      */
-    BoundRevision boundRevision() throws IOException;
+    BoundRevision boundRevision() throws MavenResourceException;
 
     /**
-     * Returns the dependencies.
+     * Returns the mandatory maven compile and runtime dependencies. 
+     * Dependencies in the POM that use variables are filtered, because
+     * these variable cannot be resolved. 
      *
      * @return the dependencies
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws MavenResourceException the maven resource exception
      */
-    Set<Dependency> dependencies() throws IOException;
+    List<Dependency> dependencies() throws MavenResourceException;
 
     /**
      * Gets the underlying "ordinary" resource.
      *
      * @return the resource
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws MavenResourceException the maven resource exception
      */
-    Resource asResource() throws IOException;
+    Resource asResource() throws MavenResourceException;
 
     /**
      * Gets the capabilities from the given namespace.
      *
      * @param namespace the namespace
      * @return the capabilities
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws MavenResourceException the maven resource exception
      */
-    List<Capability> getCapabilities(String namespace) throws IOException;
+    List<Capability> getCapabilities(String namespace)
+            throws MavenResourceException;
 
     /**
      * Gets the requirements from the given namespace.
      *
      * @param namespace the namespace
      * @return the requirements
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws MavenResourceException the maven resource exception
      */
-    List<Requirement> getRequirements(String namespace) throws IOException;
+    List<Requirement> getRequirements(String namespace)
+            throws MavenResourceException;
 
+    /**
+     * A {@link MavenResource} can be compared with another maven resource.
+     * In this case the objects are considered equal if their revisions 
+     * are equal. A {@link MavenResource} can also be compared with 
+     * another {@link Resource}. In this case, equality will be checked 
+     * between {@link MavenResource#asResource()} and the other resource 
+     * (see {@link Resource#equals(Object)}). 
+     *
+     * @param obj the obj
+     * @return true, if successful
+     */
     @Override
     boolean equals(Object obj);
 
+    /**
+     * The hash code is defined by the revision.
+     *
+     * @return the int
+     */
     @Override
     int hashCode();
 

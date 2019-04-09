@@ -1,87 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553806566870">
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="slf4j.api"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="1.7.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.7.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="slf4j.api"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.7.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="slf4j.api"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.7.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.7.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.spi"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.7.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.helpers"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="26078" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.0/slf4j-api-1.7.0.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="255EC27DBC54332FA94D26F105A6DB62601B607720DADFC89675F9046D136EC8"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.slf4j:slf4j-api:1.7.0"/>
-      <attribute name="from" value="org.slf4j:slf4j-api:1.7.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.impl)(version&gt;=1.6.0))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="slf4j.api"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="1.7.13" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.7.13" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="slf4j.api"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.7.13" type="Version"/>
-      <attribute name="osgi.wiring.host" value="slf4j.api"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.7.13" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.7.13" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.spi"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.7.13" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.helpers"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="33088" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.13/slf4j-api-1.7.13.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="20D68D0C2E4FB984FFC164852B8B68DF49A2B8716076F576881BCEF7649A0E35"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.slf4j:slf4j-api:1.7.13"/>
-      <attribute name="from" value="org.slf4j:slf4j-api:1.7.13"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.impl)(version&gt;=1.6.0))"/>
-    </requirement>
-  </resource>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1554647056333">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="slf4j.api"/>
@@ -172,6 +90,92 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="slf4j.api"/>
       <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.7.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.7.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="slf4j.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.7.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="slf4j.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.spi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.helpers"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="26078" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.0/slf4j-api-1.7.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="255EC27DBC54332FA94D26F105A6DB62601B607720DADFC89675F9046D136EC8"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.slf4j:slf4j-api:1.7.0"/>
+      <attribute name="from" value="org.slf4j:slf4j-api:1.7.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.impl)(version&gt;=1.6.0))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="slf4j.api"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.8.0.beta4" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.8.0.beta4" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="slf4j.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.8.0.beta4" type="Version"/>
+      <attribute name="osgi.wiring.host" value="slf4j.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.8.0.beta4" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.8.0.beta4" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.spi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.8.0.beta4" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.helpers"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.8.0.beta4" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.event"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="44213" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.8.0-beta4/slf4j-api-1.8.0-beta4.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="602B712329C84B4A83C40464F4FDFD0FE4238C53EF397139A867064739DBF4E0"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.slf4j:slf4j-api:1.8.0-beta4"/>
+      <attribute name="from" value="org.slf4j:slf4j-api:1.8.0-beta4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.spi)(version&gt;=1.8.0.beta4))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="slf4j.api"/>
+      <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="1.3.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
@@ -213,37 +217,37 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="slf4j.api"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="1.6.1" type="Version"/>
+      <attribute name="version" value="1.7.13" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.6.1" type="Version"/>
+      <attribute name="bundle-version" value="1.7.13" type="Version"/>
       <attribute name="osgi.wiring.bundle" value="slf4j.api"/>
     </capability>
     <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.6.1" type="Version"/>
+      <attribute name="bundle-version" value="1.7.13" type="Version"/>
       <attribute name="osgi.wiring.host" value="slf4j.api"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.6.1" type="Version"/>
+      <attribute name="version" value="1.7.13" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.slf4j"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.6.1" type="Version"/>
+      <attribute name="version" value="1.7.13" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.slf4j.spi"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.6.1" type="Version"/>
+      <attribute name="version" value="1.7.13" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.slf4j.helpers"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="25496" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar"/>
+      <attribute name="size" value="33088" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.13/slf4j-api-1.7.13.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="D849D117FC3798838C6CD42DB6A7ECF6D9AE050C3997417B8E4E251E592B1D3E"/>
+      <attribute name="osgi.content" value="20D68D0C2E4FB984FFC164852B8B68DF49A2B8716076F576881BCEF7649A0E35"/>
     </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.slf4j:slf4j-api:1.6.1"/>
-      <attribute name="from" value="org.slf4j:slf4j-api:1.6.1"/>
+      <attribute name="name" value="org.slf4j:slf4j-api:1.7.13"/>
+      <attribute name="from" value="org.slf4j:slf4j-api:1.7.13"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -546,6 +550,131 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="slf4j.api"/>
       <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.6.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.6.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="slf4j.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.6.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="slf4j.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.6.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.6.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.spi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.6.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.helpers"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="25496" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="D849D117FC3798838C6CD42DB6A7ECF6D9AE050C3997417B8E4E251E592B1D3E"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.slf4j:slf4j-api:1.6.1"/>
+      <attribute name="from" value="org.slf4j:slf4j-api:1.6.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.impl)(version&gt;=1.6.0))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="slf4j.api"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.6.6" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.6.6" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="slf4j.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.6.6" type="Version"/>
+      <attribute name="osgi.wiring.host" value="slf4j.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.6.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.6.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.spi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.6.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.helpers"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="26176" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="43456B2EE31529A9C512D581E53E285C65FEDDEC204A2C146945E032B07810BA"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.slf4j:slf4j-api:1.6.6"/>
+      <attribute name="from" value="org.slf4j:slf4j-api:1.6.6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.impl)(version&gt;=1.6.0))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="jcl.over.slf4j"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.6.6" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.6.6" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="jcl.over.slf4j"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.6.6" type="Version"/>
+      <attribute name="osgi.wiring.host" value="jcl.over.slf4j"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.logging"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.logging.impl"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="17289" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/slf4j/jcl-over-slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="42ECE80FEACE6C85C4672CBC73C3C0A6E6A6BA24DAD28533327ADF9A99E49616"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.slf4j:jcl-over-slf4j:1.6.6"/>
+      <attribute name="from" value="org.slf4j:jcl-over-slf4j:1.6.6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.slf4j:slf4j-api:1.6.6"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=1.6.6))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.spi)(version&gt;=1.6.6))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="slf4j.api"/>
+      <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="1.5.3" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
@@ -662,6 +791,40 @@
   </resource>
   <resource>
     <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="slf4j.jdk14"/>
+      <attribute name="type" value="osgi.fragment"/>
+      <attribute name="version" value="1.5.6" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.5.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="8815" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/slf4j/slf4j-jdk14/1.5.6/slf4j-jdk14-1.5.6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="9B659D87E77EF601B0C564019B0D7FD1267C141F2D2DC55C9BA7613E63CA6786"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.slf4j:slf4j-jdk14:1.5.6"/>
+      <attribute name="from" value="org.slf4j:slf4j-jdk14:1.5.6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=1.5.6))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.spi)(version&gt;=1.5.6))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.helpers)(version&gt;=1.5.6))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="slf4j.simple"/>
       <attribute name="type" value="osgi.fragment"/>
       <attribute name="version" value="1.6.0" type="Version"/>
@@ -739,40 +902,6 @@
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.impl)(version&gt;=1.5.5))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="slf4j.jdk14"/>
-      <attribute name="type" value="osgi.fragment"/>
-      <attribute name="version" value="1.5.6" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.5.6" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="8815" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/slf4j/slf4j-jdk14/1.5.6/slf4j-jdk14-1.5.6.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="9B659D87E77EF601B0C564019B0D7FD1267C141F2D2DC55C9BA7613E63CA6786"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.slf4j:slf4j-jdk14:1.5.6"/>
-      <attribute name="from" value="org.slf4j:slf4j-jdk14:1.5.6"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <requirement namespace="osgi.wiring.host">
-      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=1.5.6))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.spi)(version&gt;=1.5.6))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.helpers)(version&gt;=1.5.6))"/>
     </requirement>
   </resource>
   <resource>

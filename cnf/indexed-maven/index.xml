@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<repository increment="1553810692315" name="IndexedMaven" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1554647056343" name="IndexedMaven" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
 <referral url="dependencies/org.assertj/index.xml"/>
-<referral url="dependencies/org.apache.sshd/index.xml"/>
+<referral url="dependencies/org.ops4j.base/index.xml"/>
 <referral url="dependencies/ch.qos.logback/index.xml"/>
+<referral url="dependencies/org.apache.sshd/index.xml"/>
 <referral url="org.apache.servicemix.bundles/index.xml"/>
+<referral url="dependencies/commons-lang/index.xml"/>
 <referral url="dependencies/com.fasterxml.jackson.dataformat/index.xml"/>
 <referral url="dependencies/org.eclipse.sisu/index.xml"/>
 <referral url="dependencies/com.google.inject/index.xml"/>
@@ -14,6 +16,7 @@
 <referral url="dependencies/org.codehaus.groovy/index.xml"/>
 <referral url="dependencies/org.bouncycastle/index.xml"/>
 <referral url="dependencies/com.google.code.findbugs/index.xml"/>
+<referral url="dependencies/org.ops4j.pax.swissbox/index.xml"/>
 <referral url="dependencies/com.fasterxml.woodstox/index.xml"/>
 <referral url="org.mockito/index.xml"/>
 <referral url="dependencies/joda-time/index.xml"/>
@@ -34,8 +37,8 @@
 <referral url="dependencies/org.codehaus.jettison/index.xml"/>
 <referral url="dependencies/com.lmax/index.xml"/>
 <referral url="dependencies/org.eclipse.jetty.orbit/index.xml"/>
-<referral url="dependencies/com.github.luben/index.xml"/>
 <referral url="dependencies/org.codehaus.janino/index.xml"/>
+<referral url="dependencies/com.github.luben/index.xml"/>
 <referral url="dependencies/javax.servlet/index.xml"/>
 <referral url="dependencies/asm/index.xml"/>
 <referral url="org.hamcrest/index.xml"/>
@@ -54,27 +57,29 @@
 <referral url="dependencies/org.zeromq/index.xml"/>
 <referral url="dependencies/org.fusesource.jansi/index.xml"/>
 <referral url="net.bytebuddy/index.xml"/>
+<referral url="dependencies/org.ops4j.pax.url/index.xml"/>
 <referral url="dependencies/org.easymock/index.xml"/>
+<referral url="dependencies/org.codehaus.jcsp/index.xml"/>
 <referral url="dependencies/com.googlecode.concurrentlinkedhashmap/index.xml"/>
 <referral url="dependencies/biz.aQute/index.xml"/>
-<referral url="dependencies/org.codehaus.jcsp/index.xml"/>
 <referral url="dependencies/net.i2p.crypto/index.xml"/>
 <referral url="dependencies/commons-fileupload/index.xml"/>
 <referral url="dependencies/org.eclipse.jetty/index.xml"/>
 <referral url="dependencies/org.apache.ivy/index.xml"/>
 <referral url="de.mnl.osgi/index.xml"/>
-<referral url="dependencies/com.google.guava/index.xml"/>
 <referral url="dependencies/org.codehaus.jackson/index.xml"/>
+<referral url="dependencies/com.google.guava/index.xml"/>
 <referral url="dependencies/org.codehaus.gpars/index.xml"/>
+<referral url="dependencies/org.jsoup/index.xml"/>
 <referral url="dependencies/org.jline/index.xml"/>
 <referral url="dependencies/javax.mail/index.xml"/>
 <referral url="dependencies/org.codehaus.jsr166-mirror/index.xml"/>
-<referral url="dependencies/com.sun.mail/index.xml"/>
 <referral url="dependencies/com.jcraft/index.xml"/>
+<referral url="dependencies/com.sun.mail/index.xml"/>
 <referral url="dependencies/com.thoughtworks.xstream/index.xml"/>
 <referral url="dependencies/org.yaml/index.xml"/>
-<referral url="dependencies/log4j/index.xml"/>
 <referral url="dependencies/org.codehaus.woodstox/index.xml"/>
+<referral url="dependencies/log4j/index.xml"/>
 <referral url="dependencies/de.twentyeleven.skysail/index.xml"/>
 <referral url="dependencies/org.mongodb/index.xml"/>
 <referral url="dependencies/org.eclipse.jetty.websocket/index.xml"/>

@@ -187,7 +187,8 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
         String name = resource.getInfo().name();
         Archive archive = Archive.valueOf(name);
 
-        Promise<File> prmse = osgiRepository.mavenRepository().get(archive);
+        Promise<File> prmse
+            = osgiRepository.mavenRepository().retrieve(archive);
 
         if (listeners.length == 0) {
             return prmse.getValue();

@@ -264,7 +264,8 @@ public class MavenVersion extends MavenVersionSpecification
      * @return the a qute.bnd.version. maven version
      */
     public aQute.bnd.version.MavenVersion asBndMavenVersion() {
-        return new aQute.bnd.version.MavenVersion(version);
+        // Create from literal, "version" may have lost information.
+        return new aQute.bnd.version.MavenVersion(literal);
     }
 
     /**

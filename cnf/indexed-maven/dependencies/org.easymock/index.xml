@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553806566872">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1554647056336">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
@@ -142,6 +142,77 @@
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.easymock"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.easymock"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.easymock"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="mandatory" value="poweruser"/>
+      <directive name="uses" value="org.easymock,net.sf.cglib.proxy,net.sf.cglib.core,org.easymock.internal.matchers,org.objenesis"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.easymock.internal"/>
+      <attribute name="poweruser" value="true"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="mandatory" value="poweruser"/>
+      <directive name="uses" value="org.easymock,org.easymock.internal"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.easymock.internal.matchers"/>
+      <attribute name="poweruser" value="true"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.easymock.internal,org.easymock.internal.matchers"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.easymock"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="111969" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/easymock/easymock/3.1/easymock-3.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="5CFFD3CE63EE5EAB8588CFA56663B7281808F35B5778B3A18AC7F77967D228C4"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.easymock:easymock:3.1"/>
+      <attribute name="from" value="org.easymock:easymock:3.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="cglib:cglib-nodep:2.2.2;org.objenesis:objenesis:1.2"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.sf.cglib.core))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.sf.cglib.proxy))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.sf.cglib.reflect))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.easymock)(&amp;(version&gt;=3.1.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.easymock.internal)(&amp;(version&gt;=3.1.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.objenesis)(&amp;(version&gt;=1.2.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="resolution" value="optional"/>
     </requirement>
   </resource>
 </repository>

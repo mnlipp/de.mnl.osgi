@@ -22,7 +22,6 @@ import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.bnd.osgi.repository.XMLResourceGenerator;
 import aQute.bnd.osgi.repository.XMLResourceParser;
-import aQute.maven.api.IPom.Dependency;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
@@ -30,8 +29,10 @@ import aQute.service.reporter.Reporter;
 import de.mnl.osgi.bnd.maven.BoundRevision;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository.BinaryLocation;
 import de.mnl.osgi.bnd.maven.MavenResource;
+import de.mnl.osgi.bnd.maven.MavenResourceException;
 import de.mnl.osgi.bnd.maven.MavenVersion;
 import de.mnl.osgi.bnd.maven.MavenVersionRange;
+import de.mnl.osgi.bnd.maven.MavenVersionSpecification;
 
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.rethrow;
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.runIgnoring;
@@ -48,6 +49,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
@@ -60,6 +62,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import org.apache.maven.model.Dependency;
 import org.osgi.resource.Capability;
 import org.osgi.resource.Resource;
 import org.slf4j.Logger;
@@ -195,7 +198,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         if (indexChanged) {
             XMLResourceGenerator generator = new XMLResourceGenerator();
             generator.resources(getResources());
-            generator.name(indexedRepository.mavenRepository().getName());
+            generator.name(indexedRepository.mavenRepository().name());
             try {
                 generator.save(groupIndexPath.toFile());
             } catch (IOException e) {
@@ -317,7 +320,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             try {
                 LOG.debug("Getting list of revisions of {}.", program);
                 revLoaderStream = indexedRepository.mavenRepository()
-                    .boundRevisions(program)
+                    .findRevisions(program)
                     .map(revision -> loadRevision(revision));
             } catch (IOException e) {
                 reporter.exception(e,
@@ -371,13 +374,17 @@ public class MavenGroupRepository extends ResourcesRepository {
             }
             try {
                 MavenResource resource = indexedRepository.mavenRepository()
-                    .toResource(revision, BinaryLocation.REMOTE);
+                    .resource(revision, BinaryLocation.REMOTE);
                 Set<MavenResource> allDeps = new HashSet<>();
                 if (!isIndexable(resource, allDeps, inForced)) {
                     return;
                 }
-                if (isBundle(resource)) {
-                    addResource(resource);
+                try {
+                    if (isBundle(resource)) {
+                        addResource(resource);
+                    }
+                } catch (Exception e) {
+                    // TODO
                 }
                 rethrow(IOException.class, () -> allDeps.stream()
                     .filter(res -> runIgnoring(() -> isBundle(res), false))
@@ -396,7 +403,8 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     @SuppressWarnings("PMD.PositionLiteralsFirstInComparisons")
-    private boolean isBundle(MavenResource resource) throws IOException {
+    private boolean isBundle(MavenResource resource)
+            throws MavenResourceException {
         return resource.getCapabilities("osgi.identity").stream()
             .map(cap -> cap.getAttributes().keySet().stream())
             .flatMap(Function.identity())
@@ -408,7 +416,7 @@ public class MavenGroupRepository extends ResourcesRepository {
     private Collection<String> findArtifactIds() {
         Set<String> result = new HashSet<>();
         for (MavenBackingRepository repo : indexedRepository.mavenRepository()
-            .allRepositories()) {
+            .backing()) {
             URI groupUri = null;
             try {
                 groupUri
@@ -481,7 +489,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             return false;
         }
         // Check whether excluded because dependency is excluded
-        Set<Dependency> deps;
+        List<Dependency> deps;
         try {
             deps = resource.dependencies();
         } catch (Exception e) {
@@ -492,14 +500,16 @@ public class MavenGroupRepository extends ResourcesRepository {
             MavenGroupRepository depRepo;
             try {
                 depRepo = indexedRepository
-                    .getOrCreateGroupRepository(dep.program.group);
+                    .getOrCreateGroupRepository(dep.getGroupId());
             } catch (Exception e) {
                 continue;
             }
             Optional<MavenResource> depRes;
             try {
-                depRes = indexedRepository.mavenRepository().toResource(
-                    dep.program, dep.version, BinaryLocation.REMOTE);
+                depRes = indexedRepository.mavenRepository().resource(
+                    Program.valueOf(dep.getGroupId(), dep.getArtifactId()),
+                    MavenVersionSpecification.from(dep.getVersion()),
+                    BinaryLocation.REMOTE);
             } catch (Exception e) {
                 // Failing to get a dependency is no reason to fail.
                 continue;
@@ -527,7 +537,8 @@ public class MavenGroupRepository extends ResourcesRepository {
      *
      * @param revision the revision to add
      */
-    private void addResource(MavenResource resource) throws IOException {
+    private void addResource(MavenResource resource)
+            throws MavenResourceException {
         synchronized (indexingState) {
             if (indexingState.getOrDefault(resource.revision(),
                 IndexingState.NONE) == IndexingState.INDEXED) {
