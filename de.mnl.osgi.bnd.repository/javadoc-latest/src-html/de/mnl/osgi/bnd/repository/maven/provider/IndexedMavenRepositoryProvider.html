@@ -82,153 +82,159 @@
 <span class="sourceLineNo">074</span>        = new Slf4jReporter(IndexedMavenRepositoryProvider.class);<a name="line.74"></a>
 <span class="sourceLineNo">075</span>    private IndexedMavenRepository osgiRepository;<a name="line.75"></a>
 <span class="sourceLineNo">076</span>    private BridgeRepository bridge;<a name="line.76"></a>
-<span class="sourceLineNo">077</span><a name="line.77"></a>
-<span class="sourceLineNo">078</span>    @Override<a name="line.78"></a>
-<span class="sourceLineNo">079</span>    @SuppressWarnings({ "PMD.UseLocaleWithCaseConversions", "restriction" })<a name="line.79"></a>
-<span class="sourceLineNo">080</span>    public void setProperties(Map&lt;String, String&gt; properties) throws Exception {<a name="line.80"></a>
-<span class="sourceLineNo">081</span>        configuration<a name="line.81"></a>
-<span class="sourceLineNo">082</span>            = Converter.cnv(IndexedMavenConfiguration.class, properties);<a name="line.82"></a>
-<span class="sourceLineNo">083</span>        name = configuration.name(name);<a name="line.83"></a>
-<span class="sourceLineNo">084</span>        location = configuration.location(<a name="line.84"></a>
-<span class="sourceLineNo">085</span>            "cnf/" + name.toLowerCase().replace(' ', '-').replace('/', ':'));<a name="line.85"></a>
-<span class="sourceLineNo">086</span>    }<a name="line.86"></a>
-<span class="sourceLineNo">087</span><a name="line.87"></a>
-<span class="sourceLineNo">088</span>    @Override<a name="line.88"></a>
-<span class="sourceLineNo">089</span>    public void setRegistry(Registry registry) {<a name="line.89"></a>
-<span class="sourceLineNo">090</span>        this.registry = registry;<a name="line.90"></a>
-<span class="sourceLineNo">091</span>    }<a name="line.91"></a>
-<span class="sourceLineNo">092</span><a name="line.92"></a>
-<span class="sourceLineNo">093</span>    @Override<a name="line.93"></a>
-<span class="sourceLineNo">094</span>    public void setReporter(Reporter reporter) {<a name="line.94"></a>
-<span class="sourceLineNo">095</span>        this.reporter = reporter;<a name="line.95"></a>
-<span class="sourceLineNo">096</span>    }<a name="line.96"></a>
-<span class="sourceLineNo">097</span><a name="line.97"></a>
-<span class="sourceLineNo">098</span>    @Override<a name="line.98"></a>
-<span class="sourceLineNo">099</span>    public String getName() {<a name="line.99"></a>
-<span class="sourceLineNo">100</span>        return name;<a name="line.100"></a>
-<span class="sourceLineNo">101</span>    }<a name="line.101"></a>
-<span class="sourceLineNo">102</span><a name="line.102"></a>
-<span class="sourceLineNo">103</span>    @Override<a name="line.103"></a>
-<span class="sourceLineNo">104</span>    public PutResult put(InputStream stream, PutOptions options)<a name="line.104"></a>
-<span class="sourceLineNo">105</span>            throws Exception {<a name="line.105"></a>
-<span class="sourceLineNo">106</span>        throw new IllegalStateException("Read-only repository");<a name="line.106"></a>
-<span class="sourceLineNo">107</span>    }<a name="line.107"></a>
-<span class="sourceLineNo">108</span><a name="line.108"></a>
-<span class="sourceLineNo">109</span>    @Override<a name="line.109"></a>
-<span class="sourceLineNo">110</span>    public boolean canWrite() {<a name="line.110"></a>
-<span class="sourceLineNo">111</span>        return false;<a name="line.111"></a>
-<span class="sourceLineNo">112</span>    }<a name="line.112"></a>
-<span class="sourceLineNo">113</span><a name="line.113"></a>
-<span class="sourceLineNo">114</span>    /**<a name="line.114"></a>
-<span class="sourceLineNo">115</span>     * Performs initialization. Initialization must be delayed because the<a name="line.115"></a>
-<span class="sourceLineNo">116</span>     * precise sequence of injecting dependencies seems to be undefined.<a name="line.116"></a>
-<span class="sourceLineNo">117</span>     * <a name="line.117"></a>
-<span class="sourceLineNo">118</span>     * @throws MalformedURLException <a name="line.118"></a>
-<span class="sourceLineNo">119</span>     */<a name="line.119"></a>
-<span class="sourceLineNo">120</span>    private void init() {<a name="line.120"></a>
-<span class="sourceLineNo">121</span>        synchronized (this) {<a name="line.121"></a>
-<span class="sourceLineNo">122</span>            if (initialized) {<a name="line.122"></a>
-<span class="sourceLineNo">123</span>                return;<a name="line.123"></a>
-<span class="sourceLineNo">124</span>            }<a name="line.124"></a>
-<span class="sourceLineNo">125</span>            initialized = true;<a name="line.125"></a>
-<span class="sourceLineNo">126</span>            Workspace workspace = registry.getPlugin(Workspace.class);<a name="line.126"></a>
-<span class="sourceLineNo">127</span>            HttpClient client = registry.getPlugin(HttpClient.class);<a name="line.127"></a>
-<span class="sourceLineNo">128</span>            File indexDb = workspace.getFile(getLocation());<a name="line.128"></a>
-<span class="sourceLineNo">129</span>            File localRepo = IO.getFile(configuration.local(MAVEN_REPO_LOCAL));<a name="line.129"></a>
-<span class="sourceLineNo">130</span>            try {<a name="line.130"></a>
-<span class="sourceLineNo">131</span>                osgiRepository = new IndexedMavenRepository(name,<a name="line.131"></a>
-<span class="sourceLineNo">132</span>                    RepositoryUtils.itemizeList(configuration.releaseUrls())<a name="line.132"></a>
-<span class="sourceLineNo">133</span>                        .map(<a name="line.133"></a>
-<span class="sourceLineNo">134</span>                            ru -&gt; stringToUrl(ru))<a name="line.134"></a>
-<span class="sourceLineNo">135</span>                        .collect(Collectors.toList()),<a name="line.135"></a>
-<span class="sourceLineNo">136</span>                    RepositoryUtils.itemizeList(configuration.snapshotUrls())<a name="line.136"></a>
+<span class="sourceLineNo">077</span>    private boolean logIndexing;<a name="line.77"></a>
+<span class="sourceLineNo">078</span><a name="line.78"></a>
+<span class="sourceLineNo">079</span>    @Override<a name="line.79"></a>
+<span class="sourceLineNo">080</span>    @SuppressWarnings({ "PMD.UseLocaleWithCaseConversions", "restriction" })<a name="line.80"></a>
+<span class="sourceLineNo">081</span>    public void setProperties(Map&lt;String, String&gt; properties) throws Exception {<a name="line.81"></a>
+<span class="sourceLineNo">082</span>        configuration<a name="line.82"></a>
+<span class="sourceLineNo">083</span>            = Converter.cnv(IndexedMavenConfiguration.class, properties);<a name="line.83"></a>
+<span class="sourceLineNo">084</span>        name = configuration.name(name);<a name="line.84"></a>
+<span class="sourceLineNo">085</span>        location = configuration.location(<a name="line.85"></a>
+<span class="sourceLineNo">086</span>            "cnf/" + name.toLowerCase().replace(' ', '-').replace('/', ':'));<a name="line.86"></a>
+<span class="sourceLineNo">087</span>        logIndexing = configuration.logIndexing();<a name="line.87"></a>
+<span class="sourceLineNo">088</span>    }<a name="line.88"></a>
+<span class="sourceLineNo">089</span><a name="line.89"></a>
+<span class="sourceLineNo">090</span>    @Override<a name="line.90"></a>
+<span class="sourceLineNo">091</span>    public void setRegistry(Registry registry) {<a name="line.91"></a>
+<span class="sourceLineNo">092</span>        this.registry = registry;<a name="line.92"></a>
+<span class="sourceLineNo">093</span>    }<a name="line.93"></a>
+<span class="sourceLineNo">094</span><a name="line.94"></a>
+<span class="sourceLineNo">095</span>    @Override<a name="line.95"></a>
+<span class="sourceLineNo">096</span>    public void setReporter(Reporter reporter) {<a name="line.96"></a>
+<span class="sourceLineNo">097</span>        this.reporter = reporter;<a name="line.97"></a>
+<span class="sourceLineNo">098</span>    }<a name="line.98"></a>
+<span class="sourceLineNo">099</span><a name="line.99"></a>
+<span class="sourceLineNo">100</span>    @Override<a name="line.100"></a>
+<span class="sourceLineNo">101</span>    public String getName() {<a name="line.101"></a>
+<span class="sourceLineNo">102</span>        return name;<a name="line.102"></a>
+<span class="sourceLineNo">103</span>    }<a name="line.103"></a>
+<span class="sourceLineNo">104</span><a name="line.104"></a>
+<span class="sourceLineNo">105</span>    @Override<a name="line.105"></a>
+<span class="sourceLineNo">106</span>    public PutResult put(InputStream stream, PutOptions options)<a name="line.106"></a>
+<span class="sourceLineNo">107</span>            throws Exception {<a name="line.107"></a>
+<span class="sourceLineNo">108</span>        throw new IllegalStateException("Read-only repository");<a name="line.108"></a>
+<span class="sourceLineNo">109</span>    }<a name="line.109"></a>
+<span class="sourceLineNo">110</span><a name="line.110"></a>
+<span class="sourceLineNo">111</span>    @Override<a name="line.111"></a>
+<span class="sourceLineNo">112</span>    public boolean canWrite() {<a name="line.112"></a>
+<span class="sourceLineNo">113</span>        return false;<a name="line.113"></a>
+<span class="sourceLineNo">114</span>    }<a name="line.114"></a>
+<span class="sourceLineNo">115</span><a name="line.115"></a>
+<span class="sourceLineNo">116</span>    /**<a name="line.116"></a>
+<span class="sourceLineNo">117</span>     * Performs initialization. Initialization must be delayed because the<a name="line.117"></a>
+<span class="sourceLineNo">118</span>     * precise sequence of injecting dependencies seems to be undefined.<a name="line.118"></a>
+<span class="sourceLineNo">119</span>     * <a name="line.119"></a>
+<span class="sourceLineNo">120</span>     * @throws MalformedURLException <a name="line.120"></a>
+<span class="sourceLineNo">121</span>     */<a name="line.121"></a>
+<span class="sourceLineNo">122</span>    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",<a name="line.122"></a>
+<span class="sourceLineNo">123</span>        "PMD.AvoidThrowingRawExceptionTypes" })<a name="line.123"></a>
+<span class="sourceLineNo">124</span>    private void init() {<a name="line.124"></a>
+<span class="sourceLineNo">125</span>        synchronized (this) {<a name="line.125"></a>
+<span class="sourceLineNo">126</span>            if (initialized) {<a name="line.126"></a>
+<span class="sourceLineNo">127</span>                return;<a name="line.127"></a>
+<span class="sourceLineNo">128</span>            }<a name="line.128"></a>
+<span class="sourceLineNo">129</span>            initialized = true;<a name="line.129"></a>
+<span class="sourceLineNo">130</span>            Workspace workspace = registry.getPlugin(Workspace.class);<a name="line.130"></a>
+<span class="sourceLineNo">131</span>            HttpClient client = registry.getPlugin(HttpClient.class);<a name="line.131"></a>
+<span class="sourceLineNo">132</span>            File indexDb = workspace.getFile(getLocation());<a name="line.132"></a>
+<span class="sourceLineNo">133</span>            File localRepo = IO.getFile(configuration.local(MAVEN_REPO_LOCAL));<a name="line.133"></a>
+<span class="sourceLineNo">134</span>            try {<a name="line.134"></a>
+<span class="sourceLineNo">135</span>                osgiRepository = new IndexedMavenRepository(name,<a name="line.135"></a>
+<span class="sourceLineNo">136</span>                    RepositoryUtils.itemizeList(configuration.releaseUrls())<a name="line.136"></a>
 <span class="sourceLineNo">137</span>                        .map(<a name="line.137"></a>
 <span class="sourceLineNo">138</span>                            ru -&gt; stringToUrl(ru))<a name="line.138"></a>
 <span class="sourceLineNo">139</span>                        .collect(Collectors.toList()),<a name="line.139"></a>
-<span class="sourceLineNo">140</span>                    localRepo, indexDb, reporter, client);<a name="line.140"></a>
-<span class="sourceLineNo">141</span>                bridge = new BridgeRepository(osgiRepository);<a name="line.141"></a>
-<span class="sourceLineNo">142</span>            } catch (Exception e) {<a name="line.142"></a>
-<span class="sourceLineNo">143</span>                throw new RuntimeException(e);<a name="line.143"></a>
-<span class="sourceLineNo">144</span>            }<a name="line.144"></a>
-<span class="sourceLineNo">145</span>        }<a name="line.145"></a>
-<span class="sourceLineNo">146</span>    }<a name="line.146"></a>
-<span class="sourceLineNo">147</span><a name="line.147"></a>
-<span class="sourceLineNo">148</span>    private URL stringToUrl(String url) {<a name="line.148"></a>
-<span class="sourceLineNo">149</span>        try {<a name="line.149"></a>
-<span class="sourceLineNo">150</span>            return new URL(url);<a name="line.150"></a>
-<span class="sourceLineNo">151</span>        } catch (MalformedURLException e) {<a name="line.151"></a>
-<span class="sourceLineNo">152</span>            throw new IllegalArgumentException(e);<a name="line.152"></a>
-<span class="sourceLineNo">153</span>        }<a name="line.153"></a>
-<span class="sourceLineNo">154</span>    }<a name="line.154"></a>
-<span class="sourceLineNo">155</span><a name="line.155"></a>
-<span class="sourceLineNo">156</span>    @Override<a name="line.156"></a>
-<span class="sourceLineNo">157</span>    public File getRoot() throws Exception {<a name="line.157"></a>
-<span class="sourceLineNo">158</span>        return osgiRepository.location();<a name="line.158"></a>
-<span class="sourceLineNo">159</span>    }<a name="line.159"></a>
-<span class="sourceLineNo">160</span><a name="line.160"></a>
-<span class="sourceLineNo">161</span>    @Override<a name="line.161"></a>
-<span class="sourceLineNo">162</span>    public boolean refresh() throws Exception {<a name="line.162"></a>
-<span class="sourceLineNo">163</span>        init();<a name="line.163"></a>
-<span class="sourceLineNo">164</span>        if (!osgiRepository.refresh()) {<a name="line.164"></a>
-<span class="sourceLineNo">165</span>            return false;<a name="line.165"></a>
-<span class="sourceLineNo">166</span>        }<a name="line.166"></a>
-<span class="sourceLineNo">167</span>        bridge = new BridgeRepository(osgiRepository);<a name="line.167"></a>
-<span class="sourceLineNo">168</span>        for (RepositoryListenerPlugin listener : registry<a name="line.168"></a>
-<span class="sourceLineNo">169</span>            .getPlugins(RepositoryListenerPlugin.class)) {<a name="line.169"></a>
-<span class="sourceLineNo">170</span>            try {<a name="line.170"></a>
-<span class="sourceLineNo">171</span>                listener.repositoryRefreshed(this);<a name="line.171"></a>
-<span class="sourceLineNo">172</span>            } catch (Exception e) {<a name="line.172"></a>
-<span class="sourceLineNo">173</span>                reporter.exception(e, "Updating listener plugin %s", listener);<a name="line.173"></a>
-<span class="sourceLineNo">174</span>            }<a name="line.174"></a>
-<span class="sourceLineNo">175</span>        }<a name="line.175"></a>
-<span class="sourceLineNo">176</span>        return true;<a name="line.176"></a>
-<span class="sourceLineNo">177</span>    }<a name="line.177"></a>
-<span class="sourceLineNo">178</span><a name="line.178"></a>
-<span class="sourceLineNo">179</span>    @Override<a name="line.179"></a>
-<span class="sourceLineNo">180</span>    public File get(String bsn, Version version, Map&lt;String, String&gt; properties,<a name="line.180"></a>
-<span class="sourceLineNo">181</span>            DownloadListener... listeners) throws Exception {<a name="line.181"></a>
-<span class="sourceLineNo">182</span>        init();<a name="line.182"></a>
-<span class="sourceLineNo">183</span>        ResourceInfo resource = bridge.getInfo(bsn, version);<a name="line.183"></a>
-<span class="sourceLineNo">184</span>        if (resource == null) {<a name="line.184"></a>
-<span class="sourceLineNo">185</span>            return null;<a name="line.185"></a>
-<span class="sourceLineNo">186</span>        }<a name="line.186"></a>
-<span class="sourceLineNo">187</span>        String name = resource.getInfo().name();<a name="line.187"></a>
-<span class="sourceLineNo">188</span>        Archive archive = Archive.valueOf(name);<a name="line.188"></a>
-<span class="sourceLineNo">189</span><a name="line.189"></a>
-<span class="sourceLineNo">190</span>        Promise&lt;File&gt; prmse = osgiRepository.mavenRepository().get(archive);<a name="line.190"></a>
-<span class="sourceLineNo">191</span><a name="line.191"></a>
-<span class="sourceLineNo">192</span>        if (listeners.length == 0) {<a name="line.192"></a>
-<span class="sourceLineNo">193</span>            return prmse.getValue();<a name="line.193"></a>
-<span class="sourceLineNo">194</span>        }<a name="line.194"></a>
-<span class="sourceLineNo">195</span>        new DownloadListenerPromise(reporter,<a name="line.195"></a>
-<span class="sourceLineNo">196</span>            name + ": get " + bsn + ";" + version, prmse, listeners);<a name="line.196"></a>
-<span class="sourceLineNo">197</span>        return osgiRepository.mavenRepository().toLocalFile(archive);<a name="line.197"></a>
-<span class="sourceLineNo">198</span>    }<a name="line.198"></a>
-<span class="sourceLineNo">199</span><a name="line.199"></a>
-<span class="sourceLineNo">200</span>    @Override<a name="line.200"></a>
-<span class="sourceLineNo">201</span>    public List&lt;String&gt; list(String pattern) throws Exception {<a name="line.201"></a>
-<span class="sourceLineNo">202</span>        init();<a name="line.202"></a>
-<span class="sourceLineNo">203</span>        return bridge.list(pattern);<a name="line.203"></a>
+<span class="sourceLineNo">140</span>                    RepositoryUtils.itemizeList(configuration.snapshotUrls())<a name="line.140"></a>
+<span class="sourceLineNo">141</span>                        .map(<a name="line.141"></a>
+<span class="sourceLineNo">142</span>                            ru -&gt; stringToUrl(ru))<a name="line.142"></a>
+<span class="sourceLineNo">143</span>                        .collect(Collectors.toList()),<a name="line.143"></a>
+<span class="sourceLineNo">144</span>                    localRepo, indexDb, reporter, client, logIndexing);<a name="line.144"></a>
+<span class="sourceLineNo">145</span>                bridge = new BridgeRepository(osgiRepository);<a name="line.145"></a>
+<span class="sourceLineNo">146</span>            } catch (Exception e) {<a name="line.146"></a>
+<span class="sourceLineNo">147</span>                throw new RuntimeException(e);<a name="line.147"></a>
+<span class="sourceLineNo">148</span>            }<a name="line.148"></a>
+<span class="sourceLineNo">149</span>        }<a name="line.149"></a>
+<span class="sourceLineNo">150</span>    }<a name="line.150"></a>
+<span class="sourceLineNo">151</span><a name="line.151"></a>
+<span class="sourceLineNo">152</span>    private URL stringToUrl(String url) {<a name="line.152"></a>
+<span class="sourceLineNo">153</span>        try {<a name="line.153"></a>
+<span class="sourceLineNo">154</span>            return new URL(url);<a name="line.154"></a>
+<span class="sourceLineNo">155</span>        } catch (MalformedURLException e) {<a name="line.155"></a>
+<span class="sourceLineNo">156</span>            throw new IllegalArgumentException(e);<a name="line.156"></a>
+<span class="sourceLineNo">157</span>        }<a name="line.157"></a>
+<span class="sourceLineNo">158</span>    }<a name="line.158"></a>
+<span class="sourceLineNo">159</span><a name="line.159"></a>
+<span class="sourceLineNo">160</span>    @Override<a name="line.160"></a>
+<span class="sourceLineNo">161</span>    public File getRoot() throws Exception {<a name="line.161"></a>
+<span class="sourceLineNo">162</span>        return osgiRepository.location();<a name="line.162"></a>
+<span class="sourceLineNo">163</span>    }<a name="line.163"></a>
+<span class="sourceLineNo">164</span><a name="line.164"></a>
+<span class="sourceLineNo">165</span>    @Override<a name="line.165"></a>
+<span class="sourceLineNo">166</span>    @SuppressWarnings("PMD.AvoidCatchingGenericException")<a name="line.166"></a>
+<span class="sourceLineNo">167</span>    public boolean refresh() throws Exception {<a name="line.167"></a>
+<span class="sourceLineNo">168</span>        init();<a name="line.168"></a>
+<span class="sourceLineNo">169</span>        if (!osgiRepository.refresh()) {<a name="line.169"></a>
+<span class="sourceLineNo">170</span>            return false;<a name="line.170"></a>
+<span class="sourceLineNo">171</span>        }<a name="line.171"></a>
+<span class="sourceLineNo">172</span>        bridge = new BridgeRepository(osgiRepository);<a name="line.172"></a>
+<span class="sourceLineNo">173</span>        for (RepositoryListenerPlugin listener : registry<a name="line.173"></a>
+<span class="sourceLineNo">174</span>            .getPlugins(RepositoryListenerPlugin.class)) {<a name="line.174"></a>
+<span class="sourceLineNo">175</span>            try {<a name="line.175"></a>
+<span class="sourceLineNo">176</span>                listener.repositoryRefreshed(this);<a name="line.176"></a>
+<span class="sourceLineNo">177</span>            } catch (Exception e) {<a name="line.177"></a>
+<span class="sourceLineNo">178</span>                reporter.exception(e, "Updating listener plugin %s", listener);<a name="line.178"></a>
+<span class="sourceLineNo">179</span>            }<a name="line.179"></a>
+<span class="sourceLineNo">180</span>        }<a name="line.180"></a>
+<span class="sourceLineNo">181</span>        return true;<a name="line.181"></a>
+<span class="sourceLineNo">182</span>    }<a name="line.182"></a>
+<span class="sourceLineNo">183</span><a name="line.183"></a>
+<span class="sourceLineNo">184</span>    @Override<a name="line.184"></a>
+<span class="sourceLineNo">185</span>    public File get(String bsn, Version version, Map&lt;String, String&gt; properties,<a name="line.185"></a>
+<span class="sourceLineNo">186</span>            DownloadListener... listeners) throws Exception {<a name="line.186"></a>
+<span class="sourceLineNo">187</span>        init();<a name="line.187"></a>
+<span class="sourceLineNo">188</span>        ResourceInfo resource = bridge.getInfo(bsn, version);<a name="line.188"></a>
+<span class="sourceLineNo">189</span>        if (resource == null) {<a name="line.189"></a>
+<span class="sourceLineNo">190</span>            return null;<a name="line.190"></a>
+<span class="sourceLineNo">191</span>        }<a name="line.191"></a>
+<span class="sourceLineNo">192</span>        String name = resource.getInfo().name();<a name="line.192"></a>
+<span class="sourceLineNo">193</span>        Archive archive = Archive.valueOf(name);<a name="line.193"></a>
+<span class="sourceLineNo">194</span><a name="line.194"></a>
+<span class="sourceLineNo">195</span>        Promise&lt;File&gt; prmse<a name="line.195"></a>
+<span class="sourceLineNo">196</span>            = osgiRepository.mavenRepository().retrieve(archive);<a name="line.196"></a>
+<span class="sourceLineNo">197</span><a name="line.197"></a>
+<span class="sourceLineNo">198</span>        if (listeners.length == 0) {<a name="line.198"></a>
+<span class="sourceLineNo">199</span>            return prmse.getValue();<a name="line.199"></a>
+<span class="sourceLineNo">200</span>        }<a name="line.200"></a>
+<span class="sourceLineNo">201</span>        new DownloadListenerPromise(reporter,<a name="line.201"></a>
+<span class="sourceLineNo">202</span>            name + ": get " + bsn + ";" + version, prmse, listeners);<a name="line.202"></a>
+<span class="sourceLineNo">203</span>        return osgiRepository.mavenRepository().toLocalFile(archive);<a name="line.203"></a>
 <span class="sourceLineNo">204</span>    }<a name="line.204"></a>
 <span class="sourceLineNo">205</span><a name="line.205"></a>
 <span class="sourceLineNo">206</span>    @Override<a name="line.206"></a>
-<span class="sourceLineNo">207</span>    public SortedSet&lt;Version&gt; versions(String bsn) throws Exception {<a name="line.207"></a>
+<span class="sourceLineNo">207</span>    public List&lt;String&gt; list(String pattern) throws Exception {<a name="line.207"></a>
 <span class="sourceLineNo">208</span>        init();<a name="line.208"></a>
-<span class="sourceLineNo">209</span>        return bridge.versions(bsn);<a name="line.209"></a>
+<span class="sourceLineNo">209</span>        return bridge.list(pattern);<a name="line.209"></a>
 <span class="sourceLineNo">210</span>    }<a name="line.210"></a>
 <span class="sourceLineNo">211</span><a name="line.211"></a>
 <span class="sourceLineNo">212</span>    @Override<a name="line.212"></a>
-<span class="sourceLineNo">213</span>    public String getLocation() {<a name="line.213"></a>
-<span class="sourceLineNo">214</span>        return location;<a name="line.214"></a>
-<span class="sourceLineNo">215</span>    }<a name="line.215"></a>
-<span class="sourceLineNo">216</span><a name="line.216"></a>
-<span class="sourceLineNo">217</span>    @Override<a name="line.217"></a>
-<span class="sourceLineNo">218</span>    public Map&lt;Requirement, Collection&lt;Capability&gt;&gt; findProviders(<a name="line.218"></a>
-<span class="sourceLineNo">219</span>            Collection&lt;? extends Requirement&gt; requirements) {<a name="line.219"></a>
-<span class="sourceLineNo">220</span>        init();<a name="line.220"></a>
-<span class="sourceLineNo">221</span>        return osgiRepository.findProviders(requirements);<a name="line.221"></a>
-<span class="sourceLineNo">222</span>    }<a name="line.222"></a>
-<span class="sourceLineNo">223</span>}<a name="line.223"></a>
+<span class="sourceLineNo">213</span>    public SortedSet&lt;Version&gt; versions(String bsn) throws Exception {<a name="line.213"></a>
+<span class="sourceLineNo">214</span>        init();<a name="line.214"></a>
+<span class="sourceLineNo">215</span>        return bridge.versions(bsn);<a name="line.215"></a>
+<span class="sourceLineNo">216</span>    }<a name="line.216"></a>
+<span class="sourceLineNo">217</span><a name="line.217"></a>
+<span class="sourceLineNo">218</span>    @Override<a name="line.218"></a>
+<span class="sourceLineNo">219</span>    public String getLocation() {<a name="line.219"></a>
+<span class="sourceLineNo">220</span>        return location;<a name="line.220"></a>
+<span class="sourceLineNo">221</span>    }<a name="line.221"></a>
+<span class="sourceLineNo">222</span><a name="line.222"></a>
+<span class="sourceLineNo">223</span>    @Override<a name="line.223"></a>
+<span class="sourceLineNo">224</span>    public Map&lt;Requirement, Collection&lt;Capability&gt;&gt; findProviders(<a name="line.224"></a>
+<span class="sourceLineNo">225</span>            Collection&lt;? extends Requirement&gt; requirements) {<a name="line.225"></a>
+<span class="sourceLineNo">226</span>        init();<a name="line.226"></a>
+<span class="sourceLineNo">227</span>        return osgiRepository.findProviders(requirements);<a name="line.227"></a>
+<span class="sourceLineNo">228</span>    }<a name="line.228"></a>
+<span class="sourceLineNo">229</span>}<a name="line.229"></a>
 
 
 
