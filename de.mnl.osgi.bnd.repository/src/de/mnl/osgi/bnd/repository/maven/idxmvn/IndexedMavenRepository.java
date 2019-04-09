@@ -108,6 +108,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
      * @param indexDbDir the persistent representation of this repository's content
      * @param reporter a reporter for reporting the progress
      * @param client an HTTP client for obtaining information from the Nexus server
+     * @param logIndexing the log indexing
      * @throws Exception the exception
      */
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",

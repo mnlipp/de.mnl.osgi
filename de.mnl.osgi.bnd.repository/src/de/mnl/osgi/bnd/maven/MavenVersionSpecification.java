@@ -43,8 +43,8 @@ public abstract class MavenVersionSpecification {
     /**
      * Creates a maven version specification from the given arguments.
      *
-     * @param program the program
      * @param version the version
+     * @return the maven version specification
      */
     public static MavenVersionSpecification from(String version) {
         if (isRange(version)) {

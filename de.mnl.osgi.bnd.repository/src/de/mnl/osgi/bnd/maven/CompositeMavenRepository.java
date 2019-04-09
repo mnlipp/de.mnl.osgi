@@ -254,9 +254,10 @@ public class CompositeMavenRepository implements Closeable {
     /**
      * Retrieves the file from a remote repository into the repositories 
      * local cache directory if it doesn't exist yet.
-     * 
+     *
      * @param archive The archive to fetch
      * @return the file or null if not found
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
         "PMD.AvoidInstanceofChecksInCatchClause",
@@ -295,9 +296,10 @@ public class CompositeMavenRepository implements Closeable {
     /**
      * Gets the file from the local cache directory, retrieving it
      * first if it doesn't exist yet.
-     * 
+     *
      * @param archive The archive to fetch
      * @return the file or null if not found
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
         "PMD.AvoidInstanceofChecksInCatchClause",
@@ -404,6 +406,7 @@ public class CompositeMavenRepository implements Closeable {
      *
      * @param revision the archive
      * @return the dependencies
+     * @throws MavenResourceException the maven resource exception
      */
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
         "PMD.AvoidInstanceofChecksInCatchClause", "PMD.PreserveStackTrace",
