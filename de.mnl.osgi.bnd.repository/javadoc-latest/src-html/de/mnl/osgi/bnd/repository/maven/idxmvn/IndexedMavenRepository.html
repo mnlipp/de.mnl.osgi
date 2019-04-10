@@ -32,7 +32,7 @@
 <span class="sourceLineNo">024</span>import aQute.maven.api.Revision;<a name="line.24"></a>
 <span class="sourceLineNo">025</span>import aQute.maven.provider.MavenBackingRepository;<a name="line.25"></a>
 <span class="sourceLineNo">026</span>import aQute.service.reporter.Reporter;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>import de.mnl.osgi.bnd.maven.CompositeMavenRepository;<a name="line.27"></a>
+<span class="sourceLineNo">027</span>import de.mnl.osgi.bnd.maven.MavenResourceRepository;<a name="line.27"></a>
 <span class="sourceLineNo">028</span><a name="line.28"></a>
 <span class="sourceLineNo">029</span>import static de.mnl.osgi.bnd.maven.RepositoryUtils.rethrow;<a name="line.29"></a>
 <span class="sourceLineNo">030</span>import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;<a name="line.30"></a>
@@ -99,7 +99,7 @@
 <span class="sourceLineNo">091</span>    private final boolean logIndexing;<a name="line.91"></a>
 <span class="sourceLineNo">092</span>    private final ExecutorService groupLoaders<a name="line.92"></a>
 <span class="sourceLineNo">093</span>        = Executors.newFixedThreadPool(4);<a name="line.93"></a>
-<span class="sourceLineNo">094</span>    private final CompositeMavenRepository mavenRepository;<a name="line.94"></a>
+<span class="sourceLineNo">094</span>    private final MavenResourceRepository mavenRepository;<a name="line.94"></a>
 <span class="sourceLineNo">095</span>    private final Map&lt;String, MavenGroupRepository&gt; groups<a name="line.95"></a>
 <span class="sourceLineNo">096</span>        = new ConcurrentHashMap&lt;&gt;();<a name="line.96"></a>
 <span class="sourceLineNo">097</span>    private Map&lt;String, MavenGroupRepository&gt; backupGroups;<a name="line.97"></a>
@@ -162,7 +162,7 @@
 <span class="sourceLineNo">154</span>    }<a name="line.154"></a>
 <span class="sourceLineNo">155</span><a name="line.155"></a>
 <span class="sourceLineNo">156</span>    @SuppressWarnings({ "PMD.SignatureDeclareThrowsException", "resource" })<a name="line.156"></a>
-<span class="sourceLineNo">157</span>    private CompositeMavenRepository createMavenRepository() throws Exception {<a name="line.157"></a>
+<span class="sourceLineNo">157</span>    private MavenResourceRepository createMavenRepository() throws Exception {<a name="line.157"></a>
 <span class="sourceLineNo">158</span>        // Create repository from URLs<a name="line.158"></a>
 <span class="sourceLineNo">159</span>        List&lt;MavenBackingRepository&gt; releaseBackers = new ArrayList&lt;&gt;();<a name="line.159"></a>
 <span class="sourceLineNo">160</span>        for (URL url : releaseUrls) {<a name="line.160"></a>
@@ -174,7 +174,7 @@
 <span class="sourceLineNo">166</span>            snapshotBackers.addAll(MavenBackingRepository.create(<a name="line.166"></a>
 <span class="sourceLineNo">167</span>                url.toString(), reporter, localRepo, client));<a name="line.167"></a>
 <span class="sourceLineNo">168</span>        }<a name="line.168"></a>
-<span class="sourceLineNo">169</span>        return new CompositeMavenRepository(<a name="line.169"></a>
+<span class="sourceLineNo">169</span>        return new MavenResourceRepository(<a name="line.169"></a>
 <span class="sourceLineNo">170</span>            localRepo, name(), releaseBackers,<a name="line.170"></a>
 <span class="sourceLineNo">171</span>            snapshotBackers, Processor.getExecutor(), reporter)<a name="line.171"></a>
 <span class="sourceLineNo">172</span>                .setResourceSupplier(this::restoreResource);<a name="line.172"></a>
@@ -217,7 +217,7 @@
 <span class="sourceLineNo">209</span>     *<a name="line.209"></a>
 <span class="sourceLineNo">210</span>     * @return the repository <a name="line.210"></a>
 <span class="sourceLineNo">211</span>     */<a name="line.211"></a>
-<span class="sourceLineNo">212</span>    public CompositeMavenRepository mavenRepository() {<a name="line.212"></a>
+<span class="sourceLineNo">212</span>    public MavenResourceRepository mavenRepository() {<a name="line.212"></a>
 <span class="sourceLineNo">213</span>        return mavenRepository;<a name="line.213"></a>
 <span class="sourceLineNo">214</span>    }<a name="line.214"></a>
 <span class="sourceLineNo">215</span><a name="line.215"></a>
