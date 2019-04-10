@@ -24,7 +24,7 @@ import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
-import de.mnl.osgi.bnd.maven.CompositeMavenRepository;
+import de.mnl.osgi.bnd.maven.MavenResourceRepository;
 
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.rethrow;
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
@@ -91,7 +91,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private final boolean logIndexing;
     private final ExecutorService groupLoaders
         = Executors.newFixedThreadPool(4);
-    private final CompositeMavenRepository mavenRepository;
+    private final MavenResourceRepository mavenRepository;
     private final Map<String, MavenGroupRepository> groups
         = new ConcurrentHashMap<>();
     private Map<String, MavenGroupRepository> backupGroups;
@@ -154,7 +154,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
     }
 
     @SuppressWarnings({ "PMD.SignatureDeclareThrowsException", "resource" })
-    private CompositeMavenRepository createMavenRepository() throws Exception {
+    private MavenResourceRepository createMavenRepository() throws Exception {
         // Create repository from URLs
         List<MavenBackingRepository> releaseBackers = new ArrayList<>();
         for (URL url : releaseUrls) {
@@ -166,7 +166,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
             snapshotBackers.addAll(MavenBackingRepository.create(
                 url.toString(), reporter, localRepo, client));
         }
-        return new CompositeMavenRepository(
+        return new MavenResourceRepository(
             localRepo, name(), releaseBackers,
             snapshotBackers, Processor.getExecutor(), reporter)
                 .setResourceSupplier(this::restoreResource);
@@ -209,7 +209,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
      *
      * @return the repository 
      */
-    public CompositeMavenRepository mavenRepository() {
+    public MavenResourceRepository mavenRepository() {
         return mavenRepository;
     }
 

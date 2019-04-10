@@ -18,10 +18,6 @@
 
 package de.mnl.osgi.bnd.maven;
 
-import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapability;
-
-import aQute.bnd.osgi.resource.CapabilityBuilder;
-import aQute.bnd.osgi.resource.ResourceBuilder;
 import aQute.bnd.service.RepositoryPlugin;
 import aQute.maven.api.Archive;
 import aQute.maven.api.IMavenRepo;
@@ -38,26 +34,20 @@ import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
 
 import java.io.Closeable;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
-import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.building.DefaultModelBuilder;
 import org.apache.maven.model.building.DefaultModelBuildingRequest;
@@ -83,9 +73,6 @@ import org.apache.maven.model.profile.DefaultProfileSelector;
 import org.apache.maven.model.resolution.UnresolvableModelException;
 import org.apache.maven.model.superpom.DefaultSuperPomProvider;
 import org.apache.maven.model.validation.DefaultModelValidator;
-import org.osgi.resource.Capability;
-import org.osgi.resource.Requirement;
-import org.osgi.resource.Resource;
 import org.osgi.util.promise.Promise;
 
 /**
@@ -99,17 +86,10 @@ import org.osgi.util.promise.Promise;
 @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "deprecation" })
 public class CompositeMavenRepository implements Closeable {
 
-    /** The namespace used to store the maven dependencies information. */
-    public static final String MAVEN_DEPENDENCIES_NS
-        = "maven.dependencies.info";
     public static final Pattern COORDS_SPLITTER = Pattern.compile("\\s*;\\s*");
     private final MavenRepository bndMavenRepo;
     private final Reporter reporter;
-    private Function<Revision, Optional<Resource>> resourceSupplier
-        = resource -> Optional.empty();
     private final Map<Program, List<BoundRevision>> programCache
-        = new ConcurrentHashMap<>();
-    private final Map<Revision, MavenResource> resourceCache
         = new ConcurrentHashMap<>();
     private final Map<Revision, Model> modelCache
         = new ConcurrentHashMap<>();
@@ -198,29 +178,10 @@ public class CompositeMavenRepository implements Closeable {
     }
 
     /**
-     * Sets a function that can provide resource information more
-     * efficiently (e.g. from some local persistent cache) than
-     * the remote maven repository.
-     * <P>
-     * Any resource information provided by the function must be
-     * complete, i.e. must hold the information from the "bnd.info"
-     * namespace and from the "maven.dependencies.info" namespace.
-     *
-     * @param resourceSupplier the resource supplier
-     * @return the composite maven repository
-     */
-    public CompositeMavenRepository setResourceSupplier(
-            Function<Revision, Optional<Resource>> resourceSupplier) {
-        this.resourceSupplier = resourceSupplier;
-        return this;
-    }
-
-    /**
      * Reset any cached information.
      */
     public void reset() {
         programCache.clear();
-        resourceCache.clear();
         modelCache.clear();
     }
 
@@ -466,7 +427,7 @@ public class CompositeMavenRepository implements Closeable {
     }
 
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    private void refreshSnapshot(BoundArchive archive) {
+    protected void refreshSnapshot(BoundArchive archive) {
         File metaFile = bndMavenRepo.toLocalFile(
             archive.getRevision()
                 .metadata(archive.mavenBackingRepository().getId()));
@@ -487,318 +448,4 @@ public class CompositeMavenRepository implements Closeable {
         }
     }
 
-    /**
-     * Retrieves the dependency information from the provided
-     * resource. Assumes that the resource was created by this
-     * repository, i.e. with capabilities in the
-     * "maven.dependencies.info" name space.
-     *
-     * @param resource the resource
-     * @param dependencies the dependencies
-     */
-    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    private static void retrieveDependencies(Resource resource,
-            Collection<Dependency> dependencies) {
-        // Actually, there should be only one such capability per resource.
-        for (Capability capability : resource
-            .getCapabilities(
-                CompositeMavenRepository.MAVEN_DEPENDENCIES_NS)) {
-            Map<String, Object> depAttrs = capability.getAttributes();
-            depAttrs.values().stream()
-                .flatMap(val -> COORDS_SPLITTER.splitAsStream((String) val))
-                .map(rev -> {
-                    String[] parts = rev.split(":");
-                    Dependency dep = new Dependency();
-                    dep.setGroupId(parts[0]);
-                    dep.setArtifactId(parts[1]);
-                    dep.setVersion(parts[2]);
-                    return dep;
-                }).forEach(dependencies::add);
-        }
-    }
-
-    /**
-     * Creates a {@link MavenResource} for the given revision. 
-     *
-     * @param revision the revision
-     * @param location which URL to use for the binary in the {@link Resource}
-     * @return the resource
-     */
-    public MavenResource resource(BoundRevision revision,
-            BinaryLocation location) {
-        return resourceCache.computeIfAbsent(revision.unbound(),
-            rev -> resourceSupplier.apply(rev)
-                .map(resource -> new MavenResourceImpl(revision, resource))
-                .orElseGet(() -> new MavenResourceImpl(revision, location)));
-    }
-
-    /**
-     * Creates a {@link MavenResource} for the given program and version. 
-     *
-     * @param program the program
-     * @param version the version
-     * @param location which URL to use for the binary in the {@link Resource}
-     * @return the resource
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    public Optional<MavenResource> resource(Program program,
-            MavenVersionSpecification version, BinaryLocation location)
-            throws IOException {
-        return find(program, version)
-            .map(revision -> resource(revision, location));
-    }
-
-    /**
-     * A maven resource that obtains its information
-     * lazily from a {@link CompositeMavenRepository}.
-     */
-    public class MavenResourceImpl implements MavenResource {
-
-        private final Revision revision;
-        private BoundRevision cachedRevision;
-        private BoundArchive cachedArchive;
-        private Resource cachedDelegee;
-        private List<Dependency> cachedDependencies;
-        private final BinaryLocation location;
-
-        /**
-         * Instantiates a new maven resource from the given data.
-         *
-         * @param revision the revision
-         * @param resource the delegee
-         */
-        private MavenResourceImpl(Revision revision, BinaryLocation location) {
-            this.revision = revision;
-            this.location = location;
-        }
-
-        /**
-         * Instantiates a new maven resource from the given data.
-         *
-         * @param revision the revision
-         * @param resource the delegee
-         */
-        private MavenResourceImpl(BoundRevision revision,
-                BinaryLocation location) {
-            this.revision = revision.unbound();
-            this.cachedRevision = revision;
-            this.location = location;
-        }
-
-        /**
-         * Instantiates a new maven resource from the given data.
-         *
-         * @param revision the revision
-         * @param resource the delegee
-         */
-        private MavenResourceImpl(Revision revision, Resource resource) {
-            this.revision = revision;
-            this.cachedDelegee = resource;
-            // Doesn't matter, resource won't be created (already there).
-            this.location = BinaryLocation.REMOTE;
-        }
-
-        /**
-         * Instantiates a new maven resource from the given data.
-         *
-         * @param revision the revision
-         * @param resource the delegee
-         */
-        private MavenResourceImpl(BoundRevision revision, Resource resource) {
-            this.revision = revision.unbound();
-            this.cachedRevision = revision;
-            this.cachedDelegee = resource;
-            // Doesn't matter, resource won't be created (already there).
-            this.location = BinaryLocation.REMOTE;
-        }
-
-        @Override
-        public Revision revision() {
-            return revision;
-        }
-
-        @Override
-        public BoundRevision boundRevision() throws MavenResourceException {
-            try {
-                if (cachedRevision == null) {
-                    cachedRevision
-                        = CompositeMavenRepository.this.find(revision).get();
-                }
-                return cachedRevision;
-            } catch (IOException e) {
-                throw new MavenResourceException(e);
-            }
-        }
-
-        @SuppressWarnings("PMD.AvoidCatchingGenericException")
-        private BoundArchive archive() throws MavenResourceException {
-            try {
-                if (cachedArchive == null) {
-                    Optional<BoundRevision> bound = find(revision);
-                    if (!bound.isPresent()) {
-                        throw new FileNotFoundException(
-                            "Problem resolving archive for " + revision + ".");
-                    }
-                    cachedArchive = resolve(bound.get(), "jar", "");
-                    if (cachedArchive.isSnapshot()) {
-                        refreshSnapshot(cachedArchive);
-                    }
-                }
-                return cachedArchive;
-            } catch (IOException e) {
-                throw new MavenResourceException(e);
-            }
-        }
-
-        @Override
-        public Resource asResource() throws MavenResourceException {
-            if (cachedDelegee == null) {
-                createResource();
-            }
-            return cachedDelegee;
-        }
-
-        /**
-         * Creates a {@link Resource} representation from the manifest
-         * of the artifact.  
-         *
-         * @throws IOException Signals that an I/O exception has occurred.
-         * @throws ModelBuildingException the model building exception
-         * @throws UnresolvableModelException the unresolvable model exception
-         */
-        @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
-            "PMD.AvoidInstanceofChecksInCatchClause",
-            "PMD.CyclomaticComplexity", "PMD.NcssCount" })
-        private void createResource() throws MavenResourceException {
-            BoundArchive archive = archive();
-            File binary;
-            try {
-                binary = get(archive);
-            } catch (IOException e) {
-                throw new MavenResourceException(e);
-            }
-            ResourceBuilder builder = new ResourceBuilder();
-            try {
-                if (location == BinaryLocation.LOCAL) {
-                    builder.addFile(binary, binary.toURI());
-                } else {
-                    builder.addFile(binary,
-                        cachedArchive.mavenBackingRepository()
-                            .toURI(archive().remotePath));
-                }
-            } catch (Exception e) {
-                // That's what the exceptions thrown here come down to.
-                throw new IllegalArgumentException(e);
-            }
-            addInformationCapability(builder, archive().toString(),
-                archive().getRevision().toString(), null);
-            // Add dependency infos
-            if (!dependencies().isEmpty()) {
-                CapabilityBuilder cap
-                    = new CapabilityBuilder(MAVEN_DEPENDENCIES_NS);
-                Set<Dependency> cpDeps = new HashSet<>();
-                Set<Dependency> rtDeps = new HashSet<>();
-                for (Dependency dep : dependencies()) {
-                    if (dep.getScope() == null
-                        || dep.getScope().equalsIgnoreCase("compile")) {
-                        cpDeps.add(dep);
-                    } else if (dep.getScope().equalsIgnoreCase("runtime")) {
-                        rtDeps.add(dep);
-                    }
-                }
-                try {
-                    if (!cpDeps.isEmpty()) {
-                        cap.addAttribute("compile", toVersionList(cpDeps));
-                    }
-                    if (!rtDeps.isEmpty()) {
-                        cap.addAttribute("runtime", toVersionList(rtDeps));
-                    }
-                } catch (Exception e) {
-                    throw new IllegalArgumentException(e);
-                }
-                builder.addCapability(cap);
-            }
-            cachedDelegee = builder.build();
-        }
-
-        private String toVersionList(Collection<Dependency> deps) {
-            StringBuilder depsList = new StringBuilder("");
-            for (Dependency dep : deps) {
-                if (depsList.length() > 0) {
-                    depsList.append(';');
-                }
-                depsList.append(dep.getGroupId());
-                depsList.append(':');
-                depsList.append(dep.getArtifactId());
-                depsList.append(':');
-                depsList.append(dep.getVersion());
-            }
-            return depsList.toString();
-        }
-
-        @Override
-        public List<Capability> getCapabilities(String namespace)
-                throws MavenResourceException {
-            return asResource().getCapabilities(namespace);
-        }
-
-        @Override
-        public List<Requirement> getRequirements(String namespace)
-                throws MavenResourceException {
-            return asResource().getRequirements(namespace);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == null) {
-                return false;
-            }
-            if (obj instanceof MavenResource) {
-                return revision.equals(((MavenResource) obj).revision());
-            }
-            if (obj instanceof Resource) {
-                try {
-                    return asResource().equals(obj);
-                } catch (MavenResourceException e) {
-                    return false;
-                }
-            }
-            return false;
-        }
-
-        @Override
-        public int hashCode() {
-            return revision.hashCode();
-        }
-
-        @Override
-        public String toString() {
-            return revision.toString();
-        }
-
-        @Override
-        @SuppressWarnings("PMD.ConfusingTernary")
-        public final List<Dependency> dependencies()
-                throws MavenResourceException {
-            if (cachedDependencies == null) {
-                if (cachedDelegee != null) {
-                    cachedDependencies = new ArrayList<>();
-                    retrieveDependencies(cachedDelegee, cachedDependencies);
-                } else {
-                    cachedDependencies = CompositeMavenRepository.this
-                        .model(revision()).getDependencies().stream()
-                        .filter(dep -> !dep.getGroupId().contains("$")
-                            && !dep.getArtifactId().contains("$")
-                            && !dep.isOptional()
-                            && (dep.getScope() == null
-                                || dep.getScope().equals("compile")
-                                || dep.getScope().equals("runtime")
-                                || dep.getScope().equals("provided")))
-                        .collect(Collectors.toList());
-                }
-            }
-            return cachedDependencies;
-        }
-
-    }
 }
