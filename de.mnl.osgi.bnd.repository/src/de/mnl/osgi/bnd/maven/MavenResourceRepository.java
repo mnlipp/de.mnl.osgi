@@ -22,6 +22,7 @@ import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapabilit
 
 import aQute.bnd.osgi.resource.CapabilityBuilder;
 import aQute.bnd.osgi.resource.ResourceBuilder;
+import aQute.maven.api.Archive;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
@@ -43,6 +44,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Model;
 import org.apache.maven.model.building.ModelBuildingException;
 import org.apache.maven.model.resolution.UnresolvableModelException;
 import org.osgi.resource.Capability;
@@ -235,26 +237,6 @@ public class MavenResourceRepository extends CompositeMavenRepository {
             }
         }
 
-        @SuppressWarnings("PMD.AvoidCatchingGenericException")
-        private BoundArchive archive() throws MavenResourceException {
-            try {
-                if (cachedArchive == null) {
-                    Optional<BoundRevision> bound = find(revision);
-                    if (!bound.isPresent()) {
-                        throw new FileNotFoundException(
-                            "Problem resolving archive for " + revision + ".");
-                    }
-                    cachedArchive = resolve(bound.get(), "jar", "");
-                    if (cachedArchive.isSnapshot()) {
-                        refreshSnapshot(cachedArchive);
-                    }
-                }
-                return cachedArchive;
-            } catch (IOException e) {
-                throw new MavenResourceException(e);
-            }
-        }
-
         @Override
         public Resource asResource() throws MavenResourceException {
             if (cachedDelegee == null) {
@@ -275,28 +257,32 @@ public class MavenResourceRepository extends CompositeMavenRepository {
             "PMD.AvoidInstanceofChecksInCatchClause",
             "PMD.CyclomaticComplexity", "PMD.NcssCount" })
         private void createResource() throws MavenResourceException {
-            BoundArchive archive = archive();
-            File binary;
-            try {
-                binary = get(archive);
-            } catch (IOException e) {
-                throw new MavenResourceException(e);
-            }
+            Model model = model(revision);
+            Archive archive = revision.archive(model.getPackaging(), "");
             ResourceBuilder builder = new ResourceBuilder();
-            try {
-                if (location == BinaryLocation.LOCAL) {
-                    builder.addFile(binary, binary.toURI());
-                } else {
-                    builder.addFile(binary,
-                        cachedArchive.mavenBackingRepository()
-                            .toURI(archive().remotePath));
+            addInformationCapability(builder, archive.toString(),
+                archive.getRevision().toString(), null);
+            if (model.getPackaging().equals("jar")) {
+                File binary;
+                try {
+                    binary = get(archive);
+                } catch (IOException e) {
+                    throw new MavenResourceException(e);
                 }
-            } catch (Exception e) {
-                // That's what the exceptions thrown here come down to.
-                throw new IllegalArgumentException(e);
+                try {
+                    if (location == BinaryLocation.LOCAL) {
+                        builder.addFile(binary, binary.toURI());
+                    } else {
+                        builder.addFile(binary,
+                            boundRevision().mavenBackingRepository()
+                                .toURI(archive.remotePath));
+                    }
+                } catch (Exception e) {
+                    // That's what the exceptions thrown here come down to.
+                    throw new IllegalArgumentException(e);
+                }
             }
-            addInformationCapability(builder, archive().toString(),
-                archive().getRevision().toString(), null);
+
             // Add dependency infos
             if (!dependencies().isEmpty()) {
                 CapabilityBuilder cap
