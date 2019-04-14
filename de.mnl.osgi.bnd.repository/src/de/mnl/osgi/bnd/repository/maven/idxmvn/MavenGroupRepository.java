@@ -65,6 +65,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.maven.model.Dependency;
@@ -392,12 +393,6 @@ public class MavenGroupRepository extends ResourcesRepository {
         "PMD.PositionLiteralsFirstInComparisons" })
     private CompletableFuture<Void> loadRevision(BoundRevision revision) {
         return CompletableFuture.runAsync(() -> {
-            LOG.debug("Loading revision {}.", revision.unbound());
-            if (indexingState.getOrDefault(revision.unbound(),
-                IndexingState.NONE) != IndexingState.NONE) {
-                // Already loading or handled (as dependency)
-                return;
-            }
             MavenVersionRange acceptedRange = Optional.ofNullable(
                 searchProperty(revision.artifactId(), "versions"))
                 .map(MavenVersionRange::parseRange).orElse(null);
@@ -410,9 +405,21 @@ public class MavenGroupRepository extends ResourcesRepository {
                 boolean inVersions = acceptedRange != null
                     && acceptedRange.includes(revision.version());
                 if (!inVersions && !inForced) {
+                    logIndexing(revision.unbound(),
+                        () -> String.format("%s not selected for indexing.",
+                            revision));
                     return;
                 }
             }
+            if (indexingState.getOrDefault(revision.unbound(),
+                IndexingState.NONE) != IndexingState.NONE) {
+                // Already loading or handled (as dependency)
+                return;
+            }
+            LOG.debug("Loading revision {}.", revision.unbound());
+            logIndexing(revision.unbound(),
+                () -> String.format("%s in list, indexing...",
+                    revision.unbound()));
             try {
                 MavenResource resource = indexedRepository.mavenRepository()
                     .resource(revision, BinaryLocation.REMOTE);
@@ -523,6 +530,8 @@ public class MavenGroupRepository extends ResourcesRepository {
             .map(MavenVersionRange::parseRange)
             .map(range -> range.includes(MavenVersion.from(revision.version)))
             .orElse(false)) {
+            logIndexing(revision,
+                () -> String.format("%s is excluded by rule.", revision));
             return false;
         }
         // Check if has been found un-indexable before
@@ -538,6 +547,14 @@ public class MavenGroupRepository extends ResourcesRepository {
         } catch (Exception e) {
             // Failing to get the dependencies is no reason to fail.
             return true;
+        }
+        if (!deps.isEmpty()) {
+            logIndexing(revision,
+                () -> String.format("%s has dependencies: %s", revision,
+                    deps.stream()
+                        .map(d -> d.getGroupId() + ":" + d.getArtifactId() + ":"
+                            + d.getVersion())
+                        .collect(Collectors.joining(", "))));
         }
         for (Dependency dep : deps) {
             MavenGroupRepository depRepo;
@@ -561,12 +578,18 @@ public class MavenGroupRepository extends ResourcesRepository {
                 // Failing to get a dependency is no reason to fail.
                 continue;
             }
+            depRepo.logIndexing(depRes.get().revision(),
+                () -> String.format("%s is dependency of %s.",
+                    depRes.get().revision(), revision));
             if (!depRepo.isIndexable(depRes.get(), dependencies,
                 ignoreExcludedDependencies)) {
                 // Note that the revision which was checked is not indexable
                 // due to a dependency that is not indexable
                 indexingState.put(revision, IndexingState.EXCL_BY_DEP);
                 if (!ignoreExcludedDependencies) {
+                    logIndexing(revision,
+                        () -> String.format("%s not indexable, depends on %s.",
+                            revision, depRes.get().revision()));
                     return false;
                 }
             }
@@ -589,6 +612,8 @@ public class MavenGroupRepository extends ResourcesRepository {
             }
             add(resource.asResource());
             indexingState.put(resource.revision(), IndexingState.INDEXED);
+            logIndexing(resource.revision(),
+                () -> String.format("%s indexed.", resource.revision()));
         }
         indexChanged = true;
     }
