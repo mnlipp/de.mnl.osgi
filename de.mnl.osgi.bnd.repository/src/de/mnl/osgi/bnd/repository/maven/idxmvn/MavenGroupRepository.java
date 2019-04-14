@@ -433,9 +433,6 @@ public class MavenGroupRepository extends ResourcesRepository {
                 addResource(resource);
                 // Add the dependencies found while checking to the index.
                 rethrow(IOException.class, () -> allDeps.stream()
-                    .filter(res -> runIgnoring(() -> isBundle(res), false))
-                    .filter(res -> indexingState(
-                        res.revision()) == IndexingState.NONE)
                     .forEach(res -> runIgnoring(() -> indexedRepository
                         .getOrCreateGroupRepository(res.revision().group)
                         .addResource(res))));
@@ -447,15 +444,6 @@ public class MavenGroupRepository extends ResourcesRepository {
                     "%s failed to load.", revision.unbound()));
             }
         }, IndexedMavenRepository.revisionLoaders);
-    }
-
-    @SuppressWarnings("PMD.PositionLiteralsFirstInComparisons")
-    private boolean isBundle(MavenResource resource)
-            throws MavenResourceException {
-        return resource.getCapabilities("osgi.identity").stream()
-            .map(cap -> cap.getAttributes().keySet().stream())
-            .flatMap(Function.identity())
-            .anyMatch(key -> key.equals("osgi.identity"));
     }
 
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
