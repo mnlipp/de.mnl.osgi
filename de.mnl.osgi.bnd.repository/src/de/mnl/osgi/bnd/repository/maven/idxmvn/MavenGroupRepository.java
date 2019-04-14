@@ -87,12 +87,8 @@ public class MavenGroupRepository extends ResourcesRepository {
 
     /** Indexing state. */
     private enum IndexingState {
-        NONE, FAILED, EXCL_BY_DEP, INDEXING, INDEXED
+        NONE, INDEXING, INDEXED, EXCLUDED, EXCL_BY_DEP
     }
-
-    private static final Set<IndexingState> INDEXING_OR_INDEXED
-        = new HashSet<>(Arrays.asList(new IndexingState[] {
-            IndexingState.INDEXING, IndexingState.INDEXED }));
 
     private final String groupId;
     private boolean requested;
@@ -415,7 +411,8 @@ public class MavenGroupRepository extends ResourcesRepository {
                     return;
                 }
             }
-            if (indexingState(revision.unbound()) != IndexingState.NONE) {
+            if (indexingState.putIfAbsent(revision.unbound(),
+                IndexingState.INDEXING) != null) {
                 // Already loading or handled (as dependency)
                 return;
             }
@@ -503,11 +500,15 @@ public class MavenGroupRepository extends ResourcesRepository {
             throw new IllegalArgumentException("Wrong groupId "
                 + revision.group + " (must be " + groupId + ").");
         }
-        // Check if already there (or being added)
-        if (INDEXING_OR_INDEXED.contains(indexingState
-            .getOrDefault(revision, IndexingState.NONE))) {
-            // Obviously indexable and no additional resources needed.
+        // Check if already decided.
+        switch (indexingState(revision)) {
+        case INDEXED:
             return true;
+        case EXCLUDED:
+        case EXCL_BY_DEP:
+            return false;
+        default:
+            break;
         }
         // Check if excluded by rule.
         if (Optional.ofNullable(
@@ -515,13 +516,11 @@ public class MavenGroupRepository extends ResourcesRepository {
             .map(MavenVersionRange::parseRange)
             .map(range -> range.includes(MavenVersion.from(revision.version)))
             .orElse(false)) {
-            logIndexing(revision,
-                () -> String.format("%s is excluded by rule.", revision));
-            return false;
-        }
-        // Check if has been found un-indexable before
-        if (!ignoreExcludedDependencies
-            && indexingState(revision) == IndexingState.EXCL_BY_DEP) {
+            if (indexingState.replace(revision, IndexingState.INDEXING,
+                IndexingState.EXCLUDED)) {
+                logIndexing(revision,
+                    () -> String.format("%s is excluded by rule.", revision));
+            }
             return false;
         }
         // Check whether excluded because dependency is excluded
@@ -542,14 +541,10 @@ public class MavenGroupRepository extends ResourcesRepository {
         }
         for (Dependency dep : deps) {
             MavenGroupRepository depRepo;
+            Optional<MavenResource> depRes;
             try {
                 depRepo = indexedRepository
                     .getOrCreateGroupRepository(dep.getGroupId());
-            } catch (Exception e) {
-                continue;
-            }
-            Optional<MavenResource> depRes;
-            try {
                 depRes = indexedRepository.mavenRepository().resource(
                     Program.valueOf(dep.getGroupId(), dep.getArtifactId()),
                     MavenVersionSpecification.from(dep.getVersion()),
@@ -569,11 +564,13 @@ public class MavenGroupRepository extends ResourcesRepository {
                 ignoreExcludedDependencies)) {
                 // Note that the revision which was checked is not indexable
                 // due to a dependency that is not indexable
-                indexingState.put(revision, IndexingState.EXCL_BY_DEP);
                 if (!ignoreExcludedDependencies) {
-                    logIndexing(revision,
-                        () -> String.format("%s not indexable, depends on %s.",
+                    if (indexingState.replace(revision, IndexingState.INDEXING,
+                        IndexingState.EXCL_BY_DEP)) {
+                        logIndexing(revision, () -> String.format(
+                            "%s not indexable, depends on %s.",
                             revision, depRes.get().revision()));
+                    }
                     return false;
                 }
             }
