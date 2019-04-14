@@ -73,598 +73,607 @@
 <span class="sourceLineNo">065</span>import java.util.function.Supplier;<a name="line.65"></a>
 <span class="sourceLineNo">066</span>import java.util.regex.Matcher;<a name="line.66"></a>
 <span class="sourceLineNo">067</span>import java.util.regex.Pattern;<a name="line.67"></a>
-<span class="sourceLineNo">068</span>import java.util.stream.Stream;<a name="line.68"></a>
-<span class="sourceLineNo">069</span><a name="line.69"></a>
-<span class="sourceLineNo">070</span>import org.apache.maven.model.Dependency;<a name="line.70"></a>
-<span class="sourceLineNo">071</span>import org.osgi.resource.Capability;<a name="line.71"></a>
-<span class="sourceLineNo">072</span>import org.osgi.resource.Resource;<a name="line.72"></a>
-<span class="sourceLineNo">073</span>import org.slf4j.Logger;<a name="line.73"></a>
-<span class="sourceLineNo">074</span>import org.slf4j.LoggerFactory;<a name="line.74"></a>
-<span class="sourceLineNo">075</span><a name="line.75"></a>
-<span class="sourceLineNo">076</span>/**<a name="line.76"></a>
-<span class="sourceLineNo">077</span> * A repository with artifacts from a single group.<a name="line.77"></a>
-<span class="sourceLineNo">078</span> */<a name="line.78"></a>
-<span class="sourceLineNo">079</span>@SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.TooManyFields",<a name="line.79"></a>
-<span class="sourceLineNo">080</span>    "PMD.ExcessiveImports" })<a name="line.80"></a>
-<span class="sourceLineNo">081</span>public class MavenGroupRepository extends ResourcesRepository {<a name="line.81"></a>
-<span class="sourceLineNo">082</span><a name="line.82"></a>
-<span class="sourceLineNo">083</span>    private static final Logger LOG = LoggerFactory.getLogger(<a name="line.83"></a>
-<span class="sourceLineNo">084</span>        MavenGroupRepository.class);<a name="line.84"></a>
-<span class="sourceLineNo">085</span>    private static final String PROP_UNAVAILABLE = "_NOT_AVAILABLE_";<a name="line.85"></a>
-<span class="sourceLineNo">086</span><a name="line.86"></a>
-<span class="sourceLineNo">087</span>    /** Indexing state. */<a name="line.87"></a>
-<span class="sourceLineNo">088</span>    private enum IndexingState {<a name="line.88"></a>
-<span class="sourceLineNo">089</span>        NONE, FAILED, EXCL_BY_DEP, INDEXING, INDEXED<a name="line.89"></a>
-<span class="sourceLineNo">090</span>    }<a name="line.90"></a>
-<span class="sourceLineNo">091</span><a name="line.91"></a>
-<span class="sourceLineNo">092</span>    private static final Set&lt;IndexingState&gt; INDEXING_OR_INDEXED<a name="line.92"></a>
-<span class="sourceLineNo">093</span>        = new HashSet&lt;&gt;(Arrays.asList(new IndexingState[] {<a name="line.93"></a>
-<span class="sourceLineNo">094</span>            IndexingState.INDEXING, IndexingState.INDEXED }));<a name="line.94"></a>
-<span class="sourceLineNo">095</span><a name="line.95"></a>
-<span class="sourceLineNo">096</span>    private final String groupId;<a name="line.96"></a>
-<span class="sourceLineNo">097</span>    private boolean requested;<a name="line.97"></a>
-<span class="sourceLineNo">098</span>    private final IndexedMavenRepository indexedRepository;<a name="line.98"></a>
-<span class="sourceLineNo">099</span>    private final HttpClient client;<a name="line.99"></a>
-<span class="sourceLineNo">100</span>    private final Reporter reporter;<a name="line.100"></a>
-<span class="sourceLineNo">101</span>    private final Path groupDir;<a name="line.101"></a>
-<span class="sourceLineNo">102</span>    private final Path groupPropsPath;<a name="line.102"></a>
-<span class="sourceLineNo">103</span>    private final Path groupIndexPath;<a name="line.103"></a>
-<span class="sourceLineNo">104</span>    private final Properties groupProps;<a name="line.104"></a>
-<span class="sourceLineNo">105</span>    private final Map&lt;String, String&gt; propQueryCache<a name="line.105"></a>
-<span class="sourceLineNo">106</span>        = new ConcurrentHashMap&lt;&gt;();<a name="line.106"></a>
-<span class="sourceLineNo">107</span>    private final ConcurrentMap&lt;Revision, IndexingState&gt; indexingState<a name="line.107"></a>
-<span class="sourceLineNo">108</span>        = new ConcurrentHashMap&lt;&gt;();<a name="line.108"></a>
-<span class="sourceLineNo">109</span>    private boolean indexChanged;<a name="line.109"></a>
-<span class="sourceLineNo">110</span>    private ResourcesRepository backupRepo;<a name="line.110"></a>
-<span class="sourceLineNo">111</span>    private Writer indexingLog;<a name="line.111"></a>
-<span class="sourceLineNo">112</span>    private Map&lt;Revision, List&lt;String&gt;&gt; loggedMessages<a name="line.112"></a>
-<span class="sourceLineNo">113</span>        = new ConcurrentHashMap&lt;&gt;();<a name="line.113"></a>
-<span class="sourceLineNo">114</span><a name="line.114"></a>
-<span class="sourceLineNo">115</span>    @SuppressWarnings("PMD.FieldNamingConventions")<a name="line.115"></a>
-<span class="sourceLineNo">116</span>    private static final Pattern hrefPattern = Pattern.compile(<a name="line.116"></a>
-<span class="sourceLineNo">117</span>        "&lt;[aA]\\s+(?:[^&gt;]*?\\s+)?href=(?&lt;quote&gt;[\"'])"<a name="line.117"></a>
-<span class="sourceLineNo">118</span>            + "(?&lt;href&gt;[a-zA-Z].*?)\\k&lt;quote&gt;");<a name="line.118"></a>
-<span class="sourceLineNo">119</span><a name="line.119"></a>
-<span class="sourceLineNo">120</span>    /**<a name="line.120"></a>
-<span class="sourceLineNo">121</span>     * Instantiates a new representation of group data backed<a name="line.121"></a>
-<span class="sourceLineNo">122</span>     * by the specified directory. <a name="line.122"></a>
-<span class="sourceLineNo">123</span>     *<a name="line.123"></a>
-<span class="sourceLineNo">124</span>     * @param groupId the maven groupId indexed by this repository<a name="line.124"></a>
-<span class="sourceLineNo">125</span>     * @param directory the directory used to persist data<a name="line.125"></a>
-<span class="sourceLineNo">126</span>     * @param requested if it is a requested group id<a name="line.126"></a>
-<span class="sourceLineNo">127</span>     * @param indexedRepository the indexed maven repository<a name="line.127"></a>
-<span class="sourceLineNo">128</span>     * @param client the client used for remote access<a name="line.128"></a>
-<span class="sourceLineNo">129</span>     * @param reporter the reporter<a name="line.129"></a>
-<span class="sourceLineNo">130</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.130"></a>
-<span class="sourceLineNo">131</span>     */<a name="line.131"></a>
-<span class="sourceLineNo">132</span>    @SuppressWarnings({ "PMD.ConfusingTernary",<a name="line.132"></a>
-<span class="sourceLineNo">133</span>        "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals" })<a name="line.133"></a>
-<span class="sourceLineNo">134</span>    public MavenGroupRepository(String groupId, Path directory,<a name="line.134"></a>
-<span class="sourceLineNo">135</span>            boolean requested, IndexedMavenRepository indexedRepository,<a name="line.135"></a>
-<span class="sourceLineNo">136</span>            HttpClient client, Reporter reporter) throws IOException {<a name="line.136"></a>
-<span class="sourceLineNo">137</span>        this.groupId = groupId;<a name="line.137"></a>
-<span class="sourceLineNo">138</span>        this.groupDir = directory;<a name="line.138"></a>
-<span class="sourceLineNo">139</span>        this.requested = requested;<a name="line.139"></a>
-<span class="sourceLineNo">140</span>        this.indexedRepository = indexedRepository;<a name="line.140"></a>
-<span class="sourceLineNo">141</span>        this.client = client;<a name="line.141"></a>
-<span class="sourceLineNo">142</span>        this.reporter = reporter;<a name="line.142"></a>
-<span class="sourceLineNo">143</span><a name="line.143"></a>
-<span class="sourceLineNo">144</span>        // Prepare directory and files<a name="line.144"></a>
-<span class="sourceLineNo">145</span>        groupPropsPath = directory.resolve("group.properties");<a name="line.145"></a>
-<span class="sourceLineNo">146</span>        groupProps = new Properties();<a name="line.146"></a>
-<span class="sourceLineNo">147</span>        // If directory does not exist, create it.<a name="line.147"></a>
-<span class="sourceLineNo">148</span>        if (!directory.toFile().exists()) {<a name="line.148"></a>
-<span class="sourceLineNo">149</span>            directory.toFile().mkdir();<a name="line.149"></a>
-<span class="sourceLineNo">150</span>        } else {<a name="line.150"></a>
-<span class="sourceLineNo">151</span>            // Directory exists, check if we have properties.<a name="line.151"></a>
-<span class="sourceLineNo">152</span>            if (groupPropsPath.toFile().canRead()) {<a name="line.152"></a>
-<span class="sourceLineNo">153</span>                try (InputStream input = Files.newInputStream(groupPropsPath)) {<a name="line.153"></a>
-<span class="sourceLineNo">154</span>                    groupProps.load(input);<a name="line.154"></a>
-<span class="sourceLineNo">155</span>                }<a name="line.155"></a>
-<span class="sourceLineNo">156</span>            }<a name="line.156"></a>
-<span class="sourceLineNo">157</span>        }<a name="line.157"></a>
-<span class="sourceLineNo">158</span><a name="line.158"></a>
-<span class="sourceLineNo">159</span>        // Prepare OSGi repository<a name="line.159"></a>
-<span class="sourceLineNo">160</span>        groupIndexPath = groupDir.resolve("index.xml");<a name="line.160"></a>
-<span class="sourceLineNo">161</span>        if (groupIndexPath.toFile().canRead()) {<a name="line.161"></a>
-<span class="sourceLineNo">162</span>            try (XMLResourceParser parser<a name="line.162"></a>
-<span class="sourceLineNo">163</span>                = new XMLResourceParser(groupIndexPath.toFile())) {<a name="line.163"></a>
-<span class="sourceLineNo">164</span>                addAll(parser.parse());<a name="line.164"></a>
-<span class="sourceLineNo">165</span>            } catch (Exception e) { // NOPMD<a name="line.165"></a>
-<span class="sourceLineNo">166</span>                reporter.warning("Cannot parse %s, ignored: %s", groupIndexPath,<a name="line.166"></a>
-<span class="sourceLineNo">167</span>                    e.getMessage());<a name="line.167"></a>
-<span class="sourceLineNo">168</span>            }<a name="line.168"></a>
-<span class="sourceLineNo">169</span>        } else {<a name="line.169"></a>
-<span class="sourceLineNo">170</span>            indexChanged = true;<a name="line.170"></a>
-<span class="sourceLineNo">171</span>        }<a name="line.171"></a>
-<span class="sourceLineNo">172</span>        // Cache revisions for faster checks.<a name="line.172"></a>
-<span class="sourceLineNo">173</span>        for (Capability cap : findProvider(<a name="line.173"></a>
-<span class="sourceLineNo">174</span>            newRequirementBuilder("bnd.info").build())) {<a name="line.174"></a>
-<span class="sourceLineNo">175</span>            indexingState.put(<a name="line.175"></a>
-<span class="sourceLineNo">176</span>                Revision.valueOf((String) cap.getAttributes().get("from")),<a name="line.176"></a>
-<span class="sourceLineNo">177</span>                IndexingState.INDEXED);<a name="line.177"></a>
-<span class="sourceLineNo">178</span>        }<a name="line.178"></a>
-<span class="sourceLineNo">179</span>        LOG.debug("Created group repository for {}.", groupId);<a name="line.179"></a>
-<span class="sourceLineNo">180</span>    }<a name="line.180"></a>
-<span class="sourceLineNo">181</span><a name="line.181"></a>
-<span class="sourceLineNo">182</span>    /**<a name="line.182"></a>
-<span class="sourceLineNo">183</span>     * Checks if is requested.<a name="line.183"></a>
-<span class="sourceLineNo">184</span>     *<a name="line.184"></a>
-<span class="sourceLineNo">185</span>     * @return the requested<a name="line.185"></a>
-<span class="sourceLineNo">186</span>     */<a name="line.186"></a>
-<span class="sourceLineNo">187</span>    public final boolean isRequested() {<a name="line.187"></a>
-<span class="sourceLineNo">188</span>        return requested;<a name="line.188"></a>
-<span class="sourceLineNo">189</span>    }<a name="line.189"></a>
-<span class="sourceLineNo">190</span><a name="line.190"></a>
-<span class="sourceLineNo">191</span>    /**<a name="line.191"></a>
-<span class="sourceLineNo">192</span>     * Writes all changes to persistent storage and removes<a name="line.192"></a>
-<span class="sourceLineNo">193</span>     * any backup information prepared by {@link #reset(boolean)}.<a name="line.193"></a>
-<span class="sourceLineNo">194</span>     *<a name="line.194"></a>
-<span class="sourceLineNo">195</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.195"></a>
-<span class="sourceLineNo">196</span>     */<a name="line.196"></a>
-<span class="sourceLineNo">197</span>    public void flush() throws IOException {<a name="line.197"></a>
-<span class="sourceLineNo">198</span>        if (indexChanged &amp;&amp; backupRepo != null) {<a name="line.198"></a>
-<span class="sourceLineNo">199</span>            // Only a rough guess, verify to avoid unnecessary new versions<a name="line.199"></a>
-<span class="sourceLineNo">200</span>            // of the generated file.<a name="line.200"></a>
-<span class="sourceLineNo">201</span>            Set&lt;Resource&gt; oldSet = new HashSet&lt;&gt;(backupRepo.getResources());<a name="line.201"></a>
-<span class="sourceLineNo">202</span>            Set&lt;Resource&gt; newSet = new HashSet&lt;&gt;(getResources());<a name="line.202"></a>
-<span class="sourceLineNo">203</span>            if (newSet.equals(oldSet)) {<a name="line.203"></a>
-<span class="sourceLineNo">204</span>                indexChanged = false;<a name="line.204"></a>
-<span class="sourceLineNo">205</span>            }<a name="line.205"></a>
-<span class="sourceLineNo">206</span>        }<a name="line.206"></a>
-<span class="sourceLineNo">207</span>        if (indexChanged) {<a name="line.207"></a>
-<span class="sourceLineNo">208</span>            XMLResourceGenerator generator = new XMLResourceGenerator();<a name="line.208"></a>
-<span class="sourceLineNo">209</span>            generator.resources(getResources());<a name="line.209"></a>
-<span class="sourceLineNo">210</span>            generator.name(indexedRepository.mavenRepository().name());<a name="line.210"></a>
-<span class="sourceLineNo">211</span>            try {<a name="line.211"></a>
-<span class="sourceLineNo">212</span>                generator.save(groupIndexPath.toFile());<a name="line.212"></a>
-<span class="sourceLineNo">213</span>            } catch (IOException e) {<a name="line.213"></a>
-<span class="sourceLineNo">214</span>                reporter.exception(e, "Cannot save %s.", groupIndexPath);<a name="line.214"></a>
-<span class="sourceLineNo">215</span>            }<a name="line.215"></a>
-<span class="sourceLineNo">216</span>            indexChanged = false;<a name="line.216"></a>
-<span class="sourceLineNo">217</span>        }<a name="line.217"></a>
-<span class="sourceLineNo">218</span>        backupRepo = null;<a name="line.218"></a>
-<span class="sourceLineNo">219</span>        if (indexingLog != null) {<a name="line.219"></a>
-<span class="sourceLineNo">220</span>            rethrow(IOException.class, () -&gt; loggedMessages.entrySet().stream()<a name="line.220"></a>
-<span class="sourceLineNo">221</span>                .sorted(Map.Entry.comparingByKey())<a name="line.221"></a>
-<span class="sourceLineNo">222</span>                .flatMap(e -&gt; e.getValue().stream())<a name="line.222"></a>
-<span class="sourceLineNo">223</span>                .forEach(msg -&gt; unthrow(() -&gt; indexingLog<a name="line.223"></a>
-<span class="sourceLineNo">224</span>                    .write(msg + System.lineSeparator()))));<a name="line.224"></a>
-<span class="sourceLineNo">225</span>            indexingLog.close();<a name="line.225"></a>
-<span class="sourceLineNo">226</span>            indexingLog = null;<a name="line.226"></a>
-<span class="sourceLineNo">227</span>        }<a name="line.227"></a>
-<span class="sourceLineNo">228</span>        loggedMessages.clear();<a name="line.228"></a>
-<span class="sourceLineNo">229</span>        indexingState.clear();<a name="line.229"></a>
-<span class="sourceLineNo">230</span>    }<a name="line.230"></a>
-<span class="sourceLineNo">231</span><a name="line.231"></a>
-<span class="sourceLineNo">232</span>    /**<a name="line.232"></a>
-<span class="sourceLineNo">233</span>     * Removes the group directory if empty.<a name="line.233"></a>
-<span class="sourceLineNo">234</span>     *<a name="line.234"></a>
-<span class="sourceLineNo">235</span>     * @return true, if removed<a name="line.235"></a>
-<span class="sourceLineNo">236</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.236"></a>
-<span class="sourceLineNo">237</span>     */<a name="line.237"></a>
-<span class="sourceLineNo">238</span>    public boolean removeIfRedundant() throws IOException {<a name="line.238"></a>
-<span class="sourceLineNo">239</span>        if (isRequested() || !groupProps.isEmpty()<a name="line.239"></a>
-<span class="sourceLineNo">240</span>            || !getResources().isEmpty()) {<a name="line.240"></a>
-<span class="sourceLineNo">241</span>            return false;<a name="line.241"></a>
-<span class="sourceLineNo">242</span>        }<a name="line.242"></a>
-<span class="sourceLineNo">243</span>        // Nothing in this group<a name="line.243"></a>
-<span class="sourceLineNo">244</span>        Files.walk(groupDir)<a name="line.244"></a>
-<span class="sourceLineNo">245</span>            .sorted(Comparator.reverseOrder())<a name="line.245"></a>
-<span class="sourceLineNo">246</span>            .map(Path::toFile)<a name="line.246"></a>
-<span class="sourceLineNo">247</span>            .forEach(File::delete);<a name="line.247"></a>
-<span class="sourceLineNo">248</span>        return true;<a name="line.248"></a>
-<span class="sourceLineNo">249</span>    }<a name="line.249"></a>
-<span class="sourceLineNo">250</span><a name="line.250"></a>
-<span class="sourceLineNo">251</span>    /**<a name="line.251"></a>
-<span class="sourceLineNo">252</span>     * Returns the group id.<a name="line.252"></a>
-<span class="sourceLineNo">253</span>     *<a name="line.253"></a>
-<span class="sourceLineNo">254</span>     * @return the groupId<a name="line.254"></a>
-<span class="sourceLineNo">255</span>     */<a name="line.255"></a>
-<span class="sourceLineNo">256</span>    @SuppressWarnings("PMD.ShortMethodName")<a name="line.256"></a>
-<span class="sourceLineNo">257</span>    public final String id() {<a name="line.257"></a>
-<span class="sourceLineNo">258</span>        return groupId;<a name="line.258"></a>
-<span class="sourceLineNo">259</span>    }<a name="line.259"></a>
-<span class="sourceLineNo">260</span><a name="line.260"></a>
-<span class="sourceLineNo">261</span>    /**<a name="line.261"></a>
-<span class="sourceLineNo">262</span>     * Clears this repository and updates the requested flag. <a name="line.262"></a>
-<span class="sourceLineNo">263</span>     * Keeps the current content as backup for reuse in a <a name="line.263"></a>
-<span class="sourceLineNo">264</span>     * subsequent call to {@link #reload()}.<a name="line.264"></a>
-<span class="sourceLineNo">265</span>     *<a name="line.265"></a>
-<span class="sourceLineNo">266</span>     * @param requested whether this is a requested group<a name="line.266"></a>
-<span class="sourceLineNo">267</span>     */<a name="line.267"></a>
-<span class="sourceLineNo">268</span>    public void reset(boolean requested) {<a name="line.268"></a>
-<span class="sourceLineNo">269</span>        synchronized (this) {<a name="line.269"></a>
-<span class="sourceLineNo">270</span>            // Update "type"<a name="line.270"></a>
-<span class="sourceLineNo">271</span>            this.requested = requested;<a name="line.271"></a>
-<span class="sourceLineNo">272</span>            // Save current content and clear.<a name="line.272"></a>
-<span class="sourceLineNo">273</span>            backupRepo = new ResourcesRepository(getResources());<a name="line.273"></a>
-<span class="sourceLineNo">274</span>            set(Collections.emptyList());<a name="line.274"></a>
-<span class="sourceLineNo">275</span>            // Clear and reload properties<a name="line.275"></a>
-<span class="sourceLineNo">276</span>            groupProps.clear();<a name="line.276"></a>
-<span class="sourceLineNo">277</span>            if (groupPropsPath.toFile().canRead()) {<a name="line.277"></a>
-<span class="sourceLineNo">278</span>                try (InputStream input = Files.newInputStream(groupPropsPath)) {<a name="line.278"></a>
-<span class="sourceLineNo">279</span>                    propQueryCache.clear();<a name="line.279"></a>
-<span class="sourceLineNo">280</span>                    groupProps.load(input);<a name="line.280"></a>
-<span class="sourceLineNo">281</span>                } catch (IOException e) {<a name="line.281"></a>
-<span class="sourceLineNo">282</span>                    reporter.warning("Problem reading %s (ignored): %s",<a name="line.282"></a>
-<span class="sourceLineNo">283</span>                        groupPropsPath, e.getMessage());<a name="line.283"></a>
-<span class="sourceLineNo">284</span>                }<a name="line.284"></a>
-<span class="sourceLineNo">285</span>            }<a name="line.285"></a>
-<span class="sourceLineNo">286</span>            // Clear remaining caches.<a name="line.286"></a>
-<span class="sourceLineNo">287</span>            indexingState.clear();<a name="line.287"></a>
-<span class="sourceLineNo">288</span>            propQueryCache.clear();<a name="line.288"></a>
-<span class="sourceLineNo">289</span>        }<a name="line.289"></a>
-<span class="sourceLineNo">290</span>    }<a name="line.290"></a>
-<span class="sourceLineNo">291</span><a name="line.291"></a>
-<span class="sourceLineNo">292</span>    /**<a name="line.292"></a>
-<span class="sourceLineNo">293</span>     * Returns the excluded versions of the specified artifact id.<a name="line.293"></a>
-<span class="sourceLineNo">294</span>     *<a name="line.294"></a>
-<span class="sourceLineNo">295</span>     * @param artifactId the artifact id<a name="line.295"></a>
-<span class="sourceLineNo">296</span>     * @return the maven version range<a name="line.296"></a>
-<span class="sourceLineNo">297</span>     */<a name="line.297"></a>
-<span class="sourceLineNo">298</span>    private MavenVersionRange excludedRange(String artifactId) {<a name="line.298"></a>
-<span class="sourceLineNo">299</span>        // Check if excluded by rule.<a name="line.299"></a>
-<span class="sourceLineNo">300</span>        return Optional<a name="line.300"></a>
-<span class="sourceLineNo">301</span>            .ofNullable(searchProperty(artifactId, "exclude"))<a name="line.301"></a>
-<span class="sourceLineNo">302</span>            .map(MavenVersionRange::parseRange)<a name="line.302"></a>
-<span class="sourceLineNo">303</span>            .orElse(MavenVersionRange.NONE);<a name="line.303"></a>
-<span class="sourceLineNo">304</span>    }<a name="line.304"></a>
-<span class="sourceLineNo">305</span><a name="line.305"></a>
-<span class="sourceLineNo">306</span>    /**<a name="line.306"></a>
-<span class="sourceLineNo">307</span>     * Reload the repository. Requested repositories retrieve<a name="line.307"></a>
-<span class="sourceLineNo">308</span>     * the list of known artifactIds from the remote repository <a name="line.308"></a>
-<span class="sourceLineNo">309</span>     * and add the versions. For versions already in the repository, <a name="line.309"></a>
-<span class="sourceLineNo">310</span>     * the backup information is re-used.<a name="line.310"></a>
-<span class="sourceLineNo">311</span>     *<a name="line.311"></a>
-<span class="sourceLineNo">312</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.312"></a>
-<span class="sourceLineNo">313</span>     */<a name="line.313"></a>
-<span class="sourceLineNo">314</span>    @SuppressWarnings({ "PMD.AvoidReassigningLoopVariables",<a name="line.314"></a>
-<span class="sourceLineNo">315</span>        "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals",<a name="line.315"></a>
-<span class="sourceLineNo">316</span>        "PMD.AvoidInstantiatingObjectsInLoops",<a name="line.316"></a>
-<span class="sourceLineNo">317</span>        "PMD.AvoidThrowingRawExceptionTypes", "PMD.PreserveStackTrace" })<a name="line.317"></a>
-<span class="sourceLineNo">318</span>    public void reload() throws IOException {<a name="line.318"></a>
-<span class="sourceLineNo">319</span>        if (indexedRepository.logIndexing()) {<a name="line.319"></a>
-<span class="sourceLineNo">320</span>            indexingLog = Files.newBufferedWriter(<a name="line.320"></a>
-<span class="sourceLineNo">321</span>                groupDir.resolve("indexing.log"), Charset.defaultCharset());<a name="line.321"></a>
-<span class="sourceLineNo">322</span>        } else {<a name="line.322"></a>
-<span class="sourceLineNo">323</span>            // Don't keep out-dated log files, it's irritating.<a name="line.323"></a>
-<span class="sourceLineNo">324</span>            groupDir.resolve("indexing.log").toFile().delete();<a name="line.324"></a>
-<span class="sourceLineNo">325</span>        }<a name="line.325"></a>
-<span class="sourceLineNo">326</span>        loggedMessages.clear();<a name="line.326"></a>
-<span class="sourceLineNo">327</span>        if (!isRequested()) {<a name="line.327"></a>
-<span class="sourceLineNo">328</span>            // Will be filled with dependencies only<a name="line.328"></a>
-<span class="sourceLineNo">329</span>            return;<a name="line.329"></a>
-<span class="sourceLineNo">330</span>        }<a name="line.330"></a>
-<span class="sourceLineNo">331</span>        // Actively filled.<a name="line.331"></a>
-<span class="sourceLineNo">332</span>        synchronized (this) {<a name="line.332"></a>
-<span class="sourceLineNo">333</span>            if (backupRepo == null) {<a name="line.333"></a>
-<span class="sourceLineNo">334</span>                backupRepo = new ResourcesRepository(getResources());<a name="line.334"></a>
-<span class="sourceLineNo">335</span>            }<a name="line.335"></a>
-<span class="sourceLineNo">336</span>            propQueryCache.clear();<a name="line.336"></a>
-<span class="sourceLineNo">337</span>        }<a name="line.337"></a>
-<span class="sourceLineNo">338</span>        try {<a name="line.338"></a>
-<span class="sourceLineNo">339</span>            CompletableFuture&lt;Void&gt; actions<a name="line.339"></a>
-<span class="sourceLineNo">340</span>                = CompletableFuture.allOf(findArtifactIds().stream().map(<a name="line.340"></a>
-<span class="sourceLineNo">341</span>                    artifactId -&gt; loadProgram(Program.valueOf(groupId,<a name="line.341"></a>
-<span class="sourceLineNo">342</span>                        artifactId)))<a name="line.342"></a>
-<span class="sourceLineNo">343</span>                    .toArray(CompletableFuture[]::new));<a name="line.343"></a>
-<span class="sourceLineNo">344</span>            actions.get();<a name="line.344"></a>
-<span class="sourceLineNo">345</span>        } catch (ExecutionException e) {<a name="line.345"></a>
-<span class="sourceLineNo">346</span>            if (e.getCause() instanceof IOException) {<a name="line.346"></a>
-<span class="sourceLineNo">347</span>                throw (IOException) e.getCause();<a name="line.347"></a>
-<span class="sourceLineNo">348</span>            }<a name="line.348"></a>
-<span class="sourceLineNo">349</span>            throw new RuntimeException(e.getCause());<a name="line.349"></a>
-<span class="sourceLineNo">350</span>        } catch (InterruptedException e) {<a name="line.350"></a>
-<span class="sourceLineNo">351</span>            throw new RuntimeException(e);<a name="line.351"></a>
-<span class="sourceLineNo">352</span>        }<a name="line.352"></a>
-<span class="sourceLineNo">353</span>        indexChanged = true;<a name="line.353"></a>
-<span class="sourceLineNo">354</span>    }<a name="line.354"></a>
-<span class="sourceLineNo">355</span><a name="line.355"></a>
-<span class="sourceLineNo">356</span>    private CompletableFuture&lt;Void&gt; loadProgram(Program program) {<a name="line.356"></a>
-<span class="sourceLineNo">357</span>        // Get revisions of program and process.<a name="line.357"></a>
-<span class="sourceLineNo">358</span>        CompletableFuture&lt;Void&gt; result = new CompletableFuture&lt;&gt;();<a name="line.358"></a>
-<span class="sourceLineNo">359</span>        IndexedMavenRepository.programLoaders.submit(() -&gt; {<a name="line.359"></a>
-<span class="sourceLineNo">360</span>            Stream&lt;CompletableFuture&lt;Void&gt;&gt; revLoaderStream;<a name="line.360"></a>
-<span class="sourceLineNo">361</span>            try {<a name="line.361"></a>
-<span class="sourceLineNo">362</span>                LOG.debug("Getting list of revisions of {}.", program);<a name="line.362"></a>
-<span class="sourceLineNo">363</span>                revLoaderStream = indexedRepository.mavenRepository()<a name="line.363"></a>
-<span class="sourceLineNo">364</span>                    .findRevisions(program)<a name="line.364"></a>
-<span class="sourceLineNo">365</span>                    .map(revision -&gt; loadRevision(revision));<a name="line.365"></a>
-<span class="sourceLineNo">366</span>            } catch (IOException e) {<a name="line.366"></a>
-<span class="sourceLineNo">367</span>                reporter.exception(e,<a name="line.367"></a>
-<span class="sourceLineNo">368</span>                    "Failed to get list of revisions of %s: %s", program,<a name="line.368"></a>
-<span class="sourceLineNo">369</span>                    e.getMessage());<a name="line.369"></a>
-<span class="sourceLineNo">370</span>                result.complete(null);<a name="line.370"></a>
-<span class="sourceLineNo">371</span>                return;<a name="line.371"></a>
-<span class="sourceLineNo">372</span>            }<a name="line.372"></a>
-<span class="sourceLineNo">373</span>            // Ignore exceptions from loadRevision, there won't be any.<a name="line.373"></a>
-<span class="sourceLineNo">374</span>            revLoaderStream.forEach(<a name="line.374"></a>
-<span class="sourceLineNo">375</span>                revLoad -&gt; unthrow(() -&gt; revLoad.handle((res, thrw) -&gt; {<a name="line.375"></a>
-<span class="sourceLineNo">376</span>                    return null;<a name="line.376"></a>
-<span class="sourceLineNo">377</span>                }).get()));<a name="line.377"></a>
-<span class="sourceLineNo">378</span>            result.complete(null);<a name="line.378"></a>
-<span class="sourceLineNo">379</span>        });<a name="line.379"></a>
-<span class="sourceLineNo">380</span>        return result;<a name="line.380"></a>
-<span class="sourceLineNo">381</span>    }<a name="line.381"></a>
-<span class="sourceLineNo">382</span><a name="line.382"></a>
-<span class="sourceLineNo">383</span>    /**<a name="line.383"></a>
-<span class="sourceLineNo">384</span>     * Load the revision asynchronously. Calling <a name="line.384"></a>
-<span class="sourceLineNo">385</span>     * {@link CompletableFuture#get()} never returns an exception. <a name="line.385"></a>
-<span class="sourceLineNo">386</span>     *<a name="line.386"></a>
-<span class="sourceLineNo">387</span>     * @param revision the revision<a name="line.387"></a>
-<span class="sourceLineNo">388</span>     * @return the completable future<a name="line.388"></a>
-<span class="sourceLineNo">389</span>     */<a name="line.389"></a>
-<span class="sourceLineNo">390</span>    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",<a name="line.390"></a>
-<span class="sourceLineNo">391</span>        "PMD.AvoidDuplicateLiterals",<a name="line.391"></a>
-<span class="sourceLineNo">392</span>        "PMD.PositionLiteralsFirstInComparisons" })<a name="line.392"></a>
-<span class="sourceLineNo">393</span>    private CompletableFuture&lt;Void&gt; loadRevision(BoundRevision revision) {<a name="line.393"></a>
-<span class="sourceLineNo">394</span>        return CompletableFuture.runAsync(() -&gt; {<a name="line.394"></a>
-<span class="sourceLineNo">395</span>            LOG.debug("Loading revision {}.", revision.unbound());<a name="line.395"></a>
-<span class="sourceLineNo">396</span>            if (indexingState.getOrDefault(revision.unbound(),<a name="line.396"></a>
-<span class="sourceLineNo">397</span>                IndexingState.NONE) != IndexingState.NONE) {<a name="line.397"></a>
-<span class="sourceLineNo">398</span>                // Already loading or handled (as dependency)<a name="line.398"></a>
-<span class="sourceLineNo">399</span>                return;<a name="line.399"></a>
-<span class="sourceLineNo">400</span>            }<a name="line.400"></a>
-<span class="sourceLineNo">401</span>            MavenVersionRange acceptedRange = Optional.ofNullable(<a name="line.401"></a>
-<span class="sourceLineNo">402</span>                searchProperty(revision.artifactId(), "versions"))<a name="line.402"></a>
-<span class="sourceLineNo">403</span>                .map(MavenVersionRange::parseRange).orElse(null);<a name="line.403"></a>
-<span class="sourceLineNo">404</span>            MavenVersionRange forcedRange = Optional.ofNullable(<a name="line.404"></a>
-<span class="sourceLineNo">405</span>                searchProperty(revision.artifactId(), "forcedVersions"))<a name="line.405"></a>
-<span class="sourceLineNo">406</span>                .map(MavenVersionRange::parseRange).orElse(null);<a name="line.406"></a>
-<span class="sourceLineNo">407</span>            boolean inForced = forcedRange != null<a name="line.407"></a>
-<span class="sourceLineNo">408</span>                &amp;&amp; forcedRange.includes(revision.version());<a name="line.408"></a>
-<span class="sourceLineNo">409</span>            if (acceptedRange != null || forcedRange != null) {<a name="line.409"></a>
-<span class="sourceLineNo">410</span>                boolean inVersions = acceptedRange != null<a name="line.410"></a>
-<span class="sourceLineNo">411</span>                    &amp;&amp; acceptedRange.includes(revision.version());<a name="line.411"></a>
-<span class="sourceLineNo">412</span>                if (!inVersions &amp;&amp; !inForced) {<a name="line.412"></a>
-<span class="sourceLineNo">413</span>                    return;<a name="line.413"></a>
-<span class="sourceLineNo">414</span>                }<a name="line.414"></a>
-<span class="sourceLineNo">415</span>            }<a name="line.415"></a>
-<span class="sourceLineNo">416</span>            try {<a name="line.416"></a>
-<span class="sourceLineNo">417</span>                MavenResource resource = indexedRepository.mavenRepository()<a name="line.417"></a>
-<span class="sourceLineNo">418</span>                    .resource(revision, BinaryLocation.REMOTE);<a name="line.418"></a>
-<span class="sourceLineNo">419</span>                Set&lt;MavenResource&gt; allDeps = new HashSet&lt;&gt;();<a name="line.419"></a>
-<span class="sourceLineNo">420</span>                if (!isIndexable(resource, allDeps, inForced)) {<a name="line.420"></a>
-<span class="sourceLineNo">421</span>                    return;<a name="line.421"></a>
-<span class="sourceLineNo">422</span>                }<a name="line.422"></a>
-<span class="sourceLineNo">423</span>                try {<a name="line.423"></a>
-<span class="sourceLineNo">424</span>                    if (isBundle(resource)) {<a name="line.424"></a>
-<span class="sourceLineNo">425</span>                        addResource(resource);<a name="line.425"></a>
-<span class="sourceLineNo">426</span>                    }<a name="line.426"></a>
-<span class="sourceLineNo">427</span>                } catch (Exception e) {<a name="line.427"></a>
-<span class="sourceLineNo">428</span>                    // TODO<a name="line.428"></a>
+<span class="sourceLineNo">068</span>import java.util.stream.Collectors;<a name="line.68"></a>
+<span class="sourceLineNo">069</span>import java.util.stream.Stream;<a name="line.69"></a>
+<span class="sourceLineNo">070</span><a name="line.70"></a>
+<span class="sourceLineNo">071</span>import org.apache.maven.model.Dependency;<a name="line.71"></a>
+<span class="sourceLineNo">072</span>import org.osgi.resource.Capability;<a name="line.72"></a>
+<span class="sourceLineNo">073</span>import org.osgi.resource.Resource;<a name="line.73"></a>
+<span class="sourceLineNo">074</span>import org.slf4j.Logger;<a name="line.74"></a>
+<span class="sourceLineNo">075</span>import org.slf4j.LoggerFactory;<a name="line.75"></a>
+<span class="sourceLineNo">076</span><a name="line.76"></a>
+<span class="sourceLineNo">077</span>/**<a name="line.77"></a>
+<span class="sourceLineNo">078</span> * A repository with artifacts from a single group.<a name="line.78"></a>
+<span class="sourceLineNo">079</span> */<a name="line.79"></a>
+<span class="sourceLineNo">080</span>@SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.TooManyFields",<a name="line.80"></a>
+<span class="sourceLineNo">081</span>    "PMD.ExcessiveImports" })<a name="line.81"></a>
+<span class="sourceLineNo">082</span>public class MavenGroupRepository extends ResourcesRepository {<a name="line.82"></a>
+<span class="sourceLineNo">083</span><a name="line.83"></a>
+<span class="sourceLineNo">084</span>    private static final Logger LOG = LoggerFactory.getLogger(<a name="line.84"></a>
+<span class="sourceLineNo">085</span>        MavenGroupRepository.class);<a name="line.85"></a>
+<span class="sourceLineNo">086</span>    private static final String PROP_UNAVAILABLE = "_NOT_AVAILABLE_";<a name="line.86"></a>
+<span class="sourceLineNo">087</span><a name="line.87"></a>
+<span class="sourceLineNo">088</span>    /** Indexing state. */<a name="line.88"></a>
+<span class="sourceLineNo">089</span>    private enum IndexingState {<a name="line.89"></a>
+<span class="sourceLineNo">090</span>        NONE, INDEXING, INDEXED, EXCLUDED, EXCL_BY_DEP<a name="line.90"></a>
+<span class="sourceLineNo">091</span>    }<a name="line.91"></a>
+<span class="sourceLineNo">092</span><a name="line.92"></a>
+<span class="sourceLineNo">093</span>    private final String groupId;<a name="line.93"></a>
+<span class="sourceLineNo">094</span>    private boolean requested;<a name="line.94"></a>
+<span class="sourceLineNo">095</span>    private final IndexedMavenRepository indexedRepository;<a name="line.95"></a>
+<span class="sourceLineNo">096</span>    private final HttpClient client;<a name="line.96"></a>
+<span class="sourceLineNo">097</span>    private final Reporter reporter;<a name="line.97"></a>
+<span class="sourceLineNo">098</span>    private final Path groupDir;<a name="line.98"></a>
+<span class="sourceLineNo">099</span>    private final Path groupPropsPath;<a name="line.99"></a>
+<span class="sourceLineNo">100</span>    private final Path groupIndexPath;<a name="line.100"></a>
+<span class="sourceLineNo">101</span>    private final Properties groupProps;<a name="line.101"></a>
+<span class="sourceLineNo">102</span>    private final Map&lt;String, String&gt; propQueryCache<a name="line.102"></a>
+<span class="sourceLineNo">103</span>        = new ConcurrentHashMap&lt;&gt;();<a name="line.103"></a>
+<span class="sourceLineNo">104</span>    private final ConcurrentMap&lt;Revision, IndexingState&gt; indexingState<a name="line.104"></a>
+<span class="sourceLineNo">105</span>        = new ConcurrentHashMap&lt;&gt;();<a name="line.105"></a>
+<span class="sourceLineNo">106</span>    private boolean indexChanged;<a name="line.106"></a>
+<span class="sourceLineNo">107</span>    private ResourcesRepository backupRepo;<a name="line.107"></a>
+<span class="sourceLineNo">108</span>    private Writer indexingLog;<a name="line.108"></a>
+<span class="sourceLineNo">109</span>    private Map&lt;Revision, List&lt;String&gt;&gt; loggedMessages<a name="line.109"></a>
+<span class="sourceLineNo">110</span>        = new ConcurrentHashMap&lt;&gt;();<a name="line.110"></a>
+<span class="sourceLineNo">111</span><a name="line.111"></a>
+<span class="sourceLineNo">112</span>    @SuppressWarnings("PMD.FieldNamingConventions")<a name="line.112"></a>
+<span class="sourceLineNo">113</span>    private static final Pattern hrefPattern = Pattern.compile(<a name="line.113"></a>
+<span class="sourceLineNo">114</span>        "&lt;[aA]\\s+(?:[^&gt;]*?\\s+)?href=(?&lt;quote&gt;[\"'])"<a name="line.114"></a>
+<span class="sourceLineNo">115</span>            + "(?&lt;href&gt;[a-zA-Z].*?)\\k&lt;quote&gt;");<a name="line.115"></a>
+<span class="sourceLineNo">116</span><a name="line.116"></a>
+<span class="sourceLineNo">117</span>    /**<a name="line.117"></a>
+<span class="sourceLineNo">118</span>     * Instantiates a new representation of group data backed<a name="line.118"></a>
+<span class="sourceLineNo">119</span>     * by the specified directory. <a name="line.119"></a>
+<span class="sourceLineNo">120</span>     *<a name="line.120"></a>
+<span class="sourceLineNo">121</span>     * @param groupId the maven groupId indexed by this repository<a name="line.121"></a>
+<span class="sourceLineNo">122</span>     * @param directory the directory used to persist data<a name="line.122"></a>
+<span class="sourceLineNo">123</span>     * @param requested if it is a requested group id<a name="line.123"></a>
+<span class="sourceLineNo">124</span>     * @param indexedRepository the indexed maven repository<a name="line.124"></a>
+<span class="sourceLineNo">125</span>     * @param client the client used for remote access<a name="line.125"></a>
+<span class="sourceLineNo">126</span>     * @param reporter the reporter<a name="line.126"></a>
+<span class="sourceLineNo">127</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.127"></a>
+<span class="sourceLineNo">128</span>     */<a name="line.128"></a>
+<span class="sourceLineNo">129</span>    @SuppressWarnings({ "PMD.ConfusingTernary",<a name="line.129"></a>
+<span class="sourceLineNo">130</span>        "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals" })<a name="line.130"></a>
+<span class="sourceLineNo">131</span>    public MavenGroupRepository(String groupId, Path directory,<a name="line.131"></a>
+<span class="sourceLineNo">132</span>            boolean requested, IndexedMavenRepository indexedRepository,<a name="line.132"></a>
+<span class="sourceLineNo">133</span>            HttpClient client, Reporter reporter) throws IOException {<a name="line.133"></a>
+<span class="sourceLineNo">134</span>        this.groupId = groupId;<a name="line.134"></a>
+<span class="sourceLineNo">135</span>        this.groupDir = directory;<a name="line.135"></a>
+<span class="sourceLineNo">136</span>        this.requested = requested;<a name="line.136"></a>
+<span class="sourceLineNo">137</span>        this.indexedRepository = indexedRepository;<a name="line.137"></a>
+<span class="sourceLineNo">138</span>        this.client = client;<a name="line.138"></a>
+<span class="sourceLineNo">139</span>        this.reporter = reporter;<a name="line.139"></a>
+<span class="sourceLineNo">140</span><a name="line.140"></a>
+<span class="sourceLineNo">141</span>        // Prepare directory and files<a name="line.141"></a>
+<span class="sourceLineNo">142</span>        groupPropsPath = directory.resolve("group.properties");<a name="line.142"></a>
+<span class="sourceLineNo">143</span>        groupProps = new Properties();<a name="line.143"></a>
+<span class="sourceLineNo">144</span>        // If directory does not exist, create it.<a name="line.144"></a>
+<span class="sourceLineNo">145</span>        if (!directory.toFile().exists()) {<a name="line.145"></a>
+<span class="sourceLineNo">146</span>            directory.toFile().mkdir();<a name="line.146"></a>
+<span class="sourceLineNo">147</span>        } else {<a name="line.147"></a>
+<span class="sourceLineNo">148</span>            // Directory exists, check if we have properties.<a name="line.148"></a>
+<span class="sourceLineNo">149</span>            if (groupPropsPath.toFile().canRead()) {<a name="line.149"></a>
+<span class="sourceLineNo">150</span>                try (InputStream input = Files.newInputStream(groupPropsPath)) {<a name="line.150"></a>
+<span class="sourceLineNo">151</span>                    groupProps.load(input);<a name="line.151"></a>
+<span class="sourceLineNo">152</span>                }<a name="line.152"></a>
+<span class="sourceLineNo">153</span>            }<a name="line.153"></a>
+<span class="sourceLineNo">154</span>        }<a name="line.154"></a>
+<span class="sourceLineNo">155</span><a name="line.155"></a>
+<span class="sourceLineNo">156</span>        // Prepare OSGi repository<a name="line.156"></a>
+<span class="sourceLineNo">157</span>        groupIndexPath = groupDir.resolve("index.xml");<a name="line.157"></a>
+<span class="sourceLineNo">158</span>        if (groupIndexPath.toFile().canRead()) {<a name="line.158"></a>
+<span class="sourceLineNo">159</span>            try (XMLResourceParser parser<a name="line.159"></a>
+<span class="sourceLineNo">160</span>                = new XMLResourceParser(groupIndexPath.toFile())) {<a name="line.160"></a>
+<span class="sourceLineNo">161</span>                addAll(parser.parse());<a name="line.161"></a>
+<span class="sourceLineNo">162</span>            } catch (Exception e) { // NOPMD<a name="line.162"></a>
+<span class="sourceLineNo">163</span>                reporter.warning("Cannot parse %s, ignored: %s", groupIndexPath,<a name="line.163"></a>
+<span class="sourceLineNo">164</span>                    e.getMessage());<a name="line.164"></a>
+<span class="sourceLineNo">165</span>            }<a name="line.165"></a>
+<span class="sourceLineNo">166</span>        } else {<a name="line.166"></a>
+<span class="sourceLineNo">167</span>            indexChanged = true;<a name="line.167"></a>
+<span class="sourceLineNo">168</span>        }<a name="line.168"></a>
+<span class="sourceLineNo">169</span>        // Cache revisions for faster checks.<a name="line.169"></a>
+<span class="sourceLineNo">170</span>        for (Capability cap : findProvider(<a name="line.170"></a>
+<span class="sourceLineNo">171</span>            newRequirementBuilder("bnd.info").build())) {<a name="line.171"></a>
+<span class="sourceLineNo">172</span>            indexingState.put(<a name="line.172"></a>
+<span class="sourceLineNo">173</span>                Revision.valueOf((String) cap.getAttributes().get("from")),<a name="line.173"></a>
+<span class="sourceLineNo">174</span>                IndexingState.INDEXED);<a name="line.174"></a>
+<span class="sourceLineNo">175</span>        }<a name="line.175"></a>
+<span class="sourceLineNo">176</span>        LOG.debug("Created group repository for {}.", groupId);<a name="line.176"></a>
+<span class="sourceLineNo">177</span>    }<a name="line.177"></a>
+<span class="sourceLineNo">178</span><a name="line.178"></a>
+<span class="sourceLineNo">179</span>    private IndexingState indexingState(Revision revision) {<a name="line.179"></a>
+<span class="sourceLineNo">180</span>        return indexingState.getOrDefault(revision, IndexingState.NONE);<a name="line.180"></a>
+<span class="sourceLineNo">181</span>    }<a name="line.181"></a>
+<span class="sourceLineNo">182</span><a name="line.182"></a>
+<span class="sourceLineNo">183</span>    /**<a name="line.183"></a>
+<span class="sourceLineNo">184</span>     * Checks if is requested.<a name="line.184"></a>
+<span class="sourceLineNo">185</span>     *<a name="line.185"></a>
+<span class="sourceLineNo">186</span>     * @return the requested<a name="line.186"></a>
+<span class="sourceLineNo">187</span>     */<a name="line.187"></a>
+<span class="sourceLineNo">188</span>    public final boolean isRequested() {<a name="line.188"></a>
+<span class="sourceLineNo">189</span>        return requested;<a name="line.189"></a>
+<span class="sourceLineNo">190</span>    }<a name="line.190"></a>
+<span class="sourceLineNo">191</span><a name="line.191"></a>
+<span class="sourceLineNo">192</span>    /**<a name="line.192"></a>
+<span class="sourceLineNo">193</span>     * Writes all changes to persistent storage and removes<a name="line.193"></a>
+<span class="sourceLineNo">194</span>     * any backup information prepared by {@link #reset(boolean)}.<a name="line.194"></a>
+<span class="sourceLineNo">195</span>     *<a name="line.195"></a>
+<span class="sourceLineNo">196</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.196"></a>
+<span class="sourceLineNo">197</span>     */<a name="line.197"></a>
+<span class="sourceLineNo">198</span>    public void flush() throws IOException {<a name="line.198"></a>
+<span class="sourceLineNo">199</span>        if (indexChanged &amp;&amp; backupRepo != null) {<a name="line.199"></a>
+<span class="sourceLineNo">200</span>            // Only a rough guess, verify to avoid unnecessary new versions<a name="line.200"></a>
+<span class="sourceLineNo">201</span>            // of the generated file.<a name="line.201"></a>
+<span class="sourceLineNo">202</span>            Set&lt;Resource&gt; oldSet = new HashSet&lt;&gt;(backupRepo.getResources());<a name="line.202"></a>
+<span class="sourceLineNo">203</span>            Set&lt;Resource&gt; newSet = new HashSet&lt;&gt;(getResources());<a name="line.203"></a>
+<span class="sourceLineNo">204</span>            if (newSet.equals(oldSet)) {<a name="line.204"></a>
+<span class="sourceLineNo">205</span>                indexChanged = false;<a name="line.205"></a>
+<span class="sourceLineNo">206</span>            }<a name="line.206"></a>
+<span class="sourceLineNo">207</span>        }<a name="line.207"></a>
+<span class="sourceLineNo">208</span>        if (indexChanged) {<a name="line.208"></a>
+<span class="sourceLineNo">209</span>            XMLResourceGenerator generator = new XMLResourceGenerator();<a name="line.209"></a>
+<span class="sourceLineNo">210</span>            generator.resources(getResources());<a name="line.210"></a>
+<span class="sourceLineNo">211</span>            generator.name(indexedRepository.mavenRepository().name());<a name="line.211"></a>
+<span class="sourceLineNo">212</span>            try {<a name="line.212"></a>
+<span class="sourceLineNo">213</span>                generator.save(groupIndexPath.toFile());<a name="line.213"></a>
+<span class="sourceLineNo">214</span>            } catch (IOException e) {<a name="line.214"></a>
+<span class="sourceLineNo">215</span>                reporter.exception(e, "Cannot save %s.", groupIndexPath);<a name="line.215"></a>
+<span class="sourceLineNo">216</span>            }<a name="line.216"></a>
+<span class="sourceLineNo">217</span>            indexChanged = false;<a name="line.217"></a>
+<span class="sourceLineNo">218</span>        }<a name="line.218"></a>
+<span class="sourceLineNo">219</span>        backupRepo = null;<a name="line.219"></a>
+<span class="sourceLineNo">220</span>        if (indexingLog != null) {<a name="line.220"></a>
+<span class="sourceLineNo">221</span>            rethrow(IOException.class, () -&gt; loggedMessages.entrySet().stream()<a name="line.221"></a>
+<span class="sourceLineNo">222</span>                .sorted(Map.Entry.comparingByKey())<a name="line.222"></a>
+<span class="sourceLineNo">223</span>                .flatMap(e -&gt; e.getValue().stream())<a name="line.223"></a>
+<span class="sourceLineNo">224</span>                .forEach(msg -&gt; unthrow(() -&gt; indexingLog<a name="line.224"></a>
+<span class="sourceLineNo">225</span>                    .write(msg + System.lineSeparator()))));<a name="line.225"></a>
+<span class="sourceLineNo">226</span>            indexingLog.close();<a name="line.226"></a>
+<span class="sourceLineNo">227</span>            indexingLog = null;<a name="line.227"></a>
+<span class="sourceLineNo">228</span>        }<a name="line.228"></a>
+<span class="sourceLineNo">229</span>        loggedMessages.clear();<a name="line.229"></a>
+<span class="sourceLineNo">230</span>        indexingState.clear();<a name="line.230"></a>
+<span class="sourceLineNo">231</span>    }<a name="line.231"></a>
+<span class="sourceLineNo">232</span><a name="line.232"></a>
+<span class="sourceLineNo">233</span>    /**<a name="line.233"></a>
+<span class="sourceLineNo">234</span>     * Removes the group directory if empty.<a name="line.234"></a>
+<span class="sourceLineNo">235</span>     *<a name="line.235"></a>
+<span class="sourceLineNo">236</span>     * @return true, if removed<a name="line.236"></a>
+<span class="sourceLineNo">237</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.237"></a>
+<span class="sourceLineNo">238</span>     */<a name="line.238"></a>
+<span class="sourceLineNo">239</span>    public boolean removeIfRedundant() throws IOException {<a name="line.239"></a>
+<span class="sourceLineNo">240</span>        if (isRequested() || !groupProps.isEmpty()<a name="line.240"></a>
+<span class="sourceLineNo">241</span>            || !getResources().isEmpty()) {<a name="line.241"></a>
+<span class="sourceLineNo">242</span>            return false;<a name="line.242"></a>
+<span class="sourceLineNo">243</span>        }<a name="line.243"></a>
+<span class="sourceLineNo">244</span>        // Nothing in this group<a name="line.244"></a>
+<span class="sourceLineNo">245</span>        Files.walk(groupDir)<a name="line.245"></a>
+<span class="sourceLineNo">246</span>            .sorted(Comparator.reverseOrder())<a name="line.246"></a>
+<span class="sourceLineNo">247</span>            .map(Path::toFile)<a name="line.247"></a>
+<span class="sourceLineNo">248</span>            .forEach(File::delete);<a name="line.248"></a>
+<span class="sourceLineNo">249</span>        return true;<a name="line.249"></a>
+<span class="sourceLineNo">250</span>    }<a name="line.250"></a>
+<span class="sourceLineNo">251</span><a name="line.251"></a>
+<span class="sourceLineNo">252</span>    /**<a name="line.252"></a>
+<span class="sourceLineNo">253</span>     * Returns the group id.<a name="line.253"></a>
+<span class="sourceLineNo">254</span>     *<a name="line.254"></a>
+<span class="sourceLineNo">255</span>     * @return the groupId<a name="line.255"></a>
+<span class="sourceLineNo">256</span>     */<a name="line.256"></a>
+<span class="sourceLineNo">257</span>    @SuppressWarnings("PMD.ShortMethodName")<a name="line.257"></a>
+<span class="sourceLineNo">258</span>    public final String id() {<a name="line.258"></a>
+<span class="sourceLineNo">259</span>        return groupId;<a name="line.259"></a>
+<span class="sourceLineNo">260</span>    }<a name="line.260"></a>
+<span class="sourceLineNo">261</span><a name="line.261"></a>
+<span class="sourceLineNo">262</span>    /**<a name="line.262"></a>
+<span class="sourceLineNo">263</span>     * Clears this repository and updates the requested flag. <a name="line.263"></a>
+<span class="sourceLineNo">264</span>     * Keeps the current content as backup for reuse in a <a name="line.264"></a>
+<span class="sourceLineNo">265</span>     * subsequent call to {@link #reload()}.<a name="line.265"></a>
+<span class="sourceLineNo">266</span>     *<a name="line.266"></a>
+<span class="sourceLineNo">267</span>     * @param requested whether this is a requested group<a name="line.267"></a>
+<span class="sourceLineNo">268</span>     */<a name="line.268"></a>
+<span class="sourceLineNo">269</span>    public void reset(boolean requested) {<a name="line.269"></a>
+<span class="sourceLineNo">270</span>        synchronized (this) {<a name="line.270"></a>
+<span class="sourceLineNo">271</span>            // Update "type"<a name="line.271"></a>
+<span class="sourceLineNo">272</span>            this.requested = requested;<a name="line.272"></a>
+<span class="sourceLineNo">273</span>            // Save current content and clear.<a name="line.273"></a>
+<span class="sourceLineNo">274</span>            backupRepo = new ResourcesRepository(getResources());<a name="line.274"></a>
+<span class="sourceLineNo">275</span>            set(Collections.emptyList());<a name="line.275"></a>
+<span class="sourceLineNo">276</span>            // Clear and reload properties<a name="line.276"></a>
+<span class="sourceLineNo">277</span>            groupProps.clear();<a name="line.277"></a>
+<span class="sourceLineNo">278</span>            if (groupPropsPath.toFile().canRead()) {<a name="line.278"></a>
+<span class="sourceLineNo">279</span>                try (InputStream input = Files.newInputStream(groupPropsPath)) {<a name="line.279"></a>
+<span class="sourceLineNo">280</span>                    propQueryCache.clear();<a name="line.280"></a>
+<span class="sourceLineNo">281</span>                    groupProps.load(input);<a name="line.281"></a>
+<span class="sourceLineNo">282</span>                } catch (IOException e) {<a name="line.282"></a>
+<span class="sourceLineNo">283</span>                    reporter.warning("Problem reading %s (ignored): %s",<a name="line.283"></a>
+<span class="sourceLineNo">284</span>                        groupPropsPath, e.getMessage());<a name="line.284"></a>
+<span class="sourceLineNo">285</span>                }<a name="line.285"></a>
+<span class="sourceLineNo">286</span>            }<a name="line.286"></a>
+<span class="sourceLineNo">287</span>            // Clear remaining caches.<a name="line.287"></a>
+<span class="sourceLineNo">288</span>            indexingState.clear();<a name="line.288"></a>
+<span class="sourceLineNo">289</span>            propQueryCache.clear();<a name="line.289"></a>
+<span class="sourceLineNo">290</span>        }<a name="line.290"></a>
+<span class="sourceLineNo">291</span>    }<a name="line.291"></a>
+<span class="sourceLineNo">292</span><a name="line.292"></a>
+<span class="sourceLineNo">293</span>    /**<a name="line.293"></a>
+<span class="sourceLineNo">294</span>     * Returns the excluded versions of the specified artifact id.<a name="line.294"></a>
+<span class="sourceLineNo">295</span>     *<a name="line.295"></a>
+<span class="sourceLineNo">296</span>     * @param artifactId the artifact id<a name="line.296"></a>
+<span class="sourceLineNo">297</span>     * @return the maven version range<a name="line.297"></a>
+<span class="sourceLineNo">298</span>     */<a name="line.298"></a>
+<span class="sourceLineNo">299</span>    private MavenVersionRange excludedRange(String artifactId) {<a name="line.299"></a>
+<span class="sourceLineNo">300</span>        // Check if excluded by rule.<a name="line.300"></a>
+<span class="sourceLineNo">301</span>        return Optional<a name="line.301"></a>
+<span class="sourceLineNo">302</span>            .ofNullable(searchProperty(artifactId, "exclude"))<a name="line.302"></a>
+<span class="sourceLineNo">303</span>            .map(MavenVersionRange::parseRange)<a name="line.303"></a>
+<span class="sourceLineNo">304</span>            .orElse(MavenVersionRange.NONE);<a name="line.304"></a>
+<span class="sourceLineNo">305</span>    }<a name="line.305"></a>
+<span class="sourceLineNo">306</span><a name="line.306"></a>
+<span class="sourceLineNo">307</span>    /**<a name="line.307"></a>
+<span class="sourceLineNo">308</span>     * Reload the repository. Requested repositories retrieve<a name="line.308"></a>
+<span class="sourceLineNo">309</span>     * the list of known artifactIds from the remote repository <a name="line.309"></a>
+<span class="sourceLineNo">310</span>     * and add the versions. For versions already in the repository, <a name="line.310"></a>
+<span class="sourceLineNo">311</span>     * the backup information is re-used.<a name="line.311"></a>
+<span class="sourceLineNo">312</span>     *<a name="line.312"></a>
+<span class="sourceLineNo">313</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.313"></a>
+<span class="sourceLineNo">314</span>     */<a name="line.314"></a>
+<span class="sourceLineNo">315</span>    @SuppressWarnings({ "PMD.AvoidReassigningLoopVariables",<a name="line.315"></a>
+<span class="sourceLineNo">316</span>        "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals",<a name="line.316"></a>
+<span class="sourceLineNo">317</span>        "PMD.AvoidInstantiatingObjectsInLoops",<a name="line.317"></a>
+<span class="sourceLineNo">318</span>        "PMD.AvoidThrowingRawExceptionTypes", "PMD.PreserveStackTrace" })<a name="line.318"></a>
+<span class="sourceLineNo">319</span>    public void reload() throws IOException {<a name="line.319"></a>
+<span class="sourceLineNo">320</span>        if (indexedRepository.logIndexing()) {<a name="line.320"></a>
+<span class="sourceLineNo">321</span>            indexingLog = Files.newBufferedWriter(<a name="line.321"></a>
+<span class="sourceLineNo">322</span>                groupDir.resolve("indexing.log"), Charset.defaultCharset());<a name="line.322"></a>
+<span class="sourceLineNo">323</span>        } else {<a name="line.323"></a>
+<span class="sourceLineNo">324</span>            // Don't keep out-dated log files, it's irritating.<a name="line.324"></a>
+<span class="sourceLineNo">325</span>            groupDir.resolve("indexing.log").toFile().delete();<a name="line.325"></a>
+<span class="sourceLineNo">326</span>        }<a name="line.326"></a>
+<span class="sourceLineNo">327</span>        loggedMessages.clear();<a name="line.327"></a>
+<span class="sourceLineNo">328</span>        if (!isRequested()) {<a name="line.328"></a>
+<span class="sourceLineNo">329</span>            // Will be filled with dependencies only<a name="line.329"></a>
+<span class="sourceLineNo">330</span>            return;<a name="line.330"></a>
+<span class="sourceLineNo">331</span>        }<a name="line.331"></a>
+<span class="sourceLineNo">332</span>        // Actively filled.<a name="line.332"></a>
+<span class="sourceLineNo">333</span>        synchronized (this) {<a name="line.333"></a>
+<span class="sourceLineNo">334</span>            if (backupRepo == null) {<a name="line.334"></a>
+<span class="sourceLineNo">335</span>                backupRepo = new ResourcesRepository(getResources());<a name="line.335"></a>
+<span class="sourceLineNo">336</span>            }<a name="line.336"></a>
+<span class="sourceLineNo">337</span>            propQueryCache.clear();<a name="line.337"></a>
+<span class="sourceLineNo">338</span>        }<a name="line.338"></a>
+<span class="sourceLineNo">339</span>        try {<a name="line.339"></a>
+<span class="sourceLineNo">340</span>            CompletableFuture&lt;Void&gt; actions<a name="line.340"></a>
+<span class="sourceLineNo">341</span>                = CompletableFuture.allOf(findArtifactIds().stream().map(<a name="line.341"></a>
+<span class="sourceLineNo">342</span>                    artifactId -&gt; loadProgram(Program.valueOf(groupId,<a name="line.342"></a>
+<span class="sourceLineNo">343</span>                        artifactId)))<a name="line.343"></a>
+<span class="sourceLineNo">344</span>                    .toArray(CompletableFuture[]::new));<a name="line.344"></a>
+<span class="sourceLineNo">345</span>            actions.get();<a name="line.345"></a>
+<span class="sourceLineNo">346</span>        } catch (ExecutionException e) {<a name="line.346"></a>
+<span class="sourceLineNo">347</span>            if (e.getCause() instanceof IOException) {<a name="line.347"></a>
+<span class="sourceLineNo">348</span>                throw (IOException) e.getCause();<a name="line.348"></a>
+<span class="sourceLineNo">349</span>            }<a name="line.349"></a>
+<span class="sourceLineNo">350</span>            throw new RuntimeException(e.getCause());<a name="line.350"></a>
+<span class="sourceLineNo">351</span>        } catch (InterruptedException e) {<a name="line.351"></a>
+<span class="sourceLineNo">352</span>            throw new RuntimeException(e);<a name="line.352"></a>
+<span class="sourceLineNo">353</span>        }<a name="line.353"></a>
+<span class="sourceLineNo">354</span>        indexChanged = true;<a name="line.354"></a>
+<span class="sourceLineNo">355</span>    }<a name="line.355"></a>
+<span class="sourceLineNo">356</span><a name="line.356"></a>
+<span class="sourceLineNo">357</span>    private CompletableFuture&lt;Void&gt; loadProgram(Program program) {<a name="line.357"></a>
+<span class="sourceLineNo">358</span>        // Get revisions of program and process.<a name="line.358"></a>
+<span class="sourceLineNo">359</span>        CompletableFuture&lt;Void&gt; result = new CompletableFuture&lt;&gt;();<a name="line.359"></a>
+<span class="sourceLineNo">360</span>        IndexedMavenRepository.programLoaders.submit(() -&gt; {<a name="line.360"></a>
+<span class="sourceLineNo">361</span>            Stream&lt;CompletableFuture&lt;Void&gt;&gt; revLoaderStream;<a name="line.361"></a>
+<span class="sourceLineNo">362</span>            try {<a name="line.362"></a>
+<span class="sourceLineNo">363</span>                LOG.debug("Getting list of revisions of {}.", program);<a name="line.363"></a>
+<span class="sourceLineNo">364</span>                revLoaderStream = indexedRepository.mavenRepository()<a name="line.364"></a>
+<span class="sourceLineNo">365</span>                    .findRevisions(program)<a name="line.365"></a>
+<span class="sourceLineNo">366</span>                    .map(revision -&gt; loadRevision(revision));<a name="line.366"></a>
+<span class="sourceLineNo">367</span>            } catch (IOException e) {<a name="line.367"></a>
+<span class="sourceLineNo">368</span>                reporter.exception(e,<a name="line.368"></a>
+<span class="sourceLineNo">369</span>                    "Failed to get list of revisions of %s: %s", program,<a name="line.369"></a>
+<span class="sourceLineNo">370</span>                    e.getMessage());<a name="line.370"></a>
+<span class="sourceLineNo">371</span>                result.complete(null);<a name="line.371"></a>
+<span class="sourceLineNo">372</span>                return;<a name="line.372"></a>
+<span class="sourceLineNo">373</span>            }<a name="line.373"></a>
+<span class="sourceLineNo">374</span>            // Ignore exceptions from loadRevision, there won't be any.<a name="line.374"></a>
+<span class="sourceLineNo">375</span>            revLoaderStream.forEach(<a name="line.375"></a>
+<span class="sourceLineNo">376</span>                revLoad -&gt; unthrow(() -&gt; revLoad.handle((res, thrw) -&gt; {<a name="line.376"></a>
+<span class="sourceLineNo">377</span>                    return null;<a name="line.377"></a>
+<span class="sourceLineNo">378</span>                }).get()));<a name="line.378"></a>
+<span class="sourceLineNo">379</span>            result.complete(null);<a name="line.379"></a>
+<span class="sourceLineNo">380</span>        });<a name="line.380"></a>
+<span class="sourceLineNo">381</span>        return result;<a name="line.381"></a>
+<span class="sourceLineNo">382</span>    }<a name="line.382"></a>
+<span class="sourceLineNo">383</span><a name="line.383"></a>
+<span class="sourceLineNo">384</span>    /**<a name="line.384"></a>
+<span class="sourceLineNo">385</span>     * Load the revision asynchronously. Calling <a name="line.385"></a>
+<span class="sourceLineNo">386</span>     * {@link CompletableFuture#get()} never returns an exception. <a name="line.386"></a>
+<span class="sourceLineNo">387</span>     *<a name="line.387"></a>
+<span class="sourceLineNo">388</span>     * @param revision the revision<a name="line.388"></a>
+<span class="sourceLineNo">389</span>     * @return the completable future<a name="line.389"></a>
+<span class="sourceLineNo">390</span>     */<a name="line.390"></a>
+<span class="sourceLineNo">391</span>    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",<a name="line.391"></a>
+<span class="sourceLineNo">392</span>        "PMD.AvoidDuplicateLiterals",<a name="line.392"></a>
+<span class="sourceLineNo">393</span>        "PMD.PositionLiteralsFirstInComparisons" })<a name="line.393"></a>
+<span class="sourceLineNo">394</span>    private CompletableFuture&lt;Void&gt; loadRevision(BoundRevision revision) {<a name="line.394"></a>
+<span class="sourceLineNo">395</span>        return CompletableFuture.runAsync(() -&gt; {<a name="line.395"></a>
+<span class="sourceLineNo">396</span>            MavenVersionRange acceptedRange = Optional.ofNullable(<a name="line.396"></a>
+<span class="sourceLineNo">397</span>                searchProperty(revision.artifactId(), "versions"))<a name="line.397"></a>
+<span class="sourceLineNo">398</span>                .map(MavenVersionRange::parseRange).orElse(null);<a name="line.398"></a>
+<span class="sourceLineNo">399</span>            MavenVersionRange forcedRange = Optional.ofNullable(<a name="line.399"></a>
+<span class="sourceLineNo">400</span>                searchProperty(revision.artifactId(), "forcedVersions"))<a name="line.400"></a>
+<span class="sourceLineNo">401</span>                .map(MavenVersionRange::parseRange).orElse(null);<a name="line.401"></a>
+<span class="sourceLineNo">402</span>            boolean inForced = forcedRange != null<a name="line.402"></a>
+<span class="sourceLineNo">403</span>                &amp;&amp; forcedRange.includes(revision.version());<a name="line.403"></a>
+<span class="sourceLineNo">404</span>            if (acceptedRange != null || forcedRange != null) {<a name="line.404"></a>
+<span class="sourceLineNo">405</span>                boolean inVersions = acceptedRange != null<a name="line.405"></a>
+<span class="sourceLineNo">406</span>                    &amp;&amp; acceptedRange.includes(revision.version());<a name="line.406"></a>
+<span class="sourceLineNo">407</span>                if (!inVersions &amp;&amp; !inForced) {<a name="line.407"></a>
+<span class="sourceLineNo">408</span>                    logIndexing(revision.unbound(),<a name="line.408"></a>
+<span class="sourceLineNo">409</span>                        () -&gt; String.format("%s not selected for indexing.",<a name="line.409"></a>
+<span class="sourceLineNo">410</span>                            revision));<a name="line.410"></a>
+<span class="sourceLineNo">411</span>                    return;<a name="line.411"></a>
+<span class="sourceLineNo">412</span>                }<a name="line.412"></a>
+<span class="sourceLineNo">413</span>            }<a name="line.413"></a>
+<span class="sourceLineNo">414</span>            if (indexingState.putIfAbsent(revision.unbound(),<a name="line.414"></a>
+<span class="sourceLineNo">415</span>                IndexingState.INDEXING) != null) {<a name="line.415"></a>
+<span class="sourceLineNo">416</span>                // Already loading or handled (as dependency)<a name="line.416"></a>
+<span class="sourceLineNo">417</span>                return;<a name="line.417"></a>
+<span class="sourceLineNo">418</span>            }<a name="line.418"></a>
+<span class="sourceLineNo">419</span>            LOG.debug("Loading revision {}.", revision.unbound());<a name="line.419"></a>
+<span class="sourceLineNo">420</span>            logIndexing(revision.unbound(),<a name="line.420"></a>
+<span class="sourceLineNo">421</span>                () -&gt; String.format("%s in list, indexing...",<a name="line.421"></a>
+<span class="sourceLineNo">422</span>                    revision.unbound()));<a name="line.422"></a>
+<span class="sourceLineNo">423</span>            try {<a name="line.423"></a>
+<span class="sourceLineNo">424</span>                MavenResource resource = indexedRepository.mavenRepository()<a name="line.424"></a>
+<span class="sourceLineNo">425</span>                    .resource(revision, BinaryLocation.REMOTE);<a name="line.425"></a>
+<span class="sourceLineNo">426</span>                Set&lt;MavenResource&gt; allDeps = new HashSet&lt;&gt;();<a name="line.426"></a>
+<span class="sourceLineNo">427</span>                if (!isIndexable(resource, allDeps, inForced)) {<a name="line.427"></a>
+<span class="sourceLineNo">428</span>                    return;<a name="line.428"></a>
 <span class="sourceLineNo">429</span>                }<a name="line.429"></a>
-<span class="sourceLineNo">430</span>                // Add the dependencies found while checking to the index.<a name="line.430"></a>
-<span class="sourceLineNo">431</span>                rethrow(IOException.class, () -&gt; allDeps.stream()<a name="line.431"></a>
-<span class="sourceLineNo">432</span>                    .filter(res -&gt; runIgnoring(() -&gt; isBundle(res), false))<a name="line.432"></a>
-<span class="sourceLineNo">433</span>                    .filter(res -&gt; indexingState.getOrDefault(res.revision(),<a name="line.433"></a>
-<span class="sourceLineNo">434</span>                        IndexingState.NONE) == IndexingState.NONE)<a name="line.434"></a>
-<span class="sourceLineNo">435</span>                    .forEach(res -&gt; runIgnoring(() -&gt; indexedRepository<a name="line.435"></a>
-<span class="sourceLineNo">436</span>                        .getOrCreateGroupRepository(res.revision().group)<a name="line.436"></a>
-<span class="sourceLineNo">437</span>                        .addResource(res))));<a name="line.437"></a>
-<span class="sourceLineNo">438</span>            } catch (Exception e) {<a name="line.438"></a>
-<span class="sourceLineNo">439</span>                // Load "in isolation", don't propagate individual failure.<a name="line.439"></a>
-<span class="sourceLineNo">440</span>                reporter.exception(e, "Failed to load revision %s: %s",<a name="line.440"></a>
-<span class="sourceLineNo">441</span>                    revision, e.getMessage());<a name="line.441"></a>
-<span class="sourceLineNo">442</span>                logIndexing(revision.unbound(), () -&gt; String.format(<a name="line.442"></a>
-<span class="sourceLineNo">443</span>                    "%s failed to load.", revision.unbound()));<a name="line.443"></a>
-<span class="sourceLineNo">444</span>            }<a name="line.444"></a>
-<span class="sourceLineNo">445</span>        }, IndexedMavenRepository.revisionLoaders);<a name="line.445"></a>
-<span class="sourceLineNo">446</span>    }<a name="line.446"></a>
-<span class="sourceLineNo">447</span><a name="line.447"></a>
-<span class="sourceLineNo">448</span>    @SuppressWarnings("PMD.PositionLiteralsFirstInComparisons")<a name="line.448"></a>
-<span class="sourceLineNo">449</span>    private boolean isBundle(MavenResource resource)<a name="line.449"></a>
-<span class="sourceLineNo">450</span>            throws MavenResourceException {<a name="line.450"></a>
-<span class="sourceLineNo">451</span>        return resource.getCapabilities("osgi.identity").stream()<a name="line.451"></a>
-<span class="sourceLineNo">452</span>            .map(cap -&gt; cap.getAttributes().keySet().stream())<a name="line.452"></a>
-<span class="sourceLineNo">453</span>            .flatMap(Function.identity())<a name="line.453"></a>
-<span class="sourceLineNo">454</span>            .anyMatch(key -&gt; key.equals("osgi.identity"));<a name="line.454"></a>
-<span class="sourceLineNo">455</span>    }<a name="line.455"></a>
-<span class="sourceLineNo">456</span><a name="line.456"></a>
-<span class="sourceLineNo">457</span>    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",<a name="line.457"></a>
-<span class="sourceLineNo">458</span>        "PMD.AvoidInstantiatingObjectsInLoops" })<a name="line.458"></a>
-<span class="sourceLineNo">459</span>    private Collection&lt;String&gt; findArtifactIds() {<a name="line.459"></a>
-<span class="sourceLineNo">460</span>        Set&lt;String&gt; result = new HashSet&lt;&gt;();<a name="line.460"></a>
-<span class="sourceLineNo">461</span>        for (MavenBackingRepository repo : indexedRepository.mavenRepository()<a name="line.461"></a>
-<span class="sourceLineNo">462</span>            .backing()) {<a name="line.462"></a>
-<span class="sourceLineNo">463</span>            URI groupUri = null;<a name="line.463"></a>
-<span class="sourceLineNo">464</span>            try {<a name="line.464"></a>
-<span class="sourceLineNo">465</span>                groupUri<a name="line.465"></a>
-<span class="sourceLineNo">466</span>                    = repo.toURI("").resolve(groupId.replace('.', '/') + "/");<a name="line.466"></a>
-<span class="sourceLineNo">467</span>                String page = client.build().headers("User-Agent", "Bnd")<a name="line.467"></a>
-<span class="sourceLineNo">468</span>                    .get(String.class)<a name="line.468"></a>
-<span class="sourceLineNo">469</span>                    .go(groupUri);<a name="line.469"></a>
-<span class="sourceLineNo">470</span>                if (page == null) {<a name="line.470"></a>
-<span class="sourceLineNo">471</span>                    continue;<a name="line.471"></a>
+<span class="sourceLineNo">430</span>                addResource(resource);<a name="line.430"></a>
+<span class="sourceLineNo">431</span>                // Add the dependencies found while checking to the index.<a name="line.431"></a>
+<span class="sourceLineNo">432</span>                rethrow(IOException.class, () -&gt; allDeps.stream()<a name="line.432"></a>
+<span class="sourceLineNo">433</span>                    .forEach(res -&gt; runIgnoring(() -&gt; indexedRepository<a name="line.433"></a>
+<span class="sourceLineNo">434</span>                        .getOrCreateGroupRepository(res.revision().group)<a name="line.434"></a>
+<span class="sourceLineNo">435</span>                        .addResource(res))));<a name="line.435"></a>
+<span class="sourceLineNo">436</span>            } catch (Exception e) {<a name="line.436"></a>
+<span class="sourceLineNo">437</span>                // Load "in isolation", don't propagate individual failure.<a name="line.437"></a>
+<span class="sourceLineNo">438</span>                reporter.exception(e, "Failed to load revision %s: %s",<a name="line.438"></a>
+<span class="sourceLineNo">439</span>                    revision, e.getMessage());<a name="line.439"></a>
+<span class="sourceLineNo">440</span>                logIndexing(revision.unbound(), () -&gt; String.format(<a name="line.440"></a>
+<span class="sourceLineNo">441</span>                    "%s failed to load.", revision.unbound()));<a name="line.441"></a>
+<span class="sourceLineNo">442</span>            }<a name="line.442"></a>
+<span class="sourceLineNo">443</span>        }, IndexedMavenRepository.revisionLoaders);<a name="line.443"></a>
+<span class="sourceLineNo">444</span>    }<a name="line.444"></a>
+<span class="sourceLineNo">445</span><a name="line.445"></a>
+<span class="sourceLineNo">446</span>    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",<a name="line.446"></a>
+<span class="sourceLineNo">447</span>        "PMD.AvoidInstantiatingObjectsInLoops" })<a name="line.447"></a>
+<span class="sourceLineNo">448</span>    private Collection&lt;String&gt; findArtifactIds() {<a name="line.448"></a>
+<span class="sourceLineNo">449</span>        Set&lt;String&gt; result = new HashSet&lt;&gt;();<a name="line.449"></a>
+<span class="sourceLineNo">450</span>        for (MavenBackingRepository repo : indexedRepository.mavenRepository()<a name="line.450"></a>
+<span class="sourceLineNo">451</span>            .backing()) {<a name="line.451"></a>
+<span class="sourceLineNo">452</span>            URI groupUri = null;<a name="line.452"></a>
+<span class="sourceLineNo">453</span>            try {<a name="line.453"></a>
+<span class="sourceLineNo">454</span>                groupUri<a name="line.454"></a>
+<span class="sourceLineNo">455</span>                    = repo.toURI("").resolve(groupId.replace('.', '/') + "/");<a name="line.455"></a>
+<span class="sourceLineNo">456</span>                String page = client.build().headers("User-Agent", "Bnd")<a name="line.456"></a>
+<span class="sourceLineNo">457</span>                    .get(String.class)<a name="line.457"></a>
+<span class="sourceLineNo">458</span>                    .go(groupUri);<a name="line.458"></a>
+<span class="sourceLineNo">459</span>                if (page == null) {<a name="line.459"></a>
+<span class="sourceLineNo">460</span>                    continue;<a name="line.460"></a>
+<span class="sourceLineNo">461</span>                }<a name="line.461"></a>
+<span class="sourceLineNo">462</span>                Matcher matcher = hrefPattern.matcher(page);<a name="line.462"></a>
+<span class="sourceLineNo">463</span>                while (matcher.find()) {<a name="line.463"></a>
+<span class="sourceLineNo">464</span>                    URI programUri = groupUri.resolve(matcher.group("href"));<a name="line.464"></a>
+<span class="sourceLineNo">465</span>                    String artifactId = programUri.getPath()<a name="line.465"></a>
+<span class="sourceLineNo">466</span>                        .substring(groupUri.getPath().length());<a name="line.466"></a>
+<span class="sourceLineNo">467</span>                    if (artifactId.endsWith("/")) {<a name="line.467"></a>
+<span class="sourceLineNo">468</span>                        artifactId<a name="line.468"></a>
+<span class="sourceLineNo">469</span>                            = artifactId.substring(0, artifactId.length() - 1);<a name="line.469"></a>
+<span class="sourceLineNo">470</span>                    }<a name="line.470"></a>
+<span class="sourceLineNo">471</span>                    result.add(artifactId);<a name="line.471"></a>
 <span class="sourceLineNo">472</span>                }<a name="line.472"></a>
-<span class="sourceLineNo">473</span>                Matcher matcher = hrefPattern.matcher(page);<a name="line.473"></a>
-<span class="sourceLineNo">474</span>                while (matcher.find()) {<a name="line.474"></a>
-<span class="sourceLineNo">475</span>                    URI programUri = groupUri.resolve(matcher.group("href"));<a name="line.475"></a>
-<span class="sourceLineNo">476</span>                    String artifactId = programUri.getPath()<a name="line.476"></a>
-<span class="sourceLineNo">477</span>                        .substring(groupUri.getPath().length());<a name="line.477"></a>
-<span class="sourceLineNo">478</span>                    if (artifactId.endsWith("/")) {<a name="line.478"></a>
-<span class="sourceLineNo">479</span>                        artifactId<a name="line.479"></a>
-<span class="sourceLineNo">480</span>                            = artifactId.substring(0, artifactId.length() - 1);<a name="line.480"></a>
-<span class="sourceLineNo">481</span>                    }<a name="line.481"></a>
-<span class="sourceLineNo">482</span>                    result.add(artifactId);<a name="line.482"></a>
-<span class="sourceLineNo">483</span>                }<a name="line.483"></a>
-<span class="sourceLineNo">484</span>            } catch (Exception e) {<a name="line.484"></a>
-<span class="sourceLineNo">485</span>                reporter.warning("Problem retrieving %s, skipped: %s", groupUri,<a name="line.485"></a>
-<span class="sourceLineNo">486</span>                    e.getMessage());<a name="line.486"></a>
-<span class="sourceLineNo">487</span>            }<a name="line.487"></a>
-<span class="sourceLineNo">488</span>        }<a name="line.488"></a>
-<span class="sourceLineNo">489</span>        return result;<a name="line.489"></a>
-<span class="sourceLineNo">490</span>    }<a name="line.490"></a>
-<span class="sourceLineNo">491</span><a name="line.491"></a>
-<span class="sourceLineNo">492</span>    /**<a name="line.492"></a>
-<span class="sourceLineNo">493</span>     * Checks if the given revision is indexable, considering its <a name="line.493"></a>
-<span class="sourceLineNo">494</span>     * dependencies. A revision is indexable if its dependencies aren't<a name="line.494"></a>
-<span class="sourceLineNo">495</span>     * excluded.<a name="line.495"></a>
-<span class="sourceLineNo">496</span>     *<a name="line.496"></a>
-<span class="sourceLineNo">497</span>     * @param resource the resource to check<a name="line.497"></a>
-<span class="sourceLineNo">498</span>     * @param dependencies revisions that must additionally be included<a name="line.498"></a>
-<span class="sourceLineNo">499</span>     *    when the checked revision is added<a name="line.499"></a>
-<span class="sourceLineNo">500</span>     * @param ignoreExcludedDependencies evaluate as indexable even<a name="line.500"></a>
-<span class="sourceLineNo">501</span>     *    if some dependencies aren't indexable<a name="line.501"></a>
-<span class="sourceLineNo">502</span>     * @return true, if the revision can be added to the index<a name="line.502"></a>
-<span class="sourceLineNo">503</span>     */<a name="line.503"></a>
-<span class="sourceLineNo">504</span>    @SuppressWarnings({ "PMD.LongVariable", "PMD.NPathComplexity",<a name="line.504"></a>
-<span class="sourceLineNo">505</span>        "PMD.AvoidCatchingGenericException" })<a name="line.505"></a>
-<span class="sourceLineNo">506</span>    private boolean isIndexable(MavenResource resource,<a name="line.506"></a>
-<span class="sourceLineNo">507</span>            Set&lt;MavenResource&gt; dependencies,<a name="line.507"></a>
-<span class="sourceLineNo">508</span>            boolean ignoreExcludedDependencies) {<a name="line.508"></a>
-<span class="sourceLineNo">509</span>        Revision revision = resource.revision();<a name="line.509"></a>
-<span class="sourceLineNo">510</span>        if (!revision.group.equals(groupId)) {<a name="line.510"></a>
-<span class="sourceLineNo">511</span>            throw new IllegalArgumentException("Wrong groupId "<a name="line.511"></a>
-<span class="sourceLineNo">512</span>                + revision.group + " (must be " + groupId + ").");<a name="line.512"></a>
-<span class="sourceLineNo">513</span>        }<a name="line.513"></a>
-<span class="sourceLineNo">514</span>        // Check if already there (or being added)<a name="line.514"></a>
-<span class="sourceLineNo">515</span>        if (INDEXING_OR_INDEXED.contains(indexingState<a name="line.515"></a>
-<span class="sourceLineNo">516</span>            .getOrDefault(revision, IndexingState.NONE))) {<a name="line.516"></a>
-<span class="sourceLineNo">517</span>            // Obviously indexable and no additional resources needed.<a name="line.517"></a>
-<span class="sourceLineNo">518</span>            return true;<a name="line.518"></a>
-<span class="sourceLineNo">519</span>        }<a name="line.519"></a>
-<span class="sourceLineNo">520</span>        // Check if excluded by rule.<a name="line.520"></a>
-<span class="sourceLineNo">521</span>        if (Optional.ofNullable(<a name="line.521"></a>
-<span class="sourceLineNo">522</span>            searchProperty(revision.artifact, "exclude"))<a name="line.522"></a>
-<span class="sourceLineNo">523</span>            .map(MavenVersionRange::parseRange)<a name="line.523"></a>
-<span class="sourceLineNo">524</span>            .map(range -&gt; range.includes(MavenVersion.from(revision.version)))<a name="line.524"></a>
-<span class="sourceLineNo">525</span>            .orElse(false)) {<a name="line.525"></a>
-<span class="sourceLineNo">526</span>            return false;<a name="line.526"></a>
-<span class="sourceLineNo">527</span>        }<a name="line.527"></a>
-<span class="sourceLineNo">528</span>        // Check if has been found un-indexable before<a name="line.528"></a>
-<span class="sourceLineNo">529</span>        if (!ignoreExcludedDependencies<a name="line.529"></a>
-<span class="sourceLineNo">530</span>            &amp;&amp; indexingState.getOrDefault(revision,<a name="line.530"></a>
-<span class="sourceLineNo">531</span>                IndexingState.NONE) == IndexingState.EXCL_BY_DEP) {<a name="line.531"></a>
-<span class="sourceLineNo">532</span>            return false;<a name="line.532"></a>
+<span class="sourceLineNo">473</span>            } catch (Exception e) {<a name="line.473"></a>
+<span class="sourceLineNo">474</span>                reporter.warning("Problem retrieving %s, skipped: %s", groupUri,<a name="line.474"></a>
+<span class="sourceLineNo">475</span>                    e.getMessage());<a name="line.475"></a>
+<span class="sourceLineNo">476</span>            }<a name="line.476"></a>
+<span class="sourceLineNo">477</span>        }<a name="line.477"></a>
+<span class="sourceLineNo">478</span>        return result;<a name="line.478"></a>
+<span class="sourceLineNo">479</span>    }<a name="line.479"></a>
+<span class="sourceLineNo">480</span><a name="line.480"></a>
+<span class="sourceLineNo">481</span>    /**<a name="line.481"></a>
+<span class="sourceLineNo">482</span>     * Checks if the given revision is indexable, considering its <a name="line.482"></a>
+<span class="sourceLineNo">483</span>     * dependencies. A revision is indexable if its dependencies aren't<a name="line.483"></a>
+<span class="sourceLineNo">484</span>     * excluded.<a name="line.484"></a>
+<span class="sourceLineNo">485</span>     *<a name="line.485"></a>
+<span class="sourceLineNo">486</span>     * @param resource the resource to check<a name="line.486"></a>
+<span class="sourceLineNo">487</span>     * @param dependencies revisions that must additionally be included<a name="line.487"></a>
+<span class="sourceLineNo">488</span>     *    when the checked revision is added<a name="line.488"></a>
+<span class="sourceLineNo">489</span>     * @param ignoreExcludedDependencies evaluate as indexable even<a name="line.489"></a>
+<span class="sourceLineNo">490</span>     *    if some dependencies aren't indexable<a name="line.490"></a>
+<span class="sourceLineNo">491</span>     * @return true, if the revision can be added to the index<a name="line.491"></a>
+<span class="sourceLineNo">492</span>     */<a name="line.492"></a>
+<span class="sourceLineNo">493</span>    @SuppressWarnings({ "PMD.LongVariable", "PMD.NPathComplexity",<a name="line.493"></a>
+<span class="sourceLineNo">494</span>        "PMD.AvoidCatchingGenericException" })<a name="line.494"></a>
+<span class="sourceLineNo">495</span>    private boolean isIndexable(MavenResource resource,<a name="line.495"></a>
+<span class="sourceLineNo">496</span>            Set&lt;MavenResource&gt; dependencies,<a name="line.496"></a>
+<span class="sourceLineNo">497</span>            boolean ignoreExcludedDependencies) {<a name="line.497"></a>
+<span class="sourceLineNo">498</span>        Revision revision = resource.revision();<a name="line.498"></a>
+<span class="sourceLineNo">499</span>        if (!revision.group.equals(groupId)) {<a name="line.499"></a>
+<span class="sourceLineNo">500</span>            throw new IllegalArgumentException("Wrong groupId "<a name="line.500"></a>
+<span class="sourceLineNo">501</span>                + revision.group + " (must be " + groupId + ").");<a name="line.501"></a>
+<span class="sourceLineNo">502</span>        }<a name="line.502"></a>
+<span class="sourceLineNo">503</span>        // Check if already decided.<a name="line.503"></a>
+<span class="sourceLineNo">504</span>        switch (indexingState(revision)) {<a name="line.504"></a>
+<span class="sourceLineNo">505</span>        case INDEXED:<a name="line.505"></a>
+<span class="sourceLineNo">506</span>            return true;<a name="line.506"></a>
+<span class="sourceLineNo">507</span>        case EXCLUDED:<a name="line.507"></a>
+<span class="sourceLineNo">508</span>        case EXCL_BY_DEP:<a name="line.508"></a>
+<span class="sourceLineNo">509</span>            return false;<a name="line.509"></a>
+<span class="sourceLineNo">510</span>        default:<a name="line.510"></a>
+<span class="sourceLineNo">511</span>            break;<a name="line.511"></a>
+<span class="sourceLineNo">512</span>        }<a name="line.512"></a>
+<span class="sourceLineNo">513</span>        // Check if excluded by rule.<a name="line.513"></a>
+<span class="sourceLineNo">514</span>        if (Optional.ofNullable(<a name="line.514"></a>
+<span class="sourceLineNo">515</span>            searchProperty(revision.artifact, "exclude"))<a name="line.515"></a>
+<span class="sourceLineNo">516</span>            .map(MavenVersionRange::parseRange)<a name="line.516"></a>
+<span class="sourceLineNo">517</span>            .map(range -&gt; range.includes(MavenVersion.from(revision.version)))<a name="line.517"></a>
+<span class="sourceLineNo">518</span>            .orElse(false)) {<a name="line.518"></a>
+<span class="sourceLineNo">519</span>            if (indexingState.replace(revision, IndexingState.INDEXING,<a name="line.519"></a>
+<span class="sourceLineNo">520</span>                IndexingState.EXCLUDED)) {<a name="line.520"></a>
+<span class="sourceLineNo">521</span>                logIndexing(revision,<a name="line.521"></a>
+<span class="sourceLineNo">522</span>                    () -&gt; String.format("%s is excluded by rule.", revision));<a name="line.522"></a>
+<span class="sourceLineNo">523</span>            }<a name="line.523"></a>
+<span class="sourceLineNo">524</span>            return false;<a name="line.524"></a>
+<span class="sourceLineNo">525</span>        }<a name="line.525"></a>
+<span class="sourceLineNo">526</span>        // Check whether excluded because dependency is excluded<a name="line.526"></a>
+<span class="sourceLineNo">527</span>        List&lt;Dependency&gt; deps;<a name="line.527"></a>
+<span class="sourceLineNo">528</span>        try {<a name="line.528"></a>
+<span class="sourceLineNo">529</span>            deps = resource.dependencies();<a name="line.529"></a>
+<span class="sourceLineNo">530</span>        } catch (Exception e) {<a name="line.530"></a>
+<span class="sourceLineNo">531</span>            // Failing to get the dependencies is no reason to fail.<a name="line.531"></a>
+<span class="sourceLineNo">532</span>            return true;<a name="line.532"></a>
 <span class="sourceLineNo">533</span>        }<a name="line.533"></a>
-<span class="sourceLineNo">534</span>        // Check whether excluded because dependency is excluded<a name="line.534"></a>
-<span class="sourceLineNo">535</span>        List&lt;Dependency&gt; deps;<a name="line.535"></a>
-<span class="sourceLineNo">536</span>        try {<a name="line.536"></a>
-<span class="sourceLineNo">537</span>            deps = resource.dependencies();<a name="line.537"></a>
-<span class="sourceLineNo">538</span>        } catch (Exception e) {<a name="line.538"></a>
-<span class="sourceLineNo">539</span>            // Failing to get the dependencies is no reason to fail.<a name="line.539"></a>
-<span class="sourceLineNo">540</span>            return true;<a name="line.540"></a>
+<span class="sourceLineNo">534</span>        if (!deps.isEmpty()) {<a name="line.534"></a>
+<span class="sourceLineNo">535</span>            logIndexing(revision,<a name="line.535"></a>
+<span class="sourceLineNo">536</span>                () -&gt; String.format("%s has dependencies: %s", revision,<a name="line.536"></a>
+<span class="sourceLineNo">537</span>                    deps.stream()<a name="line.537"></a>
+<span class="sourceLineNo">538</span>                        .map(d -&gt; d.getGroupId() + ":" + d.getArtifactId() + ":"<a name="line.538"></a>
+<span class="sourceLineNo">539</span>                            + d.getVersion())<a name="line.539"></a>
+<span class="sourceLineNo">540</span>                        .collect(Collectors.joining(", "))));<a name="line.540"></a>
 <span class="sourceLineNo">541</span>        }<a name="line.541"></a>
 <span class="sourceLineNo">542</span>        for (Dependency dep : deps) {<a name="line.542"></a>
 <span class="sourceLineNo">543</span>            MavenGroupRepository depRepo;<a name="line.543"></a>
-<span class="sourceLineNo">544</span>            try {<a name="line.544"></a>
-<span class="sourceLineNo">545</span>                depRepo = indexedRepository<a name="line.545"></a>
-<span class="sourceLineNo">546</span>                    .getOrCreateGroupRepository(dep.getGroupId());<a name="line.546"></a>
-<span class="sourceLineNo">547</span>            } catch (Exception e) {<a name="line.547"></a>
-<span class="sourceLineNo">548</span>                continue;<a name="line.548"></a>
-<span class="sourceLineNo">549</span>            }<a name="line.549"></a>
-<span class="sourceLineNo">550</span>            Optional&lt;MavenResource&gt; depRes;<a name="line.550"></a>
-<span class="sourceLineNo">551</span>            try {<a name="line.551"></a>
-<span class="sourceLineNo">552</span>                depRes = indexedRepository.mavenRepository().resource(<a name="line.552"></a>
-<span class="sourceLineNo">553</span>                    Program.valueOf(dep.getGroupId(), dep.getArtifactId()),<a name="line.553"></a>
-<span class="sourceLineNo">554</span>                    MavenVersionSpecification.from(dep.getVersion()),<a name="line.554"></a>
-<span class="sourceLineNo">555</span>                    BinaryLocation.REMOTE);<a name="line.555"></a>
-<span class="sourceLineNo">556</span>            } catch (Exception e) {<a name="line.556"></a>
+<span class="sourceLineNo">544</span>            Optional&lt;MavenResource&gt; depRes;<a name="line.544"></a>
+<span class="sourceLineNo">545</span>            try {<a name="line.545"></a>
+<span class="sourceLineNo">546</span>                depRepo = indexedRepository<a name="line.546"></a>
+<span class="sourceLineNo">547</span>                    .getOrCreateGroupRepository(dep.getGroupId());<a name="line.547"></a>
+<span class="sourceLineNo">548</span>                depRes = indexedRepository.mavenRepository().resource(<a name="line.548"></a>
+<span class="sourceLineNo">549</span>                    Program.valueOf(dep.getGroupId(), dep.getArtifactId()),<a name="line.549"></a>
+<span class="sourceLineNo">550</span>                    MavenVersionSpecification.from(dep.getVersion()),<a name="line.550"></a>
+<span class="sourceLineNo">551</span>                    BinaryLocation.REMOTE);<a name="line.551"></a>
+<span class="sourceLineNo">552</span>            } catch (Exception e) {<a name="line.552"></a>
+<span class="sourceLineNo">553</span>                // Failing to get a dependency is no reason to fail.<a name="line.553"></a>
+<span class="sourceLineNo">554</span>                continue;<a name="line.554"></a>
+<span class="sourceLineNo">555</span>            }<a name="line.555"></a>
+<span class="sourceLineNo">556</span>            if (!depRes.isPresent()) {<a name="line.556"></a>
 <span class="sourceLineNo">557</span>                // Failing to get a dependency is no reason to fail.<a name="line.557"></a>
 <span class="sourceLineNo">558</span>                continue;<a name="line.558"></a>
 <span class="sourceLineNo">559</span>            }<a name="line.559"></a>
-<span class="sourceLineNo">560</span>            if (!depRes.isPresent()) {<a name="line.560"></a>
-<span class="sourceLineNo">561</span>                // Failing to get a dependency is no reason to fail.<a name="line.561"></a>
-<span class="sourceLineNo">562</span>                continue;<a name="line.562"></a>
-<span class="sourceLineNo">563</span>            }<a name="line.563"></a>
-<span class="sourceLineNo">564</span>            if (!depRepo.isIndexable(depRes.get(), dependencies,<a name="line.564"></a>
-<span class="sourceLineNo">565</span>                ignoreExcludedDependencies)) {<a name="line.565"></a>
-<span class="sourceLineNo">566</span>                // Note that the revision which was checked is not indexable<a name="line.566"></a>
-<span class="sourceLineNo">567</span>                // due to a dependency that is not indexable<a name="line.567"></a>
-<span class="sourceLineNo">568</span>                indexingState.put(revision, IndexingState.EXCL_BY_DEP);<a name="line.568"></a>
-<span class="sourceLineNo">569</span>                if (!ignoreExcludedDependencies) {<a name="line.569"></a>
-<span class="sourceLineNo">570</span>                    return false;<a name="line.570"></a>
-<span class="sourceLineNo">571</span>                }<a name="line.571"></a>
-<span class="sourceLineNo">572</span>            }<a name="line.572"></a>
-<span class="sourceLineNo">573</span>            dependencies.add(depRes.get());<a name="line.573"></a>
-<span class="sourceLineNo">574</span>        }<a name="line.574"></a>
-<span class="sourceLineNo">575</span>        return true;<a name="line.575"></a>
-<span class="sourceLineNo">576</span>    }<a name="line.576"></a>
-<span class="sourceLineNo">577</span><a name="line.577"></a>
-<span class="sourceLineNo">578</span>    /**<a name="line.578"></a>
-<span class="sourceLineNo">579</span>     * Adds the specified revision.<a name="line.579"></a>
-<span class="sourceLineNo">580</span>     *<a name="line.580"></a>
-<span class="sourceLineNo">581</span>     * @param revision the revision to add<a name="line.581"></a>
-<span class="sourceLineNo">582</span>     */<a name="line.582"></a>
-<span class="sourceLineNo">583</span>    private void addResource(MavenResource resource)<a name="line.583"></a>
-<span class="sourceLineNo">584</span>            throws MavenResourceException {<a name="line.584"></a>
-<span class="sourceLineNo">585</span>        synchronized (indexingState) {<a name="line.585"></a>
-<span class="sourceLineNo">586</span>            if (indexingState.getOrDefault(resource.revision(),<a name="line.586"></a>
-<span class="sourceLineNo">587</span>                IndexingState.NONE) == IndexingState.INDEXED) {<a name="line.587"></a>
-<span class="sourceLineNo">588</span>                return;<a name="line.588"></a>
-<span class="sourceLineNo">589</span>            }<a name="line.589"></a>
-<span class="sourceLineNo">590</span>            add(resource.asResource());<a name="line.590"></a>
-<span class="sourceLineNo">591</span>            indexingState.put(resource.revision(), IndexingState.INDEXED);<a name="line.591"></a>
-<span class="sourceLineNo">592</span>        }<a name="line.592"></a>
-<span class="sourceLineNo">593</span>        indexChanged = true;<a name="line.593"></a>
-<span class="sourceLineNo">594</span>    }<a name="line.594"></a>
-<span class="sourceLineNo">595</span><a name="line.595"></a>
-<span class="sourceLineNo">596</span>    /* package */ Optional&lt;Resource&gt; searchInBackup(Revision revision) {<a name="line.596"></a>
-<span class="sourceLineNo">597</span>        if (backupRepo == null) {<a name="line.597"></a>
-<span class="sourceLineNo">598</span>            return Optional.empty();<a name="line.598"></a>
-<span class="sourceLineNo">599</span>        }<a name="line.599"></a>
-<span class="sourceLineNo">600</span>        return backupRepo.findProvider(<a name="line.600"></a>
-<span class="sourceLineNo">601</span>            backupRepo.newRequirementBuilder("bnd.info")<a name="line.601"></a>
-<span class="sourceLineNo">602</span>                .addDirective("filter",<a name="line.602"></a>
-<span class="sourceLineNo">603</span>                    String.format("(from=%s)", revision.toString()))<a name="line.603"></a>
-<span class="sourceLineNo">604</span>                .build())<a name="line.604"></a>
-<span class="sourceLineNo">605</span>            .stream().findFirst().map(Capability::getResource);<a name="line.605"></a>
-<span class="sourceLineNo">606</span>    }<a name="line.606"></a>
-<span class="sourceLineNo">607</span><a name="line.607"></a>
-<span class="sourceLineNo">608</span>    @SuppressWarnings("PMD.CompareObjectsWithEquals")<a name="line.608"></a>
-<span class="sourceLineNo">609</span>    private String searchProperty(String artifactId, String qualifier) {<a name="line.609"></a>
-<span class="sourceLineNo">610</span>        String queryKey = artifactId + ";" + qualifier;<a name="line.610"></a>
-<span class="sourceLineNo">611</span>        // Attempt to get from cache.<a name="line.611"></a>
-<span class="sourceLineNo">612</span>        String prop = propQueryCache.get(queryKey);<a name="line.612"></a>
-<span class="sourceLineNo">613</span>        // Special value, because ConcurrentHashMap cannot have null values.<a name="line.613"></a>
-<span class="sourceLineNo">614</span>        if (prop == PROP_UNAVAILABLE) {<a name="line.614"></a>
-<span class="sourceLineNo">615</span>            return null;<a name="line.615"></a>
-<span class="sourceLineNo">616</span>        }<a name="line.616"></a>
-<span class="sourceLineNo">617</span>        // Found in cache return.<a name="line.617"></a>
-<span class="sourceLineNo">618</span>        if (prop != null) {<a name="line.618"></a>
-<span class="sourceLineNo">619</span>            return prop;<a name="line.619"></a>
-<span class="sourceLineNo">620</span>        }<a name="line.620"></a>
-<span class="sourceLineNo">621</span>        // Try query key unmodified<a name="line.621"></a>
-<span class="sourceLineNo">622</span>        prop = groupProps.getProperty(queryKey);<a name="line.622"></a>
-<span class="sourceLineNo">623</span>        if (prop == null) {<a name="line.623"></a>
-<span class="sourceLineNo">624</span>            // Try &lt;id&gt;.*, successively removing trailing parts.<a name="line.624"></a>
-<span class="sourceLineNo">625</span>            String rest = artifactId;<a name="line.625"></a>
-<span class="sourceLineNo">626</span>            while (true) {<a name="line.626"></a>
-<span class="sourceLineNo">627</span>                prop = groupProps.getProperty(rest + ".*;" + qualifier);<a name="line.627"></a>
-<span class="sourceLineNo">628</span>                if (prop != null) {<a name="line.628"></a>
-<span class="sourceLineNo">629</span>                    break;<a name="line.629"></a>
-<span class="sourceLineNo">630</span>                }<a name="line.630"></a>
-<span class="sourceLineNo">631</span>                int lastDot = rest.lastIndexOf('.');<a name="line.631"></a>
-<span class="sourceLineNo">632</span>                if (lastDot &lt; 0) {<a name="line.632"></a>
-<span class="sourceLineNo">633</span>                    break;<a name="line.633"></a>
-<span class="sourceLineNo">634</span>                }<a name="line.634"></a>
-<span class="sourceLineNo">635</span>                rest = rest.substring(0, lastDot);<a name="line.635"></a>
-<span class="sourceLineNo">636</span>            }<a name="line.636"></a>
-<span class="sourceLineNo">637</span>        }<a name="line.637"></a>
-<span class="sourceLineNo">638</span>        if (prop == null) {<a name="line.638"></a>
-<span class="sourceLineNo">639</span>            prop = groupProps.getProperty(qualifier);<a name="line.639"></a>
-<span class="sourceLineNo">640</span>        }<a name="line.640"></a>
-<span class="sourceLineNo">641</span>        propQueryCache.put(queryKey, prop == null ? PROP_UNAVAILABLE : prop);<a name="line.641"></a>
-<span class="sourceLineNo">642</span>        return prop;<a name="line.642"></a>
-<span class="sourceLineNo">643</span>    }<a name="line.643"></a>
-<span class="sourceLineNo">644</span><a name="line.644"></a>
-<span class="sourceLineNo">645</span>    private void logIndexing(Revision revision, Supplier&lt;String&gt; msgSupplier) {<a name="line.645"></a>
-<span class="sourceLineNo">646</span>        loggedMessages.computeIfAbsent(revision, rev -&gt; new ArrayList&lt;&gt;())<a name="line.646"></a>
-<span class="sourceLineNo">647</span>            .add(msgSupplier.get());<a name="line.647"></a>
-<span class="sourceLineNo">648</span>    }<a name="line.648"></a>
-<span class="sourceLineNo">649</span><a name="line.649"></a>
-<span class="sourceLineNo">650</span>    /*<a name="line.650"></a>
-<span class="sourceLineNo">651</span>     * (non-Javadoc)<a name="line.651"></a>
-<span class="sourceLineNo">652</span>     * <a name="line.652"></a>
-<span class="sourceLineNo">653</span>     * @see java.lang.Object#toString()<a name="line.653"></a>
-<span class="sourceLineNo">654</span>     */<a name="line.654"></a>
-<span class="sourceLineNo">655</span>    @Override<a name="line.655"></a>
-<span class="sourceLineNo">656</span>    public String toString() {<a name="line.656"></a>
-<span class="sourceLineNo">657</span>        return "MavenGroupRepository [groupId=" + groupId + "]";<a name="line.657"></a>
-<span class="sourceLineNo">658</span>    }<a name="line.658"></a>
-<span class="sourceLineNo">659</span>}<a name="line.659"></a>
+<span class="sourceLineNo">560</span>            depRepo.logIndexing(depRes.get().revision(),<a name="line.560"></a>
+<span class="sourceLineNo">561</span>                () -&gt; String.format("%s is dependency of %s.",<a name="line.561"></a>
+<span class="sourceLineNo">562</span>                    depRes.get().revision(), revision));<a name="line.562"></a>
+<span class="sourceLineNo">563</span>            if (!depRepo.isIndexable(depRes.get(), dependencies,<a name="line.563"></a>
+<span class="sourceLineNo">564</span>                ignoreExcludedDependencies)) {<a name="line.564"></a>
+<span class="sourceLineNo">565</span>                // Note that the revision which was checked is not indexable<a name="line.565"></a>
+<span class="sourceLineNo">566</span>                // due to a dependency that is not indexable<a name="line.566"></a>
+<span class="sourceLineNo">567</span>                if (!ignoreExcludedDependencies) {<a name="line.567"></a>
+<span class="sourceLineNo">568</span>                    if (indexingState.replace(revision, IndexingState.INDEXING,<a name="line.568"></a>
+<span class="sourceLineNo">569</span>                        IndexingState.EXCL_BY_DEP)) {<a name="line.569"></a>
+<span class="sourceLineNo">570</span>                        logIndexing(revision, () -&gt; String.format(<a name="line.570"></a>
+<span class="sourceLineNo">571</span>                            "%s not indexable, depends on %s.",<a name="line.571"></a>
+<span class="sourceLineNo">572</span>                            revision, depRes.get().revision()));<a name="line.572"></a>
+<span class="sourceLineNo">573</span>                    }<a name="line.573"></a>
+<span class="sourceLineNo">574</span>                    return false;<a name="line.574"></a>
+<span class="sourceLineNo">575</span>                }<a name="line.575"></a>
+<span class="sourceLineNo">576</span>            }<a name="line.576"></a>
+<span class="sourceLineNo">577</span>            dependencies.add(depRes.get());<a name="line.577"></a>
+<span class="sourceLineNo">578</span>        }<a name="line.578"></a>
+<span class="sourceLineNo">579</span>        return true;<a name="line.579"></a>
+<span class="sourceLineNo">580</span>    }<a name="line.580"></a>
+<span class="sourceLineNo">581</span><a name="line.581"></a>
+<span class="sourceLineNo">582</span>    /**<a name="line.582"></a>
+<span class="sourceLineNo">583</span>     * Adds the specified revision.<a name="line.583"></a>
+<span class="sourceLineNo">584</span>     *<a name="line.584"></a>
+<span class="sourceLineNo">585</span>     * @param revision the revision to add<a name="line.585"></a>
+<span class="sourceLineNo">586</span>     */<a name="line.586"></a>
+<span class="sourceLineNo">587</span>    private void addResource(MavenResource resource) {<a name="line.587"></a>
+<span class="sourceLineNo">588</span>        synchronized (indexingState) {<a name="line.588"></a>
+<span class="sourceLineNo">589</span>            if (indexingState(resource.revision()) == IndexingState.INDEXED) {<a name="line.589"></a>
+<span class="sourceLineNo">590</span>                return;<a name="line.590"></a>
+<span class="sourceLineNo">591</span>            }<a name="line.591"></a>
+<span class="sourceLineNo">592</span>            try {<a name="line.592"></a>
+<span class="sourceLineNo">593</span>                add(resource.asResource());<a name="line.593"></a>
+<span class="sourceLineNo">594</span>            } catch (MavenResourceException e) {<a name="line.594"></a>
+<span class="sourceLineNo">595</span>                reporter.exception(e, "Failed to get %s as resource.",<a name="line.595"></a>
+<span class="sourceLineNo">596</span>                    resource.toString());<a name="line.596"></a>
+<span class="sourceLineNo">597</span>            }<a name="line.597"></a>
+<span class="sourceLineNo">598</span>            indexingState.put(resource.revision(), IndexingState.INDEXED);<a name="line.598"></a>
+<span class="sourceLineNo">599</span>            logIndexing(resource.revision(),<a name="line.599"></a>
+<span class="sourceLineNo">600</span>                () -&gt; String.format("%s indexed.", resource.revision()));<a name="line.600"></a>
+<span class="sourceLineNo">601</span>        }<a name="line.601"></a>
+<span class="sourceLineNo">602</span>        indexChanged = true;<a name="line.602"></a>
+<span class="sourceLineNo">603</span>    }<a name="line.603"></a>
+<span class="sourceLineNo">604</span><a name="line.604"></a>
+<span class="sourceLineNo">605</span>    /* package */ Optional&lt;Resource&gt; searchInBackup(Revision revision) {<a name="line.605"></a>
+<span class="sourceLineNo">606</span>        if (backupRepo == null) {<a name="line.606"></a>
+<span class="sourceLineNo">607</span>            return Optional.empty();<a name="line.607"></a>
+<span class="sourceLineNo">608</span>        }<a name="line.608"></a>
+<span class="sourceLineNo">609</span>        return backupRepo.findProvider(<a name="line.609"></a>
+<span class="sourceLineNo">610</span>            backupRepo.newRequirementBuilder("bnd.info")<a name="line.610"></a>
+<span class="sourceLineNo">611</span>                .addDirective("filter",<a name="line.611"></a>
+<span class="sourceLineNo">612</span>                    String.format("(from=%s)", revision.toString()))<a name="line.612"></a>
+<span class="sourceLineNo">613</span>                .build())<a name="line.613"></a>
+<span class="sourceLineNo">614</span>            .stream().findFirst().map(Capability::getResource);<a name="line.614"></a>
+<span class="sourceLineNo">615</span>    }<a name="line.615"></a>
+<span class="sourceLineNo">616</span><a name="line.616"></a>
+<span class="sourceLineNo">617</span>    @SuppressWarnings("PMD.CompareObjectsWithEquals")<a name="line.617"></a>
+<span class="sourceLineNo">618</span>    private String searchProperty(String artifactId, String qualifier) {<a name="line.618"></a>
+<span class="sourceLineNo">619</span>        String queryKey = artifactId + ";" + qualifier;<a name="line.619"></a>
+<span class="sourceLineNo">620</span>        // Attempt to get from cache.<a name="line.620"></a>
+<span class="sourceLineNo">621</span>        String prop = propQueryCache.get(queryKey);<a name="line.621"></a>
+<span class="sourceLineNo">622</span>        // Special value, because ConcurrentHashMap cannot have null values.<a name="line.622"></a>
+<span class="sourceLineNo">623</span>        if (prop == PROP_UNAVAILABLE) {<a name="line.623"></a>
+<span class="sourceLineNo">624</span>            return null;<a name="line.624"></a>
+<span class="sourceLineNo">625</span>        }<a name="line.625"></a>
+<span class="sourceLineNo">626</span>        // Found in cache return.<a name="line.626"></a>
+<span class="sourceLineNo">627</span>        if (prop != null) {<a name="line.627"></a>
+<span class="sourceLineNo">628</span>            return prop;<a name="line.628"></a>
+<span class="sourceLineNo">629</span>        }<a name="line.629"></a>
+<span class="sourceLineNo">630</span>        // Try query key unmodified<a name="line.630"></a>
+<span class="sourceLineNo">631</span>        prop = groupProps.getProperty(queryKey);<a name="line.631"></a>
+<span class="sourceLineNo">632</span>        if (prop == null) {<a name="line.632"></a>
+<span class="sourceLineNo">633</span>            // Try &lt;id&gt;.*, successively removing trailing parts.<a name="line.633"></a>
+<span class="sourceLineNo">634</span>            String rest = artifactId;<a name="line.634"></a>
+<span class="sourceLineNo">635</span>            while (true) {<a name="line.635"></a>
+<span class="sourceLineNo">636</span>                prop = groupProps.getProperty(rest + ".*;" + qualifier);<a name="line.636"></a>
+<span class="sourceLineNo">637</span>                if (prop != null) {<a name="line.637"></a>
+<span class="sourceLineNo">638</span>                    break;<a name="line.638"></a>
+<span class="sourceLineNo">639</span>                }<a name="line.639"></a>
+<span class="sourceLineNo">640</span>                int lastDot = rest.lastIndexOf('.');<a name="line.640"></a>
+<span class="sourceLineNo">641</span>                if (lastDot &lt; 0) {<a name="line.641"></a>
+<span class="sourceLineNo">642</span>                    break;<a name="line.642"></a>
+<span class="sourceLineNo">643</span>                }<a name="line.643"></a>
+<span class="sourceLineNo">644</span>                rest = rest.substring(0, lastDot);<a name="line.644"></a>
+<span class="sourceLineNo">645</span>            }<a name="line.645"></a>
+<span class="sourceLineNo">646</span>        }<a name="line.646"></a>
+<span class="sourceLineNo">647</span>        if (prop == null) {<a name="line.647"></a>
+<span class="sourceLineNo">648</span>            prop = groupProps.getProperty(qualifier);<a name="line.648"></a>
+<span class="sourceLineNo">649</span>        }<a name="line.649"></a>
+<span class="sourceLineNo">650</span>        propQueryCache.put(queryKey, prop == null ? PROP_UNAVAILABLE : prop);<a name="line.650"></a>
+<span class="sourceLineNo">651</span>        return prop;<a name="line.651"></a>
+<span class="sourceLineNo">652</span>    }<a name="line.652"></a>
+<span class="sourceLineNo">653</span><a name="line.653"></a>
+<span class="sourceLineNo">654</span>    private void logIndexing(Revision revision, Supplier&lt;String&gt; msgSupplier) {<a name="line.654"></a>
+<span class="sourceLineNo">655</span>        loggedMessages.computeIfAbsent(revision, rev -&gt; new ArrayList&lt;&gt;())<a name="line.655"></a>
+<span class="sourceLineNo">656</span>            .add(msgSupplier.get());<a name="line.656"></a>
+<span class="sourceLineNo">657</span>    }<a name="line.657"></a>
+<span class="sourceLineNo">658</span><a name="line.658"></a>
+<span class="sourceLineNo">659</span>    /*<a name="line.659"></a>
+<span class="sourceLineNo">660</span>     * (non-Javadoc)<a name="line.660"></a>
+<span class="sourceLineNo">661</span>     * <a name="line.661"></a>
+<span class="sourceLineNo">662</span>     * @see java.lang.Object#toString()<a name="line.662"></a>
+<span class="sourceLineNo">663</span>     */<a name="line.663"></a>
+<span class="sourceLineNo">664</span>    @Override<a name="line.664"></a>
+<span class="sourceLineNo">665</span>    public String toString() {<a name="line.665"></a>
+<span class="sourceLineNo">666</span>        return "MavenGroupRepository [groupId=" + groupId + "]";<a name="line.666"></a>
+<span class="sourceLineNo">667</span>    }<a name="line.667"></a>
+<span class="sourceLineNo">668</span>}<a name="line.668"></a>
 
 
 
