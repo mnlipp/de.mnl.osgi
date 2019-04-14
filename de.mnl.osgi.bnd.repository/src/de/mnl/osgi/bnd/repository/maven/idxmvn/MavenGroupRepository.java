@@ -427,13 +427,7 @@ public class MavenGroupRepository extends ResourcesRepository {
                 if (!isIndexable(resource, allDeps, inForced)) {
                     return;
                 }
-                try {
-                    if (isBundle(resource)) {
-                        addResource(resource);
-                    }
-                } catch (Exception e) {
-                    // TODO
-                }
+                addResource(resource);
                 // Add the dependencies found while checking to the index.
                 rethrow(IOException.class, () -> allDeps.stream()
                     .filter(res -> runIgnoring(() -> isBundle(res), false))
@@ -603,14 +597,18 @@ public class MavenGroupRepository extends ResourcesRepository {
      *
      * @param revision the revision to add
      */
-    private void addResource(MavenResource resource)
-            throws MavenResourceException {
+    private void addResource(MavenResource resource) {
         synchronized (indexingState) {
             if (indexingState.getOrDefault(resource.revision(),
                 IndexingState.NONE) == IndexingState.INDEXED) {
                 return;
             }
-            add(resource.asResource());
+            try {
+                add(resource.asResource());
+            } catch (MavenResourceException e) {
+                reporter.exception(e, "Failed to get %s as resource.",
+                    resource.toString());
+            }
             indexingState.put(resource.revision(), IndexingState.INDEXED);
             logIndexing(resource.revision(),
                 () -> String.format("%s indexed.", resource.revision()));
