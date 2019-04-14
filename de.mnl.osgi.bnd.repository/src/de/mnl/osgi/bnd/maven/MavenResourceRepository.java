@@ -29,7 +29,6 @@ import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -164,7 +163,6 @@ public class MavenResourceRepository extends CompositeMavenRepository {
 
         private final Revision revision;
         private BoundRevision cachedRevision;
-        private BoundArchive cachedArchive;
         private Resource cachedDelegee;
         private List<Dependency> cachedDependencies;
         private final BinaryLocation location;
