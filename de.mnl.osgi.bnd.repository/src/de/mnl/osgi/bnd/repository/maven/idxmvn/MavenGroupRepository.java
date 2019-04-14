@@ -47,7 +47,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -61,7 +60,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -288,20 +286,6 @@ public class MavenGroupRepository extends ResourcesRepository {
             indexingState.clear();
             propQueryCache.clear();
         }
-    }
-
-    /**
-     * Returns the excluded versions of the specified artifact id.
-     *
-     * @param artifactId the artifact id
-     * @return the maven version range
-     */
-    private MavenVersionRange excludedRange(String artifactId) {
-        // Check if excluded by rule.
-        return Optional
-            .ofNullable(searchProperty(artifactId, "exclude"))
-            .map(MavenVersionRange::parseRange)
-            .orElse(MavenVersionRange.NONE);
     }
 
     /**
