@@ -180,6 +180,10 @@ public class MavenGroupRepository extends ResourcesRepository {
         LOG.debug("Created group repository for {}.", groupId);
     }
 
+    private IndexingState indexingState(Revision revision) {
+        return indexingState.getOrDefault(revision, IndexingState.NONE);
+    }
+
     /**
      * Checks if is requested.
      *
@@ -411,8 +415,7 @@ public class MavenGroupRepository extends ResourcesRepository {
                     return;
                 }
             }
-            if (indexingState.getOrDefault(revision.unbound(),
-                IndexingState.NONE) != IndexingState.NONE) {
+            if (indexingState(revision.unbound()) != IndexingState.NONE) {
                 // Already loading or handled (as dependency)
                 return;
             }
@@ -431,8 +434,8 @@ public class MavenGroupRepository extends ResourcesRepository {
                 // Add the dependencies found while checking to the index.
                 rethrow(IOException.class, () -> allDeps.stream()
                     .filter(res -> runIgnoring(() -> isBundle(res), false))
-                    .filter(res -> indexingState.getOrDefault(res.revision(),
-                        IndexingState.NONE) == IndexingState.NONE)
+                    .filter(res -> indexingState(
+                        res.revision()) == IndexingState.NONE)
                     .forEach(res -> runIgnoring(() -> indexedRepository
                         .getOrCreateGroupRepository(res.revision().group)
                         .addResource(res))));
@@ -530,8 +533,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         }
         // Check if has been found un-indexable before
         if (!ignoreExcludedDependencies
-            && indexingState.getOrDefault(revision,
-                IndexingState.NONE) == IndexingState.EXCL_BY_DEP) {
+            && indexingState(revision) == IndexingState.EXCL_BY_DEP) {
             return false;
         }
         // Check whether excluded because dependency is excluded
@@ -599,8 +601,7 @@ public class MavenGroupRepository extends ResourcesRepository {
      */
     private void addResource(MavenResource resource) {
         synchronized (indexingState) {
-            if (indexingState.getOrDefault(resource.revision(),
-                IndexingState.NONE) == IndexingState.INDEXED) {
+            if (indexingState(resource.revision()) == IndexingState.INDEXED) {
                 return;
             }
             try {
