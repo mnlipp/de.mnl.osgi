@@ -397,7 +397,7 @@ public class MavenGroupRepository extends ResourcesRepository {
                 if (!inVersions && !inForced) {
                     logIndexing(revision.unbound(),
                         () -> String.format("%s not selected for indexing.",
-                            revision));
+                            revision.unbound()));
                     return;
                 }
             }
