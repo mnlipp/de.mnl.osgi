@@ -548,8 +548,10 @@ public class MavenGroupRepository extends ResourcesRepository {
                 continue;
             }
             depRepo.logIndexing(depRes.get().revision(),
-                () -> String.format("%s is dependency of %s.",
+                () -> String.format("%s is dependency of %s, indexing...",
                     depRes.get().revision(), revision));
+            depRepo.indexingState.putIfAbsent(depRes.get().revision(),
+                IndexingState.INDEXING);
             if (!depRepo.isIndexable(depRes.get(), dependencies,
                 ignoreExcludedDependencies)) {
                 // Note that the revision which was checked is not indexable
