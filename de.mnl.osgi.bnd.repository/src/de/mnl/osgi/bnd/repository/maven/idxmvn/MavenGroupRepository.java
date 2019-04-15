@@ -93,9 +93,9 @@ public class MavenGroupRepository extends ResourcesRepository {
     private final IndexedMavenRepository indexedRepository;
     private final HttpClient client;
     private final Reporter reporter;
-    private final Path groupDir;
-    private final Path groupPropsPath;
-    private final Path groupIndexPath;
+    private Path groupDir;
+    private Path groupPropsPath;
+    private Path groupIndexPath;
     private final Properties groupProps;
     private final Map<String, String> propQueryCache
         = new ConcurrentHashMap<>();
@@ -130,29 +130,21 @@ public class MavenGroupRepository extends ResourcesRepository {
             boolean requested, IndexedMavenRepository indexedRepository,
             HttpClient client, Reporter reporter) throws IOException {
         this.groupId = groupId;
-        this.groupDir = directory;
         this.requested = requested;
         this.indexedRepository = indexedRepository;
         this.client = client;
         this.reporter = reporter;
 
         // Prepare directory and files
-        groupPropsPath = directory.resolve("group.properties");
+        updatePaths(directory);
         groupProps = new Properties();
-        // If directory does not exist, create it.
-        if (!directory.toFile().exists()) {
-            directory.toFile().mkdir();
-        } else {
-            // Directory exists, check if we have properties.
-            if (groupPropsPath.toFile().canRead()) {
-                try (InputStream input = Files.newInputStream(groupPropsPath)) {
-                    groupProps.load(input);
-                }
+        if (groupPropsPath.toFile().canRead()) {
+            try (InputStream input = Files.newInputStream(groupPropsPath)) {
+                groupProps.load(input);
             }
         }
 
         // Prepare OSGi repository
-        groupIndexPath = groupDir.resolve("index.xml");
         if (groupIndexPath.toFile().canRead()) {
             try (XMLResourceParser parser
                 = new XMLResourceParser(groupIndexPath.toFile())) {
@@ -172,6 +164,15 @@ public class MavenGroupRepository extends ResourcesRepository {
                 IndexingState.INDEXED);
         }
         LOG.debug("Created group repository for {}.", groupId);
+    }
+
+    private void updatePaths(Path directory) {
+        if (!directory.toFile().exists()) {
+            directory.toFile().mkdir();
+        }
+        groupDir = directory;
+        groupPropsPath = groupDir.resolve("group.properties");
+        groupIndexPath = groupDir.resolve("index.xml");
     }
 
     private IndexingState indexingState(Revision revision) {
@@ -262,11 +263,16 @@ public class MavenGroupRepository extends ResourcesRepository {
      * Keeps the current content as backup for reuse in a 
      * subsequent call to {@link #reload()}.
      *
+     * @param groupDir the group's directory
      * @param requested whether this is a requested group
      */
-    public void reset(boolean requested) {
+    public void reset(Path directory, boolean requested) {
         synchronized (this) {
-            // Update "type"
+            // Update basic properties
+            if (!groupDir.equals(directory)) {
+                updatePaths(directory);
+                indexChanged = true;
+            }
             this.requested = requested;
             // Save current content and clear.
             backupRepo = new ResourcesRepository(getResources());

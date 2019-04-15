@@ -348,7 +348,8 @@ public class IndexedMavenRepository extends ResourcesRepository {
         if (oldGroups.containsKey(groupId)) {
             // Reuse existing.
             MavenGroupRepository groupRepo = oldGroups.get(groupId);
-            groupRepo.reset(requested);
+            groupRepo.reset((requested ? indexDbDir : depsDir).resolve(groupId),
+                requested);
             groups.put(groupId, groupRepo);
             return;
         }
