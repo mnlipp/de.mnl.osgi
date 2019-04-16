@@ -544,28 +544,32 @@ public class MavenGroupRepository extends ResourcesRepository {
             Program depPgm
                 = Program.valueOf(dep.getGroupId(), dep.getArtifactId());
             MavenGroupRepository depRepo;
-            Optional<MavenResource> depResource;
+            MavenResource depResource;
             try {
                 depRepo = indexedRepository
                     .getOrCreateGroupRepository(dep.getGroupId());
-                depResource = indexedRepository.mavenRepository().resource(
-                    depPgm, depRepo.narrowVersion(depPgm,
-                        MavenVersionSpecification.from(dep.getVersion())),
-                    BinaryLocation.REMOTE);
+                Optional<MavenResource> optRes
+                    = indexedRepository.mavenRepository().resource(
+                        depPgm, depRepo.narrowVersion(depPgm,
+                            MavenVersionSpecification
+                                .from(dep.getVersion())),
+                        BinaryLocation.REMOTE);
+                if (!optRes.isPresent()) {
+                    // Failing to get a dependency is no reason to fail.
+                    continue;
+                }
+                depResource = optRes.get();
             } catch (Exception e) {
                 // Failing to get a dependency is no reason to fail.
                 continue;
             }
-            if (!depResource.isPresent()) {
-                // Failing to get a dependency is no reason to fail.
-                continue;
-            }
-            depRepo.logIndexing(depResource.get().revision(),
+            // Watch out to use the proper repository in the code following!
+            depRepo.logIndexing(depResource.revision(),
                 () -> String.format("%s is dependency of %s, indexing...",
-                    depResource.get().revision(), revision));
-            depRepo.indexingState.putIfAbsent(depResource.get().revision(),
+                    depResource.revision(), revision));
+            depRepo.indexingState.putIfAbsent(depResource.revision(),
                 IndexingState.INDEXING);
-            if (!depRepo.isIndexable(depResource.get(), dependencies,
+            if (!depRepo.isIndexable(depResource, dependencies,
                 ignoreExcludedDependencies)) {
                 // Note that the revision which was checked is not indexable
                 // due to a dependency that is not indexable
@@ -574,12 +578,12 @@ public class MavenGroupRepository extends ResourcesRepository {
                         IndexingState.EXCL_BY_DEP)) {
                         logIndexing(revision, () -> String.format(
                             "%s not indexable, depends on %s.",
-                            revision, depResource.get().revision()));
+                            revision, depResource.revision()));
                     }
                     return false;
                 }
             }
-            dependencies.add(depResource.get());
+            dependencies.add(depResource);
         }
         return true;
     }
