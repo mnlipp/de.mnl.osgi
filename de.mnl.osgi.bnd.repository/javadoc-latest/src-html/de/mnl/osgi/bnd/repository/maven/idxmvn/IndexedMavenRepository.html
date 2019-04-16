@@ -356,62 +356,63 @@
 <span class="sourceLineNo">348</span>        if (oldGroups.containsKey(groupId)) {<a name="line.348"></a>
 <span class="sourceLineNo">349</span>            // Reuse existing.<a name="line.349"></a>
 <span class="sourceLineNo">350</span>            MavenGroupRepository groupRepo = oldGroups.get(groupId);<a name="line.350"></a>
-<span class="sourceLineNo">351</span>            groupRepo.reset(requested);<a name="line.351"></a>
-<span class="sourceLineNo">352</span>            groups.put(groupId, groupRepo);<a name="line.352"></a>
-<span class="sourceLineNo">353</span>            return;<a name="line.353"></a>
-<span class="sourceLineNo">354</span>        }<a name="line.354"></a>
-<span class="sourceLineNo">355</span>        try {<a name="line.355"></a>
-<span class="sourceLineNo">356</span>            MavenGroupRepository groupRepo<a name="line.356"></a>
-<span class="sourceLineNo">357</span>                = new MavenGroupRepository(groupId,<a name="line.357"></a>
-<span class="sourceLineNo">358</span>                    (requested ? indexDbDir : depsDir).resolve(groupId),<a name="line.358"></a>
-<span class="sourceLineNo">359</span>                    requested, this, client, reporter);<a name="line.359"></a>
-<span class="sourceLineNo">360</span>            groups.put(groupId, groupRepo);<a name="line.360"></a>
-<span class="sourceLineNo">361</span>        } catch (IOException e) {<a name="line.361"></a>
-<span class="sourceLineNo">362</span>            reporter.exception(e,<a name="line.362"></a>
-<span class="sourceLineNo">363</span>                "Cannot create group repository for %s: %s",<a name="line.363"></a>
-<span class="sourceLineNo">364</span>                groupId, e.getMessage());<a name="line.364"></a>
-<span class="sourceLineNo">365</span>        }<a name="line.365"></a>
-<span class="sourceLineNo">366</span>    }<a name="line.366"></a>
-<span class="sourceLineNo">367</span><a name="line.367"></a>
-<span class="sourceLineNo">368</span>    private void writeFederatedIndex(OutputStream out) {<a name="line.368"></a>
-<span class="sourceLineNo">369</span>        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();<a name="line.369"></a>
-<span class="sourceLineNo">370</span>        dbf.setNamespaceAware(true);<a name="line.370"></a>
-<span class="sourceLineNo">371</span>        Document doc;<a name="line.371"></a>
-<span class="sourceLineNo">372</span>        try {<a name="line.372"></a>
-<span class="sourceLineNo">373</span>            doc = dbf.newDocumentBuilder().newDocument();<a name="line.373"></a>
-<span class="sourceLineNo">374</span>        } catch (ParserConfigurationException e) {<a name="line.374"></a>
-<span class="sourceLineNo">375</span>            return;<a name="line.375"></a>
-<span class="sourceLineNo">376</span>        }<a name="line.376"></a>
-<span class="sourceLineNo">377</span>        @SuppressWarnings("PMD.AvoidFinalLocalVariable")<a name="line.377"></a>
-<span class="sourceLineNo">378</span>        final String repoNs = "http://www.osgi.org/xmlns/repository/v1.0.0";<a name="line.378"></a>
-<span class="sourceLineNo">379</span>        // &lt;repository name=... increment=...&gt;<a name="line.379"></a>
-<span class="sourceLineNo">380</span>        Element repoNode = doc.createElementNS(repoNs, "repository");<a name="line.380"></a>
-<span class="sourceLineNo">381</span>        repoNode.setAttribute("name", name);<a name="line.381"></a>
-<span class="sourceLineNo">382</span>        repoNode.setAttribute("increment",<a name="line.382"></a>
-<span class="sourceLineNo">383</span>            Long.toString(System.currentTimeMillis()));<a name="line.383"></a>
-<span class="sourceLineNo">384</span>        doc.appendChild(repoNode);<a name="line.384"></a>
-<span class="sourceLineNo">385</span>        for (Map.Entry&lt;String, MavenGroupRepository&gt; repo : groups.entrySet()) {<a name="line.385"></a>
-<span class="sourceLineNo">386</span>            // &lt;referral url=...&gt;<a name="line.386"></a>
-<span class="sourceLineNo">387</span>            Element referral = doc.createElementNS(repoNs, "referral");<a name="line.387"></a>
-<span class="sourceLineNo">388</span>            referral.setAttribute("url",<a name="line.388"></a>
-<span class="sourceLineNo">389</span>                (repo.getValue().isRequested() ? "" : "dependencies/")<a name="line.389"></a>
-<span class="sourceLineNo">390</span>                    + repo.getKey() + "/index.xml");<a name="line.390"></a>
-<span class="sourceLineNo">391</span>            repoNode.appendChild(referral);<a name="line.391"></a>
-<span class="sourceLineNo">392</span>        }<a name="line.392"></a>
-<span class="sourceLineNo">393</span>        // Write federated index.<a name="line.393"></a>
-<span class="sourceLineNo">394</span>        try {<a name="line.394"></a>
-<span class="sourceLineNo">395</span>            Transformer transformer<a name="line.395"></a>
-<span class="sourceLineNo">396</span>                = TransformerFactory.newInstance().newTransformer();<a name="line.396"></a>
-<span class="sourceLineNo">397</span>            transformer.setOutputProperty(OutputKeys.INDENT, "yes");<a name="line.397"></a>
-<span class="sourceLineNo">398</span>            DOMSource source = new DOMSource(doc);<a name="line.398"></a>
-<span class="sourceLineNo">399</span>            transformer.transform(source, new StreamResult(out));<a name="line.399"></a>
-<span class="sourceLineNo">400</span>        } catch (TransformerException e) {<a name="line.400"></a>
-<span class="sourceLineNo">401</span>            reporter.exception(e, "Cannot write federated index: %s",<a name="line.401"></a>
-<span class="sourceLineNo">402</span>                e.getMessage());<a name="line.402"></a>
-<span class="sourceLineNo">403</span>        }<a name="line.403"></a>
-<span class="sourceLineNo">404</span>    }<a name="line.404"></a>
-<span class="sourceLineNo">405</span><a name="line.405"></a>
-<span class="sourceLineNo">406</span>}<a name="line.406"></a>
+<span class="sourceLineNo">351</span>            groupRepo.reset((requested ? indexDbDir : depsDir).resolve(groupId),<a name="line.351"></a>
+<span class="sourceLineNo">352</span>                requested);<a name="line.352"></a>
+<span class="sourceLineNo">353</span>            groups.put(groupId, groupRepo);<a name="line.353"></a>
+<span class="sourceLineNo">354</span>            return;<a name="line.354"></a>
+<span class="sourceLineNo">355</span>        }<a name="line.355"></a>
+<span class="sourceLineNo">356</span>        try {<a name="line.356"></a>
+<span class="sourceLineNo">357</span>            MavenGroupRepository groupRepo<a name="line.357"></a>
+<span class="sourceLineNo">358</span>                = new MavenGroupRepository(groupId,<a name="line.358"></a>
+<span class="sourceLineNo">359</span>                    (requested ? indexDbDir : depsDir).resolve(groupId),<a name="line.359"></a>
+<span class="sourceLineNo">360</span>                    requested, this, client, reporter);<a name="line.360"></a>
+<span class="sourceLineNo">361</span>            groups.put(groupId, groupRepo);<a name="line.361"></a>
+<span class="sourceLineNo">362</span>        } catch (IOException e) {<a name="line.362"></a>
+<span class="sourceLineNo">363</span>            reporter.exception(e,<a name="line.363"></a>
+<span class="sourceLineNo">364</span>                "Cannot create group repository for %s: %s",<a name="line.364"></a>
+<span class="sourceLineNo">365</span>                groupId, e.getMessage());<a name="line.365"></a>
+<span class="sourceLineNo">366</span>        }<a name="line.366"></a>
+<span class="sourceLineNo">367</span>    }<a name="line.367"></a>
+<span class="sourceLineNo">368</span><a name="line.368"></a>
+<span class="sourceLineNo">369</span>    private void writeFederatedIndex(OutputStream out) {<a name="line.369"></a>
+<span class="sourceLineNo">370</span>        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();<a name="line.370"></a>
+<span class="sourceLineNo">371</span>        dbf.setNamespaceAware(true);<a name="line.371"></a>
+<span class="sourceLineNo">372</span>        Document doc;<a name="line.372"></a>
+<span class="sourceLineNo">373</span>        try {<a name="line.373"></a>
+<span class="sourceLineNo">374</span>            doc = dbf.newDocumentBuilder().newDocument();<a name="line.374"></a>
+<span class="sourceLineNo">375</span>        } catch (ParserConfigurationException e) {<a name="line.375"></a>
+<span class="sourceLineNo">376</span>            return;<a name="line.376"></a>
+<span class="sourceLineNo">377</span>        }<a name="line.377"></a>
+<span class="sourceLineNo">378</span>        @SuppressWarnings("PMD.AvoidFinalLocalVariable")<a name="line.378"></a>
+<span class="sourceLineNo">379</span>        final String repoNs = "http://www.osgi.org/xmlns/repository/v1.0.0";<a name="line.379"></a>
+<span class="sourceLineNo">380</span>        // &lt;repository name=... increment=...&gt;<a name="line.380"></a>
+<span class="sourceLineNo">381</span>        Element repoNode = doc.createElementNS(repoNs, "repository");<a name="line.381"></a>
+<span class="sourceLineNo">382</span>        repoNode.setAttribute("name", name);<a name="line.382"></a>
+<span class="sourceLineNo">383</span>        repoNode.setAttribute("increment",<a name="line.383"></a>
+<span class="sourceLineNo">384</span>            Long.toString(System.currentTimeMillis()));<a name="line.384"></a>
+<span class="sourceLineNo">385</span>        doc.appendChild(repoNode);<a name="line.385"></a>
+<span class="sourceLineNo">386</span>        for (Map.Entry&lt;String, MavenGroupRepository&gt; repo : groups.entrySet()) {<a name="line.386"></a>
+<span class="sourceLineNo">387</span>            // &lt;referral url=...&gt;<a name="line.387"></a>
+<span class="sourceLineNo">388</span>            Element referral = doc.createElementNS(repoNs, "referral");<a name="line.388"></a>
+<span class="sourceLineNo">389</span>            referral.setAttribute("url",<a name="line.389"></a>
+<span class="sourceLineNo">390</span>                (repo.getValue().isRequested() ? "" : "dependencies/")<a name="line.390"></a>
+<span class="sourceLineNo">391</span>                    + repo.getKey() + "/index.xml");<a name="line.391"></a>
+<span class="sourceLineNo">392</span>            repoNode.appendChild(referral);<a name="line.392"></a>
+<span class="sourceLineNo">393</span>        }<a name="line.393"></a>
+<span class="sourceLineNo">394</span>        // Write federated index.<a name="line.394"></a>
+<span class="sourceLineNo">395</span>        try {<a name="line.395"></a>
+<span class="sourceLineNo">396</span>            Transformer transformer<a name="line.396"></a>
+<span class="sourceLineNo">397</span>                = TransformerFactory.newInstance().newTransformer();<a name="line.397"></a>
+<span class="sourceLineNo">398</span>            transformer.setOutputProperty(OutputKeys.INDENT, "yes");<a name="line.398"></a>
+<span class="sourceLineNo">399</span>            DOMSource source = new DOMSource(doc);<a name="line.399"></a>
+<span class="sourceLineNo">400</span>            transformer.transform(source, new StreamResult(out));<a name="line.400"></a>
+<span class="sourceLineNo">401</span>        } catch (TransformerException e) {<a name="line.401"></a>
+<span class="sourceLineNo">402</span>            reporter.exception(e, "Cannot write federated index: %s",<a name="line.402"></a>
+<span class="sourceLineNo">403</span>                e.getMessage());<a name="line.403"></a>
+<span class="sourceLineNo">404</span>        }<a name="line.404"></a>
+<span class="sourceLineNo">405</span>    }<a name="line.405"></a>
+<span class="sourceLineNo">406</span><a name="line.406"></a>
+<span class="sourceLineNo">407</span>}<a name="line.407"></a>
 
 
 
