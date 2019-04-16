@@ -190,7 +190,7 @@ public class MavenGroupRepository extends ResourcesRepository {
 
     /**
      * Writes all changes to persistent storage and removes
-     * any backup information prepared by {@link #reset(boolean)}.
+     * any backup information prepared by {@link #reset(Path, boolean)}.
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -263,7 +263,7 @@ public class MavenGroupRepository extends ResourcesRepository {
      * Keeps the current content as backup for reuse in a 
      * subsequent call to {@link #reload()}.
      *
-     * @param groupDir the group's directory
+     * @param directory this group's directory
      * @param requested whether this is a requested group
      */
     public void reset(Path directory, boolean requested) {
