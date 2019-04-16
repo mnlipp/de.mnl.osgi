@@ -295,6 +295,20 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
+     * Returns the excluded versions of the specified artifact id.
+     *
+     * @param artifactId the artifact id
+     * @return the maven version range
+     */
+    public MavenVersionRange excludedRange(String artifactId) {
+        // Check if excluded by rule.
+        return Optional
+            .ofNullable(searchProperty(artifactId, "exclude"))
+            .map(MavenVersionRange::parseRange)
+            .orElse(MavenVersionRange.NONE);
+    }
+
+    /**
      * Reload the repository. Requested repositories retrieve
      * the list of known artifactIds from the remote repository 
      * and add the versions. For versions already in the repository, 
@@ -501,11 +515,8 @@ public class MavenGroupRepository extends ResourcesRepository {
             break;
         }
         // Check if excluded by rule.
-        if (Optional.ofNullable(
-            searchProperty(revision.artifact, "exclude"))
-            .map(MavenVersionRange::parseRange)
-            .map(range -> range.includes(MavenVersion.from(revision.version)))
-            .orElse(false)) {
+        if (excludedRange(revision.artifact)
+            .includes(MavenVersion.from(revision.version))) {
             if (indexingState.replace(revision, IndexingState.INDEXING,
                 IndexingState.EXCLUDED)) {
                 logIndexing(revision,
@@ -530,29 +541,31 @@ public class MavenGroupRepository extends ResourcesRepository {
                         .collect(Collectors.joining(", "))));
         }
         for (Dependency dep : deps) {
+            Program depPgm
+                = Program.valueOf(dep.getGroupId(), dep.getArtifactId());
             MavenGroupRepository depRepo;
-            Optional<MavenResource> depRes;
+            Optional<MavenResource> depResource;
             try {
                 depRepo = indexedRepository
                     .getOrCreateGroupRepository(dep.getGroupId());
-                depRes = indexedRepository.mavenRepository().resource(
-                    Program.valueOf(dep.getGroupId(), dep.getArtifactId()),
-                    MavenVersionSpecification.from(dep.getVersion()),
+                depResource = indexedRepository.mavenRepository().resource(
+                    depPgm, depRepo.narrowVersion(depPgm,
+                        MavenVersionSpecification.from(dep.getVersion())),
                     BinaryLocation.REMOTE);
             } catch (Exception e) {
                 // Failing to get a dependency is no reason to fail.
                 continue;
             }
-            if (!depRes.isPresent()) {
+            if (!depResource.isPresent()) {
                 // Failing to get a dependency is no reason to fail.
                 continue;
             }
-            depRepo.logIndexing(depRes.get().revision(),
+            depRepo.logIndexing(depResource.get().revision(),
                 () -> String.format("%s is dependency of %s, indexing...",
-                    depRes.get().revision(), revision));
-            depRepo.indexingState.putIfAbsent(depRes.get().revision(),
+                    depResource.get().revision(), revision));
+            depRepo.indexingState.putIfAbsent(depResource.get().revision(),
                 IndexingState.INDEXING);
-            if (!depRepo.isIndexable(depRes.get(), dependencies,
+            if (!depRepo.isIndexable(depResource.get(), dependencies,
                 ignoreExcludedDependencies)) {
                 // Note that the revision which was checked is not indexable
                 // due to a dependency that is not indexable
@@ -561,14 +574,25 @@ public class MavenGroupRepository extends ResourcesRepository {
                         IndexingState.EXCL_BY_DEP)) {
                         logIndexing(revision, () -> String.format(
                             "%s not indexable, depends on %s.",
-                            revision, depRes.get().revision()));
+                            revision, depResource.get().revision()));
                     }
                     return false;
                 }
             }
-            dependencies.add(depRes.get());
+            dependencies.add(depResource.get());
         }
         return true;
+    }
+
+    private MavenVersionSpecification narrowVersion(
+            Program program, MavenVersionSpecification version)
+            throws IOException {
+        if (version instanceof MavenVersion) {
+            return version;
+        }
+        // Restrict range to allowed
+        MavenVersionRange excluded = excludedRange(program.artifact);
+        return excluded.complement().restrict((MavenVersionRange) version);
     }
 
     /**
