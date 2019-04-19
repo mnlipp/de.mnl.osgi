@@ -402,6 +402,9 @@ public class MavenGroupRepository extends ResourcesRepository {
                 revision.unbound(), IndexingState.INDEXING);
             if (curState != null && curState != IndexingState.INDEXING) {
                 // Already handled (as dependency)
+                logIndexing(revision.unbound(), () -> String.format(
+                    "%s in list (already indexed as dependency).",
+                    revision.unbound()));
                 return;
             }
             LOG.debug("Loading revision {}.", revision.unbound());
