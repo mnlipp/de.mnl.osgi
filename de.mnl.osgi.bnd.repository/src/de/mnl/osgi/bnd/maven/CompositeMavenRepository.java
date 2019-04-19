@@ -129,7 +129,8 @@ public class CompositeMavenRepository implements Closeable {
 
         // Create the maven model builder. This code is ridiculous,
         // but using maven's CDI pulls in an even more ridiculous
-        // number of libraries.
+        // number of libraries. To get an idea why, read
+        // https://lairdnelson.wordpress.com/2017/03/06/maven-and-the-project-formerly-known-as-aether/
         DefaultModelBuilder builder = new DefaultModelBuilder();
         builder.setProfileSelector(new DefaultProfileSelector());
         DefaultModelProcessor processor = new DefaultModelProcessor();
