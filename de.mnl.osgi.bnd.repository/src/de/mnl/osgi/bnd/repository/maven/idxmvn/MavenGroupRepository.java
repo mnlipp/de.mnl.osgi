@@ -525,44 +525,22 @@ public class MavenGroupRepository extends ResourcesRepository {
             return false;
         }
         // Check whether excluded because dependency is excluded
-        List<Dependency> deps;
-        try {
-            deps = resource.dependencies();
-        } catch (Exception e) {
-            // Failing to get the dependencies is no reason to fail.
-            return true;
-        }
-        if (!deps.isEmpty()) {
-            logIndexing(revision,
-                () -> String.format("%s has dependencies: %s", revision,
-                    deps.stream()
-                        .map(d -> d.getGroupId() + ":" + d.getArtifactId() + ":"
-                            + d.getVersion())
-                        .collect(Collectors.joining(", "))));
-        }
+        List<Dependency> deps = evaluateDependencies(resource);
         for (Dependency dep : deps) {
-            Program depPgm
-                = Program.valueOf(dep.getGroupId(), dep.getArtifactId());
             MavenGroupRepository depRepo;
-            MavenResource depResource;
             try {
                 depRepo = indexedRepository
                     .getOrCreateGroupRepository(dep.getGroupId());
-                Optional<MavenResource> optRes
-                    = indexedRepository.mavenRepository().resource(
-                        depPgm, depRepo.narrowVersion(depPgm,
-                            MavenVersionSpecification
-                                .from(dep.getVersion())),
-                        BinaryLocation.REMOTE);
-                if (!optRes.isPresent()) {
-                    // Failing to get a dependency is no reason to fail.
-                    continue;
-                }
-                depResource = optRes.get();
             } catch (Exception e) {
                 // Failing to get a dependency is no reason to fail.
                 continue;
             }
+            Optional<MavenResource> optRes = depRepo.dependencyToResource(dep);
+            if (!optRes.isPresent()) {
+                // Failing to get a dependency is no reason to fail.
+                continue;
+            }
+            MavenResource depResource = optRes.get();
             // Watch out to use the proper repository in the code following!
             depRepo.logIndexing(depResource.revision(),
                 () -> String.format("%s is dependency of %s, indexing...",
@@ -586,6 +564,38 @@ public class MavenGroupRepository extends ResourcesRepository {
             dependencies.add(depResource);
         }
         return true;
+    }
+
+    private List<Dependency> evaluateDependencies(MavenResource resource) {
+        List<Dependency> deps;
+        try {
+            deps = resource.dependencies();
+        } catch (Exception e) {
+            // Failing to get the dependencies is no reason to fail.
+            return Collections.emptyList();
+        }
+        if (!deps.isEmpty()) {
+            logIndexing(resource.revision(),
+                () -> String.format("%s has dependencies: %s",
+                    resource.revision(), deps.stream()
+                        .map(d -> d.getGroupId() + ":" + d.getArtifactId() + ":"
+                            + d.getVersion())
+                        .collect(Collectors.joining(", "))));
+        }
+        return deps;
+    }
+
+    private Optional<MavenResource> dependencyToResource(Dependency dep) {
+        Program depPgm = Program.valueOf(dep.getGroupId(), dep.getArtifactId());
+        try {
+            return indexedRepository.mavenRepository().resource(
+                depPgm, narrowVersion(depPgm, MavenVersionSpecification
+                    .from(dep.getVersion())),
+                BinaryLocation.REMOTE);
+        } catch (Exception e) {
+            // Failing to get a dependency is no reason to fail.
+            return Optional.empty();
+        }
     }
 
     private MavenVersionSpecification narrowVersion(
