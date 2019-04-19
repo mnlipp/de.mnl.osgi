@@ -101,7 +101,6 @@ public class MavenGroupRepository extends ResourcesRepository {
         = new ConcurrentHashMap<>();
     private final ConcurrentMap<Revision, IndexingState> indexingState
         = new ConcurrentHashMap<>();
-    private boolean indexChanged;
     private ResourcesRepository backupRepo;
     private Writer indexingLog;
     private Map<Revision, List<String>> loggedMessages
@@ -153,8 +152,6 @@ public class MavenGroupRepository extends ResourcesRepository {
                 reporter.warning("Cannot parse %s, ignored: %s", groupIndexPath,
                     e.getMessage());
             }
-        } else {
-            indexChanged = true;
         }
         // Cache revisions for faster checks.
         for (Capability cap : findProvider(
@@ -195,9 +192,8 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public void flush() throws IOException {
-        if (indexChanged && backupRepo != null) {
-            // Only a rough guess, verify to avoid unnecessary new versions
-            // of the generated file.
+        boolean indexChanged = true;
+        if (backupRepo != null) {
             Set<Resource> oldSet = new HashSet<>(backupRepo.getResources());
             Set<Resource> newSet = new HashSet<>(getResources());
             if (newSet.equals(oldSet)) {
@@ -213,7 +209,6 @@ public class MavenGroupRepository extends ResourcesRepository {
             } catch (IOException e) {
                 reporter.exception(e, "Cannot save %s.", groupIndexPath);
             }
-            indexChanged = false;
         }
         backupRepo = null;
         if (indexingLog != null) {
@@ -259,8 +254,8 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
-     * Clears this repository and updates the requested flag. 
-     * Keeps the current content as backup for reuse in a 
+     * Clears this repository and updates the path and the requested 
+     * flag. Keeps the current content as backup for reuse in a 
      * subsequent call to {@link #reload()}.
      *
      * @param directory this group's directory
@@ -269,13 +264,14 @@ public class MavenGroupRepository extends ResourcesRepository {
     public void reset(Path directory, boolean requested) {
         synchronized (this) {
             // Update basic properties
+            this.requested = requested;
             if (!groupDir.equals(directory)) {
                 updatePaths(directory);
-                indexChanged = true;
+                backupRepo = null;
+            } else {
+                // Save current content and clear.
+                backupRepo = new ResourcesRepository(getResources());
             }
-            this.requested = requested;
-            // Save current content and clear.
-            backupRepo = new ResourcesRepository(getResources());
             set(Collections.emptyList());
             // Clear and reload properties
             groupProps.clear();
@@ -355,7 +351,6 @@ public class MavenGroupRepository extends ResourcesRepository {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        indexChanged = true;
     }
 
     private CompletableFuture<Void> loadProgram(Program program) {
@@ -397,23 +392,11 @@ public class MavenGroupRepository extends ResourcesRepository {
         "PMD.PositionLiteralsFirstInComparisons" })
     private CompletableFuture<Void> loadRevision(BoundRevision revision) {
         return CompletableFuture.runAsync(() -> {
-            MavenVersionRange acceptedRange = Optional.ofNullable(
-                searchProperty(revision.artifactId(), "versions"))
-                .map(MavenVersionRange::parseRange).orElse(null);
-            MavenVersionRange forcedRange = Optional.ofNullable(
-                searchProperty(revision.artifactId(), "forcedVersions"))
-                .map(MavenVersionRange::parseRange).orElse(null);
-            boolean inForced = forcedRange != null
-                && forcedRange.includes(revision.version());
-            if (acceptedRange != null || forcedRange != null) {
-                boolean inVersions = acceptedRange != null
-                    && acceptedRange.includes(revision.version());
-                if (!inVersions && !inForced) {
-                    logIndexing(revision.unbound(),
-                        () -> String.format("%s not selected for indexing.",
-                            revision.unbound()));
-                    return;
-                }
+            if (!isSelected(revision.unbound())) {
+                logIndexing(revision.unbound(),
+                    () -> String.format("%s not selected for indexing.",
+                        revision.unbound()));
+                return;
             }
             if (indexingState.putIfAbsent(revision.unbound(),
                 IndexingState.INDEXING) != null) {
@@ -428,15 +411,10 @@ public class MavenGroupRepository extends ResourcesRepository {
                 MavenResource resource = indexedRepository.mavenRepository()
                     .resource(revision, BinaryLocation.REMOTE);
                 Set<MavenResource> allDeps = new HashSet<>();
-                if (!isIndexable(resource, allDeps, inForced)) {
+                if (!isIndexable(resource, allDeps)) {
                     return;
                 }
-                addResource(resource);
-                // Add the dependencies found while checking to the index.
-                rethrow(IOException.class, () -> allDeps.stream()
-                    .forEach(res -> runIgnoring(() -> indexedRepository
-                        .getOrCreateGroupRepository(res.revision().group)
-                        .addResource(res))));
+                addResourceAndDependencies(resource, allDeps);
             } catch (Exception e) {
                 // Load "in isolation", don't propagate individual failure.
                 reporter.exception(e, "Failed to load revision %s: %s",
@@ -482,6 +460,49 @@ public class MavenGroupRepository extends ResourcesRepository {
         return result;
     }
 
+    private boolean isSelected(Revision revision) {
+        MavenVersionRange acceptedRange = Optional.ofNullable(
+            searchProperty(revision.artifact, "versions"))
+            .map(MavenVersionRange::parseRange).orElse(null);
+        MavenVersionRange forcedRange = Optional.ofNullable(
+            searchProperty(revision.artifact, "forcedVersions"))
+            .map(MavenVersionRange::parseRange).orElse(null);
+        if (acceptedRange == null && forcedRange == null) {
+            // It is to be added by default (i.e. nothing is specified).
+            return true;
+        }
+        return acceptedRange != null
+            && acceptedRange.includes(MavenVersion.from(revision.version))
+            || forcedRange != null
+                && forcedRange.includes(MavenVersion.from(revision.version));
+    }
+
+    private boolean isForced(Revision revision) {
+        return Optional.ofNullable(
+            searchProperty(revision.artifact, "forcedVersions"))
+            .map(MavenVersionRange::parseRange)
+            .map(range -> range.includes(MavenVersion.from(revision.version)))
+            .orElse(false);
+    }
+
+    private void addResourceAndDependencies(MavenResource resource,
+            Set<MavenResource> allDeps) {
+        addResource(resource);
+        // Add the dependencies found while checking to the index.
+        try {
+            rethrow(IOException.class, () -> allDeps.stream()
+                .forEach(res -> runIgnoring(() -> indexedRepository
+                    .getOrCreateGroupRepository(res.revision().group)
+                    .addResource(res))));
+        } catch (Exception e) {
+            // Load "in isolation", don't propagate individual failure.
+            reporter.exception(e, "Failed to add resource %s: %s",
+                resource.revision(), e.getMessage());
+            logIndexing(resource.revision(), () -> String.format(
+                "%s failed to load.", resource.revision()));
+        }
+    }
+
     /**
      * Checks if the given revision is indexable, considering its 
      * dependencies. A revision is indexable if its dependencies aren't
@@ -490,15 +511,12 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @param resource the resource to check
      * @param dependencies revisions that must additionally be included
      *    when the checked revision is added
-     * @param ignoreExcludedDependencies evaluate as indexable even
-     *    if some dependencies aren't indexable
      * @return true, if the revision can be added to the index
      */
     @SuppressWarnings({ "PMD.LongVariable", "PMD.NPathComplexity",
         "PMD.AvoidCatchingGenericException" })
     private boolean isIndexable(MavenResource resource,
-            Set<MavenResource> dependencies,
-            boolean ignoreExcludedDependencies) {
+            Set<MavenResource> dependencies) {
         Revision revision = resource.revision();
         if (!revision.group.equals(groupId)) {
             throw new IllegalArgumentException("Wrong groupId "
@@ -524,6 +542,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             }
             return false;
         }
+        boolean isForced = isForced(resource.revision());
         // Check whether excluded because dependency is excluded
         List<Dependency> deps = evaluateDependencies(resource);
         for (Dependency dep : deps) {
@@ -547,11 +566,11 @@ public class MavenGroupRepository extends ResourcesRepository {
                     depResource.revision(), revision));
             depRepo.indexingState.putIfAbsent(depResource.revision(),
                 IndexingState.INDEXING);
-            if (!depRepo.isIndexable(depResource, dependencies,
-                ignoreExcludedDependencies)) {
+            Set<MavenResource> collectedDeps = new HashSet<>();
+            if (!depRepo.isIndexable(depResource, collectedDeps)) {
                 // Note that the revision which was checked is not indexable
-                // due to a dependency that is not indexable
-                if (!ignoreExcludedDependencies) {
+                // due to a dependency that is not indexable (unless forced)
+                if (!isForced) {
                     if (indexingState.replace(revision, IndexingState.INDEXING,
                         IndexingState.EXCL_BY_DEP)) {
                         logIndexing(revision, () -> String.format(
@@ -561,7 +580,15 @@ public class MavenGroupRepository extends ResourcesRepository {
                     return false;
                 }
             }
-            dependencies.add(depResource);
+            if (depRepo.isSelected(depResource.revision())) {
+                // Has just been indexed as dependency, but would have
+                // been indexed (as selected) anyway, so add independent
+                // of outcome of dependency evaluation.
+                depRepo.addResourceAndDependencies(depResource, collectedDeps);
+            } else {
+                dependencies.add(depResource);
+                dependencies.addAll(collectedDeps);
+            }
         }
         return true;
     }
@@ -629,7 +656,6 @@ public class MavenGroupRepository extends ResourcesRepository {
             logIndexing(resource.revision(),
                 () -> String.format("%s indexed.", resource.revision()));
         }
-        indexChanged = true;
     }
 
     /* package */ Optional<Resource> searchInBackup(Revision revision) {
