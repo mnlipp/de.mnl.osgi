@@ -398,9 +398,10 @@ public class MavenGroupRepository extends ResourcesRepository {
                         revision.unbound()));
                 return;
             }
-            if (indexingState.putIfAbsent(revision.unbound(),
-                IndexingState.INDEXING) != null) {
-                // Already loading or handled (as dependency)
+            IndexingState curState = indexingState.putIfAbsent(
+                revision.unbound(), IndexingState.INDEXING);
+            if (curState != null && curState != IndexingState.INDEXING) {
+                // Already handled (as dependency)
                 return;
             }
             LOG.debug("Loading revision {}.", revision.unbound());
@@ -420,7 +421,8 @@ public class MavenGroupRepository extends ResourcesRepository {
                 reporter.exception(e, "Failed to load revision %s: %s",
                     revision, e.getMessage());
                 logIndexing(revision.unbound(), () -> String.format(
-                    "%s failed to load.", revision.unbound()));
+                    "%s failed to load: %s.", revision.unbound(),
+                    e.getMessage()));
             }
         }, IndexedMavenRepository.revisionLoaders);
     }
