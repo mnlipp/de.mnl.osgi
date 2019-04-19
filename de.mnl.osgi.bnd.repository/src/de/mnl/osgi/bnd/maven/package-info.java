@@ -18,6 +18,24 @@
 
 /**
  * Some classes that may be helpful for any repository provider 
- * implementation that uses (backing) maven repositories.  
+ * implementation that uses (backing) maven repositories.
+ * <P>
+ * This package mixes classes from bnd's maven repository libraries
+ * with the standard maven libraries, which is far from an ideal
+ * situation. However, the bnd 
+ * {@link aQute.maven.provider.MavenBackingRepository} class provides 
+ * an easy access to remote repositories. The standard
+ * maven repository provider is much harder to use and pulls in a 
+ * ridiculous number of dependencies. In addition, the bnd classes 
+ * {@link aQute.maven.api.Program} and {@link aQute.maven.api.Archive}
+ * add some type safety not provided by the maven libraries (though
+ * the latter is a misnomer, because an {@link aQute.maven.api.Archive}
+ * can also represent a POM).
+ * <P>
+ * However, the evaluation of the information in the POM by bnd isn't
+ * perfect and therefore done using the maven libraries, which results
+ * in the afore mentioned mixture. The goal for further development
+ * of this package is to depend less on bnd's classes and use
+ * maven standard libraries whereever possible.
  */
 package de.mnl.osgi.bnd.maven;

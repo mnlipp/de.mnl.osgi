@@ -79,10 +79,14 @@ import org.osgi.util.promise.Promise;
 /**
  * Provides a composite {@link IMavenRepo} view on several 
  * {@link MavenBackingRepository} instances.
+ * The class replaces {@link MavenRepository} which lacks some
+ * required functionality. (Besides, this class has a more
+ * appropriate name.)
  * <P>
- * The class extends {@link MavenRepository} which lacks some
- * required functionality. Besides, this class has a more
- * appropriate name.
+ * The information about artifacts is provided as a maven
+ * {@link Model}. It is evaluated using the maven libraries and
+ * should therefore be consistent with the model information
+ * used in other maven repository based tools.
  */
 @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "deprecation" })
 public class CompositeMavenRepository implements Closeable {
