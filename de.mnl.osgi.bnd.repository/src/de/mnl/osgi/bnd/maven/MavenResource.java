@@ -94,14 +94,16 @@ public interface MavenResource {
             throws MavenResourceException;
 
     /**
-     * A {@link MavenResource} can be compared with another maven resource.
-     * In this case the objects are considered equal if their revisions 
-     * are equal. A {@link MavenResource} can also be compared with 
-     * another {@link Resource}. In this case, equality will be checked 
+     * Compares a {@link MavenResource} with another maven resource
+     * or a {@link Resource}.
+     * <P>
+     * Two {@link MavenResource}s are considered equal if their revisions 
+     * are equal. If a {@link MavenResource} is compared with 
+     * another {@link Resource}, equality will be checked 
      * between {@link MavenResource#asResource()} and the other resource 
      * (see {@link Resource#equals(Object)}). 
      *
-     * @param obj the obj
+     * @param obj the object to compare with
      * @return true, if successful
      */
     @Override
