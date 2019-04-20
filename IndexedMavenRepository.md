@@ -190,6 +190,7 @@ is [not on bnd's classpath](https://github.com/bndtools/bnd/issues/2242)).
 | `location`   | PATH   | (from name) | The file path where the index is maintained (see below) 
 | `releaseUrls` | URL   | | Comma separated list of URLs to the repositories of released artifacts
 | `snapshotUrls` | URL   | | Comma separated list of URLs to the repositories of snapshot artifacts
+| `logIndexing` | boolean | | if set to `true` a log is created in each directory that track why artifact versions were added or left out
 
 If the `location` property is not specified, the location is derived from
 the repository name converted to lower case with spaces replaced with dashes,
