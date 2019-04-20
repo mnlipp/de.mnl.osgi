@@ -1,5 +1,255 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553805246052">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895415">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-all:1.3"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-all:1.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="306578" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-all/1.3/hamcrest-all-1.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="4877670629AB96F34F5F90AB283125FCD9ACB7E683E66319A68BE6EB2CCA60DE"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-core:1.3"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-core:1.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="45024" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="66FDEF91E9739348DF7A096AA384A5685F4E875584CCE89386A7A47251C4D8E9"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-api:1.0"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-api:1.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="5681" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-api/1.0/hamcrest-api-1.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="3EEDF6B7976BE350E0139A1A8973C7ED7AB7506E2DC502F4A3B6B4DE5098B1EB"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-parent:pom:1.1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-parent:1.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info"/>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-parent:pom:1.3.RC2"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-parent:1.3.RC2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-parent:pom:1.3"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-parent:1.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-core:1.1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-core:1.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="76643" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="0361D1493FF0D94F861359EFEA91200720635072134792EFB7217F6E09D5CFFB"/>
+    </capability>
+    <capability namespace="maven.dependencies.info"/>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-core:1.2"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-core:1.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="41229" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.2/hamcrest-core-1.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="F5C28B825F317088981D167C60DFEA74B2899A814274E912530CE2575B49EB0A"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-core:1.2.1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-core:1.2.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="41908" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.2.1/hamcrest-core-1.2.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="B8250F06408D954DF4908EACE45885B58A2406CC5FF8B4A469C6AA454473C46B"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-core:1.3.RC2"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-core:1.3.RC2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="41161" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.3.RC2/hamcrest-core-1.3.RC2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="D7380ABDC56BC5B812DF740AE9100F22BEA067CCAC36B55C8A406257009D9DD8"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="JavaHamcrest.hamcrest"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="JavaHamcrest.hamcrest"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="JavaHamcrest.hamcrest"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.namespace,org.hamcrest.collection,org.hamcrest.core,org.hamcrest.internal,org.w3c.dom"/>
+      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.beans"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.collection"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.comparator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.core"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.number"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.object"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.text"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.namespace,org.hamcrest,org.w3c.dom"/>
+      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.xml"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="118946" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest/2.1-rc2/hamcrest-2.1-rc2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="DC070EE8EA7BAE8F0393D9351E60732114B836F6E84718217C702C091B445C4B"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest:2.1-rc2"/>
+      <attribute name="from" value="org.hamcrest:hamcrest:2.1-rc2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.namespace))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.xpath))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.beans)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.collection)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.comparator)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.core)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.internal)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.number)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.object)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.text)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.xml)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-core:pom:2.1-rc2"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-core:2.1-rc2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest:2.1-rc2"/>
+    </capability>
+  </resource>
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="org.hamcrest"/>
@@ -125,6 +375,22 @@
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
     </requirement>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-core:2.1-rc3"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-core:2.1-rc3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1162" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/2.1-rc3/hamcrest-core-2.1-rc3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="E9133F70B4A81BCFA87D9BC2AD20BB7A358E2A932C25CDAC52510F4266D4475A"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest:2.1-rc3"/>
+    </capability>
   </resource>
   <resource>
     <capability namespace="osgi.identity">
@@ -253,130 +519,20 @@
     </requirement>
   </resource>
   <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="JavaHamcrest.hamcrest"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="2.1.0.rc1" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="JavaHamcrest.hamcrest"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.host" value="JavaHamcrest.hamcrest"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="javax.xml.namespace,org.hamcrest.collection,org.hamcrest.core,org.hamcrest.internal,org.w3c.dom"/>
-      <attribute name="version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.hamcrest"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.hamcrest.beans"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.hamcrest.collection"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.hamcrest.comparator"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.hamcrest.core"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.hamcrest.internal"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.hamcrest.io"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.hamcrest.number"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.hamcrest.object"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.hamcrest.text"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="javax.xml.namespace,org.hamcrest,org.w3c.dom"/>
-      <attribute name="version" value="2.1.0.rc1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.hamcrest.xml"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="118945" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest/2.1-rc1/hamcrest-2.1-rc1.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="445BB082CDE3990DFE04EB0C1578E3FFF333E719C8970557BF1185A3F48ACD9A"/>
-    </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.hamcrest:hamcrest:2.1-rc1"/>
-      <attribute name="from" value="org.hamcrest:hamcrest:2.1-rc1"/>
+      <attribute name="name" value="org.hamcrest:hamcrest-core:2.1-rc4"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-core:2.1-rc4"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.namespace))"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.xpath))"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom))"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.beans)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.collection)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.comparator)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.core)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.internal)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.number)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.object)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.text)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest.xml)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
-    </requirement>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1162" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/2.1-rc4/hamcrest-core-2.1-rc4.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="60E0F1664D8A203CFAC60ECBFCA9BAB5F9A83F1C41DE420E2DAB0246C9132491"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest:2.1-rc4"/>
+    </capability>
   </resource>
   <resource>
     <capability namespace="osgi.identity">
@@ -505,83 +661,375 @@
     </requirement>
   </resource>
   <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-core:2.1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-core:2.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1158" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/2.1/hamcrest-core-2.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="E09109E54A289D88506B9BFEC987DDD199F4217C9464132668351B9A4F00BEE9"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest:2.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-library:1.0"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-library:1.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="63762" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-library/1.0/hamcrest-library-1.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="8A834DA09138BAE8E7841764E05ED64B79A4982B5C86489EE8CCD069B149724A"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-api:1.0"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-library:1.1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-library:1.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="111504" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-library/1.1/hamcrest-library-1.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="157B0D09E661D25DC5495F1FFB092165B22B6BCC63B228261AEC889566985001"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-integration:1.0"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-integration:1.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="7101" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-integration/1.0/hamcrest-integration-1.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="6F21249D047EC6E87E083664F37F31FA0E905669436A6244DD6C3BC7BBC6D772"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-library:1.0;org.hamcrest:hamcrest-api:1.0"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-generator:1.1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-generator:1.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="284877" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-generator/1.1/hamcrest-generator-1.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="369415296B156DBBAC23C79C80C7F1FE3D72559DA2AE869B3B4F0A3578F32508"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-library:1.2"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-library:1.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="52911" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-library/1.2/hamcrest-library-1.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="225BEE4853B1E4553A1D661825F2E537A09C4C152064A1737CA67649C350291E"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-generator:1.2"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-generator:1.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="25948" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-generator/1.2/hamcrest-generator-1.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="45F0AD0C130DDB2536DBEBAD22EC94C69B003C4CFC67C9F01266A246BD8198AE"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="qdox:qdox:1.6.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-library:1.2.1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-library:1.2.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="50443" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-library/1.2.1/hamcrest-library-1.2.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="8F787E39326872AE4F9545A3921234263B3072717596CDD6956D29FAF06B8D5B"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.2.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-integration:1.1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-integration:1.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="14464" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-integration/1.1/hamcrest-integration-1.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="FF3564A08D75B2E8FBDC1894311BDAB7E7348F7AEEE97634C6CCD6E6154D523C"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-generator:1.3.RC2"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-generator:1.3.RC2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="25705" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-generator/1.3.RC2/hamcrest-generator-1.3.RC2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="95820FE2E34ABDAD3212F459B734460516681F304FE0859861773D22F7F27A5A"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="qdox:qdox:1.6.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-library:1.3.RC2"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-library:1.3.RC2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="49442" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-library/1.3.RC2/hamcrest-library-1.3.RC2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="0C203E357CD8983A60D76339B7876DB3F98A988C1C4EFA19FBA73A9F94800B6C"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3.RC2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-integration:1.2"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-integration:1.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="6398" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-integration/1.2/hamcrest-integration-1.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="4E47ECF38A2F16907AB62E1E2EE67562D86131DEE82918D2991AD73E5FFD5403"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-library:1.2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-library:1.3"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-library:1.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="53070" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="711D64522F9EC410983BD310934296DA134BE4254A125080A0416EC178DFAD1C"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-generator:1.3"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-generator:1.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="208088" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-generator/1.3/hamcrest-generator-1.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="84C810CAFABD046D0E5599F9B5FC1514B2A6CE45313997E020A47076BA27D035"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-library:pom:2.1-rc2"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-library:2.1-rc2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:2.1-rc2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-integration:1.2.1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-integration:1.2.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="6521" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-integration/1.2.1/hamcrest-integration-1.2.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="7DA943FBCB69111E7C44239A23C0B35D3131B72BAE6331DDD06A8B8E8B51F8F2"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-library:1.2.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:java-hamcrest:2.0.0.0"/>
+      <attribute name="from" value="org.hamcrest:java-hamcrest:2.0.0.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="112929" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/java-hamcrest/2.0.0.0/java-hamcrest-2.0.0.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="09BC7044D57A497846E2480250E7A72FF3AE58EFEFC8C3A9CEECD0F4E092851C"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-library:2.1-rc3"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-library:2.1-rc3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1173" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-library/2.1-rc3/hamcrest-library-2.1-rc3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="1D7260031F720EF3A51483EC3B183A8E18D3B93ECB6287392FD89DC0429F3966"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:2.1-rc3"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-integration:1.3.RC2"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-integration:1.3.RC2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="6218" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-integration/1.3.RC2/hamcrest-integration-1.3.RC2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="DF9AF1C349DA9CC5CA13CEEFF017BBC174D97361A2A1B390DBC080FC0F1CB2CA"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-library:1.3.RC2"/>
+    </capability>
+  </resource>
+  <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="JavaHamcrest.hamcrest"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="version" value="2.1.0.rc1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="bundle-version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.bundle" value="JavaHamcrest.hamcrest"/>
     </capability>
     <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="bundle-version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.host" value="JavaHamcrest.hamcrest"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="javax.xml.namespace,org.hamcrest.collection,org.hamcrest.core,org.hamcrest.internal,org.w3c.dom"/>
-      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest.beans"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest.collection"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest.comparator"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest.core"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest.internal"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest.io"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest.number"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest.object"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest.text"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="javax.xml.namespace,org.hamcrest,org.w3c.dom"/>
-      <attribute name="version" value="2.1.0.rc2" type="Version"/>
+      <attribute name="version" value="2.1.0.rc1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest.xml"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="118946" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest/2.1-rc2/hamcrest-2.1-rc2.jar"/>
+      <attribute name="size" value="118945" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest/2.1-rc1/hamcrest-2.1-rc1.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="DC070EE8EA7BAE8F0393D9351E60732114B836F6E84718217C702C091B445C4B"/>
+      <attribute name="osgi.content" value="445BB082CDE3990DFE04EB0C1578E3FFF333E719C8970557BF1185A3F48ACD9A"/>
     </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.hamcrest:hamcrest:2.1-rc2"/>
-      <attribute name="from" value="org.hamcrest:hamcrest:2.1-rc2"/>
+      <attribute name="name" value="org.hamcrest:hamcrest:2.1-rc1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest:2.1-rc1"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -629,5 +1077,117 @@
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
     </requirement>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-integration:1.3"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-integration:1.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="4820" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-integration/1.3/hamcrest-integration-1.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="70F418EFBB506C5155DA5F9A5A33262EA08A9E4D7FEA186AA9015C41A7224AC2"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-library:1.3"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-library:2.1-rc4"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-library:2.1-rc4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1173" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-library/2.1-rc4/hamcrest-library-2.1-rc4.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="2A9B3C43E9E6D64C5CBD9979427A9D5A881A4229B3FB8041AC3526571CFD93F1"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:2.1-rc4"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-library:2.1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-library:2.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1169" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-library/2.1/hamcrest-library-2.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="B7E2B6895B3B679F0E47B6380FDA391B225E9B78505DB9D8BDDE8D3CC8D52A21"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:2.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-junit:1.0.0.0-RC1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-junit:1.0.0.0-RC1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="14380" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-junit/1.0.0.0-RC1/hamcrest-junit-1.0.0.0-RC1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="FB918E34EBB2C0703154397D30F9D8E2B9B6BC977863F3C2A7EF4A951D5A00BB"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-all:1.3;junit:junit:4.12"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-junit:1.0.0.0"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-junit:1.0.0.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="14376" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-junit/1.0.0.0/hamcrest-junit-1.0.0.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="E169552D4DADB88052B1068EE35F54D1060B18117B267FF96F57E8E51400DA19"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="junit:junit:4.12;org.hamcrest:hamcrest-all:1.3"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-junit:1.0.0.1"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-junit:1.0.0.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="14376" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-junit/1.0.0.1/hamcrest-junit-1.0.0.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="CD5749F008851158F0BE99AA0B3EBEF1C538024DF6D3E124B370B4D3F7880169"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="junit:junit:4.12;org.hamcrest:hamcrest-all:1.3"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-junit:2.0.0.0"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-junit:2.0.0.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="14347" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-junit/2.0.0.0/hamcrest-junit-2.0.0.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="212AFCB9404E3A197379E96E0C66C5698AF3BD459DC6233C7CA930C05E6232F4"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:java-hamcrest:2.0.0.0;junit:junit:4.12"/>
+    </capability>
   </resource>
 </repository>

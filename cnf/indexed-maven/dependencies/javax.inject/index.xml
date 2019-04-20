@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895434">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="javax.inject:javax.inject:1"/>
+      <attribute name="from" value="javax.inject:javax.inject:1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="2497" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="osgi.content" value="91C77044A50C481636C32D916FD89C9118A72195390452C81065080F957DE7FF"/>
+    </capability>
+  </resource>
+</repository>

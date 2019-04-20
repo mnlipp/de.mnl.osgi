@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895445">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="plexus:plexus-utils:1.0.2"/>
+      <attribute name="from" value="plexus:plexus-utils:1.0.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="160382" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/plexus/plexus-utils/1.0.2/plexus-utils-1.0.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="56FFE79B4426CE24EA35F1AB5AF3DFD324A749B0D5812A6F6FEC913C3B5E7A0D"/>
+    </capability>
+  </resource>
+</repository>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895362">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.json:json:20070829"/>
+      <attribute name="from" value="org.json:json:20070829"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="41829" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/json/json/20070829/json-20070829.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="10B121CF29C6FF66C06637DCCB75C7A99C412C11521230F21FDB69AEC9D3B02C"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.json:json:20080701"/>
+      <attribute name="from" value="org.json:json:20080701"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="37875" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/json/json/20080701/json-20080701.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="03ACD6ADAB2DA447F49814751B0E953FB62A6A1023F9D2A705C30A6E3E4638EB"/>
+    </capability>
+  </resource>
+</repository>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895371">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="jtidy:jtidy:4aug2000r7-dev"/>
+      <attribute name="from" value="jtidy:jtidy:4aug2000r7-dev"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="137835" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/jtidy/jtidy/4aug2000r7-dev/jtidy-4aug2000r7-dev.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="6D66BFB4135AF5B85074393CBF31993AEA76B24F3CD45D6DEFF3AD55FC1199E2"/>
+    </capability>
+  </resource>
+</repository>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895372">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="concurrent:concurrent:1.3.4"/>
+      <attribute name="from" value="concurrent:concurrent:1.3.4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="189284" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/concurrent/concurrent/1.3.4/concurrent-1.3.4.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="12639DEF9A5B5EBF56040AB764BD42B7E662523D3B983E5D5DA04BF37BE152F9"/>
+    </capability>
+  </resource>
+</repository>

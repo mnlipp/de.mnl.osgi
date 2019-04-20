@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961410">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.velocity:velocity:pom:1.5"/>
+      <attribute name="from" value="org.apache.velocity:velocity:1.5"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="commons-collections:commons-collections:3.1;commons-lang:commons-lang:2.1;oro:oro:2.0.8"/>
+    </capability>
+  </resource>
+</repository>

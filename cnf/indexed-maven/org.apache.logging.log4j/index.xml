@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553805246052">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555702983165">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="https://www.apache.org/licenses/LICENSE-2.0.txt"/>
@@ -90,6 +90,11 @@
     </requirement>
   </resource>
   <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.logging.log4j:log4j-core:2.11.2"/>
+      <attribute name="from" value="org.apache.logging.log4j:log4j-core:2.11.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
     <capability namespace="osgi.identity">
       <attribute name="license" value="https://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="org.apache.logging.log4j.core"/>
@@ -358,13 +363,8 @@
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="D4748CD5D8D67F513DE7634FA202740490D7E0AB546F4BF94E5C4D4A11E3EDBC"/>
     </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.logging.log4j:log4j-core:2.11.2"/>
-      <attribute name="from" value="org.apache.logging.log4j:log4j-core:2.11.2"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="com.fasterxml.woodstox:woodstox-core:5.0.3;org.fusesource.jansi:jansi:1.17.1;com.sun.mail:javax.mail:1.6.2;org.apache.commons:commons-csv:1.6;com.conversantmedia:disruptor:1.2.10;com.lmax:disruptor:3.4.2;com.fasterxml.jackson.core:jackson-core:2.9.7;org.zeromq:jeromq:0.4.3;com.fasterxml.jackson.core:jackson-databind:2.9.7;com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.7;org.apache.kafka:kafka-clients:1.1.1;org.apache.commons:commons-compress:1.18;com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.7;org.jctools:jctools-core:1.2.1"/>
+      <attribute name="compile" value="org.apache.logging.log4j:log4j-api:2.11.2"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=com.conversantmedia.util.concurrent))"/>

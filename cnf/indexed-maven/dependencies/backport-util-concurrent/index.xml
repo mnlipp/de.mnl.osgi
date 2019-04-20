@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895407">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="backport-util-concurrent:backport-util-concurrent:3.1"/>
+      <attribute name="from" value="backport-util-concurrent:backport-util-concurrent:3.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="331716" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/backport-util-concurrent/backport-util-concurrent/3.1/backport-util-concurrent-3.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="F5759B7FCDFC83A525A036DEEDCBD32E5B536B625EBC282426F16CA137EB5902"/>
+    </capability>
+  </resource>
+</repository>

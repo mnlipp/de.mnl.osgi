@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895371">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.sonatype.plexus:plexus-cipher:1.4"/>
+      <attribute name="from" value="org.sonatype.plexus:plexus-cipher:1.4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="13494" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="5A15FDBA22669E0FDD06E10DCCE6320879E1F7398FBC910CD0677B50672A78C4"/>
+    </capability>
+    <capability namespace="maven.dependencies.info"/>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.sonatype.plexus:plexus-sec-dispatcher:1.3"/>
+      <attribute name="from" value="org.sonatype.plexus:plexus-sec-dispatcher:1.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="28555" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="3B0559BB8432F28937EFE6CA193EF54A8506D0075D73FD7406B9B116C6A11063"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.sonatype.plexus:plexus-cipher:1.4;org.codehaus.plexus:plexus-utils:1.5.5"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.sonatype.plexus:plexus-sec-dispatcher:1.4"/>
+      <attribute name="from" value="org.sonatype.plexus:plexus-sec-dispatcher:1.4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="27703" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-sec-dispatcher/1.4/plexus-sec-dispatcher-1.4.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="DA73E32B58132E64DAF12269FD9D011C0B303F234840F179908725A632B6B57C"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.sonatype.plexus:plexus-cipher:1.4;org.codehaus.plexus:plexus-utils:1.5.5"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.sonatype.plexus:plexus-build-api:0.0.7"/>
+      <attribute name="from" value="org.sonatype.plexus:plexus-build-api:0.0.7"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="8482" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-build-api/0.0.7/plexus-build-api-0.0.7.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="934171640FBD3D2495C50B79B0D9ADB11E2C83E65BAD157DF8FE34BCAC0FF798"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.plexus:plexus-utils:1.5.8"/>
+    </capability>
+  </resource>
+</repository>

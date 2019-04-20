@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895377">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.google.j2objc:j2objc-annotations:1.1"/>
+      <attribute name="from" value="com.google.j2objc:j2objc-annotations:1.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="8782" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="2994A7EB78F2710BD3D3BFB639B2C94E219CEDAC0D4D084D516E78C16DDDECF6"/>
+    </capability>
+  </resource>
+</repository>

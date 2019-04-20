@@ -1,0 +1,324 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961483">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-provider-api:2.12"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-provider-api:2.12"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="55170" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/2.12/wagon-provider-api-2.12.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="431EA1B58A3E2EB9C43BBEC45DFF7529DEF90C3C6B9BFF4C735254358274FDCB"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.plexus:plexus-utils:3.0.24"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-provider-api:1.0-beta-2"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-provider-api:1.0-beta-2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="46326" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0-beta-2/wagon-provider-api-1.0-beta-2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="0BA6040074D1E193580BAE9314392940F5ECD81E3B6D3B3381050360DCE033AD"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.plexus:plexus-utils:1.0.4"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-provider-api:1.0-alpha-5"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-provider-api:1.0-alpha-5"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="51560" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0-alpha-5/wagon-provider-api-1.0-alpha-5.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="36AB59642B219A2F9D5ECF233DA0B9588BB83B803525336CBF1A06B25938F9F9"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.plexus:plexus-utils:1.0.4"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-provider-api:1.0-alpha-6"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-provider-api:1.0-alpha-6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="42727" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0-alpha-6/wagon-provider-api-1.0-alpha-6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="A1E299E44D17D6EB67AACC4B5476BBA4CBD4DF7D1A16EF46BA9624E79D300C68"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.plexus:plexus-utils:1.0.4"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-ssh-common:1.0-beta-2"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-ssh-common:1.0-beta-2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="25205" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-ssh-common/1.0-beta-2/wagon-ssh-common-1.0-beta-2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="88110574AFED2C33EC0F2B0F610E3C4B70E1575DE0573E314B0D2ED289C34851"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.wagon:wagon-provider-api:1.0-beta-2;org.codehaus.plexus:plexus-interactivity-api:1.0-alpha-4;org.codehaus.plexus:plexus-utils:1.0.4"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-ssh-external:1.0-beta-2"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-ssh-external:1.0-beta-2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="12568" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-ssh-external/1.0-beta-2/wagon-ssh-external-1.0-beta-2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="D10B61C2BA8D7CB6993EF6CE2D629CBD921AA17607348AA1311E5EE77F33C900"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.wagon:wagon-provider-api:1.0-beta-2;org.apache.maven.wagon:wagon-ssh-common:1.0-beta-2;org.codehaus.plexus:plexus-utils:1.0.4"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-ssh:1.0-beta-2"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-ssh:1.0-beta-2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="23600" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-ssh/1.0-beta-2/wagon-ssh-1.0-beta-2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="3A0EA5B039EC66D4F0E9C63B68D582634359D739ABB1684190D9348C6E0C93A1"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="com.jcraft:jsch:0.1.27;org.codehaus.plexus:plexus-interactivity-api:1.0-alpha-4;org.codehaus.plexus:plexus-utils:1.0.4;org.apache.maven.wagon:wagon-provider-api:1.0-beta-2;org.apache.maven.wagon:wagon-ssh-common:1.0-beta-2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-http-shared:1.0-beta-2"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-http-shared:1.0-beta-2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="9569" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http-shared/1.0-beta-2/wagon-http-shared-1.0-beta-2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="E7C9FC767A30BB5719196A229CF32A8CEEE90B1B7663D13FE89C3D6271FA0332"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.wagon:wagon-provider-api:1.0-beta-2;jtidy:jtidy:4aug2000r7-dev"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-http-lightweight:1.0-beta-2"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-http-lightweight:1.0-beta-2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="12323" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http-lightweight/1.0-beta-2/wagon-http-lightweight-1.0-beta-2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="FE5DF42D08D00C019837EA03A61B03CF5643BC34285DA670D91127DC7D60B234"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.wagon:wagon-http-shared:1.0-beta-2;xml-apis:xml-apis:1.0.b2;org.apache.maven.wagon:wagon-provider-api:1.0-beta-2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-file:1.0-beta-2"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-file:1.0-beta-2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="9944" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-file/1.0-beta-2/wagon-file-1.0-beta-2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="97D23CCDE034EFCC96F0E7C473BDC451FAC07699F50955617F7241256842BC47"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.wagon:wagon-provider-api:1.0-beta-2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-provider-api:1.0-beta-6"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-provider-api:1.0-beta-6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="53186" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0-beta-6/wagon-provider-api-1.0-beta-6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="E116F32EDCB77067289A3148143F2C0C97B27CF9A1342F8108EE37DEC4868861"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.plexus:plexus-utils:1.4.2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-file:1.0-beta-6"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-file:1.0-beta-6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="11041" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-file/1.0-beta-6/wagon-file-1.0-beta-6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="7298FEEB36FF14DD933C38E62585FB9973FEA32FB3C4BC5379428CB1AAC5DD3C"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.wagon:wagon-provider-api:1.0-beta-6"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-http-shared:1.0-beta-6"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-http-shared:1.0-beta-6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="25326" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http-shared/1.0-beta-6/wagon-http-shared-1.0-beta-6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="F095C882716D49269A806685DCB256FA6A36389B2713AC56BB758BF8693565A2"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="nekohtml:xercesMinimal:1.9.6.2;commons-httpclient:commons-httpclient:3.1;org.apache.maven.wagon:wagon-provider-api:1.0-beta-6;nekohtml:nekohtml:1.9.6.2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-webdav-jackrabbit:1.0-beta-6"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-webdav-jackrabbit:1.0-beta-6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="18291" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-webdav-jackrabbit/1.0-beta-6/wagon-webdav-jackrabbit-1.0-beta-6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="1337191FADB43C336DAFC4537116B400800AD1A8E4B3A3EF945A16B640F242DB"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.wagon:wagon-provider-api:1.0-beta-6;org.apache.jackrabbit:jackrabbit-webdav:1.5.0;org.apache.maven.wagon:wagon-http-shared:1.0-beta-6"/>
+      <attribute name="runtime" value="org.slf4j:slf4j-nop:1.5.3"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-http:1.0-beta-6"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-http:1.0-beta-6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="10512" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http/1.0-beta-6/wagon-http-1.0-beta-6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="98376024764658EB65E252FF2A690D9773032CAFC4CC8BBB7558D0BA1C5435F4"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.wagon:wagon-http-shared:1.0-beta-6;org.apache.maven.wagon:wagon-provider-api:1.0-beta-6"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-ssh-common:1.0-beta-6"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-ssh-common:1.0-beta-6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="26605" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-ssh-common/1.0-beta-6/wagon-ssh-common-1.0-beta-6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="456A1ABDAB3C3984812F6A25E3F3E21AA6AA6F8A5D0DB98D32CBC20F95C301C0"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.wagon:wagon-provider-api:1.0-beta-6;org.codehaus.plexus:plexus-interactivity-api:1.0-alpha-6;org.codehaus.plexus:plexus-utils:1.4.2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-ssh-external:1.0-beta-6"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-ssh-external:1.0-beta-6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="14477" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-ssh-external/1.0-beta-6/wagon-ssh-external-1.0-beta-6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="3251974DA3988D1DB453954A66541AA11D2224B5509065C6FEC69912793707AB"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.wagon:wagon-ssh-common:1.0-beta-6;org.apache.maven.wagon:wagon-provider-api:1.0-beta-6;org.codehaus.plexus:plexus-utils:1.4.2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-ssh:1.0-beta-6"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-ssh:1.0-beta-6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="28322" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-ssh/1.0-beta-6/wagon-ssh-1.0-beta-6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="5465B4A6192D2F691B211F5BD17518E7949177EFF040EA709F3ACFCE79CE1454"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.wagon:wagon-provider-api:1.0-beta-6;org.apache.maven.wagon:wagon-ssh-common:1.0-beta-6;com.jcraft:jsch:0.1.38;org.codehaus.plexus:plexus-utils:1.4.2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-http-lightweight:1.0-beta-6"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-http-lightweight:1.0-beta-6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="14839" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http-lightweight/1.0-beta-6/wagon-http-lightweight-1.0-beta-6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="BE214032DE23C6B520B79C1CCDB160948E0C67ED7C11984B7EC4CA5537867B4E"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.wagon:wagon-http-shared:1.0-beta-6;org.apache.maven.wagon:wagon-provider-api:1.0-beta-6"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-provider-api:2.10"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-provider-api:2.10"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="53529" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/2.10/wagon-provider-api-2.10.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="930B2E409513BE03864D7A66E22DFDF5C086725E22BA3CF57AD45ED8AF02996D"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.plexus:plexus-utils:3.0.15"/>
+    </capability>
+  </resource>
+</repository>

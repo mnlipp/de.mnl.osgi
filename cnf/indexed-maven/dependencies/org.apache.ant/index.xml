@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961429">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.ant:ant-launcher:1.7.0"/>
+      <attribute name="from" value="org.apache.ant:ant-launcher:1.7.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="11734" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/ant/ant-launcher/1.7.0/ant-launcher-1.7.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="72B3D03E0D7D86A56513EC38DD4CD6ABE3DA6620189BE222AB255352CB6EBA4A"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.ant:ant:1.7.0"/>
+      <attribute name="from" value="org.apache.ant:ant:1.7.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1289806" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/ant/ant/1.7.0/ant-1.7.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="92F72307E7440F1E352C916F2438D2BBAB3FFD2CF730C71316117AD04ABADEA8"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.ant:ant-launcher:1.7.0"/>
+    </capability>
+  </resource>
+</repository>

@@ -1,71 +1,32 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1554647056318">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961402">
   <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-      <attribute name="osgi.identity" value="org.apache.commons.lang"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="2.6.0" type="Version"/>
-      <attribute name="documentation" value="http://commons.apache.org/lang/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.apache.commons.lang"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.apache.commons.lang"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.lang.enum"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.lang.enums"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.lang.builder"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.lang.time"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.lang.exception"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.lang.mutable"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.lang.text"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.lang.reflect"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.lang.math"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.lang"/>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="commons-lang:commons-lang:1.0"/>
+      <attribute name="from" value="commons-lang:commons-lang:1.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="284220" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
+      <attribute name="size" value="63861" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-lang/commons-lang/1.0/commons-lang-1.0.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="50F11B09F877C294D56F24463F47D28F929CF5044F648661C0F0CFBAE9A2F49C"/>
+      <attribute name="osgi.content" value="D327C033F798997B9AD85B33242E2E88B49BBB1369CFE23E10B2686BD4CF3218"/>
     </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="junit:junit:3.7"/>
+    </capability>
+  </resource>
+  <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="commons-lang:commons-lang:2.6"/>
-      <attribute name="from" value="commons-lang:commons-lang:2.6"/>
+      <attribute name="name" value="commons-lang:commons-lang:2.1"/>
+      <attribute name="from" value="commons-lang:commons-lang:2.1"/>
       <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="207723" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.1/commons-lang-2.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="2DED7343DC8E57DECD5E6302337139BE020FDD885A2935925E8D575975E480B9"/>
     </capability>
   </resource>
 </repository>

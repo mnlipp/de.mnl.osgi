@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895406">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="xerces:xercesImpl:2.4.0"/>
+      <attribute name="from" value="xerces:xercesImpl:2.4.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="895924" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/xerces/xercesImpl/2.4.0/xercesImpl-2.4.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="AB09D49C018AF488C6E33FE7C1235C61054F1D64EDEC194529FFE8B90040B4B5"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="xerces:xercesImpl:2.9.1"/>
+      <attribute name="from" value="xerces:xercesImpl:2.9.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1229125" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/xerces/xercesImpl/2.9.1/xercesImpl-2.9.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="6AE540A7C85C814AC64BEA48016B3A6F45C95D4765F547FCC0053DC36C94ED5C"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="xml-apis:xml-apis:1.3.04"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="xerces:xercesImpl:2.8.1"/>
+      <attribute name="from" value="xerces:xercesImpl:2.8.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1212965" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/xerces/xercesImpl/2.8.1/xercesImpl-2.8.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="F95F3AD141BDFF5A64962F6C26B4F18ECF0975CD3A68802712284B9E6DB37E1B"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="xml-apis:xml-apis:1.3.03"/>
+    </capability>
+  </resource>
+</repository>

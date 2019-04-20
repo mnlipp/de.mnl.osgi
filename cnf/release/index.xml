@@ -1,5 +1,952 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Release" increment="1554114542000">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Release" increment="1555763364000">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.gnu.org/licenses/gpl-3.0.txt"/>
+      <attribute name="osgi.identity" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.0.0.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.0.0.ga" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="de.mnl.osgi.bnd.repository"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.0.0.ga" type="Version"/>
+      <attribute name="osgi.wiring.host" value="de.mnl.osgi.bnd.repository"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.inject,javax.inject,org.apache.maven.artifact,org.apache.maven.artifact.handler,org.apache.maven.artifact.handler.manager,org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver,org.apache.maven.artifact.resolver.filter,org.apache.maven.execution,org.apache.maven.extension.internal,org.apache.maven.model,org.apache.maven.plugin,org.apache.maven.project,org.codehaus.plexus,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging,org.codehaus.plexus.util.dag,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.graph,org.eclipse.aether.repository"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact.handler,org.apache.maven.artifact.metadata,org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver.filter,org.apache.maven.artifact.versioning,org.codehaus.plexus.component.repository.exception"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.versioning,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.factory"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.handler"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact.handler,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.handler.manager"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.repository,org.apache.maven.artifact.versioning,org.apache.maven.repository.legacy.metadata"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.metadata"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.metadata,org.apache.maven.artifact.repository.layout,org.apache.maven.execution,org.apache.maven.project,org.apache.maven.repository,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.metadata,org.eclipse.aether.repository"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.metadata,org.apache.maven.artifact.repository,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository.layout"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.metadata,org.apache.maven.artifact.repository,org.apache.maven.repository.legacy.metadata,org.codehaus.plexus.util.xml.pull"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository.metadata"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact.repository.metadata,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository.metadata.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver.filter,org.apache.maven.artifact.versioning,org.apache.maven.settings,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.resolver"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.resolver.filter"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.versioning"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.repository,org.apache.maven.artifact.repository.layout,org.apache.maven.execution,org.apache.maven.model,org.apache.maven.settings,org.codehaus.plexus.component.annotations,org.eclipse.aether"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.bridge"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.building"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.apache.maven.extension.internal,org.apache.maven.model,org.codehaus.plexus,org.codehaus.plexus.classworlds.realm,org.codehaus.plexus.logging,org.eclipse.aether.artifact"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.classrealm"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.configuration"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.configuration,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.configuration.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.eventspy"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.eventspy,org.apache.maven.execution,org.codehaus.plexus.component.annotations,org.eclipse.aether"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.eventspy.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.exception"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.apache.maven.artifact.repository,org.apache.maven.bridge,org.apache.maven.eventspy.internal,org.apache.maven.lifecycle,org.apache.maven.model,org.apache.maven.monitor.event,org.apache.maven.plugin,org.apache.maven.plugin.descriptor,org.apache.maven.project,org.apache.maven.settings,org.apache.maven.toolchain.model,org.codehaus.plexus,org.codehaus.plexus.component.repository.exception,org.codehaus.plexus.util.dag,org.eclipse.aether,org.eclipse.aether.repository,org.eclipse.aether.transfer"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.execution"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.inject,org.apache.maven.execution,org.apache.maven.plugin"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.execution.scope"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.inject,javax.inject,org.apache.maven.execution,org.apache.maven.plugin,org.codehaus.plexus,org.codehaus.plexus.component.repository.exception"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.execution.scope.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.codehaus.plexus,org.codehaus.plexus.classworlds.realm,org.eclipse.sisu"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.extension.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.model.building,org.apache.maven.project,org.codehaus.plexus.component.annotations,org.codehaus.plexus.util.dag"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.graph"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.apache.maven.execution,org.eclipse.aether"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.internal.aether"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.lifecycle.internal,org.apache.maven.lifecycle.mapping,org.apache.maven.model,org.apache.maven.plugin,org.apache.maven.plugin.descriptor,org.apache.maven.plugin.prefix,org.apache.maven.plugin.version,org.apache.maven.project,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.apache.maven.artifact,org.apache.maven.artifact.factory,org.apache.maven.execution,org.apache.maven.lifecycle,org.apache.maven.model,org.apache.maven.plugin,org.apache.maven.plugin.descriptor,org.apache.maven.plugin.prefix,org.apache.maven.plugin.version,org.apache.maven.project,org.apache.maven.project.artifact,org.apache.maven.session.scope.internal,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging,org.codehaus.plexus.util.xml"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.execution,org.apache.maven.lifecycle,org.apache.maven.lifecycle.internal,org.apache.maven.plugin,org.apache.maven.plugin.prefix,org.apache.maven.plugin.version,org.apache.maven.project,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.internal.builder"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.lifecycle.internal,org.apache.maven.lifecycle.internal.builder,org.apache.maven.project,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.internal.builder.multithreaded"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.lifecycle.internal,org.apache.maven.lifecycle.internal.builder,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.internal.builder.singlethreaded"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.codehaus.plexus.util.xml"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.mapping"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.messages"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.building,org.apache.maven.model,org.apache.maven.model.composition,org.apache.maven.model.inheritance,org.apache.maven.model.interpolation,org.apache.maven.model.io,org.apache.maven.model.locator,org.apache.maven.model.management,org.apache.maven.model.normalization,org.apache.maven.model.path,org.apache.maven.model.plugin,org.apache.maven.model.profile,org.apache.maven.model.profile.activation,org.apache.maven.model.resolution,org.apache.maven.model.superpom,org.apache.maven.model.validation,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.building"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.composition"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.merge,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.inheritance"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.path,org.codehaus.plexus.component.annotations,org.codehaus.plexus.interpolation"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.interpolation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.codehaus.plexus.util.xml.pull"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.io.xpp3"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.locator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.merge,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.management"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.merge"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.merge,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.normalization"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.path"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.merge,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.plugin"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.merge,org.apache.maven.model.profile.activation,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.profile"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.path,org.apache.maven.model.profile,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.profile.activation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.resolution"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.superpom"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.validation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.monitor.event"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver,org.apache.maven.artifact.versioning,org.apache.maven.execution,org.apache.maven.model,org.apache.maven.plugin.descriptor,org.apache.maven.plugin.version,org.apache.maven.project,org.apache.maven.project.artifact,org.apache.maven.project.path,org.apache.maven.settings,org.codehaus.plexus,org.codehaus.plexus.classworlds.realm,org.codehaus.plexus.component.annotations,org.codehaus.plexus.component.composition,org.codehaus.plexus.component.configurator,org.codehaus.plexus.component.configurator.expression,org.codehaus.plexus.component.repository.exception,org.codehaus.plexus.configuration,org.codehaus.plexus.logging,org.codehaus.plexus.personality.plexus.lifecycle.phase,org.codehaus.plexus.util.xml,org.eclipse.aether,org.eclipse.aether.graph,org.eclipse.aether.repository"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver,org.apache.maven.artifact.versioning,org.apache.maven.execution,org.apache.maven.model,org.apache.maven.plugin,org.apache.maven.plugin.descriptor,org.apache.maven.plugin.version,org.apache.maven.project,org.apache.maven.project.artifact,org.apache.maven.settings,org.codehaus.plexus.component.annotations,org.codehaus.plexus.component.repository.exception,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.graph,org.eclipse.aether.repository"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.model,org.eclipse.aether,org.eclipse.aether.repository"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.prefix"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.plugin.prefix,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.prefix.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.model,org.eclipse.aether,org.eclipse.aether.repository"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.plugin.version,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.version.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.factory,org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver.filter,org.apache.maven.artifact.versioning,org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.resolution,org.apache.maven.plugin,org.apache.maven.plugin.version,org.apache.maven.project.artifact,org.codehaus.plexus.classworlds.realm,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging,org.codehaus.plexus.personality.plexus.lifecycle.phase,org.codehaus.plexus.util.dag,org.codehaus.plexus.util.xml,org.eclipse.aether,org.eclipse.aether.graph,org.eclipse.aether.impl,org.eclipse.aether.repository"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.project"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.factory,org.apache.maven.artifact.handler,org.apache.maven.artifact.metadata,org.apache.maven.artifact.repository,org.apache.maven.artifact.repository.metadata,org.apache.maven.artifact.resolver.filter,org.apache.maven.artifact.versioning,org.apache.maven.lifecycle,org.apache.maven.model,org.apache.maven.project,org.apache.maven.repository.legacy.metadata,org.codehaus.plexus.component.annotations,org.eclipse.aether,org.eclipse.aether.repository"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.project.artifact"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.project.path"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.properties.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.metadata,org.apache.maven.artifact.repository,org.apache.maven.artifact.repository.layout,org.apache.maven.artifact.resolver,org.apache.maven.model,org.apache.maven.settings,org.eclipse.aether"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.repository"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.repository,org.apache.maven.artifact.repository.metadata,org.apache.maven.artifact.resolver,org.apache.maven.artifact.versioning"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.repository.legacy.metadata"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.rtinfo"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.rtinfo,org.codehaus.plexus.component.annotations"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.rtinfo.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.inject,javax.inject,org.codehaus.plexus,org.codehaus.plexus.component.repository.exception"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.session.scope.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.model,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging,org.codehaus.plexus.util.xml.pull"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.settings"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.toolchain.model,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.apache.maven.building,org.apache.maven.toolchain.model"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.building"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.apache.maven.toolchain.model"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.toolchain,org.apache.maven.toolchain.model,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.java"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.toolchain.model"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.merge"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.model"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.toolchain.model,org.codehaus.plexus.util.xml.pull"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.model.io.xpp3"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.interpolation.fixed"/>
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.interpolation"/>
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.fixed"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.interpolation"/>
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.multi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.interpolation"/>
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.object"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.os"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.reflection"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.util.io,org.codehaus.plexus.util.xml"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.util.cli.shell"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.cli"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.cli.shell"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.dag"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.introspection"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.io"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.reflection"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.util.xml.pull"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.xml"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.xml.pull"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="aQute.bnd.version,aQute.maven.api,aQute.maven.provider,aQute.service.reporter,org.apache.maven.artifact.versioning,org.apache.maven.building,org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.resolution,org.osgi.resource,org.osgi.util.promise"/>
+      <attribute name="version" value="2.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.bnd.maven"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="aQute.bnd.osgi.repository,aQute.bnd.service,aQute.bnd.version,aQute.service.reporter,org.osgi.resource,org.osgi.service.repository"/>
+      <attribute name="bnd-plugins" value="true"/>
+      <attribute name="version" value="2.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.bnd.repository.maven.provider"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1498123" type="Long"/>
+      <attribute name="url" value="de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-2.0.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="76B7F553348C28FAFDBAFE4C2ED110F36D46A18AC353BF0A9495D2B6E06B93A2"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.build)(&amp;(version&gt;=3.1.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.http)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.osgi)(&amp;(version&gt;=4.2.0)(!(version&gt;=5.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.osgi.repository)(&amp;(version&gt;=1.7.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.osgi.resource)(&amp;(version&gt;=3.1.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.service)(&amp;(version&gt;=4.3.0)(!(version&gt;=5.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.util.repository)(&amp;(version&gt;=2.0.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.version)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.lib.converter))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.lib.io))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.lib.strings))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.libg.reporter.slf4j))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.maven.api)(&amp;(version&gt;=1.3.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.maven.provider)(&amp;(version&gt;=2.2.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.service.reporter)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.binder))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.util))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.bnd.maven))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.inject))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.namespace))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.parsers))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream.events))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform.dom))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform.stream))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.lang3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.factory)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.handler)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.handler.manager)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.metadata)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.repository)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.repository.layout)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.repository.metadata)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.repository.metadata.io)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.repository.metadata.io.xpp3))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.resolver)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.resolver.filter)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.versioning)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.bridge)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.building)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.classrealm)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.configuration)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.eventspy)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.eventspy.internal)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.execution)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.execution.scope)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.execution.scope.internal)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.extension.internal)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.graph)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.internal.aether)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.lifecycle)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.lifecycle.internal)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.lifecycle.internal.builder)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.lifecycle.mapping)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.building)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.composition)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.inheritance)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.interpolation)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.io)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.io.xpp3)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.locator)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.management)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.merge)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.normalization)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.path)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.plugin)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.profile)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.profile.activation)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.resolution)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.superpom)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.validation)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.monitor.event)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.monitor.logging))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.plugin)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.plugin.descriptor))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.plugin.lifecycle))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.plugin.logging))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.plugin.prefix)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.plugin.version)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.project)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.project.artifact)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.project.path)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.properties.internal)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.repository)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.repository.internal))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.repository.legacy.metadata)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.rtinfo)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.session.scope.internal)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.settings)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.settings.building))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.settings.crypto))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.settings.merge))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.shared.utils.logging))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.toolchain)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.toolchain.io)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.toolchain.merge)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.toolchain.model)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.toolchain.model.io.xpp3)(&amp;(version&gt;=3.6.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.classworlds))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.classworlds.realm))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.component.annotations))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.component.composition))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.component.configurator))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.component.configurator.converters.composite))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.component.configurator.converters.lookup))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.component.configurator.expression))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.component.repository))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.component.repository.exception))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.configuration))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.configuration.xml))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.interpolation)(&amp;(version&gt;=1.25.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.interpolation.fixed)(&amp;(version&gt;=1.25.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.interpolation.os)(&amp;(version&gt;=1.25.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.interpolation.reflection)(&amp;(version&gt;=1.25.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.interpolation.util)(&amp;(version&gt;=1.25.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.logging))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.personality.plexus.lifecycle.phase))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.cli.shell)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.dag)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.introspection)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.io)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.reflection)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.xml)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.xml.pull)(&amp;(version&gt;=3.2.0)(!(version&gt;=4.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.artifact))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.collection))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.graph))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.impl))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.metadata))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.repository))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.resolution))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.localrepo))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.transfer))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.artifact))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.filter))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.graph.manager))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.graph.selector))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.graph.transformer))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.graph.visitor))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.repository))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.version))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.version))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.sisu))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.resource)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.repository)(&amp;(version&gt;=1.1.0)(!(version&gt;=1.2.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.util.promise)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0"/>

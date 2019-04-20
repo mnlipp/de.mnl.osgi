@@ -1,36 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553806566860">
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="org.tukaani.xz"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="1.8.0" type="Version"/>
-      <attribute name="documentation" value="https://tukaani.org/xz/java.html"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.8.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.tukaani.xz"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.8.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.tukaani.xz"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.tukaani.xz"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="108555" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/tukaani/xz/1.8/xz-1.8.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="8C7964B36FE3F0CBE644B04FCBFF84E491CE81917DB2F5BFA0CBA8E9548AFF5D"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.tukaani:xz:1.8"/>
-      <attribute name="from" value="org.tukaani:xz:1.8"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-  </resource>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895372">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="org.tukaani.xz"/>
@@ -59,37 +28,6 @@
     <capability namespace="bnd.info">
       <attribute name="name" value="org.tukaani:xz:1.6"/>
       <attribute name="from" value="org.tukaani:xz:1.6"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="org.tukaani.xz"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="1.5.0" type="Version"/>
-      <attribute name="documentation" value="http://tukaani.org/xz/java.html"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.5.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.tukaani.xz"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.5.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.tukaani.xz"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.tukaani.xz"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="99555" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/tukaani/xz/1.5/xz-1.5.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="86F30FA8775FA3A62CDB39D1ED78A6019164C1058864048D42CBEE244E26E840"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.tukaani:xz:1.5"/>
-      <attribute name="from" value="org.tukaani:xz:1.5"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
   </resource>

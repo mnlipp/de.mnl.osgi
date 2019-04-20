@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961412">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.thoughtworks.qdox:qdox:1.12"/>
+      <attribute name="from" value="com.thoughtworks.qdox:qdox:1.12"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="179721" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/thoughtworks/qdox/qdox/1.12/qdox-1.12.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="F9D7AD96F70D69E9C06C10E515B878F33810F1AD677CCE9F6AE6772778D570AB"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.thoughtworks.qdox:qdox:1.6.3"/>
+      <attribute name="from" value="com.thoughtworks.qdox:qdox:1.6.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="104078" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/thoughtworks/qdox/qdox/1.6.3/qdox-1.6.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="937B7ED3BFA508BBA3EC112AF71F37F8A6A286ADEDD9B23C979CE85C0F5D4B53"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="jmock:jmock:1.0.0;ant:ant:1.5.1;junit:junit:3.8.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.thoughtworks.qdox:qdox:1.8"/>
+      <attribute name="from" value="com.thoughtworks.qdox:qdox:1.8"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="159240" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/thoughtworks/qdox/qdox/1.8/qdox-1.8.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="AD97987E1E50D24D9E20D3252D3281F5D33A671B80957E7DEF46F388C354014F"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="jmock:jmock:1.0.0;ant:ant:1.5.1;junit:junit:3.8.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.thoughtworks.qdox:qdox:1.9.1"/>
+      <attribute name="from" value="com.thoughtworks.qdox:qdox:1.9.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="167436" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/thoughtworks/qdox/qdox/1.9.1/qdox-1.9.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="10D94B57B364A13DC7EB6939B3B0D71295FDA7AA1B726819340D9AB9398240F7"/>
+    </capability>
+  </resource>
+</repository>

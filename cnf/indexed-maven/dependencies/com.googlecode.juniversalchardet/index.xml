@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895364">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.googlecode.juniversalchardet:juniversalchardet:1.0.3"/>
+      <attribute name="from" value="com.googlecode.juniversalchardet:juniversalchardet:1.0.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="220813" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/googlecode/juniversalchardet/juniversalchardet/1.0.3/juniversalchardet-1.0.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="757BFE906193B8B651E79DC26CD67D6B55D0770A2CDFB0381591504F779D4A76"/>
+    </capability>
+  </resource>
+</repository>

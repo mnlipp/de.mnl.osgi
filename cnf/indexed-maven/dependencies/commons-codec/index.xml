@@ -1,5 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1554647056329">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895374">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="commons-codec:commons-codec:1.3"/>
+      <attribute name="from" value="commons-codec:commons-codec:1.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="46725" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.3/commons-codec-1.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="1BAFD2ECE2E88DB4CDF835A7F8F0DE65FAB5B1147977A5DCC59B7C1B8C6F5080"/>
+    </capability>
+  </resource>
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
@@ -62,55 +75,16 @@
     </requirement>
   </resource>
   <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-      <attribute name="osgi.identity" value="org.apache.commons.codec"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="1.6.0" type="Version"/>
-      <attribute name="documentation" value="http://commons.apache.org/codec/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.apache.commons.codec"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.apache.commons.codec"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.codec"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.codec.net"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.codec.language.bm"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.codec.language"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.codec.digest"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.apache.commons.codec.binary"/>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="commons-codec:commons-codec:1.2"/>
+      <attribute name="from" value="commons-codec:commons-codec:1.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="232771" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.jar"/>
+      <attribute name="size" value="30085" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.2/commons-codec-1.2.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="54B34E941B8E1414BD3E40D736EFD3481772DC26DB3296F6AA45CEC9F6203D86"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="commons-codec:commons-codec:1.6"/>
-      <attribute name="from" value="commons-codec:commons-codec:1.6"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.content" value="9898A3B3857676128987B975D0B0F035BECF3DA5CF677266A34D6636F2B80542"/>
     </capability>
   </resource>
 </repository>

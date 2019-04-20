@@ -1,166 +1,29 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1554647056335">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961428">
   <resource>
-    <capability namespace="osgi.identity">
-      <directive name="singleton" value="true"/>
-      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-      <attribute name="osgi.identity" value="org.ops4j.pax.url.mvn"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="2.5.4" type="Version"/>
-      <attribute name="documentation" value="http://team.ops4j.org/wiki/display/paxurl"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <directive name="singleton" value="true"/>
-      <attribute name="bundle-version" value="2.5.4" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.ops4j.pax.url.mvn"/>
-    </capability>
-    <capability namespace="osgi.service">
-      <attribute name="url.handler.protocol" value="mvn"/>
-      <attribute name="objectClass" value="org.osgi.service.url.URLStreamHandlerService"/>
-    </capability>
-    <capability namespace="osgi.service">
-      <attribute name="objectClass" value="org.ops4j.pax.url.mvn.MavenResolver"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="2.5.4" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.ops4j.pax.url.mvn"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.5.4" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.ops4j.pax.url.mvn"/>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.ops4j.pax.url:pax-url-aether-support:2.5.4"/>
+      <attribute name="from" value="org.ops4j.pax.url:pax-url-aether-support:2.5.4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="3233598" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/ops4j/pax/url/pax-url-aether/2.5.4/pax-url-aether-2.5.4.jar"/>
+      <attribute name="size" value="5180" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/ops4j/pax/url/pax-url-aether-support/2.5.4/pax-url-aether-support-2.5.4.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="B3E1AD4E04040B0FDFED4C6E1B44BA895416E9675D59627BAC81065B4C5D8E6E"/>
+      <attribute name="osgi.content" value="2BC064363CB70CCE65A97AB35F9586A1F1702F9280207C87D7B36FBE124FB760"/>
     </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.eclipse.aether:aether-impl:1.0.2.v20150114"/>
+    </capability>
+  </resource>
+  <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.ops4j.pax.url:pax-url-aether:2.5.4"/>
+      <attribute name="name" value="org.ops4j.pax.url:pax-url-aether:bundle:2.5.4"/>
       <attribute name="from" value="org.ops4j.pax.url:pax-url-aether:2.5.4"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.apache.maven.wagon:wagon-provider-api:2.8;org.apache.maven:maven-aether-provider:3.2.1;org.apache.maven.wagon:wagon-file:2.8;org.ops4j.base:ops4j-base-lang:1.5.0;org.eclipse.aether:aether-connector-basic:1.0.2.v20150114;org.eclipse.aether:aether-spi:1.0.2.v20150114;org.ops4j.base:ops4j-base-io:1.5.0;org.eclipse.aether:aether-api:1.0.2.v20150114;org.apache.maven:maven-settings-builder:3.2.1;org.ops4j.pax.url:pax-url-aether-support:2.5.4;org.eclipse.aether:aether-util:1.0.2.v20150114;org.sonatype.plexus:plexus-sec-dispatcher:1.4;org.slf4j:jcl-over-slf4j:1.6.6;org.ops4j.base:ops4j-base-util-xml:1.5.0;org.ops4j.pax.url:pax-url-commons:2.5.4;org.sonatype.plexus:plexus-cipher:1.7;org.ops4j.base:ops4j-base-net:1.5.0;org.eclipse.aether:aether-impl:1.0.2.v20150114;org.apache.maven.wagon:wagon-http:2.8;org.ops4j.base:ops4j-base-util-property:1.5.0;org.eclipse.aether:aether-transport-wagon:1.0.2.v20150114"/>
+      <attribute name="compile" value="org.slf4j:jcl-over-slf4j:1.6.6;org.ops4j.pax.url:pax-url-aether-support:2.5.4"/>
     </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.net.ssl))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.parsers))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.5.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.cm)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.crypto))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.crypto.spec))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.naming))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.naming.directory))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.naming.ldap))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.net))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.security.auth.x500))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.ietf.jgss))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.url)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.spi)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.util.tracker)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-      <attribute name="osgi.identity" value="org.ops4j.pax.url.commons"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="2.5.4" type="Version"/>
-      <attribute name="documentation" value="http://team.ops4j.org/wiki/display/paxurl"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="2.5.4" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.ops4j.pax.url.commons"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="2.5.4" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.ops4j.pax.url.commons"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.ops4j.util.property,org.osgi.framework"/>
-      <attribute name="version" value="2.5.4" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.ops4j.pax.url.commons.handler"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="9284" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/ops4j/pax/url/pax-url-commons/2.5.4/pax-url-commons-2.5.4.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="061371B8CB000295787256C8F489C69A73273C52E4CFAC0569171DAC3EDC49AE"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.ops4j.pax.url:pax-url-commons:2.5.4"/>
-      <attribute name="from" value="org.ops4j.pax.url:pax-url-commons:2.5.4"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.ops4j.pax.swissbox:pax-swissbox-property:1.8.2;org.ops4j.base:ops4j-base-lang:1.5.0;org.slf4j:slf4j-api:1.6.6"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.cm)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.ops4j.lang)(&amp;(version&gt;=1.5.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.ops4j.pax.swissbox.property)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.ops4j.util.property)(&amp;(version&gt;=1.5.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.url)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
-    </requirement>
   </resource>
 </repository>

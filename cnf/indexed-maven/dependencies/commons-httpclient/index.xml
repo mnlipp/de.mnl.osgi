@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895461">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="commons-httpclient:commons-httpclient:3.0"/>
+      <attribute name="from" value="commons-httpclient:commons-httpclient:3.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="279383" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-httpclient/commons-httpclient/3.0/commons-httpclient-3.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="7AFD18F30E98C92BF873B64BAFEEA43B4ABDEABA62A4E50E1B6B2D00405EF7EF"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="junit:junit:3.8.1;commons-logging:commons-logging:1.0.3;commons-codec:commons-codec:1.2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="commons-httpclient:commons-httpclient:3.1"/>
+      <attribute name="from" value="commons-httpclient:commons-httpclient:3.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="305001" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="DBD4953D013E10E7C1CC3701A3E6CCD8C950C892F08D804FABFAC21705930443"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="commons-codec:commons-codec:1.2;commons-logging:commons-logging:1.0.4"/>
+    </capability>
+  </resource>
+</repository>

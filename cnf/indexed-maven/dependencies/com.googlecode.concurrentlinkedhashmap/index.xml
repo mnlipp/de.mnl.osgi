@@ -1,6 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553805246067">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961428">
   <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2"/>
+      <attribute name="from" value="com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="com.googlecode.concurrentlinkedhashmap.lru"/>
@@ -25,11 +30,7 @@
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="56A95FB5B54C661A7EFDE073B8792F63A8C317E389102673D8D976C7C8F36945"/>
     </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2"/>
-      <attribute name="from" value="com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
+    <capability namespace="maven.dependencies.info"/>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=sun.misc))"/>
       <directive name="resolution" value="optional"/>

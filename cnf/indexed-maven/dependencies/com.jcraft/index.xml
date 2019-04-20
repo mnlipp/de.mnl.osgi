@@ -1,245 +1,29 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553810692312">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961476">
   <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt"/>
-      <attribute name="osgi.identity" value="com.jcraft.jsch.agentproxy.sshagent"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="0.0.6" type="Version"/>
-      <attribute name="documentation" value="http://www.jcraft.com/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="com.jcraft.jsch.agentproxy.sshagent"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.host" value="com.jcraft.jsch.agentproxy.sshagent"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.jcraft.jsch.agentproxy"/>
-      <attribute name="version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.jcraft.jsch.agentproxy.connector"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="4170" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/jcraft/jsch.agentproxy.sshagent/0.0.6/jsch.agentproxy.sshagent-0.0.6.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="D3BE6C878AE391A6D70273044831F455CC9E1F6ADE0F535578868D874F15C3A7"/>
-    </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="com.jcraft:jsch.agentproxy.sshagent:0.0.6"/>
-      <attribute name="from" value="com.jcraft:jsch.agentproxy.sshagent:0.0.6"/>
+      <attribute name="name" value="com.jcraft:jsch:0.1.27"/>
+      <attribute name="from" value="com.jcraft:jsch:0.1.27"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="com.jcraft:jsch.agentproxy.core:0.0.6"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.jcraft.jsch.agentproxy)(&amp;(version&gt;=0.0.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt"/>
-      <attribute name="osgi.identity" value="com.jcraft.jsch.agentproxy.connector-factory"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="0.0.6" type="Version"/>
-      <attribute name="documentation" value="http://www.jcraft.com/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="com.jcraft.jsch.agentproxy.connector-factory"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.host" value="com.jcraft.jsch.agentproxy.connector-factory"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.jcraft.jsch.agentproxy.usocket,com.jcraft.jsch.agentproxy.connector"/>
-      <attribute name="version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.jcraft.jsch.agentproxy"/>
-    </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="12084" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/jcraft/jsch.agentproxy.connector-factory/0.0.6/jsch.agentproxy.connector-factory-0.0.6.jar"/>
+      <attribute name="size" value="122011" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/jcraft/jsch/0.1.27/jsch-0.1.27.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="42E02CD0D06DF309C241A30E1628152373C1F76588DB8A42ACBAF8C1CB6DDEAD"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="com.jcraft:jsch.agentproxy.connector-factory:0.0.6"/>
-      <attribute name="from" value="com.jcraft:jsch.agentproxy.connector-factory:0.0.6"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="com.jcraft:jsch.agentproxy.usocket-nc:0.0.6;com.jcraft:jsch.agentproxy.core:0.0.6;com.jcraft:jsch.agentproxy.sshagent:0.0.6;com.jcraft:jsch.agentproxy.usocket-jna:0.0.6;com.jcraft:jsch.agentproxy.pageant:0.0.6"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.jcraft.jsch.agentproxy.connector)(&amp;(version&gt;=0.0.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.jcraft.jsch.agentproxy.usocket)(&amp;(version&gt;=0.0.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt"/>
-      <attribute name="osgi.identity" value="com.jcraft.jsch.agentproxy.pageant"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="0.0.6" type="Version"/>
-      <attribute name="documentation" value="http://www.jcraft.com/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="com.jcraft.jsch.agentproxy.pageant"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.host" value="com.jcraft.jsch.agentproxy.pageant"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.sun.jna,com.sun.jna.win32,com.sun.jna.platform.win32,com.jcraft.jsch.agentproxy"/>
-      <attribute name="version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.jcraft.jsch.agentproxy.connector"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="7585" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/jcraft/jsch.agentproxy.pageant/0.0.6/jsch.agentproxy.pageant-0.0.6.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="84AEE69109D33678430BEBC4C4E7921990D4635785946E728E3DCF0A13A3F6EB"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="com.jcraft:jsch.agentproxy.pageant:0.0.6"/>
-      <attribute name="from" value="com.jcraft:jsch.agentproxy.pageant:0.0.6"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="com.jcraft:jsch.agentproxy.core:0.0.6;net.java.dev.jna:jna:3.4.0;net.java.dev.jna:platform:3.4.0"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.jcraft.jsch.agentproxy)(&amp;(version&gt;=0.0.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna.platform.win32))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna.win32))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt"/>
-      <attribute name="osgi.identity" value="com.jcraft.jsch.agentproxy.usocket-nc"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="0.0.6" type="Version"/>
-      <attribute name="documentation" value="http://www.jcraft.com/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="com.jcraft.jsch.agentproxy.usocket-nc"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.host" value="com.jcraft.jsch.agentproxy.usocket-nc"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.jcraft.jsch.agentproxy"/>
-      <attribute name="version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.jcraft.jsch.agentproxy.usocket"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="5326" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/jcraft/jsch.agentproxy.usocket-nc/0.0.6/jsch.agentproxy.usocket-nc-0.0.6.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="2D060002B53C6CD76C5755D1396CC73C1DE82F679502F375C6A3C5DC45B27AD2"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="com.jcraft:jsch.agentproxy.usocket-nc:0.0.6"/>
-      <attribute name="from" value="com.jcraft:jsch.agentproxy.usocket-nc:0.0.6"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="com.jcraft:jsch.agentproxy.core:0.0.6"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.jcraft.jsch.agentproxy)(&amp;(version&gt;=0.0.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt"/>
-      <attribute name="osgi.identity" value="com.jcraft.jsch.agentproxy.core"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="0.0.6" type="Version"/>
-      <attribute name="documentation" value="http://www.jcraft.com/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="com.jcraft.jsch.agentproxy.core"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.host" value="com.jcraft.jsch.agentproxy.core"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.jcraft.jsch.agentproxy"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="9591" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/jcraft/jsch.agentproxy.core/0.0.6/jsch.agentproxy.core-0.0.6.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="C7C2773D3BFC1E0EBD0BB01C208A659166F9904D413C9500925AFCA878C166E1"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="com.jcraft:jsch.agentproxy.core:0.0.6"/>
-      <attribute name="from" value="com.jcraft:jsch.agentproxy.core:0.0.6"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.content" value="C813B291CEFF6572EE3B75307F95BC95B11046AC8696D5CC0EC5A0309F635244"/>
     </capability>
   </resource>
   <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt"/>
-      <attribute name="osgi.identity" value="com.jcraft.jsch.agentproxy.usocket-jna"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="0.0.6" type="Version"/>
-      <attribute name="documentation" value="http://www.jcraft.com/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="com.jcraft.jsch.agentproxy.usocket-jna"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.host" value="com.jcraft.jsch.agentproxy.usocket-jna"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.sun.jna,com.jcraft.jsch.agentproxy"/>
-      <attribute name="version" value="0.0.6" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.jcraft.jsch.agentproxy.usocket"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="6468" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/jcraft/jsch.agentproxy.usocket-jna/0.0.6/jsch.agentproxy.usocket-jna-0.0.6.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="DB622183E3C024868D1E6C716F324EF0E6AE2AD537A9C43A9CE298C58DFB6D04"/>
-    </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="com.jcraft:jsch.agentproxy.usocket-jna:0.0.6"/>
-      <attribute name="from" value="com.jcraft:jsch.agentproxy.usocket-jna:0.0.6"/>
+      <attribute name="name" value="com.jcraft:jsch:0.1.38"/>
+      <attribute name="from" value="com.jcraft:jsch:0.1.38"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="com.jcraft:jsch.agentproxy.core:0.0.6;net.java.dev.jna:platform:3.4.0;net.java.dev.jna:jna:3.4.0"/>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="177748" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/jcraft/jsch/0.1.38/jsch-0.1.38.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="FA463BA278E26E4FE50CC4FAC9A4D3F0B75F89D0A1BC6A013B66BF8B2C9A3651"/>
     </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.jcraft.jsch.agentproxy)(&amp;(version&gt;=0.0.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jna))"/>
-    </requirement>
   </resource>
 </repository>
