@@ -403,7 +403,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             if (curState != null && curState != IndexingState.INDEXING) {
                 // Already handled (as dependency)
                 logIndexing(revision.unbound(), () -> String.format(
-                    "%s in list (already indexed as dependency).",
+                    "%s in list (already handled as dependency).",
                     revision.unbound()));
                 return;
             }
@@ -653,13 +653,16 @@ public class MavenGroupRepository extends ResourcesRepository {
             }
             try {
                 add(resource.asResource());
+                logIndexing(resource.revision(),
+                    () -> String.format("%s indexed.", resource.revision()));
             } catch (MavenResourceException e) {
                 reporter.exception(e, "Failed to get %s as resource.",
                     resource.toString());
+                logIndexing(resource.revision(),
+                    () -> String.format("%s could not be index: %s.",
+                        resource.revision(), e.getMessage()));
             }
             indexingState.put(resource.revision(), IndexingState.INDEXED);
-            logIndexing(resource.revision(),
-                () -> String.format("%s indexed.", resource.revision()));
         }
     }
 
