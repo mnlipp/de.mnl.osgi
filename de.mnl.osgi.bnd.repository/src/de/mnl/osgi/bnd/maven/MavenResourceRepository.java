@@ -256,11 +256,15 @@ public class MavenResourceRepository extends CompositeMavenRepository {
             "PMD.CyclomaticComplexity", "PMD.NcssCount" })
         private void createResource() throws MavenResourceException {
             Model model = model(revision);
-            Archive archive = revision.archive(model.getPackaging(), "");
+            String extension = model.getPackaging();
+            if (extension.equals("bundle")) {
+                extension = "jar";
+            }
+            Archive archive = revision.archive(extension, "");
             ResourceBuilder builder = new ResourceBuilder();
             addInformationCapability(builder, archive.toString(),
                 archive.getRevision().toString(), null);
-            if (model.getPackaging().equals("jar")) {
+            if (extension.equals("jar")) {
                 File binary;
                 try {
                     binary = get(archive);
