@@ -1,5 +1,75 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555702079344">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1561204960762">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.objectweb.asm"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.0.3" type="Version"/>
+      <attribute name="documentation" value="http://asm.objectweb.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.0.3" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.objectweb.asm"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.0.3" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.objectweb.asm"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="5.0.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objectweb.asm"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="5.0.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objectweb.asm.signature"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="53231" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/ow2/asm/asm/5.0.3/asm-5.0.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="71C4F78E437B8FDCD9CC0DFD2ABEA8C089EB677005A6A5CFF320206CC52B46CC"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.ow2.asm:asm:5.0.3"/>
+      <attribute name="from" value="org.ow2.asm:asm:5.0.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.objectweb.asm"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="4.2.0" type="Version"/>
+      <attribute name="documentation" value="http://asm.objectweb.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="4.2.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.objectweb.asm"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="4.2.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.objectweb.asm"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="4.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objectweb.asm"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="4.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objectweb.asm.signature"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="47895" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/ow2/asm/asm/4.2/asm-4.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="3C7E45FE303BD02193D951DF134255033B9D8147E77508D09703BAC245E6CD9B"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.ow2.asm:asm:4.2"/>
+      <attribute name="from" value="org.ow2.asm:asm:4.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="org.objectweb.asm.all"/>
@@ -170,76 +240,6 @@
   </resource>
   <resource>
     <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="org.objectweb.asm"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="5.0.3" type="Version"/>
-      <attribute name="documentation" value="http://asm.objectweb.org"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="5.0.3" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.objectweb.asm"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="5.0.3" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.objectweb.asm"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="5.0.3" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.objectweb.asm"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="5.0.3" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.objectweb.asm.signature"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="53231" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/ow2/asm/asm/5.0.3/asm-5.0.3.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="71C4F78E437B8FDCD9CC0DFD2ABEA8C089EB677005A6A5CFF320206CC52B46CC"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.ow2.asm:asm:5.0.3"/>
-      <attribute name="from" value="org.ow2.asm:asm:5.0.3"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="org.objectweb.asm"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="4.2.0" type="Version"/>
-      <attribute name="documentation" value="http://asm.objectweb.org"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="4.2.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.objectweb.asm"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="4.2.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.objectweb.asm"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="4.2.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.objectweb.asm"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="4.2.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.objectweb.asm.signature"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="47895" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/ow2/asm/asm/4.2/asm-4.2.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="3C7E45FE303BD02193D951DF134255033B9D8147E77508D09703BAC245E6CD9B"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.ow2.asm:asm:4.2"/>
-      <attribute name="from" value="org.ow2.asm:asm:4.2"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="org.objectweb.asm.all"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="4.0.0" type="Version"/>
@@ -375,6 +375,120 @@
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax.helpers))"/>
       <directive name="resolution" value="optional"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.ow2.asm:asm:7.1"/>
+      <attribute name="from" value="org.ow2.asm:asm:7.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.objectweb.asm"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="7.1.0" type="Version"/>
+      <attribute name="documentation" value="http://asm.ow2.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="7.1.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.objectweb.asm"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="7.1.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.objectweb.asm"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="7.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objectweb.asm"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="7.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objectweb.asm.signature"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="114762" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/ow2/asm/asm/7.1/asm-7.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="4AB2FA2B6D2CC9CCB1EAA05EA329C407B47B13ED2915F62F8C4B8CC96258D4DE"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.ow2.asm:asm-tree:7.1"/>
+      <attribute name="from" value="org.ow2.asm:asm-tree:7.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.objectweb.asm.tree"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="7.1.0" type="Version"/>
+      <attribute name="documentation" value="http://asm.ow2.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="7.1.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.objectweb.asm.tree"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="7.1.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.objectweb.asm.tree"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objectweb.asm"/>
+      <attribute name="version" value="7.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objectweb.asm.tree"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="50303" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/7.1/asm-tree-7.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="C0E82B220B0A52C71C7CA2A58C99A2530696C7B58B173052B9D48FE3EFB10073"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.ow2.asm:asm:7.1"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.objectweb.asm)(&amp;(version&gt;=7.1.0)(!(version&gt;=8.0.0))))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.ow2.asm:asm-analysis:7.1"/>
+      <attribute name="from" value="org.ow2.asm:asm-analysis:7.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.objectweb.asm.tree.analysis"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="7.1.0" type="Version"/>
+      <attribute name="documentation" value="http://asm.ow2.org"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="7.1.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.objectweb.asm.tree.analysis"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="7.1.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.objectweb.asm.tree.analysis"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objectweb.asm,org.objectweb.asm.tree"/>
+      <attribute name="version" value="7.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objectweb.asm.tree.analysis"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="33379" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/7.1/asm-analysis-7.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="4612C0511A63DB2A2570F07AD1959E19ED8EB703E4114DA945CB85682519A55C"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.ow2.asm:asm-tree:7.1"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.objectweb.asm)(&amp;(version&gt;=7.1.0)(!(version&gt;=8.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.objectweb.asm.tree)(&amp;(version&gt;=7.1.0)(!(version&gt;=8.0.0))))"/>
     </requirement>
   </resource>
 </repository>

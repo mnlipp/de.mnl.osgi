@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<repository increment="1555711738983" name="IndexedMaven" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1563896117096" name="IndexedMaven" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
 <referral url="dependencies/org.assertj/index.xml"/>
 <referral url="dependencies/cglib/index.xml"/>
 <referral url="dependencies/ch.qos.logback/index.xml"/>
@@ -13,16 +13,16 @@
 <referral url="dependencies/org.apache.maven.resolver/index.xml"/>
 <referral url="biz.aQute.bnd/index.xml"/>
 <referral url="dependencies/com.googlecode.juniversalchardet/index.xml"/>
-<referral url="dependencies/com.google.code.findbugs/index.xml"/>
 <referral url="dependencies/org.iq80.snappy/index.xml"/>
+<referral url="dependencies/com.google.code.findbugs/index.xml"/>
 <referral url="dependencies/aopalliance/index.xml"/>
 <referral url="org.mockito/index.xml"/>
 <referral url="dependencies/org.cometd.java/index.xml"/>
 <referral url="dependencies/com.google.errorprone/index.xml"/>
 <referral url="dependencies/org.sonatype.plexus/index.xml"/>
 <referral url="dependencies/org.apache.tomcat/index.xml"/>
-<referral url="org.osgi/index.xml"/>
 <referral url="dependencies/jtidy/index.xml"/>
+<referral url="org.osgi/index.xml"/>
 <referral url="dependencies/org.tukaani/index.xml"/>
 <referral url="dependencies/org.apache.velocity/index.xml"/>
 <referral url="org.objenesis/index.xml"/>
@@ -55,14 +55,14 @@
 <referral url="dependencies/org.apache.jackrabbit/index.xml"/>
 <referral url="dependencies/commons-logging/index.xml"/>
 <referral url="dependencies/org.codehaus.plexus/index.xml"/>
-<referral url="dependencies/org.apache.sling/index.xml"/>
 <referral url="dependencies/commons-collections/index.xml"/>
-<referral url="dependencies/org.fusesource.jansi/index.xml"/>
+<referral url="dependencies/org.apache.sling/index.xml"/>
 <referral url="net.bytebuddy/index.xml"/>
+<referral url="dependencies/net.java.dev.jna/index.xml"/>
 <referral url="dependencies/org.ops4j.pax.url/index.xml"/>
 <referral url="dependencies/org.easymock/index.xml"/>
-<referral url="dependencies/biz.aQute/index.xml"/>
 <referral url="dependencies/com.googlecode.concurrentlinkedhashmap/index.xml"/>
+<referral url="dependencies/biz.aQute/index.xml"/>
 <referral url="dependencies/commons-fileupload/index.xml"/>
 <referral url="dependencies/javax.inject/index.xml"/>
 <referral url="dependencies/org.apache.ant/index.xml"/>
@@ -91,7 +91,7 @@
 <referral url="dependencies/oro/index.xml"/>
 <referral url="dependencies/org.eclipse.jetty.websocket/index.xml"/>
 <referral url="dependencies/it.cnr.isti.domoware.cyberdomo/index.xml"/>
-<referral url="dependencies/jmock/index.xml"/>
 <referral url="dependencies/org.apache.maven.wagon/index.xml"/>
+<referral url="dependencies/jmock/index.xml"/>
 <referral url="dependencies/javax.jcr/index.xml"/>
 </repository>
