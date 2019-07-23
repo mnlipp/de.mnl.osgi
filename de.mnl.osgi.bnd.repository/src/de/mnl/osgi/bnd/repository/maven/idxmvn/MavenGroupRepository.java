@@ -109,7 +109,7 @@ public class MavenGroupRepository extends ResourcesRepository {
     @SuppressWarnings("PMD.FieldNamingConventions")
     private static final Pattern hrefPattern = Pattern.compile(
         "<[aA]\\s+(?:[^>]*?\\s+)?href=(?<quote>[\"'])"
-            + "(?<href>[a-zA-Z].*?)\\k<quote>");
+            + ":?(?<href>[a-zA-Z].*?)\\k<quote>");
 
     /**
      * Instantiates a new representation of group data backed
