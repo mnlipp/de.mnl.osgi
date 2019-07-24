@@ -257,7 +257,8 @@ public class MavenResourceRepository extends CompositeMavenRepository {
         private void createResource() throws MavenResourceException {
             Model model = model(revision);
             String extension = model.getPackaging();
-            if (extension.equals("bundle")) {
+            if (extension.equals("bundle")
+                || extension.equals("eclipse-plugin")) {
                 extension = "jar";
             }
             Archive archive = revision.archive(extension, "");
