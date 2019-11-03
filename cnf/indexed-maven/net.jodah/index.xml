@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553805246069">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1567513979139">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://apache.org/licenses/LICENSE-2.0"/>
@@ -47,5 +47,19 @@
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
     </requirement>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="net.jodah:concurrentunit:bundle:0.4.5"/>
+      <attribute name="from" value="net.jodah:concurrentunit:0.4.5"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="net.jodah:concurrentunit:bundle:0.4.6"/>
+      <attribute name="from" value="net.jodah:concurrentunit:0.4.6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
   </resource>
 </repository>

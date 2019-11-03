@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961419">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1572785220473">
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.apache.commons:commons-lang3:3.4"/>
@@ -77,6 +77,165 @@
     </capability>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.commons:commons-lang3:3.1"/>
+      <attribute name="from" value="org.apache.commons:commons-lang3:3.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.commons.lang3"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="documentation" value="http://commons.apache.org/lang/"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.event"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.mutable"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.tuple"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.time"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.concurrent"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.text.translate"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.text"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.math"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.exception"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.reflect"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.builder"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="315805" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="131F0519A8E4602E47CF024BFD7E0834BCF5592A7207F9A2FDB711D4F5AFC166"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.commons:commons-lang3:3.6"/>
+      <attribute name="from" value="org.apache.commons:commons-lang3:3.6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="https://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.commons.lang3"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="documentation" value="http://commons.apache.org/proper/commons-lang/"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.arch"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.builder"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.concurrent"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.event"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.exception"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.math"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.mutable"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.reflect"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.text"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.text.translate"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.time"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.tuple"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="494856" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="89C27F03FFF18D0B06E7AFD7EF25E209766DF95B6C1269D6C3EBBDEA48D5F284"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
     </requirement>
   </resource>
   <resource>

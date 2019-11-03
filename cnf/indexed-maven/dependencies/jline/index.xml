@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1572785219536">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="jline:jline:2.14.6"/>
+      <attribute name="from" value="jline:jline:2.14.6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.opensource.org/licenses/bsd-license.php"/>
+      <attribute name="osgi.identity" value="jline"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.14.6" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="jline"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.host" value="jline"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="jline.internal"/>
+      <attribute name="version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="jline"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="jline,jline.console.completer,jline.console.history"/>
+      <attribute name="version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="jline.console"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="jline.console"/>
+      <attribute name="version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="jline.console.completer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="jline.console.history"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="jline.console.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="jline.internal"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.12.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.fusesource.jansi"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="268780" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/jline/jline/2.14.6/jline-2.14.6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="97D1ACAAC82409BE42E622D7A54D3AE9D08517E8AEFDEA3D2BA9791150C2F02D"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>
+    </requirement>
+  </resource>
+</repository>

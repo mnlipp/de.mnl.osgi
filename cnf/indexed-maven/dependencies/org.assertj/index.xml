@@ -1,5 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553805246070">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1572785219493">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.assertj:assertj-core:bundle:3.12.1"/>
+      <attribute name="from" value="org.assertj:assertj-core:3.12.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>

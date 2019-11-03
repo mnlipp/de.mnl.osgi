@@ -1,7 +1,7 @@
 Bundle-Name: SL4J to OSGi Logging Forwarder
 # Choose either depending on whether we build a snapshot or a release:
-#Bundle-Version: 2.1.1.-${tstamp}-SNAPSHOT
-Bundle-Version: 2.1.4.ga
+Bundle-Version: 2.1.5.-${tstamp}-SNAPSHOT
+#Bundle-Version: 2.1.4.ga
 
 -buildpath: \
 	osgi.annotation;version=6.0.1,\
@@ -23,7 +23,7 @@ Fragment-Host: slf4j.api
 #Bundle-Activator: de.mnl.osgi.sl4j2osgi.Forwarder
 
 -baselinerepo: IndexedMaven
--baseline: *
+# -baseline: *
 
 -fixupmessages: \
 	"The .classpath contains an unknown container: GROOVY_DSL_SUPPORT. This could make your build less portable."
