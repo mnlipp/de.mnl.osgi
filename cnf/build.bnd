@@ -34,7 +34,7 @@ Git-SHA:                  ${system-allow-fail;git rev-list -1 HEAD}
 
 # JUnit
 junit: org.apache.servicemix.bundles.junit; version=4.12.0.1
-mockito: org.mockito.mockito-core; version=2.24.0
+mockito: org.mockito.mockito-core; version='[2.28.0,3.0)'
 mockito-deps: org.objenesis; version=2.6.0,\
   net.bytebuddy.byte-buddy; version=1.9.8,\
   net.bytebuddy.byte-buddy-agent; version=1.9.8 
