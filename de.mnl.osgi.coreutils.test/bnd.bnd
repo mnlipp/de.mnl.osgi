@@ -34,8 +34,7 @@ Export-Package: de.mnl.osgi.coreutils.test
 -runrequires: \
 	osgi.identity;filter:='(osgi.identity=de.mnl.osgi.jul2osgi)'
 
--runpath: de.mnl.osgi.jul2osgi.lib;version='latest', \
-	${workspace}/misc/jacocoagent.jar;version=file; \
+-runpath: ${workspace}/misc/jacocoagent.jar;version=file; \
 	    agent='destfile=${basedir}/bin/jacoco.exec,append=false,includes=de.mnl.osgi.*'
 -javaagent: true
 
