@@ -32,21 +32,44 @@
  * Replacing the {@code LogManager} has the advantage that
  * all interactions with JUL can be intercepted.
  * <P>
- * The library bundle must be put on the framework
- * classpath by the launcher (e.g. with the {@code -runpath} instruction 
- * when using
- * <a href="https://bnd.bndtools.org/instructions/runpath.html">bnd</a>), 
- * because the Java runtime accesses the {@code LogManager} early during
+ * The library bundle must be put on the JVM bootstrap classpath or the
+ * framework classpath by the launcher because the Java runtime accesses the 
+ * {@code LogManager} early during
  * application boot. The replacement {@code LogManager} is made known to JUL 
  * by invoking the JVM with the corresponding system property: "{@code java 
  * -Djava.util.logging.manager=de.mnl.osgi.jul2osgi.lib.LogManager ...}".
- * Usually, such system properties can be configured in the OSGi launcher
- * (e.g. {@code bnd}: {@code -runvm: ...}). Until the main bundle is started,
+ * Usually, such system properties can be configured in the OSGi launcher.
+ * Until the main bundle is started,
  * the {@code LogManager} records all JUL {@link java.util.logging.LogRecord}
  * in a buffer. The size of the buffer can be configured with the system 
  * property {@code de.mnl.osgi.jul2osgi.bufferSize}, which defaults to 100.
  * <P>
  * The main bundle is deployed as any other OSGi bundle
+ * 
+ * <h4>bnd launcher before 4.3.0</h4>
+ * 
+ * The library bundle can be put on the framework
+ * classpath with the {@code -runpath} instruction 
+ * (<a href="https://bnd.bndtools.org/instructions/runpath.html">bnd</a>), 
+ * the property is set with the {@code -runvm: ...} instruction. 
+ * <P>
+ * Example configuration:
+ * <pre> -runpath: de.mnl.osgi.jul2osgi.lib;version='latest'
+ * -runvm: -Djava.util.logging.manager=de.mnl.osgi.jul2osgi.lib.LogManager</pre>
+ * 
+ * <h4>bnd launcher starting with 4.3.0</h4>
+ * 
+ * With 4.3.0 the handling of the {@code -runpath} instruction 
+ * <a href="https://groups.google.com/forum/#!topic/bndtools-users/-GkCoepqbTk">has 
+ * changed</a>. The library must therefore be added to the bootstrap classpath.
+ * Because this does not add the exported packages to the system capabilities,
+ * this must be done explicitly.
+ * <P>
+ * Example configuration:
+ * <pre> -runvm: -Xbootclasspath/a:${repo;de.mnl.osgi.jul2osgi.lib;latest}, \
+ *   -Djava.util.logging.manager=de.mnl.osgi.jul2osgi.lib.LogManager
+ * -runsystempackages: \
+ *   de.mnl.osgi.jul2osgi.lib; version=1.4.2</pre>
  * 
  * <h3>Forwarding functionality</h3>
  * 
