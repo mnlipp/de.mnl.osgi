@@ -21,7 +21,7 @@ of service tracker that works around the problem outlined
 | [de.mnl.osgi.lf4osgi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.lf4osgi/javadoc/de/mnl/osgi/lf4osgi/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.lf4osgi.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.lf4osgi%22) | 
 | [de.mnl.osgi.slf4j2osgi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.slf4j2osgi/javadoc/org/slf4j/impl/package-summary.html) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.slf4j2osgi.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.slf4j2osgi%22) | 
 | [de.mnl.osgi.log4j2osgi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.log4j2osgi/javadoc/de/mnl/osgi/log4j2osgi/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.log4j2osgi.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.log4j2osgi%22) | 
-| [de.mnl.osgi.jul2osgi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description)     | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.jul2osgi.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi%22) |
+| [de.mnl.osgi.jul2osgi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc-latest/de/mnl/osgi/jul2osgi/package-summary.html#package.description)     | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.jul2osgi.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi%22) |
 | [de.mnl.osgi.jul2osgi.lib](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.jul2osgi.lib.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi.lib%22) | 
 | [de.mnl.osgi.osgi2jul](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.osgi2jul/javadoc/de/mnl/osgi/osgi2jul/package-summary.html#package.description) | [![Maven Central](https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.osgi2jul.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.osgi2jul%22) | 
 
@@ -56,7 +56,7 @@ in the Apache Felix Web Console).
    Not sure if this is a facade or a bridge. Anyway, forwards calls to the log4j 2 API
    to OSGi logging. Built on LF4OSGi's core classes.
    
- * [JUL to OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc/de/mnl/osgi/jul2osgi/package-summary.html#package.description):
+ * [JUL to OSGi](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.jul2osgi/javadoc-latest/de/mnl/osgi/jul2osgi/package-summary.html#package.description):
    forwards all logging events from java.util.logging to the OSGi log service.
    
  * [OSGi to JUL](https://mnlipp.github.io/de.mnl.osgi/de.mnl.osgi.osgi2jul/javadoc/):
