@@ -58,7 +58,7 @@ Export-Package: \
 	${mockito},\
 	${mockito-deps},\
 	org.apache.felix.log;version='[1.2.0,1.2.1)',\
-	slf4j.api;version=1.7.0,\
+	slf4j.api;version='[1.7.0,1.7.1)',\
 	de.mnl.osgi.coreutils;version=snapshot,\
 	de.mnl.osgi.lf4osgi;version=snapshot,\
 	de.mnl.osgi.slf4j2osgi;version=snapshot,\
