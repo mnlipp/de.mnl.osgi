@@ -63,7 +63,7 @@ in the Apache Felix Web Console).
    invokes JUL compliant handlers for the messages logged with the OSGi log 
    service.
 
-# Indexed Maven Repository Plugin
+# Indexed Maven Repository Plugin for bnd
 
 The Indexed Maven Repository Plugin maintains an index of a subset 
 of one or more maven repositories and provides the information
