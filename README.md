@@ -4,7 +4,7 @@
 
 A collection of miscellaneous OSGi bundles and components.
 
-# Core Utils
+# OSGi Core Utils
 
 | Bundle                   | Maven |
 | ------------------------ | ------- |
@@ -14,7 +14,7 @@ A small bundle with utilities/helpers. Currently, it provides a new kind
 of service tracker that works around the problem outlined 
 [here](https://mnlipp.github.io/osgi-getting-started/TrackingAService.html).
 
-# Logging Bridges/Facades
+# OSGi Logging Bridges/Facades
 
 | Bundle                   | Maven |
 | ------------------------ | ------- |
@@ -63,7 +63,7 @@ in the Apache Felix Web Console).
    invokes JUL compliant handlers for the messages logged with the OSGi log 
    service.
 
-# Indexed Maven Repository Plugin
+# Indexed Maven Repository Plugin for bnd
 
 The Indexed Maven Repository Plugin maintains an index of a subset 
 of one or more maven repositories and provides the information
