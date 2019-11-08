@@ -1,7 +1,8 @@
 Bundle-Name: Log4j to OSGi Logging Forwarder
 # Choose either depending on whether we build a snapshot or a release:
-Bundle-Version: 1.0.4.-${tstamp}-SNAPSHOT
-#Bundle-Version: 1.0.3.ga
+#Bundle-Version: 1.1.0.-${tstamp}-SNAPSHOT
+Bundle-Version: 1.1.0.ga
+Bundle-Activator: de.mnl.osgi.log4j2osgi.Activator
 
 -buildpath: \
 	osgi.annotation;version=6.0.1,\
@@ -9,20 +10,16 @@ Bundle-Version: 1.0.4.-${tstamp}-SNAPSHOT
 	org.osgi.service.log;version='[1.4,2)',\
 	de.mnl.osgi.coreutils;version=latest,\
 	de.mnl.osgi.lf4osgi;version=latest,\
-	org.apache.logging.log4j.api;version=2.11
+	org.apache.logging.log4j.api;version='[2.9.0,2.9.1)'
 
 -testpath: \
 	${junit}
-
--includeresource: resources
 
 javac.source: 1.8
 javac.target: 1.8
 
 Export-Package: \
 	de.mnl.osgi.log4j2osgi
-	
-Fragment-Host: org.apache.logging.log4j.api
 
 -baselinerepo: IndexedMaven
 -baseline: *

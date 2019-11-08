@@ -24,5 +24,8 @@
  * can use the log4j {@code LogManager} as you're used to. As this
  * implementation shares everything "behind the facade" with LFOSGi,
  * it also shares its configuration options.
+ * 
+ * Starting with version 1.1.0, the log4j provider is registered as
+ * service and found and added by the log4j utility class for OSGi.
  */
 package de.mnl.osgi.log4j2osgi;
