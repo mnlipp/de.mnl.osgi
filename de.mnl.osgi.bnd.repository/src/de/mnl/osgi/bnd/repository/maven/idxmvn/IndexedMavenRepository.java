@@ -244,9 +244,12 @@ public class IndexedMavenRepository extends ResourcesRepository {
             reporter.warning("Repository is already refreshing.");
             return false;
         }
+        String threadName = Thread.currentThread().getName();
         try {
+            Thread.currentThread().setName("IndexedMaven Refresher");
             return doRefresh();
         } finally {
+            Thread.currentThread().setName(threadName);
             refreshing.set(false);
         }
     }
@@ -264,16 +267,23 @@ public class IndexedMavenRepository extends ResourcesRepository {
             .allOf(scanRequested(backupGroups), scanDependencies(backupGroups))
             .get();
         // Refresh them all.
-        CompletableFuture.allOf(new ArrayList<>(groups.values()).stream()
-            .map(repo -> CompletableFuture.runAsync(() -> {
-                try {
-                    LOG.debug("Reloading %s...", repo.id());
-                    repo.reload();
-                } catch (IOException e) {
-                    throw new CompletionException(e);
-                }
-            }, groupLoaders))
-            .toArray(CompletableFuture[]::new)).get();
+        CompletableFuture<?>[] repoLoaders
+            = new ArrayList<>(groups.values()).stream()
+                .map(repo -> CompletableFuture.runAsync(() -> {
+                    String threadName = Thread.currentThread().getName();
+                    try {
+                        Thread.currentThread()
+                            .setName("RepoLoader " + repo.id());
+                        LOG.debug("Reloading %s...", repo.id());
+                        repo.reload();
+                    } catch (IOException e) {
+                        throw new CompletionException(e);
+                    } finally {
+                        Thread.currentThread().setName(threadName);
+                    }
+                }, groupLoaders))
+                .toArray(CompletableFuture[]::new);
+        CompletableFuture.allOf(repoLoaders).get();
         // Remove no longer required group repositories.
         for (Iterator<Map.Entry<String, MavenGroupRepository>> iter
             = groups.entrySet().iterator(); iter.hasNext();) {
