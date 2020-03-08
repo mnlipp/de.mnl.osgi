@@ -1,6 +1,6 @@
 # Choose either depending on whether we build a snapshot or a release:
-bundleVersionQualifier: -${tstamp}-SNAPSHOT
-#bundleVersionQualifier: ga
+#bundleVersionQualifier: -${tstamp}-SNAPSHOT
+bundleVersionQualifier: ga
 
 Bundle-Name: Bnd Nexus Search Plugin
 Bundle-Category: util
@@ -40,3 +40,7 @@ testbin=bin/test
 	org.apache.maven.artifact.versioning,\
 	de.mnl.osgi.bnd.repository.maven.nexussearch,\
 	de.mnl.osgi.bnd.repository.maven.idxmvn
+
+javac.source: 1.8
+javac.target: 1.8
+	
