@@ -1,5 +1,66 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895363">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1583673816970">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.resolver:maven-resolver-api:1.1.1"/>
+      <attribute name="from" value="org.apache.maven.resolver:maven-resolver-api:1.1.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="146201" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/resolver/maven-resolver-api/1.1.1/maven-resolver-api-1.1.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="A4CE03467F0C47615C53533AD1682FE00B8170F760E7ED0C57F5AFC3035FE38B"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.resolver:maven-resolver-spi:1.1.1"/>
+      <attribute name="from" value="org.apache.maven.resolver:maven-resolver-spi:1.1.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="35811" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/resolver/maven-resolver-spi/1.1.1/maven-resolver-spi-1.1.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="8B686318F0675719AFD6A97D6856D498EA554BD7DA6522B6798D94D235E74C16"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.resolver:maven-resolver-api:1.1.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.resolver:maven-resolver-util:1.1.1"/>
+      <attribute name="from" value="org.apache.maven.resolver:maven-resolver-util:1.1.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="158902" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/resolver/maven-resolver-util/1.1.1/maven-resolver-util-1.1.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="040E6BB13A34BC3FD721E9256784E996D2700A518476C6F9801C112699320208"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.resolver:maven-resolver-api:1.1.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.resolver:maven-resolver-impl:1.1.1"/>
+      <attribute name="from" value="org.apache.maven.resolver:maven-resolver-impl:1.1.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="184592" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/resolver/maven-resolver-impl/1.1.1/maven-resolver-impl-1.1.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="6C8ADFB6415B46E31F399132E5D8D0FAEE3443B7493BA709746CE2614D2ACF97"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.maven.resolver:maven-resolver-api:1.1.1;org.apache.maven.resolver:maven-resolver-spi:1.1.1;org.apache.maven.resolver:maven-resolver-util:1.1.1"/>
+    </capability>
+  </resource>
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.apache.maven.resolver:maven-resolver-api:1.0.3"/>

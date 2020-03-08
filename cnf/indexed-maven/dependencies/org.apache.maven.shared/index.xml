@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961476">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1583673817117">
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.maven.shared:maven-shared-utils:3.1.0"/>
-      <attribute name="from" value="org.apache.maven.shared:maven-shared-utils:3.1.0"/>
+      <attribute name="name" value="org.apache.maven.shared:maven-shared-utils:3.2.1"/>
+      <attribute name="from" value="org.apache.maven.shared:maven-shared-utils:3.2.1"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="163692" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-utils/3.1.0/maven-shared-utils-3.1.0.jar"/>
+      <attribute name="size" value="166562" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-utils/3.2.1/maven-shared-utils-3.2.1.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="88E5334C4C29A6E81C74A1D814C54A9A3B1E4FC6560A95DA196FE16928095471"/>
+      <attribute name="osgi.content" value="3BA9C619893C767DB0F9C3E826D5118B57C35229301BCD16D865A89CEC16A7E5"/>
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="commons-io:commons-io:2.5"/>
@@ -46,6 +46,22 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.sonatype.plexus:plexus-build-api:0.0.7;org.codehaus.plexus:plexus-interpolation:1.22;org.apache.maven.shared:maven-shared-utils:3.0.0;org.apache.maven:maven-core:3.0;org.codehaus.plexus:plexus-utils:3.0.24"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.shared:maven-shared-utils:3.1.0"/>
+      <attribute name="from" value="org.apache.maven.shared:maven-shared-utils:3.1.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="163692" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-utils/3.1.0/maven-shared-utils-3.1.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="88E5334C4C29A6E81C74A1D814C54A9A3B1E4FC6560A95DA196FE16928095471"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="commons-io:commons-io:2.5"/>
     </capability>
   </resource>
   <resource>

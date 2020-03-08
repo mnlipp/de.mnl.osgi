@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1553810692301">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1583673816969">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
@@ -190,6 +190,16 @@
     <capability namespace="bnd.info">
       <attribute name="name" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.12_1"/>
       <attribute name="from" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.12_1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:bundle:4.13_1"/>
+      <attribute name="from" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.13_1"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">

@@ -1,5 +1,36 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1567687964709">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1583673816970">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.google.code.findbugs:findbugs-annotations:3.0.1"/>
+      <attribute name="from" value="com.google.code.findbugs:findbugs-annotations:3.0.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.gnu.org/licenses/lgpl.html"/>
+      <attribute name="osgi.identity" value="edu.umd.cs.findbugs.annotations"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.0.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.0.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="edu.umd.cs.findbugs.annotations"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.0.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="edu.umd.cs.findbugs.annotations"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="edu.umd.cs.findbugs.annotations"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="17871" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/code/findbugs/findbugs-annotations/3.0.1/findbugs-annotations-3.0.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="8DE57CEC5C240788A4D5301F67D51921D584FB25BFF3899695A53E7E46205A71"/>
+    </capability>
+  </resource>
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="com.google.code.findbugs:jsr305:3.0.0"/>
