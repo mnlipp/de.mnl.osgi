@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1583673817108">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.xbean:xbean-reflect:bundle:3.7"/>
+      <attribute name="from" value="org.apache.xbean:xbean-reflect:3.7"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+</repository>
