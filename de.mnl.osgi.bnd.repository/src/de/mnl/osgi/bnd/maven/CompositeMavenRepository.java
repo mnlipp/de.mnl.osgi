@@ -309,7 +309,8 @@ public class CompositeMavenRepository implements Closeable {
             // Should be the only reason.
             throw e;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(
+                "Cannot evaluate revisions for " + program + " from " + mbr, e);
         }
         return result;
     }
