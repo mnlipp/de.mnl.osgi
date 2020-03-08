@@ -337,12 +337,12 @@ public class MavenGroupRepository extends ResourcesRepository {
             propQueryCache.clear();
         }
         try {
-            CompletableFuture<Void> actions
-                = CompletableFuture.allOf(findArtifactIds().stream().map(
-                    artifactId -> loadProgram(Program.valueOf(groupId,
-                        artifactId)))
-                    .toArray(CompletableFuture[]::new));
-            actions.get();
+            CompletableFuture<?>[] artifactLoaders = findArtifactIds()
+                .stream().map(
+                    artifactId -> loadProgram(
+                        Program.valueOf(groupId, artifactId)))
+                .toArray(CompletableFuture[]::new);
+            CompletableFuture.allOf(artifactLoaders).get();
         } catch (ExecutionException e) {
             if (e.getCause() instanceof IOException) {
                 throw (IOException) e.getCause();
@@ -357,25 +357,26 @@ public class MavenGroupRepository extends ResourcesRepository {
         // Get revisions of program and process.
         CompletableFuture<Void> result = new CompletableFuture<>();
         IndexedMavenRepository.programLoaders.submit(() -> {
-            Stream<CompletableFuture<Void>> revLoaderStream;
+            String threadName = Thread.currentThread().getName();
             try {
+                Stream<CompletableFuture<Void>> revLoaderStream;
+                Thread.currentThread().setName("RevisionQuerier " + program);
                 LOG.debug("Getting list of revisions of {}.", program);
                 revLoaderStream = indexedRepository.mavenRepository()
                     .findRevisions(program)
                     .map(revision -> loadRevision(revision));
-            } catch (IOException e) {
-                reporter.exception(e,
+                revLoaderStream.forEach(
+                    revLoad -> unthrow(() -> revLoad.handle((res, thrw) -> {
+                        return null;
+                    }).get()));
+            } catch (Throwable t) {
+                reporter.exception(t,
                     "Failed to get list of revisions of %s: %s", program,
-                    e.getMessage());
+                    t.getMessage());
+            } finally {
+                Thread.currentThread().setName(threadName);
                 result.complete(null);
-                return;
             }
-            // Ignore exceptions from loadRevision, there won't be any.
-            revLoaderStream.forEach(
-                revLoad -> unthrow(() -> revLoad.handle((res, thrw) -> {
-                    return null;
-                }).get()));
-            result.complete(null);
         });
         return result;
     }
@@ -411,7 +412,10 @@ public class MavenGroupRepository extends ResourcesRepository {
             logIndexing(revision.unbound(),
                 () -> String.format("%s in list, indexing...",
                     revision.unbound()));
+            String threadName = Thread.currentThread().getName();
             try {
+                Thread.currentThread()
+                    .setName("RevisionLoader " + revision.unbound());
                 MavenResource resource = indexedRepository.mavenRepository()
                     .resource(revision, BinaryLocation.REMOTE);
                 Set<MavenResource> allDeps = new HashSet<>();
@@ -426,6 +430,8 @@ public class MavenGroupRepository extends ResourcesRepository {
                 logIndexing(revision.unbound(), () -> String.format(
                     "%s failed to load: %s.", revision.unbound(),
                     e.getMessage()));
+            } finally {
+                Thread.currentThread().setName(threadName);
             }
         }, IndexedMavenRepository.revisionLoaders);
     }
