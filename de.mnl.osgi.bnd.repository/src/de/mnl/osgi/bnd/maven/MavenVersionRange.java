@@ -20,7 +20,6 @@ package de.mnl.osgi.bnd.maven;
 
 import java.util.Comparator;
 import java.util.List;
-
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException;

@@ -19,9 +19,7 @@
 package de.mnl.osgi.bnd.maven;
 
 import aQute.maven.api.Revision;
-
 import java.util.List;
-
 import org.apache.maven.model.Dependency;
 import org.osgi.resource.Capability;
 import org.osgi.resource.Requirement;

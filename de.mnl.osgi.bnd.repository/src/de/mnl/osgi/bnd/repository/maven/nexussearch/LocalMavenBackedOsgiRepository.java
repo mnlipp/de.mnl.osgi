@@ -35,9 +35,7 @@ import aQute.maven.provider.MavenBackingRepository;
 import aQute.maven.provider.MavenRepository;
 import aQute.maven.provider.MetadataParser;
 import aQute.maven.provider.MetadataParser.RevisionMetadata;
-
 import java.io.File;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -49,7 +47,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.osgi.resource.Resource;
 import org.osgi.service.repository.Repository;

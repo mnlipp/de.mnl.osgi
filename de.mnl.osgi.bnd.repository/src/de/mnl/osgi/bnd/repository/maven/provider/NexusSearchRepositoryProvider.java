@@ -37,7 +37,6 @@ import aQute.maven.api.Archive;
 import aQute.service.reporter.Reporter;
 import de.mnl.osgi.bnd.repository.maven.nexussearch.NexusSearchConfiguration;
 import de.mnl.osgi.bnd.repository.maven.nexussearch.NexusSearchOsgiRepository;
-
 import java.io.File;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -46,7 +45,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
-
 import org.osgi.resource.Capability;
 import org.osgi.resource.Requirement;
 import org.osgi.service.repository.Repository;
@@ -56,147 +54,155 @@ import org.osgi.util.promise.Promise;
  * Provide a {@link NexusSearchOsgiRepository} as a bnd repository. The interesting
  * work is done by the {@link NexusSearchOsgiRepository}.
  */
-public class NexusSearchRepositoryProvider extends BaseRepository 
-	implements Repository, Plugin, RegistryPlugin, RepositoryPlugin, Refreshable {
+public class NexusSearchRepositoryProvider extends BaseRepository
+        implements Repository, Plugin, RegistryPlugin, RepositoryPlugin,
+        Refreshable {
 //	private final static Logger logger = LoggerFactory.getLogger(
 //			NexusSearchRepositoryProvider.class);
-	private static final String MAVEN_REPO_LOCAL
-		= System.getProperty("maven.repo.local", "~/.m2/repository");
+    private static final String MAVEN_REPO_LOCAL
+        = System.getProperty("maven.repo.local", "~/.m2/repository");
 
-	private boolean initialized = false;
-	private File localRepo;
-	private NexusSearchConfiguration configuration;
-	private String name = "OssSonatype";
-	private Registry registry = null;
-	private Reporter reporter;
-	private NexusSearchOsgiRepository osgiRepository = null;
-	private URL server = null;
-	private BridgeRepository bridge;
-	
-	@Override
-	public void setProperties(Map<String, String> properties) throws Exception {
-		configuration = Converter.cnv(NexusSearchConfiguration.class, properties);
-		name = configuration.name("OssSonatype");
-		server = new URL(configuration.server() != null 
-				? configuration.server() : "https://oss.sonatype.org");
-	}
+    private boolean initialized = false;
+    private File localRepo;
+    private NexusSearchConfiguration configuration;
+    private String name = "OssSonatype";
+    private Registry registry = null;
+    private Reporter reporter;
+    private NexusSearchOsgiRepository osgiRepository = null;
+    private URL server = null;
+    private BridgeRepository bridge;
 
-	@Override
-	public void setRegistry(Registry registry) {
-		this.registry = registry;
-	}
+    @Override
+    public void setProperties(Map<String, String> properties) throws Exception {
+        configuration
+            = Converter.cnv(NexusSearchConfiguration.class, properties);
+        name = configuration.name("OssSonatype");
+        server = new URL(configuration.server() != null
+            ? configuration.server()
+            : "https://oss.sonatype.org");
+    }
 
-	@Override
-	public void setReporter(Reporter reporter) {
-		this.reporter = reporter;
-	}
+    @Override
+    public void setRegistry(Registry registry) {
+        this.registry = registry;
+    }
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    @Override
+    public void setReporter(Reporter reporter) {
+        this.reporter = reporter;
+    }
 
-	@Override
-	public PutResult put(InputStream stream, PutOptions options) throws Exception {
-		throw new IllegalStateException("Read-only repository");
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public boolean canWrite() {
-		return false;
-	}
+    @Override
+    public PutResult put(InputStream stream, PutOptions options)
+            throws Exception {
+        throw new IllegalStateException("Read-only repository");
+    }
 
-	/**
-	 * Performs initialization. Initialization must be delayed because the
-	 * precise sequence of injecting dependencies seems to be undefined.
-	 * @throws MalformedURLException 
-	 */
-	private synchronized void init() {
-		if (initialized) {
-			return;
-		}
-		initialized = true;
-		String queryString = configuration.query();
-		Workspace workspace = registry.getPlugin(Workspace.class);
-		HttpClient client = registry.getPlugin(HttpClient.class);
-		File obrIndexFile = workspace.getFile(getLocation());
-		File mvnReposFile = workspace.getFile(
-				"cnf/cache/nexus-search-" + name + "-repositories.xml");
-		localRepo = IO.getFile(configuration.local(MAVEN_REPO_LOCAL));
-		try {
-			osgiRepository = new NexusSearchOsgiRepository(
-					name, server, localRepo, obrIndexFile, mvnReposFile, 
-					queryString, configuration.searchBreadth(3),
-					configuration.chunkSize(500), reporter, client);
-			bridge = new BridgeRepository(osgiRepository);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
-	@Override
-	public File getRoot() throws Exception {
-		return localRepo;
-	}
+    @Override
+    public boolean canWrite() {
+        return false;
+    }
 
-	@Override
-	public boolean refresh() throws Exception {
-		init();
-		if (!osgiRepository.refresh()) {
-			return false;
-		}
-		bridge = new BridgeRepository(osgiRepository);
-		for (RepositoryListenerPlugin listener : registry.getPlugins(RepositoryListenerPlugin.class)) {
-			try {
-				listener.repositoryRefreshed(this);
-			} catch (Exception e) {
-				reporter.exception(e, "Updating listener plugin %s", listener);
-			}
-		}
-		return true;
-	}
+    /**
+     * Performs initialization. Initialization must be delayed because the
+     * precise sequence of injecting dependencies seems to be undefined.
+     * @throws MalformedURLException 
+     */
+    private synchronized void init() {
+        if (initialized) {
+            return;
+        }
+        initialized = true;
+        String queryString = configuration.query();
+        Workspace workspace = registry.getPlugin(Workspace.class);
+        HttpClient client = registry.getPlugin(HttpClient.class);
+        File obrIndexFile = workspace.getFile(getLocation());
+        File mvnReposFile = workspace.getFile(
+            "cnf/cache/nexus-search-" + name + "-repositories.xml");
+        localRepo = IO.getFile(configuration.local(MAVEN_REPO_LOCAL));
+        try {
+            osgiRepository = new NexusSearchOsgiRepository(
+                name, server, localRepo, obrIndexFile, mvnReposFile,
+                queryString, configuration.searchBreadth(3),
+                configuration.chunkSize(500), reporter, client);
+            bridge = new BridgeRepository(osgiRepository);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	@Override
-	public File get(String bsn, Version version, Map<String, String> properties, 
-			DownloadListener... listeners) throws Exception {
-		init();
-		ResourceInfo resource = bridge.getInfo(bsn, version);
-		if (resource == null)
-			return null;
+    @Override
+    public File getRoot() throws Exception {
+        return localRepo;
+    }
 
-		String name = resource.getInfo().name();
-		Archive archive = Archive.valueOf(name);
+    @Override
+    public boolean refresh() throws Exception {
+        init();
+        if (!osgiRepository.refresh()) {
+            return false;
+        }
+        bridge = new BridgeRepository(osgiRepository);
+        for (RepositoryListenerPlugin listener : registry
+            .getPlugins(RepositoryListenerPlugin.class)) {
+            try {
+                listener.repositoryRefreshed(this);
+            } catch (Exception e) {
+                reporter.exception(e, "Updating listener plugin %s", listener);
+            }
+        }
+        return true;
+    }
 
-		Promise<File> p = osgiRepository.mavenRepository().get(archive);
+    @Override
+    public File get(String bsn, Version version, Map<String, String> properties,
+            DownloadListener... listeners) throws Exception {
+        init();
+        ResourceInfo resource = bridge.getInfo(bsn, version);
+        if (resource == null) {
+            return null;
+        }
 
-		if (listeners.length == 0)
-			return p.getValue();
+        String name = resource.getInfo().name();
+        Archive archive = Archive.valueOf(name);
 
-		new DownloadListenerPromise(reporter, name + ": get " + bsn + ";" + version, p, listeners);
-		return osgiRepository.mavenRepository().toLocalFile(archive);
-	}
+        Promise<File> p = osgiRepository.mavenRepository().get(archive);
 
-	@Override
-	public List<String> list(String pattern) throws Exception {
-		init();
-		return bridge.list(pattern);
-	}
+        if (listeners.length == 0) {
+            return p.getValue();
+        }
 
-	@Override
-	public SortedSet<Version> versions(String bsn) throws Exception {
-		init();
-		return bridge.versions(bsn);
-	}
+        new DownloadListenerPromise(reporter,
+            name + ": get " + bsn + ";" + version, p, listeners);
+        return osgiRepository.mavenRepository().toLocalFile(archive);
+    }
 
-	@Override
-	public String getLocation() {
-		return "cnf/cache/nexus-search-" + name + ".xml";
-	}
+    @Override
+    public List<String> list(String pattern) throws Exception {
+        init();
+        return bridge.list(pattern);
+    }
 
-	@Override
-	public Map<Requirement, Collection<Capability>> findProviders(
-			Collection<? extends Requirement> requirements) {
-		init();
-		return osgiRepository.findProviders(requirements);
-	}
+    @Override
+    public SortedSet<Version> versions(String bsn) throws Exception {
+        init();
+        return bridge.versions(bsn);
+    }
+
+    @Override
+    public String getLocation() {
+        return "cnf/cache/nexus-search-" + name + ".xml";
+    }
+
+    @Override
+    public Map<Requirement, Collection<Capability>> findProviders(
+            Collection<? extends Requirement> requirements) {
+        init();
+        return osgiRepository.findProviders(requirements);
+    }
 }

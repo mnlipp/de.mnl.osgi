@@ -20,7 +20,6 @@ package de.mnl.osgi.bnd.maven;
 
 import aQute.maven.api.Archive;
 import aQute.maven.provider.MavenBackingRepository;
-
 import static de.mnl.osgi.bnd.maven.MavenVersion.toBndMavenVersion;
 
 /**

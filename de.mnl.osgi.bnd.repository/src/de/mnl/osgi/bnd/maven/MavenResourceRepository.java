@@ -19,7 +19,6 @@
 package de.mnl.osgi.bnd.maven;
 
 import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapability;
-
 import aQute.bnd.osgi.resource.CapabilityBuilder;
 import aQute.bnd.osgi.resource.ResourceBuilder;
 import aQute.maven.api.Archive;
@@ -27,7 +26,6 @@ import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,7 +39,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.building.ModelBuildingException;

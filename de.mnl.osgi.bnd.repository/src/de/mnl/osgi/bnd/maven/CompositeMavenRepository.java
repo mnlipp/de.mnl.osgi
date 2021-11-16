@@ -28,10 +28,8 @@ import aQute.maven.provider.MavenRepository;
 import aQute.maven.provider.MetadataParser;
 import aQute.maven.provider.MetadataParser.RevisionMetadata;
 import aQute.service.reporter.Reporter;
-
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.rethrow;
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
-
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +45,6 @@ import java.util.concurrent.Executor;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.apache.maven.model.Model;
 import org.apache.maven.model.building.DefaultModelBuilder;
 import org.apache.maven.model.building.DefaultModelBuildingRequest;

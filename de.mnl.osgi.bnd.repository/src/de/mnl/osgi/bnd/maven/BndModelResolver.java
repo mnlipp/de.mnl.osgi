@@ -23,9 +23,7 @@ import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenRepository;
 import aQute.service.reporter.Reporter;
-
 import java.io.File;
-
 import org.apache.maven.building.FileSource;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Parent;

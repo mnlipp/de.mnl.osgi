@@ -33,11 +33,9 @@ import de.mnl.osgi.bnd.maven.MavenResourceException;
 import de.mnl.osgi.bnd.maven.MavenVersion;
 import de.mnl.osgi.bnd.maven.MavenVersionRange;
 import de.mnl.osgi.bnd.maven.MavenVersionSpecification;
-
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.rethrow;
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.runIgnoring;
 import static de.mnl.osgi.bnd.maven.RepositoryUtils.unthrow;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,7 +63,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.apache.maven.model.Dependency;
 import org.osgi.resource.Capability;
 import org.osgi.resource.Resource;

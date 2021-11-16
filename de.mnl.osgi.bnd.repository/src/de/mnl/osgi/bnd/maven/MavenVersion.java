@@ -21,14 +21,12 @@ package de.mnl.osgi.bnd.maven;
 import aQute.bnd.version.Version;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;

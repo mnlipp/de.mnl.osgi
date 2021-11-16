@@ -2,9 +2,7 @@ package de.mnl.osgi.bnd.repository;
 
 import de.mnl.osgi.bnd.maven.MavenVersion;
 import de.mnl.osgi.bnd.maven.MavenVersionRange;
-
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 public class IncludesTests {
