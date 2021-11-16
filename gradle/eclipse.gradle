@@ -44,7 +44,6 @@ eclipse {
 			// 'org.eclipse.buildship.core.gradleprojectnature',
 			natures 'org.eclipse.jdt.core.javanature', \
             	'net.sf.eclipsecs.core.CheckstyleNature'
-				'org.eclipse.jdt.groovy.core.groovyNature'
 				// Only for bnd projects
 				if (plugins.hasPlugin('biz.aQute.bnd')) {
 					// buildCommand 'org.eclipse.jdt.core.javabuilder'
