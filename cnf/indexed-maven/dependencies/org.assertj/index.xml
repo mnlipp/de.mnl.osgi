@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1583673816967">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929566227">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
@@ -7,14 +7,6 @@
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="documentation" value="joel-costigliola.github.io/assertj/index.html"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="3.11.1" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.assertj.core"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="3.11.1" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.assertj.core"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.api.filter,org.assertj.core.api.iterable,org.assertj.core.condition,org.assertj.core.data,org.assertj.core.description,org.assertj.core.error,org.assertj.core.groups,org.assertj.core.internal,org.assertj.core.internal.bytebuddy.implementation.bind.annotation,org.assertj.core.presentation,org.hamcrest,org.junit.jupiter.api.extension,org.junit.rules,org.junit.runner,org.junit.runners.model"/>
@@ -292,16 +284,24 @@
       <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.util.xml"/>
     </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="4085398" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.11.1/assertj-core-3.11.1.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="2EE2BD3E81FC818D423D442B658F28ACF938D9078D6BA016A64B362FDD7779E8"/>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.assertj.core"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.11.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.assertj.core"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.assertj:assertj-core:3.11.1"/>
       <attribute name="from" value="org.assertj:assertj-core:3.11.1"/>
       <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="4085398" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.11.1/assertj-core-3.11.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="2EE2BD3E81FC818D423D442B658F28ACF938D9078D6BA016A64B362FDD7779E8"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.parsers))"/>
@@ -353,19 +353,5 @@
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
     </requirement>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.assertj:assertj-core:bundle:3.12.1"/>
-      <attribute name="from" value="org.assertj:assertj-core:3.12.1"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.assertj:assertj-core:bundle:3.13.2"/>
-      <attribute name="from" value="org.assertj:assertj-core:3.13.2"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
   </resource>
 </repository>

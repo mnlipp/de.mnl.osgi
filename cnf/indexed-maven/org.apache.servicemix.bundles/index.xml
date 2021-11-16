@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1583673816969">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929429521">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
@@ -7,14 +7,6 @@
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="4.12.0.1" type="Version"/>
       <attribute name="documentation" value="http://www.apache.org/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.apache.servicemix.bundles.junit"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.apache.servicemix.bundles.junit"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest.internal,org.hamcrest.core"/>
@@ -181,11 +173,13 @@
       <attribute name="version" value="4.12.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="junit.framework"/>
     </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="369434" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/servicemix/bundles/org.apache.servicemix.bundles.junit/4.12_1/org.apache.servicemix.bundles.junit-4.12_1.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="482CFEABE0C462D0796C269C60B9F6C808356759FECEAA73F83A5DB823C79B48"/>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.servicemix.bundles.junit"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.servicemix.bundles.junit"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.12_1"/>
@@ -195,11 +189,37 @@
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
     </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="369434" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/servicemix/bundles/org.apache.servicemix.bundles.junit/4.12_1/org.apache.servicemix.bundles.junit-4.12_1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="482CFEABE0C462D0796C269C60B9F6C808356759FECEAA73F83A5DB823C79B48"/>
+    </capability>
   </resource>
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:bundle:4.13_1"/>
       <attribute name="from" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.13_1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:bundle:4.13.1_1"/>
+      <attribute name="from" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.13.1_1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:bundle:4.13.2_1"/>
+      <attribute name="from" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.13.2_1"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">

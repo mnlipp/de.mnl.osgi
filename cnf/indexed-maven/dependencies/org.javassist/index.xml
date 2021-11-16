@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929429799">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.javassist:javassist:bundle:3.26.0-GA"/>
+      <attribute name="from" value="org.javassist:javassist:3.26.0-GA"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+</repository>

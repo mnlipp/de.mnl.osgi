@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961402">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929429624">
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.eclipse.sisu:org.eclipse.sisu.inject:eclipse-plugin:0.3.2"/>
@@ -26,15 +26,6 @@
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="0.3.3" type="Version"/>
       <attribute name="documentation" value="http://www.eclipse.org/sisu/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <directive name="singleton" value="true"/>
-      <attribute name="bundle-version" value="0.3.3" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.eclipse.sisu.inject"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.3.3" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.eclipse.sisu.inject"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="javax.inject"/>
@@ -77,16 +68,25 @@
       <attribute name="version" value="0.0.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.sonatype.inject"/>
     </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="379175" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.3.3/org.eclipse.sisu.inject-0.3.3.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="C6935E0B7D362ED4CA768C9B71D5D4D98788FF0A79C0D2BB954C221A078B166B"/>
+    <capability namespace="osgi.wiring.bundle">
+      <directive name="singleton" value="true"/>
+      <attribute name="bundle-version" value="0.3.3" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.eclipse.sisu.inject"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="0.3.3" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.eclipse.sisu.inject"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.eclipse.sisu:org.eclipse.sisu.inject:0.3.3"/>
       <attribute name="from" value="org.eclipse.sisu:org.eclipse.sisu.inject:0.3.3"/>
       <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="379175" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.3.3/org.eclipse.sisu.inject-0.3.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="C6935E0B7D362ED4CA768C9B71D5D4D98788FF0A79C0D2BB954C221A078B166B"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=javax.inject))"/>
@@ -177,15 +177,6 @@
       <attribute name="version" value="0.3.3" type="Version"/>
       <attribute name="documentation" value="http://www.eclipse.org/sisu/"/>
     </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <directive name="singleton" value="true"/>
-      <attribute name="bundle-version" value="0.3.3" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.eclipse.sisu.plexus"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.3.3" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.eclipse.sisu.plexus"/>
-    </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="version" value="0.0.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.eclipse.sisu.plexus"/>
@@ -266,11 +257,14 @@
       <attribute name="version" value="0.0.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.plexus.personality.plexus.lifecycle.phase"/>
     </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="205307" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.plexus/0.3.3/org.eclipse.sisu.plexus-0.3.3.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="98045F5ECD802D6A96BA00394F8CB61259F9AC781EC2CB51CA0CB7B2C94AC720"/>
+    <capability namespace="osgi.wiring.bundle">
+      <directive name="singleton" value="true"/>
+      <attribute name="bundle-version" value="0.3.3" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.eclipse.sisu.plexus"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="0.3.3" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.eclipse.sisu.plexus"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.3"/>
@@ -279,6 +273,12 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="javax.enterprise:cdi-api:1.0;org.codehaus.plexus:plexus-utils:3.0.17;org.codehaus.plexus:plexus-component-annotations:1.5.5;org.eclipse.sisu:org.eclipse.sisu.inject:0.3.3;org.codehaus.plexus:plexus-classworlds:2.5.2;junit:junit:4.11"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="205307" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.plexus/0.3.3/org.eclipse.sisu.plexus-0.3.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="98045F5ECD802D6A96BA00394F8CB61259F9AC781EC2CB51CA0CB7B2C94AC720"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=javax.inject))"/>
@@ -352,5 +352,23 @@
       <directive name="filter" value="(&amp;(osgi.wiring.package=junit.framework))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.eclipse.sisu:org.eclipse.sisu.inject:eclipse-plugin:0.3.4"/>
+      <attribute name="from" value="org.eclipse.sisu:org.eclipse.sisu.inject:0.3.4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info"/>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.eclipse.sisu:org.eclipse.sisu.plexus:eclipse-plugin:0.3.4"/>
+      <attribute name="from" value="org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.plexus:plexus-classworlds:2.5.2;org.codehaus.plexus:plexus-component-annotations:1.5.5;javax.enterprise:cdi-api:1.0;org.codehaus.plexus:plexus-utils:3.0.17;org.eclipse.sisu:org.eclipse.sisu.inject:0.3.4"/>
+    </capability>
   </resource>
 </repository>

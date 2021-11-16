@@ -1,25 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1572785220473">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929429867">
   <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.commons:commons-lang3:3.4"/>
-      <attribute name="from" value="org.apache.commons:commons-lang3:3.4"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="org.apache.commons.lang3"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="3.4.0" type="Version"/>
       <attribute name="documentation" value="http://commons.apache.org/proper/commons-lang/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="3.4.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.apache.commons.lang3"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="3.4.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.apache.commons.lang3"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="version" value="3.4.0" type="Version"/>
@@ -68,6 +55,19 @@
     <capability namespace="osgi.wiring.package">
       <attribute name="version" value="3.4.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.tuple"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.4.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.4.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.commons:commons-lang3:3.4"/>
+      <attribute name="from" value="org.apache.commons:commons-lang3:3.4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="434678" type="Long"/>
@@ -80,25 +80,12 @@
     </requirement>
   </resource>
   <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.commons:commons-lang3:3.1"/>
-      <attribute name="from" value="org.apache.commons:commons-lang3:3.1"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="org.apache.commons.lang3"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="3.1.0" type="Version"/>
       <attribute name="documentation" value="http://commons.apache.org/lang/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="3.1.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.apache.commons.lang3"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="3.1.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.apache.commons.lang3"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="version" value="3.1.0" type="Version"/>
@@ -148,6 +135,19 @@
       <attribute name="version" value="3.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.builder"/>
     </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.commons:commons-lang3:3.1"/>
+      <attribute name="from" value="org.apache.commons:commons-lang3:3.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="315805" type="Long"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar"/>
@@ -156,25 +156,12 @@
     </capability>
   </resource>
   <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.commons:commons-lang3:3.6"/>
-      <attribute name="from" value="org.apache.commons:commons-lang3:3.6"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
     <capability namespace="osgi.identity">
       <attribute name="license" value="https://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="org.apache.commons.lang3"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="3.6.0" type="Version"/>
       <attribute name="documentation" value="http://commons.apache.org/proper/commons-lang/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="3.6.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.apache.commons.lang3"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="3.6.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.apache.commons.lang3"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="version" value="3.6.0" type="Version"/>
@@ -228,6 +215,19 @@
       <attribute name="version" value="3.6.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.tuple"/>
     </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.6.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.commons:commons-lang3:3.6"/>
+      <attribute name="from" value="org.apache.commons:commons-lang3:3.6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="494856" type="Long"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar"/>
@@ -245,14 +245,6 @@
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="3.5.0" type="Version"/>
       <attribute name="documentation" value="http://commons.apache.org/proper/commons-lang/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="3.5.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.apache.commons.lang3"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="3.5.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.apache.commons.lang3"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="version" value="3.5.0" type="Version"/>
@@ -302,16 +294,24 @@
       <attribute name="version" value="3.5.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.tuple"/>
     </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="479881" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="8AC96FC686512D777FCA85E144F196CD7CFE0C0AEC23127229497D1A38FF651C"/>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.5.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.5.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.lang3"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.apache.commons:commons-lang3:3.5"/>
       <attribute name="from" value="org.apache.commons:commons-lang3:3.5"/>
       <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="479881" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="8AC96FC686512D777FCA85E144F196CD7CFE0C0AEC23127229497D1A38FF651C"/>
     </capability>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
@@ -324,14 +324,6 @@
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="1.14.0" type="Version"/>
       <attribute name="documentation" value="http://commons.apache.org/proper/commons-compress/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.14.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.apache.commons.compress"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.14.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.apache.commons.compress"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="version" value="1.14.0" type="Version"/>
@@ -437,11 +429,13 @@
       <attribute name="version" value="1.14.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.apache.commons.compress.utils"/>
     </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="530012" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.14/commons-compress-1.14.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="AD2C50C007E3384B7B46849D7F86A9EDE873132256A78179F18B70E3ADDE7C99"/>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.14.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.compress"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.14.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.compress"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.apache.commons:commons-compress:1.14"/>
@@ -451,10 +445,139 @@
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.tukaani:xz:1.6;org.brotli:dec:0.1.2"/>
     </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="530012" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.14/commons-compress-1.14.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="AD2C50C007E3384B7B46849D7F86A9EDE873132256A78179F18B70E3ADDE7C99"/>
+    </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.brotli.dec))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="https://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.commons.lang3"/>
+      <attribute name="documentation" value="http://commons.apache.org/proper/commons-lang/"/>
+      <attribute name="description" value="Apache Commons Lang, a package of Java utility classes for the  classes that are in java.lang's hierarchy, or are considered to be so  standard as to justify existence in java.lang."/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3"/>
+      <attribute name="bnd.hashes" value="848663202,319501787,771758584,1148827661,-883334775,-2138193175,-480170345,-740721817,1689964954,-1891270388,1851877125,-737389861,-1497369324,394925690,1693941305,-258268874,-2058312688,-973445066,-1824082054,-723213737,-1685592896,2439591,381441170,-538796483,959079822,1769708912,78727453,-1646872406,398204511,-698675752,940369601,2007846731,105016338,16862143,148294400,123493282,1360144858,-2085737652,-1058380094,-1522607534,2079891117,-705302361,-1356628682" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.arch"/>
+      <attribute name="bnd.hashes" value="2049142,2622298,909208690" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.builder"/>
+      <attribute name="bnd.hashes" value="1895597947,1061560667,2129957,-1495825482,-1128676190,-32015617,-216608068,-1768701701,1527238368,-24855265,69518148,1249222784,354408371,353644171,94950340,1239579336,-1374184593,1368689070,-2010317308,1255160445,-1824810248,-73774461,-474806463,-1675430089,-49736205,-1581273467,832197498" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.concurrent"/>
+      <attribute name="bnd.hashes" value="80204913,724842149,1295237015,-844301494,1748471397,-132849484,1895597947,-1136292302,-341261604,-442401309,-1493828541,1723203688,1409765432,895799435,1551756110,-1320100185,1189408026,-23772034,-385709289,-632104188,-1785309808,1875596142,122648536,1015841454,-572662280,1775121979,209802555,1592173294,-1576980243" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.event"/>
+      <attribute name="bnd.hashes" value="-151175188,100405921,-1720198865,-1326376361" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.exception"/>
+      <attribute name="bnd.hashes" value="2053888405,1896225153,-1322201627,-133355871,-310961536,-1056180798" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.math"/>
+      <attribute name="bnd.hashes" value="-1589107166,-231678791,-1898474808" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.mutable"/>
+      <attribute name="bnd.hashes" value="-1216934138,1285890626,-137629394,930191991,31758070,134114057,-137341278,1232781797,43645206" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.reflect"/>
+      <attribute name="bnd.hashes" value="-1054902025,-1733892105,-237930969,-1762238358,-1252274665,731667504,-1717494795,477164924,1786735667,-762892121,-341795692,-1780865673,81291338" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.text"/>
+      <attribute name="bnd.hashes" value="-369832642,-396387835,1091661043,-833943334,-1744903763,811367917,-1589498531,370441290,-705216209,1253881929,985615083,993781980,-1801676154,-858560495,1732832193,1141361296,980358625,-980644483,1054393350,-1410117721" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.text.translate"/>
+      <attribute name="bnd.hashes" value="882702617,1060807377,1029591549,381699869,2105342294,1171059540,1405818049,-1956807563,1376037896,1819071085,362083988,-925014757,2035785541" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.time"/>
+      <attribute name="bnd.hashes" value="1234436684,-1872889459,-1746749332,-260758948,-1090098380,1745874307,80988633,-1439815514,-1899260191,-254346239,-1791936528,1316699696,-276670980,-466019581,1852442515,829979362,-1328745070,-1775165324,1284628172,-1625892087,-1256648346,1725680805,-1663133929,1601238533,-1429732767,2558748,1074430782,942981037,870188886,1337361280,1392501502,-2033329475,695075935,-102502501,1502925328,1347766620,1442457027,-2142936856,-557652367,1615201904,-112840523,118109747,-1194929749,96479847,1642558903,80204913,-668820019,2035869530" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.lang3"/>
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3.tuple"/>
+      <attribute name="bnd.hashes" value="-563572900,-297459616,-137235712,1390684932,2479866,-1781598082" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.8.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.lang3"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.commons:commons-lang3:3.8.1"/>
+      <attribute name="from" value="org.apache.commons:commons-lang3:3.8.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="501879" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.8.1/commons-lang3-3.8.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="DAC807F65B07698FF39B1B07BFEF3D87AE3FD46D91BBF8A2BC02B2A831616F68"/>
+    </capability>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
     </requirement>
@@ -473,25 +596,12 @@
     </capability>
   </resource>
   <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.commons:commons-compress:1.9"/>
-      <attribute name="from" value="org.apache.commons:commons-compress:1.9"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="org.apache.commons.compress"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="1.9.0" type="Version"/>
       <attribute name="documentation" value="http://commons.apache.org/proper/commons-compress/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.9.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.apache.commons.compress"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.9.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.apache.commons.compress"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="version" value="1.9.0" type="Version"/>
@@ -577,6 +687,19 @@
       <attribute name="version" value="1.9.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.apache.commons.compress.utils"/>
     </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.9.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.compress"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.9.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.compress"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.commons:commons-compress:1.9"/>
+      <attribute name="from" value="org.apache.commons:commons-compress:1.9"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="378217" type="Long"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.9/commons-compress-1.9.jar"/>
@@ -586,6 +709,271 @@
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.tukaani.xz))"/>
       <directive name="resolution" value="optional"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="https://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.commons.commons-compress"/>
+      <attribute name="documentation" value="https://commons.apache.org/proper/commons-compress/"/>
+      <attribute name="description" value="Apache Commons Compress software defines an API for working withcompression and archive formats.  These include: bzip2, gzip, pack200,lzma, xz, Snappy, traditional Unix Compress, DEFLATE, DEFLATE64, LZ4,Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj."/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress"/>
+      <attribute name="bnd.hashes" value="576982613,735999477" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.archivers"/>
+      <attribute name="bnd.hashes" value="-1543850768,-2118054451,2145053160,-1457669725,1184389096,857455315,-1887915154,-2018641429,-799855534" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.archivers.ar"/>
+      <attribute name="bnd.hashes" value="866372545,-439230471,33916338" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.archivers.arj"/>
+      <attribute name="bnd.hashes" value="-2127617588,-877319767,21966817,677683261,67960423,-1674779758,1650008276,-2127617620,2129117638" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.archivers.cpio"/>
+      <attribute name="bnd.hashes" value="200132323,1711765915,-2004672432,636427292,236591381" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.archivers.dump"/>
+      <attribute name="bnd.hashes" value="2047248734,-1747734893,-1413412634,-1836067615,-32525873,2590522,1074339198,616752388,67834849,-1749304580,-272521288,-1503643344,-2113117375,195688247,-996272824,-1645685495,-237335919" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.archivers.examples"/>
+      <attribute name="bnd.hashes" value="171027718,636744988,-609016672,-1651663856,642739528,686148839,-924507428,641377125,-1874456345" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.archivers.jar"/>
+      <attribute name="bnd.hashes" value="1758049899,2118361891,2009868232" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.archivers.sevenz"/>
+      <attribute name="bnd.hashes" value="101215033,916551842,1004009687,-356987298,2403779,66816,65282053,892997750,-1894288421,1537897521,-1707483409,-567016453,118460529,142468154,1941147065,2023743758,585285004,2109868174,-910283436,-845094334,77289,-2039105667,876235049,1895597947,1746986293,445246798,-735754680,-1615026862,-1654507510,-527570577,1688325532,-197323263" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.archivers.tar"/>
+      <attribute name="bnd.hashes" value="-346301195,-63096275,-1190825474,-1252906891,401411914,-393493460" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.archivers.zip"/>
+      <attribute name="bnd.hashes" value="40961381,-1210104703,1113057119,1636637389,166357907,-2032230433,1339598796,-727777064,1648342494,-1679597593,1287433719,1026975720,1334966805,-844616448,450187276,-1533111583,1242219653,622427059,-547596350,366348799,-1566982559,-532041391,-1079408188,1620106020,-759241584,-782607450,-2144733436,-1035486930,950581381,-950786740,808389868,-224349156,117182032,766900904,-582419143,1392228650,685445846,-1184139547,-1614697687,-34721338,1267653750,62957713,-257173080,-1301790114,-702176427,-1041068864,1892748318,1061912514,282282929,-654315718,-980698327,1241077414,946379377,-433562042,-159220002,926097098,35341613,1609052825,-376640855,-716375615,-824363655,1974194434,78226254,-37357528,-766484620,-1086393278,-939830101,-332705696,67115090,569920915,-110381978,1382637597,1382822173,1766790978,-75928069,1383094947" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.changes"/>
+      <attribute name="bnd.hashes" value="2017198032,-835751310,1921331582,-147001738,-1725931605,-941298308,-606724828" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors"/>
+      <attribute name="bnd.hashes" value="-126083862,873375173,2069985638,-1127444347,-2089904682,736891625" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.brotli"/>
+      <attribute name="bnd.hashes" value="-920105357,-2019441731,-1869552321" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.bzip2"/>
+      <attribute name="bnd.hashes" value="2122698,1065762578,-555939399,1976047100,894039006,-1418575957,66996,2539589" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.deflate"/>
+      <attribute name="bnd.hashes" value="2002454170,-1583271119,-1355714475" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.deflate64"/>
+      <attribute name="bnd.hashes" value="-815373988,-76791295,-979859763,1388581932,-1531362151,-256263219,-778911305,2135330807,-1516439292" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.gzip"/>
+      <attribute name="bnd.hashes" value="1057724555,-805118112,755542788,381378391" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.lz4"/>
+      <attribute name="bnd.hashes" value="80204913,2101900940,2479866,1499578751,104682710,-1418581490,-1842766326,-284644235,1693807373" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.lz77support"/>
+      <attribute name="bnd.hashes" value="1358846869,1468538372,-1418536633,64279661,-107576219,68826,-1804329666,-318662573,1895597947,-1842766326" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.lzma"/>
+      <attribute name="bnd.hashes" value="-2083440797,603003784,-2019441731,-427184593" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.lzw"/>
+      <attribute name="bnd.hashes" value="-697035871" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.pack200"/>
+      <attribute name="bnd.hashes" value="-276004862,2130789004,-1899858561,993342316,-820040872,-1755409591,-694954280" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.snappy"/>
+      <attribute name="bnd.hashes" value="-1728343781,-1273890608,-1173358628,-209716886,80204913,-157500366,177615001" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.xz"/>
+      <attribute name="bnd.hashes" value="2027523,828012264,-2019441731,-845371697" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.z"/>
+      <attribute name="bnd.hashes" value="2131902891" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.compressors.zstandard"/>
+      <attribute name="bnd.hashes" value="208879068,-1349524433,-2019441731,1913767592" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.parallel"/>
+      <attribute name="bnd.hashes" value="1892590920,16232374,283163871,985123787" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.commons.commons-compress"/>
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.compress.utils"/>
+      <attribute name="bnd.hashes" value="-1528906449,-594063171,35341613,1848579390,753044244,87156702,-224247873,-56408983,1956306708,1780205948,1501113543,-505079414,540305508,1268788209,444552535,1661385748,-1406824793,-1983722284,-1234718266,-1587945685,-966617971,7808421,73429877,2115011854,397586211,-1404347498,2573425,1303756432" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.commons.commons-compress"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.19.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.commons.commons-compress"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.commons:commons-compress:1.19"/>
+      <attribute name="from" value="org.apache.commons:commons-compress:1.19"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="bnd.mainclass">
+      <attribute name="bnd.mainclass" value="org.apache.commons.compress.archivers.Lister"/>
+      <attribute name="version" value="1.19.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info"/>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="615064" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.19/commons-compress-1.19.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="FF2D59FAD74E867630FBC7DAAB14C432654712AC624DBEE468D220677B124DD5"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.tukaani.xz)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.tukaani.xz"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.brotli.dec)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.brotli.dec"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.github.luben.zstd)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.github.luben.zstd"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.crypto)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="javax.crypto"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.crypto.spec)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="javax.crypto.spec"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
     </requirement>
   </resource>
 </repository>

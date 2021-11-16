@@ -1,26 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961475">
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="com.google.guava:guava:bundle:18.0"/>
-      <attribute name="from" value="com.google.guava:guava:18.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-  </resource>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929429956">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="com.google.guava"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="16.0.1" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="16.0.1" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="com.google.guava"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="16.0.1" type="Version"/>
-      <attribute name="osgi.wiring.host" value="com.google.guava"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="javax.annotation,com.google.common.base,com.google.common.hash,com.google.common.io,com.google.common.primitives,com.google.common.collect,com.google.common.escape"/>
@@ -96,11 +81,13 @@
       <attribute name="version" value="16.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="com.google.common.annotations"/>
     </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="2228009" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/guava/guava/16.0.1/guava-16.0.1.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="A896857D07845D38C7DC5BBC0457B6D9B0F62ECFFDA010E5E9EC12D561F676D3"/>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.google.guava"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="16.0.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.google.guava"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="com.google.guava:guava:16.0.1"/>
@@ -109,6 +96,12 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="com.google.code.findbugs:jsr305:1.3.9"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="2228009" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/guava/guava/16.0.1/guava-16.0.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="A896857D07845D38C7DC5BBC0457B6D9B0F62ECFFDA010E5E9EC12D561F676D3"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=javax.annotation))"/>
@@ -124,20 +117,19 @@
     </requirement>
   </resource>
   <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.google.guava:guava:bundle:18.0"/>
+      <attribute name="from" value="com.google.guava:guava:18.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+  </resource>
+  <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="com.google.guava"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="20.0.0" type="Version"/>
       <attribute name="documentation" value="https://github.com/google/guava/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="20.0.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="com.google.guava"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="20.0.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="com.google.guava"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="version" value="20.0.0" type="Version"/>
@@ -217,11 +209,13 @@
       <attribute name="version" value="20.0.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="com.google.common.xml"/>
     </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="2442625" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/guava/guava/20.0/guava-20.0.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="36A666E3B71AE7F0F0DCA23654B67E086E6C93D192F60BA5DFD5519DB6C288C8"/>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.google.guava"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="20.0.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.google.guava"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="com.google.guava:guava:20.0"/>
@@ -230,6 +224,12 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="com.google.errorprone:error_prone_annotations:2.0.12;com.google.code.findbugs:jsr305:1.3.9;org.codehaus.mojo:animal-sniffer-annotations:1.14;com.google.j2objc:j2objc-annotations:1.1"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="2442625" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/guava/guava/20.0/guava-20.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="36A666E3B71AE7F0F0DCA23654B67E086E6C93D192F60BA5DFD5519DB6C288C8"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=javax.annotation))"/>
@@ -250,5 +250,15 @@
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
     </requirement>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.google.guava:guava:bundle:25.1-android"/>
+      <attribute name="from" value="com.google.guava:guava:25.1-android"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="com.google.j2objc:j2objc-annotations:1.1;org.codehaus.mojo:animal-sniffer-annotations:1.14;org.checkerframework:checker-compat-qual:2.0.0;com.google.code.findbugs:jsr305:3.0.2;com.google.errorprone:error_prone_annotations:2.1.3"/>
+    </capability>
   </resource>
 </repository>

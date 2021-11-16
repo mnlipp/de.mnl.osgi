@@ -1,12 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Templates" increment="1550842858000">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Templates" increment="1636922903538">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="EPL-1.0; description=&quot;Eclipse Public License, Version 1.0&quot;; link=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;"/>
+      <attribute name="copyright" value="Copyright (c) Neil Bartlett (2009, 2016) and others. All Rights Reserved."/>
       <attribute name="osgi.identity" value="org.bndtools.templates.osgi"/>
+      <attribute name="documentation" value="http://bndtools.org/"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="3.2.0.201604232153" type="Version"/>
-      <attribute name="documentation" value="http://bndtools.org/"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="bundle-version" value="3.2.0.201604232153" type="Version"/>
@@ -44,15 +45,6 @@
       <attribute name="dir" value="templates/integration-test"/>
     </capability>
     <capability namespace="org.bndtools.template">
-      <attribute name="help" value="servlet-help.xml"/>
-      <attribute name="engine" value="mustache"/>
-      <attribute name="name" value="Servlet Component"/>
-      <attribute name="icon" value="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADYUlEQVR4nGWTW2hbBQCGv3PJOT1JeslJejeu6Q1bW1ulY5vZppg6n5RhH9SBA4dziChT5nxpEUEG7kkUcQ6kE5lUkY2+iA/rQFRscU666TrtNemaNGma2CTN5STnHB/mYOr/9D98/A8f/AL/Scf+95tcnu4XfLockpyFdmwbM6MuJZOlqXx6eXxh5vX1u3nhTmnuPybUdx482dC59fbBJx/Tvop/wVrqAnWagWWq1OaHaIs8Xfh5OvpOOjp1Ojp/xgaQAJr6jgo7+kbG3bumT8z7LjnWrBUcagsuxUutsoAsmWy5dlIVfMYR3KENr80rbZKsT2bTv9we6Np36qS684cTG57LPLtnnO/+OIeMie5uJ7a1jFt/C8n7HCt5iZju4UC7Nhi+Iec3bl34UWoPvtfY1O+4WOz80qE7bWLpGAVjDkmssL/nTbz6U5jOAUqmRJUZwcj/iRJow5/MBLO57k/l6vr+w4V7J52687YO2/4efx3EMhbFfAS3a4Bi2aZoCZSMErNzb2DEVfTAgFPTBg+LvjolFJPmsGwbgGIFmpwjjIYmCHgHcEugieCS4K/4Z9zjqSdfVohr1/DWKSHZ7ZQD+wKHuLZ+njp1kBpF5/nB18iaMooADgFkATSxQq4QQRayeDwH8GnNaB41IFoVy95730sEO0aJb8d5sGU3hlUGbCzAssEGoqtnaa1ewF+bx21dZDH6EYZVtMVYPL+kCSYN9Y/zyiPn+HZhktFLIc7OHCdnZClYULLARPzHEWgOAV2pIbNhLkke/0jj/T2+Jza0KkRRYTkxgc+1BUKU2VvTQBVltRvbOcBm0c96VsAjr2Cv9ZP6yXtG0qo752XT83LrQ81qvCwhWSap3DSqLKBKKdIlHdsdJFWSyMpdyKJMJnGZ6pnhbGJx8YgYmT2V/PVqbMy+ukqlsE2N51GyRTAtm0Shi9rGF0mXIGdC0bQRSwa+SIjErDQWDp9OSgAb4a9nNlN7m4danUMRYwq7fIWk0UNzx8ckKjXkKhalfI5eJc/ucJkbE4VPrl8/OvavMwH07vr81ZZe6125L1yz5+EjLBRUKjY0KqCsbrH0zVzmtyvR0Zs3j334vzfeib/zuNdd/cAh1SEPNzY427Fs1mO5pVLRmNrO/X5+dfWDzbv5vwErUW66xLs5NQAAAABJRU5ErkJggg=="/>
-      <attribute name="org.bndtools.template" value="project"/>
-      <attribute name="category" value="bbb/OSGi Standard Templates"/>
-      <attribute name="dir" value="templates/servlet"/>
-    </capability>
-    <capability namespace="ranking:Double:999">
       <attribute name="help" value="servlet-help.xml"/>
       <attribute name="engine" value="mustache"/>
       <attribute name="name" value="Servlet Component"/>
@@ -109,6 +101,15 @@
       <attribute name="url" value="org.bndtools.templates.osgi/org.bndtools.templates.osgi-3.2.0.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="DC03296AA6B9319948831A0F1F614338D8401418CA37B579422C779DC405D30C"/>
+    </capability>
+    <capability namespace="ranking:Double:999">
+      <attribute name="help" value="servlet-help.xml"/>
+      <attribute name="engine" value="mustache"/>
+      <attribute name="name" value="Servlet Component"/>
+      <attribute name="icon" value="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADYUlEQVR4nGWTW2hbBQCGv3PJOT1JeslJejeu6Q1bW1ulY5vZppg6n5RhH9SBA4dziChT5nxpEUEG7kkUcQ6kE5lUkY2+iA/rQFRscU666TrtNemaNGma2CTN5STnHB/mYOr/9D98/A8f/AL/Scf+95tcnu4XfLockpyFdmwbM6MuJZOlqXx6eXxh5vX1u3nhTmnuPybUdx482dC59fbBJx/Tvop/wVrqAnWagWWq1OaHaIs8Xfh5OvpOOjp1Ojp/xgaQAJr6jgo7+kbG3bumT8z7LjnWrBUcagsuxUutsoAsmWy5dlIVfMYR3KENr80rbZKsT2bTv9we6Np36qS684cTG57LPLtnnO/+OIeMie5uJ7a1jFt/C8n7HCt5iZju4UC7Nhi+Iec3bl34UWoPvtfY1O+4WOz80qE7bWLpGAVjDkmssL/nTbz6U5jOAUqmRJUZwcj/iRJow5/MBLO57k/l6vr+w4V7J52687YO2/4efx3EMhbFfAS3a4Bi2aZoCZSMErNzb2DEVfTAgFPTBg+LvjolFJPmsGwbgGIFmpwjjIYmCHgHcEugieCS4K/4Z9zjqSdfVohr1/DWKSHZ7ZQD+wKHuLZ+njp1kBpF5/nB18iaMooADgFkATSxQq4QQRayeDwH8GnNaB41IFoVy95730sEO0aJb8d5sGU3hlUGbCzAssEGoqtnaa1ewF+bx21dZDH6EYZVtMVYPL+kCSYN9Y/zyiPn+HZhktFLIc7OHCdnZClYULLARPzHEWgOAV2pIbNhLkke/0jj/T2+Jza0KkRRYTkxgc+1BUKU2VvTQBVltRvbOcBm0c96VsAjr2Cv9ZP6yXtG0qo752XT83LrQ81qvCwhWSap3DSqLKBKKdIlHdsdJFWSyMpdyKJMJnGZ6pnhbGJx8YgYmT2V/PVqbMy+ukqlsE2N51GyRTAtm0Shi9rGF0mXIGdC0bQRSwa+SIjErDQWDp9OSgAb4a9nNlN7m4danUMRYwq7fIWk0UNzx8ckKjXkKhalfI5eJc/ucJkbE4VPrl8/OvavMwH07vr81ZZe6125L1yz5+EjLBRUKjY0KqCsbrH0zVzmtyvR0Zs3j334vzfeib/zuNdd/cAh1SEPNzY427Fs1mO5pVLRmNrO/X5+dfWDzbv5vwErUW66xLs5NQAAAABJRU5ErkJggg=="/>
+      <attribute name="org.bndtools.template" value="project"/>
+      <attribute name="category" value="bbb/OSGi Standard Templates"/>
+      <attribute name="dir" value="templates/servlet"/>
     </capability>
   </resource>
 </repository>

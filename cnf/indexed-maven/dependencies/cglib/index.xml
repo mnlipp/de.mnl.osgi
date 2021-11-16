@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555711738666">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929566227">
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="cglib:cglib:3.1"/>
       <attribute name="from" value="cglib:cglib:3.1"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.ow2.asm:asm:4.2"/>
+    </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="283080" type="Long"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/cglib/cglib/3.1/cglib-3.1.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="175C86146A6B1EEFC891DF9E99AEF171CFD64998BA1C01C5045DE56AEF9778CB"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.ow2.asm:asm:4.2"/>
     </capability>
   </resource>
 </repository>

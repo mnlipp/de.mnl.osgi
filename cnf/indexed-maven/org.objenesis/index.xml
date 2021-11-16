@@ -1,19 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961411">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929429795">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="org.objenesis"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="2.6.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.objenesis"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="2.6.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.objenesis"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.objenesis.instantiator,org.objenesis.instantiator.annotations"/>
@@ -63,16 +55,24 @@
       <attribute name="version" value="2.6.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.objenesis.strategy"/>
     </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="55684" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/objenesis/objenesis/2.6/objenesis-2.6.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="5E168368FBC250AF3C79AA5FEF0C3467A2D64E5A7BD74005F25D8399AEB0708D"/>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.6.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.objenesis"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.6.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.objenesis"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.objenesis:objenesis:2.6"/>
       <attribute name="from" value="org.objenesis:objenesis:2.6"/>
       <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="55684" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/objenesis/objenesis/2.6/objenesis-2.6.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="5E168368FBC250AF3C79AA5FEF0C3467A2D64E5A7BD74005F25D8399AEB0708D"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=sun.misc))"/>
@@ -93,17 +93,257 @@
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="description" value="A library for instantiating Java objects"/>
       <attribute name="osgi.identity" value="org.objenesis"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="2.4.0" type="Version"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator,org.objenesis.strategy"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis"/>
+      <attribute name="bnd.hashes" value="524103192,-1033380599,-1638195945,-766035994,1471791562,1352155371" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator,org.objenesis.instantiator.annotations"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.sun"/>
+      <attribute name="bnd.hashes" value="-1101267413,-1825521887,-1565726415,-2023034437,1124323970" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="sun.misc"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.util"/>
+      <attribute name="bnd.hashes" value="1096903334,1693941305,-2137064498,-2083218462,71346742,-2056657301,596051595" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator,org.objenesis.instantiator.annotations"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.perc"/>
+      <attribute name="bnd.hashes" value="-1112949212,913113000" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator,org.objenesis.instantiator.annotations"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.basic"/>
+      <attribute name="bnd.hashes" value="-1846896908,-509757192,-785771006,1374565075,-1348131003,-1605598774,-2000608599,1063367575,2069660914" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator,org.objenesis.instantiator.annotations"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.gcj"/>
+      <attribute name="bnd.hashes" value="-170242548,593480232,-993271043,1625000128" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.annotations"/>
+      <attribute name="bnd.hashes" value="-82563042,-601721063" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator"/>
+      <attribute name="bnd.hashes" value="-885348099,1277748540" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator,org.objenesis.instantiator.annotations"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.android"/>
+      <attribute name="bnd.hashes" value="556734412,-1497086637,-1790489644,-320033665" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.strategy"/>
+      <attribute name="bnd.hashes" value="-974073310,1246968241,795989353,-1635218258,-151230951,952131636" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="2.4.0" type="Version"/>
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
       <attribute name="osgi.wiring.bundle" value="org.objenesis"/>
     </capability>
     <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="2.4.0" type="Version"/>
+      <attribute name="bundle-version" value="3.1.0" type="Version"/>
       <attribute name="osgi.wiring.host" value="org.objenesis"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.objenesis:objenesis:3.1"/>
+      <attribute name="from" value="org.objenesis:objenesis:3.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="60436" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/objenesis/objenesis/3.1/objenesis-3.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="CDB3D038C188DE6F46FFD5CD930BE2D5E5DBA59C53B26437995D534E3DB2FB80"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=sun.misc)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="sun.misc"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=COM.newmonics.PercClassloader)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="COM.newmonics.PercClassloader"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=sun.reflect)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="sun.reflect"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="description" value="A library for instantiating Java objects"/>
+      <attribute name="osgi.identity" value="org.objenesis"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator,org.objenesis.strategy"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis"/>
+      <attribute name="bnd.hashes" value="524103192,-1033380599,-1638195945,-766035994,1471791562,1352155371" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator"/>
+      <attribute name="bnd.hashes" value="-885348099,1277748540" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator,org.objenesis.instantiator.annotations"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.android"/>
+      <attribute name="bnd.hashes" value="556734412,-1497086637,-1790489644,-320033665" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.annotations"/>
+      <attribute name="bnd.hashes" value="-82563042,-601721063" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator,org.objenesis.instantiator.annotations"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.basic"/>
+      <attribute name="bnd.hashes" value="-1846896908,-509757192,1554522157,-785771006,1374565075,-1348131003,-1605598774,-2000608599,1063367575,2069660914" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator,org.objenesis.instantiator.annotations"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.gcj"/>
+      <attribute name="bnd.hashes" value="-170242548,593480232,-993271043,1625000128" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator,org.objenesis.instantiator.annotations"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.perc"/>
+      <attribute name="bnd.hashes" value="-1112949212,913113000" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator,org.objenesis.instantiator.annotations,org.objenesis.instantiator.basic"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.sun"/>
+      <attribute name="bnd.hashes" value="-1101267413,-1825521887,-1565726415,-2023034437,1124323970" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="sun.misc"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.instantiator.util"/>
+      <attribute name="bnd.hashes" value="1693941305,596051595" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.objenesis.instantiator"/>
+      <attribute name="bundle-symbolic-name" value="org.objenesis"/>
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.objenesis.strategy"/>
+      <attribute name="bnd.hashes" value="-974073310,1246968241,795989353,-1635218258,-151230951,952131636" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.objenesis"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.2.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.objenesis"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.objenesis:objenesis:3.2"/>
+      <attribute name="from" value="org.objenesis:objenesis:3.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="49414" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/objenesis/objenesis/3.2/objenesis-3.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="03D960BD5AEF03C653EB000413ADA15EB77CDD2B8E4448886EDF5692805E35F3"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=COM.newmonics.PercClassLoader)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="COM.newmonics.PercClassLoader"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=sun.misc)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="sun.misc"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=sun.reflect)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="sun.reflect"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.objenesis"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.4.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.objenesis.instantiator"/>
@@ -144,16 +384,24 @@
       <attribute name="version" value="2.4.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.objenesis.strategy"/>
     </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="51287" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/objenesis/objenesis/2.4/objenesis-2.4.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="090416E160A7E398F79E0149A7B05EF328B1843898A34E08C1CC170128D326D0"/>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.4.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.objenesis"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.4.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.objenesis"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.objenesis:objenesis:2.4"/>
       <attribute name="from" value="org.objenesis:objenesis:2.4"/>
       <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="51287" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/objenesis/objenesis/2.4/objenesis-2.4.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="090416E160A7E398F79E0149A7B05EF328B1843898A34E08C1CC170128D326D0"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=sun.misc))"/>
@@ -177,14 +425,6 @@
       <attribute name="osgi.identity" value="org.objenesis"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="2.2.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="2.2.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.objenesis"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="2.2.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.objenesis"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.objenesis.instantiator"/>
@@ -230,16 +470,24 @@
       <attribute name="version" value="2.2.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.objenesis.strategy"/>
     </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="52576" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/objenesis/objenesis/2.2/objenesis-2.2.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="2EE6C7E5A871D3F007B5A0C08C89B3B50772F345D45376C8DDC564647EB9AABE"/>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.2.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.objenesis"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.2.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.objenesis"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.objenesis:objenesis:2.2"/>
       <attribute name="from" value="org.objenesis:objenesis:2.2"/>
       <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="52576" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/objenesis/objenesis/2.2/objenesis-2.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="2EE6C7E5A871D3F007B5A0C08C89B3B50772F345D45376C8DDC564647EB9AABE"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=sun.misc))"/>
