@@ -4,6 +4,10 @@ repositories {
 	mavenCentral()
 }
 
+dependencies {
+	runtimeOnly 'org.apache.maven:maven-model:3.6.3'
+}
+
 // Configure sensible layout
 sourceSets {
 	main {
