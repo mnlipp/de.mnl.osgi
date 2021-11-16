@@ -1,19 +1,12 @@
 # Configure Repositories
-#-plugin.1.IndexedMaven: \
-#    de.mnl.osgi.bnd.repository.maven.provider.IndexedMavenRepositoryProvider; \
-#        path:="${workspace}/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-2.0.0.jar,\
-#            ${workspace}/cnf/plugins/biz.aQute.repository-6.0.0.jar"; \
-#        name=IndexedMaven; \
-#        location=cnf/indexed-maven; \
-#        releaseUrls="https://repo.maven.apache.org/maven2/"; \
-#        logIndexing=true
-
--plugin.2.CentralMvn: \
-    aQute.bnd.repository.maven.provider.MavenBndRepository; \
-        name="Central (Maven)"; \
-        snapshotUrl=https://oss.sonatype.org/content/repositories/snapshots/; \
-        releaseUrl=https://repo.maven.apache.org/maven2/; \
-        index=${.}/central.mvn
+-plugin.1.IndexedMaven: \
+    de.mnl.osgi.bnd.repository.maven.provider.IndexedMavenRepositoryProvider; \
+        path:="${workspace}/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-3.0.0.jar,\
+            ${workspace}/cnf/plugins/biz.aQute.repository-6.0.0.jar"; \
+        name=IndexedMaven; \
+        location=cnf/indexed-maven; \
+        releaseUrls="https://repo.maven.apache.org/maven2/"; \
+        logIndexing=true
 
 -plugin.3.Local: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
