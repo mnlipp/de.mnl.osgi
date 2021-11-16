@@ -1,3 +1,9 @@
+jar {
+    dependsOn(':de.mnl.osgi.coreutils:jar')
+    dependsOn(':de.mnl.osgi.coreutils:javadocJar')
+    dependsOn(':de.mnl.osgi.coreutils:sourcesJar')
+}
+
 project.ext.licenses = ['Apache-2.0']
 
 apply from: "${project.rootDir}/gradle/publishing.gradle"
