@@ -23,9 +23,6 @@ Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
 	net.jodah.concurrentunit;version=latest,\
 	de.mnl.osgi.coreutils;version=snapshot
 
-javac.source: 1.8
-javac.target: 1.8
-
 Export-Package: de.mnl.osgi.coreutils.test
 
 # Needed for Mockito's mocking to work
@@ -45,8 +42,6 @@ Export-Package: de.mnl.osgi.coreutils.test
 
 -runvm: -ea
 	
--runee: JavaSE-1.8
-
 # We need JUnit and Mockito to resolve the test cases at runtime. 
 # Other runtime dependencies should be added as necessary
 -runbundles: \

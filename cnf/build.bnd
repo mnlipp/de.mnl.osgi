@@ -42,6 +42,8 @@ mockito-deps: org.objenesis; version=2.6.0,\
 javac.source: 11
 javac.target: 11
 
+-runee: JavaSE-11
+
 # Set group id
 -groupid: de.mnl.osgi
 
