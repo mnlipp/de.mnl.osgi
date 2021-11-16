@@ -5,6 +5,11 @@ project.ext.licenses = ['AGPL-3.0']
 
 if (plugins.hasPlugin('biz.aQute.bnd')) {
 
+	compileJava {
+		sourceCompatibility = 11
+		targetCompatibility = 11
+	}
+
 	// artifact_version is defined in cnf/bnd.bnd
 	if (bnd.artifact_version) {
 		project.version = bnd.artifact_version
