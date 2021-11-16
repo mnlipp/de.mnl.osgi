@@ -1,6 +1,6 @@
 /*
  * Extra Bnd Repository Plugins
- * Copyright (C) 2019  Michael N. Lipp
+ * Copyright (C) 2019-2021  Michael N. Lipp
  * 
  * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU Affero General Public License as published by 
@@ -39,7 +39,6 @@ import aQute.service.reporter.Reporter;
 import de.mnl.osgi.bnd.maven.RepositoryUtils;
 import de.mnl.osgi.bnd.repository.maven.idxmvn.IndexedMavenConfiguration;
 import de.mnl.osgi.bnd.repository.maven.idxmvn.IndexedMavenRepository;
-
 import java.io.File;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -49,7 +48,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.stream.Collectors;
-
 import org.osgi.resource.Capability;
 import org.osgi.resource.Requirement;
 import org.osgi.service.repository.Repository;
@@ -132,14 +130,14 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
             File indexDb = workspace.getFile(getLocation());
             File localRepo = IO.getFile(configuration.local(MAVEN_REPO_LOCAL));
             try {
+                Thread.currentThread()
+                    .setContextClassLoader(getClass().getClassLoader());
                 osgiRepository = new IndexedMavenRepository(name,
                     RepositoryUtils.itemizeList(configuration.releaseUrls())
-                        .map(
-                            ru -> stringToUrl(ru))
+                        .map(ru -> stringToUrl(ru))
                         .collect(Collectors.toList()),
                     RepositoryUtils.itemizeList(configuration.snapshotUrls())
-                        .map(
-                            ru -> stringToUrl(ru))
+                        .map(ru -> stringToUrl(ru))
                         .collect(Collectors.toList()),
                     localRepo, indexDb, reporter, client, logIndexing);
                 bridge = new BridgeRepository(osgiRepository);
