@@ -59,7 +59,8 @@
  * The following bundle properties configure the described 
  * behavior.
  * 
- * <table summary="Bundle parameters">
+ * <table>
+ *   <caption>Bundle parameters</caption>
  *   <thead>
  *     <tr>
  *       <th>Property</th><th>Description</th><th>Default</th>
