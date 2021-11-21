@@ -36,6 +36,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -259,9 +260,11 @@ public class IndexedMavenRepository extends ResourcesRepository {
         // Reuse and clear (or create new) group repositories for the existing
         // directories, first for explicitly requested group ids...
         groups.clear();
-        CompletableFuture
-            .allOf(scanRequested(backupGroups), scanDependencies(backupGroups))
-            .get();
+        scanRequested(backupGroups).get();
+        scanDependencies(backupGroups).get();
+//        CompletableFuture
+//            .allOf(scanRequested(backupGroups), scanDependencies(backupGroups))
+//            .get();
         // Refresh them all.
         CompletableFuture<?>[] repoLoaders
             = new ArrayList<>(groups.values()).stream()
@@ -343,6 +346,22 @@ public class IndexedMavenRepository extends ResourcesRepository {
         return CompletableFuture.allOf(
             Arrays.stream(depsDir.toFile().list()).parallel()
                 .filter(dir -> dir.matches("^[A-Za-z].*"))
+                .filter(dir -> {
+                    if (groups.containsKey(dir)) {
+                        // Is/has become explicitly requested
+                        try {
+                            Files.walk(depsDir.resolve(dir))
+                                .sorted(Comparator.reverseOrder())
+                                .map(Path::toFile)
+                                .forEach(File::delete);
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        return false;
+                    }
+                    return true;
+                })
                 .map(groupId -> CompletableFuture
                     .runAsync(() -> restoreGroup(oldGroups, groupId, false),
                         groupLoaders))
