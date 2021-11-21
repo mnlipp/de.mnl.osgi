@@ -369,7 +369,7 @@ public class MavenResourceRepository extends CompositeMavenRepository {
 
         @Override
         @SuppressWarnings("PMD.ConfusingTernary")
-        public final List<Dependency> dependencies()
+        public final synchronized List<Dependency> dependencies()
                 throws MavenResourceException {
             if (cachedDependencies == null) {
                 if (cachedDelegee != null) {
