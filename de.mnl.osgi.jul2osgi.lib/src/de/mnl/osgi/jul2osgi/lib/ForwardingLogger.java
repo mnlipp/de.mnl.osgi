@@ -17,7 +17,6 @@
 package de.mnl.osgi.jul2osgi.lib;
 
 import de.mnl.osgi.jul2osgi.lib.LogManager.LogInfo;
-
 import java.util.logging.Filter;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
