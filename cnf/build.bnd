@@ -51,9 +51,11 @@ artifact_version: ${versionmask;===s;${Bundle-Version}}
 bin=bin/main
 testbin=bin/test
 
-# JUnit Jupiter/Mockito testing
 -tester: biz.aQute.tester.junit-platform
-junit: junit-jupiter-api; version='[5.8.1,6.0)'
+# For building JUnitJupiter/Mockito tests 
+# (junit-platform-commons only needed by Eclipse test runner)
+junit: junit-jupiter-api; version='[5.8.1,6.0)',\
+	junit-platform-commons; version='[1.8.1,2)'
 mockito: org.mockito.junit-jupiter; version='[4.1.0,5.0)'
 
 -runee: JavaSE-11
