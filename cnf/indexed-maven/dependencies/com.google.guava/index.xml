@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929429956">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637578332814">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
@@ -250,15 +250,5 @@
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
     </requirement>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="com.google.guava:guava:bundle:25.1-android"/>
-      <attribute name="from" value="com.google.guava:guava:25.1-android"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="com.google.j2objc:j2objc-annotations:1.1;org.codehaus.mojo:animal-sniffer-annotations:1.14;org.checkerframework:checker-compat-qual:2.0.0;com.google.code.findbugs:jsr305:3.0.2;com.google.errorprone:error_prone_annotations:2.1.3"/>
-    </capability>
   </resource>
 </repository>

@@ -1,25 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961414">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637500724696">
   <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.eclipse.aether:aether-api:1.0.2.v20150114"/>
-      <attribute name="from" value="org.eclipse.aether:aether-api:1.0.2.v20150114"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.eclipse.org/legal/epl-v10.html"/>
       <attribute name="osgi.identity" value="org.eclipse.aether.api"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="1.0.2.v20150114" type="Version"/>
       <attribute name="documentation" value="http://www.eclipse.org/aether/aether-api/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.eclipse.aether.api"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.eclipse.aether.api"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.eclipse.aether.artifact,org.eclipse.aether.collection,org.eclipse.aether.deployment,org.eclipse.aether.installation,org.eclipse.aether.metadata,org.eclipse.aether.repository,org.eclipse.aether.resolution,org.eclipse.aether.transfer"/>
@@ -75,6 +62,19 @@
       <attribute name="version" value="1.0.2.v20150114" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.eclipse.aether.version"/>
     </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.eclipse.aether.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.eclipse.aether.api"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.eclipse.aether:aether-api:1.0.2.v20150114"/>
+      <attribute name="from" value="org.eclipse.aether:aether-api:1.0.2.v20150114"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="136324" type="Long"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-api/1.0.2.v20150114/aether-api-1.0.2.v20150114.jar"/>
@@ -83,25 +83,12 @@
     </capability>
   </resource>
   <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.eclipse.aether:aether-spi:1.0.2.v20150114"/>
-      <attribute name="from" value="org.eclipse.aether:aether-spi:1.0.2.v20150114"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.eclipse.org/legal/epl-v10.html"/>
       <attribute name="osgi.identity" value="org.eclipse.aether.spi"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="1.0.2.v20150114" type="Version"/>
       <attribute name="documentation" value="http://www.eclipse.org/aether/aether-spi/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.eclipse.aether.spi"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.eclipse.aether.spi"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.metadata,org.eclipse.aether.repository,org.eclipse.aether.transfer"/>
@@ -140,14 +127,27 @@
       <attribute name="version" value="1.0.2.v20150114" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.log"/>
     </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.eclipse.aether.spi"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.eclipse.aether.spi"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.eclipse.aether:aether-spi:1.0.2.v20150114"/>
+      <attribute name="from" value="org.eclipse.aether:aether-spi:1.0.2.v20150114"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.eclipse.aether:aether-api:1.0.2.v20150114"/>
+    </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="30705" type="Long"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-spi/1.0.2.v20150114/aether-spi-1.0.2.v20150114.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="2CAFA2629DA49EDD54EB4DF6D15F628C2D80EEC293F37CD561F1FE78E7BCFF9D"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.eclipse.aether:aether-api:1.0.2.v20150114"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
@@ -166,25 +166,12 @@
     </requirement>
   </resource>
   <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.eclipse.aether:aether-util:1.0.2.v20150114"/>
-      <attribute name="from" value="org.eclipse.aether:aether-util:1.0.2.v20150114"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.eclipse.org/legal/epl-v10.html"/>
       <attribute name="osgi.identity" value="org.eclipse.aether.util"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="1.0.2.v20150114" type="Version"/>
       <attribute name="documentation" value="http://www.eclipse.org/aether/aether-util/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.eclipse.aether.util"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.eclipse.aether.util"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.eclipse.aether"/>
@@ -250,14 +237,27 @@
       <attribute name="version" value="1.0.2.v20150114" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.version"/>
     </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.eclipse.aether.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.eclipse.aether.util"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.eclipse.aether:aether-util:1.0.2.v20150114"/>
+      <attribute name="from" value="org.eclipse.aether:aether-util:1.0.2.v20150114"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.eclipse.aether:aether-api:1.0.2.v20150114"/>
+    </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="146876" type="Long"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-util/1.0.2.v20150114/aether-util-1.0.2.v20150114.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="9E9A57439A98034732E94D841BB7065B56E3A065654361CA9CC07135E9FBE17C"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.eclipse.aether:aether-api:1.0.2.v20150114"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=javax.net.ssl))"/>
@@ -291,25 +291,12 @@
     </requirement>
   </resource>
   <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.eclipse.aether:aether-impl:1.0.2.v20150114"/>
-      <attribute name="from" value="org.eclipse.aether:aether-impl:1.0.2.v20150114"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.eclipse.org/legal/epl-v10.html"/>
       <attribute name="osgi.identity" value="org.eclipse.aether.impl"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="1.0.2.v20150114" type="Version"/>
       <attribute name="documentation" value="http://www.eclipse.org/aether/aether-impl/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.eclipse.aether.impl"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.eclipse.aether.impl"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="x-internal" value="true"/>
@@ -333,14 +320,27 @@
       <attribute name="version" value="1.0.2.v20150114" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.eclipse.aether.impl.guice"/>
     </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.eclipse.aether.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.eclipse.aether.impl"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.eclipse.aether:aether-impl:1.0.2.v20150114"/>
+      <attribute name="from" value="org.eclipse.aether:aether-impl:1.0.2.v20150114"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.eclipse.aether:aether-api:1.0.2.v20150114;org.eclipse.aether:aether-spi:1.0.2.v20150114;org.eclipse.aether:aether-util:1.0.2.v20150114"/>
+    </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="172998" type="Long"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-impl/1.0.2.v20150114/aether-impl-1.0.2.v20150114.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="9A84F5863407ACF2BF9CF280CD02F5A518952A386DE61DF3B8C5DB8CFDEC725D"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.eclipse.aether:aether-api:1.0.2.v20150114;org.eclipse.aether:aether-spi:1.0.2.v20150114;org.eclipse.aether:aether-util:1.0.2.v20150114"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject)(&amp;(version&gt;=1.3.0)(!(version&gt;=2.0.0))))"/>
@@ -441,210 +441,6 @@
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.spi)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
       <directive name="resolution" value="optional"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.eclipse.aether:aether-api:0.9.0.M2"/>
-      <attribute name="from" value="org.eclipse.aether:aether-api:0.9.0.M2"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.eclipse.org/legal/epl-v10.html"/>
-      <attribute name="osgi.identity" value="org.eclipse.aether.api"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="documentation" value="http://www.eclipse.org/aether/aether-api/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.eclipse.aether.api"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.eclipse.aether.api"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.artifact,org.eclipse.aether.transfer,org.eclipse.aether.repository,org.eclipse.aether.resolution,org.eclipse.aether.collection,org.eclipse.aether.graph,org.eclipse.aether.metadata,org.eclipse.aether.installation,org.eclipse.aether.deployment"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.artifact"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.graph,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.repository,org.eclipse.aether.version"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.collection"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.repository,org.eclipse.aether.metadata"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.deployment"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.artifact,org.eclipse.aether.version,org.eclipse.aether.repository"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.graph"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.metadata"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.installation"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.metadata"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.metadata"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.repository"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.repository,org.eclipse.aether.graph,org.eclipse.aether.transfer,org.eclipse.aether.collection,org.eclipse.aether.metadata,org.eclipse.aether.version"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.resolution"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.artifact,org.eclipse.aether.repository,org.eclipse.aether,org.eclipse.aether.metadata"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.transfer"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="133957" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-api/0.9.0.M2/aether-api-0.9.0.M2.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="E220097CFFAD96C2963AB12652FF8833EC6F40143D509F0A2EA59D22209B6ECD"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.eclipse.aether:aether-util:0.9.0.M2"/>
-      <attribute name="from" value="org.eclipse.aether:aether-util:0.9.0.M2"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.eclipse.org/legal/epl-v10.html"/>
-      <attribute name="osgi.identity" value="org.eclipse.aether.util"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="documentation" value="http://www.eclipse.org/aether/aether-util/"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.eclipse.aether.util"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.eclipse.aether.util"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.artifact"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.artifact"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.concurrency"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.graph,org.eclipse.aether.artifact,org.eclipse.aether.version"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.filter"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.artifact,org.eclipse.aether.graph,org.eclipse.aether.collection"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.manager"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.graph,org.eclipse.aether.collection,org.eclipse.aether.artifact"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.selector"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.graph,org.eclipse.aether,org.eclipse.aether.collection,org.eclipse.aether.artifact,org.eclipse.aether.util,org.eclipse.aether.version,org.eclipse.aether.util.graph.visitor"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.transformer"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.graph,org.eclipse.aether.artifact,org.eclipse.aether.collection"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.traverser"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.graph,org.eclipse.aether.artifact"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.visitor"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether,org.eclipse.aether.transfer"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.listener"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.repository,org.eclipse.aether.artifact,org.eclipse.aether,org.eclipse.aether.resolution,org.eclipse.aether.metadata"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.repository"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.artifact,org.eclipse.aether.metadata"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.repository.layout"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether.version"/>
-      <attribute name="version" value="0.9.0.M2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="133588" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-util/0.9.0.M2/aether-util-0.9.0.M2.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="7D62B0FDEF90196EC4B2947F5973D750BFD3935785244E77CC06780131C404E9"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.eclipse.aether:aether-api:0.9.0.M2"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether)(&amp;(version&gt;=0.9.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.artifact)(&amp;(version&gt;=0.9.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.collection)(&amp;(version&gt;=0.9.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.graph)(&amp;(version&gt;=0.9.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.metadata)(&amp;(version&gt;=0.9.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.repository)(&amp;(version&gt;=0.9.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.resolution)(&amp;(version&gt;=0.9.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.transfer)(&amp;(version&gt;=0.9.0)(!(version&gt;=1.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.version)(&amp;(version&gt;=0.9.0)(!(version&gt;=1.0.0))))"/>
     </requirement>
   </resource>
 </repository>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929429743">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637578332704">
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="com.google.errorprone:error_prone_annotations:2.0.12"/>
@@ -11,19 +11,6 @@
       <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.0.12/error_prone_annotations-2.0.12.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="7E9C688F734EE5CF2386D3EFC367D4A3E6D09130D2AFEB52434E1CC2880820A4"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="com.google.errorprone:error_prone_annotations:2.1.3"/>
-      <attribute name="from" value="com.google.errorprone:error_prone_annotations:2.1.3"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="13704" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.jar"/>
-      <attribute name="mime" value="application/java-archive"/>
-      <attribute name="osgi.content" value="03D0329547C13DA9E17C634D1049EA2EAD093925E290567E1A364FD6B1FC7FF8"/>
     </capability>
   </resource>
 </repository>

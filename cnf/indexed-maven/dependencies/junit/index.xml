@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929566331">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637578332816">
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="junit:junit:4.11"/>
@@ -14,74 +14,6 @@
       <attribute name="url" value="https://repo.maven.apache.org/maven2/junit/junit/4.11/junit-4.11.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="90A8E1603EECA48E7E879F3AFBC9560715322985F39A274F6F6070B43F9D06FE"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="junit:junit:4.12"/>
-      <attribute name="from" value="junit:junit:4.12"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="314932" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/junit/junit/4.12/junit-4.12.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="59721F0805E223D84B90677887D9FF567DC534D7C502CA903C0C2B17F05C116A"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="junit:junit:3.8.1"/>
-      <attribute name="from" value="junit:junit:3.8.1"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="121070" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/junit/junit/3.8.1/junit-3.8.1.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="B58E459509E190BED737F3592BC1950485322846CF10E78DED1D065153012D70"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="junit:junit:3.8.2"/>
-      <attribute name="from" value="junit:junit:3.8.2"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="120640" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/junit/junit/3.8.2/junit-3.8.2.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="ECDCC08183708EA3F7B0DDC96F19678A0DB8AF1FB397791D484AED63200558B0"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="junit:junit:4.6"/>
-      <attribute name="from" value="junit:junit:4.6"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="218226" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/junit/junit/4.6/junit-4.6.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="0A3A4E58B83B44818040901F263AA746738C534C5B773C145B00B7378121D61A"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="junit:junit:3.7"/>
-      <attribute name="from" value="junit:junit:3.7"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="117522" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/junit/junit/3.7/junit-3.7.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="170D31297CD401B6338679F393900421E64D38B542538B549F3F1A0F26BCD848"/>
     </capability>
   </resource>
 </repository>

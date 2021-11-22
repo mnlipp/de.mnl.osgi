@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929429521">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637578490146">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
@@ -197,33 +197,262 @@
     </capability>
   </resource>
   <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="documentation" value="http://www.apache.org/"/>
+      <attribute name="description" value="This OSGi bundle wraps hamcrest-all 1.3 jar file."/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.3.0.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator.qdox.directorywalker"/>
+      <attribute name="bnd.hashes" value="-966390031,-261579982,2104342424,-665157047" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.generator.qdox.model.annotation,org.hamcrest.generator.qdox.model.util,org.hamcrest.generator.qdox,org.hamcrest.generator.qdox.parser,org.hamcrest.generator.qdox.parser.structs"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator.qdox.model"/>
+      <attribute name="bnd.hashes" value="1201712952,-1183434696,1878269575,438421327,-940901947,366170179,1647340950,-1476458860,-1612085609,-1654064525,703697964,1134703702,71094476,-1718415200,1137388504,1096458691,1979347048,-2132115548,-111239289,1277507837,-1993902406,256094290,2622298,-18661386,-1469706156" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.generator.qdox.parser,org.hamcrest.generator.qdox.parser.structs,org.hamcrest.generator.qdox.model.annotation,org.hamcrest.generator.qdox.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator.qdox.parser.impl"/>
+      <attribute name="bnd.hashes" value="-2052796249,-1427531415,82420049,-1911543745" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator.qdox.parser.structs"/>
+      <attribute name="bnd.hashes" value="812366423,757052301,-864389941,-763726989,1149346628,2022770175,-1797400021,811536971,-1890500561,-1119409391" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.generator.qdox.directorywalker,org.hamcrest.generator.qdox.model,org.hamcrest.generator.qdox.parser,org.hamcrest.generator.qdox"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator.qdox.tools"/>
+      <attribute name="bnd.hashes" value="1815912248,-362395391,420799259" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.number"/>
+      <attribute name="bnd.hashes" value="924019458,-2004241943,143421725" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.xml.sax.helpers,org.xml.sax,org.hamcrest.generator,javax.xml.parsers"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator.config"/>
+      <attribute name="bnd.hashes" value="-38449972" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.core,org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.object"/>
+      <attribute name="bnd.hashes" value="-1529563386,-83025896,-1417671878" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator.qdox.model.util"/>
+      <attribute name="bnd.hashes" value="67115090,-1540049707,-1540055601,-646419399" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,org.hamcrest.core"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.collection"/>
+      <attribute name="bnd.hashes" value="-575817937,-1163135203,1942437892,-609431732,-799101386,1126141327,-42253023,-634708043,2287631,361566237,538228785,-995933060,-369291713,-362462749,1634983904" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.generator.qdox.model,org.hamcrest.generator.qdox.directorywalker,org.hamcrest.generator.qdox.parser,org.hamcrest.generator.qdox.parser.impl,org.hamcrest.generator.qdox.parser.structs"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator.qdox"/>
+      <attribute name="bnd.hashes" value="-344362707,13642873,2061425891,1105434690,1787478821,953289845" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.internal"/>
+      <attribute name="bnd.hashes" value="951756231,-271425669,-1979006851,-485793781" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.generator.qdox.model,org.hamcrest.generator.qdox.parser.structs"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator.qdox.parser"/>
+      <attribute name="bnd.hashes" value="1895597947,73315052,1971845884" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.core"/>
+      <attribute name="bnd.hashes" value="63352632,63424707,16449521,103005741,-756275534,-70059797,67339003,2378,869720556,-2135792586,-572150774,-1057350090,70921513,-2096394767,-2096265008,-1050048887,1313826160,-670536913,-1834239032,-500995647" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,org.hamcrest.core"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.beans"/>
+      <attribute name="bnd.hashes" value="-745782673,-230185316,-700144745,-694963843,575417999" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,javax.xml.xpath,org.hamcrest.core,org.w3c.dom,javax.xml.namespace"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.xml"/>
+      <attribute name="bnd.hashes" value="197938787" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.generator.qdox.model,org.hamcrest.generator.qdox"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator"/>
+      <attribute name="bnd.hashes" value="-608095529,-336538743,2110434923,-1886551555,354178586,2481980,-857605999,1656060433,-600092398,-1638352000,288142941" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.generator.qdox.model,junit.framework,org.hamcrest.generator.qdox"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator.qdox.junit"/>
+      <attribute name="bnd.hashes" value="738222844" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.generator.qdox.model,org.apache.tools.ant.types,org.apache.tools.ant,org.hamcrest.generator.qdox"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator.qdox.ant"/>
+      <attribute name="bnd.hashes" value="26207555" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.generator.qdox.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.generator.qdox.model.annotation"/>
+      <attribute name="bnd.hashes" value="14271186,14271496,564733172,442464046,1049317395,42285224,78265326,865739346,688107944,1438152010,153889260,1291240295,-588162231,1516374461,1516387001,1157294397,-241622082,-2024009069,14284036,-527135261,416102802,777440243,-232067354,844995257,-538788970,-515534566,1203958633,-443119741,-1216579414,-331733020,-1296783042,849023842,2120398624,103284255,-1565065128,231989325" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.internal,org.hamcrest.core,org.easymock,org.hamcrest.integration,org.jmock.core,org.hamcrest.number,org.hamcrest.object,org.w3c.dom,org.hamcrest.collection,javax.xml.namespace,org.hamcrest.beans,org.hamcrest.xml,org.hamcrest.text"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest"/>
+      <attribute name="bnd.hashes" value="-366206901,515220737,-1789452028,1600917233,2587372,1142656251,-269945248,-1637731231,-1106348678,1980707797,-56677412,-606507625,586199175,572770538,2071941500,-2091541922,1794087336,-1789452014,-748688648,361562529,819664212,-1774319861,977265264,447226155" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.core,org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.text"/>
+      <attribute name="bnd.hashes" value="572043284,-1728217335,438788982,-369939047" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.easymock,org.hamcrest,org.jmock.core"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.hamcrest"/>
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.integration"/>
+      <attribute name="bnd.hashes" value="-1002629239,1127749330" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.servicemix.bundles.hamcrest"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.3.0.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.servicemix.bundles.hamcrest"/>
+    </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:bundle:4.13_1"/>
-      <attribute name="from" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.13_1"/>
+      <attribute name="name" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.hamcrest:1.3_1"/>
+      <attribute name="from" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.hamcrest:1.3_1"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="312095" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/servicemix/bundles/org.apache.servicemix.bundles.hamcrest/1.3_1/org.apache.servicemix.bundles.hamcrest-1.3_1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="2900E89A46546786CC22EA7B23E885F1FBDC430FEE1EF841B7455AD4FE9C7DFC"/>
     </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:bundle:4.13.1_1"/>
-      <attribute name="from" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.13.1_1"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:bundle:4.13.2_1"/>
-      <attribute name="from" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.13.2_1"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
-    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.namespace)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.namespace"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.parsers"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.xpath)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.xpath"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=junit.framework)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="junit.framework"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.tools.ant)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.apache.tools.ant"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.tools.ant.types)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.apache.tools.ant.types"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.easymock)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.easymock"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.jmock.core)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.jmock.core"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+      <attribute name="osgi.wiring.package" value="org.w3c.dom"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax)"/>
+      <attribute name="osgi.wiring.package" value="org.xml.sax"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax.helpers)"/>
+      <attribute name="osgi.wiring.package" value="org.xml.sax.helpers"/>
+    </requirement>
   </resource>
 </repository>
