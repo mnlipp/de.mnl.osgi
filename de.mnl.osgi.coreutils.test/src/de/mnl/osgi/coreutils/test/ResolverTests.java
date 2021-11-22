@@ -16,27 +16,22 @@
 
 package de.mnl.osgi.coreutils.test;
 
+import de.mnl.osgi.coreutils.ServiceResolver;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-
-import org.junit.After;
-
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceRegistration;
 
-import de.mnl.osgi.coreutils.ServiceResolver;
-
-@RunWith(MockitoJUnitRunner.class)
 public class ResolverTests {
 
     private final BundleContext context = FrameworkUtil
@@ -44,7 +39,7 @@ public class ResolverTests {
 
     private List<ServiceRegistration<?>> cleanup = new ArrayList<>();
 
-    @After
+    @AfterEach
     public void tearDown() {
         for (ServiceRegistration<?> reg : cleanup) {
             reg.unregister();

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637578490165">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.hamcrest:hamcrest-core:1.3"/>
+      <attribute name="from" value="org.hamcrest:hamcrest-core:1.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="45024" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="osgi.content" value="66FDEF91E9739348DF7A096AA384A5685F4E875584CCE89386A7A47251C4D8E9"/>
+    </capability>
+  </resource>
+</repository>

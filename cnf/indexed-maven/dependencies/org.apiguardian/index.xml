@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637503971296">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="description" value="@API Guardian"/>
+      <attribute name="osgi.identity" value="org.apiguardian.api"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.1.2" type="Version"/>
+      <attribute name="documentation" value="https://github.com/apiguardian-team/apiguardian"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apiguardian.api"/>
+      <attribute name="bundle-version" value="1.1.2" type="Version"/>
+      <attribute name="version" value="1.1.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apiguardian.api"/>
+      <attribute name="bnd.hashes" value="-1808614382,65018" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.1.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apiguardian.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.1.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apiguardian.api"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apiguardian:apiguardian-api:1.1.2"/>
+      <attribute name="from" value="org.apiguardian:apiguardian-api:1.1.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="6806" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="B509448AC506D607319F182537F0B35D71007582EC741832A1F111E5B5B70B38"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
+    </requirement>
+  </resource>
+</repository>

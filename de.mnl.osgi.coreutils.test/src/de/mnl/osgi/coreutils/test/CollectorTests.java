@@ -16,6 +16,7 @@
 
 package de.mnl.osgi.coreutils.test;
 
+import de.mnl.osgi.coreutils.ServiceCollector;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -24,22 +25,20 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeoutException;
 import net.jodah.concurrentunit.Waiter;
-
-import org.junit.After;
-
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceRegistration;
 
-import de.mnl.osgi.coreutils.ServiceCollector;
-
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class CollectorTests {
 
     private final BundleContext context = FrameworkUtil
@@ -47,7 +46,7 @@ public class CollectorTests {
 
     private List<ServiceRegistration<?>> cleanup = new ArrayList<>();
 
-    @After
+    @AfterEach
     public void tearDown() {
         for (ServiceRegistration<?> reg : cleanup) {
             reg.unregister();
