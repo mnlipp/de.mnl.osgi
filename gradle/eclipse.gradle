@@ -52,6 +52,7 @@ eclipse {
 				}
 		}
 		jdt {
+            javaRuntimeName = "JavaSE-11"
 			file {
 				withProperties { properties ->
 					def formatterPrefs = new Properties()
