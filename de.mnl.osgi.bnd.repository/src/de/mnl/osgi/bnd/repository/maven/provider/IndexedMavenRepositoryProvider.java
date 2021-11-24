@@ -187,8 +187,8 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
         if (resource == null) {
             return null;
         }
-        String name = resource.getInfo().name();
-        Archive archive = Archive.valueOf(name);
+        String from = resource.getInfo().from();
+        Archive archive = Archive.valueOf(from);
 
         Promise<File> prmse
             = osgiRepository.mavenRepository().retrieve(archive);
@@ -197,7 +197,7 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
             return prmse.getValue();
         }
         new DownloadListenerPromise(reporter,
-            name + ": get " + bsn + ";" + version, prmse, listeners);
+            from + ": get " + bsn + ";" + version, prmse, listeners);
         return osgiRepository.mavenRepository().toLocalFile(archive);
     }
 
@@ -224,4 +224,10 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
         init();
         return osgiRepository.findProviders(requirements);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }

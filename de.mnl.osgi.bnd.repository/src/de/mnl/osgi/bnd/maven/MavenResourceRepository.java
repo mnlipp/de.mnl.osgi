@@ -21,6 +21,9 @@ package de.mnl.osgi.bnd.maven;
 import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapability;
 import aQute.bnd.osgi.resource.CapabilityBuilder;
 import aQute.bnd.osgi.resource.ResourceBuilder;
+import aQute.bnd.osgi.resource.ResourceUtils;
+import aQute.bnd.osgi.resource.ResourceUtils.IdentityCapability;
+import aQute.bnd.version.Version;
 import aQute.maven.api.Archive;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
@@ -30,6 +33,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +47,7 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.building.ModelBuildingException;
 import org.apache.maven.model.resolution.UnresolvableModelException;
+import org.osgi.framework.namespace.IdentityNamespace;
 import org.osgi.resource.Capability;
 import org.osgi.resource.Requirement;
 import org.osgi.resource.Resource;
@@ -260,8 +265,6 @@ public class MavenResourceRepository extends CompositeMavenRepository {
             }
             Archive archive = revision.archive(extension, "");
             ResourceBuilder builder = new ResourceBuilder();
-            addInformationCapability(builder, archive.toString(),
-                archive.getRevision().toString(), null);
             if (extension.equals("jar")) {
                 File binary;
                 try {
@@ -282,6 +285,20 @@ public class MavenResourceRepository extends CompositeMavenRepository {
                     throw new IllegalArgumentException(e);
                 }
             }
+            List<Capability> caps = builder.getCapabilities();
+            Map<String, Object> idAttrs = caps.stream()
+                .filter(cap -> cap.getNamespace()
+                    .equals(IdentityNamespace.IDENTITY_NAMESPACE))
+                .findFirst().map(Capability::getAttributes)
+                .orElse(Collections.emptyMap());
+            String bsn = (String) idAttrs.getOrDefault(
+                IdentityNamespace.IDENTITY_NAMESPACE,
+                archive.getWithoutVersion());
+            Version version = ResourceUtils.toVersion(idAttrs.getOrDefault(
+                IdentityNamespace.CAPABILITY_VERSION_ATTRIBUTE,
+                archive.revision.version.getOSGiVersion()));
+            addInformationCapability(builder, bsn, version, archive.toString(),
+                null);
 
             // Add dependency infos
             if (!dependencies().isEmpty()) {
