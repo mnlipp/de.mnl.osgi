@@ -43,10 +43,8 @@ Export-Package: de.mnl.osgi.coreutils.test
 	org.mockito.mockito-core;version='[4.1.0,4.1.1)',\
 	org.objenesis;version='[3.2.0,3.2.1)'
 
-#-runpath: \
-#	${workspace}/misc/jacocoagent.jar;version=file; \
-#	agent='destfile=${basedir}/bin/jacoco.exec,append=false,includes=de.mnl.osgi.*'
-#-javaagent: true
+-runvm.coverage: \
+	"-javaagent:${repo;org.jacoco:org.jacoco.agent:jar:runtime;latest}=destfile=${basedir}/generated/jacoco.exec,append=false,includes=de.mnl.osgi.*"
 
 # Use Felix by default
 -runfw: org.apache.felix.framework;version=6
