@@ -1,6 +1,6 @@
 /*
  * Extra Bnd Repository Plugins
- * Copyright (C) 2019  Michael N. Lipp
+ * Copyright (C) 2019-2021  Michael N. Lipp
  * 
  * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU Affero General Public License as published by 
@@ -110,29 +110,41 @@ public class BoundRevision implements Comparable<BoundRevision> {
     }
 
     /**
-     * Get an archive from this revision.
+     * Get a bound archive from this revision.
      *
-     * @param extension the extension
-     * @param classifier the classifier
+     * @param extension the archive's extension (or {@code null} for "jar")
+     * @param classifier the archive's classifier (or {@code null} for "")
      * @return the archive
      * @see aQute.maven.api.Revision#archive(java.lang.String, java.lang.String)
      */
     public BoundArchive archive(String extension, String classifier) {
-        return new BoundArchive(this, (MavenVersion) null, extension,
-            classifier);
+        return new BoundArchive(mavenBackingRepository, unbound, null,
+            extension, classifier);
+    }
+
+    /**
+     * Get the default archive (extension "jar", no classifier) 
+     * for this revision.
+     *
+     * @return the archive
+     * @see aQute.maven.api.Revision#archive(java.lang.String, java.lang.String)
+     */
+    public BoundArchive archive() {
+        return archive(null, null);
     }
 
     /**
      * Get an archive from this revision.
      *
      * @param version the version
-     * @param extension the extension
-     * @param classifier the classifier
+     * @param extension the archive's extension (or {@code null} for "jar")
+     * @param classifier the archive's classifier (or {@code null} for "")
      * @return the archive
      */
     public BoundArchive archive(MavenVersion version, String extension,
             String classifier) {
-        return new BoundArchive(this, version, extension, classifier);
+        return new BoundArchive(mavenBackingRepository, unbound, version,
+            extension, classifier);
     }
 
     /**

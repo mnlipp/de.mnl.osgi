@@ -1,6 +1,6 @@
 /*
  * Extra Bnd Repository Plugins
- * Copyright (C) 2019  Michael N. Lipp
+ * Copyright (C) 2019-2021 Michael N. Lipp
  * 
  * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU Affero General Public License as published by 
@@ -22,11 +22,12 @@ import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.bnd.osgi.repository.XMLResourceGenerator;
 import aQute.bnd.osgi.repository.XMLResourceParser;
+import aQute.maven.api.Archive;
 import aQute.maven.api.Program;
 import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
-import de.mnl.osgi.bnd.maven.BoundRevision;
+import de.mnl.osgi.bnd.maven.BoundArchive;
 import de.mnl.osgi.bnd.maven.CompositeMavenRepository.BinaryLocation;
 import de.mnl.osgi.bnd.maven.MavenResource;
 import de.mnl.osgi.bnd.maven.MavenResourceException;
@@ -78,7 +79,6 @@ public class MavenGroupRepository extends ResourcesRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(
         MavenGroupRepository.class);
-    private static final String PROP_UNAVAILABLE = "_NOT_AVAILABLE_";
 
     /** Indexing state. */
     private enum IndexingState {
@@ -94,9 +94,8 @@ public class MavenGroupRepository extends ResourcesRepository {
     private Path groupPropsPath;
     private Path groupIndexPath;
     private final Properties groupProps;
-    private final Map<String, String> propQueryCache
-        = new ConcurrentHashMap<>();
-    private final ConcurrentMap<Revision, IndexingState> indexingState
+    private VersionSpecification[] versionSpecs = new VersionSpecification[0];
+    private final ConcurrentMap<Archive, IndexingState> indexingState
         = new ConcurrentHashMap<>();
     private ResourcesRepository backupRepo;
     private Writer indexingLog;
@@ -137,6 +136,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         if (groupPropsPath.toFile().canRead()) {
             try (InputStream input = Files.newInputStream(groupPropsPath)) {
                 groupProps.load(input);
+                versionSpecs = VersionSpecification.parse(groupProps);
             }
         }
 
@@ -150,11 +150,12 @@ public class MavenGroupRepository extends ResourcesRepository {
                     e.getMessage());
             }
         }
-        // Cache revisions for faster checks.
+
+        // Re-use exiting resources for faster checks.
         for (Capability cap : findProvider(
             newRequirementBuilder("bnd.info").build())) {
             indexingState.put(
-                Revision.valueOf((String) cap.getAttributes().get("from")),
+                Archive.valueOf((String) cap.getAttributes().get("from")),
                 IndexingState.INDEXED);
         }
         LOG.debug("Created group repository for {}.", groupId);
@@ -169,8 +170,8 @@ public class MavenGroupRepository extends ResourcesRepository {
         groupIndexPath = groupDir.resolve("index.xml");
     }
 
-    private IndexingState indexingState(Revision revision) {
-        return indexingState.getOrDefault(revision, IndexingState.NONE);
+    private IndexingState indexingState(Archive archive) {
+        return indexingState.getOrDefault(archive, IndexingState.NONE);
     }
 
     /**
@@ -274,8 +275,8 @@ public class MavenGroupRepository extends ResourcesRepository {
             groupProps.clear();
             if (groupPropsPath.toFile().canRead()) {
                 try (InputStream input = Files.newInputStream(groupPropsPath)) {
-                    propQueryCache.clear();
                     groupProps.load(input);
+                    versionSpecs = VersionSpecification.parse(groupProps);
                 } catch (IOException e) {
                     reporter.warning("Problem reading %s (ignored): %s",
                         groupPropsPath, e.getMessage());
@@ -283,22 +284,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             }
             // Clear remaining caches.
             indexingState.clear();
-            propQueryCache.clear();
         }
-    }
-
-    /**
-     * Returns the excluded versions of the specified artifact id.
-     *
-     * @param artifactId the artifact id
-     * @return the maven version range
-     */
-    public MavenVersionRange excludedRange(String artifactId) {
-        // Check if excluded by rule.
-        return Optional
-            .ofNullable(searchProperty(artifactId, "exclude"))
-            .map(MavenVersionRange::parseRange)
-            .orElse(MavenVersionRange.NONE);
     }
 
     /**
@@ -331,7 +317,6 @@ public class MavenGroupRepository extends ResourcesRepository {
             if (backupRepo == null) {
                 backupRepo = new ResourcesRepository(getResources());
             }
-            propQueryCache.clear();
         }
         try {
             CompletableFuture<?>[] artifactLoaders = findArtifactIds()
@@ -356,12 +341,22 @@ public class MavenGroupRepository extends ResourcesRepository {
         IndexedMavenRepository.programLoaders.submit(() -> {
             String threadName = Thread.currentThread().getName();
             try {
-                Stream<CompletableFuture<Void>> revLoaderStream;
                 Thread.currentThread().setName("RevisionQuerier " + program);
-                LOG.debug("Getting list of revisions of {}.", program);
-                revLoaderStream = indexedRepository.mavenRepository()
-                    .findRevisions(program)
-                    .map(revision -> loadRevision(revision));
+                Stream<CompletableFuture<Void>> revLoaderStream
+                    = indexedRepository.mavenRepository().findRevisions(program)
+                        .flatMap(revision -> {
+                            var archives = VersionSpecification
+                                .toSelected(versionSpecs, revision);
+                            if (archives.isEmpty()) {
+                                logIndexing(revision.unbound(),
+                                    () -> String.format(
+                                        "%s not selected for indexing.",
+                                        revision.unbound()));
+                            }
+                            return archives.stream();
+                        }).map(archive -> loadArchive(archive));
+
+                // Complete all completables
                 revLoaderStream.forEach(
                     revLoad -> unthrow(() -> revLoad.handle((res, thrw) -> {
                         return null;
@@ -379,42 +374,33 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
-     * Load the revision asynchronously. Calling 
+     * Load the archive asynchronously (if selected). Calling 
      * {@link CompletableFuture#get()} never returns an exception. 
      *
-     * @param revision the revision
+     * @param archive the revision
      * @return the completable future
      */
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
         "PMD.AvoidDuplicateLiterals",
         "PMD.PositionLiteralsFirstInComparisons" })
-    private CompletableFuture<Void> loadRevision(BoundRevision revision) {
+    private CompletableFuture<Void> loadArchive(BoundArchive archive) {
         return CompletableFuture.runAsync(() -> {
-            if (!isSelected(revision.unbound())) {
-                logIndexing(revision.unbound(),
-                    () -> String.format("%s not selected for indexing.",
-                        revision.unbound()));
-                return;
-            }
             IndexingState curState = indexingState.putIfAbsent(
-                revision.unbound(), IndexingState.INDEXING);
+                archive, IndexingState.INDEXING);
             if (curState != null && curState != IndexingState.INDEXING) {
                 // Already handled (as dependency)
-                logIndexing(revision.unbound(), () -> String.format(
-                    "%s in list (already handled as dependency).",
-                    revision.unbound()));
+                logIndexing(archive.revision, () -> String.format(
+                    "%s in list (already handled as dependency).", archive));
                 return;
             }
-            LOG.debug("Loading revision {}.", revision.unbound());
-            logIndexing(revision.unbound(),
-                () -> String.format("%s in list, indexing...",
-                    revision.unbound()));
+            LOG.debug("Loading archive {}.", archive);
+            logIndexing(archive.revision,
+                () -> String.format("%s in list, indexing...", archive));
             String threadName = Thread.currentThread().getName();
             try {
-                Thread.currentThread()
-                    .setName("RevisionLoader " + revision.unbound());
+                Thread.currentThread().setName("ArchiveLoader " + archive);
                 MavenResource resource = indexedRepository.mavenRepository()
-                    .resource(revision, BinaryLocation.REMOTE);
+                    .resource(archive, BinaryLocation.REMOTE);
                 Set<MavenResource> allDeps = new HashSet<>();
                 if (!isIndexable(resource, allDeps)) {
                     return;
@@ -423,10 +409,9 @@ public class MavenGroupRepository extends ResourcesRepository {
             } catch (Exception e) {
                 // Load "in isolation", don't propagate individual failure.
                 reporter.exception(e, "Failed to load revision %s: %s",
-                    revision, e.getMessage());
-                logIndexing(revision.unbound(), () -> String.format(
-                    "%s failed to load: %s.", revision.unbound(),
-                    e.getMessage()));
+                    archive, e.getMessage());
+                logIndexing(archive.revision, () -> String.format(
+                    "%s failed to load: %s.", archive, e.getMessage()));
             } finally {
                 Thread.currentThread().setName(threadName);
             }
@@ -468,31 +453,6 @@ public class MavenGroupRepository extends ResourcesRepository {
         return result;
     }
 
-    private boolean isSelected(Revision revision) {
-        MavenVersionRange acceptedRange = Optional.ofNullable(
-            searchProperty(revision.artifact, "versions"))
-            .map(MavenVersionRange::parseRange).orElse(null);
-        MavenVersionRange forcedRange = Optional.ofNullable(
-            searchProperty(revision.artifact, "forcedVersions"))
-            .map(MavenVersionRange::parseRange).orElse(null);
-        if (acceptedRange == null && forcedRange == null) {
-            // It is to be added by default (i.e. nothing is specified).
-            return true;
-        }
-        return acceptedRange != null
-            && acceptedRange.includes(MavenVersion.from(revision.version))
-            || forcedRange != null
-                && forcedRange.includes(MavenVersion.from(revision.version));
-    }
-
-    private boolean isForced(Revision revision) {
-        return Optional.ofNullable(
-            searchProperty(revision.artifact, "forcedVersions"))
-            .map(MavenVersionRange::parseRange)
-            .map(range -> range.includes(MavenVersion.from(revision.version)))
-            .orElse(false);
-    }
-
     private void addResourceAndDependencies(MavenResource resource,
             Set<MavenResource> allDeps) {
         addResource(resource);
@@ -500,20 +460,21 @@ public class MavenGroupRepository extends ResourcesRepository {
         try {
             rethrow(IOException.class, () -> allDeps.stream()
                 .forEach(res -> runIgnoring(() -> indexedRepository
-                    .getOrCreateGroupRepository(res.revision().group)
+                    .getOrCreateGroupRepository(
+                        res.archive().getRevision().group)
                     .addResource(res))));
         } catch (Exception e) {
             // Load "in isolation", don't propagate individual failure.
             reporter.exception(e, "Failed to add resource %s: %s",
-                resource.revision(), e.getMessage());
-            logIndexing(resource.revision(), () -> String.format(
-                "%s failed to load.", resource.revision()));
+                resource.archive(), e.getMessage());
+            logIndexing(resource.archive().revision, () -> String.format(
+                "%s failed to load.", resource.archive()));
         }
     }
 
     /**
-     * Checks if the given revision is indexable, considering its 
-     * dependencies. A revision is indexable if its dependencies aren't
+     * Checks if the given resource is indexable, considering its 
+     * dependencies. A resource is indexable if its dependencies aren't
      * excluded.
      *
      * @param resource the resource to check
@@ -525,13 +486,13 @@ public class MavenGroupRepository extends ResourcesRepository {
         "PMD.AvoidCatchingGenericException" })
     private boolean isIndexable(MavenResource resource,
             Set<MavenResource> dependencies) {
-        Revision revision = resource.revision();
-        if (!revision.group.equals(groupId)) {
+        Archive archive = resource.archive();
+        if (!archive.revision.group.equals(groupId)) {
             throw new IllegalArgumentException("Wrong groupId "
-                + revision.group + " (must be " + groupId + ").");
+                + archive.revision.group + " (must be " + groupId + ").");
         }
         // Check if already decided.
-        switch (indexingState(revision)) {
+        switch (indexingState(archive)) {
         case INDEXED:
             return true;
         case EXCLUDED:
@@ -541,16 +502,18 @@ public class MavenGroupRepository extends ResourcesRepository {
             break;
         }
         // Check if excluded by rule.
-        if (excludedRange(revision.artifact)
-            .includes(MavenVersion.from(revision.version))) {
-            if (indexingState.replace(revision, IndexingState.INDEXING,
+        if (VersionSpecification
+            .excluded(versionSpecs, archive.revision.artifact)
+            .includes(MavenVersion.from(archive.revision.version))) {
+            if (indexingState.replace(archive, IndexingState.INDEXING,
                 IndexingState.EXCLUDED)) {
-                logIndexing(revision,
-                    () -> String.format("%s is excluded by rule.", revision));
+                logIndexing(archive.revision,
+                    () -> String.format("%s is excluded by rule.", archive));
             }
             return false;
         }
-        boolean isForced = isForced(resource.revision());
+        boolean isForced = VersionSpecification.isForced(versionSpecs, archive);
+
         // Check whether excluded because dependency is excluded
         List<Dependency> deps = evaluateDependencies(resource);
         for (Dependency dep : deps) {
@@ -569,26 +532,27 @@ public class MavenGroupRepository extends ResourcesRepository {
             }
             MavenResource depResource = optRes.get();
             // Watch out to use the proper repository in the code following!
-            depRepo.logIndexing(depResource.revision(),
+            depRepo.logIndexing(depResource.archive().revision,
                 () -> String.format("%s is dependency of %s, indexing...",
-                    depResource.revision(), revision));
-            depRepo.indexingState.putIfAbsent(depResource.revision(),
+                    depResource.archive(), archive));
+            depRepo.indexingState.putIfAbsent(depResource.archive(),
                 IndexingState.INDEXING);
             Set<MavenResource> collectedDeps = new HashSet<>();
             if (!depRepo.isIndexable(depResource, collectedDeps)) {
                 // Note that the revision which was checked is not indexable
                 // due to a dependency that is not indexable (unless forced)
                 if (!isForced) {
-                    if (indexingState.replace(revision, IndexingState.INDEXING,
+                    if (indexingState.replace(archive, IndexingState.INDEXING,
                         IndexingState.EXCL_BY_DEP)) {
-                        logIndexing(revision, () -> String.format(
+                        logIndexing(archive.revision, () -> String.format(
                             "%s not indexable, depends on %s.",
-                            revision, depResource.revision()));
+                            archive, depResource.archive()));
                     }
                     return false;
                 }
             }
-            if (depRepo.isSelected(depResource.revision())) {
+            if (!VersionSpecification.toSelected(depRepo.versionSpecs,
+                depResource.archive().revision).isEmpty()) {
                 // Has just been indexed as dependency, but would have
                 // been indexed (as selected) anyway, so add independent
                 // of outcome of dependency evaluation.
@@ -610,9 +574,9 @@ public class MavenGroupRepository extends ResourcesRepository {
             return Collections.emptyList();
         }
         if (!deps.isEmpty()) {
-            logIndexing(resource.revision(),
+            logIndexing(resource.archive().revision,
                 () -> String.format("%s has dependencies: %s",
-                    resource.revision(), deps.stream()
+                    resource.archive(), deps.stream()
                         .map(d -> d.getGroupId() + ":" + d.getArtifactId() + ":"
                             + d.getVersion())
                         .collect(Collectors.joining(", "))));
@@ -626,6 +590,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             return indexedRepository.mavenRepository().resource(
                 depPgm, narrowVersion(depPgm, MavenVersionSpecification
                     .from(dep.getVersion())),
+                dep.getType(), dep.getClassifier(),
                 BinaryLocation.REMOTE);
         } catch (Exception e) {
             // Failing to get a dependency is no reason to fail.
@@ -637,10 +602,12 @@ public class MavenGroupRepository extends ResourcesRepository {
             Program program, MavenVersionSpecification version)
             throws IOException {
         if (version instanceof MavenVersion) {
+            // Specific version, leave as is.
             return version;
         }
-        // Restrict range to allowed
-        MavenVersionRange excluded = excludedRange(program.artifact);
+        // If it's a range, restrict it to allowed
+        MavenVersionRange excluded = VersionSpecification
+            .excluded(versionSpecs, program.artifact);
         return excluded.complement().restrict((MavenVersionRange) version);
     }
 
@@ -651,71 +618,34 @@ public class MavenGroupRepository extends ResourcesRepository {
      */
     private void addResource(MavenResource resource) {
         synchronized (indexingState) {
-            if (indexingState(resource.revision()) == IndexingState.INDEXED) {
+            if (indexingState(resource.archive()) == IndexingState.INDEXED) {
                 return;
             }
             try {
                 add(resource.asResource());
-                logIndexing(resource.revision(),
-                    () -> String.format("%s indexed.", resource.revision()));
+                logIndexing(resource.archive().revision,
+                    () -> String.format("%s indexed.", resource.archive()));
             } catch (MavenResourceException e) {
                 reporter.exception(e, "Failed to get %s as resource.",
                     resource.toString());
-                logIndexing(resource.revision(),
+                logIndexing(resource.archive().revision,
                     () -> String.format("%s could not be index: %s.",
-                        resource.revision(), e.getMessage()));
+                        resource.archive(), e.getMessage()));
             }
-            indexingState.put(resource.revision(), IndexingState.INDEXED);
+            indexingState.put(resource.archive(), IndexingState.INDEXED);
         }
     }
 
-    /* package */ Optional<Resource> searchInBackup(Revision revision) {
+    /* package */ Optional<Resource> searchInBackup(Archive archive) {
         if (backupRepo == null) {
             return Optional.empty();
         }
         return backupRepo.findProvider(
             backupRepo.newRequirementBuilder("bnd.info")
                 .addDirective("filter",
-                    String.format("(from=%s)", revision.toString()))
+                    String.format("(from=%s)", archive.toString()))
                 .build())
             .stream().findFirst().map(Capability::getResource);
-    }
-
-    @SuppressWarnings("PMD.CompareObjectsWithEquals")
-    private String searchProperty(String artifactId, String qualifier) {
-        String queryKey = artifactId + ";" + qualifier;
-        // Attempt to get from cache.
-        String prop = propQueryCache.get(queryKey);
-        // Special value, because ConcurrentHashMap cannot have null values.
-        if (prop == PROP_UNAVAILABLE) {
-            return null;
-        }
-        // Found in cache return.
-        if (prop != null) {
-            return prop;
-        }
-        // Try query key unmodified
-        prop = groupProps.getProperty(queryKey);
-        if (prop == null) {
-            // Try <id>.*, successively removing trailing parts.
-            String rest = artifactId;
-            while (true) {
-                prop = groupProps.getProperty(rest + ".*;" + qualifier);
-                if (prop != null) {
-                    break;
-                }
-                int lastDot = rest.lastIndexOf('.');
-                if (lastDot < 0) {
-                    break;
-                }
-                rest = rest.substring(0, lastDot);
-            }
-        }
-        if (prop == null) {
-            prop = groupProps.getProperty(qualifier);
-        }
-        propQueryCache.put(queryKey, prop == null ? PROP_UNAVAILABLE : prop);
-        return prop;
     }
 
     private void logIndexing(Revision revision, Supplier<String> msgSupplier) {

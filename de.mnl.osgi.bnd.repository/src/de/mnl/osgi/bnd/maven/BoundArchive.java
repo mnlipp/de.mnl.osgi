@@ -1,6 +1,6 @@
 /*
  * Extra Bnd Repository Plugins
- * Copyright (C) 2019  Michael N. Lipp
+ * Copyright (C) 2019-2021  Michael N. Lipp
  * 
  * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU Affero General Public License as published by 
@@ -19,8 +19,8 @@
 package de.mnl.osgi.bnd.maven;
 
 import aQute.maven.api.Archive;
+import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
-import static de.mnl.osgi.bnd.maven.MavenVersion.toBndMavenVersion;
 
 /**
  * An {@link Archive} with a reference to the maven repository
@@ -30,61 +30,27 @@ import static de.mnl.osgi.bnd.maven.MavenVersion.toBndMavenVersion;
  */
 public class BoundArchive extends Archive {
 
-    private final BoundRevision revision;
+    private final MavenBackingRepository mavenBackingRepository;
 
     /**
      * Instantiates a new bound archive.
      *
-     * @param revision the revision
-     * @param snapshot the snapshot
-     * @param extension the extension
-     * @param classifier the classifier
+     * @param mavenBackingRepository the maven backing repository
+     * @param unbound the unbound archive
      */
-    public BoundArchive(BoundRevision revision, MavenVersion snapshot,
-            String extension, String classifier) {
-        super(revision.unbound(), toBndMavenVersion(snapshot), extension,
-            classifier);
-        this.revision = revision;
+    public BoundArchive(MavenBackingRepository mavenBackingRepository,
+            Archive unbound) {
+        super(unbound.revision, unbound.snapshot, unbound.extension,
+            unbound.classifier);
+        this.mavenBackingRepository = mavenBackingRepository;
     }
 
-    /**
-     * Instantiates a new bound archive.
-     *
-     * @param revision the revision
-     * @param snapshot the snapshot
-     * @param extension the extension
-     * @param classifier the classifier
-     */
-    public BoundArchive(BoundRevision revision,
-            aQute.bnd.version.MavenVersion snapshot, String extension,
+    public BoundArchive(MavenBackingRepository mavenBackingRepository,
+            Revision revision, MavenVersion snapshot, String extension,
             String classifier) {
-        super(revision.unbound(), snapshot, extension, classifier);
-        this.revision = revision;
-    }
-
-    /**
-     * Instantiates a new bound archive.
-     *
-     * @param mavenRepository the maven repository
-     * @param str the string representation
-     */
-    public BoundArchive(MavenBackingRepository mavenRepository, String str) {
-        super(str);
-        this.revision = new BoundRevision(mavenRepository, super.revision);
-    }
-
-    /**
-     * Create a {@link BoundArchive} from an (unbound) {@link Archive}.
-     *
-     * @param mavenRepository the maven repository
-     * @param archive the archive
-     * @return the bound archive
-     */
-    public static BoundArchive fromArchive(
-            MavenBackingRepository mavenRepository, Archive archive) {
-        return new BoundArchive(
-            new BoundRevision(mavenRepository, archive.revision),
-            archive.snapshot, archive.extension, archive.classifier);
+        super(revision, snapshot == null ? null : snapshot.asBndMavenVersion(),
+            extension, classifier);
+        this.mavenBackingRepository = mavenBackingRepository;
     }
 
     /**
@@ -92,17 +58,17 @@ public class BoundArchive extends Archive {
      *
      * @return the mavenBackingRepository
      */
-    public final MavenBackingRepository mavenBackingRepository() {
-        return revision.mavenBackingRepository();
+    public MavenBackingRepository mavenBackingRepository() {
+        return mavenBackingRepository;
     }
 
     /**
-     * Gets the bound revision.
+     * Return the archive's revision, bound to its backing repository.
      *
      * @return the bound revision
      */
-    public BoundRevision getBoundRevision() {
-        return revision;
+    public BoundRevision revision() {
+        return new BoundRevision(mavenBackingRepository, revision);
     }
 
 }

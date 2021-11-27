@@ -1,6 +1,6 @@
 /*
  * Extra Bnd Repository Plugins
- * Copyright (C) 2019  Michael N. Lipp
+ * Copyright (C) 2019-2021 Michael N. Lipp
  * 
  * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU Affero General Public License as published by 
@@ -342,6 +342,22 @@ public class CompositeMavenRepository implements Closeable {
             throws IOException {
         return findRevisions(revision.program)
             .filter(rev -> rev.unbound().equals(revision)).findFirst();
+    }
+
+    /**
+     * Converts an {@link Archive} to a {@link BoundArchive}.
+     *
+     * @param archive the archive
+     * @return the bound archive
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
+    public Optional<BoundArchive> find(Archive archive)
+            throws IOException {
+        return rethrow(IOException.class,
+            () -> find(archive.revision).flatMap(rev -> unthrow(() -> Optional
+                .ofNullable(
+                    resolve(rev, archive.extension, archive.classifier)))));
     }
 
     /**

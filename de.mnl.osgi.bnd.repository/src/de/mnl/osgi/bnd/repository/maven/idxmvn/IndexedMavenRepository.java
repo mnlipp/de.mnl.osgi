@@ -1,6 +1,6 @@
 /*
  * Extra Bnd Repository Plugins
- * Copyright (C) 2019  Michael N. Lipp
+ * Copyright (C) 2019-2021 Michael N. Lipp
  * 
  * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU Affero General Public License as published by 
@@ -21,7 +21,7 @@ package de.mnl.osgi.bnd.repository.maven.idxmvn;
 import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.Processor;
 import aQute.bnd.osgi.repository.ResourcesRepository;
-import aQute.maven.api.Revision;
+import aQute.maven.api.Archive;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
 import de.mnl.osgi.bnd.maven.MavenResourceRepository;
@@ -169,9 +169,9 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 .setResourceSupplier(this::restoreResource);
     }
 
-    private Optional<Resource> restoreResource(Revision revision) {
-        return Optional.ofNullable(backupGroups.get(revision.group))
-            .flatMap(group -> group.searchInBackup(revision));
+    private Optional<Resource> restoreResource(Archive archive) {
+        return Optional.ofNullable(backupGroups.get(archive.revision.group))
+            .flatMap(group -> group.searchInBackup(archive));
     }
 
     /**

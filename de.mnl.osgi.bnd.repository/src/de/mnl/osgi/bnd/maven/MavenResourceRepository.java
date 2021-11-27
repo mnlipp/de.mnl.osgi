@@ -1,6 +1,6 @@
 /*
  * Extra Bnd Repository Plugins
- * Copyright (C) 2019  Michael N. Lipp
+ * Copyright (C) 2019-2021 Michael N. Lipp
  * 
  * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU Affero General Public License as published by 
@@ -22,11 +22,9 @@ import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapabilit
 import aQute.bnd.osgi.resource.CapabilityBuilder;
 import aQute.bnd.osgi.resource.ResourceBuilder;
 import aQute.bnd.osgi.resource.ResourceUtils;
-import aQute.bnd.osgi.resource.ResourceUtils.IdentityCapability;
 import aQute.bnd.version.Version;
 import aQute.maven.api.Archive;
 import aQute.maven.api.Program;
-import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
 import java.io.File;
@@ -53,7 +51,7 @@ import org.osgi.resource.Requirement;
 import org.osgi.resource.Resource;
 
 /**
- * Wraps the artifacts from a maven reposityor as {@link Resource}s.
+ * Wraps the artifacts from a maven repository as {@link Resource}s.
  */
 public class MavenResourceRepository extends CompositeMavenRepository {
 
@@ -61,9 +59,9 @@ public class MavenResourceRepository extends CompositeMavenRepository {
     public static final String MAVEN_DEPENDENCIES_NS
         = "maven.dependencies.info";
 
-    private Function<Revision, Optional<Resource>> resourceSupplier
+    private Function<Archive, Optional<Resource>> resourceSupplier
         = resource -> Optional.empty();
-    private final Map<Revision, MavenResource> resourceCache
+    private final Map<Archive, MavenResource> resourceCache
         = new ConcurrentHashMap<>();
 
     public MavenResourceRepository(File base, String repoId,
@@ -92,24 +90,9 @@ public class MavenResourceRepository extends CompositeMavenRepository {
      * @return the composite maven repository
      */
     public MavenResourceRepository setResourceSupplier(
-            Function<Revision, Optional<Resource>> resourceSupplier) {
+            Function<Archive, Optional<Resource>> resourceSupplier) {
         this.resourceSupplier = resourceSupplier;
         return this;
-    }
-
-    /**
-     * Creates a {@link MavenResource} for the given revision. 
-     *
-     * @param revision the revision
-     * @param location which URL to use for the binary in the {@link Resource}
-     * @return the resource
-     */
-    public MavenResource resource(BoundRevision revision,
-            BinaryLocation location) {
-        return resourceCache.computeIfAbsent(revision.unbound(),
-            rev -> resourceSupplier.apply(rev)
-                .map(resource -> new MavenResourceImpl(revision, resource))
-                .orElseGet(() -> new MavenResourceImpl(revision, location)));
     }
 
     /**
@@ -117,15 +100,34 @@ public class MavenResourceRepository extends CompositeMavenRepository {
      *
      * @param program the program
      * @param version the version
+     * @param extension the extension (or {@code null} for "jar")
+     * @param classifier the classifier (or {@code null} for "")
      * @param location which URL to use for the binary in the {@link Resource}
      * @return the resource
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public Optional<MavenResource> resource(Program program,
-            MavenVersionSpecification version, BinaryLocation location)
+            MavenVersionSpecification version, String extension,
+            String classifier, BinaryLocation location)
             throws IOException {
         return find(program, version)
-            .map(revision -> resource(revision, location));
+            .map(revision -> resource(revision.archive(extension, classifier),
+                location));
+    }
+
+    /**
+     * Creates a {@link MavenResource} for the given archive. 
+     *
+     * @param archive the archive
+     * @param location which URL to use for the binary in the {@link Resource}
+     * @return the resource
+     */
+    public MavenResource resource(BoundArchive archive,
+            BinaryLocation location) {
+        return resourceCache.computeIfAbsent(archive,
+            a -> resourceSupplier.apply(a)
+                .map(resource -> new MavenResourceImpl(archive, resource))
+                .orElseGet(() -> new MavenResourceImpl(archive, location)));
     }
 
     /**
@@ -163,8 +165,8 @@ public class MavenResourceRepository extends CompositeMavenRepository {
      */
     public class MavenResourceImpl implements MavenResource {
 
-        private final Revision revision;
-        private BoundRevision cachedRevision;
+        private final Archive archive;
+        private BoundArchive cachedArchive;
         private Resource cachedDelegee;
         private List<Dependency> cachedDependencies;
         private final BinaryLocation location;
@@ -172,35 +174,36 @@ public class MavenResourceRepository extends CompositeMavenRepository {
         /**
          * Instantiates a new maven resource from the given data.
          *
-         * @param revision the revision
-         * @param resource the delegee
+         * @param revision the archive
+         * @param location the location
          */
-        private MavenResourceImpl(Revision revision, BinaryLocation location) {
-            this.revision = revision;
+        private MavenResourceImpl(Archive archive, BinaryLocation location) {
+            this.archive = archive;
             this.location = location;
         }
 
         /**
          * Instantiates a new maven resource from the given data.
          *
-         * @param revision the revision
-         * @param resource the delegee
+         * @param revision the archive
+         * @param location the location
          */
-        private MavenResourceImpl(BoundRevision revision,
+        private MavenResourceImpl(BoundArchive archive,
                 BinaryLocation location) {
-            this.revision = revision.unbound();
-            this.cachedRevision = revision;
+            this.archive = archive;
+            this.cachedArchive = archive;
             this.location = location;
         }
 
         /**
          * Instantiates a new maven resource from the given data.
          *
-         * @param revision the revision
-         * @param resource the delegee
+         * @param revision the archive
+         * @param resource the resource information associated with the 
+         * archive.
          */
-        private MavenResourceImpl(Revision revision, Resource resource) {
-            this.revision = revision;
+        private MavenResourceImpl(Archive archive, Resource resource) {
+            this.archive = archive;
             this.cachedDelegee = resource;
             // Doesn't matter, resource won't be created (already there).
             this.location = BinaryLocation.REMOTE;
@@ -210,28 +213,29 @@ public class MavenResourceRepository extends CompositeMavenRepository {
          * Instantiates a new maven resource from the given data.
          *
          * @param revision the revision
-         * @param resource the delegee
+         * @param resource the resource information associated with the 
+         * archive.
          */
-        private MavenResourceImpl(BoundRevision revision, Resource resource) {
-            this.revision = revision.unbound();
-            this.cachedRevision = revision;
+        private MavenResourceImpl(BoundArchive archive, Resource resource) {
+            this.archive = archive;
+            this.cachedArchive = archive;
             this.cachedDelegee = resource;
             // Doesn't matter, resource won't be created (already there).
             this.location = BinaryLocation.REMOTE;
         }
 
         @Override
-        public Revision revision() {
-            return revision;
+        public Archive archive() {
+            return archive;
         }
 
         @Override
-        public BoundRevision boundRevision() throws MavenResourceException {
+        public BoundArchive boundArchive() throws MavenResourceException {
             try {
-                if (cachedRevision == null) {
-                    cachedRevision = find(revision).get();
+                if (cachedArchive == null) {
+                    cachedArchive = find(archive).get();
                 }
-                return cachedRevision;
+                return cachedArchive;
             } catch (IOException e) {
                 throw new MavenResourceException(e);
             }
@@ -257,13 +261,12 @@ public class MavenResourceRepository extends CompositeMavenRepository {
             "PMD.AvoidInstanceofChecksInCatchClause",
             "PMD.CyclomaticComplexity", "PMD.NcssCount" })
         private void createResource() throws MavenResourceException {
-            Model model = model(revision);
+            Model model = model(archive.revision);
             String extension = model.getPackaging();
             if (extension.equals("bundle")
                 || extension.equals("eclipse-plugin")) {
                 extension = "jar";
             }
-            Archive archive = revision.archive(extension, "");
             ResourceBuilder builder = new ResourceBuilder();
             if (extension.equals("jar")) {
                 File binary;
@@ -277,7 +280,7 @@ public class MavenResourceRepository extends CompositeMavenRepository {
                         builder.addFile(binary, binary.toURI());
                     } else {
                         builder.addFile(binary,
-                            boundRevision().mavenBackingRepository()
+                            boundArchive().mavenBackingRepository()
                                 .toURI(archive.remotePath));
                     }
                 } catch (Exception e) {
@@ -362,7 +365,7 @@ public class MavenResourceRepository extends CompositeMavenRepository {
                 return false;
             }
             if (obj instanceof MavenResource) {
-                return revision.equals(((MavenResource) obj).revision());
+                return archive.equals(((MavenResource) obj).archive());
             }
             if (obj instanceof Resource) {
                 try {
@@ -376,12 +379,12 @@ public class MavenResourceRepository extends CompositeMavenRepository {
 
         @Override
         public int hashCode() {
-            return revision.hashCode();
+            return archive.hashCode();
         }
 
         @Override
         public String toString() {
-            return revision.toString();
+            return archive.toString();
         }
 
         @Override
@@ -394,7 +397,7 @@ public class MavenResourceRepository extends CompositeMavenRepository {
                     retrieveDependencies(cachedDelegee, cachedDependencies);
                 } else {
                     cachedDependencies = MavenResourceRepository.this
-                        .model(revision()).getDependencies().stream()
+                        .model(archive.revision).getDependencies().stream()
                         .filter(dep -> !dep.getGroupId().contains("$")
                             && !dep.getArtifactId().contains("$")
                             && !dep.isOptional()

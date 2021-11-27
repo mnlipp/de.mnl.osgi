@@ -1,6 +1,6 @@
 /*
  * Extra Bnd Repository Plugins
- * Copyright (C) 2019  Michael N. Lipp
+ * Copyright (C) 2019-2021 Michael N. Lipp
  * 
  * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU Affero General Public License as published by 
@@ -18,7 +18,7 @@
 
 package de.mnl.osgi.bnd.maven;
 
-import aQute.maven.api.Revision;
+import aQute.maven.api.Archive;
 import java.util.List;
 import org.apache.maven.model.Dependency;
 import org.osgi.resource.Capability;
@@ -26,32 +26,34 @@ import org.osgi.resource.Requirement;
 import org.osgi.resource.Resource;
 
 /**
- * A resource that is backed by a maven revision.
+ * A resource that is backed by a maven archive.
  */
 public interface MavenResource {
 
     /**
-     * Returns the revision. The revision is the only mandatory
+     * Returns the archive. The archive is the only mandatory
      * information when creating a {@link MavenResource}. The other
      * informations that can be obtained can be made available
      * lazily, i.e. can be loaded on demand. 
      * <P>
      * This implies that a {@link MavenResource} can be created 
      * that does not exist in the backing maven repositories. 
-     * If not obvious from the context, a call to {@link #boundRevision()}
+     * If not obvious from the context, a call to {@link #boundArchive()}
      * can be used to verify that the resource exists.
      *
-     * @return the revision
+     * @return the archive
      */
-    Revision revision();
+    Archive archive();
 
     /**
-     * Returns the bound revision.
+     * Returns the bound archive. Implies looking up the archive in the
+     * backing repositories.
      *
-     * @return the revision
-     * @throws MavenResourceException the maven resource exception
+     * @return the bound archive
+     * @throws MavenResourceException if the archive cannot obtained from a 
+     * repository
      */
-    BoundRevision boundRevision() throws MavenResourceException;
+    BoundArchive boundArchive() throws MavenResourceException;
 
     /**
      * Returns the mandatory maven compile and runtime dependencies. 
@@ -95,7 +97,7 @@ public interface MavenResource {
      * Compares a {@link MavenResource} with another maven resource
      * or a {@link Resource}.
      * <P>
-     * Two {@link MavenResource}s are considered equal if their revisions 
+     * Two {@link MavenResource}s are considered equal if their archives 
      * are equal. If a {@link MavenResource} is compared with 
      * another {@link Resource}, equality will be checked 
      * between {@link MavenResource#asResource()} and the other resource 
