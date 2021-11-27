@@ -1,5 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637578332710">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637656195306">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.felix:org.osgi.foundation:1.2.0"/>
+      <attribute name="from" value="org.apache.felix:org.osgi.foundation:1.2.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="259505" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/felix/org.osgi.foundation/1.2.0/org.osgi.foundation-1.2.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="A4A56A473F4BE54DFBEDD20297E563B0C98234A4BE42B32D8419512168A71EB7"/>
+    </capability>
+  </resource>
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
@@ -1101,18 +1114,5 @@
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
     </requirement>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.felix:org.osgi.foundation:1.2.0"/>
-      <attribute name="from" value="org.apache.felix:org.osgi.foundation:1.2.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="259505" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/felix/org.osgi.foundation/1.2.0/org.osgi.foundation-1.2.0.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="A4A56A473F4BE54DFBEDD20297E563B0C98234A4BE42B32D8419512168A71EB7"/>
-    </capability>
   </resource>
 </repository>

@@ -1,5 +1,40 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637578332813">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637611038665">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.ant:ant-launcher:1.10.12"/>
+      <attribute name="from" value="org.apache.ant:ant-launcher:1.10.12"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="bnd.mainclass">
+      <attribute name="bnd.mainclass" value="org.apache.tools.ant.launch.Launcher"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="18705" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/ant/ant-launcher/1.10.12/ant-launcher-1.10.12.jar"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="osgi.content" value="42A7CA7E7BB777FE7EE75A5ED4CC529C766BC43486367FDAAD0AB4A32EE9C249"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.ant:ant:1.10.12"/>
+      <attribute name="from" value="org.apache.ant:ant:1.10.12"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="bnd.mainclass">
+      <attribute name="bnd.mainclass" value="org.apache.tools.ant.Main"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apache.ant:ant-launcher:1.10.12"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="2254148" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/ant/ant/1.10.12/ant-1.10.12.jar"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="osgi.content" value="5C6A438C3EBE7A306EBA452B09FA307B0E60314926177920BCA896C4A504EAF6"/>
+    </capability>
+  </resource>
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.apache.ant:ant-launcher:1.10.8"/>
