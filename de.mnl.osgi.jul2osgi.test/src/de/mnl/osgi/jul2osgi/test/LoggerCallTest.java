@@ -1,21 +1,18 @@
 package de.mnl.osgi.jul2osgi.test;
 
 import de.mnl.osgi.coreutils.ServiceCollector;
-
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -26,14 +23,13 @@ import org.osgi.service.log.LogListener;
 import org.osgi.service.log.LogReaderService;
 import org.osgi.util.tracker.ServiceTracker;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class LoggerCallTest {
 
-    protected static final Logger logger
-        = Logger.getLogger("Logger Call Test");
+    protected static final Logger logger = Logger.getLogger("Logger Call Test");
 
-    private final BundleContext context = FrameworkUtil
-        .getBundle(LoggerCallTest.class).getBundleContext();
+    private final BundleContext context
+        = FrameworkUtil.getBundle(getClass()).getBundleContext();
 
     private <T> T getService(Class<T> clazz) throws InterruptedException {
         ServiceTracker<T, T> st = new ServiceTracker<>(context, clazz, null);
@@ -79,8 +75,9 @@ public class LoggerCallTest {
 
     @Test
     public void testBuffered() throws InterruptedException, BundleException {
-        Bundle osgiLoggerFactory = context.getServiceReference(
-            org.osgi.service.log.LoggerFactory.class).getBundle();
+        Bundle osgiLoggerFactory = context
+            .getServiceReference(org.osgi.service.log.LoggerFactory.class)
+            .getBundle();
         assertNotNull(osgiLoggerFactory);
         try {
             osgiLoggerFactory.stop();
@@ -90,8 +87,8 @@ public class LoggerCallTest {
             osgiLoggerFactory.start();
             try (ServiceCollector<LogReaderService,
                     LogReaderService> logReaderProvider
-                        = new ServiceCollector<>(context,
-                            LogReaderService.class)) {
+                        = new ServiceCollector<>(
+                            context, LogReaderService.class)) {
                 logReaderProvider.open();
                 LogReaderService logReader
                     = logReaderProvider.waitForService(1000).get();
