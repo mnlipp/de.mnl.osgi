@@ -19,7 +19,6 @@ package de.mnl.osgi.lf4osgi.core;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Arrays;
-
 import org.osgi.framework.Bundle;
 import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.Logger;

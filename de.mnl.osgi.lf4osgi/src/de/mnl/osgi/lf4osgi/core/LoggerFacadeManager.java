@@ -17,7 +17,6 @@
 package de.mnl.osgi.lf4osgi.core;
 
 import de.mnl.osgi.coreutils.ServiceResolver;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -26,7 +25,6 @@ import java.util.Queue;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Consumer;
-
 import org.osgi.framework.BundleContext;
 import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.LoggerFactory;

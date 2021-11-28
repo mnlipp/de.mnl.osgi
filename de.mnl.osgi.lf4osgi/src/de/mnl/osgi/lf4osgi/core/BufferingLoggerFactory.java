@@ -21,7 +21,6 @@ import java.security.PrivilegedAction;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
 import org.osgi.framework.Bundle;
 import org.osgi.service.log.LogLevel;
 import org.osgi.service.log.Logger;
