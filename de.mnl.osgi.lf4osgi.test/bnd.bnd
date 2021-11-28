@@ -18,9 +18,6 @@ Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.jupiter.api.extension.ExtendW
 
 Private-Package: de.mnl.osgi.lf4osgi.test
 
-# Needed for Mockito's mocking to work
--runsystempackages.objenesis: sun.misc,sun.reflect
-
 # Maintain this.
 -runrequires: \
 	bnd.identity;id='de.mnl.osgi.coreutils',\
