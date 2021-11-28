@@ -2,7 +2,6 @@ package de.mnl.osgi.log4j2osgi;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
-
 import org.apache.logging.log4j.spi.Provider;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

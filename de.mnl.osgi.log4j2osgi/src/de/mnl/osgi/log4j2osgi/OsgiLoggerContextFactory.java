@@ -17,9 +17,7 @@
 package de.mnl.osgi.log4j2osgi;
 
 import de.mnl.osgi.lf4osgi.core.LoggerCatalogue;
-
 import java.net.URI;
-
 import org.apache.logging.log4j.spi.LoggerContext;
 import org.apache.logging.log4j.spi.LoggerContextFactory;
 import org.osgi.framework.Bundle;

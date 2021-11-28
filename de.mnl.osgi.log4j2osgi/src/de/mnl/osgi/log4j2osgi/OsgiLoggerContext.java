@@ -17,7 +17,6 @@
 package de.mnl.osgi.log4j2osgi;
 
 import de.mnl.osgi.lf4osgi.core.LoggerGroup;
-
 import org.apache.logging.log4j.message.MessageFactory;
 import org.apache.logging.log4j.spi.ExtendedLogger;
 import org.apache.logging.log4j.spi.LoggerContext;
