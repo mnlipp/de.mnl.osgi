@@ -18,12 +18,10 @@ package de.mnl.osgi.lf4osgi;
 
 import de.mnl.osgi.lf4osgi.core.DefaultLoggerGroup;
 import de.mnl.osgi.lf4osgi.core.LoggerCatalogue;
-
 import org.osgi.framework.Bundle;
 
 /**
- * The factory that supplies the OSGi {@link Logger}s from static
- * methods.
+ * The factory that supplies the OSGi {@link Logger}s from static methods.
  */
 @SuppressWarnings({ "PMD.ClassNamingConventions", "PMD.UseUtilityClass" })
 public class LoggerFactory {
@@ -65,13 +63,13 @@ public class LoggerFactory {
     /**
      * Gets a logger with the given name for the given bundle.
      * <P>
-     * If the logging bundle happens to be known in the context in which 
-     * {@code getLogger} is called, this method should be preferred over 
-     * {@link #getLogger(String)} because the latter implies a small
-     * overhead for finding out the calling bundle.
+     * If the logging bundle happens to be known in the context in which
+     * {@code getLogger} is called, this method should be preferred over
+     * {@link #getLogger(String)} because the latter implies a small overhead for
+     * finding out the calling bundle.
      *
      * @param bundle the bundle
-     * @param name the name
+     * @param name   the name
      * @return the logger
      */
     public static Logger getLogger(Bundle bundle, String name) {
@@ -82,13 +80,13 @@ public class LoggerFactory {
     /**
      * Gets a logger with the given class' name for the given bundle.
      * <P>
-     * If the logging bundle happens to be known in the context in which 
-     * {@code getLogger} is called, this method should be preferred over 
-     * {@link #getLogger(Class)} because the latter implies a small
-     * overhead for finding out the calling bundle.
+     * If the logging bundle happens to be known in the context in which
+     * {@code getLogger} is called, this method should be preferred over
+     * {@link #getLogger(Class)} because the latter implies a small overhead for
+     * finding out the calling bundle.
      *
      * @param bundle the bundle
-     * @param clazz the class
+     * @param clazz  the class
      * @return the logger
      */
     public static Logger getLogger(Bundle bundle, Class<?> clazz) {
