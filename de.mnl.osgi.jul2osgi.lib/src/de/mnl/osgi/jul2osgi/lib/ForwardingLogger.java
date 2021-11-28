@@ -44,9 +44,12 @@ public class ForwardingLogger extends Logger {
             StackTraceElement ste = stackTrace[i];
             if (ste.getMethodName().equals("getLogger")) {
                 Class<?>[] classes = CTX_HLPR.getClassContext();
-                // Next in stack is caller of getLogger(), but
-                // getClassContext() has added one level
-                definingClass = classes[i + 2];
+                // Skip all calls within logging package
+                while (classes[i].getPackageName()
+                    .equals("java.util.logging")) {
+                    i += 1;
+                }
+                definingClass = classes[i];
                 break;
             }
         }
