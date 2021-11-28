@@ -649,7 +649,9 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     private void logIndexing(Revision revision, Supplier<String> msgSupplier) {
-        loggedMessages.computeIfAbsent(revision, rev -> new ArrayList<>())
+        loggedMessages
+            .computeIfAbsent(revision,
+                rev -> Collections.synchronizedList(new ArrayList<>()))
             .add(msgSupplier.get());
     }
 
