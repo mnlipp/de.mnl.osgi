@@ -16,10 +16,10 @@
 
 package de.mnl.osgi.osgi2jul;
 
+import java.time.Instant;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
-
 import org.osgi.service.log.LogEntry;
 import org.osgi.service.log.LogListener;
 
@@ -80,7 +80,7 @@ public class LogWriter implements LogListener {
         }
         LogRecord record = new LogRecord(level, entry.getMessage());
         record.setLoggerName(entry.getLoggerName());
-        record.setMillis(entry.getTime());
+        record.setInstant(Instant.ofEpochMilli(entry.getTime()));
         record.setSequenceNumber(entry.getSequence());
         Throwable thrown = entry.getException();
         if (thrown != null) {

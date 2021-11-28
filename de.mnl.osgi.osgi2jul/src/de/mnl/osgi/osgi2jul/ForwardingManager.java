@@ -17,7 +17,7 @@
 package de.mnl.osgi.osgi2jul;
 
 import de.mnl.osgi.coreutils.ServiceResolver;
-
+import java.lang.reflect.InvocationTargetException;
 import java.security.AccessController;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
@@ -33,7 +33,6 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.log.LogEntry;
@@ -151,10 +150,13 @@ public class ForwardingManager extends ServiceResolver {
     private Handler handlerFromBundledClass(BundleContext context,
             String bundleName, String className)
             throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
+            ClassNotFoundException, IllegalArgumentException,
+            InvocationTargetException, NoSuchMethodException,
+            SecurityException {
         for (Bundle bundle : context.getBundles()) {
             if (bundle.getSymbolicName().equals(bundleName)) {
-                return (Handler) bundle.loadClass(className).newInstance();
+                return (Handler) bundle.loadClass(className)
+                    .getDeclaredConstructor().newInstance();
             }
         }
         throw new ClassNotFoundException("Class " + className + " not found "
@@ -171,7 +173,8 @@ public class ForwardingManager extends ServiceResolver {
                     Class<?> hdlrCls;
                     hdlrCls = ClassLoader.getSystemClassLoader()
                         .loadClass(name);
-                    return (Handler) hdlrCls.newInstance();
+                    return (Handler) hdlrCls.getDeclaredConstructor()
+                        .newInstance();
                 }
             });
         return handler;
