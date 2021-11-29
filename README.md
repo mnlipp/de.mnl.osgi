@@ -1,6 +1,6 @@
 # de.mnl.osgi
 
-[![Build Status](https://travis-ci.org/mnlipp/de.mnl.osgi.svg?branch=master)](https://travis-ci.org/mnlipp/de.mnl.osgi)
+[![Build Status](https://github.com/mnlipp/de.mnl.osgi/actions/workflows/main.yml/badge.svg)](https://github.com/mnlipp/de.mnl.osgi/actions/workflows/main.yml)
 
 A collection of miscellaneous OSGi bundles and components.
 
