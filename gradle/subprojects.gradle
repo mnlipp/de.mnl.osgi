@@ -44,8 +44,8 @@ if (plugins.hasPlugin('biz.aQute.bnd')) {
 			options.addBooleanOption("linksource", true)
 			options.addStringOption("bottom", file("${rootProject.rootDir}/misc/javadoc.bottom.txt").text)
 			options.links "https://docs.oracle.com/en/java/javase/11/docs/api/"
-			options.links "https://osgi.org/javadoc/osgi.core/7.0.0/"
-			options.links "https://osgi.org/javadoc/osgi.cmpn/7.0.0/"
+			options.links "https://docs.osgi.org/javadoc/osgi.core/7.0.0/"
+			options.links "https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/"
 			// Add --allow-script-in-comments if available (since 1.8.0_121)
 			options.addBooleanOption('-allow-script-in-comments').value = true
 		}
