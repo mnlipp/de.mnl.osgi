@@ -265,10 +265,10 @@ public class MavenResourceRepository extends CompositeMavenRepository {
             String extension = model.getPackaging();
             if (extension.equals("bundle")
                 || extension.equals("eclipse-plugin")) {
-                extension = "jar";
+                extension = Archive.JAR_EXTENSION;
             }
             ResourceBuilder builder = new ResourceBuilder();
-            if (extension.equals("jar")) {
+            if (extension.equals(Archive.JAR_EXTENSION)) {
                 File binary;
                 try {
                     binary = get(archive);

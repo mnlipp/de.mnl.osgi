@@ -20,6 +20,7 @@ package de.mnl.osgi.bnd.repository.maven.provider;
 
 import aQute.bnd.build.Workspace;
 import aQute.bnd.http.HttpClient;
+import static aQute.bnd.osgi.Constants.BSN_SOURCE_SUFFIX;
 import aQute.bnd.osgi.repository.BaseRepository;
 import aQute.bnd.osgi.repository.BridgeRepository;
 import aQute.bnd.osgi.repository.BridgeRepository.ResourceInfo;
@@ -183,12 +184,17 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
     public File get(String bsn, Version version, Map<String, String> properties,
             DownloadListener... listeners) throws Exception {
         init();
+        Archive archive;
         ResourceInfo resource = bridge.getInfo(bsn, version);
         if (resource == null) {
-            return null;
+            archive = trySources(bsn, version);
+            if (archive == null) {
+                return null;
+            }
+        } else {
+            String from = resource.getInfo().from();
+            archive = Archive.valueOf(from);
         }
-        String from = resource.getInfo().from();
-        Archive archive = Archive.valueOf(from);
 
         Promise<File> prmse
             = osgiRepository.mavenRepository().retrieve(archive);
@@ -197,8 +203,36 @@ public class IndexedMavenRepositoryProvider extends BaseRepository
             return prmse.getValue();
         }
         new DownloadListenerPromise(reporter,
-            from + ": get " + bsn + ";" + version, prmse, listeners);
+            name + ": get " + bsn + ";" + version, prmse, listeners);
         return osgiRepository.mavenRepository().toLocalFile(archive);
+    }
+
+    /**
+     * The Eclipse bndtools plugin attempts to retrieve a bundle's sources
+     * by calling {@link #get(String, Version, Map, 
+     * aQute.bnd.service.RepositoryPlugin.DownloadListener...)} with the 
+     * bundle symbol name and ".source" appended as suffix. Check if the 
+     * given bsn matches this pattern and return an archive specification
+     * for the artifact containing the sources using maven conventions.
+     *
+     * @param bsn the bsn
+     * @param version the version
+     * @return the archive
+     * @throws Exception the exception
+     */
+    private Archive trySources(String bsn, Version version) throws Exception {
+        if (!bsn.endsWith(BSN_SOURCE_SUFFIX)) {
+            return null;
+        }
+        String baseBsn
+            = bsn.substring(0, bsn.length() - BSN_SOURCE_SUFFIX.length());
+        ResourceInfo resource = bridge.getInfo(baseBsn, version);
+        if (resource == null) {
+            return null;
+        }
+        String from = resource.getInfo().from();
+        return Archive.valueOf(from)
+            .getOther(Archive.JAR_EXTENSION, Archive.SOURCES_CLASSIFIER);
     }
 
     @Override

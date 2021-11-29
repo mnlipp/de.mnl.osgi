@@ -194,8 +194,8 @@ public abstract class LocalMavenBackedOsgiRepository
             try {
                 // Get and add this revision's OSGi information (refreshes
                 // snapshots)
-                Archive archive
-                    = mavenRepository.getResolvedArchive(revision, "jar", "");
+                Archive archive = mavenRepository.getResolvedArchive(revision,
+                    Archive.JAR_EXTENSION, "");
                 if (archive != null) {
                     if (archive.isSnapshot()) {
                         for (MavenBackingRepository mbr : mavenRepository
