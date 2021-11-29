@@ -163,7 +163,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  future JUL <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/LogRecord.html?is-external=true" title="class or interface in java.util.logging" class="externalLink"><code>LogRecord</code></a>s
  to the main bundle. The forwarder converts the information from the
  <code>LogRecords</code> to calls of one of the methods of an OSGi
- <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/Logger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>Logger</code></a>.
+ <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/Logger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>Logger</code></a>.
  <P>
  JUL <code>LogRecord</code> properties are mapped in the following way:
  <ul>
@@ -184,7 +184,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  <code>de.mnl.osgi.jul2osgi</code>.
  <P>
  Special handling is applied by the forwarder if <i>recorded</i> log 
- entries are forwarded to the OSGi <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/Logger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>Logger</code></a>. 
+ entries are forwarded to the OSGi <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/Logger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>Logger</code></a>. 
  The implementation of the logger automatically derives a "thread info" 
  property for the newly created OSGI <code>LogRecord</code> from the calling 
  thread. There is no way to override this automatically created value, 
@@ -249,7 +249,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  that passes this first barrier can then be accepted by OSGi logging
  without further restrictions. Following this approach, the default
  level for bundles using JUL should thus best be set to 
- <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogLevel.html?is-external=true#TRACE" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogLevel.TRACE</code></a> (see bundle property below).
+ <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogLevel.html?is-external=true#TRACE" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogLevel.TRACE</code></a> (see bundle property below).
  
  <h2>Bundle properties</h2>
  
@@ -273,7 +273,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
        <td><code>de.mnl.osgi.jul2osgi.adaptOSGiLevel</code></td>
        <td>If set to <code>true</code>, the OSGi log level for the 
            originating bundle of a JUL log event will automatically
-           ne set to <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogLevel.html?is-external=true#TRACE" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogLevel.TRACE</code></a>.
+           ne set to <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogLevel.html?is-external=true#TRACE" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogLevel.TRACE</code></a>.
            This results in the expected behavior that any log 
            message that has been enabled in JUL is visible in the
            OSGi log.</td>

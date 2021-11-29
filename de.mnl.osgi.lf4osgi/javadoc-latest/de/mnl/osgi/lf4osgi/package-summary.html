@@ -100,7 +100,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a>
 <div class="block">A bundle that provides a logging facade for the standard OSGI
- <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/Logger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>Logger</code></a>.
+ <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/Logger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>Logger</code></a>.
  <P>
  <a href="https://github.com/mnlipp/de.mnl.osgi/issues" target="_blank">
    <img alt="GitHub issues" src="https://img.shields.io/github/issues/mnlipp/de.mnl.osgi.svg"></a>
@@ -129,7 +129,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  <P>
  This "facade" for OSGi logging overcomes those problems. The
  tiny overhead to pay is an extra method invocation because the
- <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/Logger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>Logger</code></a> implementation provided as 
+ <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/Logger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>Logger</code></a> implementation provided as 
  facade has to delegate to the logger supplied by the 
  <code>LoggingFactory</code> service (or a stand-in, see below). 
  However, this should be neglectable under all circumstances,
@@ -146,7 +146,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  <P>
  Of course, while there is no <code>LoggingFactory</code> service available,
  the desired logging level cannot be determined. Therefore all events
- with level <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogLevel.html?is-external=true#DEBUG" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogLevel.DEBUG</code></a> and up
+ with level <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogLevel.html?is-external=true#DEBUG" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogLevel.DEBUG</code></a> and up
  are recorded. This default threshold can be changed using system 
  settings or bundle properties (see below).
  
@@ -154,7 +154,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  
  The loggers returned by the <a href="LoggerFactory.html" title="class in de.mnl.osgi.lf4osgi"><code>LoggerFactory</code></a>
  actually implement a subinterface of the OSGi 
- <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/Logger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>Logger</code></a> interface. This augmented
+ <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/Logger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>Logger</code></a> interface. This augmented
  LF4OSGi <a href="Logger.html" title="interface in de.mnl.osgi.lf4osgi"><code>Logger</code></a> interface provides
  additional log methods with the first parameter being the
  <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Supplier.html?is-external=true" title="class or interface in java.util.function" class="externalLink"><code>Supplier</code></a> for the message, which is only
@@ -162,7 +162,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  <P>
  This additional functionality is the reason why the
  <a href="LoggerFactory.html" title="class in de.mnl.osgi.lf4osgi"><code>LoggerFactory</code></a> does not supply
- <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/FormatterLogger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>FormatterLogger</code></a>s. Using a supplier
+ <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/FormatterLogger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>FormatterLogger</code></a>s. Using a supplier
  for the message is a much more flexible design. If you want to
  use printf-style formatting, simply log like this:
  <pre>
@@ -188,9 +188,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
    <tbody>
      <tr>
        <td><code>de.mnl.osgi.lf4osgi.bufferThreshold</code></td>
-       <td>The minimum <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogLevel.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogLevel</code></a>
+       <td>The minimum <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogLevel.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogLevel</code></a>
        of messages that are to be buffered.</td>
-       <td><a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogLevel.html?is-external=true#DEBUG" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogLevel.DEBUG</code></a></td>
+       <td><a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogLevel.html?is-external=true#DEBUG" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogLevel.DEBUG</code></a></td>
      </tr>
      <tr>
        <td><code>de.mnl.osgi.lf4osgi.bufferSize</code></td>
@@ -220,7 +220,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr class="altColor">
 <th class="colFirst" scope="row"><a href="Logger.html" title="interface in de.mnl.osgi.lf4osgi">Logger</a></th>
 <td class="colLast">
-<div class="block">An extended OSGi <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/Logger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>Logger</code></a> interface.</div>
+<div class="block">An extended OSGi <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/Logger.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>Logger</code></a> interface.</div>
 </td>
 </tr>
 </tbody>

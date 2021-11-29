@@ -341,7 +341,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 </td>
 </tr>
 <tr id="i13" class="rowColor">
-<td class="colFirst"><code><a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/util/promise/Promise.html?is-external=true" title="class or interface in org.osgi.util.promise" class="externalLink">Promise</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/File.html?is-external=true" title="class or interface in java.io" class="externalLink">File</a>&gt;</code></td>
+<td class="colFirst"><code><a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/util/promise/Promise.html?is-external=true" title="class or interface in org.osgi.util.promise" class="externalLink">Promise</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/File.html?is-external=true" title="class or interface in java.io" class="externalLink">File</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#retrieve(aQute.maven.api.Archive)">retrieve</a></span>&#8203;(aQute.maven.api.Archive&nbsp;archive)</code></th>
 <td class="colLast">
 <div class="block">Retrieves the file from a remote repository into the repositories 
@@ -511,7 +511,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <ul class="blockList">
 <li class="blockList">
 <h4>retrieve</h4>
-<pre class="methodSignature">public&nbsp;<a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/util/promise/Promise.html?is-external=true" title="class or interface in org.osgi.util.promise" class="externalLink">Promise</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/File.html?is-external=true" title="class or interface in java.io" class="externalLink">File</a>&gt;&nbsp;<a href="../../../../../src-html/de/mnl/osgi/bnd/maven/CompositeMavenRepository.html#line.227">retrieve</a>&#8203;(aQute.maven.api.Archive&nbsp;archive)
+<pre class="methodSignature">public&nbsp;<a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/util/promise/Promise.html?is-external=true" title="class or interface in org.osgi.util.promise" class="externalLink">Promise</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/File.html?is-external=true" title="class or interface in java.io" class="externalLink">File</a>&gt;&nbsp;<a href="../../../../../src-html/de/mnl/osgi/bnd/maven/CompositeMavenRepository.html#line.227">retrieve</a>&#8203;(aQute.maven.api.Archive&nbsp;archive)
                        throws <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/IOException.html?is-external=true" title="class or interface in java.io" class="externalLink">IOException</a></pre>
 <div class="block">Retrieves the file from a remote repository into the repositories 
  local cache directory if it doesn't exist yet.</div>
@@ -534,7 +534,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <pre class="methodSignature">public&nbsp;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/File.html?is-external=true" title="class or interface in java.io" class="externalLink">File</a>&nbsp;<a href="../../../../../src-html/de/mnl/osgi/bnd/maven/CompositeMavenRepository.html#line.257">toLocalFile</a>&#8203;(aQute.maven.api.Archive&nbsp;archive)</pre>
 <div class="block">Get the file object for the archive. The file does not have to exist.
  The use case for this is to have the <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/File.html?is-external=true" title="class or interface in java.io" class="externalLink"><code>File</code></a> already while
- waiting for the <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/util/promise/Promise.html?is-external=true" title="class or interface in org.osgi.util.promise" class="externalLink"><code>Promise</code></a> returned by <a href="#retrieve(aQute.maven.api.Archive)"><code>retrieve(Archive)</code></a>
+ waiting for the <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/util/promise/Promise.html?is-external=true" title="class or interface in org.osgi.util.promise" class="externalLink"><code>Promise</code></a> returned by <a href="#retrieve(aQute.maven.api.Archive)"><code>retrieve(Archive)</code></a>
  to complete.
  <P>
  This is required for the implementation of <code>RepositoryPlugin.get(java.lang.String, aQute.bnd.version.Version, java.util.Map&lt;java.lang.String, java.lang.String&gt;, aQute.bnd.service.RepositoryPlugin.DownloadListener...)</code>.

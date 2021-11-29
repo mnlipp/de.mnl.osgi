@@ -131,12 +131,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang" class="externalLink">AutoCloseable</a></code>, <code><a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleActivator</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang" class="externalLink">AutoCloseable</a></code>, <code><a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleActivator</a></code></dd>
 </dl>
 <hr>
 <pre>public class <a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.91">ServiceResolver</a>
 extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a>
-implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang" class="externalLink">AutoCloseable</a>, <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleActivator</a></pre>
+implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang" class="externalLink">AutoCloseable</a>, <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleActivator</a></pre>
 <div class="block">Maintains and attempts to resolve dependencies on services.
  <P>
  The class supports two usage pattern. The first is to use the
@@ -172,7 +172,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
  </pre>
  
  The second usage pattern is to create a <code>ServiceResolver</code> with
- a <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink"><code>BundleContext</code></a>, add dependencies and callbacks as required
+ a <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink"><code>BundleContext</code></a>, add dependencies and callbacks as required
  and call <a href="#open()"><code>open()</code></a>. When resolving is no longer required,
  <a href="#close()"><code>close()</code></a> must be called.
  
@@ -219,7 +219,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a></code></td>
+<td class="colFirst"><code>protected <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#context">context</a></span></code></th>
 <td class="colLast">
 <div class="block">The bundle context.</div>
@@ -248,12 +248,12 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">ServiceResolver</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Constructor for using the <code>ServiceResolver</code> as base
- class for a <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink"><code>BundleActivator</code></a>.</div>
+ class for a <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink"><code>BundleActivator</code></a>.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>&nbsp;</code></td>
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(org.osgi.framework.BundleContext)">ServiceResolver</a></span>&#8203;(<a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a>&nbsp;context)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(org.osgi.framework.BundleContext)">ServiceResolver</a></span>&#8203;(<a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a>&nbsp;context)</code></th>
 <td class="colLast">
 <div class="block">Creates a new resolver that uses the given context.</div>
 </td>
@@ -296,7 +296,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="ServiceResolver.html" title="class in de.mnl.osgi.coreutils">ServiceResolver</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addDependency(java.lang.String,org.osgi.framework.Filter)">addDependency</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a>&nbsp;name,
-             <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/Filter.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">Filter</a>&nbsp;filter)</code></th>
+             <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/Filter.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">Filter</a>&nbsp;filter)</code></th>
 <td class="colLast">
 <div class="block">Adds a mandatory dependency on the service specified by the
  filter.</div>
@@ -305,7 +305,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="ServiceResolver.html" title="class in de.mnl.osgi.coreutils">ServiceResolver</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addDependency(java.lang.String,org.osgi.framework.ServiceReference)">addDependency</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a>&nbsp;name,
-             <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/ServiceReference.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">ServiceReference</a>&lt;?&gt;&nbsp;reference)</code></th>
+             <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/ServiceReference.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">ServiceReference</a>&lt;?&gt;&nbsp;reference)</code></th>
 <td class="colLast">
 <div class="block">Adds a mandatory dependency on the service specified by the
  service reference.</div>
@@ -331,7 +331,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="ServiceResolver.html" title="class in de.mnl.osgi.coreutils">ServiceResolver</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addOptionalDependency(java.lang.String,org.osgi.framework.Filter)">addOptionalDependency</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a>&nbsp;name,
-                     <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/Filter.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">Filter</a>&nbsp;filter)</code></th>
+                     <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/Filter.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">Filter</a>&nbsp;filter)</code></th>
 <td class="colLast">
 <div class="block">Adds an optional dependency on the service specified by the
  filter.</div>
@@ -340,7 +340,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="ServiceResolver.html" title="class in de.mnl.osgi.coreutils">ServiceResolver</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addOptionalDependency(java.lang.String,org.osgi.framework.ServiceReference)">addOptionalDependency</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a>&nbsp;name,
-                     <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/ServiceReference.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">ServiceReference</a>&lt;?&gt;&nbsp;reference)</code></th>
+                     <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/ServiceReference.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">ServiceReference</a>&lt;?&gt;&nbsp;reference)</code></th>
 <td class="colLast">
 <div class="block">Adds an optional dependency on the service specified by the
  service reference.</div>
@@ -464,7 +464,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 </tr>
 <tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#start(org.osgi.framework.BundleContext)">start</a></span>&#8203;(<a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a>&nbsp;context)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#start(org.osgi.framework.BundleContext)">start</a></span>&#8203;(<a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a>&nbsp;context)</code></th>
 <td class="colLast">
 <div class="block">Called by the framework when using the <code>ServiceResolver</code> as 
  base class for a bundle activator.</div>
@@ -472,7 +472,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 </tr>
 <tr id="i24" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stop(org.osgi.framework.BundleContext)">stop</a></span>&#8203;(<a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a>&nbsp;context)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stop(org.osgi.framework.BundleContext)">stop</a></span>&#8203;(<a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a>&nbsp;context)</code></th>
 <td class="colLast">
 <div class="block">Called by the framework when using the <code>ServiceResolver</code> as 
  base class for a bundle activator.</div>
@@ -508,7 +508,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <ul class="blockListLast">
 <li class="blockList">
 <h4>context</h4>
-<pre>protected&nbsp;<a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a> <a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.96">context</a></pre>
+<pre>protected&nbsp;<a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a> <a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.96">context</a></pre>
 <div class="block">The bundle context. Made available for derived classes.</div>
 </li>
 </ul>
@@ -528,7 +528,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <ul class="blockList">
 <li class="blockList">
 <h4>ServiceResolver</h4>
-<pre>public&nbsp;<a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.111">ServiceResolver</a>&#8203;(<a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a>&nbsp;context)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.111">ServiceResolver</a>&#8203;(<a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a>&nbsp;context)</pre>
 <div class="block">Creates a new resolver that uses the given context.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -544,7 +544,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <h4>ServiceResolver</h4>
 <pre>protected&nbsp;<a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.119">ServiceResolver</a>()</pre>
 <div class="block">Constructor for using the <code>ServiceResolver</code> as base
- class for a <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink"><code>BundleActivator</code></a>.</div>
+ class for a <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink"><code>BundleActivator</code></a>.</div>
 </li>
 </ul>
 </li>
@@ -563,7 +563,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <ul class="blockList">
 <li class="blockList">
 <h4>start</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;<a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.132">start</a>&#8203;(<a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a>&nbsp;context)
+<pre class="methodSignature">public&nbsp;void&nbsp;<a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.132">start</a>&#8203;(<a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a>&nbsp;context)
            throws <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Exception.html?is-external=true" title="class or interface in java.lang" class="externalLink">Exception</a></pre>
 <div class="block">Called by the framework when using the <code>ServiceResolver</code> as 
  base class for a bundle activator.
@@ -572,7 +572,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
  <a href="#configure()"><code>configure()</code></a> and <a href="#open()"><code>open()</code></a>.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true#start(org.osgi.framework.BundleContext)" title="class or interface in org.osgi.framework" class="externalLink">start</a></code>&nbsp;in interface&nbsp;<code><a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleActivator</a></code></dd>
+<dd><code><a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true#start(org.osgi.framework.BundleContext)" title="class or interface in org.osgi.framework" class="externalLink">start</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleActivator</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>context</code> - the context</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -646,14 +646,14 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <ul class="blockList">
 <li class="blockList">
 <h4>stop</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;<a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.189">stop</a>&#8203;(<a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a>&nbsp;context)
+<pre class="methodSignature">public&nbsp;void&nbsp;<a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.189">stop</a>&#8203;(<a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleContext.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleContext</a>&nbsp;context)
           throws <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Exception.html?is-external=true" title="class or interface in java.lang" class="externalLink">Exception</a></pre>
 <div class="block">Called by the framework when using the <code>ServiceResolver</code> as 
  base class for a bundle activator. The implementatoin calls
  <a href="#close()"><code>close()</code></a>.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true#stop(org.osgi.framework.BundleContext)" title="class or interface in org.osgi.framework" class="externalLink">stop</a></code>&nbsp;in interface&nbsp;<code><a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleActivator</a></code></dd>
+<dd><code><a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true#stop(org.osgi.framework.BundleContext)" title="class or interface in org.osgi.framework" class="externalLink">stop</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/BundleActivator.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">BundleActivator</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>context</code> - the context</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -740,7 +740,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <li class="blockList">
 <h4>addDependency</h4>
 <pre class="methodSignature">public&nbsp;<a href="ServiceResolver.html" title="class in de.mnl.osgi.coreutils">ServiceResolver</a>&nbsp;<a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.254">addDependency</a>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a>&nbsp;name,
-                                     <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/Filter.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">Filter</a>&nbsp;filter)</pre>
+                                     <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/Filter.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">Filter</a>&nbsp;filter)</pre>
 <div class="block">Adds a mandatory dependency on the service specified by the
  filter.</div>
 <dl>
@@ -759,7 +759,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <li class="blockList">
 <h4>addDependency</h4>
 <pre class="methodSignature">public&nbsp;<a href="ServiceResolver.html" title="class in de.mnl.osgi.coreutils">ServiceResolver</a>&nbsp;<a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.275">addDependency</a>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a>&nbsp;name,
-                                     <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/ServiceReference.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">ServiceReference</a>&lt;?&gt;&nbsp;reference)</pre>
+                                     <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/ServiceReference.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">ServiceReference</a>&lt;?&gt;&nbsp;reference)</pre>
 <div class="block">Adds a mandatory dependency on the service specified by the
  service reference.</div>
 <dl>
@@ -815,7 +815,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <li class="blockList">
 <h4>addOptionalDependency</h4>
 <pre class="methodSignature">public&nbsp;<a href="ServiceResolver.html" title="class in de.mnl.osgi.coreutils">ServiceResolver</a>&nbsp;<a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.331">addOptionalDependency</a>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a>&nbsp;name,
-                                             <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/Filter.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">Filter</a>&nbsp;filter)</pre>
+                                             <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/Filter.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">Filter</a>&nbsp;filter)</pre>
 <div class="block">Adds an optional dependency on the service specified by the
  filter.</div>
 <dl>
@@ -834,7 +834,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base
 <li class="blockList">
 <h4>addOptionalDependency</h4>
 <pre class="methodSignature">public&nbsp;<a href="ServiceResolver.html" title="class in de.mnl.osgi.coreutils">ServiceResolver</a>&nbsp;<a href="../../../../src-html/de/mnl/osgi/coreutils/ServiceResolver.html#line.351">addOptionalDependency</a>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a>&nbsp;name,
-                                             <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/ServiceReference.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">ServiceReference</a>&lt;?&gt;&nbsp;reference)</pre>
+                                             <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/framework/ServiceReference.html?is-external=true" title="class or interface in org.osgi.framework" class="externalLink">ServiceReference</a>&lt;?&gt;&nbsp;reference)</pre>
 <div class="block">Adds an optional dependency on the service specified by the
  service reference.</div>
 <dl>

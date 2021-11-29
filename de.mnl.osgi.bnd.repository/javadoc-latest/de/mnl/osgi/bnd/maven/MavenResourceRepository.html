@@ -142,7 +142,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <a href="../../../../../src-html/de/mnl/osgi/bnd/maven/MavenResourceRepository.html#line.56">MavenResourceRepository</a>
 extends <a href="CompositeMavenRepository.html" title="class in de.mnl.osgi.bnd.maven">CompositeMavenRepository</a></pre>
-<div class="block">Wraps the artifacts from a maven repository as <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/resource/Resource.html?is-external=true" title="class or interface in org.osgi.resource" class="externalLink"><code>Resource</code></a>s.</div>
+<div class="block">Wraps the artifacts from a maven repository as <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/resource/Resource.html?is-external=true" title="class or interface in org.osgi.resource" class="externalLink"><code>Resource</code></a>s.</div>
 </li>
 </ul>
 </div>
@@ -282,7 +282,7 @@ extends <a href="CompositeMavenRepository.html" title="class in de.mnl.osgi.bnd.
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="MavenResourceRepository.html" title="class in de.mnl.osgi.bnd.maven">MavenResourceRepository</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setResourceSupplier(java.util.function.Function)">setResourceSupplier</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function" class="externalLink">Function</a>&lt;aQute.maven.api.Archive,&#8203;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Optional.html?is-external=true" title="class or interface in java.util" class="externalLink">Optional</a>&lt;<a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/resource/Resource.html?is-external=true" title="class or interface in org.osgi.resource" class="externalLink">Resource</a>&gt;&gt;&nbsp;resourceSupplier)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setResourceSupplier(java.util.function.Function)">setResourceSupplier</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function" class="externalLink">Function</a>&lt;aQute.maven.api.Archive,&#8203;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Optional.html?is-external=true" title="class or interface in java.util" class="externalLink">Optional</a>&lt;<a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/resource/Resource.html?is-external=true" title="class or interface in org.osgi.resource" class="externalLink">Resource</a>&gt;&gt;&nbsp;resourceSupplier)</code></th>
 <td class="colLast">
 <div class="block">Sets a function that can provide resource information more
  efficiently (e.g.</div>
@@ -393,7 +393,7 @@ extends <a href="CompositeMavenRepository.html" title="class in de.mnl.osgi.bnd.
 <ul class="blockList">
 <li class="blockList">
 <h4>setResourceSupplier</h4>
-<pre class="methodSignature">public&nbsp;<a href="MavenResourceRepository.html" title="class in de.mnl.osgi.bnd.maven">MavenResourceRepository</a>&nbsp;<a href="../../../../../src-html/de/mnl/osgi/bnd/maven/MavenResourceRepository.html#line.92">setResourceSupplier</a>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function" class="externalLink">Function</a>&lt;aQute.maven.api.Archive,&#8203;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Optional.html?is-external=true" title="class or interface in java.util" class="externalLink">Optional</a>&lt;<a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/resource/Resource.html?is-external=true" title="class or interface in org.osgi.resource" class="externalLink">Resource</a>&gt;&gt;&nbsp;resourceSupplier)</pre>
+<pre class="methodSignature">public&nbsp;<a href="MavenResourceRepository.html" title="class in de.mnl.osgi.bnd.maven">MavenResourceRepository</a>&nbsp;<a href="../../../../../src-html/de/mnl/osgi/bnd/maven/MavenResourceRepository.html#line.92">setResourceSupplier</a>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function" class="externalLink">Function</a>&lt;aQute.maven.api.Archive,&#8203;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Optional.html?is-external=true" title="class or interface in java.util" class="externalLink">Optional</a>&lt;<a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/resource/Resource.html?is-external=true" title="class or interface in org.osgi.resource" class="externalLink">Resource</a>&gt;&gt;&nbsp;resourceSupplier)</pre>
 <div class="block">Sets a function that can provide resource information more
  efficiently (e.g. from some local persistent cache) than
  the remote maven repository.
@@ -428,7 +428,7 @@ extends <a href="CompositeMavenRepository.html" title="class in de.mnl.osgi.bnd.
 <dd><code>version</code> - the version</dd>
 <dd><code>extension</code> - the extension (or <code>null</code> for "jar")</dd>
 <dd><code>classifier</code> - the classifier (or <code>null</code> for "")</dd>
-<dd><code>location</code> - which URL to use for the binary in the <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/resource/Resource.html?is-external=true" title="class or interface in org.osgi.resource" class="externalLink"><code>Resource</code></a></dd>
+<dd><code>location</code> - which URL to use for the binary in the <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/resource/Resource.html?is-external=true" title="class or interface in org.osgi.resource" class="externalLink"><code>Resource</code></a></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the resource</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -448,7 +448,7 @@ extends <a href="CompositeMavenRepository.html" title="class in de.mnl.osgi.bnd.
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>archive</code> - the archive</dd>
-<dd><code>location</code> - which URL to use for the binary in the <a href="https://osgi.org/javadoc/osgi.core/7.0.0/org/osgi/resource/Resource.html?is-external=true" title="class or interface in org.osgi.resource" class="externalLink"><code>Resource</code></a></dd>
+<dd><code>location</code> - which URL to use for the binary in the <a href="https://docs.osgi.org/javadoc/osgi.core/7.0.0/org/osgi/resource/Resource.html?is-external=true" title="class or interface in org.osgi.resource" class="externalLink"><code>Resource</code></a></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the resource</dd>
 </dl>

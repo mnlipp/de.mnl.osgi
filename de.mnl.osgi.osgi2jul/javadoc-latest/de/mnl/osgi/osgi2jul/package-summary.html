@@ -112,16 +112,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  
  <h2>Forwarding functionality</h2>
  
- The bundle installs a <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogListener.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogListener</code></a>
- on every discovered <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogService.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogService</code></a>.
- The listener forwards each received <a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogEntry.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogEntry</code></a>
+ The bundle installs a <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogListener.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogListener</code></a>
+ on every discovered <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogService.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogService</code></a>.
+ The listener forwards each received <a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogEntry.html?is-external=true" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogEntry</code></a>
  to the configured JUL <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Handler.html?is-external=true" title="class or interface in java.util.logging" class="externalLink"><code>Handler</code></a>s.
  <P>
  The mapping of JUL <code>LogEntry</code> properties to OSGi
  <code>LogRecord</code> properties should be obvious with two
  exceptions:
  <ul>
-   <li><a href="https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogLevel.html?is-external=true#AUDIT" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogLevel.AUDIT</code></a>: is mapped
+   <li><a href="https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/log/LogLevel.html?is-external=true#AUDIT" title="class or interface in org.osgi.service.log" class="externalLink"><code>LogLevel.AUDIT</code></a>: is mapped
        to a JUL <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Level.html?is-external=true" title="class or interface in java.util.logging" class="externalLink"><code>Level</code></a> with integer value
        <code>MAX_VALUE</code> .</li>
    <li>Bundle: as this information has no direct representation
