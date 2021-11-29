@@ -2,7 +2,7 @@
 layout: default
 title: Bnd Indexed Maven Repository
 description: Describes how to use the bnd Indexed Maven Repository plugin 
-date: 2019-04-20 12:00:00
+date: 2021-11-29 12:00:00
 ---
 
 # Indexed Maven Repository Plugin
