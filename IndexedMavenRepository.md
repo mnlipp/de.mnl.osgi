@@ -96,8 +96,10 @@ in about 1200 artifacts. While this isn't a problem considering
 today's disk space and connection speed, it may pose a problem
 when you try to resolve requirements automatically. The plugin
 therefore provides some filter settings. The settings are 
-configured for each group id individually with a file 
+configured for each group id individually using a file 
 "`group.properties`" in the group's directory.
+
+### Select artifacts for indexing
 
 To select which versions of an artifact are included in a group,
 define a property "`[artifactId[.*];]versions=<maven version range>`". 
@@ -128,6 +130,8 @@ outside the "versions" range is referenced as a
 dependency in another artifact, it is added independent
 of any "versions" specification.
 
+### Excluding artifacts
+
 To definitely exclude some versions of an artifact, use
 the "`exclude`" property.
 
@@ -145,6 +149,8 @@ a complete old version of this OSGi framework implementation.
 Excluding may prune a complete branch from the
 dependency tree.
 
+### Forcing inclusion of artifacts
+
 In some cases, there may be a good old library
 (works perfectly, has never been updated) that depends
 on an old version of some base library. The old version
@@ -152,7 +158,7 @@ of the base library has been excluded, but you know that
 the good old library works with a newer version of the
 base library that is available. In such cases, it
 is possible to force the inclusion of the good old
-library despite the exclusion if its dependency by using
+library despite the exclusion of its dependency by using
 the "`forcedVersions`" property:
 
 ```properties
@@ -165,6 +171,43 @@ groups in the "`dependencies`" directory[^example].
 
 [^example]: A "real world" example of a configuration
     can be found [here](https://github.com/mnlipp/jgrapes-osgi/tree/master/cnf).
+
+### Requesting special artifacts
+
+By default, indexing includes the artifact produced by a maven project
+if the extension specified in the POM equals "jar", "bundle" or
+"eclipse-plugin". Starting with version 4.0.0 of this plugin, a "versions" 
+property can also be used to request the inclusion of additional artifacts 
+from a maven repository.
+
+A use case for this is code coverage with 
+[JaCoCo](https://www.eclemma.org/jacoco/). Doing this requires a javaagent 
+that is available in the maven repository as an additional artifact with
+classifier "runtime". By default, this artifact is not indexed, only the 
+file that contains the "standard" artifact ("`org.jacoco.agent-x.y.z.jar`") 
+is downloaded and indexed.
+
+In order to retrieve and index the javaagent, you have to specify a filter
+that also acts as a mapper by adding the file extension and classifier
+of the requested file to the artifact id, using colons as separator:
+
+```properties
+org.jacoco.agent\:jar\:runtime;versions = [0.8.7,)
+```
+
+Note that you have to escape the colons used as separator, because they
+are used in the key value of a property specification. This is definitely
+a possible pitfall, but using a different separator that doesn't match
+maven practices is just as bad.
+
+Once the artifact is indexed, it can be referred to in bnd's `repo` macro
+as shown in the bnd manual's 
+["launching" chapter](https://bnd.bndtools.org/chapters/300-launching.html):
+
+```properties
+-runvm.coverage: \
+	"-javaagent:${repo;org.jacoco:org.jacoco.agent:jar:runtime;latest}=destfile=${basedir}/generated/jacoco.exec,append=false"
+```
 
 ## Plugin Configuration
 
