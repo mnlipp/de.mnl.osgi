@@ -54,7 +54,7 @@ gitPublish {
 }
 
 task stage {
-	description = 'To be executed by travis, build and update JavaDoc.'
+	description = 'To be executed by github actions, build and update JavaDoc.'
 	group = 'build'
 
 	// Build everything first
