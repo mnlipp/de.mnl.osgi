@@ -51,33 +51,3 @@ publishing {
 
 // Additional configuration of publishing
 apply plugin: ConfigurePublishing
-
-/*
-configurations {
-	snapshotArtifacts
-}
-
-artifactory {
-	contextUrl = 'http://oss.jfrog.org'
-	publish {
-		repository {
-			repoKey = 'oss-snapshot-local'
-			username = project.properties['bintrayUser'] ?: "nouser"
-			password = project.properties['bintrayApiKey'] ?: "nokey"
-		}
-		defaults {
-//			publications('maven')
-			publishConfigs('snapshotArtifacts')
-			publishBuildInfo = false
-			publishArtifacts = true
-			publishPom = true
-			publishIvy = false
-		}
-	}
-	resolve {
-		repoKey = 'jcenter'
-	}
-	clientConfig.info.setBuildNumber('' 
-		+ new java.util.Random(System.currentTimeMillis()).nextInt(20000))
-}
-*/
