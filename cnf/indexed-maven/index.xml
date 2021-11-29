@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<repository increment="1637656195313" name="IndexedMaven" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
-    <referral url="dependencies/org.apache.commons/index.xml"/>
+<repository increment="1638042153574" name="IndexedMaven" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
     <referral url="dependencies/org.assertj/index.xml"/>
+    <referral url="dependencies/org.apache.commons/index.xml"/>
     <referral url="org.eclipse.osgi/index.xml"/>
     <referral url="dependencies/cglib/index.xml"/>
     <referral url="org.slf4j/index.xml"/>
-    <referral url="dependencies/org.opentest4j/index.xml"/>
     <referral url="dependencies/org.sonatype.aether/index.xml"/>
+    <referral url="dependencies/org.opentest4j/index.xml"/>
     <referral url="org.apache.servicemix.bundles/index.xml"/>
     <referral url="net.jodah/index.xml"/>
     <referral url="dependencies/commons-io/index.xml"/>
@@ -34,8 +34,8 @@
     <referral url="dependencies/org.sonatype.sisu/index.xml"/>
     <referral url="dependencies/org.apache.maven.shared/index.xml"/>
     <referral url="org.apache.logging.log4j/index.xml"/>
-    <referral url="dependencies/org.parboiled/index.xml"/>
     <referral url="dependencies/org.apache.maven/index.xml"/>
+    <referral url="dependencies/org.parboiled/index.xml"/>
     <referral url="dependencies/org.codehaus.mojo/index.xml"/>
     <referral url="dependencies/org.eclipse.aether/index.xml"/>
     <referral url="org.apache.felix/index.xml"/>
