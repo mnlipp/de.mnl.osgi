@@ -1,5 +1,5 @@
-jar {
-    dependsOn(':de.mnl.osgi.coreutils:jar')
-    dependsOn(':de.mnl.osgi.coreutils:javadocJar')
-    dependsOn(':de.mnl.osgi.coreutils:sourcesJar')
+tasks.jar {
+    dependsOn(':de.mnl.osgi.lf4osgi:jar')
+    dependsOn(':de.mnl.osgi.lf4osgi:javadocJar')
+    dependsOn(':de.mnl.osgi.lf4osgi:sourcesJar')
 }

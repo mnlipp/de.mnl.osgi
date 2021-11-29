@@ -1,3 +1,5 @@
-tasks.testOSGi {
-    dependsOn(':de.mnl.osgi.slf4j2osgi:build')
+tasks.jar {
+    dependsOn(':de.mnl.osgi.lf4osgi:jar')
+    dependsOn(':de.mnl.osgi.lf4osgi:javadocJar')
+    dependsOn(':de.mnl.osgi.lf4osgi:sourcesJar')
 }
