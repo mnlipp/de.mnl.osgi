@@ -1,409 +1,427 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
 <title>Source code</title>
 <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
 </head>
 <body>
+<main role="main">
 <div class="sourceContainer">
-<pre><span class="sourceLineNo">001</span>/*<a name="line.1"></a>
-<span class="sourceLineNo">002</span> * Extra Bnd Repository Plugins<a name="line.2"></a>
-<span class="sourceLineNo">003</span> * Copyright (C) 2019  Michael N. Lipp<a name="line.3"></a>
-<span class="sourceLineNo">004</span> * <a name="line.4"></a>
-<span class="sourceLineNo">005</span> * This program is free software; you can redistribute it and/or modify it <a name="line.5"></a>
-<span class="sourceLineNo">006</span> * under the terms of the GNU Affero General Public License as published by <a name="line.6"></a>
-<span class="sourceLineNo">007</span> * the Free Software Foundation; either version 3 of the License, or <a name="line.7"></a>
-<span class="sourceLineNo">008</span> * (at your option) any later version.<a name="line.8"></a>
-<span class="sourceLineNo">009</span> * <a name="line.9"></a>
-<span class="sourceLineNo">010</span> * This program is distributed in the hope that it will be useful, but <a name="line.10"></a>
-<span class="sourceLineNo">011</span> * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY<a name="line.11"></a>
-<span class="sourceLineNo">012</span> * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License <a name="line.12"></a>
-<span class="sourceLineNo">013</span> * for more details.<a name="line.13"></a>
-<span class="sourceLineNo">014</span> * <a name="line.14"></a>
-<span class="sourceLineNo">015</span> * You should have received a copy of the GNU Affero General Public License along <a name="line.15"></a>
-<span class="sourceLineNo">016</span> * with this program; if not, see &lt;http://www.gnu.org/licenses/&gt;.<a name="line.16"></a>
-<span class="sourceLineNo">017</span> */<a name="line.17"></a>
-<span class="sourceLineNo">018</span><a name="line.18"></a>
-<span class="sourceLineNo">019</span>package de.mnl.osgi.bnd.maven;<a name="line.19"></a>
-<span class="sourceLineNo">020</span><a name="line.20"></a>
-<span class="sourceLineNo">021</span>import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapability;<a name="line.21"></a>
-<span class="sourceLineNo">022</span><a name="line.22"></a>
-<span class="sourceLineNo">023</span>import aQute.bnd.osgi.resource.CapabilityBuilder;<a name="line.23"></a>
-<span class="sourceLineNo">024</span>import aQute.bnd.osgi.resource.ResourceBuilder;<a name="line.24"></a>
-<span class="sourceLineNo">025</span>import aQute.maven.api.Archive;<a name="line.25"></a>
-<span class="sourceLineNo">026</span>import aQute.maven.api.Program;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>import aQute.maven.api.Revision;<a name="line.27"></a>
-<span class="sourceLineNo">028</span>import aQute.maven.provider.MavenBackingRepository;<a name="line.28"></a>
-<span class="sourceLineNo">029</span>import aQute.service.reporter.Reporter;<a name="line.29"></a>
-<span class="sourceLineNo">030</span><a name="line.30"></a>
-<span class="sourceLineNo">031</span>import java.io.File;<a name="line.31"></a>
-<span class="sourceLineNo">032</span>import java.io.IOException;<a name="line.32"></a>
-<span class="sourceLineNo">033</span>import java.util.ArrayList;<a name="line.33"></a>
-<span class="sourceLineNo">034</span>import java.util.Collection;<a name="line.34"></a>
-<span class="sourceLineNo">035</span>import java.util.HashSet;<a name="line.35"></a>
-<span class="sourceLineNo">036</span>import java.util.List;<a name="line.36"></a>
-<span class="sourceLineNo">037</span>import java.util.Map;<a name="line.37"></a>
-<span class="sourceLineNo">038</span>import java.util.Optional;<a name="line.38"></a>
-<span class="sourceLineNo">039</span>import java.util.Set;<a name="line.39"></a>
-<span class="sourceLineNo">040</span>import java.util.concurrent.ConcurrentHashMap;<a name="line.40"></a>
-<span class="sourceLineNo">041</span>import java.util.concurrent.Executor;<a name="line.41"></a>
-<span class="sourceLineNo">042</span>import java.util.function.Function;<a name="line.42"></a>
-<span class="sourceLineNo">043</span>import java.util.stream.Collectors;<a name="line.43"></a>
-<span class="sourceLineNo">044</span><a name="line.44"></a>
-<span class="sourceLineNo">045</span>import org.apache.maven.model.Dependency;<a name="line.45"></a>
-<span class="sourceLineNo">046</span>import org.apache.maven.model.Model;<a name="line.46"></a>
-<span class="sourceLineNo">047</span>import org.apache.maven.model.building.ModelBuildingException;<a name="line.47"></a>
-<span class="sourceLineNo">048</span>import org.apache.maven.model.resolution.UnresolvableModelException;<a name="line.48"></a>
-<span class="sourceLineNo">049</span>import org.osgi.resource.Capability;<a name="line.49"></a>
-<span class="sourceLineNo">050</span>import org.osgi.resource.Requirement;<a name="line.50"></a>
-<span class="sourceLineNo">051</span>import org.osgi.resource.Resource;<a name="line.51"></a>
-<span class="sourceLineNo">052</span><a name="line.52"></a>
-<span class="sourceLineNo">053</span>/**<a name="line.53"></a>
-<span class="sourceLineNo">054</span> * Wraps the artifacts from a maven reposityor as {@link Resource}s.<a name="line.54"></a>
-<span class="sourceLineNo">055</span> */<a name="line.55"></a>
-<span class="sourceLineNo">056</span>public class MavenResourceRepository extends CompositeMavenRepository {<a name="line.56"></a>
-<span class="sourceLineNo">057</span><a name="line.57"></a>
-<span class="sourceLineNo">058</span>    /** The namespace used to store the maven dependencies information. */<a name="line.58"></a>
-<span class="sourceLineNo">059</span>    public static final String MAVEN_DEPENDENCIES_NS<a name="line.59"></a>
-<span class="sourceLineNo">060</span>        = "maven.dependencies.info";<a name="line.60"></a>
-<span class="sourceLineNo">061</span><a name="line.61"></a>
-<span class="sourceLineNo">062</span>    private Function&lt;Revision, Optional&lt;Resource&gt;&gt; resourceSupplier<a name="line.62"></a>
-<span class="sourceLineNo">063</span>        = resource -&gt; Optional.empty();<a name="line.63"></a>
-<span class="sourceLineNo">064</span>    private final Map&lt;Revision, MavenResource&gt; resourceCache<a name="line.64"></a>
-<span class="sourceLineNo">065</span>        = new ConcurrentHashMap&lt;&gt;();<a name="line.65"></a>
-<span class="sourceLineNo">066</span><a name="line.66"></a>
-<span class="sourceLineNo">067</span>    public MavenResourceRepository(File base, String repoId,<a name="line.67"></a>
-<span class="sourceLineNo">068</span>            List&lt;MavenBackingRepository&gt; releaseRepos,<a name="line.68"></a>
-<span class="sourceLineNo">069</span>            List&lt;MavenBackingRepository&gt; snapshotRepos, Executor executor,<a name="line.69"></a>
-<span class="sourceLineNo">070</span>            Reporter reporter) throws Exception {<a name="line.70"></a>
-<span class="sourceLineNo">071</span>        super(base, repoId, releaseRepos, snapshotRepos, executor, reporter);<a name="line.71"></a>
-<span class="sourceLineNo">072</span>    }<a name="line.72"></a>
-<span class="sourceLineNo">073</span><a name="line.73"></a>
-<span class="sourceLineNo">074</span>    @Override<a name="line.74"></a>
-<span class="sourceLineNo">075</span>    public void reset() {<a name="line.75"></a>
-<span class="sourceLineNo">076</span>        super.reset();<a name="line.76"></a>
-<span class="sourceLineNo">077</span>        resourceCache.clear();<a name="line.77"></a>
-<span class="sourceLineNo">078</span>    }<a name="line.78"></a>
-<span class="sourceLineNo">079</span><a name="line.79"></a>
-<span class="sourceLineNo">080</span>    /**<a name="line.80"></a>
-<span class="sourceLineNo">081</span>     * Sets a function that can provide resource information more<a name="line.81"></a>
-<span class="sourceLineNo">082</span>     * efficiently (e.g. from some local persistent cache) than<a name="line.82"></a>
-<span class="sourceLineNo">083</span>     * the remote maven repository.<a name="line.83"></a>
-<span class="sourceLineNo">084</span>     * &lt;P&gt;<a name="line.84"></a>
-<span class="sourceLineNo">085</span>     * Any resource information provided by the function must be<a name="line.85"></a>
-<span class="sourceLineNo">086</span>     * complete, i.e. must hold the information from the "bnd.info"<a name="line.86"></a>
-<span class="sourceLineNo">087</span>     * namespace and from the "maven.dependencies.info" namespace.<a name="line.87"></a>
-<span class="sourceLineNo">088</span>     *<a name="line.88"></a>
-<span class="sourceLineNo">089</span>     * @param resourceSupplier the resource supplier<a name="line.89"></a>
-<span class="sourceLineNo">090</span>     * @return the composite maven repository<a name="line.90"></a>
-<span class="sourceLineNo">091</span>     */<a name="line.91"></a>
-<span class="sourceLineNo">092</span>    public MavenResourceRepository setResourceSupplier(<a name="line.92"></a>
-<span class="sourceLineNo">093</span>            Function&lt;Revision, Optional&lt;Resource&gt;&gt; resourceSupplier) {<a name="line.93"></a>
-<span class="sourceLineNo">094</span>        this.resourceSupplier = resourceSupplier;<a name="line.94"></a>
-<span class="sourceLineNo">095</span>        return this;<a name="line.95"></a>
-<span class="sourceLineNo">096</span>    }<a name="line.96"></a>
-<span class="sourceLineNo">097</span><a name="line.97"></a>
-<span class="sourceLineNo">098</span>    /**<a name="line.98"></a>
-<span class="sourceLineNo">099</span>     * Creates a {@link MavenResource} for the given revision. <a name="line.99"></a>
-<span class="sourceLineNo">100</span>     *<a name="line.100"></a>
-<span class="sourceLineNo">101</span>     * @param revision the revision<a name="line.101"></a>
-<span class="sourceLineNo">102</span>     * @param location which URL to use for the binary in the {@link Resource}<a name="line.102"></a>
-<span class="sourceLineNo">103</span>     * @return the resource<a name="line.103"></a>
-<span class="sourceLineNo">104</span>     */<a name="line.104"></a>
-<span class="sourceLineNo">105</span>    public MavenResource resource(BoundRevision revision,<a name="line.105"></a>
-<span class="sourceLineNo">106</span>            BinaryLocation location) {<a name="line.106"></a>
-<span class="sourceLineNo">107</span>        return resourceCache.computeIfAbsent(revision.unbound(),<a name="line.107"></a>
-<span class="sourceLineNo">108</span>            rev -&gt; resourceSupplier.apply(rev)<a name="line.108"></a>
-<span class="sourceLineNo">109</span>                .map(resource -&gt; new MavenResourceImpl(revision, resource))<a name="line.109"></a>
-<span class="sourceLineNo">110</span>                .orElseGet(() -&gt; new MavenResourceImpl(revision, location)));<a name="line.110"></a>
-<span class="sourceLineNo">111</span>    }<a name="line.111"></a>
-<span class="sourceLineNo">112</span><a name="line.112"></a>
-<span class="sourceLineNo">113</span>    /**<a name="line.113"></a>
-<span class="sourceLineNo">114</span>     * Creates a {@link MavenResource} for the given program and version. <a name="line.114"></a>
-<span class="sourceLineNo">115</span>     *<a name="line.115"></a>
-<span class="sourceLineNo">116</span>     * @param program the program<a name="line.116"></a>
-<span class="sourceLineNo">117</span>     * @param version the version<a name="line.117"></a>
-<span class="sourceLineNo">118</span>     * @param location which URL to use for the binary in the {@link Resource}<a name="line.118"></a>
-<span class="sourceLineNo">119</span>     * @return the resource<a name="line.119"></a>
-<span class="sourceLineNo">120</span>     * @throws IOException Signals that an I/O exception has occurred.<a name="line.120"></a>
-<span class="sourceLineNo">121</span>     */<a name="line.121"></a>
-<span class="sourceLineNo">122</span>    public Optional&lt;MavenResource&gt; resource(Program program,<a name="line.122"></a>
-<span class="sourceLineNo">123</span>            MavenVersionSpecification version, BinaryLocation location)<a name="line.123"></a>
-<span class="sourceLineNo">124</span>            throws IOException {<a name="line.124"></a>
-<span class="sourceLineNo">125</span>        return find(program, version)<a name="line.125"></a>
-<span class="sourceLineNo">126</span>            .map(revision -&gt; resource(revision, location));<a name="line.126"></a>
-<span class="sourceLineNo">127</span>    }<a name="line.127"></a>
-<span class="sourceLineNo">128</span><a name="line.128"></a>
-<span class="sourceLineNo">129</span>    /**<a name="line.129"></a>
-<span class="sourceLineNo">130</span>     * Retrieves the dependency information from the provided<a name="line.130"></a>
-<span class="sourceLineNo">131</span>     * resource. Assumes that the resource was created by this<a name="line.131"></a>
-<span class="sourceLineNo">132</span>     * repository, i.e. with capabilities in the<a name="line.132"></a>
-<span class="sourceLineNo">133</span>     * "maven.dependencies.info" name space.<a name="line.133"></a>
-<span class="sourceLineNo">134</span>     *<a name="line.134"></a>
-<span class="sourceLineNo">135</span>     * @param resource the resource<a name="line.135"></a>
-<span class="sourceLineNo">136</span>     * @param dependencies the dependencies<a name="line.136"></a>
-<span class="sourceLineNo">137</span>     */<a name="line.137"></a>
-<span class="sourceLineNo">138</span>    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")<a name="line.138"></a>
-<span class="sourceLineNo">139</span>    private static void retrieveDependencies(Resource resource,<a name="line.139"></a>
-<span class="sourceLineNo">140</span>            Collection&lt;Dependency&gt; dependencies) {<a name="line.140"></a>
-<span class="sourceLineNo">141</span>        // Actually, there should be only one such capability per resource.<a name="line.141"></a>
-<span class="sourceLineNo">142</span>        for (Capability capability : resource<a name="line.142"></a>
-<span class="sourceLineNo">143</span>            .getCapabilities(MAVEN_DEPENDENCIES_NS)) {<a name="line.143"></a>
-<span class="sourceLineNo">144</span>            Map&lt;String, Object&gt; depAttrs = capability.getAttributes();<a name="line.144"></a>
-<span class="sourceLineNo">145</span>            depAttrs.values().stream()<a name="line.145"></a>
-<span class="sourceLineNo">146</span>                .flatMap(val -&gt; COORDS_SPLITTER.splitAsStream((String) val))<a name="line.146"></a>
-<span class="sourceLineNo">147</span>                .map(rev -&gt; {<a name="line.147"></a>
-<span class="sourceLineNo">148</span>                    String[] parts = rev.split(":");<a name="line.148"></a>
-<span class="sourceLineNo">149</span>                    Dependency dep = new Dependency();<a name="line.149"></a>
-<span class="sourceLineNo">150</span>                    dep.setGroupId(parts[0]);<a name="line.150"></a>
-<span class="sourceLineNo">151</span>                    dep.setArtifactId(parts[1]);<a name="line.151"></a>
-<span class="sourceLineNo">152</span>                    dep.setVersion(parts[2]);<a name="line.152"></a>
-<span class="sourceLineNo">153</span>                    return dep;<a name="line.153"></a>
-<span class="sourceLineNo">154</span>                }).forEach(dependencies::add);<a name="line.154"></a>
-<span class="sourceLineNo">155</span>        }<a name="line.155"></a>
-<span class="sourceLineNo">156</span>    }<a name="line.156"></a>
-<span class="sourceLineNo">157</span><a name="line.157"></a>
-<span class="sourceLineNo">158</span>    /**<a name="line.158"></a>
-<span class="sourceLineNo">159</span>     * A maven resource that obtains its information<a name="line.159"></a>
-<span class="sourceLineNo">160</span>     * lazily from a {@link CompositeMavenRepository}.<a name="line.160"></a>
-<span class="sourceLineNo">161</span>     */<a name="line.161"></a>
-<span class="sourceLineNo">162</span>    public class MavenResourceImpl implements MavenResource {<a name="line.162"></a>
-<span class="sourceLineNo">163</span><a name="line.163"></a>
-<span class="sourceLineNo">164</span>        private final Revision revision;<a name="line.164"></a>
-<span class="sourceLineNo">165</span>        private BoundRevision cachedRevision;<a name="line.165"></a>
-<span class="sourceLineNo">166</span>        private Resource cachedDelegee;<a name="line.166"></a>
-<span class="sourceLineNo">167</span>        private List&lt;Dependency&gt; cachedDependencies;<a name="line.167"></a>
-<span class="sourceLineNo">168</span>        private final BinaryLocation location;<a name="line.168"></a>
-<span class="sourceLineNo">169</span><a name="line.169"></a>
-<span class="sourceLineNo">170</span>        /**<a name="line.170"></a>
-<span class="sourceLineNo">171</span>         * Instantiates a new maven resource from the given data.<a name="line.171"></a>
-<span class="sourceLineNo">172</span>         *<a name="line.172"></a>
-<span class="sourceLineNo">173</span>         * @param revision the revision<a name="line.173"></a>
-<span class="sourceLineNo">174</span>         * @param resource the delegee<a name="line.174"></a>
-<span class="sourceLineNo">175</span>         */<a name="line.175"></a>
-<span class="sourceLineNo">176</span>        private MavenResourceImpl(Revision revision, BinaryLocation location) {<a name="line.176"></a>
-<span class="sourceLineNo">177</span>            this.revision = revision;<a name="line.177"></a>
-<span class="sourceLineNo">178</span>            this.location = location;<a name="line.178"></a>
-<span class="sourceLineNo">179</span>        }<a name="line.179"></a>
-<span class="sourceLineNo">180</span><a name="line.180"></a>
-<span class="sourceLineNo">181</span>        /**<a name="line.181"></a>
-<span class="sourceLineNo">182</span>         * Instantiates a new maven resource from the given data.<a name="line.182"></a>
-<span class="sourceLineNo">183</span>         *<a name="line.183"></a>
-<span class="sourceLineNo">184</span>         * @param revision the revision<a name="line.184"></a>
-<span class="sourceLineNo">185</span>         * @param resource the delegee<a name="line.185"></a>
-<span class="sourceLineNo">186</span>         */<a name="line.186"></a>
-<span class="sourceLineNo">187</span>        private MavenResourceImpl(BoundRevision revision,<a name="line.187"></a>
-<span class="sourceLineNo">188</span>                BinaryLocation location) {<a name="line.188"></a>
-<span class="sourceLineNo">189</span>            this.revision = revision.unbound();<a name="line.189"></a>
-<span class="sourceLineNo">190</span>            this.cachedRevision = revision;<a name="line.190"></a>
-<span class="sourceLineNo">191</span>            this.location = location;<a name="line.191"></a>
-<span class="sourceLineNo">192</span>        }<a name="line.192"></a>
-<span class="sourceLineNo">193</span><a name="line.193"></a>
-<span class="sourceLineNo">194</span>        /**<a name="line.194"></a>
-<span class="sourceLineNo">195</span>         * Instantiates a new maven resource from the given data.<a name="line.195"></a>
-<span class="sourceLineNo">196</span>         *<a name="line.196"></a>
-<span class="sourceLineNo">197</span>         * @param revision the revision<a name="line.197"></a>
-<span class="sourceLineNo">198</span>         * @param resource the delegee<a name="line.198"></a>
-<span class="sourceLineNo">199</span>         */<a name="line.199"></a>
-<span class="sourceLineNo">200</span>        private MavenResourceImpl(Revision revision, Resource resource) {<a name="line.200"></a>
-<span class="sourceLineNo">201</span>            this.revision = revision;<a name="line.201"></a>
-<span class="sourceLineNo">202</span>            this.cachedDelegee = resource;<a name="line.202"></a>
-<span class="sourceLineNo">203</span>            // Doesn't matter, resource won't be created (already there).<a name="line.203"></a>
-<span class="sourceLineNo">204</span>            this.location = BinaryLocation.REMOTE;<a name="line.204"></a>
-<span class="sourceLineNo">205</span>        }<a name="line.205"></a>
-<span class="sourceLineNo">206</span><a name="line.206"></a>
-<span class="sourceLineNo">207</span>        /**<a name="line.207"></a>
-<span class="sourceLineNo">208</span>         * Instantiates a new maven resource from the given data.<a name="line.208"></a>
-<span class="sourceLineNo">209</span>         *<a name="line.209"></a>
-<span class="sourceLineNo">210</span>         * @param revision the revision<a name="line.210"></a>
-<span class="sourceLineNo">211</span>         * @param resource the delegee<a name="line.211"></a>
-<span class="sourceLineNo">212</span>         */<a name="line.212"></a>
-<span class="sourceLineNo">213</span>        private MavenResourceImpl(BoundRevision revision, Resource resource) {<a name="line.213"></a>
-<span class="sourceLineNo">214</span>            this.revision = revision.unbound();<a name="line.214"></a>
-<span class="sourceLineNo">215</span>            this.cachedRevision = revision;<a name="line.215"></a>
-<span class="sourceLineNo">216</span>            this.cachedDelegee = resource;<a name="line.216"></a>
-<span class="sourceLineNo">217</span>            // Doesn't matter, resource won't be created (already there).<a name="line.217"></a>
-<span class="sourceLineNo">218</span>            this.location = BinaryLocation.REMOTE;<a name="line.218"></a>
-<span class="sourceLineNo">219</span>        }<a name="line.219"></a>
-<span class="sourceLineNo">220</span><a name="line.220"></a>
-<span class="sourceLineNo">221</span>        @Override<a name="line.221"></a>
-<span class="sourceLineNo">222</span>        public Revision revision() {<a name="line.222"></a>
-<span class="sourceLineNo">223</span>            return revision;<a name="line.223"></a>
-<span class="sourceLineNo">224</span>        }<a name="line.224"></a>
-<span class="sourceLineNo">225</span><a name="line.225"></a>
-<span class="sourceLineNo">226</span>        @Override<a name="line.226"></a>
-<span class="sourceLineNo">227</span>        public BoundRevision boundRevision() throws MavenResourceException {<a name="line.227"></a>
-<span class="sourceLineNo">228</span>            try {<a name="line.228"></a>
-<span class="sourceLineNo">229</span>                if (cachedRevision == null) {<a name="line.229"></a>
-<span class="sourceLineNo">230</span>                    cachedRevision = find(revision).get();<a name="line.230"></a>
-<span class="sourceLineNo">231</span>                }<a name="line.231"></a>
-<span class="sourceLineNo">232</span>                return cachedRevision;<a name="line.232"></a>
-<span class="sourceLineNo">233</span>            } catch (IOException e) {<a name="line.233"></a>
-<span class="sourceLineNo">234</span>                throw new MavenResourceException(e);<a name="line.234"></a>
-<span class="sourceLineNo">235</span>            }<a name="line.235"></a>
-<span class="sourceLineNo">236</span>        }<a name="line.236"></a>
-<span class="sourceLineNo">237</span><a name="line.237"></a>
-<span class="sourceLineNo">238</span>        @Override<a name="line.238"></a>
-<span class="sourceLineNo">239</span>        public Resource asResource() throws MavenResourceException {<a name="line.239"></a>
-<span class="sourceLineNo">240</span>            if (cachedDelegee == null) {<a name="line.240"></a>
-<span class="sourceLineNo">241</span>                createResource();<a name="line.241"></a>
-<span class="sourceLineNo">242</span>            }<a name="line.242"></a>
-<span class="sourceLineNo">243</span>            return cachedDelegee;<a name="line.243"></a>
-<span class="sourceLineNo">244</span>        }<a name="line.244"></a>
-<span class="sourceLineNo">245</span><a name="line.245"></a>
-<span class="sourceLineNo">246</span>        /**<a name="line.246"></a>
-<span class="sourceLineNo">247</span>         * Creates a {@link Resource} representation from the manifest<a name="line.247"></a>
-<span class="sourceLineNo">248</span>         * of the artifact.  <a name="line.248"></a>
-<span class="sourceLineNo">249</span>         *<a name="line.249"></a>
-<span class="sourceLineNo">250</span>         * @throws IOException Signals that an I/O exception has occurred.<a name="line.250"></a>
-<span class="sourceLineNo">251</span>         * @throws ModelBuildingException the model building exception<a name="line.251"></a>
-<span class="sourceLineNo">252</span>         * @throws UnresolvableModelException the unresolvable model exception<a name="line.252"></a>
-<span class="sourceLineNo">253</span>         */<a name="line.253"></a>
-<span class="sourceLineNo">254</span>        @SuppressWarnings({ "PMD.AvoidCatchingGenericException",<a name="line.254"></a>
-<span class="sourceLineNo">255</span>            "PMD.AvoidInstanceofChecksInCatchClause",<a name="line.255"></a>
-<span class="sourceLineNo">256</span>            "PMD.CyclomaticComplexity", "PMD.NcssCount" })<a name="line.256"></a>
-<span class="sourceLineNo">257</span>        private void createResource() throws MavenResourceException {<a name="line.257"></a>
-<span class="sourceLineNo">258</span>            Model model = model(revision);<a name="line.258"></a>
-<span class="sourceLineNo">259</span>            String extension = model.getPackaging();<a name="line.259"></a>
-<span class="sourceLineNo">260</span>            if (extension.equals("bundle")<a name="line.260"></a>
-<span class="sourceLineNo">261</span>                || extension.equals("eclipse-plugin")) {<a name="line.261"></a>
-<span class="sourceLineNo">262</span>                extension = "jar";<a name="line.262"></a>
-<span class="sourceLineNo">263</span>            }<a name="line.263"></a>
-<span class="sourceLineNo">264</span>            Archive archive = revision.archive(extension, "");<a name="line.264"></a>
-<span class="sourceLineNo">265</span>            ResourceBuilder builder = new ResourceBuilder();<a name="line.265"></a>
-<span class="sourceLineNo">266</span>            addInformationCapability(builder, archive.toString(),<a name="line.266"></a>
-<span class="sourceLineNo">267</span>                archive.getRevision().toString(), null);<a name="line.267"></a>
-<span class="sourceLineNo">268</span>            if (extension.equals("jar")) {<a name="line.268"></a>
-<span class="sourceLineNo">269</span>                File binary;<a name="line.269"></a>
-<span class="sourceLineNo">270</span>                try {<a name="line.270"></a>
-<span class="sourceLineNo">271</span>                    binary = get(archive);<a name="line.271"></a>
-<span class="sourceLineNo">272</span>                } catch (IOException e) {<a name="line.272"></a>
-<span class="sourceLineNo">273</span>                    throw new MavenResourceException(e);<a name="line.273"></a>
-<span class="sourceLineNo">274</span>                }<a name="line.274"></a>
-<span class="sourceLineNo">275</span>                try {<a name="line.275"></a>
-<span class="sourceLineNo">276</span>                    if (location == BinaryLocation.LOCAL) {<a name="line.276"></a>
-<span class="sourceLineNo">277</span>                        builder.addFile(binary, binary.toURI());<a name="line.277"></a>
-<span class="sourceLineNo">278</span>                    } else {<a name="line.278"></a>
-<span class="sourceLineNo">279</span>                        builder.addFile(binary,<a name="line.279"></a>
-<span class="sourceLineNo">280</span>                            boundRevision().mavenBackingRepository()<a name="line.280"></a>
-<span class="sourceLineNo">281</span>                                .toURI(archive.remotePath));<a name="line.281"></a>
-<span class="sourceLineNo">282</span>                    }<a name="line.282"></a>
-<span class="sourceLineNo">283</span>                } catch (Exception e) {<a name="line.283"></a>
-<span class="sourceLineNo">284</span>                    // That's what the exceptions thrown here come down to.<a name="line.284"></a>
-<span class="sourceLineNo">285</span>                    throw new IllegalArgumentException(e);<a name="line.285"></a>
-<span class="sourceLineNo">286</span>                }<a name="line.286"></a>
-<span class="sourceLineNo">287</span>            }<a name="line.287"></a>
-<span class="sourceLineNo">288</span><a name="line.288"></a>
-<span class="sourceLineNo">289</span>            // Add dependency infos<a name="line.289"></a>
-<span class="sourceLineNo">290</span>            if (!dependencies().isEmpty()) {<a name="line.290"></a>
-<span class="sourceLineNo">291</span>                CapabilityBuilder cap<a name="line.291"></a>
-<span class="sourceLineNo">292</span>                    = new CapabilityBuilder(MAVEN_DEPENDENCIES_NS);<a name="line.292"></a>
-<span class="sourceLineNo">293</span>                Set&lt;Dependency&gt; cpDeps = new HashSet&lt;&gt;();<a name="line.293"></a>
-<span class="sourceLineNo">294</span>                Set&lt;Dependency&gt; rtDeps = new HashSet&lt;&gt;();<a name="line.294"></a>
-<span class="sourceLineNo">295</span>                for (Dependency dep : dependencies()) {<a name="line.295"></a>
-<span class="sourceLineNo">296</span>                    if (dep.getScope() == null<a name="line.296"></a>
-<span class="sourceLineNo">297</span>                        || dep.getScope().equalsIgnoreCase("compile")) {<a name="line.297"></a>
-<span class="sourceLineNo">298</span>                        cpDeps.add(dep);<a name="line.298"></a>
-<span class="sourceLineNo">299</span>                    } else if (dep.getScope().equalsIgnoreCase("runtime")) {<a name="line.299"></a>
-<span class="sourceLineNo">300</span>                        rtDeps.add(dep);<a name="line.300"></a>
-<span class="sourceLineNo">301</span>                    }<a name="line.301"></a>
-<span class="sourceLineNo">302</span>                }<a name="line.302"></a>
-<span class="sourceLineNo">303</span>                try {<a name="line.303"></a>
-<span class="sourceLineNo">304</span>                    if (!cpDeps.isEmpty()) {<a name="line.304"></a>
-<span class="sourceLineNo">305</span>                        cap.addAttribute("compile", toVersionList(cpDeps));<a name="line.305"></a>
-<span class="sourceLineNo">306</span>                    }<a name="line.306"></a>
-<span class="sourceLineNo">307</span>                    if (!rtDeps.isEmpty()) {<a name="line.307"></a>
-<span class="sourceLineNo">308</span>                        cap.addAttribute("runtime", toVersionList(rtDeps));<a name="line.308"></a>
-<span class="sourceLineNo">309</span>                    }<a name="line.309"></a>
-<span class="sourceLineNo">310</span>                } catch (Exception e) {<a name="line.310"></a>
-<span class="sourceLineNo">311</span>                    throw new IllegalArgumentException(e);<a name="line.311"></a>
-<span class="sourceLineNo">312</span>                }<a name="line.312"></a>
-<span class="sourceLineNo">313</span>                builder.addCapability(cap);<a name="line.313"></a>
-<span class="sourceLineNo">314</span>            }<a name="line.314"></a>
-<span class="sourceLineNo">315</span>            cachedDelegee = builder.build();<a name="line.315"></a>
-<span class="sourceLineNo">316</span>        }<a name="line.316"></a>
-<span class="sourceLineNo">317</span><a name="line.317"></a>
-<span class="sourceLineNo">318</span>        private String toVersionList(Collection&lt;Dependency&gt; deps) {<a name="line.318"></a>
-<span class="sourceLineNo">319</span>            StringBuilder depsList = new StringBuilder("");<a name="line.319"></a>
-<span class="sourceLineNo">320</span>            for (Dependency dep : deps) {<a name="line.320"></a>
-<span class="sourceLineNo">321</span>                if (depsList.length() &gt; 0) {<a name="line.321"></a>
-<span class="sourceLineNo">322</span>                    depsList.append(';');<a name="line.322"></a>
-<span class="sourceLineNo">323</span>                }<a name="line.323"></a>
-<span class="sourceLineNo">324</span>                depsList.append(dep.getGroupId());<a name="line.324"></a>
-<span class="sourceLineNo">325</span>                depsList.append(':');<a name="line.325"></a>
-<span class="sourceLineNo">326</span>                depsList.append(dep.getArtifactId());<a name="line.326"></a>
-<span class="sourceLineNo">327</span>                depsList.append(':');<a name="line.327"></a>
-<span class="sourceLineNo">328</span>                depsList.append(dep.getVersion());<a name="line.328"></a>
-<span class="sourceLineNo">329</span>            }<a name="line.329"></a>
-<span class="sourceLineNo">330</span>            return depsList.toString();<a name="line.330"></a>
-<span class="sourceLineNo">331</span>        }<a name="line.331"></a>
-<span class="sourceLineNo">332</span><a name="line.332"></a>
-<span class="sourceLineNo">333</span>        @Override<a name="line.333"></a>
-<span class="sourceLineNo">334</span>        public List&lt;Capability&gt; getCapabilities(String namespace)<a name="line.334"></a>
-<span class="sourceLineNo">335</span>                throws MavenResourceException {<a name="line.335"></a>
-<span class="sourceLineNo">336</span>            return asResource().getCapabilities(namespace);<a name="line.336"></a>
-<span class="sourceLineNo">337</span>        }<a name="line.337"></a>
-<span class="sourceLineNo">338</span><a name="line.338"></a>
-<span class="sourceLineNo">339</span>        @Override<a name="line.339"></a>
-<span class="sourceLineNo">340</span>        public List&lt;Requirement&gt; getRequirements(String namespace)<a name="line.340"></a>
-<span class="sourceLineNo">341</span>                throws MavenResourceException {<a name="line.341"></a>
-<span class="sourceLineNo">342</span>            return asResource().getRequirements(namespace);<a name="line.342"></a>
-<span class="sourceLineNo">343</span>        }<a name="line.343"></a>
-<span class="sourceLineNo">344</span><a name="line.344"></a>
-<span class="sourceLineNo">345</span>        @Override<a name="line.345"></a>
-<span class="sourceLineNo">346</span>        public boolean equals(Object obj) {<a name="line.346"></a>
-<span class="sourceLineNo">347</span>            if (obj == null) {<a name="line.347"></a>
-<span class="sourceLineNo">348</span>                return false;<a name="line.348"></a>
-<span class="sourceLineNo">349</span>            }<a name="line.349"></a>
-<span class="sourceLineNo">350</span>            if (obj instanceof MavenResource) {<a name="line.350"></a>
-<span class="sourceLineNo">351</span>                return revision.equals(((MavenResource) obj).revision());<a name="line.351"></a>
-<span class="sourceLineNo">352</span>            }<a name="line.352"></a>
-<span class="sourceLineNo">353</span>            if (obj instanceof Resource) {<a name="line.353"></a>
-<span class="sourceLineNo">354</span>                try {<a name="line.354"></a>
-<span class="sourceLineNo">355</span>                    return asResource().equals(obj);<a name="line.355"></a>
-<span class="sourceLineNo">356</span>                } catch (MavenResourceException e) {<a name="line.356"></a>
-<span class="sourceLineNo">357</span>                    return false;<a name="line.357"></a>
-<span class="sourceLineNo">358</span>                }<a name="line.358"></a>
-<span class="sourceLineNo">359</span>            }<a name="line.359"></a>
-<span class="sourceLineNo">360</span>            return false;<a name="line.360"></a>
-<span class="sourceLineNo">361</span>        }<a name="line.361"></a>
-<span class="sourceLineNo">362</span><a name="line.362"></a>
-<span class="sourceLineNo">363</span>        @Override<a name="line.363"></a>
-<span class="sourceLineNo">364</span>        public int hashCode() {<a name="line.364"></a>
-<span class="sourceLineNo">365</span>            return revision.hashCode();<a name="line.365"></a>
-<span class="sourceLineNo">366</span>        }<a name="line.366"></a>
-<span class="sourceLineNo">367</span><a name="line.367"></a>
-<span class="sourceLineNo">368</span>        @Override<a name="line.368"></a>
-<span class="sourceLineNo">369</span>        public String toString() {<a name="line.369"></a>
-<span class="sourceLineNo">370</span>            return revision.toString();<a name="line.370"></a>
-<span class="sourceLineNo">371</span>        }<a name="line.371"></a>
-<span class="sourceLineNo">372</span><a name="line.372"></a>
-<span class="sourceLineNo">373</span>        @Override<a name="line.373"></a>
-<span class="sourceLineNo">374</span>        @SuppressWarnings("PMD.ConfusingTernary")<a name="line.374"></a>
-<span class="sourceLineNo">375</span>        public final List&lt;Dependency&gt; dependencies()<a name="line.375"></a>
-<span class="sourceLineNo">376</span>                throws MavenResourceException {<a name="line.376"></a>
-<span class="sourceLineNo">377</span>            if (cachedDependencies == null) {<a name="line.377"></a>
-<span class="sourceLineNo">378</span>                if (cachedDelegee != null) {<a name="line.378"></a>
-<span class="sourceLineNo">379</span>                    cachedDependencies = new ArrayList&lt;&gt;();<a name="line.379"></a>
-<span class="sourceLineNo">380</span>                    retrieveDependencies(cachedDelegee, cachedDependencies);<a name="line.380"></a>
-<span class="sourceLineNo">381</span>                } else {<a name="line.381"></a>
-<span class="sourceLineNo">382</span>                    cachedDependencies = MavenResourceRepository.this<a name="line.382"></a>
-<span class="sourceLineNo">383</span>                        .model(revision()).getDependencies().stream()<a name="line.383"></a>
-<span class="sourceLineNo">384</span>                        .filter(dep -&gt; !dep.getGroupId().contains("$")<a name="line.384"></a>
-<span class="sourceLineNo">385</span>                            &amp;&amp; !dep.getArtifactId().contains("$")<a name="line.385"></a>
-<span class="sourceLineNo">386</span>                            &amp;&amp; !dep.isOptional()<a name="line.386"></a>
-<span class="sourceLineNo">387</span>                            &amp;&amp; (dep.getScope() == null<a name="line.387"></a>
-<span class="sourceLineNo">388</span>                                || dep.getScope().equals("compile")<a name="line.388"></a>
-<span class="sourceLineNo">389</span>                                || dep.getScope().equals("runtime")<a name="line.389"></a>
-<span class="sourceLineNo">390</span>                                || dep.getScope().equals("provided")))<a name="line.390"></a>
-<span class="sourceLineNo">391</span>                        .collect(Collectors.toList());<a name="line.391"></a>
-<span class="sourceLineNo">392</span>                }<a name="line.392"></a>
-<span class="sourceLineNo">393</span>            }<a name="line.393"></a>
-<span class="sourceLineNo">394</span>            return cachedDependencies;<a name="line.394"></a>
-<span class="sourceLineNo">395</span>        }<a name="line.395"></a>
-<span class="sourceLineNo">396</span><a name="line.396"></a>
-<span class="sourceLineNo">397</span>    }<a name="line.397"></a>
-<span class="sourceLineNo">398</span>}<a name="line.398"></a>
+<pre><span class="sourceLineNo">001</span><a id="line.1">/*</a>
+<span class="sourceLineNo">002</span><a id="line.2"> * Extra Bnd Repository Plugins</a>
+<span class="sourceLineNo">003</span><a id="line.3"> * Copyright (C) 2019-2021 Michael N. Lipp</a>
+<span class="sourceLineNo">004</span><a id="line.4"> * </a>
+<span class="sourceLineNo">005</span><a id="line.5"> * This program is free software; you can redistribute it and/or modify it </a>
+<span class="sourceLineNo">006</span><a id="line.6"> * under the terms of the GNU Affero General Public License as published by </a>
+<span class="sourceLineNo">007</span><a id="line.7"> * the Free Software Foundation; either version 3 of the License, or </a>
+<span class="sourceLineNo">008</span><a id="line.8"> * (at your option) any later version.</a>
+<span class="sourceLineNo">009</span><a id="line.9"> * </a>
+<span class="sourceLineNo">010</span><a id="line.10"> * This program is distributed in the hope that it will be useful, but </a>
+<span class="sourceLineNo">011</span><a id="line.11"> * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY</a>
+<span class="sourceLineNo">012</span><a id="line.12"> * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License </a>
+<span class="sourceLineNo">013</span><a id="line.13"> * for more details.</a>
+<span class="sourceLineNo">014</span><a id="line.14"> * </a>
+<span class="sourceLineNo">015</span><a id="line.15"> * You should have received a copy of the GNU Affero General Public License along </a>
+<span class="sourceLineNo">016</span><a id="line.16"> * with this program; if not, see &lt;http://www.gnu.org/licenses/&gt;.</a>
+<span class="sourceLineNo">017</span><a id="line.17"> */</a>
+<span class="sourceLineNo">018</span><a id="line.18"></a>
+<span class="sourceLineNo">019</span><a id="line.19">package de.mnl.osgi.bnd.maven;</a>
+<span class="sourceLineNo">020</span><a id="line.20"></a>
+<span class="sourceLineNo">021</span><a id="line.21">import static aQute.bnd.osgi.repository.BridgeRepository.addInformationCapability;</a>
+<span class="sourceLineNo">022</span><a id="line.22">import aQute.bnd.osgi.resource.CapabilityBuilder;</a>
+<span class="sourceLineNo">023</span><a id="line.23">import aQute.bnd.osgi.resource.ResourceBuilder;</a>
+<span class="sourceLineNo">024</span><a id="line.24">import aQute.bnd.osgi.resource.ResourceUtils;</a>
+<span class="sourceLineNo">025</span><a id="line.25">import aQute.bnd.version.Version;</a>
+<span class="sourceLineNo">026</span><a id="line.26">import aQute.maven.api.Archive;</a>
+<span class="sourceLineNo">027</span><a id="line.27">import aQute.maven.api.Program;</a>
+<span class="sourceLineNo">028</span><a id="line.28">import aQute.maven.provider.MavenBackingRepository;</a>
+<span class="sourceLineNo">029</span><a id="line.29">import aQute.service.reporter.Reporter;</a>
+<span class="sourceLineNo">030</span><a id="line.30">import java.io.File;</a>
+<span class="sourceLineNo">031</span><a id="line.31">import java.io.IOException;</a>
+<span class="sourceLineNo">032</span><a id="line.32">import java.util.ArrayList;</a>
+<span class="sourceLineNo">033</span><a id="line.33">import java.util.Collection;</a>
+<span class="sourceLineNo">034</span><a id="line.34">import java.util.Collections;</a>
+<span class="sourceLineNo">035</span><a id="line.35">import java.util.HashSet;</a>
+<span class="sourceLineNo">036</span><a id="line.36">import java.util.List;</a>
+<span class="sourceLineNo">037</span><a id="line.37">import java.util.Map;</a>
+<span class="sourceLineNo">038</span><a id="line.38">import java.util.Optional;</a>
+<span class="sourceLineNo">039</span><a id="line.39">import java.util.Set;</a>
+<span class="sourceLineNo">040</span><a id="line.40">import java.util.concurrent.ConcurrentHashMap;</a>
+<span class="sourceLineNo">041</span><a id="line.41">import java.util.concurrent.Executor;</a>
+<span class="sourceLineNo">042</span><a id="line.42">import java.util.function.Function;</a>
+<span class="sourceLineNo">043</span><a id="line.43">import java.util.stream.Collectors;</a>
+<span class="sourceLineNo">044</span><a id="line.44">import org.apache.maven.model.Dependency;</a>
+<span class="sourceLineNo">045</span><a id="line.45">import org.apache.maven.model.Model;</a>
+<span class="sourceLineNo">046</span><a id="line.46">import org.apache.maven.model.building.ModelBuildingException;</a>
+<span class="sourceLineNo">047</span><a id="line.47">import org.apache.maven.model.resolution.UnresolvableModelException;</a>
+<span class="sourceLineNo">048</span><a id="line.48">import org.osgi.framework.namespace.IdentityNamespace;</a>
+<span class="sourceLineNo">049</span><a id="line.49">import org.osgi.resource.Capability;</a>
+<span class="sourceLineNo">050</span><a id="line.50">import org.osgi.resource.Requirement;</a>
+<span class="sourceLineNo">051</span><a id="line.51">import org.osgi.resource.Resource;</a>
+<span class="sourceLineNo">052</span><a id="line.52"></a>
+<span class="sourceLineNo">053</span><a id="line.53">/**</a>
+<span class="sourceLineNo">054</span><a id="line.54"> * Wraps the artifacts from a maven repository as {@link Resource}s.</a>
+<span class="sourceLineNo">055</span><a id="line.55"> */</a>
+<span class="sourceLineNo">056</span><a id="line.56">public class MavenResourceRepository extends CompositeMavenRepository {</a>
+<span class="sourceLineNo">057</span><a id="line.57"></a>
+<span class="sourceLineNo">058</span><a id="line.58">    /** The namespace used to store the maven dependencies information. */</a>
+<span class="sourceLineNo">059</span><a id="line.59">    public static final String MAVEN_DEPENDENCIES_NS</a>
+<span class="sourceLineNo">060</span><a id="line.60">        = "maven.dependencies.info";</a>
+<span class="sourceLineNo">061</span><a id="line.61"></a>
+<span class="sourceLineNo">062</span><a id="line.62">    private Function&lt;Archive, Optional&lt;Resource&gt;&gt; resourceSupplier</a>
+<span class="sourceLineNo">063</span><a id="line.63">        = resource -&gt; Optional.empty();</a>
+<span class="sourceLineNo">064</span><a id="line.64">    private final Map&lt;Archive, MavenResource&gt; resourceCache</a>
+<span class="sourceLineNo">065</span><a id="line.65">        = new ConcurrentHashMap&lt;&gt;();</a>
+<span class="sourceLineNo">066</span><a id="line.66"></a>
+<span class="sourceLineNo">067</span><a id="line.67">    public MavenResourceRepository(File base, String repoId,</a>
+<span class="sourceLineNo">068</span><a id="line.68">            List&lt;MavenBackingRepository&gt; releaseRepos,</a>
+<span class="sourceLineNo">069</span><a id="line.69">            List&lt;MavenBackingRepository&gt; snapshotRepos, Executor executor,</a>
+<span class="sourceLineNo">070</span><a id="line.70">            Reporter reporter) throws Exception {</a>
+<span class="sourceLineNo">071</span><a id="line.71">        super(base, repoId, releaseRepos, snapshotRepos, executor, reporter);</a>
+<span class="sourceLineNo">072</span><a id="line.72">    }</a>
+<span class="sourceLineNo">073</span><a id="line.73"></a>
+<span class="sourceLineNo">074</span><a id="line.74">    @Override</a>
+<span class="sourceLineNo">075</span><a id="line.75">    public void reset() {</a>
+<span class="sourceLineNo">076</span><a id="line.76">        super.reset();</a>
+<span class="sourceLineNo">077</span><a id="line.77">        resourceCache.clear();</a>
+<span class="sourceLineNo">078</span><a id="line.78">    }</a>
+<span class="sourceLineNo">079</span><a id="line.79"></a>
+<span class="sourceLineNo">080</span><a id="line.80">    /**</a>
+<span class="sourceLineNo">081</span><a id="line.81">     * Sets a function that can provide resource information more</a>
+<span class="sourceLineNo">082</span><a id="line.82">     * efficiently (e.g. from some local persistent cache) than</a>
+<span class="sourceLineNo">083</span><a id="line.83">     * the remote maven repository.</a>
+<span class="sourceLineNo">084</span><a id="line.84">     * &lt;P&gt;</a>
+<span class="sourceLineNo">085</span><a id="line.85">     * Any resource information provided by the function must be</a>
+<span class="sourceLineNo">086</span><a id="line.86">     * complete, i.e. must hold the information from the "bnd.info"</a>
+<span class="sourceLineNo">087</span><a id="line.87">     * namespace and from the "maven.dependencies.info" namespace.</a>
+<span class="sourceLineNo">088</span><a id="line.88">     *</a>
+<span class="sourceLineNo">089</span><a id="line.89">     * @param resourceSupplier the resource supplier</a>
+<span class="sourceLineNo">090</span><a id="line.90">     * @return the composite maven repository</a>
+<span class="sourceLineNo">091</span><a id="line.91">     */</a>
+<span class="sourceLineNo">092</span><a id="line.92">    public MavenResourceRepository setResourceSupplier(</a>
+<span class="sourceLineNo">093</span><a id="line.93">            Function&lt;Archive, Optional&lt;Resource&gt;&gt; resourceSupplier) {</a>
+<span class="sourceLineNo">094</span><a id="line.94">        this.resourceSupplier = resourceSupplier;</a>
+<span class="sourceLineNo">095</span><a id="line.95">        return this;</a>
+<span class="sourceLineNo">096</span><a id="line.96">    }</a>
+<span class="sourceLineNo">097</span><a id="line.97"></a>
+<span class="sourceLineNo">098</span><a id="line.98">    /**</a>
+<span class="sourceLineNo">099</span><a id="line.99">     * Creates a {@link MavenResource} for the given program and version. </a>
+<span class="sourceLineNo">100</span><a id="line.100">     *</a>
+<span class="sourceLineNo">101</span><a id="line.101">     * @param program the program</a>
+<span class="sourceLineNo">102</span><a id="line.102">     * @param version the version</a>
+<span class="sourceLineNo">103</span><a id="line.103">     * @param extension the extension (or {@code null} for "jar")</a>
+<span class="sourceLineNo">104</span><a id="line.104">     * @param classifier the classifier (or {@code null} for "")</a>
+<span class="sourceLineNo">105</span><a id="line.105">     * @param location which URL to use for the binary in the {@link Resource}</a>
+<span class="sourceLineNo">106</span><a id="line.106">     * @return the resource</a>
+<span class="sourceLineNo">107</span><a id="line.107">     * @throws IOException Signals that an I/O exception has occurred.</a>
+<span class="sourceLineNo">108</span><a id="line.108">     */</a>
+<span class="sourceLineNo">109</span><a id="line.109">    public Optional&lt;MavenResource&gt; resource(Program program,</a>
+<span class="sourceLineNo">110</span><a id="line.110">            MavenVersionSpecification version, String extension,</a>
+<span class="sourceLineNo">111</span><a id="line.111">            String classifier, BinaryLocation location)</a>
+<span class="sourceLineNo">112</span><a id="line.112">            throws IOException {</a>
+<span class="sourceLineNo">113</span><a id="line.113">        return find(program, version)</a>
+<span class="sourceLineNo">114</span><a id="line.114">            .map(revision -&gt; resource(revision.archive(extension, classifier),</a>
+<span class="sourceLineNo">115</span><a id="line.115">                location));</a>
+<span class="sourceLineNo">116</span><a id="line.116">    }</a>
+<span class="sourceLineNo">117</span><a id="line.117"></a>
+<span class="sourceLineNo">118</span><a id="line.118">    /**</a>
+<span class="sourceLineNo">119</span><a id="line.119">     * Creates a {@link MavenResource} for the given archive. </a>
+<span class="sourceLineNo">120</span><a id="line.120">     *</a>
+<span class="sourceLineNo">121</span><a id="line.121">     * @param archive the archive</a>
+<span class="sourceLineNo">122</span><a id="line.122">     * @param location which URL to use for the binary in the {@link Resource}</a>
+<span class="sourceLineNo">123</span><a id="line.123">     * @return the resource</a>
+<span class="sourceLineNo">124</span><a id="line.124">     */</a>
+<span class="sourceLineNo">125</span><a id="line.125">    public MavenResource resource(BoundArchive archive,</a>
+<span class="sourceLineNo">126</span><a id="line.126">            BinaryLocation location) {</a>
+<span class="sourceLineNo">127</span><a id="line.127">        return resourceCache.computeIfAbsent(archive,</a>
+<span class="sourceLineNo">128</span><a id="line.128">            a -&gt; resourceSupplier.apply(a)</a>
+<span class="sourceLineNo">129</span><a id="line.129">                .map(resource -&gt; new MavenResourceImpl(archive, resource))</a>
+<span class="sourceLineNo">130</span><a id="line.130">                .orElseGet(() -&gt; new MavenResourceImpl(archive, location)));</a>
+<span class="sourceLineNo">131</span><a id="line.131">    }</a>
+<span class="sourceLineNo">132</span><a id="line.132"></a>
+<span class="sourceLineNo">133</span><a id="line.133">    /**</a>
+<span class="sourceLineNo">134</span><a id="line.134">     * Retrieves the dependency information from the provided</a>
+<span class="sourceLineNo">135</span><a id="line.135">     * resource. Assumes that the resource was created by this</a>
+<span class="sourceLineNo">136</span><a id="line.136">     * repository, i.e. with capabilities in the</a>
+<span class="sourceLineNo">137</span><a id="line.137">     * "maven.dependencies.info" name space.</a>
+<span class="sourceLineNo">138</span><a id="line.138">     *</a>
+<span class="sourceLineNo">139</span><a id="line.139">     * @param resource the resource</a>
+<span class="sourceLineNo">140</span><a id="line.140">     * @param dependencies the dependencies</a>
+<span class="sourceLineNo">141</span><a id="line.141">     */</a>
+<span class="sourceLineNo">142</span><a id="line.142">    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")</a>
+<span class="sourceLineNo">143</span><a id="line.143">    private static void retrieveDependencies(Resource resource,</a>
+<span class="sourceLineNo">144</span><a id="line.144">            Collection&lt;Dependency&gt; dependencies) {</a>
+<span class="sourceLineNo">145</span><a id="line.145">        // Actually, there should be only one such capability per resource.</a>
+<span class="sourceLineNo">146</span><a id="line.146">        for (Capability capability : resource</a>
+<span class="sourceLineNo">147</span><a id="line.147">            .getCapabilities(MAVEN_DEPENDENCIES_NS)) {</a>
+<span class="sourceLineNo">148</span><a id="line.148">            Map&lt;String, Object&gt; depAttrs = capability.getAttributes();</a>
+<span class="sourceLineNo">149</span><a id="line.149">            depAttrs.values().stream()</a>
+<span class="sourceLineNo">150</span><a id="line.150">                .flatMap(val -&gt; COORDS_SPLITTER.splitAsStream((String) val))</a>
+<span class="sourceLineNo">151</span><a id="line.151">                .map(rev -&gt; {</a>
+<span class="sourceLineNo">152</span><a id="line.152">                    String[] parts = rev.split(":");</a>
+<span class="sourceLineNo">153</span><a id="line.153">                    Dependency dep = new Dependency();</a>
+<span class="sourceLineNo">154</span><a id="line.154">                    dep.setGroupId(parts[0]);</a>
+<span class="sourceLineNo">155</span><a id="line.155">                    dep.setArtifactId(parts[1]);</a>
+<span class="sourceLineNo">156</span><a id="line.156">                    dep.setVersion(parts[2]);</a>
+<span class="sourceLineNo">157</span><a id="line.157">                    return dep;</a>
+<span class="sourceLineNo">158</span><a id="line.158">                }).forEach(dependencies::add);</a>
+<span class="sourceLineNo">159</span><a id="line.159">        }</a>
+<span class="sourceLineNo">160</span><a id="line.160">    }</a>
+<span class="sourceLineNo">161</span><a id="line.161"></a>
+<span class="sourceLineNo">162</span><a id="line.162">    /**</a>
+<span class="sourceLineNo">163</span><a id="line.163">     * A maven resource that obtains its information</a>
+<span class="sourceLineNo">164</span><a id="line.164">     * lazily from a {@link CompositeMavenRepository}.</a>
+<span class="sourceLineNo">165</span><a id="line.165">     */</a>
+<span class="sourceLineNo">166</span><a id="line.166">    public class MavenResourceImpl implements MavenResource {</a>
+<span class="sourceLineNo">167</span><a id="line.167"></a>
+<span class="sourceLineNo">168</span><a id="line.168">        private final Archive archive;</a>
+<span class="sourceLineNo">169</span><a id="line.169">        private BoundArchive cachedArchive;</a>
+<span class="sourceLineNo">170</span><a id="line.170">        private Resource cachedDelegee;</a>
+<span class="sourceLineNo">171</span><a id="line.171">        private List&lt;Dependency&gt; cachedDependencies;</a>
+<span class="sourceLineNo">172</span><a id="line.172">        private final BinaryLocation location;</a>
+<span class="sourceLineNo">173</span><a id="line.173"></a>
+<span class="sourceLineNo">174</span><a id="line.174">        /**</a>
+<span class="sourceLineNo">175</span><a id="line.175">         * Instantiates a new maven resource from the given data.</a>
+<span class="sourceLineNo">176</span><a id="line.176">         *</a>
+<span class="sourceLineNo">177</span><a id="line.177">         * @param revision the archive</a>
+<span class="sourceLineNo">178</span><a id="line.178">         * @param location the location</a>
+<span class="sourceLineNo">179</span><a id="line.179">         */</a>
+<span class="sourceLineNo">180</span><a id="line.180">        private MavenResourceImpl(Archive archive, BinaryLocation location) {</a>
+<span class="sourceLineNo">181</span><a id="line.181">            this.archive = archive;</a>
+<span class="sourceLineNo">182</span><a id="line.182">            this.location = location;</a>
+<span class="sourceLineNo">183</span><a id="line.183">        }</a>
+<span class="sourceLineNo">184</span><a id="line.184"></a>
+<span class="sourceLineNo">185</span><a id="line.185">        /**</a>
+<span class="sourceLineNo">186</span><a id="line.186">         * Instantiates a new maven resource from the given data.</a>
+<span class="sourceLineNo">187</span><a id="line.187">         *</a>
+<span class="sourceLineNo">188</span><a id="line.188">         * @param revision the archive</a>
+<span class="sourceLineNo">189</span><a id="line.189">         * @param location the location</a>
+<span class="sourceLineNo">190</span><a id="line.190">         */</a>
+<span class="sourceLineNo">191</span><a id="line.191">        private MavenResourceImpl(BoundArchive archive,</a>
+<span class="sourceLineNo">192</span><a id="line.192">                BinaryLocation location) {</a>
+<span class="sourceLineNo">193</span><a id="line.193">            this.archive = archive;</a>
+<span class="sourceLineNo">194</span><a id="line.194">            this.cachedArchive = archive;</a>
+<span class="sourceLineNo">195</span><a id="line.195">            this.location = location;</a>
+<span class="sourceLineNo">196</span><a id="line.196">        }</a>
+<span class="sourceLineNo">197</span><a id="line.197"></a>
+<span class="sourceLineNo">198</span><a id="line.198">        /**</a>
+<span class="sourceLineNo">199</span><a id="line.199">         * Instantiates a new maven resource from the given data.</a>
+<span class="sourceLineNo">200</span><a id="line.200">         *</a>
+<span class="sourceLineNo">201</span><a id="line.201">         * @param revision the archive</a>
+<span class="sourceLineNo">202</span><a id="line.202">         * @param resource the resource information associated with the </a>
+<span class="sourceLineNo">203</span><a id="line.203">         * archive.</a>
+<span class="sourceLineNo">204</span><a id="line.204">         */</a>
+<span class="sourceLineNo">205</span><a id="line.205">        private MavenResourceImpl(Archive archive, Resource resource) {</a>
+<span class="sourceLineNo">206</span><a id="line.206">            this.archive = archive;</a>
+<span class="sourceLineNo">207</span><a id="line.207">            this.cachedDelegee = resource;</a>
+<span class="sourceLineNo">208</span><a id="line.208">            // Doesn't matter, resource won't be created (already there).</a>
+<span class="sourceLineNo">209</span><a id="line.209">            this.location = BinaryLocation.REMOTE;</a>
+<span class="sourceLineNo">210</span><a id="line.210">        }</a>
+<span class="sourceLineNo">211</span><a id="line.211"></a>
+<span class="sourceLineNo">212</span><a id="line.212">        /**</a>
+<span class="sourceLineNo">213</span><a id="line.213">         * Instantiates a new maven resource from the given data.</a>
+<span class="sourceLineNo">214</span><a id="line.214">         *</a>
+<span class="sourceLineNo">215</span><a id="line.215">         * @param revision the revision</a>
+<span class="sourceLineNo">216</span><a id="line.216">         * @param resource the resource information associated with the </a>
+<span class="sourceLineNo">217</span><a id="line.217">         * archive.</a>
+<span class="sourceLineNo">218</span><a id="line.218">         */</a>
+<span class="sourceLineNo">219</span><a id="line.219">        private MavenResourceImpl(BoundArchive archive, Resource resource) {</a>
+<span class="sourceLineNo">220</span><a id="line.220">            this.archive = archive;</a>
+<span class="sourceLineNo">221</span><a id="line.221">            this.cachedArchive = archive;</a>
+<span class="sourceLineNo">222</span><a id="line.222">            this.cachedDelegee = resource;</a>
+<span class="sourceLineNo">223</span><a id="line.223">            // Doesn't matter, resource won't be created (already there).</a>
+<span class="sourceLineNo">224</span><a id="line.224">            this.location = BinaryLocation.REMOTE;</a>
+<span class="sourceLineNo">225</span><a id="line.225">        }</a>
+<span class="sourceLineNo">226</span><a id="line.226"></a>
+<span class="sourceLineNo">227</span><a id="line.227">        @Override</a>
+<span class="sourceLineNo">228</span><a id="line.228">        public Archive archive() {</a>
+<span class="sourceLineNo">229</span><a id="line.229">            return archive;</a>
+<span class="sourceLineNo">230</span><a id="line.230">        }</a>
+<span class="sourceLineNo">231</span><a id="line.231"></a>
+<span class="sourceLineNo">232</span><a id="line.232">        @Override</a>
+<span class="sourceLineNo">233</span><a id="line.233">        public BoundArchive boundArchive() throws MavenResourceException {</a>
+<span class="sourceLineNo">234</span><a id="line.234">            try {</a>
+<span class="sourceLineNo">235</span><a id="line.235">                if (cachedArchive == null) {</a>
+<span class="sourceLineNo">236</span><a id="line.236">                    cachedArchive = find(archive).get();</a>
+<span class="sourceLineNo">237</span><a id="line.237">                }</a>
+<span class="sourceLineNo">238</span><a id="line.238">                return cachedArchive;</a>
+<span class="sourceLineNo">239</span><a id="line.239">            } catch (IOException e) {</a>
+<span class="sourceLineNo">240</span><a id="line.240">                throw new MavenResourceException(e);</a>
+<span class="sourceLineNo">241</span><a id="line.241">            }</a>
+<span class="sourceLineNo">242</span><a id="line.242">        }</a>
+<span class="sourceLineNo">243</span><a id="line.243"></a>
+<span class="sourceLineNo">244</span><a id="line.244">        @Override</a>
+<span class="sourceLineNo">245</span><a id="line.245">        public Resource asResource() throws MavenResourceException {</a>
+<span class="sourceLineNo">246</span><a id="line.246">            if (cachedDelegee == null) {</a>
+<span class="sourceLineNo">247</span><a id="line.247">                createResource();</a>
+<span class="sourceLineNo">248</span><a id="line.248">            }</a>
+<span class="sourceLineNo">249</span><a id="line.249">            return cachedDelegee;</a>
+<span class="sourceLineNo">250</span><a id="line.250">        }</a>
+<span class="sourceLineNo">251</span><a id="line.251"></a>
+<span class="sourceLineNo">252</span><a id="line.252">        /**</a>
+<span class="sourceLineNo">253</span><a id="line.253">         * Creates a {@link Resource} representation from the manifest</a>
+<span class="sourceLineNo">254</span><a id="line.254">         * of the artifact.  </a>
+<span class="sourceLineNo">255</span><a id="line.255">         *</a>
+<span class="sourceLineNo">256</span><a id="line.256">         * @throws IOException Signals that an I/O exception has occurred.</a>
+<span class="sourceLineNo">257</span><a id="line.257">         * @throws ModelBuildingException the model building exception</a>
+<span class="sourceLineNo">258</span><a id="line.258">         * @throws UnresolvableModelException the unresolvable model exception</a>
+<span class="sourceLineNo">259</span><a id="line.259">         */</a>
+<span class="sourceLineNo">260</span><a id="line.260">        @SuppressWarnings({ "PMD.AvoidCatchingGenericException",</a>
+<span class="sourceLineNo">261</span><a id="line.261">            "PMD.AvoidInstanceofChecksInCatchClause",</a>
+<span class="sourceLineNo">262</span><a id="line.262">            "PMD.CyclomaticComplexity", "PMD.NcssCount" })</a>
+<span class="sourceLineNo">263</span><a id="line.263">        private void createResource() throws MavenResourceException {</a>
+<span class="sourceLineNo">264</span><a id="line.264">            Model model = model(archive.revision);</a>
+<span class="sourceLineNo">265</span><a id="line.265">            String extension = model.getPackaging();</a>
+<span class="sourceLineNo">266</span><a id="line.266">            if (extension.equals("bundle")</a>
+<span class="sourceLineNo">267</span><a id="line.267">                || extension.equals("eclipse-plugin")) {</a>
+<span class="sourceLineNo">268</span><a id="line.268">                extension = Archive.JAR_EXTENSION;</a>
+<span class="sourceLineNo">269</span><a id="line.269">            }</a>
+<span class="sourceLineNo">270</span><a id="line.270">            ResourceBuilder builder = new ResourceBuilder();</a>
+<span class="sourceLineNo">271</span><a id="line.271">            if (extension.equals(Archive.JAR_EXTENSION)) {</a>
+<span class="sourceLineNo">272</span><a id="line.272">                File binary;</a>
+<span class="sourceLineNo">273</span><a id="line.273">                try {</a>
+<span class="sourceLineNo">274</span><a id="line.274">                    binary = get(archive);</a>
+<span class="sourceLineNo">275</span><a id="line.275">                } catch (IOException e) {</a>
+<span class="sourceLineNo">276</span><a id="line.276">                    throw new MavenResourceException(e);</a>
+<span class="sourceLineNo">277</span><a id="line.277">                }</a>
+<span class="sourceLineNo">278</span><a id="line.278">                try {</a>
+<span class="sourceLineNo">279</span><a id="line.279">                    if (location == BinaryLocation.LOCAL) {</a>
+<span class="sourceLineNo">280</span><a id="line.280">                        builder.addFile(binary, binary.toURI());</a>
+<span class="sourceLineNo">281</span><a id="line.281">                    } else {</a>
+<span class="sourceLineNo">282</span><a id="line.282">                        builder.addFile(binary,</a>
+<span class="sourceLineNo">283</span><a id="line.283">                            boundArchive().mavenBackingRepository()</a>
+<span class="sourceLineNo">284</span><a id="line.284">                                .toURI(archive.remotePath));</a>
+<span class="sourceLineNo">285</span><a id="line.285">                    }</a>
+<span class="sourceLineNo">286</span><a id="line.286">                } catch (Exception e) {</a>
+<span class="sourceLineNo">287</span><a id="line.287">                    // That's what the exceptions thrown here come down to.</a>
+<span class="sourceLineNo">288</span><a id="line.288">                    throw new IllegalArgumentException(e);</a>
+<span class="sourceLineNo">289</span><a id="line.289">                }</a>
+<span class="sourceLineNo">290</span><a id="line.290">            }</a>
+<span class="sourceLineNo">291</span><a id="line.291">            List&lt;Capability&gt; caps = builder.getCapabilities();</a>
+<span class="sourceLineNo">292</span><a id="line.292">            Map&lt;String, Object&gt; idAttrs = caps.stream()</a>
+<span class="sourceLineNo">293</span><a id="line.293">                .filter(cap -&gt; cap.getNamespace()</a>
+<span class="sourceLineNo">294</span><a id="line.294">                    .equals(IdentityNamespace.IDENTITY_NAMESPACE))</a>
+<span class="sourceLineNo">295</span><a id="line.295">                .findFirst().map(Capability::getAttributes)</a>
+<span class="sourceLineNo">296</span><a id="line.296">                .orElse(Collections.emptyMap());</a>
+<span class="sourceLineNo">297</span><a id="line.297">            String bsn = (String) idAttrs.getOrDefault(</a>
+<span class="sourceLineNo">298</span><a id="line.298">                IdentityNamespace.IDENTITY_NAMESPACE,</a>
+<span class="sourceLineNo">299</span><a id="line.299">                archive.getWithoutVersion());</a>
+<span class="sourceLineNo">300</span><a id="line.300">            Version version = ResourceUtils.toVersion(idAttrs.getOrDefault(</a>
+<span class="sourceLineNo">301</span><a id="line.301">                IdentityNamespace.CAPABILITY_VERSION_ATTRIBUTE,</a>
+<span class="sourceLineNo">302</span><a id="line.302">                archive.revision.version.getOSGiVersion()));</a>
+<span class="sourceLineNo">303</span><a id="line.303">            addInformationCapability(builder, bsn, version, archive.toString(),</a>
+<span class="sourceLineNo">304</span><a id="line.304">                null);</a>
+<span class="sourceLineNo">305</span><a id="line.305"></a>
+<span class="sourceLineNo">306</span><a id="line.306">            // Add dependency infos</a>
+<span class="sourceLineNo">307</span><a id="line.307">            if (!dependencies().isEmpty()) {</a>
+<span class="sourceLineNo">308</span><a id="line.308">                CapabilityBuilder cap</a>
+<span class="sourceLineNo">309</span><a id="line.309">                    = new CapabilityBuilder(MAVEN_DEPENDENCIES_NS);</a>
+<span class="sourceLineNo">310</span><a id="line.310">                Set&lt;Dependency&gt; cpDeps = new HashSet&lt;&gt;();</a>
+<span class="sourceLineNo">311</span><a id="line.311">                Set&lt;Dependency&gt; rtDeps = new HashSet&lt;&gt;();</a>
+<span class="sourceLineNo">312</span><a id="line.312">                for (Dependency dep : dependencies()) {</a>
+<span class="sourceLineNo">313</span><a id="line.313">                    if (dep.getScope() == null</a>
+<span class="sourceLineNo">314</span><a id="line.314">                        || dep.getScope().equalsIgnoreCase("compile")) {</a>
+<span class="sourceLineNo">315</span><a id="line.315">                        cpDeps.add(dep);</a>
+<span class="sourceLineNo">316</span><a id="line.316">                    } else if (dep.getScope().equalsIgnoreCase("runtime")) {</a>
+<span class="sourceLineNo">317</span><a id="line.317">                        rtDeps.add(dep);</a>
+<span class="sourceLineNo">318</span><a id="line.318">                    }</a>
+<span class="sourceLineNo">319</span><a id="line.319">                }</a>
+<span class="sourceLineNo">320</span><a id="line.320">                try {</a>
+<span class="sourceLineNo">321</span><a id="line.321">                    if (!cpDeps.isEmpty()) {</a>
+<span class="sourceLineNo">322</span><a id="line.322">                        cap.addAttribute("compile", toVersionList(cpDeps));</a>
+<span class="sourceLineNo">323</span><a id="line.323">                    }</a>
+<span class="sourceLineNo">324</span><a id="line.324">                    if (!rtDeps.isEmpty()) {</a>
+<span class="sourceLineNo">325</span><a id="line.325">                        cap.addAttribute("runtime", toVersionList(rtDeps));</a>
+<span class="sourceLineNo">326</span><a id="line.326">                    }</a>
+<span class="sourceLineNo">327</span><a id="line.327">                } catch (Exception e) {</a>
+<span class="sourceLineNo">328</span><a id="line.328">                    throw new IllegalArgumentException(e);</a>
+<span class="sourceLineNo">329</span><a id="line.329">                }</a>
+<span class="sourceLineNo">330</span><a id="line.330">                builder.addCapability(cap);</a>
+<span class="sourceLineNo">331</span><a id="line.331">            }</a>
+<span class="sourceLineNo">332</span><a id="line.332">            cachedDelegee = builder.build();</a>
+<span class="sourceLineNo">333</span><a id="line.333">        }</a>
+<span class="sourceLineNo">334</span><a id="line.334"></a>
+<span class="sourceLineNo">335</span><a id="line.335">        private String toVersionList(Collection&lt;Dependency&gt; deps) {</a>
+<span class="sourceLineNo">336</span><a id="line.336">            StringBuilder depsList = new StringBuilder("");</a>
+<span class="sourceLineNo">337</span><a id="line.337">            for (Dependency dep : deps) {</a>
+<span class="sourceLineNo">338</span><a id="line.338">                if (depsList.length() &gt; 0) {</a>
+<span class="sourceLineNo">339</span><a id="line.339">                    depsList.append(';');</a>
+<span class="sourceLineNo">340</span><a id="line.340">                }</a>
+<span class="sourceLineNo">341</span><a id="line.341">                depsList.append(dep.getGroupId());</a>
+<span class="sourceLineNo">342</span><a id="line.342">                depsList.append(':');</a>
+<span class="sourceLineNo">343</span><a id="line.343">                depsList.append(dep.getArtifactId());</a>
+<span class="sourceLineNo">344</span><a id="line.344">                depsList.append(':');</a>
+<span class="sourceLineNo">345</span><a id="line.345">                depsList.append(dep.getVersion());</a>
+<span class="sourceLineNo">346</span><a id="line.346">            }</a>
+<span class="sourceLineNo">347</span><a id="line.347">            return depsList.toString();</a>
+<span class="sourceLineNo">348</span><a id="line.348">        }</a>
+<span class="sourceLineNo">349</span><a id="line.349"></a>
+<span class="sourceLineNo">350</span><a id="line.350">        @Override</a>
+<span class="sourceLineNo">351</span><a id="line.351">        public List&lt;Capability&gt; getCapabilities(String namespace)</a>
+<span class="sourceLineNo">352</span><a id="line.352">                throws MavenResourceException {</a>
+<span class="sourceLineNo">353</span><a id="line.353">            return asResource().getCapabilities(namespace);</a>
+<span class="sourceLineNo">354</span><a id="line.354">        }</a>
+<span class="sourceLineNo">355</span><a id="line.355"></a>
+<span class="sourceLineNo">356</span><a id="line.356">        @Override</a>
+<span class="sourceLineNo">357</span><a id="line.357">        public List&lt;Requirement&gt; getRequirements(String namespace)</a>
+<span class="sourceLineNo">358</span><a id="line.358">                throws MavenResourceException {</a>
+<span class="sourceLineNo">359</span><a id="line.359">            return asResource().getRequirements(namespace);</a>
+<span class="sourceLineNo">360</span><a id="line.360">        }</a>
+<span class="sourceLineNo">361</span><a id="line.361"></a>
+<span class="sourceLineNo">362</span><a id="line.362">        @Override</a>
+<span class="sourceLineNo">363</span><a id="line.363">        public boolean equals(Object obj) {</a>
+<span class="sourceLineNo">364</span><a id="line.364">            if (obj == null) {</a>
+<span class="sourceLineNo">365</span><a id="line.365">                return false;</a>
+<span class="sourceLineNo">366</span><a id="line.366">            }</a>
+<span class="sourceLineNo">367</span><a id="line.367">            if (obj instanceof MavenResource) {</a>
+<span class="sourceLineNo">368</span><a id="line.368">                return archive.equals(((MavenResource) obj).archive());</a>
+<span class="sourceLineNo">369</span><a id="line.369">            }</a>
+<span class="sourceLineNo">370</span><a id="line.370">            if (obj instanceof Resource) {</a>
+<span class="sourceLineNo">371</span><a id="line.371">                try {</a>
+<span class="sourceLineNo">372</span><a id="line.372">                    return asResource().equals(obj);</a>
+<span class="sourceLineNo">373</span><a id="line.373">                } catch (MavenResourceException e) {</a>
+<span class="sourceLineNo">374</span><a id="line.374">                    return false;</a>
+<span class="sourceLineNo">375</span><a id="line.375">                }</a>
+<span class="sourceLineNo">376</span><a id="line.376">            }</a>
+<span class="sourceLineNo">377</span><a id="line.377">            return false;</a>
+<span class="sourceLineNo">378</span><a id="line.378">        }</a>
+<span class="sourceLineNo">379</span><a id="line.379"></a>
+<span class="sourceLineNo">380</span><a id="line.380">        @Override</a>
+<span class="sourceLineNo">381</span><a id="line.381">        public int hashCode() {</a>
+<span class="sourceLineNo">382</span><a id="line.382">            return archive.hashCode();</a>
+<span class="sourceLineNo">383</span><a id="line.383">        }</a>
+<span class="sourceLineNo">384</span><a id="line.384"></a>
+<span class="sourceLineNo">385</span><a id="line.385">        @Override</a>
+<span class="sourceLineNo">386</span><a id="line.386">        public String toString() {</a>
+<span class="sourceLineNo">387</span><a id="line.387">            return archive.toString();</a>
+<span class="sourceLineNo">388</span><a id="line.388">        }</a>
+<span class="sourceLineNo">389</span><a id="line.389"></a>
+<span class="sourceLineNo">390</span><a id="line.390">        @Override</a>
+<span class="sourceLineNo">391</span><a id="line.391">        @SuppressWarnings("PMD.ConfusingTernary")</a>
+<span class="sourceLineNo">392</span><a id="line.392">        public final synchronized List&lt;Dependency&gt; dependencies()</a>
+<span class="sourceLineNo">393</span><a id="line.393">                throws MavenResourceException {</a>
+<span class="sourceLineNo">394</span><a id="line.394">            if (cachedDependencies == null) {</a>
+<span class="sourceLineNo">395</span><a id="line.395">                if (cachedDelegee != null) {</a>
+<span class="sourceLineNo">396</span><a id="line.396">                    cachedDependencies = new ArrayList&lt;&gt;();</a>
+<span class="sourceLineNo">397</span><a id="line.397">                    retrieveDependencies(cachedDelegee, cachedDependencies);</a>
+<span class="sourceLineNo">398</span><a id="line.398">                } else {</a>
+<span class="sourceLineNo">399</span><a id="line.399">                    cachedDependencies = MavenResourceRepository.this</a>
+<span class="sourceLineNo">400</span><a id="line.400">                        .model(archive.revision).getDependencies().stream()</a>
+<span class="sourceLineNo">401</span><a id="line.401">                        .filter(dep -&gt; !dep.getGroupId().contains("$")</a>
+<span class="sourceLineNo">402</span><a id="line.402">                            &amp;&amp; !dep.getArtifactId().contains("$")</a>
+<span class="sourceLineNo">403</span><a id="line.403">                            &amp;&amp; !dep.isOptional()</a>
+<span class="sourceLineNo">404</span><a id="line.404">                            &amp;&amp; (dep.getScope() == null</a>
+<span class="sourceLineNo">405</span><a id="line.405">                                || dep.getScope().equals("compile")</a>
+<span class="sourceLineNo">406</span><a id="line.406">                                || dep.getScope().equals("runtime")</a>
+<span class="sourceLineNo">407</span><a id="line.407">                                || dep.getScope().equals("provided")))</a>
+<span class="sourceLineNo">408</span><a id="line.408">                        .collect(Collectors.toList());</a>
+<span class="sourceLineNo">409</span><a id="line.409">                }</a>
+<span class="sourceLineNo">410</span><a id="line.410">            }</a>
+<span class="sourceLineNo">411</span><a id="line.411">            return cachedDependencies;</a>
+<span class="sourceLineNo">412</span><a id="line.412">        }</a>
+<span class="sourceLineNo">413</span><a id="line.413"></a>
+<span class="sourceLineNo">414</span><a id="line.414">    }</a>
+<span class="sourceLineNo">415</span><a id="line.415">}</a>
 
 
 
@@ -466,5 +484,6 @@
 
 </pre>
 </div>
+</main>
 </body>
 </html>

@@ -1,134 +1,135 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
 <title>Source code</title>
 <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
 </head>
 <body>
+<main role="main">
 <div class="sourceContainer">
-<pre><span class="sourceLineNo">001</span>/*<a name="line.1"></a>
-<span class="sourceLineNo">002</span> * Extra Bnd Repository Plugins<a name="line.2"></a>
-<span class="sourceLineNo">003</span> * Copyright (C) 2019  Michael N. Lipp<a name="line.3"></a>
-<span class="sourceLineNo">004</span> * <a name="line.4"></a>
-<span class="sourceLineNo">005</span> * This program is free software; you can redistribute it and/or modify it <a name="line.5"></a>
-<span class="sourceLineNo">006</span> * under the terms of the GNU Affero General Public License as published by <a name="line.6"></a>
-<span class="sourceLineNo">007</span> * the Free Software Foundation; either version 3 of the License, or <a name="line.7"></a>
-<span class="sourceLineNo">008</span> * (at your option) any later version.<a name="line.8"></a>
-<span class="sourceLineNo">009</span> * <a name="line.9"></a>
-<span class="sourceLineNo">010</span> * This program is distributed in the hope that it will be useful, but <a name="line.10"></a>
-<span class="sourceLineNo">011</span> * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY<a name="line.11"></a>
-<span class="sourceLineNo">012</span> * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License <a name="line.12"></a>
-<span class="sourceLineNo">013</span> * for more details.<a name="line.13"></a>
-<span class="sourceLineNo">014</span> * <a name="line.14"></a>
-<span class="sourceLineNo">015</span> * You should have received a copy of the GNU Affero General Public License along <a name="line.15"></a>
-<span class="sourceLineNo">016</span> * with this program; if not, see &lt;http://www.gnu.org/licenses/&gt;.<a name="line.16"></a>
-<span class="sourceLineNo">017</span> */<a name="line.17"></a>
-<span class="sourceLineNo">018</span><a name="line.18"></a>
-<span class="sourceLineNo">019</span>package de.mnl.osgi.bnd.maven;<a name="line.19"></a>
-<span class="sourceLineNo">020</span><a name="line.20"></a>
-<span class="sourceLineNo">021</span>import aQute.maven.api.Revision;<a name="line.21"></a>
-<span class="sourceLineNo">022</span><a name="line.22"></a>
-<span class="sourceLineNo">023</span>import java.util.List;<a name="line.23"></a>
-<span class="sourceLineNo">024</span><a name="line.24"></a>
-<span class="sourceLineNo">025</span>import org.apache.maven.model.Dependency;<a name="line.25"></a>
-<span class="sourceLineNo">026</span>import org.osgi.resource.Capability;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>import org.osgi.resource.Requirement;<a name="line.27"></a>
-<span class="sourceLineNo">028</span>import org.osgi.resource.Resource;<a name="line.28"></a>
-<span class="sourceLineNo">029</span><a name="line.29"></a>
-<span class="sourceLineNo">030</span>/**<a name="line.30"></a>
-<span class="sourceLineNo">031</span> * A resource that is backed by a maven revision.<a name="line.31"></a>
-<span class="sourceLineNo">032</span> */<a name="line.32"></a>
-<span class="sourceLineNo">033</span>public interface MavenResource {<a name="line.33"></a>
-<span class="sourceLineNo">034</span><a name="line.34"></a>
-<span class="sourceLineNo">035</span>    /**<a name="line.35"></a>
-<span class="sourceLineNo">036</span>     * Returns the revision. The revision is the only mandatory<a name="line.36"></a>
-<span class="sourceLineNo">037</span>     * information when creating a {@link MavenResource}. The other<a name="line.37"></a>
-<span class="sourceLineNo">038</span>     * informations that can be obtained can be made available<a name="line.38"></a>
-<span class="sourceLineNo">039</span>     * lazily, i.e. can be loaded on demand. <a name="line.39"></a>
-<span class="sourceLineNo">040</span>     * &lt;P&gt;<a name="line.40"></a>
-<span class="sourceLineNo">041</span>     * This implies that a {@link MavenResource} can be created <a name="line.41"></a>
-<span class="sourceLineNo">042</span>     * that does not exist in the backing maven repositories. <a name="line.42"></a>
-<span class="sourceLineNo">043</span>     * If not obvious from the context, a call to {@link #boundRevision()}<a name="line.43"></a>
-<span class="sourceLineNo">044</span>     * can be used to verify that the resource exists.<a name="line.44"></a>
-<span class="sourceLineNo">045</span>     *<a name="line.45"></a>
-<span class="sourceLineNo">046</span>     * @return the revision<a name="line.46"></a>
-<span class="sourceLineNo">047</span>     */<a name="line.47"></a>
-<span class="sourceLineNo">048</span>    Revision revision();<a name="line.48"></a>
-<span class="sourceLineNo">049</span><a name="line.49"></a>
-<span class="sourceLineNo">050</span>    /**<a name="line.50"></a>
-<span class="sourceLineNo">051</span>     * Returns the bound revision.<a name="line.51"></a>
-<span class="sourceLineNo">052</span>     *<a name="line.52"></a>
-<span class="sourceLineNo">053</span>     * @return the revision<a name="line.53"></a>
-<span class="sourceLineNo">054</span>     * @throws MavenResourceException the maven resource exception<a name="line.54"></a>
-<span class="sourceLineNo">055</span>     */<a name="line.55"></a>
-<span class="sourceLineNo">056</span>    BoundRevision boundRevision() throws MavenResourceException;<a name="line.56"></a>
-<span class="sourceLineNo">057</span><a name="line.57"></a>
-<span class="sourceLineNo">058</span>    /**<a name="line.58"></a>
-<span class="sourceLineNo">059</span>     * Returns the mandatory maven compile and runtime dependencies. <a name="line.59"></a>
-<span class="sourceLineNo">060</span>     * Dependencies in the POM that use variables are filtered, because<a name="line.60"></a>
-<span class="sourceLineNo">061</span>     * these variable cannot be resolved. <a name="line.61"></a>
-<span class="sourceLineNo">062</span>     *<a name="line.62"></a>
-<span class="sourceLineNo">063</span>     * @return the dependencies<a name="line.63"></a>
-<span class="sourceLineNo">064</span>     * @throws MavenResourceException the maven resource exception<a name="line.64"></a>
-<span class="sourceLineNo">065</span>     */<a name="line.65"></a>
-<span class="sourceLineNo">066</span>    List&lt;Dependency&gt; dependencies() throws MavenResourceException;<a name="line.66"></a>
-<span class="sourceLineNo">067</span><a name="line.67"></a>
-<span class="sourceLineNo">068</span>    /**<a name="line.68"></a>
-<span class="sourceLineNo">069</span>     * Gets the underlying "ordinary" resource.<a name="line.69"></a>
-<span class="sourceLineNo">070</span>     *<a name="line.70"></a>
-<span class="sourceLineNo">071</span>     * @return the resource<a name="line.71"></a>
-<span class="sourceLineNo">072</span>     * @throws MavenResourceException the maven resource exception<a name="line.72"></a>
-<span class="sourceLineNo">073</span>     */<a name="line.73"></a>
-<span class="sourceLineNo">074</span>    Resource asResource() throws MavenResourceException;<a name="line.74"></a>
-<span class="sourceLineNo">075</span><a name="line.75"></a>
-<span class="sourceLineNo">076</span>    /**<a name="line.76"></a>
-<span class="sourceLineNo">077</span>     * Gets the capabilities from the given namespace.<a name="line.77"></a>
-<span class="sourceLineNo">078</span>     *<a name="line.78"></a>
-<span class="sourceLineNo">079</span>     * @param namespace the namespace<a name="line.79"></a>
-<span class="sourceLineNo">080</span>     * @return the capabilities<a name="line.80"></a>
-<span class="sourceLineNo">081</span>     * @throws MavenResourceException the maven resource exception<a name="line.81"></a>
-<span class="sourceLineNo">082</span>     */<a name="line.82"></a>
-<span class="sourceLineNo">083</span>    List&lt;Capability&gt; getCapabilities(String namespace)<a name="line.83"></a>
-<span class="sourceLineNo">084</span>            throws MavenResourceException;<a name="line.84"></a>
-<span class="sourceLineNo">085</span><a name="line.85"></a>
-<span class="sourceLineNo">086</span>    /**<a name="line.86"></a>
-<span class="sourceLineNo">087</span>     * Gets the requirements from the given namespace.<a name="line.87"></a>
-<span class="sourceLineNo">088</span>     *<a name="line.88"></a>
-<span class="sourceLineNo">089</span>     * @param namespace the namespace<a name="line.89"></a>
-<span class="sourceLineNo">090</span>     * @return the requirements<a name="line.90"></a>
-<span class="sourceLineNo">091</span>     * @throws MavenResourceException the maven resource exception<a name="line.91"></a>
-<span class="sourceLineNo">092</span>     */<a name="line.92"></a>
-<span class="sourceLineNo">093</span>    List&lt;Requirement&gt; getRequirements(String namespace)<a name="line.93"></a>
-<span class="sourceLineNo">094</span>            throws MavenResourceException;<a name="line.94"></a>
-<span class="sourceLineNo">095</span><a name="line.95"></a>
-<span class="sourceLineNo">096</span>    /**<a name="line.96"></a>
-<span class="sourceLineNo">097</span>     * Compares a {@link MavenResource} with another maven resource<a name="line.97"></a>
-<span class="sourceLineNo">098</span>     * or a {@link Resource}.<a name="line.98"></a>
-<span class="sourceLineNo">099</span>     * &lt;P&gt;<a name="line.99"></a>
-<span class="sourceLineNo">100</span>     * Two {@link MavenResource}s are considered equal if their revisions <a name="line.100"></a>
-<span class="sourceLineNo">101</span>     * are equal. If a {@link MavenResource} is compared with <a name="line.101"></a>
-<span class="sourceLineNo">102</span>     * another {@link Resource}, equality will be checked <a name="line.102"></a>
-<span class="sourceLineNo">103</span>     * between {@link MavenResource#asResource()} and the other resource <a name="line.103"></a>
-<span class="sourceLineNo">104</span>     * (see {@link Resource#equals(Object)}). <a name="line.104"></a>
-<span class="sourceLineNo">105</span>     *<a name="line.105"></a>
-<span class="sourceLineNo">106</span>     * @param obj the object to compare with<a name="line.106"></a>
-<span class="sourceLineNo">107</span>     * @return true, if successful<a name="line.107"></a>
-<span class="sourceLineNo">108</span>     */<a name="line.108"></a>
-<span class="sourceLineNo">109</span>    @Override<a name="line.109"></a>
-<span class="sourceLineNo">110</span>    boolean equals(Object obj);<a name="line.110"></a>
-<span class="sourceLineNo">111</span><a name="line.111"></a>
-<span class="sourceLineNo">112</span>    /**<a name="line.112"></a>
-<span class="sourceLineNo">113</span>     * The hash code is defined by the revision.<a name="line.113"></a>
-<span class="sourceLineNo">114</span>     *<a name="line.114"></a>
-<span class="sourceLineNo">115</span>     * @return the int<a name="line.115"></a>
-<span class="sourceLineNo">116</span>     */<a name="line.116"></a>
-<span class="sourceLineNo">117</span>    @Override<a name="line.117"></a>
-<span class="sourceLineNo">118</span>    int hashCode();<a name="line.118"></a>
-<span class="sourceLineNo">119</span><a name="line.119"></a>
-<span class="sourceLineNo">120</span>    @Override<a name="line.120"></a>
-<span class="sourceLineNo">121</span>    String toString();<a name="line.121"></a>
-<span class="sourceLineNo">122</span><a name="line.122"></a>
-<span class="sourceLineNo">123</span>}<a name="line.123"></a>
+<pre><span class="sourceLineNo">001</span><a id="line.1">/*</a>
+<span class="sourceLineNo">002</span><a id="line.2"> * Extra Bnd Repository Plugins</a>
+<span class="sourceLineNo">003</span><a id="line.3"> * Copyright (C) 2019-2021 Michael N. Lipp</a>
+<span class="sourceLineNo">004</span><a id="line.4"> * </a>
+<span class="sourceLineNo">005</span><a id="line.5"> * This program is free software; you can redistribute it and/or modify it </a>
+<span class="sourceLineNo">006</span><a id="line.6"> * under the terms of the GNU Affero General Public License as published by </a>
+<span class="sourceLineNo">007</span><a id="line.7"> * the Free Software Foundation; either version 3 of the License, or </a>
+<span class="sourceLineNo">008</span><a id="line.8"> * (at your option) any later version.</a>
+<span class="sourceLineNo">009</span><a id="line.9"> * </a>
+<span class="sourceLineNo">010</span><a id="line.10"> * This program is distributed in the hope that it will be useful, but </a>
+<span class="sourceLineNo">011</span><a id="line.11"> * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY</a>
+<span class="sourceLineNo">012</span><a id="line.12"> * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License </a>
+<span class="sourceLineNo">013</span><a id="line.13"> * for more details.</a>
+<span class="sourceLineNo">014</span><a id="line.14"> * </a>
+<span class="sourceLineNo">015</span><a id="line.15"> * You should have received a copy of the GNU Affero General Public License along </a>
+<span class="sourceLineNo">016</span><a id="line.16"> * with this program; if not, see &lt;http://www.gnu.org/licenses/&gt;.</a>
+<span class="sourceLineNo">017</span><a id="line.17"> */</a>
+<span class="sourceLineNo">018</span><a id="line.18"></a>
+<span class="sourceLineNo">019</span><a id="line.19">package de.mnl.osgi.bnd.maven;</a>
+<span class="sourceLineNo">020</span><a id="line.20"></a>
+<span class="sourceLineNo">021</span><a id="line.21">import aQute.maven.api.Archive;</a>
+<span class="sourceLineNo">022</span><a id="line.22">import java.util.List;</a>
+<span class="sourceLineNo">023</span><a id="line.23">import org.apache.maven.model.Dependency;</a>
+<span class="sourceLineNo">024</span><a id="line.24">import org.osgi.resource.Capability;</a>
+<span class="sourceLineNo">025</span><a id="line.25">import org.osgi.resource.Requirement;</a>
+<span class="sourceLineNo">026</span><a id="line.26">import org.osgi.resource.Resource;</a>
+<span class="sourceLineNo">027</span><a id="line.27"></a>
+<span class="sourceLineNo">028</span><a id="line.28">/**</a>
+<span class="sourceLineNo">029</span><a id="line.29"> * A resource that is backed by a maven archive.</a>
+<span class="sourceLineNo">030</span><a id="line.30"> */</a>
+<span class="sourceLineNo">031</span><a id="line.31">public interface MavenResource {</a>
+<span class="sourceLineNo">032</span><a id="line.32"></a>
+<span class="sourceLineNo">033</span><a id="line.33">    /**</a>
+<span class="sourceLineNo">034</span><a id="line.34">     * Returns the archive. The archive is the only mandatory</a>
+<span class="sourceLineNo">035</span><a id="line.35">     * information when creating a {@link MavenResource}. The other</a>
+<span class="sourceLineNo">036</span><a id="line.36">     * informations that can be obtained can be made available</a>
+<span class="sourceLineNo">037</span><a id="line.37">     * lazily, i.e. can be loaded on demand. </a>
+<span class="sourceLineNo">038</span><a id="line.38">     * &lt;P&gt;</a>
+<span class="sourceLineNo">039</span><a id="line.39">     * This implies that a {@link MavenResource} can be created </a>
+<span class="sourceLineNo">040</span><a id="line.40">     * that does not exist in the backing maven repositories. </a>
+<span class="sourceLineNo">041</span><a id="line.41">     * If not obvious from the context, a call to {@link #boundArchive()}</a>
+<span class="sourceLineNo">042</span><a id="line.42">     * can be used to verify that the resource exists.</a>
+<span class="sourceLineNo">043</span><a id="line.43">     *</a>
+<span class="sourceLineNo">044</span><a id="line.44">     * @return the archive</a>
+<span class="sourceLineNo">045</span><a id="line.45">     */</a>
+<span class="sourceLineNo">046</span><a id="line.46">    Archive archive();</a>
+<span class="sourceLineNo">047</span><a id="line.47"></a>
+<span class="sourceLineNo">048</span><a id="line.48">    /**</a>
+<span class="sourceLineNo">049</span><a id="line.49">     * Returns the bound archive. Implies looking up the archive in the</a>
+<span class="sourceLineNo">050</span><a id="line.50">     * backing repositories.</a>
+<span class="sourceLineNo">051</span><a id="line.51">     *</a>
+<span class="sourceLineNo">052</span><a id="line.52">     * @return the bound archive</a>
+<span class="sourceLineNo">053</span><a id="line.53">     * @throws MavenResourceException if the archive cannot obtained from a </a>
+<span class="sourceLineNo">054</span><a id="line.54">     * repository</a>
+<span class="sourceLineNo">055</span><a id="line.55">     */</a>
+<span class="sourceLineNo">056</span><a id="line.56">    BoundArchive boundArchive() throws MavenResourceException;</a>
+<span class="sourceLineNo">057</span><a id="line.57"></a>
+<span class="sourceLineNo">058</span><a id="line.58">    /**</a>
+<span class="sourceLineNo">059</span><a id="line.59">     * Returns the mandatory maven compile and runtime dependencies. </a>
+<span class="sourceLineNo">060</span><a id="line.60">     * Dependencies in the POM that use variables are filtered, because</a>
+<span class="sourceLineNo">061</span><a id="line.61">     * these variable cannot be resolved. </a>
+<span class="sourceLineNo">062</span><a id="line.62">     *</a>
+<span class="sourceLineNo">063</span><a id="line.63">     * @return the dependencies</a>
+<span class="sourceLineNo">064</span><a id="line.64">     * @throws MavenResourceException the maven resource exception</a>
+<span class="sourceLineNo">065</span><a id="line.65">     */</a>
+<span class="sourceLineNo">066</span><a id="line.66">    List&lt;Dependency&gt; dependencies() throws MavenResourceException;</a>
+<span class="sourceLineNo">067</span><a id="line.67"></a>
+<span class="sourceLineNo">068</span><a id="line.68">    /**</a>
+<span class="sourceLineNo">069</span><a id="line.69">     * Gets the underlying "ordinary" resource.</a>
+<span class="sourceLineNo">070</span><a id="line.70">     *</a>
+<span class="sourceLineNo">071</span><a id="line.71">     * @return the resource</a>
+<span class="sourceLineNo">072</span><a id="line.72">     * @throws MavenResourceException the maven resource exception</a>
+<span class="sourceLineNo">073</span><a id="line.73">     */</a>
+<span class="sourceLineNo">074</span><a id="line.74">    Resource asResource() throws MavenResourceException;</a>
+<span class="sourceLineNo">075</span><a id="line.75"></a>
+<span class="sourceLineNo">076</span><a id="line.76">    /**</a>
+<span class="sourceLineNo">077</span><a id="line.77">     * Gets the capabilities from the given namespace.</a>
+<span class="sourceLineNo">078</span><a id="line.78">     *</a>
+<span class="sourceLineNo">079</span><a id="line.79">     * @param namespace the namespace</a>
+<span class="sourceLineNo">080</span><a id="line.80">     * @return the capabilities</a>
+<span class="sourceLineNo">081</span><a id="line.81">     * @throws MavenResourceException the maven resource exception</a>
+<span class="sourceLineNo">082</span><a id="line.82">     */</a>
+<span class="sourceLineNo">083</span><a id="line.83">    List&lt;Capability&gt; getCapabilities(String namespace)</a>
+<span class="sourceLineNo">084</span><a id="line.84">            throws MavenResourceException;</a>
+<span class="sourceLineNo">085</span><a id="line.85"></a>
+<span class="sourceLineNo">086</span><a id="line.86">    /**</a>
+<span class="sourceLineNo">087</span><a id="line.87">     * Gets the requirements from the given namespace.</a>
+<span class="sourceLineNo">088</span><a id="line.88">     *</a>
+<span class="sourceLineNo">089</span><a id="line.89">     * @param namespace the namespace</a>
+<span class="sourceLineNo">090</span><a id="line.90">     * @return the requirements</a>
+<span class="sourceLineNo">091</span><a id="line.91">     * @throws MavenResourceException the maven resource exception</a>
+<span class="sourceLineNo">092</span><a id="line.92">     */</a>
+<span class="sourceLineNo">093</span><a id="line.93">    List&lt;Requirement&gt; getRequirements(String namespace)</a>
+<span class="sourceLineNo">094</span><a id="line.94">            throws MavenResourceException;</a>
+<span class="sourceLineNo">095</span><a id="line.95"></a>
+<span class="sourceLineNo">096</span><a id="line.96">    /**</a>
+<span class="sourceLineNo">097</span><a id="line.97">     * Compares a {@link MavenResource} with another maven resource</a>
+<span class="sourceLineNo">098</span><a id="line.98">     * or a {@link Resource}.</a>
+<span class="sourceLineNo">099</span><a id="line.99">     * &lt;P&gt;</a>
+<span class="sourceLineNo">100</span><a id="line.100">     * Two {@link MavenResource}s are considered equal if their archives </a>
+<span class="sourceLineNo">101</span><a id="line.101">     * are equal. If a {@link MavenResource} is compared with </a>
+<span class="sourceLineNo">102</span><a id="line.102">     * another {@link Resource}, equality will be checked </a>
+<span class="sourceLineNo">103</span><a id="line.103">     * between {@link MavenResource#asResource()} and the other resource </a>
+<span class="sourceLineNo">104</span><a id="line.104">     * (see {@link Resource#equals(Object)}). </a>
+<span class="sourceLineNo">105</span><a id="line.105">     *</a>
+<span class="sourceLineNo">106</span><a id="line.106">     * @param obj the object to compare with</a>
+<span class="sourceLineNo">107</span><a id="line.107">     * @return true, if successful</a>
+<span class="sourceLineNo">108</span><a id="line.108">     */</a>
+<span class="sourceLineNo">109</span><a id="line.109">    @Override</a>
+<span class="sourceLineNo">110</span><a id="line.110">    boolean equals(Object obj);</a>
+<span class="sourceLineNo">111</span><a id="line.111"></a>
+<span class="sourceLineNo">112</span><a id="line.112">    /**</a>
+<span class="sourceLineNo">113</span><a id="line.113">     * The hash code is defined by the revision.</a>
+<span class="sourceLineNo">114</span><a id="line.114">     *</a>
+<span class="sourceLineNo">115</span><a id="line.115">     * @return the int</a>
+<span class="sourceLineNo">116</span><a id="line.116">     */</a>
+<span class="sourceLineNo">117</span><a id="line.117">    @Override</a>
+<span class="sourceLineNo">118</span><a id="line.118">    int hashCode();</a>
+<span class="sourceLineNo">119</span><a id="line.119"></a>
+<span class="sourceLineNo">120</span><a id="line.120">    @Override</a>
+<span class="sourceLineNo">121</span><a id="line.121">    String toString();</a>
+<span class="sourceLineNo">122</span><a id="line.122"></a>
+<span class="sourceLineNo">123</span><a id="line.123">}</a>
 
 
 
@@ -191,5 +192,6 @@
 
 </pre>
 </div>
+</main>
 </body>
 </html>

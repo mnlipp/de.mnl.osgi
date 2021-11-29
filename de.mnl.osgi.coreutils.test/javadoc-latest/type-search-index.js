@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"de.mnl.osgi.coreutils.test","l":"CollectorTests"},{"p":"de.mnl.osgi.coreutils.test","l":"ResolverTests"},{"p":"de.mnl.osgi.coreutils.test","l":"SampleService1"},{"p":"de.mnl.osgi.coreutils.test","l":"SampleService2"}]

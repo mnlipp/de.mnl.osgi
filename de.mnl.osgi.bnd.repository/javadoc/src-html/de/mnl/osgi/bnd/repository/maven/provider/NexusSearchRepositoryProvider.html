@@ -1,213 +1,220 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
 <title>Source code</title>
 <link rel="stylesheet" type="text/css" href="../../../../../../../../stylesheet.css" title="Style">
 </head>
 <body>
+<main role="main">
 <div class="sourceContainer">
-<pre><span class="sourceLineNo">001</span>/*<a name="line.1"></a>
-<span class="sourceLineNo">002</span> * Bnd Nexus Search Plugin<a name="line.2"></a>
-<span class="sourceLineNo">003</span> * Copyright (C) 2017  Michael N. Lipp<a name="line.3"></a>
-<span class="sourceLineNo">004</span> * <a name="line.4"></a>
-<span class="sourceLineNo">005</span> * This program is free software; you can redistribute it and/or modify it <a name="line.5"></a>
-<span class="sourceLineNo">006</span> * under the terms of the GNU Affero General Public License as published by <a name="line.6"></a>
-<span class="sourceLineNo">007</span> * the Free Software Foundation; either version 3 of the License, or <a name="line.7"></a>
-<span class="sourceLineNo">008</span> * (at your option) any later version.<a name="line.8"></a>
-<span class="sourceLineNo">009</span> * <a name="line.9"></a>
-<span class="sourceLineNo">010</span> * This program is distributed in the hope that it will be useful, but <a name="line.10"></a>
-<span class="sourceLineNo">011</span> * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY<a name="line.11"></a>
-<span class="sourceLineNo">012</span> * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License <a name="line.12"></a>
-<span class="sourceLineNo">013</span> * for more details.<a name="line.13"></a>
-<span class="sourceLineNo">014</span> * <a name="line.14"></a>
-<span class="sourceLineNo">015</span> * You should have received a copy of the GNU Affero General Public License along <a name="line.15"></a>
-<span class="sourceLineNo">016</span> * with this program; if not, see &lt;http://www.gnu.org/licenses/&gt;.<a name="line.16"></a>
-<span class="sourceLineNo">017</span> */<a name="line.17"></a>
-<span class="sourceLineNo">018</span><a name="line.18"></a>
-<span class="sourceLineNo">019</span>package de.mnl.osgi.bnd.repository.maven.provider;<a name="line.19"></a>
-<span class="sourceLineNo">020</span><a name="line.20"></a>
-<span class="sourceLineNo">021</span>import aQute.bnd.build.Workspace;<a name="line.21"></a>
-<span class="sourceLineNo">022</span>import aQute.bnd.http.HttpClient;<a name="line.22"></a>
-<span class="sourceLineNo">023</span>import aQute.bnd.osgi.repository.BaseRepository;<a name="line.23"></a>
-<span class="sourceLineNo">024</span>import aQute.bnd.osgi.repository.BridgeRepository;<a name="line.24"></a>
-<span class="sourceLineNo">025</span>import aQute.bnd.osgi.repository.BridgeRepository.ResourceInfo;<a name="line.25"></a>
-<span class="sourceLineNo">026</span>import aQute.bnd.service.Plugin;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>import aQute.bnd.service.Refreshable;<a name="line.27"></a>
-<span class="sourceLineNo">028</span>import aQute.bnd.service.Registry;<a name="line.28"></a>
-<span class="sourceLineNo">029</span>import aQute.bnd.service.RegistryPlugin;<a name="line.29"></a>
-<span class="sourceLineNo">030</span>import aQute.bnd.service.RepositoryListenerPlugin;<a name="line.30"></a>
-<span class="sourceLineNo">031</span>import aQute.bnd.service.RepositoryPlugin;<a name="line.31"></a>
-<span class="sourceLineNo">032</span>import aQute.bnd.util.repository.DownloadListenerPromise;<a name="line.32"></a>
-<span class="sourceLineNo">033</span>import aQute.bnd.version.Version;<a name="line.33"></a>
-<span class="sourceLineNo">034</span>import aQute.lib.converter.Converter;<a name="line.34"></a>
-<span class="sourceLineNo">035</span>import aQute.lib.io.IO;<a name="line.35"></a>
-<span class="sourceLineNo">036</span>import aQute.maven.api.Archive;<a name="line.36"></a>
-<span class="sourceLineNo">037</span>import aQute.service.reporter.Reporter;<a name="line.37"></a>
-<span class="sourceLineNo">038</span>import de.mnl.osgi.bnd.repository.maven.nexussearch.NexusSearchConfiguration;<a name="line.38"></a>
-<span class="sourceLineNo">039</span>import de.mnl.osgi.bnd.repository.maven.nexussearch.NexusSearchOsgiRepository;<a name="line.39"></a>
-<span class="sourceLineNo">040</span><a name="line.40"></a>
-<span class="sourceLineNo">041</span>import java.io.File;<a name="line.41"></a>
-<span class="sourceLineNo">042</span>import java.io.InputStream;<a name="line.42"></a>
-<span class="sourceLineNo">043</span>import java.net.MalformedURLException;<a name="line.43"></a>
-<span class="sourceLineNo">044</span>import java.net.URL;<a name="line.44"></a>
-<span class="sourceLineNo">045</span>import java.util.Collection;<a name="line.45"></a>
-<span class="sourceLineNo">046</span>import java.util.List;<a name="line.46"></a>
-<span class="sourceLineNo">047</span>import java.util.Map;<a name="line.47"></a>
-<span class="sourceLineNo">048</span>import java.util.SortedSet;<a name="line.48"></a>
-<span class="sourceLineNo">049</span><a name="line.49"></a>
-<span class="sourceLineNo">050</span>import org.osgi.resource.Capability;<a name="line.50"></a>
-<span class="sourceLineNo">051</span>import org.osgi.resource.Requirement;<a name="line.51"></a>
-<span class="sourceLineNo">052</span>import org.osgi.service.repository.Repository;<a name="line.52"></a>
-<span class="sourceLineNo">053</span>import org.osgi.util.promise.Promise;<a name="line.53"></a>
-<span class="sourceLineNo">054</span><a name="line.54"></a>
-<span class="sourceLineNo">055</span>/**<a name="line.55"></a>
-<span class="sourceLineNo">056</span> * Provide a {@link NexusSearchOsgiRepository} as a bnd repository. The interesting<a name="line.56"></a>
-<span class="sourceLineNo">057</span> * work is done by the {@link NexusSearchOsgiRepository}.<a name="line.57"></a>
-<span class="sourceLineNo">058</span> */<a name="line.58"></a>
-<span class="sourceLineNo">059</span>public class NexusSearchRepositoryProvider extends BaseRepository <a name="line.59"></a>
-<span class="sourceLineNo">060</span>        implements Repository, Plugin, RegistryPlugin, RepositoryPlugin, Refreshable {<a name="line.60"></a>
-<span class="sourceLineNo">061</span>//      private final static Logger logger = LoggerFactory.getLogger(<a name="line.61"></a>
-<span class="sourceLineNo">062</span>//                      NexusSearchRepositoryProvider.class);<a name="line.62"></a>
-<span class="sourceLineNo">063</span>        private static final String MAVEN_REPO_LOCAL<a name="line.63"></a>
-<span class="sourceLineNo">064</span>                = System.getProperty("maven.repo.local", "~/.m2/repository");<a name="line.64"></a>
-<span class="sourceLineNo">065</span><a name="line.65"></a>
-<span class="sourceLineNo">066</span>        private boolean initialized = false;<a name="line.66"></a>
-<span class="sourceLineNo">067</span>        private File localRepo;<a name="line.67"></a>
-<span class="sourceLineNo">068</span>        private NexusSearchConfiguration configuration;<a name="line.68"></a>
-<span class="sourceLineNo">069</span>        private String name = "OssSonatype";<a name="line.69"></a>
-<span class="sourceLineNo">070</span>        private Registry registry = null;<a name="line.70"></a>
-<span class="sourceLineNo">071</span>        private Reporter reporter;<a name="line.71"></a>
-<span class="sourceLineNo">072</span>        private NexusSearchOsgiRepository osgiRepository = null;<a name="line.72"></a>
-<span class="sourceLineNo">073</span>        private URL server = null;<a name="line.73"></a>
-<span class="sourceLineNo">074</span>        private BridgeRepository bridge;<a name="line.74"></a>
-<span class="sourceLineNo">075</span>        <a name="line.75"></a>
-<span class="sourceLineNo">076</span>        @Override<a name="line.76"></a>
-<span class="sourceLineNo">077</span>        public void setProperties(Map&lt;String, String&gt; properties) throws Exception {<a name="line.77"></a>
-<span class="sourceLineNo">078</span>                configuration = Converter.cnv(NexusSearchConfiguration.class, properties);<a name="line.78"></a>
-<span class="sourceLineNo">079</span>                name = configuration.name("OssSonatype");<a name="line.79"></a>
-<span class="sourceLineNo">080</span>                server = new URL(configuration.server() != null <a name="line.80"></a>
-<span class="sourceLineNo">081</span>                                ? configuration.server() : "https://oss.sonatype.org");<a name="line.81"></a>
-<span class="sourceLineNo">082</span>        }<a name="line.82"></a>
-<span class="sourceLineNo">083</span><a name="line.83"></a>
-<span class="sourceLineNo">084</span>        @Override<a name="line.84"></a>
-<span class="sourceLineNo">085</span>        public void setRegistry(Registry registry) {<a name="line.85"></a>
-<span class="sourceLineNo">086</span>                this.registry = registry;<a name="line.86"></a>
-<span class="sourceLineNo">087</span>        }<a name="line.87"></a>
-<span class="sourceLineNo">088</span><a name="line.88"></a>
-<span class="sourceLineNo">089</span>        @Override<a name="line.89"></a>
-<span class="sourceLineNo">090</span>        public void setReporter(Reporter reporter) {<a name="line.90"></a>
-<span class="sourceLineNo">091</span>                this.reporter = reporter;<a name="line.91"></a>
-<span class="sourceLineNo">092</span>        }<a name="line.92"></a>
-<span class="sourceLineNo">093</span><a name="line.93"></a>
-<span class="sourceLineNo">094</span>        @Override<a name="line.94"></a>
-<span class="sourceLineNo">095</span>        public String getName() {<a name="line.95"></a>
-<span class="sourceLineNo">096</span>                return name;<a name="line.96"></a>
-<span class="sourceLineNo">097</span>        }<a name="line.97"></a>
-<span class="sourceLineNo">098</span><a name="line.98"></a>
-<span class="sourceLineNo">099</span>        @Override<a name="line.99"></a>
-<span class="sourceLineNo">100</span>        public PutResult put(InputStream stream, PutOptions options) throws Exception {<a name="line.100"></a>
-<span class="sourceLineNo">101</span>                throw new IllegalStateException("Read-only repository");<a name="line.101"></a>
-<span class="sourceLineNo">102</span>        }<a name="line.102"></a>
-<span class="sourceLineNo">103</span><a name="line.103"></a>
-<span class="sourceLineNo">104</span>        @Override<a name="line.104"></a>
-<span class="sourceLineNo">105</span>        public boolean canWrite() {<a name="line.105"></a>
-<span class="sourceLineNo">106</span>                return false;<a name="line.106"></a>
-<span class="sourceLineNo">107</span>        }<a name="line.107"></a>
-<span class="sourceLineNo">108</span><a name="line.108"></a>
-<span class="sourceLineNo">109</span>        /**<a name="line.109"></a>
-<span class="sourceLineNo">110</span>         * Performs initialization. Initialization must be delayed because the<a name="line.110"></a>
-<span class="sourceLineNo">111</span>         * precise sequence of injecting dependencies seems to be undefined.<a name="line.111"></a>
-<span class="sourceLineNo">112</span>         * @throws MalformedURLException <a name="line.112"></a>
-<span class="sourceLineNo">113</span>         */<a name="line.113"></a>
-<span class="sourceLineNo">114</span>        private synchronized void init() {<a name="line.114"></a>
-<span class="sourceLineNo">115</span>                if (initialized) {<a name="line.115"></a>
-<span class="sourceLineNo">116</span>                        return;<a name="line.116"></a>
-<span class="sourceLineNo">117</span>                }<a name="line.117"></a>
-<span class="sourceLineNo">118</span>                initialized = true;<a name="line.118"></a>
-<span class="sourceLineNo">119</span>                String queryString = configuration.query();<a name="line.119"></a>
-<span class="sourceLineNo">120</span>                Workspace workspace = registry.getPlugin(Workspace.class);<a name="line.120"></a>
-<span class="sourceLineNo">121</span>                HttpClient client = registry.getPlugin(HttpClient.class);<a name="line.121"></a>
-<span class="sourceLineNo">122</span>                File obrIndexFile = workspace.getFile(getLocation());<a name="line.122"></a>
-<span class="sourceLineNo">123</span>                File mvnReposFile = workspace.getFile(<a name="line.123"></a>
-<span class="sourceLineNo">124</span>                                "cnf/cache/nexus-search-" + name + "-repositories.xml");<a name="line.124"></a>
-<span class="sourceLineNo">125</span>                localRepo = IO.getFile(configuration.local(MAVEN_REPO_LOCAL));<a name="line.125"></a>
-<span class="sourceLineNo">126</span>                try {<a name="line.126"></a>
-<span class="sourceLineNo">127</span>                        osgiRepository = new NexusSearchOsgiRepository(<a name="line.127"></a>
-<span class="sourceLineNo">128</span>                                        name, server, localRepo, obrIndexFile, mvnReposFile, <a name="line.128"></a>
-<span class="sourceLineNo">129</span>                                        queryString, configuration.searchBreadth(3),<a name="line.129"></a>
-<span class="sourceLineNo">130</span>                                        configuration.chunkSize(500), reporter, client);<a name="line.130"></a>
-<span class="sourceLineNo">131</span>                        bridge = new BridgeRepository(osgiRepository);<a name="line.131"></a>
-<span class="sourceLineNo">132</span>                } catch (Exception e) {<a name="line.132"></a>
-<span class="sourceLineNo">133</span>                        throw new RuntimeException(e);<a name="line.133"></a>
-<span class="sourceLineNo">134</span>                }<a name="line.134"></a>
-<span class="sourceLineNo">135</span>        }<a name="line.135"></a>
-<span class="sourceLineNo">136</span>        <a name="line.136"></a>
-<span class="sourceLineNo">137</span>        @Override<a name="line.137"></a>
-<span class="sourceLineNo">138</span>        public File getRoot() throws Exception {<a name="line.138"></a>
-<span class="sourceLineNo">139</span>                return localRepo;<a name="line.139"></a>
-<span class="sourceLineNo">140</span>        }<a name="line.140"></a>
-<span class="sourceLineNo">141</span><a name="line.141"></a>
-<span class="sourceLineNo">142</span>        @Override<a name="line.142"></a>
-<span class="sourceLineNo">143</span>        public boolean refresh() throws Exception {<a name="line.143"></a>
-<span class="sourceLineNo">144</span>                init();<a name="line.144"></a>
-<span class="sourceLineNo">145</span>                if (!osgiRepository.refresh()) {<a name="line.145"></a>
-<span class="sourceLineNo">146</span>                        return false;<a name="line.146"></a>
-<span class="sourceLineNo">147</span>                }<a name="line.147"></a>
-<span class="sourceLineNo">148</span>                bridge = new BridgeRepository(osgiRepository);<a name="line.148"></a>
-<span class="sourceLineNo">149</span>                for (RepositoryListenerPlugin listener : registry.getPlugins(RepositoryListenerPlugin.class)) {<a name="line.149"></a>
-<span class="sourceLineNo">150</span>                        try {<a name="line.150"></a>
-<span class="sourceLineNo">151</span>                                listener.repositoryRefreshed(this);<a name="line.151"></a>
-<span class="sourceLineNo">152</span>                        } catch (Exception e) {<a name="line.152"></a>
-<span class="sourceLineNo">153</span>                                reporter.exception(e, "Updating listener plugin %s", listener);<a name="line.153"></a>
-<span class="sourceLineNo">154</span>                        }<a name="line.154"></a>
-<span class="sourceLineNo">155</span>                }<a name="line.155"></a>
-<span class="sourceLineNo">156</span>                return true;<a name="line.156"></a>
-<span class="sourceLineNo">157</span>        }<a name="line.157"></a>
-<span class="sourceLineNo">158</span><a name="line.158"></a>
-<span class="sourceLineNo">159</span>        @Override<a name="line.159"></a>
-<span class="sourceLineNo">160</span>        public File get(String bsn, Version version, Map&lt;String, String&gt; properties, <a name="line.160"></a>
-<span class="sourceLineNo">161</span>                        DownloadListener... listeners) throws Exception {<a name="line.161"></a>
-<span class="sourceLineNo">162</span>                init();<a name="line.162"></a>
-<span class="sourceLineNo">163</span>                ResourceInfo resource = bridge.getInfo(bsn, version);<a name="line.163"></a>
-<span class="sourceLineNo">164</span>                if (resource == null)<a name="line.164"></a>
-<span class="sourceLineNo">165</span>                        return null;<a name="line.165"></a>
-<span class="sourceLineNo">166</span><a name="line.166"></a>
-<span class="sourceLineNo">167</span>                String name = resource.getInfo().name();<a name="line.167"></a>
-<span class="sourceLineNo">168</span>                Archive archive = Archive.valueOf(name);<a name="line.168"></a>
-<span class="sourceLineNo">169</span><a name="line.169"></a>
-<span class="sourceLineNo">170</span>                Promise&lt;File&gt; p = osgiRepository.mavenRepository().get(archive);<a name="line.170"></a>
-<span class="sourceLineNo">171</span><a name="line.171"></a>
-<span class="sourceLineNo">172</span>                if (listeners.length == 0)<a name="line.172"></a>
-<span class="sourceLineNo">173</span>                        return p.getValue();<a name="line.173"></a>
-<span class="sourceLineNo">174</span><a name="line.174"></a>
-<span class="sourceLineNo">175</span>                new DownloadListenerPromise(reporter, name + ": get " + bsn + ";" + version, p, listeners);<a name="line.175"></a>
-<span class="sourceLineNo">176</span>                return osgiRepository.mavenRepository().toLocalFile(archive);<a name="line.176"></a>
-<span class="sourceLineNo">177</span>        }<a name="line.177"></a>
-<span class="sourceLineNo">178</span><a name="line.178"></a>
-<span class="sourceLineNo">179</span>        @Override<a name="line.179"></a>
-<span class="sourceLineNo">180</span>        public List&lt;String&gt; list(String pattern) throws Exception {<a name="line.180"></a>
-<span class="sourceLineNo">181</span>                init();<a name="line.181"></a>
-<span class="sourceLineNo">182</span>                return bridge.list(pattern);<a name="line.182"></a>
-<span class="sourceLineNo">183</span>        }<a name="line.183"></a>
-<span class="sourceLineNo">184</span><a name="line.184"></a>
-<span class="sourceLineNo">185</span>        @Override<a name="line.185"></a>
-<span class="sourceLineNo">186</span>        public SortedSet&lt;Version&gt; versions(String bsn) throws Exception {<a name="line.186"></a>
-<span class="sourceLineNo">187</span>                init();<a name="line.187"></a>
-<span class="sourceLineNo">188</span>                return bridge.versions(bsn);<a name="line.188"></a>
-<span class="sourceLineNo">189</span>        }<a name="line.189"></a>
-<span class="sourceLineNo">190</span><a name="line.190"></a>
-<span class="sourceLineNo">191</span>        @Override<a name="line.191"></a>
-<span class="sourceLineNo">192</span>        public String getLocation() {<a name="line.192"></a>
-<span class="sourceLineNo">193</span>                return "cnf/cache/nexus-search-" + name + ".xml";<a name="line.193"></a>
-<span class="sourceLineNo">194</span>        }<a name="line.194"></a>
-<span class="sourceLineNo">195</span><a name="line.195"></a>
-<span class="sourceLineNo">196</span>        @Override<a name="line.196"></a>
-<span class="sourceLineNo">197</span>        public Map&lt;Requirement, Collection&lt;Capability&gt;&gt; findProviders(<a name="line.197"></a>
-<span class="sourceLineNo">198</span>                        Collection&lt;? extends Requirement&gt; requirements) {<a name="line.198"></a>
-<span class="sourceLineNo">199</span>                init();<a name="line.199"></a>
-<span class="sourceLineNo">200</span>                return osgiRepository.findProviders(requirements);<a name="line.200"></a>
-<span class="sourceLineNo">201</span>        }<a name="line.201"></a>
-<span class="sourceLineNo">202</span>}<a name="line.202"></a>
+<pre><span class="sourceLineNo">001</span><a id="line.1">/*</a>
+<span class="sourceLineNo">002</span><a id="line.2"> * Bnd Nexus Search Plugin</a>
+<span class="sourceLineNo">003</span><a id="line.3"> * Copyright (C) 2017  Michael N. Lipp</a>
+<span class="sourceLineNo">004</span><a id="line.4"> * </a>
+<span class="sourceLineNo">005</span><a id="line.5"> * This program is free software; you can redistribute it and/or modify it </a>
+<span class="sourceLineNo">006</span><a id="line.6"> * under the terms of the GNU Affero General Public License as published by </a>
+<span class="sourceLineNo">007</span><a id="line.7"> * the Free Software Foundation; either version 3 of the License, or </a>
+<span class="sourceLineNo">008</span><a id="line.8"> * (at your option) any later version.</a>
+<span class="sourceLineNo">009</span><a id="line.9"> * </a>
+<span class="sourceLineNo">010</span><a id="line.10"> * This program is distributed in the hope that it will be useful, but </a>
+<span class="sourceLineNo">011</span><a id="line.11"> * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY</a>
+<span class="sourceLineNo">012</span><a id="line.12"> * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License </a>
+<span class="sourceLineNo">013</span><a id="line.13"> * for more details.</a>
+<span class="sourceLineNo">014</span><a id="line.14"> * </a>
+<span class="sourceLineNo">015</span><a id="line.15"> * You should have received a copy of the GNU Affero General Public License along </a>
+<span class="sourceLineNo">016</span><a id="line.16"> * with this program; if not, see &lt;http://www.gnu.org/licenses/&gt;.</a>
+<span class="sourceLineNo">017</span><a id="line.17"> */</a>
+<span class="sourceLineNo">018</span><a id="line.18"></a>
+<span class="sourceLineNo">019</span><a id="line.19">package de.mnl.osgi.bnd.repository.maven.provider;</a>
+<span class="sourceLineNo">020</span><a id="line.20"></a>
+<span class="sourceLineNo">021</span><a id="line.21">import aQute.bnd.build.Workspace;</a>
+<span class="sourceLineNo">022</span><a id="line.22">import aQute.bnd.http.HttpClient;</a>
+<span class="sourceLineNo">023</span><a id="line.23">import aQute.bnd.osgi.repository.BaseRepository;</a>
+<span class="sourceLineNo">024</span><a id="line.24">import aQute.bnd.osgi.repository.BridgeRepository;</a>
+<span class="sourceLineNo">025</span><a id="line.25">import aQute.bnd.osgi.repository.BridgeRepository.ResourceInfo;</a>
+<span class="sourceLineNo">026</span><a id="line.26">import aQute.bnd.service.Plugin;</a>
+<span class="sourceLineNo">027</span><a id="line.27">import aQute.bnd.service.Refreshable;</a>
+<span class="sourceLineNo">028</span><a id="line.28">import aQute.bnd.service.Registry;</a>
+<span class="sourceLineNo">029</span><a id="line.29">import aQute.bnd.service.RegistryPlugin;</a>
+<span class="sourceLineNo">030</span><a id="line.30">import aQute.bnd.service.RepositoryListenerPlugin;</a>
+<span class="sourceLineNo">031</span><a id="line.31">import aQute.bnd.service.RepositoryPlugin;</a>
+<span class="sourceLineNo">032</span><a id="line.32">import aQute.bnd.util.repository.DownloadListenerPromise;</a>
+<span class="sourceLineNo">033</span><a id="line.33">import aQute.bnd.version.Version;</a>
+<span class="sourceLineNo">034</span><a id="line.34">import aQute.lib.converter.Converter;</a>
+<span class="sourceLineNo">035</span><a id="line.35">import aQute.lib.io.IO;</a>
+<span class="sourceLineNo">036</span><a id="line.36">import aQute.maven.api.Archive;</a>
+<span class="sourceLineNo">037</span><a id="line.37">import aQute.service.reporter.Reporter;</a>
+<span class="sourceLineNo">038</span><a id="line.38">import de.mnl.osgi.bnd.repository.maven.nexussearch.NexusSearchConfiguration;</a>
+<span class="sourceLineNo">039</span><a id="line.39">import de.mnl.osgi.bnd.repository.maven.nexussearch.NexusSearchOsgiRepository;</a>
+<span class="sourceLineNo">040</span><a id="line.40">import java.io.File;</a>
+<span class="sourceLineNo">041</span><a id="line.41">import java.io.InputStream;</a>
+<span class="sourceLineNo">042</span><a id="line.42">import java.net.MalformedURLException;</a>
+<span class="sourceLineNo">043</span><a id="line.43">import java.net.URL;</a>
+<span class="sourceLineNo">044</span><a id="line.44">import java.util.Collection;</a>
+<span class="sourceLineNo">045</span><a id="line.45">import java.util.List;</a>
+<span class="sourceLineNo">046</span><a id="line.46">import java.util.Map;</a>
+<span class="sourceLineNo">047</span><a id="line.47">import java.util.SortedSet;</a>
+<span class="sourceLineNo">048</span><a id="line.48">import org.osgi.resource.Capability;</a>
+<span class="sourceLineNo">049</span><a id="line.49">import org.osgi.resource.Requirement;</a>
+<span class="sourceLineNo">050</span><a id="line.50">import org.osgi.service.repository.Repository;</a>
+<span class="sourceLineNo">051</span><a id="line.51">import org.osgi.util.promise.Promise;</a>
+<span class="sourceLineNo">052</span><a id="line.52"></a>
+<span class="sourceLineNo">053</span><a id="line.53">/**</a>
+<span class="sourceLineNo">054</span><a id="line.54"> * Provide a {@link NexusSearchOsgiRepository} as a bnd repository. The interesting</a>
+<span class="sourceLineNo">055</span><a id="line.55"> * work is done by the {@link NexusSearchOsgiRepository}.</a>
+<span class="sourceLineNo">056</span><a id="line.56"> */</a>
+<span class="sourceLineNo">057</span><a id="line.57">public class NexusSearchRepositoryProvider extends BaseRepository</a>
+<span class="sourceLineNo">058</span><a id="line.58">        implements Repository, Plugin, RegistryPlugin, RepositoryPlugin,</a>
+<span class="sourceLineNo">059</span><a id="line.59">        Refreshable {</a>
+<span class="sourceLineNo">060</span><a id="line.60">//      private final static Logger logger = LoggerFactory.getLogger(</a>
+<span class="sourceLineNo">061</span><a id="line.61">//                      NexusSearchRepositoryProvider.class);</a>
+<span class="sourceLineNo">062</span><a id="line.62">    private static final String MAVEN_REPO_LOCAL</a>
+<span class="sourceLineNo">063</span><a id="line.63">        = System.getProperty("maven.repo.local", "~/.m2/repository");</a>
+<span class="sourceLineNo">064</span><a id="line.64"></a>
+<span class="sourceLineNo">065</span><a id="line.65">    private boolean initialized = false;</a>
+<span class="sourceLineNo">066</span><a id="line.66">    private File localRepo;</a>
+<span class="sourceLineNo">067</span><a id="line.67">    private NexusSearchConfiguration configuration;</a>
+<span class="sourceLineNo">068</span><a id="line.68">    private String name = "OssSonatype";</a>
+<span class="sourceLineNo">069</span><a id="line.69">    private Registry registry = null;</a>
+<span class="sourceLineNo">070</span><a id="line.70">    private Reporter reporter;</a>
+<span class="sourceLineNo">071</span><a id="line.71">    private NexusSearchOsgiRepository osgiRepository = null;</a>
+<span class="sourceLineNo">072</span><a id="line.72">    private URL server = null;</a>
+<span class="sourceLineNo">073</span><a id="line.73">    private BridgeRepository bridge;</a>
+<span class="sourceLineNo">074</span><a id="line.74"></a>
+<span class="sourceLineNo">075</span><a id="line.75">    @Override</a>
+<span class="sourceLineNo">076</span><a id="line.76">    public void setProperties(Map&lt;String, String&gt; properties) throws Exception {</a>
+<span class="sourceLineNo">077</span><a id="line.77">        configuration</a>
+<span class="sourceLineNo">078</span><a id="line.78">            = Converter.cnv(NexusSearchConfiguration.class, properties);</a>
+<span class="sourceLineNo">079</span><a id="line.79">        name = configuration.name("OssSonatype");</a>
+<span class="sourceLineNo">080</span><a id="line.80">        server = new URL(configuration.server() != null</a>
+<span class="sourceLineNo">081</span><a id="line.81">            ? configuration.server()</a>
+<span class="sourceLineNo">082</span><a id="line.82">            : "https://oss.sonatype.org");</a>
+<span class="sourceLineNo">083</span><a id="line.83">    }</a>
+<span class="sourceLineNo">084</span><a id="line.84"></a>
+<span class="sourceLineNo">085</span><a id="line.85">    @Override</a>
+<span class="sourceLineNo">086</span><a id="line.86">    public void setRegistry(Registry registry) {</a>
+<span class="sourceLineNo">087</span><a id="line.87">        this.registry = registry;</a>
+<span class="sourceLineNo">088</span><a id="line.88">    }</a>
+<span class="sourceLineNo">089</span><a id="line.89"></a>
+<span class="sourceLineNo">090</span><a id="line.90">    @Override</a>
+<span class="sourceLineNo">091</span><a id="line.91">    public void setReporter(Reporter reporter) {</a>
+<span class="sourceLineNo">092</span><a id="line.92">        this.reporter = reporter;</a>
+<span class="sourceLineNo">093</span><a id="line.93">    }</a>
+<span class="sourceLineNo">094</span><a id="line.94"></a>
+<span class="sourceLineNo">095</span><a id="line.95">    @Override</a>
+<span class="sourceLineNo">096</span><a id="line.96">    public String getName() {</a>
+<span class="sourceLineNo">097</span><a id="line.97">        return name;</a>
+<span class="sourceLineNo">098</span><a id="line.98">    }</a>
+<span class="sourceLineNo">099</span><a id="line.99"></a>
+<span class="sourceLineNo">100</span><a id="line.100">    @Override</a>
+<span class="sourceLineNo">101</span><a id="line.101">    public PutResult put(InputStream stream, PutOptions options)</a>
+<span class="sourceLineNo">102</span><a id="line.102">            throws Exception {</a>
+<span class="sourceLineNo">103</span><a id="line.103">        throw new IllegalStateException("Read-only repository");</a>
+<span class="sourceLineNo">104</span><a id="line.104">    }</a>
+<span class="sourceLineNo">105</span><a id="line.105"></a>
+<span class="sourceLineNo">106</span><a id="line.106">    @Override</a>
+<span class="sourceLineNo">107</span><a id="line.107">    public boolean canWrite() {</a>
+<span class="sourceLineNo">108</span><a id="line.108">        return false;</a>
+<span class="sourceLineNo">109</span><a id="line.109">    }</a>
+<span class="sourceLineNo">110</span><a id="line.110"></a>
+<span class="sourceLineNo">111</span><a id="line.111">    /**</a>
+<span class="sourceLineNo">112</span><a id="line.112">     * Performs initialization. Initialization must be delayed because the</a>
+<span class="sourceLineNo">113</span><a id="line.113">     * precise sequence of injecting dependencies seems to be undefined.</a>
+<span class="sourceLineNo">114</span><a id="line.114">     * @throws MalformedURLException </a>
+<span class="sourceLineNo">115</span><a id="line.115">     */</a>
+<span class="sourceLineNo">116</span><a id="line.116">    private synchronized void init() {</a>
+<span class="sourceLineNo">117</span><a id="line.117">        if (initialized) {</a>
+<span class="sourceLineNo">118</span><a id="line.118">            return;</a>
+<span class="sourceLineNo">119</span><a id="line.119">        }</a>
+<span class="sourceLineNo">120</span><a id="line.120">        initialized = true;</a>
+<span class="sourceLineNo">121</span><a id="line.121">        String queryString = configuration.query();</a>
+<span class="sourceLineNo">122</span><a id="line.122">        Workspace workspace = registry.getPlugin(Workspace.class);</a>
+<span class="sourceLineNo">123</span><a id="line.123">        HttpClient client = registry.getPlugin(HttpClient.class);</a>
+<span class="sourceLineNo">124</span><a id="line.124">        File obrIndexFile = workspace.getFile(getLocation());</a>
+<span class="sourceLineNo">125</span><a id="line.125">        File mvnReposFile = workspace.getFile(</a>
+<span class="sourceLineNo">126</span><a id="line.126">            "cnf/cache/nexus-search-" + name + "-repositories.xml");</a>
+<span class="sourceLineNo">127</span><a id="line.127">        localRepo = IO.getFile(configuration.local(MAVEN_REPO_LOCAL));</a>
+<span class="sourceLineNo">128</span><a id="line.128">        try {</a>
+<span class="sourceLineNo">129</span><a id="line.129">            osgiRepository = new NexusSearchOsgiRepository(</a>
+<span class="sourceLineNo">130</span><a id="line.130">                name, server, localRepo, obrIndexFile, mvnReposFile,</a>
+<span class="sourceLineNo">131</span><a id="line.131">                queryString, configuration.searchBreadth(3),</a>
+<span class="sourceLineNo">132</span><a id="line.132">                configuration.chunkSize(500), reporter, client);</a>
+<span class="sourceLineNo">133</span><a id="line.133">            bridge = new BridgeRepository(osgiRepository);</a>
+<span class="sourceLineNo">134</span><a id="line.134">        } catch (Exception e) {</a>
+<span class="sourceLineNo">135</span><a id="line.135">            throw new RuntimeException(e);</a>
+<span class="sourceLineNo">136</span><a id="line.136">        }</a>
+<span class="sourceLineNo">137</span><a id="line.137">    }</a>
+<span class="sourceLineNo">138</span><a id="line.138"></a>
+<span class="sourceLineNo">139</span><a id="line.139">    @Override</a>
+<span class="sourceLineNo">140</span><a id="line.140">    public File getRoot() throws Exception {</a>
+<span class="sourceLineNo">141</span><a id="line.141">        return localRepo;</a>
+<span class="sourceLineNo">142</span><a id="line.142">    }</a>
+<span class="sourceLineNo">143</span><a id="line.143"></a>
+<span class="sourceLineNo">144</span><a id="line.144">    @Override</a>
+<span class="sourceLineNo">145</span><a id="line.145">    public boolean refresh() throws Exception {</a>
+<span class="sourceLineNo">146</span><a id="line.146">        init();</a>
+<span class="sourceLineNo">147</span><a id="line.147">        if (!osgiRepository.refresh()) {</a>
+<span class="sourceLineNo">148</span><a id="line.148">            return false;</a>
+<span class="sourceLineNo">149</span><a id="line.149">        }</a>
+<span class="sourceLineNo">150</span><a id="line.150">        bridge = new BridgeRepository(osgiRepository);</a>
+<span class="sourceLineNo">151</span><a id="line.151">        for (RepositoryListenerPlugin listener : registry</a>
+<span class="sourceLineNo">152</span><a id="line.152">            .getPlugins(RepositoryListenerPlugin.class)) {</a>
+<span class="sourceLineNo">153</span><a id="line.153">            try {</a>
+<span class="sourceLineNo">154</span><a id="line.154">                listener.repositoryRefreshed(this);</a>
+<span class="sourceLineNo">155</span><a id="line.155">            } catch (Exception e) {</a>
+<span class="sourceLineNo">156</span><a id="line.156">                reporter.exception(e, "Updating listener plugin %s", listener);</a>
+<span class="sourceLineNo">157</span><a id="line.157">            }</a>
+<span class="sourceLineNo">158</span><a id="line.158">        }</a>
+<span class="sourceLineNo">159</span><a id="line.159">        return true;</a>
+<span class="sourceLineNo">160</span><a id="line.160">    }</a>
+<span class="sourceLineNo">161</span><a id="line.161"></a>
+<span class="sourceLineNo">162</span><a id="line.162">    @Override</a>
+<span class="sourceLineNo">163</span><a id="line.163">    public File get(String bsn, Version version, Map&lt;String, String&gt; properties,</a>
+<span class="sourceLineNo">164</span><a id="line.164">            DownloadListener... listeners) throws Exception {</a>
+<span class="sourceLineNo">165</span><a id="line.165">        init();</a>
+<span class="sourceLineNo">166</span><a id="line.166">        ResourceInfo resource = bridge.getInfo(bsn, version);</a>
+<span class="sourceLineNo">167</span><a id="line.167">        if (resource == null) {</a>
+<span class="sourceLineNo">168</span><a id="line.168">            return null;</a>
+<span class="sourceLineNo">169</span><a id="line.169">        }</a>
+<span class="sourceLineNo">170</span><a id="line.170"></a>
+<span class="sourceLineNo">171</span><a id="line.171">        String name = resource.getInfo().name();</a>
+<span class="sourceLineNo">172</span><a id="line.172">        Archive archive = Archive.valueOf(name);</a>
+<span class="sourceLineNo">173</span><a id="line.173"></a>
+<span class="sourceLineNo">174</span><a id="line.174">        Promise&lt;File&gt; p = osgiRepository.mavenRepository().get(archive);</a>
+<span class="sourceLineNo">175</span><a id="line.175"></a>
+<span class="sourceLineNo">176</span><a id="line.176">        if (listeners.length == 0) {</a>
+<span class="sourceLineNo">177</span><a id="line.177">            return p.getValue();</a>
+<span class="sourceLineNo">178</span><a id="line.178">        }</a>
+<span class="sourceLineNo">179</span><a id="line.179"></a>
+<span class="sourceLineNo">180</span><a id="line.180">        new DownloadListenerPromise(reporter,</a>
+<span class="sourceLineNo">181</span><a id="line.181">            name + ": get " + bsn + ";" + version, p, listeners);</a>
+<span class="sourceLineNo">182</span><a id="line.182">        return osgiRepository.mavenRepository().toLocalFile(archive);</a>
+<span class="sourceLineNo">183</span><a id="line.183">    }</a>
+<span class="sourceLineNo">184</span><a id="line.184"></a>
+<span class="sourceLineNo">185</span><a id="line.185">    @Override</a>
+<span class="sourceLineNo">186</span><a id="line.186">    public List&lt;String&gt; list(String pattern) throws Exception {</a>
+<span class="sourceLineNo">187</span><a id="line.187">        init();</a>
+<span class="sourceLineNo">188</span><a id="line.188">        return bridge.list(pattern);</a>
+<span class="sourceLineNo">189</span><a id="line.189">    }</a>
+<span class="sourceLineNo">190</span><a id="line.190"></a>
+<span class="sourceLineNo">191</span><a id="line.191">    @Override</a>
+<span class="sourceLineNo">192</span><a id="line.192">    public SortedSet&lt;Version&gt; versions(String bsn) throws Exception {</a>
+<span class="sourceLineNo">193</span><a id="line.193">        init();</a>
+<span class="sourceLineNo">194</span><a id="line.194">        return bridge.versions(bsn);</a>
+<span class="sourceLineNo">195</span><a id="line.195">    }</a>
+<span class="sourceLineNo">196</span><a id="line.196"></a>
+<span class="sourceLineNo">197</span><a id="line.197">    @Override</a>
+<span class="sourceLineNo">198</span><a id="line.198">    public String getLocation() {</a>
+<span class="sourceLineNo">199</span><a id="line.199">        return "cnf/cache/nexus-search-" + name + ".xml";</a>
+<span class="sourceLineNo">200</span><a id="line.200">    }</a>
+<span class="sourceLineNo">201</span><a id="line.201"></a>
+<span class="sourceLineNo">202</span><a id="line.202">    @Override</a>
+<span class="sourceLineNo">203</span><a id="line.203">    public Map&lt;Requirement, Collection&lt;Capability&gt;&gt; findProviders(</a>
+<span class="sourceLineNo">204</span><a id="line.204">            Collection&lt;? extends Requirement&gt; requirements) {</a>
+<span class="sourceLineNo">205</span><a id="line.205">        init();</a>
+<span class="sourceLineNo">206</span><a id="line.206">        return osgiRepository.findProviders(requirements);</a>
+<span class="sourceLineNo">207</span><a id="line.207">    }</a>
+<span class="sourceLineNo">208</span><a id="line.208">}</a>
 
 
 
@@ -270,5 +277,6 @@
 
 </pre>
 </div>
+</main>
 </body>
 </html>

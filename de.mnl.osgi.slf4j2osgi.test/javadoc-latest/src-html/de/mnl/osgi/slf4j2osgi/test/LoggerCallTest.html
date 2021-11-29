@@ -1,158 +1,155 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
 <title>Source code</title>
 <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
 </head>
 <body>
+<main role="main">
 <div class="sourceContainer">
-<pre><span class="sourceLineNo">001</span>package de.mnl.osgi.slf4j2osgi.test;<a name="line.1"></a>
-<span class="sourceLineNo">002</span><a name="line.2"></a>
-<span class="sourceLineNo">003</span>import de.mnl.osgi.coreutils.ServiceCollector;<a name="line.3"></a>
-<span class="sourceLineNo">004</span><a name="line.4"></a>
-<span class="sourceLineNo">005</span>import java.util.Collections;<a name="line.5"></a>
-<span class="sourceLineNo">006</span>import java.util.concurrent.CountDownLatch;<a name="line.6"></a>
-<span class="sourceLineNo">007</span>import java.util.concurrent.TimeUnit;<a name="line.7"></a>
-<span class="sourceLineNo">008</span>import java.util.concurrent.atomic.AtomicBoolean;<a name="line.8"></a>
-<span class="sourceLineNo">009</span><a name="line.9"></a>
-<span class="sourceLineNo">010</span>import static org.junit.Assert.assertEquals;<a name="line.10"></a>
-<span class="sourceLineNo">011</span>import static org.junit.Assert.assertNotNull;<a name="line.11"></a>
-<span class="sourceLineNo">012</span>import static org.junit.Assert.assertTrue;<a name="line.12"></a>
-<span class="sourceLineNo">013</span><a name="line.13"></a>
-<span class="sourceLineNo">014</span>import org.junit.Test;<a name="line.14"></a>
-<span class="sourceLineNo">015</span>import org.junit.runner.RunWith;<a name="line.15"></a>
-<span class="sourceLineNo">016</span>import org.mockito.junit.MockitoJUnitRunner;<a name="line.16"></a>
-<span class="sourceLineNo">017</span>import org.osgi.framework.Bundle;<a name="line.17"></a>
-<span class="sourceLineNo">018</span>import org.osgi.framework.BundleContext;<a name="line.18"></a>
-<span class="sourceLineNo">019</span>import org.osgi.framework.BundleException;<a name="line.19"></a>
-<span class="sourceLineNo">020</span>import org.osgi.framework.FrameworkUtil;<a name="line.20"></a>
-<span class="sourceLineNo">021</span>import org.osgi.service.log.LogEntry;<a name="line.21"></a>
-<span class="sourceLineNo">022</span>import org.osgi.service.log.LogLevel;<a name="line.22"></a>
-<span class="sourceLineNo">023</span>import org.osgi.service.log.LogListener;<a name="line.23"></a>
-<span class="sourceLineNo">024</span>import org.osgi.service.log.LogReaderService;<a name="line.24"></a>
-<span class="sourceLineNo">025</span><a name="line.25"></a>
-<span class="sourceLineNo">026</span>import org.slf4j.Logger;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>import org.slf4j.LoggerFactory;<a name="line.27"></a>
-<span class="sourceLineNo">028</span><a name="line.28"></a>
-<span class="sourceLineNo">029</span>@RunWith(MockitoJUnitRunner.class)<a name="line.29"></a>
-<span class="sourceLineNo">030</span>public class LoggerCallTest {<a name="line.30"></a>
-<span class="sourceLineNo">031</span><a name="line.31"></a>
-<span class="sourceLineNo">032</span>    protected static final Logger logger<a name="line.32"></a>
-<span class="sourceLineNo">033</span>        = LoggerFactory.getLogger("Logger Call Test");<a name="line.33"></a>
-<span class="sourceLineNo">034</span>    protected static final Logger classLogger<a name="line.34"></a>
-<span class="sourceLineNo">035</span>        = LoggerFactory.getLogger(LoggerCallTest.class);<a name="line.35"></a>
-<span class="sourceLineNo">036</span><a name="line.36"></a>
-<span class="sourceLineNo">037</span>    private final BundleContext context = FrameworkUtil<a name="line.37"></a>
-<span class="sourceLineNo">038</span>        .getBundle(LoggerCallTest.class).getBundleContext();<a name="line.38"></a>
-<span class="sourceLineNo">039</span><a name="line.39"></a>
-<span class="sourceLineNo">040</span>    @Test<a name="line.40"></a>
-<span class="sourceLineNo">041</span>    public void testBasicUsage() throws InterruptedException {<a name="line.41"></a>
-<span class="sourceLineNo">042</span>        AtomicBoolean gotIt = new AtomicBoolean();<a name="line.42"></a>
-<span class="sourceLineNo">043</span>        try (ServiceCollector&lt;LogReaderService,<a name="line.43"></a>
-<span class="sourceLineNo">044</span>                LogReaderService&gt; logReaderProvider<a name="line.44"></a>
-<span class="sourceLineNo">045</span>                    = new ServiceCollector&lt;&gt;(context, LogReaderService.class)) {<a name="line.45"></a>
-<span class="sourceLineNo">046</span>            logReaderProvider.open();<a name="line.46"></a>
-<span class="sourceLineNo">047</span>            LogReaderService logReader<a name="line.47"></a>
-<span class="sourceLineNo">048</span>                = logReaderProvider.waitForService(1000).get();<a name="line.48"></a>
-<span class="sourceLineNo">049</span>            CountDownLatch latch = new CountDownLatch(1);<a name="line.49"></a>
-<span class="sourceLineNo">050</span>            logReader.addLogListener(new LogListener() {<a name="line.50"></a>
-<span class="sourceLineNo">051</span>                @Override<a name="line.51"></a>
-<span class="sourceLineNo">052</span>                public void logged(LogEntry entry) {<a name="line.52"></a>
-<span class="sourceLineNo">053</span>                    if (entry.getMessage()<a name="line.53"></a>
-<span class="sourceLineNo">054</span>                        .startsWith("Calling Logger from Test.")) {<a name="line.54"></a>
-<span class="sourceLineNo">055</span>                        assertEquals("de.mnl.osgi.slf4j2osgi.test",<a name="line.55"></a>
-<span class="sourceLineNo">056</span>                            entry.getBundle().getSymbolicName());<a name="line.56"></a>
-<span class="sourceLineNo">057</span>                        gotIt.set(true);<a name="line.57"></a>
-<span class="sourceLineNo">058</span>                        latch.countDown();<a name="line.58"></a>
-<span class="sourceLineNo">059</span>                    }<a name="line.59"></a>
-<span class="sourceLineNo">060</span>                }<a name="line.60"></a>
-<span class="sourceLineNo">061</span>            });<a name="line.61"></a>
-<span class="sourceLineNo">062</span>            classLogger.info("Calling Logger from {}.", "Test");<a name="line.62"></a>
-<span class="sourceLineNo">063</span>            latch.await(1000, TimeUnit.MILLISECONDS);<a name="line.63"></a>
-<span class="sourceLineNo">064</span>            assertTrue(gotIt.get());<a name="line.64"></a>
-<span class="sourceLineNo">065</span>        }<a name="line.65"></a>
-<span class="sourceLineNo">066</span>    }<a name="line.66"></a>
-<span class="sourceLineNo">067</span><a name="line.67"></a>
-<span class="sourceLineNo">068</span>    @Test<a name="line.68"></a>
-<span class="sourceLineNo">069</span>    public void testClassUsage() throws InterruptedException {<a name="line.69"></a>
-<span class="sourceLineNo">070</span>        AtomicBoolean gotIt = new AtomicBoolean();<a name="line.70"></a>
-<span class="sourceLineNo">071</span>        try (ServiceCollector&lt;LogReaderService,<a name="line.71"></a>
-<span class="sourceLineNo">072</span>                LogReaderService&gt; logReaderProvider<a name="line.72"></a>
-<span class="sourceLineNo">073</span>                    = new ServiceCollector&lt;&gt;(context, LogReaderService.class)) {<a name="line.73"></a>
-<span class="sourceLineNo">074</span>            logReaderProvider.open();<a name="line.74"></a>
-<span class="sourceLineNo">075</span>            LogReaderService logReader<a name="line.75"></a>
-<span class="sourceLineNo">076</span>                = logReaderProvider.waitForService(1000).get();<a name="line.76"></a>
-<span class="sourceLineNo">077</span>            CountDownLatch latch = new CountDownLatch(1);<a name="line.77"></a>
-<span class="sourceLineNo">078</span>            logReader.addLogListener(new LogListener() {<a name="line.78"></a>
-<span class="sourceLineNo">079</span>                @Override<a name="line.79"></a>
-<span class="sourceLineNo">080</span>                public void logged(LogEntry entry) {<a name="line.80"></a>
-<span class="sourceLineNo">081</span>                    if (entry.getMessage()<a name="line.81"></a>
-<span class="sourceLineNo">082</span>                        .startsWith("Calling Logger from Test.")) {<a name="line.82"></a>
-<span class="sourceLineNo">083</span>                        assertEquals("de.mnl.osgi.slf4j2osgi.test",<a name="line.83"></a>
-<span class="sourceLineNo">084</span>                            entry.getBundle().getSymbolicName());<a name="line.84"></a>
-<span class="sourceLineNo">085</span>                        gotIt.set(true);<a name="line.85"></a>
-<span class="sourceLineNo">086</span>                        latch.countDown();<a name="line.86"></a>
-<span class="sourceLineNo">087</span>                    }<a name="line.87"></a>
-<span class="sourceLineNo">088</span>                }<a name="line.88"></a>
-<span class="sourceLineNo">089</span>            });<a name="line.89"></a>
-<span class="sourceLineNo">090</span>            logger.info("Calling Logger from {}.", "Test");<a name="line.90"></a>
-<span class="sourceLineNo">091</span>            latch.await(1000, TimeUnit.MILLISECONDS);<a name="line.91"></a>
-<span class="sourceLineNo">092</span>            assertTrue(gotIt.get());<a name="line.92"></a>
-<span class="sourceLineNo">093</span>        }<a name="line.93"></a>
-<span class="sourceLineNo">094</span>    }<a name="line.94"></a>
-<span class="sourceLineNo">095</span><a name="line.95"></a>
-<span class="sourceLineNo">096</span>    @Test<a name="line.96"></a>
-<span class="sourceLineNo">097</span>    public void testBuffered() throws InterruptedException, BundleException {<a name="line.97"></a>
-<span class="sourceLineNo">098</span>        Bundle osgiLoggerFactory = context.getServiceReference(<a name="line.98"></a>
-<span class="sourceLineNo">099</span>            org.osgi.service.log.LoggerFactory.class).getBundle();<a name="line.99"></a>
-<span class="sourceLineNo">100</span>        assertNotNull(osgiLoggerFactory);<a name="line.100"></a>
-<span class="sourceLineNo">101</span>        try {<a name="line.101"></a>
-<span class="sourceLineNo">102</span>            osgiLoggerFactory.stop();<a name="line.102"></a>
-<span class="sourceLineNo">103</span>            logger.info("Calling Logger {}", "Info");<a name="line.103"></a>
-<span class="sourceLineNo">104</span>            logger.warn("Calling Logger Warn");<a name="line.104"></a>
-<span class="sourceLineNo">105</span>            logger.error("Calling Logger Error", new Throwable());<a name="line.105"></a>
-<span class="sourceLineNo">106</span>            osgiLoggerFactory.start();<a name="line.106"></a>
-<span class="sourceLineNo">107</span>            try (ServiceCollector&lt;LogReaderService,<a name="line.107"></a>
-<span class="sourceLineNo">108</span>                    LogReaderService&gt; logReaderProvider<a name="line.108"></a>
-<span class="sourceLineNo">109</span>                        = new ServiceCollector&lt;&gt;(context,<a name="line.109"></a>
-<span class="sourceLineNo">110</span>                            LogReaderService.class)) {<a name="line.110"></a>
-<span class="sourceLineNo">111</span>                logReaderProvider.open();<a name="line.111"></a>
-<span class="sourceLineNo">112</span>                LogReaderService logReader<a name="line.112"></a>
-<span class="sourceLineNo">113</span>                    = logReaderProvider.waitForService(1000).get();<a name="line.113"></a>
-<span class="sourceLineNo">114</span>                CountDownLatch latch = new CountDownLatch(3);<a name="line.114"></a>
-<span class="sourceLineNo">115</span>                for (LogEntry entry : Collections.list(logReader.getLog())) {<a name="line.115"></a>
-<span class="sourceLineNo">116</span>                    if (entry.getMessage().startsWith("Calling Logger Info")<a name="line.116"></a>
-<span class="sourceLineNo">117</span>                        &amp;&amp; entry.getLogLevel() == LogLevel.INFO) {<a name="line.117"></a>
-<span class="sourceLineNo">118</span>                        latch.countDown();<a name="line.118"></a>
-<span class="sourceLineNo">119</span>                    }<a name="line.119"></a>
-<span class="sourceLineNo">120</span>                    if (entry.getMessage().startsWith("Calling Logger Warn")<a name="line.120"></a>
-<span class="sourceLineNo">121</span>                        &amp;&amp; entry.getLogLevel() == LogLevel.WARN) {<a name="line.121"></a>
-<span class="sourceLineNo">122</span>                        latch.countDown();<a name="line.122"></a>
-<span class="sourceLineNo">123</span>                    }<a name="line.123"></a>
-<span class="sourceLineNo">124</span>                    if (entry.getMessage().startsWith("Calling Logger Error")<a name="line.124"></a>
-<span class="sourceLineNo">125</span>                        &amp;&amp; entry.getLogLevel() == LogLevel.ERROR<a name="line.125"></a>
-<span class="sourceLineNo">126</span>                        &amp;&amp; entry.getException() != null) {<a name="line.126"></a>
-<span class="sourceLineNo">127</span>                        latch.countDown();<a name="line.127"></a>
-<span class="sourceLineNo">128</span>                    }<a name="line.128"></a>
-<span class="sourceLineNo">129</span>                }<a name="line.129"></a>
-<span class="sourceLineNo">130</span>                latch.await(1000, TimeUnit.MILLISECONDS);<a name="line.130"></a>
-<span class="sourceLineNo">131</span>                assertEquals(0, latch.getCount());<a name="line.131"></a>
-<span class="sourceLineNo">132</span>            }<a name="line.132"></a>
-<span class="sourceLineNo">133</span>        } finally {<a name="line.133"></a>
-<span class="sourceLineNo">134</span>            osgiLoggerFactory.start();<a name="line.134"></a>
-<span class="sourceLineNo">135</span>        }<a name="line.135"></a>
-<span class="sourceLineNo">136</span>    }<a name="line.136"></a>
-<span class="sourceLineNo">137</span><a name="line.137"></a>
-<span class="sourceLineNo">138</span>    /*<a name="line.138"></a>
-<span class="sourceLineNo">139</span>     * (Too) basic.<a name="line.139"></a>
-<span class="sourceLineNo">140</span>     */<a name="line.140"></a>
-<span class="sourceLineNo">141</span>    @Test<a name="line.141"></a>
-<span class="sourceLineNo">142</span>    public void testLoggerCache() throws InterruptedException, BundleException {<a name="line.142"></a>
-<span class="sourceLineNo">143</span>        Logger logger1 = LoggerFactory.getLogger("Test");<a name="line.143"></a>
-<span class="sourceLineNo">144</span>        Logger logger2 = LoggerFactory.getLogger("Test");<a name="line.144"></a>
-<span class="sourceLineNo">145</span>        assertTrue(logger1 == logger2);<a name="line.145"></a>
-<span class="sourceLineNo">146</span>    }<a name="line.146"></a>
-<span class="sourceLineNo">147</span>}<a name="line.147"></a>
+<pre><span class="sourceLineNo">001</span><a id="line.1">package de.mnl.osgi.slf4j2osgi.test;</a>
+<span class="sourceLineNo">002</span><a id="line.2"></a>
+<span class="sourceLineNo">003</span><a id="line.3">import de.mnl.osgi.coreutils.ServiceCollector;</a>
+<span class="sourceLineNo">004</span><a id="line.4">import java.util.Collections;</a>
+<span class="sourceLineNo">005</span><a id="line.5">import java.util.concurrent.CountDownLatch;</a>
+<span class="sourceLineNo">006</span><a id="line.6">import java.util.concurrent.TimeUnit;</a>
+<span class="sourceLineNo">007</span><a id="line.7">import java.util.concurrent.atomic.AtomicBoolean;</a>
+<span class="sourceLineNo">008</span><a id="line.8">import static org.junit.jupiter.api.Assertions.assertEquals;</a>
+<span class="sourceLineNo">009</span><a id="line.9">import static org.junit.jupiter.api.Assertions.assertNotNull;</a>
+<span class="sourceLineNo">010</span><a id="line.10">import static org.junit.jupiter.api.Assertions.assertTrue;</a>
+<span class="sourceLineNo">011</span><a id="line.11">import org.junit.jupiter.api.Test;</a>
+<span class="sourceLineNo">012</span><a id="line.12">import org.junit.jupiter.api.extension.ExtendWith;</a>
+<span class="sourceLineNo">013</span><a id="line.13">import org.mockito.junit.jupiter.MockitoExtension;</a>
+<span class="sourceLineNo">014</span><a id="line.14">import org.osgi.framework.Bundle;</a>
+<span class="sourceLineNo">015</span><a id="line.15">import org.osgi.framework.BundleContext;</a>
+<span class="sourceLineNo">016</span><a id="line.16">import org.osgi.framework.BundleException;</a>
+<span class="sourceLineNo">017</span><a id="line.17">import org.osgi.framework.FrameworkUtil;</a>
+<span class="sourceLineNo">018</span><a id="line.18">import org.osgi.service.log.LogEntry;</a>
+<span class="sourceLineNo">019</span><a id="line.19">import org.osgi.service.log.LogLevel;</a>
+<span class="sourceLineNo">020</span><a id="line.20">import org.osgi.service.log.LogListener;</a>
+<span class="sourceLineNo">021</span><a id="line.21">import org.osgi.service.log.LogReaderService;</a>
+<span class="sourceLineNo">022</span><a id="line.22">import org.slf4j.Logger;</a>
+<span class="sourceLineNo">023</span><a id="line.23">import org.slf4j.LoggerFactory;</a>
+<span class="sourceLineNo">024</span><a id="line.24"></a>
+<span class="sourceLineNo">025</span><a id="line.25">@ExtendWith(MockitoExtension.class)</a>
+<span class="sourceLineNo">026</span><a id="line.26">public class LoggerCallTest {</a>
+<span class="sourceLineNo">027</span><a id="line.27"></a>
+<span class="sourceLineNo">028</span><a id="line.28">    protected static final Logger logger</a>
+<span class="sourceLineNo">029</span><a id="line.29">        = LoggerFactory.getLogger("Logger Call Test");</a>
+<span class="sourceLineNo">030</span><a id="line.30">    protected static final Logger classLogger</a>
+<span class="sourceLineNo">031</span><a id="line.31">        = LoggerFactory.getLogger(LoggerCallTest.class);</a>
+<span class="sourceLineNo">032</span><a id="line.32"></a>
+<span class="sourceLineNo">033</span><a id="line.33">    private final BundleContext context = FrameworkUtil</a>
+<span class="sourceLineNo">034</span><a id="line.34">        .getBundle(LoggerCallTest.class).getBundleContext();</a>
+<span class="sourceLineNo">035</span><a id="line.35"></a>
+<span class="sourceLineNo">036</span><a id="line.36">    @Test</a>
+<span class="sourceLineNo">037</span><a id="line.37">    public void testBasicUsage() throws InterruptedException {</a>
+<span class="sourceLineNo">038</span><a id="line.38">        AtomicBoolean gotIt = new AtomicBoolean();</a>
+<span class="sourceLineNo">039</span><a id="line.39">        try (ServiceCollector&lt;LogReaderService,</a>
+<span class="sourceLineNo">040</span><a id="line.40">                LogReaderService&gt; logReaderProvider</a>
+<span class="sourceLineNo">041</span><a id="line.41">                    = new ServiceCollector&lt;&gt;(context, LogReaderService.class)) {</a>
+<span class="sourceLineNo">042</span><a id="line.42">            logReaderProvider.open();</a>
+<span class="sourceLineNo">043</span><a id="line.43">            LogReaderService logReader</a>
+<span class="sourceLineNo">044</span><a id="line.44">                = logReaderProvider.waitForService(1000).get();</a>
+<span class="sourceLineNo">045</span><a id="line.45">            CountDownLatch latch = new CountDownLatch(1);</a>
+<span class="sourceLineNo">046</span><a id="line.46">            logReader.addLogListener(new LogListener() {</a>
+<span class="sourceLineNo">047</span><a id="line.47">                @Override</a>
+<span class="sourceLineNo">048</span><a id="line.48">                public void logged(LogEntry entry) {</a>
+<span class="sourceLineNo">049</span><a id="line.49">                    if (entry.getMessage()</a>
+<span class="sourceLineNo">050</span><a id="line.50">                        .startsWith("Calling Logger from Test.")) {</a>
+<span class="sourceLineNo">051</span><a id="line.51">                        assertEquals("de.mnl.osgi.slf4j2osgi.test",</a>
+<span class="sourceLineNo">052</span><a id="line.52">                            entry.getBundle().getSymbolicName());</a>
+<span class="sourceLineNo">053</span><a id="line.53">                        gotIt.set(true);</a>
+<span class="sourceLineNo">054</span><a id="line.54">                        latch.countDown();</a>
+<span class="sourceLineNo">055</span><a id="line.55">                    }</a>
+<span class="sourceLineNo">056</span><a id="line.56">                }</a>
+<span class="sourceLineNo">057</span><a id="line.57">            });</a>
+<span class="sourceLineNo">058</span><a id="line.58">            classLogger.info("Calling Logger from {}.", "Test");</a>
+<span class="sourceLineNo">059</span><a id="line.59">            latch.await(1000, TimeUnit.MILLISECONDS);</a>
+<span class="sourceLineNo">060</span><a id="line.60">            assertTrue(gotIt.get());</a>
+<span class="sourceLineNo">061</span><a id="line.61">        }</a>
+<span class="sourceLineNo">062</span><a id="line.62">    }</a>
+<span class="sourceLineNo">063</span><a id="line.63"></a>
+<span class="sourceLineNo">064</span><a id="line.64">    @Test</a>
+<span class="sourceLineNo">065</span><a id="line.65">    public void testClassUsage() throws InterruptedException {</a>
+<span class="sourceLineNo">066</span><a id="line.66">        AtomicBoolean gotIt = new AtomicBoolean();</a>
+<span class="sourceLineNo">067</span><a id="line.67">        try (ServiceCollector&lt;LogReaderService,</a>
+<span class="sourceLineNo">068</span><a id="line.68">                LogReaderService&gt; logReaderProvider</a>
+<span class="sourceLineNo">069</span><a id="line.69">                    = new ServiceCollector&lt;&gt;(context, LogReaderService.class)) {</a>
+<span class="sourceLineNo">070</span><a id="line.70">            logReaderProvider.open();</a>
+<span class="sourceLineNo">071</span><a id="line.71">            LogReaderService logReader</a>
+<span class="sourceLineNo">072</span><a id="line.72">                = logReaderProvider.waitForService(1000).get();</a>
+<span class="sourceLineNo">073</span><a id="line.73">            CountDownLatch latch = new CountDownLatch(1);</a>
+<span class="sourceLineNo">074</span><a id="line.74">            logReader.addLogListener(new LogListener() {</a>
+<span class="sourceLineNo">075</span><a id="line.75">                @Override</a>
+<span class="sourceLineNo">076</span><a id="line.76">                public void logged(LogEntry entry) {</a>
+<span class="sourceLineNo">077</span><a id="line.77">                    if (entry.getMessage()</a>
+<span class="sourceLineNo">078</span><a id="line.78">                        .startsWith("Calling Logger from Test.")) {</a>
+<span class="sourceLineNo">079</span><a id="line.79">                        assertEquals("de.mnl.osgi.slf4j2osgi.test",</a>
+<span class="sourceLineNo">080</span><a id="line.80">                            entry.getBundle().getSymbolicName());</a>
+<span class="sourceLineNo">081</span><a id="line.81">                        gotIt.set(true);</a>
+<span class="sourceLineNo">082</span><a id="line.82">                        latch.countDown();</a>
+<span class="sourceLineNo">083</span><a id="line.83">                    }</a>
+<span class="sourceLineNo">084</span><a id="line.84">                }</a>
+<span class="sourceLineNo">085</span><a id="line.85">            });</a>
+<span class="sourceLineNo">086</span><a id="line.86">            logger.info("Calling Logger from {}.", "Test");</a>
+<span class="sourceLineNo">087</span><a id="line.87">            latch.await(1000, TimeUnit.MILLISECONDS);</a>
+<span class="sourceLineNo">088</span><a id="line.88">            assertTrue(gotIt.get());</a>
+<span class="sourceLineNo">089</span><a id="line.89">        }</a>
+<span class="sourceLineNo">090</span><a id="line.90">    }</a>
+<span class="sourceLineNo">091</span><a id="line.91"></a>
+<span class="sourceLineNo">092</span><a id="line.92">    @Test</a>
+<span class="sourceLineNo">093</span><a id="line.93">    public void testBuffered() throws InterruptedException, BundleException {</a>
+<span class="sourceLineNo">094</span><a id="line.94">        Bundle osgiLoggerFactory = context.getServiceReference(</a>
+<span class="sourceLineNo">095</span><a id="line.95">            org.osgi.service.log.LoggerFactory.class).getBundle();</a>
+<span class="sourceLineNo">096</span><a id="line.96">        assertNotNull(osgiLoggerFactory);</a>
+<span class="sourceLineNo">097</span><a id="line.97">        try {</a>
+<span class="sourceLineNo">098</span><a id="line.98">            osgiLoggerFactory.stop();</a>
+<span class="sourceLineNo">099</span><a id="line.99">            logger.info("Calling Logger {}", "Info");</a>
+<span class="sourceLineNo">100</span><a id="line.100">            logger.warn("Calling Logger Warn");</a>
+<span class="sourceLineNo">101</span><a id="line.101">            logger.error("Calling Logger Error", new Throwable());</a>
+<span class="sourceLineNo">102</span><a id="line.102">            osgiLoggerFactory.start();</a>
+<span class="sourceLineNo">103</span><a id="line.103">            try (ServiceCollector&lt;LogReaderService,</a>
+<span class="sourceLineNo">104</span><a id="line.104">                    LogReaderService&gt; logReaderProvider</a>
+<span class="sourceLineNo">105</span><a id="line.105">                        = new ServiceCollector&lt;&gt;(context,</a>
+<span class="sourceLineNo">106</span><a id="line.106">                            LogReaderService.class)) {</a>
+<span class="sourceLineNo">107</span><a id="line.107">                logReaderProvider.open();</a>
+<span class="sourceLineNo">108</span><a id="line.108">                LogReaderService logReader</a>
+<span class="sourceLineNo">109</span><a id="line.109">                    = logReaderProvider.waitForService(1000).get();</a>
+<span class="sourceLineNo">110</span><a id="line.110">                CountDownLatch latch = new CountDownLatch(3);</a>
+<span class="sourceLineNo">111</span><a id="line.111">                for (LogEntry entry : Collections.list(logReader.getLog())) {</a>
+<span class="sourceLineNo">112</span><a id="line.112">                    if (entry.getMessage().startsWith("Calling Logger Info")</a>
+<span class="sourceLineNo">113</span><a id="line.113">                        &amp;&amp; entry.getLogLevel() == LogLevel.INFO) {</a>
+<span class="sourceLineNo">114</span><a id="line.114">                        latch.countDown();</a>
+<span class="sourceLineNo">115</span><a id="line.115">                    }</a>
+<span class="sourceLineNo">116</span><a id="line.116">                    if (entry.getMessage().startsWith("Calling Logger Warn")</a>
+<span class="sourceLineNo">117</span><a id="line.117">                        &amp;&amp; entry.getLogLevel() == LogLevel.WARN) {</a>
+<span class="sourceLineNo">118</span><a id="line.118">                        latch.countDown();</a>
+<span class="sourceLineNo">119</span><a id="line.119">                    }</a>
+<span class="sourceLineNo">120</span><a id="line.120">                    if (entry.getMessage().startsWith("Calling Logger Error")</a>
+<span class="sourceLineNo">121</span><a id="line.121">                        &amp;&amp; entry.getLogLevel() == LogLevel.ERROR</a>
+<span class="sourceLineNo">122</span><a id="line.122">                        &amp;&amp; entry.getException() != null) {</a>
+<span class="sourceLineNo">123</span><a id="line.123">                        latch.countDown();</a>
+<span class="sourceLineNo">124</span><a id="line.124">                    }</a>
+<span class="sourceLineNo">125</span><a id="line.125">                }</a>
+<span class="sourceLineNo">126</span><a id="line.126">                latch.await(1000, TimeUnit.MILLISECONDS);</a>
+<span class="sourceLineNo">127</span><a id="line.127">                assertEquals(0, latch.getCount());</a>
+<span class="sourceLineNo">128</span><a id="line.128">            }</a>
+<span class="sourceLineNo">129</span><a id="line.129">        } finally {</a>
+<span class="sourceLineNo">130</span><a id="line.130">            osgiLoggerFactory.start();</a>
+<span class="sourceLineNo">131</span><a id="line.131">        }</a>
+<span class="sourceLineNo">132</span><a id="line.132">    }</a>
+<span class="sourceLineNo">133</span><a id="line.133"></a>
+<span class="sourceLineNo">134</span><a id="line.134">    /*</a>
+<span class="sourceLineNo">135</span><a id="line.135">     * (Too) basic.</a>
+<span class="sourceLineNo">136</span><a id="line.136">     */</a>
+<span class="sourceLineNo">137</span><a id="line.137">    @Test</a>
+<span class="sourceLineNo">138</span><a id="line.138">    public void testLoggerCache() throws InterruptedException, BundleException {</a>
+<span class="sourceLineNo">139</span><a id="line.139">        Logger logger1 = LoggerFactory.getLogger("Test");</a>
+<span class="sourceLineNo">140</span><a id="line.140">        Logger logger2 = LoggerFactory.getLogger("Test");</a>
+<span class="sourceLineNo">141</span><a id="line.141">        assertTrue(logger1 == logger2);</a>
+<span class="sourceLineNo">142</span><a id="line.142">    }</a>
+<span class="sourceLineNo">143</span><a id="line.143">}</a>
 
 
 
@@ -215,5 +212,6 @@
 
 </pre>
 </div>
+</main>
 </body>
 </html>
