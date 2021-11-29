@@ -1,7 +1,7 @@
 # Configure Repositories
 -plugin.1.IndexedMaven: \
     de.mnl.osgi.bnd.repository.maven.provider.IndexedMavenRepositoryProvider; \
-        path:="${workspace}/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-3.0.2.jar,\
+        path:="${workspace}/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-4.0.0.jar,\
             ${workspace}/cnf/plugins/biz.aQute.repository-6.0.0.jar"; \
         name=IndexedMaven; \
         location=cnf/indexed-maven; \
