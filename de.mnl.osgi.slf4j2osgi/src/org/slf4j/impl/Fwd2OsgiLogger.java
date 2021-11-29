@@ -19,7 +19,6 @@ package org.slf4j.impl;
 import de.mnl.osgi.lf4osgi.core.LoggerFacade;
 import de.mnl.osgi.lf4osgi.core.LoggerFacadeManager;
 import de.mnl.osgi.lf4osgi.core.LoggerGroup;
-
 import org.osgi.service.log.LoggerFactory;
 import org.slf4j.helpers.MarkerIgnoringBase;
 

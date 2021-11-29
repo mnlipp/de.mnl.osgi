@@ -18,7 +18,6 @@ package org.slf4j.impl;
 
 import de.mnl.osgi.lf4osgi.core.DefaultLoggerGroup;
 import de.mnl.osgi.lf4osgi.core.LoggerCatalogue;
-
 import org.osgi.framework.Bundle;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
