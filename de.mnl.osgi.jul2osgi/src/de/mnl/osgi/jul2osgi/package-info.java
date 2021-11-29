@@ -23,7 +23,7 @@
  * <a href="https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.jul2osgi%22" target="_blank">
  *   <img alt="Maven Central" src="https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.jul2osgi.svg"></a>
  * 
- * <h3>Installation</h3>
+ * <h2>Installation</h2>
  * 
  * This bundle (the main bundle) works together with the 
  * bundle {@code de.mnl.osgi.jul2osgi.lib} (the library bundle), 
@@ -46,7 +46,7 @@
  * <P>
  * The main bundle is deployed as any other OSGi bundle
  * 
- * <h4>bnd launcher before 4.3.0</h4>
+ * <h3>bnd launcher before 4.3.0</h3>
  * 
  * The library bundle can be put on the framework
  * classpath with the {@code -runpath} instruction 
@@ -57,7 +57,7 @@
  * <pre> -runpath: de.mnl.osgi.jul2osgi.lib;version='latest'
  * -runvm: -Djava.util.logging.manager=de.mnl.osgi.jul2osgi.lib.LogManager</pre>
  * 
- * <h4>bnd launcher starting with 4.3.0</h4>
+ * <h3>bnd launcher starting with 4.3.0</h3>
  * 
  * With 4.3.0 the handling of the {@code -runpath} instruction 
  * <a href="https://groups.google.com/forum/#!topic/bndtools-users/-GkCoepqbTk">has 
@@ -71,7 +71,7 @@
  * -runsystempackages: \
  *   de.mnl.osgi.jul2osgi.lib; version=1.4.2</pre>
  * 
- * <h3>Forwarding functionality</h3>
+ * <h2>Forwarding functionality</h2>
  * 
  * When the main bundle is started, it first requests an OSGI log service 
  * from the framework. When this service becomes available, the forwarder 
@@ -143,7 +143,7 @@
  * In order to e.g. add the source class name and method
  * to the log message the pattern "<code>{3}.{4}: {0}</code>" could be used.
  * 
- * <h3>Filtering</h3>
+ * <h2>Filtering</h2>
  * 
  * Calls to the JUL {@code Logger} are filtered before further processing
  * according to the result from (JUL)
@@ -168,12 +168,13 @@
  * level for bundles using JUL should thus best be set to 
  * {@link org.osgi.service.log.LogLevel#TRACE} (see bundle property below).
  * 
- * <h3>Bundle properties</h3>
+ * <h2>Bundle properties</h2>
  * 
  * The following bundle properties are used to configure the described 
  * behavior.
  * 
- * <table summary="Bundle parameters">
+ * <table>
+ *   <caption>Bundle parameters</caption>
  *   <thead>
  *     <tr>
  *       <th>Property</th><th>Description</th><th>Default</th>

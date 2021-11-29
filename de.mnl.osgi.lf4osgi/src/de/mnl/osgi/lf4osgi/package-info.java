@@ -23,11 +23,11 @@
  * <a href="https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.lf4osgi%22" target="_blank">
  *   <img alt="Maven Central" src="https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.lf4osgi.svg"></a>
  * 
- * <h3>Installation</h3>
+ * <h2>Installation</h2>
  * 
  * The bundle is deployed as any other OSGi bundle
  * 
- * <h3>Facade functionality</h3>
+ * <h2>Facade functionality</h2>
  * 
  * The OSGi Log Service has improved a lot with 
  * <a href="https://osgi.org/specification/osgi.cmpn/7.0.0/service.log.html">Version 1.4</a>.
@@ -66,7 +66,7 @@
  * are recorded. This default threshold can be changed using system 
  * settings or bundle properties (see below).
  * 
- * <h3>Additional log methods</h3>
+ * <h2>Additional log methods</h2>
  * 
  * The loggers returned by the {@link de.mnl.osgi.lf4osgi.LoggerFactory}
  * actually implement a subinterface of the OSGi 
@@ -89,12 +89,13 @@
  * to generate your log message. As long as the log level is below 
  * the threshold, nothing is evaluated and no performance is lost.
  * 
- * <h3>Bundle properties</h3>
+ * <h2>Bundle properties</h2>
  * 
  * The following bundle properties are used to configure the described 
  * behavior.
  * 
- * <table summary="Bundle parameters">
+ * <table>
+ *   <caption>Bundle parameters</caption>
  *   <thead>
  *     <tr>
  *       <th>Property</th><th>Description</th><th>Default</th>

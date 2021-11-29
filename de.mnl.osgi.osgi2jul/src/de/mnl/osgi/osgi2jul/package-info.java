@@ -23,11 +23,11 @@
  * <a href="https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22de.mnl.osgi.osgi2jul%22" target="_blank">
  *   <img alt="Maven Central" src="https://img.shields.io/maven-central/v/de.mnl.osgi/de.mnl.osgi.osgi2jul.svg"></a>
  * 
- * <h3>Installation</h3>
+ * <h2>Installation</h2>
  * 
  * The bundle is deployed as any other OSGi bundle
  * 
- * <h3>Forwarding functionality</h3>
+ * <h2>Forwarding functionality</h2>
  * 
  * The bundle installs a {@link org.osgi.service.log.LogListener}
  * on every discovered {@link org.osgi.service.log.LogService}.
@@ -54,7 +54,7 @@
  * In order to e.g. add the bundle name to the message, the
  * format pattern "<code>{0} [{2}]</code>" could be used.
  * 
- * <h3>Bundle properties</h3>
+ * <h2>Bundle properties</h2>
  * 
  * The following bundle properties configure the described 
  * behavior.
