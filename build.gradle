@@ -8,6 +8,7 @@ buildscript {
 }
 
 plugins {
+	id "org.ajoberstar.grgit" version "4.1.1-rc.4"
 	id 'org.ajoberstar.git-publish' version '3.0.0'
 	id "com.jfrog.bintray" version "1.8.4"
 //	id "com.jfrog.artifactory" version "4.9.0"
