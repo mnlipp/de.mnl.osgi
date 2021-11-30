@@ -51,3 +51,30 @@ publishing {
 
 // Additional configuration of publishing
 apply plugin: ConfigurePublishing
+
+jar {
+    into("META-INF/maven/$project.group/$project.name") {
+        from generatePomFileForMavenPublication
+        rename ".*", "pom.xml"
+    }
+}
+
+task releaseTag {
+    doLast {
+        String name = project.name.startsWith(project.group + ".") ?
+            project.name.substring(project.group.length() + 1) : project.name
+        name = name.replace('.', '-')
+        String tag = name + "-" + project.version
+        grgit.tag.add(name: tag, message: "Released.")
+        grgit.push(refsOrSpecs: [tag])
+    }
+}
+
+build.mustRunAfter "releaseTag"
+
+task releaseToOss {
+    group = "publishing"
+    
+    dependsOn "releaseTag"
+    dependsOn "publishMavenPublicationToReleaseRepository"
+}
