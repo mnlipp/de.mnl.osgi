@@ -33,12 +33,12 @@ class ConfigurePublishing implements Plugin<Project> {
 						pom.withXml {
 							// Generate map of resolved versions
 							Map resolvedVersionMap = [:]
-							Set<ResolvedArtifact> resolvedArtifacts = project.configurations.compile.getResolvedConfiguration().getResolvedArtifacts()
+							Set<ResolvedArtifact> resolvedArtifacts = project.configurations.compileClasspath.getResolvedConfiguration().getResolvedArtifacts()
 							resolvedArtifacts.each {
 								ModuleVersionIdentifier mvi = it.getModuleVersion().getId();
 								resolvedVersionMap.put("${mvi.getGroup()}:${mvi.getName()}", mvi.getVersion())
 							}
-							Set<ResolvedArtifact> testResolved = project.configurations.testCompile.getResolvedConfiguration().getResolvedArtifacts()
+							Set<ResolvedArtifact> testResolved = project.configurations.testCompileClasspath.getResolvedConfiguration().getResolvedArtifacts()
 							testResolved.each {
 								ModuleVersionIdentifier mvi = it.getModuleVersion().getId();
 								resolvedVersionMap.put("${mvi.getGroup()}:${mvi.getName()}", mvi.getVersion())
@@ -94,7 +94,7 @@ class ConfigurePublishing implements Plugin<Project> {
 		// Already known dependencies
 		def knownDependencies = collectKnownDependencies(pomRoot)
 		// Extract maven coordinates from all jars in the compile classpath...
-		project.configurations.compile.each {
+		project.configurations.compileClasspath.each {
 			def jarFile = it
 			def jarFiles = null
 			try {
