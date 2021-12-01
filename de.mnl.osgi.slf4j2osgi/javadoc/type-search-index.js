@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.slf4j.impl","l":"Fwd2OsgiLogger"},{"p":"org.slf4j.impl","l":"Fwd2OsgiLoggerFactory"},{"p":"org.slf4j.impl","l":"StaticLoggerBinder"},{"p":"org.slf4j.impl","l":"StaticMarkerBinder"},{"p":"org.slf4j.impl","l":"StaticMDCBinder"}]
