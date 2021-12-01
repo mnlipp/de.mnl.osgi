@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1636929429946">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1638361772602">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="de.mnl.osgi.lf4osgi"/>
@@ -257,73 +257,37 @@
   </resource>
   <resource>
     <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.coreutils"/>
-      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="osgi.identity" value="de.mnl.osgi.log4j2osgi"/>
+      <attribute name="type" value="osgi.fragment"/>
       <attribute name="version" value="1.0.0.ga" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.osgi.framework"/>
+      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.framework,org.osgi.service.log"/>
       <attribute name="version" value="1.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.coreutils"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.0.0.ga" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="de.mnl.osgi.coreutils"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.0.0.ga" type="Version"/>
-      <attribute name="osgi.wiring.host" value="de.mnl.osgi.coreutils"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.log4j2osgi"/>
     </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.coreutils:1.0.0"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.coreutils:1.0.0"/>
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.log4j2osgi:1.0.0"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.log4j2osgi:1.0.0"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="25391" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.coreutils/1.0.0/de.mnl.osgi.coreutils-1.0.0.jar"/>
+      <attribute name="size" value="13725" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.log4j2osgi/1.0.0/de.mnl.osgi.log4j2osgi-1.0.0.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="6D6DFA369FA0CBC0848C1F6B117FC8C7B25959F65A6C7D5F20272F84D595BD13"/>
+      <attribute name="osgi.content" value="BEA60841CF0D544C36B954B43332B9ABD1694B52A434D059F36D6EC0F2C09FA0"/>
     </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.0.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
     </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.coreutils"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="1.0.1.ga" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.osgi.framework"/>
-      <attribute name="version" value="1.0.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.osgi.coreutils"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.0.1.ga" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="de.mnl.osgi.coreutils"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.0.1.ga" type="Version"/>
-      <attribute name="osgi.wiring.host" value="de.mnl.osgi.coreutils"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.coreutils:1.0.1"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.coreutils:1.0.1"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="25769" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.coreutils/1.0.1/de.mnl.osgi.coreutils-1.0.1.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="6ADC76C918579A0656FE15D99CADDAD8614F615E286430C9F07FD8210526B37F"/>
-    </capability>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(osgi.wiring.host=org.apache.logging.log4j.api)"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
@@ -365,6 +329,43 @@
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
       <attribute name="osgi.wiring.package" value="org.osgi.framework"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="de.mnl.osgi.coreutils"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.0.0.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.osgi.framework"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.coreutils"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.0.ga" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="de.mnl.osgi.coreutils"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.0.ga" type="Version"/>
+      <attribute name="osgi.wiring.host" value="de.mnl.osgi.coreutils"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.coreutils:1.0.0"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.coreutils:1.0.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="25391" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.coreutils/1.0.0/de.mnl.osgi.coreutils-1.0.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="6D6DFA369FA0CBC0848C1F6B117FC8C7B25959F65A6C7D5F20272F84D595BD13"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
@@ -419,6 +420,43 @@
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=1.5.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="de.mnl.osgi.coreutils"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.0.1.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.osgi.framework"/>
+      <attribute name="version" value="1.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.coreutils"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="de.mnl.osgi.coreutils"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.host" value="de.mnl.osgi.coreutils"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.coreutils:1.0.1"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.coreutils:1.0.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="25769" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.coreutils/1.0.1/de.mnl.osgi.coreutils-1.0.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="6ADC76C918579A0656FE15D99CADDAD8614F615E286430C9F07FD8210526B37F"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
@@ -571,40 +609,59 @@
   </resource>
   <resource>
     <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.log4j2osgi"/>
-      <attribute name="type" value="osgi.fragment"/>
-      <attribute name="version" value="1.0.0.ga" type="Version"/>
+      <attribute name="osgi.identity" value="de.mnl.osgi.coreutils"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.0.4.ga" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.framework,org.osgi.service.log"/>
-      <attribute name="version" value="1.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.osgi.log4j2osgi"/>
+      <directive name="uses" value="org.osgi.framework"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.coreutils"/>
+      <attribute name="bundle-version" value="1.0.4.ga" type="Version"/>
+      <attribute name="version" value="1.0.4" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.coreutils"/>
+      <attribute name="bnd.hashes" value="537011576,-107669061" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.4.ga" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="de.mnl.osgi.coreutils"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.4.ga" type="Version"/>
+      <attribute name="osgi.wiring.host" value="de.mnl.osgi.coreutils"/>
     </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.log4j2osgi:1.0.0"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.log4j2osgi:1.0.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="name" value="de.mnl.osgi.coreutils"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.coreutils:1.0.4"/>
+      <attribute name="version" value="1.0.4.ga" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="13725" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.log4j2osgi/1.0.0/de.mnl.osgi.log4j2osgi-1.0.0.jar"/>
+      <attribute name="size" value="26988" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.coreutils/1.0.4/de.mnl.osgi.coreutils-1.0.4.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="BEA60841CF0D544C36B954B43332B9ABD1694B52A434D059F36D6EC0F2C09FA0"/>
+      <attribute name="osgi.content" value="58C64D438D3E7548F8A6AB1A15ED2D61916FD6A315C757AA5554FF3618B5725A"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.0.0)(!(version&gt;=3.0.0))))"/>
+      <directive name="filter" value="(osgi.wiring.package=java.lang)"/>
+      <attribute name="osgi.wiring.package" value="java.lang"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="filter" value="(osgi.wiring.package=java.lang.invoke)"/>
+      <attribute name="osgi.wiring.package" value="java.lang.invoke"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+      <directive name="filter" value="(osgi.wiring.package=java.util)"/>
+      <attribute name="osgi.wiring.package" value="java.util"/>
     </requirement>
-    <requirement namespace="osgi.wiring.host">
-      <directive name="filter" value="(osgi.wiring.host=org.apache.logging.log4j.api)"/>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.function)"/>
+      <attribute name="osgi.wiring.package" value="java.util.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.osgi.framework"/>
     </requirement>
     <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=11))"/>
     </requirement>
   </resource>
   <resource>
@@ -780,328 +837,6 @@
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
-      <attribute name="type" value="osgi.fragment"/>
-      <attribute name="version" value="1.0.0.ga" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.lf4osgi.provider,org.osgi.service.log"/>
-      <attribute name="version" value="1.7.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.coreutils,org.osgi.framework,org.osgi.service.log"/>
-      <attribute name="version" value="1.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.osgi.lf4osgi.provider"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.lf4osgi.provider,org.osgi.framework,org.osgi.service.log"/>
-      <attribute name="version" value="1.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.osgi.lf4osgi"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.osgi.slf4j2osgi"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:1.0.0"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:1.0.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="47688" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/1.0.0/de.mnl.osgi.slf4j2osgi-1.0.0.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="A965108E70AD859CF777905440DA4D8F49C8A6DB8E00D3547E0CB55A5383836B"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.coreutils)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.provider)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=1.5.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.host">
-      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
-    </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
-      <attribute name="type" value="osgi.fragment"/>
-      <attribute name="version" value="1.1.0.ga" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.lf4osgi.provider,org.osgi.service.log"/>
-      <attribute name="version" value="1.7.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.coreutils,org.osgi.framework,org.osgi.service.log"/>
-      <attribute name="version" value="1.1.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.osgi.lf4osgi.provider"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.lf4osgi.provider,org.osgi.framework,org.osgi.service.log"/>
-      <attribute name="version" value="1.1.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.osgi.lf4osgi"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.1.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.osgi.slf4j2osgi"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:1.1.0"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:1.1.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="50715" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/1.1.0/de.mnl.osgi.slf4j2osgi-1.1.0.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="CCB155C5A6C5A5997AC137A431F9DE3541B32B5B73C5C0631E69C062F69BCA49"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.coreutils)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.provider)(&amp;(version&gt;=1.1.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=1.5.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.host">
-      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
-    </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
-      <attribute name="type" value="osgi.fragment"/>
-      <attribute name="version" value="2.0.0.ga" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.service.log"/>
-      <attribute name="version" value="1.7.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.framework,org.osgi.service.log"/>
-      <attribute name="version" value="2.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.osgi.lf4osgi"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.osgi.lf4osgi.provider"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="2.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.osgi.slf4j2osgi"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.0.0"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.0.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="26412" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/2.0.0/de.mnl.osgi.slf4j2osgi-2.0.0.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="DA4319164054251D1B3C133F5F1F67BC965D1053F050FFEA1D9F9214816EB422"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.0.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=1.5.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.host">
-      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
-    </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
-      <attribute name="type" value="osgi.fragment"/>
-      <attribute name="version" value="2.1.0.ga" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.service.log"/>
-      <attribute name="version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.0"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="14494" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/2.1.0/de.mnl.osgi.slf4j2osgi-2.1.0.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="D8AC1939C330D0CF00CB33E449676A77DDC26E83CA091A6CF4083795995692D2"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.host">
-      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
-    </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
-      <attribute name="type" value="osgi.fragment"/>
-      <attribute name="version" value="2.1.1.ga" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.service.log"/>
-      <attribute name="version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.1"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.1"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="de.mnl.osgi:de.mnl.osgi.lf4osgi:2.1.1.ga;de.mnl.osgi:de.mnl.osgi.coreutils:1.0.2.ga;org.osgi:org.osgi.service.log:1.4.0;org.slf4j:slf4j-api:1.7.0"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="16116" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/2.1.1/de.mnl.osgi.slf4j2osgi-2.1.1.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="FAB28E51FCCA8A152458CF7B9D1DA04373DD031A208FD932978803ACAF0F61E9"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.host">
-      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
-    </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
-      <attribute name="type" value="osgi.fragment"/>
-      <attribute name="version" value="2.1.2.ga" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.service.log"/>
-      <attribute name="version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.2"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.2"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="de.mnl.osgi:de.mnl.osgi.coreutils:1.0.3;org.slf4j:slf4j-api:1.7.0;org.osgi:org.osgi.service.log:1.4.0;de.mnl.osgi:de.mnl.osgi.lf4osgi:2.1.2"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="16103" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/2.1.2/de.mnl.osgi.slf4j2osgi-2.1.2.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="254EB6E7FC8BB2FF6E81074F2E2DFE71750AFE86CFFC7D2484DAECBCC854DC21"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.host">
-      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
-    </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
-      <attribute name="type" value="osgi.fragment"/>
-      <attribute name="version" value="2.1.3.ga" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.service.log"/>
-      <attribute name="version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.3"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.3"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.osgi:org.osgi.service.log:1.4.0;org.slf4j:slf4j-api:1.7.0;de.mnl.osgi:de.mnl.osgi.lf4osgi:2.1.3;de.mnl.osgi:de.mnl.osgi.coreutils:1.0.3"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="16108" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/2.1.3/de.mnl.osgi.slf4j2osgi-2.1.3.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="D898E2139E238C6A7CB7BB2AB820D45B8C2AD41E5C0E0AA906E4ED1E04979BCA"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.host">
-      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
@@ -1442,6 +1177,53 @@
   </resource>
   <resource>
     <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="de.mnl.osgi.jul2osgi"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.4.2.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.4.2.ga" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="de.mnl.osgi.jul2osgi"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.4.2.ga" type="Version"/>
+      <attribute name="osgi.wiring.host" value="de.mnl.osgi.jul2osgi"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.jul2osgi:1.4.2"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.jul2osgi:1.4.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="de.mnl.osgi:de.mnl.osgi.jul2osgi.lib:1.4.1.-201903261207-SNAPSHOT;de.mnl.osgi:de.mnl.osgi.coreutils:1.0.2.ga;org.osgi:org.osgi.service.log:1.4.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="16319" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.jul2osgi/1.4.2/de.mnl.osgi.jul2osgi-1.4.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="FBB782A1A3B85305E9666AC551EF3B3E53DB59B1A575E4E7E523A4E5A15A42DB"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.coreutils)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.jul2osgi.lib)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log.admin)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="de.mnl.osgi.jul2osgi.lib"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="1.3.0.ga" type="Version"/>
@@ -1510,39 +1292,6 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="de.mnl.osgi.jul2osgi.lib"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="1.4.0.ga" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.4.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="de.mnl.osgi.jul2osgi.lib"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.4.0.ga" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="de.mnl.osgi.jul2osgi.lib"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.4.0.ga" type="Version"/>
-      <attribute name="osgi.wiring.host" value="de.mnl.osgi.jul2osgi.lib"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.jul2osgi.lib:1.4.0"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.jul2osgi.lib:1.4.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="13408" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.jul2osgi.lib/1.4.0/de.mnl.osgi.jul2osgi.lib-1.4.0.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="8E06EFD539897697DB6C9EC8F13E81F739A9E064B0BDA67307A83B5C553A3F3C"/>
-    </capability>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.jul2osgi.lib"/>
-      <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="1.4.2.ga" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
@@ -1568,53 +1317,6 @@
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="C742BBABD5615EB26F5A6007D22D7065D8F4B2080E762956BB901890AE7A1262"/>
     </capability>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.jul2osgi"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="1.4.2.ga" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.4.2.ga" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="de.mnl.osgi.jul2osgi"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.4.2.ga" type="Version"/>
-      <attribute name="osgi.wiring.host" value="de.mnl.osgi.jul2osgi"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.jul2osgi:1.4.2"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.jul2osgi:1.4.2"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="de.mnl.osgi:de.mnl.osgi.jul2osgi.lib:1.4.1.-201903261207-SNAPSHOT;de.mnl.osgi:de.mnl.osgi.coreutils:1.0.2.ga;org.osgi:org.osgi.service.log:1.4.0"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="16319" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.jul2osgi/1.4.2/de.mnl.osgi.jul2osgi-1.4.2.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="FBB782A1A3B85305E9666AC551EF3B3E53DB59B1A575E4E7E523A4E5A15A42DB"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.coreutils)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.jul2osgi.lib)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log.admin)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
     </requirement>
@@ -1668,41 +1370,33 @@
   </resource>
   <resource>
     <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
-      <attribute name="type" value="osgi.fragment"/>
-      <attribute name="version" value="2.1.4.ga" type="Version"/>
+      <attribute name="osgi.identity" value="de.mnl.osgi.jul2osgi.lib"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.4.0.ga" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.service.log"/>
-      <attribute name="version" value="1.6.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.jul2osgi.lib"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.4.0.ga" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="de.mnl.osgi.jul2osgi.lib"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.4.0.ga" type="Version"/>
+      <attribute name="osgi.wiring.host" value="de.mnl.osgi.jul2osgi.lib"/>
     </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.4"/>
-      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.4"/>
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.jul2osgi.lib:1.4.0"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.jul2osgi.lib:1.4.0"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.osgi:org.osgi.service.log:1.4.0;de.mnl.osgi:de.mnl.osgi.lf4osgi:2.1.3;org.slf4j:slf4j-api:[1.7.0,1.8.0);de.mnl.osgi:de.mnl.osgi.coreutils:1.0.3"/>
-    </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="16102" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/2.1.4/de.mnl.osgi.slf4j2osgi-2.1.4.jar"/>
+      <attribute name="size" value="13408" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.jul2osgi.lib/1.4.0/de.mnl.osgi.jul2osgi.lib-1.4.0.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="4BE0B3592792030D220C08378C0B88A68CE5EB5827DC3CC4D4DE6D3752A3B691"/>
+      <attribute name="osgi.content" value="8E06EFD539897697DB6C9EC8F13E81F739A9E064B0BDA67307A83B5C553A3F3C"/>
     </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.host">
-      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
-    </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
     </requirement>
@@ -1895,6 +1589,369 @@
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
+      <attribute name="type" value="osgi.fragment"/>
+      <attribute name="version" value="1.0.0.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.lf4osgi.provider,org.osgi.service.log"/>
+      <attribute name="version" value="1.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.coreutils,org.osgi.framework,org.osgi.service.log"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.lf4osgi.provider"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.lf4osgi.provider,org.osgi.framework,org.osgi.service.log"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.lf4osgi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.slf4j2osgi"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:1.0.0"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:1.0.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="47688" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/1.0.0/de.mnl.osgi.slf4j2osgi-1.0.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="A965108E70AD859CF777905440DA4D8F49C8A6DB8E00D3547E0CB55A5383836B"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.coreutils)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.provider)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=1.5.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
+      <attribute name="type" value="osgi.fragment"/>
+      <attribute name="version" value="1.1.0.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.lf4osgi.provider,org.osgi.service.log"/>
+      <attribute name="version" value="1.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.coreutils,org.osgi.framework,org.osgi.service.log"/>
+      <attribute name="version" value="1.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.lf4osgi.provider"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.lf4osgi.provider,org.osgi.framework,org.osgi.service.log"/>
+      <attribute name="version" value="1.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.lf4osgi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.1.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.slf4j2osgi"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:1.1.0"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:1.1.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="50715" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/1.1.0/de.mnl.osgi.slf4j2osgi-1.1.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="CCB155C5A6C5A5997AC137A431F9DE3541B32B5B73C5C0631E69C062F69BCA49"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.coreutils)(&amp;(version&gt;=1.0.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.provider)(&amp;(version&gt;=1.1.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=1.5.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
+      <attribute name="type" value="osgi.fragment"/>
+      <attribute name="version" value="2.0.0.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.service.log"/>
+      <attribute name="version" value="1.7.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.framework,org.osgi.service.log"/>
+      <attribute name="version" value="2.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.lf4osgi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.lf4osgi.provider"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.slf4j2osgi"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.0.0"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.0.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="26412" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/2.0.0/de.mnl.osgi.slf4j2osgi-2.0.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="DA4319164054251D1B3C133F5F1F67BC965D1053F050FFEA1D9F9214816EB422"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.0.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=1.5.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
+      <attribute name="type" value="osgi.fragment"/>
+      <attribute name="version" value="2.1.0.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.service.log"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.0"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="14494" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/2.1.0/de.mnl.osgi.slf4j2osgi-2.1.0.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="D8AC1939C330D0CF00CB33E449676A77DDC26E83CA091A6CF4083795995692D2"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
+      <attribute name="type" value="osgi.fragment"/>
+      <attribute name="version" value="2.1.1.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.service.log"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.1"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="de.mnl.osgi:de.mnl.osgi.lf4osgi:2.1.1.ga;de.mnl.osgi:de.mnl.osgi.coreutils:1.0.2.ga;org.osgi:org.osgi.service.log:1.4.0;org.slf4j:slf4j-api:1.7.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="16116" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/2.1.1/de.mnl.osgi.slf4j2osgi-2.1.1.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="FAB28E51FCCA8A152458CF7B9D1DA04373DD031A208FD932978803ACAF0F61E9"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
+      <attribute name="type" value="osgi.fragment"/>
+      <attribute name="version" value="2.1.2.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.service.log"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.2"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.2"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="de.mnl.osgi:de.mnl.osgi.coreutils:1.0.3;org.slf4j:slf4j-api:1.7.0;org.osgi:org.osgi.service.log:1.4.0;de.mnl.osgi:de.mnl.osgi.lf4osgi:2.1.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="16103" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/2.1.2/de.mnl.osgi.slf4j2osgi-2.1.2.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="254EB6E7FC8BB2FF6E81074F2E2DFE71750AFE86CFFC7D2484DAECBCC854DC21"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
+      <attribute name="type" value="osgi.fragment"/>
+      <attribute name="version" value="2.1.3.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.service.log"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.3"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.3"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.osgi:org.osgi.service.log:1.4.0;org.slf4j:slf4j-api:1.7.0;de.mnl.osgi:de.mnl.osgi.lf4osgi:2.1.3;de.mnl.osgi:de.mnl.osgi.coreutils:1.0.3"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="16108" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/2.1.3/de.mnl.osgi.slf4j2osgi-2.1.3.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="D898E2139E238C6A7CB7BB2AB820D45B8C2AD41E5C0E0AA906E4ED1E04979BCA"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="de.mnl.osgi.slf4j2osgi"/>
+      <attribute name="type" value="osgi.fragment"/>
+      <attribute name="version" value="2.1.4.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="de.mnl.osgi.lf4osgi.core,org.osgi.service.log"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.4"/>
+      <attribute name="from" value="de.mnl.osgi:de.mnl.osgi.slf4j2osgi:2.1.4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.osgi:org.osgi.service.log:1.4.0;de.mnl.osgi:de.mnl.osgi.lf4osgi:2.1.3;org.slf4j:slf4j-api:[1.7.0,1.8.0);de.mnl.osgi:de.mnl.osgi.coreutils:1.0.3"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="16102" type="Long"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/de/mnl/osgi/de.mnl.osgi.slf4j2osgi/2.1.4/de.mnl.osgi.slf4j2osgi-2.1.4.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="4BE0B3592792030D220C08378C0B88A68CE5EB5827DC3CC4D4DE6D3752A3B691"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=de.mnl.osgi.lf4osgi.core)(&amp;(version&gt;=2.1.0)(!(version&gt;=3.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(&amp;(version&gt;=1.8.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(osgi.wiring.host=slf4j.api)"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
