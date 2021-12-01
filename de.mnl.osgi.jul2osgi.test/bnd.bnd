@@ -26,6 +26,8 @@ Private-Package: de.mnl.osgi.jul2osgi.test
 	bnd.identity;id='org.mockito.junit-jupiter',\
 	bnd.identity;id='de.mnl.osgi.osgi2jul',\
 	osgi.service;filter:="(objectClass=org.osgi.service.log.LogReaderService)"
+-runsystemcapabilities: \
+	bnd.identity;id='de.mnl.osgi.jul2osgi.lib';version=1.5.0
 
 # Let the resolver create this.
 -runbundles: \
@@ -57,7 +59,7 @@ Private-Package: de.mnl.osgi.jul2osgi.test
 -runvm: -ea, -Xbootclasspath/a:${repo;de.mnl.osgi.jul2osgi.lib;snapshot}, \
 	-Djava.util.logging.manager=de.mnl.osgi.jul2osgi.lib.LogManager
 -runsystempackages: \
-	de.mnl.osgi.jul2osgi.lib;version=2.0.0
+	de.mnl.osgi.jul2osgi.lib;version=1.5.0
 
 -runproperties: \
 	de.mnl.osgi.jul2osgi.adaptOSGiLevel=true, \
