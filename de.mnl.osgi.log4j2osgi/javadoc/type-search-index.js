@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"de.mnl.osgi.log4j2osgi","l":"Activator"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"de.mnl.osgi.log4j2osgi","l":"OsgiLogger"},{"p":"de.mnl.osgi.log4j2osgi","l":"OsgiLoggerContext"},{"p":"de.mnl.osgi.log4j2osgi","l":"OsgiLoggerContextFactory"},{"p":"de.mnl.osgi.log4j2osgi","l":"OsgiProvider"}]
