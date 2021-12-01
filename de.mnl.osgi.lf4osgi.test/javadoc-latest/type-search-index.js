@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"de.mnl.osgi.lf4osgi.test","l":"LoggerCallTest"}]
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"de.mnl.osgi.lf4osgi.test","l":"LoggerCallTest"}];updateSearchResults();

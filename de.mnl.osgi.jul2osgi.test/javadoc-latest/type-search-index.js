@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"de.mnl.osgi.jul2osgi.test","l":"LoggerCallTest"},{"p":"de.mnl.osgi.jul2osgi.test","l":"TestHandlerExt"},{"p":"de.mnl.osgi.jul2osgi.test","l":"TestHandlerRaw"}]
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"de.mnl.osgi.jul2osgi.test","l":"LoggerCallTest"},{"p":"de.mnl.osgi.jul2osgi.test","l":"TestHandlerExt"},{"p":"de.mnl.osgi.jul2osgi.test","l":"TestHandlerRaw"}];updateSearchResults();
