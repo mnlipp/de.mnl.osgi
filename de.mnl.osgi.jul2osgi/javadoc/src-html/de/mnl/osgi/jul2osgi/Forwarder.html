@@ -1,258 +1,257 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
 <title>Source code</title>
 <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
 </head>
 <body>
+<main role="main">
 <div class="sourceContainer">
-<pre><span class="sourceLineNo">001</span>/*<a name="line.1"></a>
-<span class="sourceLineNo">002</span> * Copyright (C) 2019 Michael N. Lipp (http://www.mnl.de)<a name="line.2"></a>
-<span class="sourceLineNo">003</span> * <a name="line.3"></a>
-<span class="sourceLineNo">004</span> * Licensed under the Apache License, Version 2.0 (the "License");<a name="line.4"></a>
-<span class="sourceLineNo">005</span> * you may not use this file except in compliance with the License.<a name="line.5"></a>
-<span class="sourceLineNo">006</span> * You may obtain a copy of the License at<a name="line.6"></a>
-<span class="sourceLineNo">007</span> *<a name="line.7"></a>
-<span class="sourceLineNo">008</span> *        http://www.apache.org/licenses/LICENSE-2.0<a name="line.8"></a>
-<span class="sourceLineNo">009</span> *<a name="line.9"></a>
-<span class="sourceLineNo">010</span> * Unless required by applicable law or agreed to in writing, software<a name="line.10"></a>
-<span class="sourceLineNo">011</span> * distributed under the License is distributed on an "AS IS" BASIS,<a name="line.11"></a>
-<span class="sourceLineNo">012</span> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<a name="line.12"></a>
-<span class="sourceLineNo">013</span> * See the License for the specific language governing permissions and<a name="line.13"></a>
-<span class="sourceLineNo">014</span> * limitations under the License.<a name="line.14"></a>
-<span class="sourceLineNo">015</span> */<a name="line.15"></a>
-<span class="sourceLineNo">016</span><a name="line.16"></a>
-<span class="sourceLineNo">017</span>package de.mnl.osgi.jul2osgi;<a name="line.17"></a>
-<span class="sourceLineNo">018</span><a name="line.18"></a>
-<span class="sourceLineNo">019</span>import de.mnl.osgi.coreutils.ServiceResolver;<a name="line.19"></a>
-<span class="sourceLineNo">020</span>import de.mnl.osgi.jul2osgi.lib.LogManager;<a name="line.20"></a>
-<span class="sourceLineNo">021</span>import de.mnl.osgi.jul2osgi.lib.LogManager.LogInfo;<a name="line.21"></a>
-<span class="sourceLineNo">022</span>import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;<a name="line.22"></a>
-<span class="sourceLineNo">023</span><a name="line.23"></a>
-<span class="sourceLineNo">024</span>import java.lang.ref.WeakReference;<a name="line.24"></a>
-<span class="sourceLineNo">025</span>import java.security.AccessController;<a name="line.25"></a>
-<span class="sourceLineNo">026</span>import java.security.PrivilegedAction;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>import java.text.MessageFormat;<a name="line.27"></a>
-<span class="sourceLineNo">028</span>import java.util.Collections;<a name="line.28"></a>
-<span class="sourceLineNo">029</span>import java.util.HashMap;<a name="line.29"></a>
-<span class="sourceLineNo">030</span>import java.util.Map;<a name="line.30"></a>
-<span class="sourceLineNo">031</span>import java.util.MissingResourceException;<a name="line.31"></a>
-<span class="sourceLineNo">032</span>import java.util.Optional;<a name="line.32"></a>
-<span class="sourceLineNo">033</span>import java.util.Set;<a name="line.33"></a>
-<span class="sourceLineNo">034</span>import java.util.WeakHashMap;<a name="line.34"></a>
-<span class="sourceLineNo">035</span>import java.util.concurrent.ConcurrentHashMap;<a name="line.35"></a>
-<span class="sourceLineNo">036</span>import java.util.logging.Level;<a name="line.36"></a>
-<span class="sourceLineNo">037</span>import java.util.logging.LogRecord;<a name="line.37"></a>
-<span class="sourceLineNo">038</span><a name="line.38"></a>
-<span class="sourceLineNo">039</span>import org.osgi.framework.Bundle;<a name="line.39"></a>
-<span class="sourceLineNo">040</span>import org.osgi.framework.BundleContext;<a name="line.40"></a>
-<span class="sourceLineNo">041</span>import org.osgi.framework.FrameworkUtil;<a name="line.41"></a>
-<span class="sourceLineNo">042</span>import org.osgi.service.log.LogLevel;<a name="line.42"></a>
-<span class="sourceLineNo">043</span>import org.osgi.service.log.LogService;<a name="line.43"></a>
-<span class="sourceLineNo">044</span>import org.osgi.service.log.Logger;<a name="line.44"></a>
-<span class="sourceLineNo">045</span>import org.osgi.service.log.admin.LoggerAdmin;<a name="line.45"></a>
-<span class="sourceLineNo">046</span>import org.osgi.service.log.admin.LoggerContext;<a name="line.46"></a>
-<span class="sourceLineNo">047</span><a name="line.47"></a>
-<span class="sourceLineNo">048</span>/**<a name="line.48"></a>
-<span class="sourceLineNo">049</span> */<a name="line.49"></a>
-<span class="sourceLineNo">050</span>@SuppressWarnings("PMD.DataflowAnomalyAnalysis")<a name="line.50"></a>
-<span class="sourceLineNo">051</span>public class Forwarder extends ServiceResolver implements LogRecordHandler {<a name="line.51"></a>
-<span class="sourceLineNo">052</span><a name="line.52"></a>
-<span class="sourceLineNo">053</span>    private String logPattern;<a name="line.53"></a>
-<span class="sourceLineNo">054</span>    private boolean adaptOsgiLevel = true;<a name="line.54"></a>
-<span class="sourceLineNo">055</span>    private final Map&lt;Class&lt;?&gt;, WeakReference&lt;Bundle&gt;&gt; bundles<a name="line.55"></a>
-<span class="sourceLineNo">056</span>        = new ConcurrentHashMap&lt;&gt;();<a name="line.56"></a>
-<span class="sourceLineNo">057</span>    private final Set&lt;Bundle&gt; adaptedBundles = Collections<a name="line.57"></a>
-<span class="sourceLineNo">058</span>        .synchronizedSet(Collections.newSetFromMap(new WeakHashMap&lt;&gt;()));<a name="line.58"></a>
-<span class="sourceLineNo">059</span><a name="line.59"></a>
-<span class="sourceLineNo">060</span>    @Override<a name="line.60"></a>
-<span class="sourceLineNo">061</span>    @SuppressWarnings({ "PMD.SystemPrintln" })<a name="line.61"></a>
-<span class="sourceLineNo">062</span>    protected void configure() {<a name="line.62"></a>
-<span class="sourceLineNo">063</span>        final java.util.logging.LogManager logMgr<a name="line.63"></a>
-<span class="sourceLineNo">064</span>            = java.util.logging.LogManager.getLogManager();<a name="line.64"></a>
-<span class="sourceLineNo">065</span>        if (!(logMgr instanceof LogManager)) {<a name="line.65"></a>
-<span class="sourceLineNo">066</span>            System.err.println("Configuration error: "<a name="line.66"></a>
-<span class="sourceLineNo">067</span>                + "Bundle de.mnl.osgi.jul2osgi must be used with "<a name="line.67"></a>
-<span class="sourceLineNo">068</span>                + "LogManager from de.mnl.osgi.jul2osgi.log.");<a name="line.68"></a>
-<span class="sourceLineNo">069</span>            return;<a name="line.69"></a>
-<span class="sourceLineNo">070</span>        }<a name="line.70"></a>
-<span class="sourceLineNo">071</span>        logPattern = Optional.ofNullable(<a name="line.71"></a>
-<span class="sourceLineNo">072</span>            context.getProperty("de.mnl.osgi.jul2osgi.logPattern"))<a name="line.72"></a>
-<span class="sourceLineNo">073</span>            .orElse("{0}");<a name="line.73"></a>
-<span class="sourceLineNo">074</span>        String adaptProperty = context.getProperty(<a name="line.74"></a>
-<span class="sourceLineNo">075</span>            "de.mnl.osgi.jul2osgi.adaptOSGiLevel");<a name="line.75"></a>
-<span class="sourceLineNo">076</span>        if (adaptProperty != null) {<a name="line.76"></a>
-<span class="sourceLineNo">077</span>            adaptOsgiLevel = Boolean.parseBoolean(adaptProperty);<a name="line.77"></a>
-<span class="sourceLineNo">078</span>        }<a name="line.78"></a>
-<span class="sourceLineNo">079</span><a name="line.79"></a>
-<span class="sourceLineNo">080</span>        addDependency(LogService.class);<a name="line.80"></a>
-<span class="sourceLineNo">081</span>        addDependency(LoggerAdmin.class);<a name="line.81"></a>
-<span class="sourceLineNo">082</span>        setOnResolved(() -&gt; {<a name="line.82"></a>
-<span class="sourceLineNo">083</span>            if (adaptOsgiLevel) {<a name="line.83"></a>
-<span class="sourceLineNo">084</span>                // Handle this bundle specially<a name="line.84"></a>
-<span class="sourceLineNo">085</span>                adaptLogLevel(get(LoggerAdmin.class),<a name="line.85"></a>
-<span class="sourceLineNo">086</span>                    context.getBundle());<a name="line.86"></a>
-<span class="sourceLineNo">087</span>            }<a name="line.87"></a>
-<span class="sourceLineNo">088</span>            ((LogManager) logMgr).setForwarder(this);<a name="line.88"></a>
-<span class="sourceLineNo">089</span>        });<a name="line.89"></a>
-<span class="sourceLineNo">090</span>        setOnDissolving(() -&gt; {<a name="line.90"></a>
-<span class="sourceLineNo">091</span>            ((LogManager) logMgr).setForwarder(null);<a name="line.91"></a>
-<span class="sourceLineNo">092</span>            adaptedBundles.clear();<a name="line.92"></a>
-<span class="sourceLineNo">093</span>        });<a name="line.93"></a>
-<span class="sourceLineNo">094</span>    }<a name="line.94"></a>
-<span class="sourceLineNo">095</span><a name="line.95"></a>
-<span class="sourceLineNo">096</span>    @Override<a name="line.96"></a>
-<span class="sourceLineNo">097</span>    public void stop(BundleContext context) throws Exception {<a name="line.97"></a>
-<span class="sourceLineNo">098</span>        java.util.logging.LogManager logMgr<a name="line.98"></a>
-<span class="sourceLineNo">099</span>            = java.util.logging.LogManager.getLogManager();<a name="line.99"></a>
-<span class="sourceLineNo">100</span>        if (logMgr instanceof LogManager) {<a name="line.100"></a>
-<span class="sourceLineNo">101</span>            ((LogManager) logMgr).setForwarder(null);<a name="line.101"></a>
-<span class="sourceLineNo">102</span>        }<a name="line.102"></a>
-<span class="sourceLineNo">103</span>        super.stop(context);<a name="line.103"></a>
-<span class="sourceLineNo">104</span>    }<a name="line.104"></a>
-<span class="sourceLineNo">105</span><a name="line.105"></a>
-<span class="sourceLineNo">106</span>    private void adaptLogLevel(LoggerAdmin logAdmin, Bundle bundle) {<a name="line.106"></a>
-<span class="sourceLineNo">107</span>        if (adaptedBundles.contains(bundle)) {<a name="line.107"></a>
-<span class="sourceLineNo">108</span>            return;<a name="line.108"></a>
-<span class="sourceLineNo">109</span>        }<a name="line.109"></a>
-<span class="sourceLineNo">110</span>        LoggerContext ctx = logAdmin.getLoggerContext(<a name="line.110"></a>
-<span class="sourceLineNo">111</span>            bundle.getSymbolicName() + "|" + bundle.getVersion());<a name="line.111"></a>
-<span class="sourceLineNo">112</span>        @SuppressWarnings("PMD.UseConcurrentHashMap")<a name="line.112"></a>
-<span class="sourceLineNo">113</span>        Map&lt;String, LogLevel&gt; logLevels = new HashMap&lt;&gt;();<a name="line.113"></a>
-<span class="sourceLineNo">114</span>        logLevels.put(Logger.ROOT_LOGGER_NAME, LogLevel.TRACE);<a name="line.114"></a>
-<span class="sourceLineNo">115</span>        ctx.setLogLevels(logLevels);<a name="line.115"></a>
-<span class="sourceLineNo">116</span>        adaptedBundles.add(bundle);<a name="line.116"></a>
-<span class="sourceLineNo">117</span>    }<a name="line.117"></a>
-<span class="sourceLineNo">118</span><a name="line.118"></a>
-<span class="sourceLineNo">119</span>    @Override<a name="line.119"></a>
-<span class="sourceLineNo">120</span>    public boolean process(LogInfo logInfo) {<a name="line.120"></a>
-<span class="sourceLineNo">121</span>        LogService logSvc = get(LogService.class);<a name="line.121"></a>
-<span class="sourceLineNo">122</span>        if (logSvc == null) {<a name="line.122"></a>
-<span class="sourceLineNo">123</span>            return false;<a name="line.123"></a>
-<span class="sourceLineNo">124</span>        }<a name="line.124"></a>
-<span class="sourceLineNo">125</span>        doProcess(logInfo, logSvc);<a name="line.125"></a>
-<span class="sourceLineNo">126</span>        return true;<a name="line.126"></a>
-<span class="sourceLineNo">127</span>    }<a name="line.127"></a>
-<span class="sourceLineNo">128</span><a name="line.128"></a>
-<span class="sourceLineNo">129</span>    private void doProcess(LogInfo logInfo, LogService service) {<a name="line.129"></a>
-<span class="sourceLineNo">130</span>        final LogRecord record = logInfo.getLogRecord();<a name="line.130"></a>
-<span class="sourceLineNo">131</span>        final String loggerName = Optional.ofNullable(record.getLoggerName())<a name="line.131"></a>
-<span class="sourceLineNo">132</span>            .orElse(Logger.ROOT_LOGGER_NAME);<a name="line.132"></a>
-<span class="sourceLineNo">133</span>        Logger logger = findBundle(logInfo.getCallingClass())<a name="line.133"></a>
-<span class="sourceLineNo">134</span>            .map(b -&gt; {<a name="line.134"></a>
-<span class="sourceLineNo">135</span>                if (adaptOsgiLevel) {<a name="line.135"></a>
-<span class="sourceLineNo">136</span>                    adaptLogLevel(get(LoggerAdmin.class), b);<a name="line.136"></a>
-<span class="sourceLineNo">137</span>                }<a name="line.137"></a>
-<span class="sourceLineNo">138</span>                return service.getLogger(b, loggerName, Logger.class);<a name="line.138"></a>
-<span class="sourceLineNo">139</span>            }).orElse(service.getLogger(loggerName));<a name="line.139"></a>
-<span class="sourceLineNo">140</span><a name="line.140"></a>
-<span class="sourceLineNo">141</span>        int julLevel = record.getLevel().intValue();<a name="line.141"></a>
-<span class="sourceLineNo">142</span>        if (julLevel &gt;= Level.SEVERE.intValue()) {<a name="line.142"></a>
-<span class="sourceLineNo">143</span>            if (logger.isErrorEnabled()) {<a name="line.143"></a>
-<span class="sourceLineNo">144</span>                logger.error("{}", formatMessage(logPattern, record),<a name="line.144"></a>
-<span class="sourceLineNo">145</span>                    record.getThrown());<a name="line.145"></a>
-<span class="sourceLineNo">146</span>            }<a name="line.146"></a>
-<span class="sourceLineNo">147</span>        } else if (julLevel &gt;= Level.WARNING.intValue()) {<a name="line.147"></a>
-<span class="sourceLineNo">148</span>            if (logger.isWarnEnabled()) {<a name="line.148"></a>
-<span class="sourceLineNo">149</span>                logger.warn("{}", formatMessage(logPattern, record),<a name="line.149"></a>
-<span class="sourceLineNo">150</span>                    record.getThrown());<a name="line.150"></a>
-<span class="sourceLineNo">151</span>            }<a name="line.151"></a>
-<span class="sourceLineNo">152</span>        } else if (julLevel &gt;= Level.INFO.intValue()) {<a name="line.152"></a>
-<span class="sourceLineNo">153</span>            if (logger.isInfoEnabled()) {<a name="line.153"></a>
-<span class="sourceLineNo">154</span>                logger.info("{}", formatMessage(logPattern, record),<a name="line.154"></a>
-<span class="sourceLineNo">155</span>                    record.getThrown());<a name="line.155"></a>
-<span class="sourceLineNo">156</span>            }<a name="line.156"></a>
-<span class="sourceLineNo">157</span>        } else if (julLevel &gt;= Level.FINE.intValue()) {<a name="line.157"></a>
-<span class="sourceLineNo">158</span>            if (logger.isDebugEnabled()) {<a name="line.158"></a>
-<span class="sourceLineNo">159</span>                logger.debug("{}", formatMessage(logPattern, record),<a name="line.159"></a>
-<span class="sourceLineNo">160</span>                    record.getThrown());<a name="line.160"></a>
-<span class="sourceLineNo">161</span>            }<a name="line.161"></a>
-<span class="sourceLineNo">162</span>        } else if (logger.isTraceEnabled()) {<a name="line.162"></a>
-<span class="sourceLineNo">163</span>            logger.trace("{}", formatMessage(logPattern, record),<a name="line.163"></a>
-<span class="sourceLineNo">164</span>                record.getThrown());<a name="line.164"></a>
-<span class="sourceLineNo">165</span>        }<a name="line.165"></a>
-<span class="sourceLineNo">166</span>    }<a name="line.166"></a>
-<span class="sourceLineNo">167</span><a name="line.167"></a>
-<span class="sourceLineNo">168</span>    private Optional&lt;Bundle&gt; findBundle(Class&lt;?&gt; callingClass) {<a name="line.168"></a>
-<span class="sourceLineNo">169</span>        if (callingClass == null) {<a name="line.169"></a>
-<span class="sourceLineNo">170</span>            return Optional.empty();<a name="line.170"></a>
-<span class="sourceLineNo">171</span>        }<a name="line.171"></a>
-<span class="sourceLineNo">172</span>        Bundle bundle = Optional.ofNullable(bundles.get(callingClass))<a name="line.172"></a>
-<span class="sourceLineNo">173</span>            .map(WeakReference::get).orElse(null);<a name="line.173"></a>
-<span class="sourceLineNo">174</span>        if (bundle != null) {<a name="line.174"></a>
-<span class="sourceLineNo">175</span>            return Optional.of(bundle);<a name="line.175"></a>
-<span class="sourceLineNo">176</span>        }<a name="line.176"></a>
-<span class="sourceLineNo">177</span>        bundle = FrameworkUtil.getBundle(callingClass);<a name="line.177"></a>
-<span class="sourceLineNo">178</span>        if (bundle != null) {<a name="line.178"></a>
-<span class="sourceLineNo">179</span>            bundles.put(callingClass, new WeakReference&lt;&gt;(bundle)); // NOPMD<a name="line.179"></a>
-<span class="sourceLineNo">180</span>            return Optional.of(bundle);<a name="line.180"></a>
-<span class="sourceLineNo">181</span>        }<a name="line.181"></a>
-<span class="sourceLineNo">182</span>        return Optional.empty();<a name="line.182"></a>
-<span class="sourceLineNo">183</span>    }<a name="line.183"></a>
-<span class="sourceLineNo">184</span><a name="line.184"></a>
-<span class="sourceLineNo">185</span>    private String formatMessage(String format, LogRecord record) {<a name="line.185"></a>
-<span class="sourceLineNo">186</span>        String message = record.getMessage();<a name="line.186"></a>
-<span class="sourceLineNo">187</span>        if (record.getResourceBundle() != null) {<a name="line.187"></a>
-<span class="sourceLineNo">188</span>            try {<a name="line.188"></a>
-<span class="sourceLineNo">189</span>                message = record.getResourceBundle().getString(message);<a name="line.189"></a>
-<span class="sourceLineNo">190</span>            } catch (MissingResourceException e) { // NOPMD<a name="line.190"></a>
-<span class="sourceLineNo">191</span>                // Leave message as it is<a name="line.191"></a>
-<span class="sourceLineNo">192</span>            }<a name="line.192"></a>
-<span class="sourceLineNo">193</span>        }<a name="line.193"></a>
-<span class="sourceLineNo">194</span>        Object[] parameters = record.getParameters();<a name="line.194"></a>
-<span class="sourceLineNo">195</span>        if (parameters != null &amp;&amp; parameters.length &gt; 0) {<a name="line.195"></a>
-<span class="sourceLineNo">196</span>            message = MessageFormat.format(message, record.getParameters());<a name="line.196"></a>
-<span class="sourceLineNo">197</span>        }<a name="line.197"></a>
-<span class="sourceLineNo">198</span>        return MessageFormat.format(format, message, record.getMillis(),<a name="line.198"></a>
-<span class="sourceLineNo">199</span>            record.getSequenceNumber(), record.getSourceClassName(),<a name="line.199"></a>
-<span class="sourceLineNo">200</span>            record.getSourceMethodName(), record.getThreadID());<a name="line.200"></a>
-<span class="sourceLineNo">201</span>    }<a name="line.201"></a>
-<span class="sourceLineNo">202</span><a name="line.202"></a>
-<span class="sourceLineNo">203</span>    /**<a name="line.203"></a>
-<span class="sourceLineNo">204</span>     * Process events that are delivered .<a name="line.204"></a>
-<span class="sourceLineNo">205</span>     *<a name="line.205"></a>
-<span class="sourceLineNo">206</span>     * @param logInfos the log infos<a name="line.206"></a>
-<span class="sourceLineNo">207</span>     */<a name="line.207"></a>
-<span class="sourceLineNo">208</span>    @SuppressWarnings({ "PMD.EmptyCatchBlock", "PMD.UseVarargs",<a name="line.208"></a>
-<span class="sourceLineNo">209</span>        "PMD.AvoidInstantiatingObjectsInLoops" })<a name="line.209"></a>
-<span class="sourceLineNo">210</span>    public void processBuffered(LogInfo[] logInfos) {<a name="line.210"></a>
-<span class="sourceLineNo">211</span>        String threadName = Thread.currentThread().getName();<a name="line.211"></a>
-<span class="sourceLineNo">212</span>        for (LogInfo info : logInfos) {<a name="line.212"></a>
-<span class="sourceLineNo">213</span>            try {<a name="line.213"></a>
-<span class="sourceLineNo">214</span>                // Set thread name to indicate invalid context<a name="line.214"></a>
-<span class="sourceLineNo">215</span>                try {<a name="line.215"></a>
-<span class="sourceLineNo">216</span>                    AccessController.doPrivileged(new PrivilegedAction&lt;Void&gt;() {<a name="line.216"></a>
-<span class="sourceLineNo">217</span>                        @Override<a name="line.217"></a>
-<span class="sourceLineNo">218</span>                        public Void run() {<a name="line.218"></a>
-<span class="sourceLineNo">219</span>                            Thread.currentThread()<a name="line.219"></a>
-<span class="sourceLineNo">220</span>                                .setName(info.getThreadName() + " [recorded]");<a name="line.220"></a>
-<span class="sourceLineNo">221</span>                            return null;<a name="line.221"></a>
-<span class="sourceLineNo">222</span>                        }<a name="line.222"></a>
-<span class="sourceLineNo">223</span>                    });<a name="line.223"></a>
-<span class="sourceLineNo">224</span>                } catch (SecurityException e) {<a name="line.224"></a>
-<span class="sourceLineNo">225</span>                    // Ignored, was just a best effort.<a name="line.225"></a>
-<span class="sourceLineNo">226</span>                }<a name="line.226"></a>
-<span class="sourceLineNo">227</span>                // Now process<a name="line.227"></a>
-<span class="sourceLineNo">228</span>                process(info);<a name="line.228"></a>
-<span class="sourceLineNo">229</span>            } finally {<a name="line.229"></a>
-<span class="sourceLineNo">230</span>                try {<a name="line.230"></a>
-<span class="sourceLineNo">231</span>                    AccessController.doPrivileged(new PrivilegedAction&lt;Void&gt;() {<a name="line.231"></a>
-<span class="sourceLineNo">232</span><a name="line.232"></a>
-<span class="sourceLineNo">233</span>                        @Override<a name="line.233"></a>
-<span class="sourceLineNo">234</span>                        public Void run() {<a name="line.234"></a>
-<span class="sourceLineNo">235</span>                            Thread.currentThread().setName(threadName);<a name="line.235"></a>
-<span class="sourceLineNo">236</span>                            return null; // NOPMD<a name="line.236"></a>
-<span class="sourceLineNo">237</span>                        }<a name="line.237"></a>
-<span class="sourceLineNo">238</span>                    });<a name="line.238"></a>
-<span class="sourceLineNo">239</span>                } catch (SecurityException e) {<a name="line.239"></a>
-<span class="sourceLineNo">240</span>                    // Ignored. If resetting doesn't work, setting hasn't worked<a name="line.240"></a>
-<span class="sourceLineNo">241</span>                    // neither<a name="line.241"></a>
-<span class="sourceLineNo">242</span>                }<a name="line.242"></a>
-<span class="sourceLineNo">243</span>            }<a name="line.243"></a>
-<span class="sourceLineNo">244</span>        }<a name="line.244"></a>
-<span class="sourceLineNo">245</span>    }<a name="line.245"></a>
-<span class="sourceLineNo">246</span><a name="line.246"></a>
-<span class="sourceLineNo">247</span>}<a name="line.247"></a>
+<pre><span class="sourceLineNo">001</span><a id="line.1">/*</a>
+<span class="sourceLineNo">002</span><a id="line.2"> * Copyright (C) 2019 Michael N. Lipp (http://www.mnl.de)</a>
+<span class="sourceLineNo">003</span><a id="line.3"> * </a>
+<span class="sourceLineNo">004</span><a id="line.4"> * Licensed under the Apache License, Version 2.0 (the "License");</a>
+<span class="sourceLineNo">005</span><a id="line.5"> * you may not use this file except in compliance with the License.</a>
+<span class="sourceLineNo">006</span><a id="line.6"> * You may obtain a copy of the License at</a>
+<span class="sourceLineNo">007</span><a id="line.7"> *</a>
+<span class="sourceLineNo">008</span><a id="line.8"> *        http://www.apache.org/licenses/LICENSE-2.0</a>
+<span class="sourceLineNo">009</span><a id="line.9"> *</a>
+<span class="sourceLineNo">010</span><a id="line.10"> * Unless required by applicable law or agreed to in writing, software</a>
+<span class="sourceLineNo">011</span><a id="line.11"> * distributed under the License is distributed on an "AS IS" BASIS,</a>
+<span class="sourceLineNo">012</span><a id="line.12"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</a>
+<span class="sourceLineNo">013</span><a id="line.13"> * See the License for the specific language governing permissions and</a>
+<span class="sourceLineNo">014</span><a id="line.14"> * limitations under the License.</a>
+<span class="sourceLineNo">015</span><a id="line.15"> */</a>
+<span class="sourceLineNo">016</span><a id="line.16"></a>
+<span class="sourceLineNo">017</span><a id="line.17">package de.mnl.osgi.jul2osgi;</a>
+<span class="sourceLineNo">018</span><a id="line.18"></a>
+<span class="sourceLineNo">019</span><a id="line.19">import de.mnl.osgi.coreutils.ServiceResolver;</a>
+<span class="sourceLineNo">020</span><a id="line.20">import de.mnl.osgi.jul2osgi.lib.LogManager;</a>
+<span class="sourceLineNo">021</span><a id="line.21">import de.mnl.osgi.jul2osgi.lib.LogManager.LogInfo;</a>
+<span class="sourceLineNo">022</span><a id="line.22">import de.mnl.osgi.jul2osgi.lib.LogRecordHandler;</a>
+<span class="sourceLineNo">023</span><a id="line.23">import java.lang.ref.WeakReference;</a>
+<span class="sourceLineNo">024</span><a id="line.24">import java.security.AccessController;</a>
+<span class="sourceLineNo">025</span><a id="line.25">import java.security.PrivilegedAction;</a>
+<span class="sourceLineNo">026</span><a id="line.26">import java.text.MessageFormat;</a>
+<span class="sourceLineNo">027</span><a id="line.27">import java.util.Collections;</a>
+<span class="sourceLineNo">028</span><a id="line.28">import java.util.HashMap;</a>
+<span class="sourceLineNo">029</span><a id="line.29">import java.util.Map;</a>
+<span class="sourceLineNo">030</span><a id="line.30">import java.util.MissingResourceException;</a>
+<span class="sourceLineNo">031</span><a id="line.31">import java.util.Optional;</a>
+<span class="sourceLineNo">032</span><a id="line.32">import java.util.Set;</a>
+<span class="sourceLineNo">033</span><a id="line.33">import java.util.WeakHashMap;</a>
+<span class="sourceLineNo">034</span><a id="line.34">import java.util.concurrent.ConcurrentHashMap;</a>
+<span class="sourceLineNo">035</span><a id="line.35">import java.util.logging.Level;</a>
+<span class="sourceLineNo">036</span><a id="line.36">import java.util.logging.LogRecord;</a>
+<span class="sourceLineNo">037</span><a id="line.37">import org.osgi.framework.Bundle;</a>
+<span class="sourceLineNo">038</span><a id="line.38">import org.osgi.framework.BundleContext;</a>
+<span class="sourceLineNo">039</span><a id="line.39">import org.osgi.framework.FrameworkUtil;</a>
+<span class="sourceLineNo">040</span><a id="line.40">import org.osgi.service.log.LogLevel;</a>
+<span class="sourceLineNo">041</span><a id="line.41">import org.osgi.service.log.LogService;</a>
+<span class="sourceLineNo">042</span><a id="line.42">import org.osgi.service.log.Logger;</a>
+<span class="sourceLineNo">043</span><a id="line.43">import org.osgi.service.log.admin.LoggerAdmin;</a>
+<span class="sourceLineNo">044</span><a id="line.44">import org.osgi.service.log.admin.LoggerContext;</a>
+<span class="sourceLineNo">045</span><a id="line.45"></a>
+<span class="sourceLineNo">046</span><a id="line.46">/**</a>
+<span class="sourceLineNo">047</span><a id="line.47"> */</a>
+<span class="sourceLineNo">048</span><a id="line.48">@SuppressWarnings("PMD.DataflowAnomalyAnalysis")</a>
+<span class="sourceLineNo">049</span><a id="line.49">public class Forwarder extends ServiceResolver implements LogRecordHandler {</a>
+<span class="sourceLineNo">050</span><a id="line.50"></a>
+<span class="sourceLineNo">051</span><a id="line.51">    private String logPattern;</a>
+<span class="sourceLineNo">052</span><a id="line.52">    private boolean adaptOsgiLevel = true;</a>
+<span class="sourceLineNo">053</span><a id="line.53">    private final Map&lt;Class&lt;?&gt;, WeakReference&lt;Bundle&gt;&gt; bundles</a>
+<span class="sourceLineNo">054</span><a id="line.54">        = new ConcurrentHashMap&lt;&gt;();</a>
+<span class="sourceLineNo">055</span><a id="line.55">    private final Set&lt;Bundle&gt; adaptedBundles = Collections</a>
+<span class="sourceLineNo">056</span><a id="line.56">        .synchronizedSet(Collections.newSetFromMap(new WeakHashMap&lt;&gt;()));</a>
+<span class="sourceLineNo">057</span><a id="line.57"></a>
+<span class="sourceLineNo">058</span><a id="line.58">    @Override</a>
+<span class="sourceLineNo">059</span><a id="line.59">    @SuppressWarnings({ "PMD.SystemPrintln" })</a>
+<span class="sourceLineNo">060</span><a id="line.60">    protected void configure() {</a>
+<span class="sourceLineNo">061</span><a id="line.61">        final java.util.logging.LogManager logMgr</a>
+<span class="sourceLineNo">062</span><a id="line.62">            = java.util.logging.LogManager.getLogManager();</a>
+<span class="sourceLineNo">063</span><a id="line.63">        if (!(logMgr instanceof LogManager)) {</a>
+<span class="sourceLineNo">064</span><a id="line.64">            System.err.println("Configuration error: "</a>
+<span class="sourceLineNo">065</span><a id="line.65">                + "Bundle de.mnl.osgi.jul2osgi must be used with "</a>
+<span class="sourceLineNo">066</span><a id="line.66">                + "LogManager from de.mnl.osgi.jul2osgi.log.");</a>
+<span class="sourceLineNo">067</span><a id="line.67">            return;</a>
+<span class="sourceLineNo">068</span><a id="line.68">        }</a>
+<span class="sourceLineNo">069</span><a id="line.69">        logPattern = Optional.ofNullable(</a>
+<span class="sourceLineNo">070</span><a id="line.70">            context.getProperty("de.mnl.osgi.jul2osgi.logPattern"))</a>
+<span class="sourceLineNo">071</span><a id="line.71">            .orElse("{0}");</a>
+<span class="sourceLineNo">072</span><a id="line.72">        String adaptProperty = context.getProperty(</a>
+<span class="sourceLineNo">073</span><a id="line.73">            "de.mnl.osgi.jul2osgi.adaptOSGiLevel");</a>
+<span class="sourceLineNo">074</span><a id="line.74">        if (adaptProperty != null) {</a>
+<span class="sourceLineNo">075</span><a id="line.75">            adaptOsgiLevel = Boolean.parseBoolean(adaptProperty);</a>
+<span class="sourceLineNo">076</span><a id="line.76">        }</a>
+<span class="sourceLineNo">077</span><a id="line.77"></a>
+<span class="sourceLineNo">078</span><a id="line.78">        addDependency(LogService.class);</a>
+<span class="sourceLineNo">079</span><a id="line.79">        addDependency(LoggerAdmin.class);</a>
+<span class="sourceLineNo">080</span><a id="line.80">        setOnResolved(() -&gt; {</a>
+<span class="sourceLineNo">081</span><a id="line.81">            if (adaptOsgiLevel) {</a>
+<span class="sourceLineNo">082</span><a id="line.82">                // Handle this bundle specially</a>
+<span class="sourceLineNo">083</span><a id="line.83">                adaptLogLevel(get(LoggerAdmin.class),</a>
+<span class="sourceLineNo">084</span><a id="line.84">                    context.getBundle());</a>
+<span class="sourceLineNo">085</span><a id="line.85">            }</a>
+<span class="sourceLineNo">086</span><a id="line.86">            ((LogManager) logMgr).setForwarder(this);</a>
+<span class="sourceLineNo">087</span><a id="line.87">        });</a>
+<span class="sourceLineNo">088</span><a id="line.88">        setOnDissolving(() -&gt; {</a>
+<span class="sourceLineNo">089</span><a id="line.89">            ((LogManager) logMgr).setForwarder(null);</a>
+<span class="sourceLineNo">090</span><a id="line.90">            adaptedBundles.clear();</a>
+<span class="sourceLineNo">091</span><a id="line.91">        });</a>
+<span class="sourceLineNo">092</span><a id="line.92">    }</a>
+<span class="sourceLineNo">093</span><a id="line.93"></a>
+<span class="sourceLineNo">094</span><a id="line.94">    @Override</a>
+<span class="sourceLineNo">095</span><a id="line.95">    public void stop(BundleContext context) throws Exception {</a>
+<span class="sourceLineNo">096</span><a id="line.96">        java.util.logging.LogManager logMgr</a>
+<span class="sourceLineNo">097</span><a id="line.97">            = java.util.logging.LogManager.getLogManager();</a>
+<span class="sourceLineNo">098</span><a id="line.98">        if (logMgr instanceof LogManager) {</a>
+<span class="sourceLineNo">099</span><a id="line.99">            ((LogManager) logMgr).setForwarder(null);</a>
+<span class="sourceLineNo">100</span><a id="line.100">        }</a>
+<span class="sourceLineNo">101</span><a id="line.101">        super.stop(context);</a>
+<span class="sourceLineNo">102</span><a id="line.102">    }</a>
+<span class="sourceLineNo">103</span><a id="line.103"></a>
+<span class="sourceLineNo">104</span><a id="line.104">    private void adaptLogLevel(LoggerAdmin logAdmin, Bundle bundle) {</a>
+<span class="sourceLineNo">105</span><a id="line.105">        if (adaptedBundles.contains(bundle)) {</a>
+<span class="sourceLineNo">106</span><a id="line.106">            return;</a>
+<span class="sourceLineNo">107</span><a id="line.107">        }</a>
+<span class="sourceLineNo">108</span><a id="line.108">        LoggerContext ctx = logAdmin.getLoggerContext(</a>
+<span class="sourceLineNo">109</span><a id="line.109">            bundle.getSymbolicName() + "|" + bundle.getVersion());</a>
+<span class="sourceLineNo">110</span><a id="line.110">        @SuppressWarnings("PMD.UseConcurrentHashMap")</a>
+<span class="sourceLineNo">111</span><a id="line.111">        Map&lt;String, LogLevel&gt; logLevels = new HashMap&lt;&gt;();</a>
+<span class="sourceLineNo">112</span><a id="line.112">        logLevels.put(Logger.ROOT_LOGGER_NAME, LogLevel.TRACE);</a>
+<span class="sourceLineNo">113</span><a id="line.113">        ctx.setLogLevels(logLevels);</a>
+<span class="sourceLineNo">114</span><a id="line.114">        adaptedBundles.add(bundle);</a>
+<span class="sourceLineNo">115</span><a id="line.115">    }</a>
+<span class="sourceLineNo">116</span><a id="line.116"></a>
+<span class="sourceLineNo">117</span><a id="line.117">    @Override</a>
+<span class="sourceLineNo">118</span><a id="line.118">    public boolean process(LogInfo logInfo) {</a>
+<span class="sourceLineNo">119</span><a id="line.119">        LogService logSvc = get(LogService.class);</a>
+<span class="sourceLineNo">120</span><a id="line.120">        if (logSvc == null) {</a>
+<span class="sourceLineNo">121</span><a id="line.121">            return false;</a>
+<span class="sourceLineNo">122</span><a id="line.122">        }</a>
+<span class="sourceLineNo">123</span><a id="line.123">        doProcess(logInfo, logSvc);</a>
+<span class="sourceLineNo">124</span><a id="line.124">        return true;</a>
+<span class="sourceLineNo">125</span><a id="line.125">    }</a>
+<span class="sourceLineNo">126</span><a id="line.126"></a>
+<span class="sourceLineNo">127</span><a id="line.127">    private void doProcess(LogInfo logInfo, LogService service) {</a>
+<span class="sourceLineNo">128</span><a id="line.128">        final LogRecord record = logInfo.getLogRecord();</a>
+<span class="sourceLineNo">129</span><a id="line.129">        final String loggerName = Optional.ofNullable(record.getLoggerName())</a>
+<span class="sourceLineNo">130</span><a id="line.130">            .orElse(Logger.ROOT_LOGGER_NAME);</a>
+<span class="sourceLineNo">131</span><a id="line.131">        Logger logger = findBundle(logInfo.getCallingClass())</a>
+<span class="sourceLineNo">132</span><a id="line.132">            .map(b -&gt; {</a>
+<span class="sourceLineNo">133</span><a id="line.133">                if (adaptOsgiLevel) {</a>
+<span class="sourceLineNo">134</span><a id="line.134">                    adaptLogLevel(get(LoggerAdmin.class), b);</a>
+<span class="sourceLineNo">135</span><a id="line.135">                }</a>
+<span class="sourceLineNo">136</span><a id="line.136">                return service.getLogger(b, loggerName, Logger.class);</a>
+<span class="sourceLineNo">137</span><a id="line.137">            }).orElse(service.getLogger(loggerName));</a>
+<span class="sourceLineNo">138</span><a id="line.138"></a>
+<span class="sourceLineNo">139</span><a id="line.139">        int julLevel = record.getLevel().intValue();</a>
+<span class="sourceLineNo">140</span><a id="line.140">        if (julLevel &gt;= Level.SEVERE.intValue()) {</a>
+<span class="sourceLineNo">141</span><a id="line.141">            if (logger.isErrorEnabled()) {</a>
+<span class="sourceLineNo">142</span><a id="line.142">                logger.error("{}", formatMessage(logPattern, record),</a>
+<span class="sourceLineNo">143</span><a id="line.143">                    record.getThrown());</a>
+<span class="sourceLineNo">144</span><a id="line.144">            }</a>
+<span class="sourceLineNo">145</span><a id="line.145">        } else if (julLevel &gt;= Level.WARNING.intValue()) {</a>
+<span class="sourceLineNo">146</span><a id="line.146">            if (logger.isWarnEnabled()) {</a>
+<span class="sourceLineNo">147</span><a id="line.147">                logger.warn("{}", formatMessage(logPattern, record),</a>
+<span class="sourceLineNo">148</span><a id="line.148">                    record.getThrown());</a>
+<span class="sourceLineNo">149</span><a id="line.149">            }</a>
+<span class="sourceLineNo">150</span><a id="line.150">        } else if (julLevel &gt;= Level.INFO.intValue()) {</a>
+<span class="sourceLineNo">151</span><a id="line.151">            if (logger.isInfoEnabled()) {</a>
+<span class="sourceLineNo">152</span><a id="line.152">                logger.info("{}", formatMessage(logPattern, record),</a>
+<span class="sourceLineNo">153</span><a id="line.153">                    record.getThrown());</a>
+<span class="sourceLineNo">154</span><a id="line.154">            }</a>
+<span class="sourceLineNo">155</span><a id="line.155">        } else if (julLevel &gt;= Level.FINE.intValue()) {</a>
+<span class="sourceLineNo">156</span><a id="line.156">            if (logger.isDebugEnabled()) {</a>
+<span class="sourceLineNo">157</span><a id="line.157">                logger.debug("{}", formatMessage(logPattern, record),</a>
+<span class="sourceLineNo">158</span><a id="line.158">                    record.getThrown());</a>
+<span class="sourceLineNo">159</span><a id="line.159">            }</a>
+<span class="sourceLineNo">160</span><a id="line.160">        } else if (logger.isTraceEnabled()) {</a>
+<span class="sourceLineNo">161</span><a id="line.161">            logger.trace("{}", formatMessage(logPattern, record),</a>
+<span class="sourceLineNo">162</span><a id="line.162">                record.getThrown());</a>
+<span class="sourceLineNo">163</span><a id="line.163">        }</a>
+<span class="sourceLineNo">164</span><a id="line.164">    }</a>
+<span class="sourceLineNo">165</span><a id="line.165"></a>
+<span class="sourceLineNo">166</span><a id="line.166">    private Optional&lt;Bundle&gt; findBundle(Class&lt;?&gt; callingClass) {</a>
+<span class="sourceLineNo">167</span><a id="line.167">        if (callingClass == null) {</a>
+<span class="sourceLineNo">168</span><a id="line.168">            return Optional.empty();</a>
+<span class="sourceLineNo">169</span><a id="line.169">        }</a>
+<span class="sourceLineNo">170</span><a id="line.170">        Bundle bundle = Optional.ofNullable(bundles.get(callingClass))</a>
+<span class="sourceLineNo">171</span><a id="line.171">            .map(WeakReference::get).orElse(null);</a>
+<span class="sourceLineNo">172</span><a id="line.172">        if (bundle != null) {</a>
+<span class="sourceLineNo">173</span><a id="line.173">            return Optional.of(bundle);</a>
+<span class="sourceLineNo">174</span><a id="line.174">        }</a>
+<span class="sourceLineNo">175</span><a id="line.175">        bundle = FrameworkUtil.getBundle(callingClass);</a>
+<span class="sourceLineNo">176</span><a id="line.176">        if (bundle != null) {</a>
+<span class="sourceLineNo">177</span><a id="line.177">            bundles.put(callingClass, new WeakReference&lt;&gt;(bundle)); // NOPMD</a>
+<span class="sourceLineNo">178</span><a id="line.178">            return Optional.of(bundle);</a>
+<span class="sourceLineNo">179</span><a id="line.179">        }</a>
+<span class="sourceLineNo">180</span><a id="line.180">        return Optional.empty();</a>
+<span class="sourceLineNo">181</span><a id="line.181">    }</a>
+<span class="sourceLineNo">182</span><a id="line.182"></a>
+<span class="sourceLineNo">183</span><a id="line.183">    private String formatMessage(String format, LogRecord record) {</a>
+<span class="sourceLineNo">184</span><a id="line.184">        String message = record.getMessage();</a>
+<span class="sourceLineNo">185</span><a id="line.185">        if (record.getResourceBundle() != null) {</a>
+<span class="sourceLineNo">186</span><a id="line.186">            try {</a>
+<span class="sourceLineNo">187</span><a id="line.187">                message = record.getResourceBundle().getString(message);</a>
+<span class="sourceLineNo">188</span><a id="line.188">            } catch (MissingResourceException e) { // NOPMD</a>
+<span class="sourceLineNo">189</span><a id="line.189">                // Leave message as it is</a>
+<span class="sourceLineNo">190</span><a id="line.190">            }</a>
+<span class="sourceLineNo">191</span><a id="line.191">        }</a>
+<span class="sourceLineNo">192</span><a id="line.192">        Object[] parameters = record.getParameters();</a>
+<span class="sourceLineNo">193</span><a id="line.193">        if (parameters != null &amp;&amp; parameters.length &gt; 0) {</a>
+<span class="sourceLineNo">194</span><a id="line.194">            message = MessageFormat.format(message, record.getParameters());</a>
+<span class="sourceLineNo">195</span><a id="line.195">        }</a>
+<span class="sourceLineNo">196</span><a id="line.196">        return MessageFormat.format(format, message, record.getMillis(),</a>
+<span class="sourceLineNo">197</span><a id="line.197">            record.getSequenceNumber(), record.getSourceClassName(),</a>
+<span class="sourceLineNo">198</span><a id="line.198">            record.getSourceMethodName(), record.getThreadID());</a>
+<span class="sourceLineNo">199</span><a id="line.199">    }</a>
+<span class="sourceLineNo">200</span><a id="line.200"></a>
+<span class="sourceLineNo">201</span><a id="line.201">    /**</a>
+<span class="sourceLineNo">202</span><a id="line.202">     * Process events that are delivered .</a>
+<span class="sourceLineNo">203</span><a id="line.203">     *</a>
+<span class="sourceLineNo">204</span><a id="line.204">     * @param logInfos the log infos</a>
+<span class="sourceLineNo">205</span><a id="line.205">     */</a>
+<span class="sourceLineNo">206</span><a id="line.206">    @SuppressWarnings({ "PMD.EmptyCatchBlock", "PMD.UseVarargs",</a>
+<span class="sourceLineNo">207</span><a id="line.207">        "PMD.AvoidInstantiatingObjectsInLoops" })</a>
+<span class="sourceLineNo">208</span><a id="line.208">    public void processBuffered(LogInfo[] logInfos) {</a>
+<span class="sourceLineNo">209</span><a id="line.209">        String threadName = Thread.currentThread().getName();</a>
+<span class="sourceLineNo">210</span><a id="line.210">        for (LogInfo info : logInfos) {</a>
+<span class="sourceLineNo">211</span><a id="line.211">            try {</a>
+<span class="sourceLineNo">212</span><a id="line.212">                // Set thread name to indicate invalid context</a>
+<span class="sourceLineNo">213</span><a id="line.213">                try {</a>
+<span class="sourceLineNo">214</span><a id="line.214">                    AccessController.doPrivileged(new PrivilegedAction&lt;Void&gt;() {</a>
+<span class="sourceLineNo">215</span><a id="line.215">                        @Override</a>
+<span class="sourceLineNo">216</span><a id="line.216">                        public Void run() {</a>
+<span class="sourceLineNo">217</span><a id="line.217">                            Thread.currentThread()</a>
+<span class="sourceLineNo">218</span><a id="line.218">                                .setName(info.getThreadName() + " [recorded]");</a>
+<span class="sourceLineNo">219</span><a id="line.219">                            return null;</a>
+<span class="sourceLineNo">220</span><a id="line.220">                        }</a>
+<span class="sourceLineNo">221</span><a id="line.221">                    });</a>
+<span class="sourceLineNo">222</span><a id="line.222">                } catch (SecurityException e) {</a>
+<span class="sourceLineNo">223</span><a id="line.223">                    // Ignored, was just a best effort.</a>
+<span class="sourceLineNo">224</span><a id="line.224">                }</a>
+<span class="sourceLineNo">225</span><a id="line.225">                // Now process</a>
+<span class="sourceLineNo">226</span><a id="line.226">                process(info);</a>
+<span class="sourceLineNo">227</span><a id="line.227">            } finally {</a>
+<span class="sourceLineNo">228</span><a id="line.228">                try {</a>
+<span class="sourceLineNo">229</span><a id="line.229">                    AccessController.doPrivileged(new PrivilegedAction&lt;Void&gt;() {</a>
+<span class="sourceLineNo">230</span><a id="line.230"></a>
+<span class="sourceLineNo">231</span><a id="line.231">                        @Override</a>
+<span class="sourceLineNo">232</span><a id="line.232">                        public Void run() {</a>
+<span class="sourceLineNo">233</span><a id="line.233">                            Thread.currentThread().setName(threadName);</a>
+<span class="sourceLineNo">234</span><a id="line.234">                            return null; // NOPMD</a>
+<span class="sourceLineNo">235</span><a id="line.235">                        }</a>
+<span class="sourceLineNo">236</span><a id="line.236">                    });</a>
+<span class="sourceLineNo">237</span><a id="line.237">                } catch (SecurityException e) {</a>
+<span class="sourceLineNo">238</span><a id="line.238">                    // Ignored. If resetting doesn't work, setting hasn't worked</a>
+<span class="sourceLineNo">239</span><a id="line.239">                    // neither</a>
+<span class="sourceLineNo">240</span><a id="line.240">                }</a>
+<span class="sourceLineNo">241</span><a id="line.241">            }</a>
+<span class="sourceLineNo">242</span><a id="line.242">        }</a>
+<span class="sourceLineNo">243</span><a id="line.243">    }</a>
+<span class="sourceLineNo">244</span><a id="line.244"></a>
+<span class="sourceLineNo">245</span><a id="line.245">}</a>
 
 
 
@@ -315,5 +314,6 @@
 
 </pre>
 </div>
+</main>
 </body>
 </html>
