@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"de.mnl.osgi.osgi2jul","l":"ForwardingManager"},{"p":"de.mnl.osgi.osgi2jul","l":"HandlerConfig"},{"p":"de.mnl.osgi.osgi2jul","l":"LogWriter"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"de.mnl.osgi.osgi2jul","l":"ForwardingManager"},{"p":"de.mnl.osgi.osgi2jul","l":"HandlerConfig"},{"p":"de.mnl.osgi.osgi2jul","l":"LogWriter"}]

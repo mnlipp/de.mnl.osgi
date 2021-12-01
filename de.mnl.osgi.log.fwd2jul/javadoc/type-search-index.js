@@ -1,1 +1,1 @@
-typeSearchIndex = [{"p":"de.mnl.osgi.log.fwd2jul","l":"Activator"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"de.mnl.osgi.log.fwd2jul","l":"LogWriter"}];updateSearchResults();
+typeSearchIndex = [{"p":"de.mnl.osgi.log.fwd2jul","l":"Activator"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"de.mnl.osgi.log.fwd2jul","l":"LogWriter"}]
