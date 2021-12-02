@@ -9,7 +9,7 @@ Bundle-Version: 2.1.5.ga
 	org.osgi.service.log;version=1.4,\
 	de.mnl.osgi.coreutils;version=latest,\
 	de.mnl.osgi.lf4osgi;version=latest,\
-	slf4j.api;version='1.7.0'
+	slf4j.api;version=1.7.0@
 
 -testpath: \
 	${junit}

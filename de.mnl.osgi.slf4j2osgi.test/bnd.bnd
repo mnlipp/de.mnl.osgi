@@ -33,7 +33,6 @@ Export-Package: \
 
 # Let the resolver create this.
 -runbundles: \
-	de.mnl.osgi.coreutils;version=snapshot,\
 	biz.aQute.tester.junit-platform;version='[6.1.0,6.1.1)',\
 	junit-jupiter-api;version='[5.8.1,5.8.2)',\
 	junit-jupiter-engine;version='[5.8.1,5.8.2)',\
@@ -50,7 +49,8 @@ Export-Package: \
 	de.mnl.osgi.lf4osgi;version=snapshot,\
 	de.mnl.osgi.slf4j2osgi;version=snapshot,\
 	de.mnl.osgi.osgi2jul;version=snapshot,\
-	slf4j.api;version='[1.7.25,1.7.26)'
+	slf4j.api;version='[1.7.25,1.7.26)',\
+	de.mnl.osgi.coreutils;version='[1.0.4,1.0.5)'
 
 -runvm.coverage: \
 	"-javaagent:${repo;org.jacoco:org.jacoco.agent:jar:runtime;latest}=destfile=${basedir}/generated/jacoco.exec,append=false,includes=de.mnl.osgi.*"
