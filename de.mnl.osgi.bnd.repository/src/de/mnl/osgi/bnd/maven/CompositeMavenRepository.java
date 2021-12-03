@@ -297,14 +297,16 @@ public class CompositeMavenRepository implements Closeable {
     @SuppressWarnings({ "PMD.LinguisticNaming", "PMD.AvoidRethrowingException",
         "PMD.AvoidCatchingGenericException",
         "PMD.AvoidThrowingRawExceptionTypes", "PMD.AvoidDuplicateLiterals" })
-    private static List<Revision> revisionsFrom(MavenBackingRepository mbr,
-            Program program) throws IOException {
+    private List<Revision> revisionsFrom(MavenBackingRepository mbr,
+            Program program) {
         List<Revision> result = new ArrayList<>();
         try {
             mbr.getRevisions(program, result);
         } catch (IOException e) {
-            // Should be the only reason.
-            throw e;
+            reporter.exception(e,
+                "Failed to get list of revisions of %s from %s: %s",
+                program, mbr, e.getMessage());
+            return result;
         } catch (Exception e) {
             throw new RuntimeException(
                 "Cannot evaluate revisions for " + program + " from " + mbr, e);
@@ -317,17 +319,14 @@ public class CompositeMavenRepository implements Closeable {
      *
      * @param program the program
      * @return the list
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public Stream<BoundRevision> findRevisions(Program program)
-            throws IOException {
-        return rethrow(IOException.class,
-            () -> programCache.computeIfAbsent(program,
-                prg -> unthrow(() -> backingAsStream())
-                    .flatMap(mbr -> unthrow(
-                        () -> revisionsFrom(mbr, program).stream()
-                            .map(revision -> new BoundRevision(mbr, revision))))
-                    .collect(Collectors.toList()))).stream();
+    public Stream<BoundRevision> findRevisions(Program program) {
+        return programCache.computeIfAbsent(program,
+            prg -> backingAsStream()
+                .flatMap(mbr -> revisionsFrom(mbr, program).stream()
+                    .map(revision -> new BoundRevision(mbr, revision)))
+                .collect(Collectors.toList()))
+            .stream();
     }
 
     /**
@@ -335,11 +334,9 @@ public class CompositeMavenRepository implements Closeable {
      *
      * @param revision the revision
      * @return the bound revision
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings("PMD.SignatureDeclareThrowsException")
-    public Optional<BoundRevision> find(Revision revision)
-            throws IOException {
+    public Optional<BoundRevision> find(Revision revision) {
         return findRevisions(revision.program)
             .filter(rev -> rev.unbound().equals(revision)).findFirst();
     }
@@ -367,11 +364,10 @@ public class CompositeMavenRepository implements Closeable {
      * @param program the program
      * @param version the version
      * @return the bound revision
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public Optional<BoundRevision> find(Program program,
-            MavenVersionSpecification version) throws IOException {
+            MavenVersionSpecification version) {
         if (version instanceof MavenVersion) {
             return find(((MavenVersion) version).of(program));
         }

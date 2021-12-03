@@ -104,12 +104,10 @@ public class MavenResourceRepository extends CompositeMavenRepository {
      * @param classifier the classifier (or {@code null} for "")
      * @param location which URL to use for the binary in the {@link Resource}
      * @return the resource
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     public Optional<MavenResource> resource(Program program,
             MavenVersionSpecification version, String extension,
-            String classifier, BinaryLocation location)
-            throws IOException {
+            String classifier, BinaryLocation location) {
         return find(program, version)
             .map(revision -> resource(revision.archive(extension, classifier),
                 location));
