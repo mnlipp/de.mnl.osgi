@@ -1,5 +1,3 @@
-// Get bnd on the classpath
-Properties gradleProps = new Properties()
 repositories {
 	mavenCentral()
 }
