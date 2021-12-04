@@ -288,18 +288,12 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
-     * Reload the repository. Requested repositories retrieve
-     * the list of known artifactIds from the remote repository 
-     * and add the versions. For versions already in the repository, 
-     * the backup information is re-used.
+     * Reset the repository group. Must be called for all groups before
+     * reloading. 
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    @SuppressWarnings({ "PMD.AvoidReassigningLoopVariables",
-        "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals",
-        "PMD.AvoidInstantiatingObjectsInLoops",
-        "PMD.AvoidThrowingRawExceptionTypes", "PMD.PreserveStackTrace" })
-    public void reload() throws IOException {
+    void reset() throws IOException {
         if (indexedRepository.logIndexing()) {
             indexingLog = Files.newBufferedWriter(
                 groupDir.resolve("indexing.log"), Charset.defaultCharset());
@@ -308,6 +302,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             groupDir.resolve("indexing.log").toFile().delete();
         }
         loggedMessages.clear();
+
         if (!isRequested()) {
             // Will be filled with dependencies only
             return;
@@ -317,6 +312,26 @@ public class MavenGroupRepository extends ResourcesRepository {
             if (backupRepo == null) {
                 backupRepo = new ResourcesRepository(getResources());
             }
+        }
+    }
+
+    /**
+     * Reload the repository. May be called concurrently for different
+     * group repositories after resetting all. Requested repositories 
+     * retrieve the list of known artifactIds from the remote repository 
+     * and add the versions. For versions already in the repository, 
+     * the backup information is re-used.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @SuppressWarnings({ "PMD.AvoidReassigningLoopVariables",
+        "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals",
+        "PMD.AvoidInstantiatingObjectsInLoops",
+        "PMD.AvoidThrowingRawExceptionTypes", "PMD.PreserveStackTrace" })
+    void reload() throws IOException {
+        if (!isRequested()) {
+            // Will be filled with dependencies only
+            return;
         }
         try {
             CompletableFuture<?>[] artifactLoaders = findArtifactIds()
@@ -385,9 +400,8 @@ public class MavenGroupRepository extends ResourcesRepository {
         "PMD.PositionLiteralsFirstInComparisons" })
     private CompletableFuture<Void> loadArchive(BoundArchive archive) {
         return CompletableFuture.runAsync(() -> {
-            IndexingState curState = indexingState.putIfAbsent(
-                archive, IndexingState.INDEXING);
-            if (curState != null && curState != IndexingState.INDEXING) {
+            if (indexingState.putIfAbsent(archive,
+                IndexingState.INDEXING) != null) {
                 // Already handled (as dependency)
                 logIndexing(archive.revision, () -> String.format(
                     "%s in list (already handled as dependency).", archive));

@@ -255,16 +255,20 @@ public class IndexedMavenRepository extends ResourcesRepository {
         "PMD.AvoidDuplicateLiterals", "PMD.SignatureDeclareThrowsException" })
     private boolean doRefresh() throws Exception {
         mavenRepository.reset();
-        backupGroups = new HashMap<>(groups);
 
         // Reuse and clear (or create new) group repositories for the existing
         // directories, first for explicitly requested group ids...
+        backupGroups = new HashMap<>(groups);
         groups.clear();
+        for (var group : backupGroups.values()) {
+            group.reset();
+        }
+
+        // Scan requested first to avoid problems if a group is moved from
+        // dependency to requested.
         scanRequested(backupGroups).get();
         scanDependencies(backupGroups).get();
-//        CompletableFuture
-//            .allOf(scanRequested(backupGroups), scanDependencies(backupGroups))
-//            .get();
+
         // Refresh them all.
         CompletableFuture<?>[] repoLoaders
             = new ArrayList<>(groups.values()).stream()
