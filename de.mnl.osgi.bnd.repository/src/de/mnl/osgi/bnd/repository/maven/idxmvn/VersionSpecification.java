@@ -26,6 +26,8 @@ import de.mnl.osgi.bnd.maven.MavenVersion;
 import de.mnl.osgi.bnd.maven.MavenVersionRange;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,17 +118,25 @@ public class VersionSpecification {
      */
     public static Set<Archive> toSelected(VersionSpecification[] specs,
             Revision revision) {
-        if (specs.length == 0) {
-            return Set.of(new Archive(revision, null, null, null));
-        }
-        return Arrays.stream(specs).filter(s -> Set
-            .of(VersionSpecification.Type.VERSIONS,
-                VersionSpecification.Type.FORCED_VERSIONS)
-            .contains(s.getType()) && s.matches(revision.artifact)
-            && s.range.includes(MavenVersion.from(revision.version)))
-            .map(s -> {
-                return new Archive(revision, null, s.extension, s.classifier);
-            }).collect(Collectors.toSet());
+        return Arrays.stream(specs)
+            // find applicable versions specifications
+            .filter(s -> Set
+                .of(VersionSpecification.Type.VERSIONS,
+                    VersionSpecification.Type.FORCED_VERSIONS)
+                .contains(s.getType()) && s.matches(revision.artifact))
+            // sort by artifact spec's length descending
+            .sorted(Comparator.comparingInt(
+                (VersionSpecification vs) -> Optional
+                    .ofNullable(vs.artifactSpec).orElse("").length())
+                .reversed())
+            .findFirst().map(s -> {
+                // check if best match includes the revision
+                if (s.range.includes(MavenVersion.from(revision.version))) {
+                    return Set.of(
+                        new Archive(revision, null, s.extension, s.classifier));
+                }
+                return Collections.<Archive> emptySet();
+            }).orElse(Set.of(new Archive(revision, null, null, null)));
     }
 
     /**
