@@ -32,8 +32,6 @@ subprojects {
 }
 
 gitPublish {
-	enabled = JavaVersion.current() == JavaVersion.VERSION_11
-
 	repoUri = 'https://github.com/mnlipp/de.mnl.osgi.git'
 	branch = 'gh-pages'
 	contents {
@@ -67,8 +65,10 @@ task stage {
 			dependsOn javadocTask
 		}
 	}
-	
-   	dependsOn gitPublishPush
+
+	if (JavaVersion.current() == JavaVersion.VERSION_11) {
+	   	dependsOn gitPublishPush
+	}
 }
 
 apply plugin: 'eclipse'
