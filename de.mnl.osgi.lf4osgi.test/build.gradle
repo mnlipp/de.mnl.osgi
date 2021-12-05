@@ -1,5 +1,4 @@
-tasks.jar {
-    dependsOn(':de.mnl.osgi.lf4osgi:jar')
-    dependsOn(':de.mnl.osgi.lf4osgi:javadocJar')
-    dependsOn(':de.mnl.osgi.lf4osgi:sourcesJar')
+dependencies {
+    implementation project(':de.mnl.osgi.lf4osgi')
+    runtimeOnly project(':de.mnl.osgi.osgi2jul')
 }

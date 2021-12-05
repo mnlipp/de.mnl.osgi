@@ -6,15 +6,10 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
     classifier "sources"
 }
- 
+
 task javadocJar(type: Jar) {
 	from (javadoc)
 	classifier "javadoc"
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
 }
 
 // MavenPublishing (new)

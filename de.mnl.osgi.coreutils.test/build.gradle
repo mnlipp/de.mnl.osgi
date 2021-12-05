@@ -1,5 +1,3 @@
-jar {
-    dependsOn(':de.mnl.osgi.coreutils:jar')
-    dependsOn(':de.mnl.osgi.coreutils:javadocJar')
-    dependsOn(':de.mnl.osgi.coreutils:sourcesJar')
+dependencies {
+    implementation project(':de.mnl.osgi.coreutils')
 }

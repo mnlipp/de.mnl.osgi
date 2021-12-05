@@ -39,8 +39,6 @@ if (plugins.hasPlugin('biz.aQute.bnd')) {
 	
 	if (tasks.findByName("javadoc")) {
 		javadoc {
-			enabled = JavaVersion.current() == JavaVersion.VERSION_11
-		
 			options.addStringOption("doctitle", "${project.name} ${project.version}")
 			options.addBooleanOption("use", true)
 			options.addBooleanOption("linksource", true)

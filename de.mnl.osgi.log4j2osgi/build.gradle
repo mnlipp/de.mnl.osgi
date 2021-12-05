@@ -1,9 +1,7 @@
 project.ext.licenses = ['Apache-2.0']
 
-tasks.jar {
-    dependsOn(':de.mnl.osgi.lf4osgi:jar')
-    dependsOn(':de.mnl.osgi.lf4osgi:javadocJar')
-    dependsOn(':de.mnl.osgi.lf4osgi:sourcesJar')
+dependencies {
+    implementation project(':de.mnl.osgi.lf4osgi')
 }
 
 apply from: "${project.rootDir}/gradle/publishing.gradle"
