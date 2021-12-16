@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637500724680">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1639573925088">
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.apache.maven.resolver:maven-resolver-api:1.1.1"/>
