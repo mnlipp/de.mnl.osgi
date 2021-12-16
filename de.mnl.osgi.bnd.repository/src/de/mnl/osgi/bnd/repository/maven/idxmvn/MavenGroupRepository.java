@@ -643,7 +643,7 @@ public class MavenGroupRepository extends ResourcesRepository {
                 reporter.exception(e, "Failed to get %s as resource.",
                     resource.toString());
                 logIndexing(resource.archive().revision,
-                    () -> String.format("%s could not be index: %s.",
+                    () -> String.format("%s could not be indexed: %s.",
                         resource.archive(), e.getMessage()));
             }
             indexingState.put(resource.archive(), IndexingState.INDEXED);
