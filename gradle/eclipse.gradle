@@ -1,27 +1,38 @@
 apply plugin: 'eclipse'
     
 eclipse {
-	if (!project.name.startsWith("de.mnl.osgi")) {
-		// Dummy project. Nothing to do for Eclipse, but must show
-		// up as project
-		project {
-			file {
-				//closure executed after .project content is loaded from existing file
-				//and after gradle build information is merged
-				whenMerged { project ->
-					project.natures.clear()
-					project.buildCommands.clear()
-				}
+
+	project {
+		file {
+			// closure executed after .project content is loaded from existing file
+			// and before gradle build information is merged
+			beforeMerged { project ->
+				project.natures.clear()
+				project.buildCommands.clear()
+			}
+			
+			project.natures += 'org.eclipse.buildship.core.gradleprojectnature'
+			project.buildCommand 'org.eclipse.buildship.core.gradleprojectbuilder'
+			
+			if (plugins.hasPlugin('biz.aQute.bnd')) {
+				project.buildCommand 'org.eclipse.jdt.core.javabuilder'
+				project.natures += 'net.sf.eclipsecs.core.CheckstyleNature'
+				project.buildCommand 'net.sf.eclipsecs.core.CheckstyleBuilder'
+				project.natures += 'ch.acanda.eclipse.pmd.builder.PMDNature'
+				project.buildCommand 'ch.acanda.eclipse.pmd.builder.PMDBuilder'
+				project.natures += 'bndtools.core.bndnature'
+				project.buildCommand 'bndtools.core.bndbuilder'
 			}
 		}
-	} else {
-		classpath {
-			// Only for bnd projects
-			if (plugins.hasPlugin('biz.aQute.bnd')) {
-				containers 'aQute.bnd.classpath.container'
-			}
-			downloadJavadoc = true
-			downloadSources = true
+	}
+
+    if (plugins.hasPlugin('biz.aQute.bnd')) {
+        classpath {
+            downloadJavadoc = true
+            downloadSources = true
+
+			containers 'aQute.bnd.classpath.container'
+			
 			file {
 				whenMerged {
 					// Classpath is completely handled by bnd container above
@@ -37,31 +48,20 @@ eclipse {
 					}
 				}
 			}
-		}
-		project {
-			// buildCommand 'org.eclipse.buildship.core.gradleprojectbuilder'
-			buildCommand 'net.sf.eclipsecs.core.CheckstyleBuilder'
-			// 'org.eclipse.buildship.core.gradleprojectnature',
-			natures 'org.eclipse.jdt.core.javanature', \
-            	'net.sf.eclipsecs.core.CheckstyleNature'
-				// Only for bnd projects
-				if (plugins.hasPlugin('biz.aQute.bnd')) {
-					// buildCommand 'org.eclipse.jdt.core.javabuilder'
-					buildCommand 'bndtools.core.bndbuilder'
-					natures += 'bndtools.core.bndnature'
-				}
-		}
-		jdt {
+        }
+
+        jdt {
             javaRuntimeName = "JavaSE-11"
-			file {
-				withProperties { properties ->
-					def formatterPrefs = new Properties()
-					rootProject.file("gradle/org.eclipse.jdt.core.formatter.prefs")
-						.withInputStream { formatterPrefs.load(it) }
-						properties.putAll(formatterPrefs)
-				}
-			}
-		}
-	}
+            file {
+                withProperties { properties ->
+                    def formatterPrefs = new Properties()
+                    rootProject.file("gradle/org.eclipse.jdt.core.formatter.prefs")
+                        .withInputStream { formatterPrefs.load(it) }
+                    properties.putAll(formatterPrefs)
+                }
+            }
+        }
+    }
+
 }
 tasks.eclipse.dependsOn(cleanEclipse)
