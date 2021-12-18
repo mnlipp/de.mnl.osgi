@@ -51,7 +51,10 @@ eclipse {
         }
 
         jdt {
-            javaRuntimeName = "JavaSE-11"
+            // Source and target compatibility come from java plugin
+            if (bnd.get("-runee", "")) {
+                javaRuntimeName = bnd.get("-runee");
+            }
             file {
                 withProperties { properties ->
                     def formatterPrefs = new Properties()

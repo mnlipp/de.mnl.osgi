@@ -8,10 +8,15 @@ repositories {
 
 if (plugins.hasPlugin('biz.aQute.bnd')) {
 
-	java {
-		sourceCompatibility = 11
-		targetCompatibility = 11
-	}
+    // See https://github.com/bndtools/bnd/issues/5002    
+    java {
+        if (bnd.get("javac.source")) {
+            sourceCompatibility = bnd.get("javac.source");
+        }
+        if (bnd.get("javac.target")) {
+            targetCompatibility = bnd.get("javac.target");
+        }
+    }
 
 	// artifact_version is defined in cnf/bnd.bnd
 	if (bnd.artifact_version) {
