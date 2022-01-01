@@ -52,108 +52,126 @@
 <span class="sourceLineNo">043</span><a id="line.43">    private final MavenRepository bndRepository;</a>
 <span class="sourceLineNo">044</span><a id="line.44">    private final Reporter reporter;</a>
 <span class="sourceLineNo">045</span><a id="line.45"></a>
-<span class="sourceLineNo">046</span><a id="line.46">    public BndModelResolver(MavenRepository bndRepository, Reporter reporter) {</a>
-<span class="sourceLineNo">047</span><a id="line.47">        this.bndRepository = bndRepository;</a>
-<span class="sourceLineNo">048</span><a id="line.48">        this.reporter = reporter;</a>
-<span class="sourceLineNo">049</span><a id="line.49">    }</a>
-<span class="sourceLineNo">050</span><a id="line.50"></a>
-<span class="sourceLineNo">051</span><a id="line.51">    @Override</a>
-<span class="sourceLineNo">052</span><a id="line.52">    public ModelSource resolveModel(String groupId, String artifactId,</a>
-<span class="sourceLineNo">053</span><a id="line.53">            String version) throws UnresolvableModelException {</a>
-<span class="sourceLineNo">054</span><a id="line.54">        Revision revision</a>
-<span class="sourceLineNo">055</span><a id="line.55">            = Program.valueOf(groupId, artifactId).version(version);</a>
-<span class="sourceLineNo">056</span><a id="line.56">        Archive pomArchive = revision.getPomArchive();</a>
-<span class="sourceLineNo">057</span><a id="line.57">        try {</a>
-<span class="sourceLineNo">058</span><a id="line.58">            File pomFile = bndRepository.get(pomArchive).getValue();</a>
-<span class="sourceLineNo">059</span><a id="line.59">            if (pomFile == null) {</a>
-<span class="sourceLineNo">060</span><a id="line.60">                throw new UnresolvableModelException("Not found.", groupId,</a>
-<span class="sourceLineNo">061</span><a id="line.61">                    artifactId, version);</a>
-<span class="sourceLineNo">062</span><a id="line.62">            }</a>
-<span class="sourceLineNo">063</span><a id="line.63">            return new FileModelSource(pomFile);</a>
-<span class="sourceLineNo">064</span><a id="line.64">        } catch (Exception e) {</a>
-<span class="sourceLineNo">065</span><a id="line.65">            throw new UnresolvableModelException(e, groupId, artifactId,</a>
-<span class="sourceLineNo">066</span><a id="line.66">                version);</a>
-<span class="sourceLineNo">067</span><a id="line.67">        }</a>
-<span class="sourceLineNo">068</span><a id="line.68">    }</a>
-<span class="sourceLineNo">069</span><a id="line.69"></a>
-<span class="sourceLineNo">070</span><a id="line.70">    @Override</a>
-<span class="sourceLineNo">071</span><a id="line.71">    public ModelSource resolveModel(Parent parent)</a>
-<span class="sourceLineNo">072</span><a id="line.72">            throws UnresolvableModelException {</a>
-<span class="sourceLineNo">073</span><a id="line.73">        Revision revision</a>
-<span class="sourceLineNo">074</span><a id="line.74">            = Program.valueOf(parent.getGroupId(), parent.getArtifactId())</a>
-<span class="sourceLineNo">075</span><a id="line.75">                .version(parent.getVersion());</a>
-<span class="sourceLineNo">076</span><a id="line.76">        try {</a>
-<span class="sourceLineNo">077</span><a id="line.77">            Archive pomArchive</a>
-<span class="sourceLineNo">078</span><a id="line.78">                = bndRepository.getResolvedArchive(revision, "pom", "");</a>
-<span class="sourceLineNo">079</span><a id="line.79">            parent.setVersion(pomArchive.getRevision().version.toString());</a>
-<span class="sourceLineNo">080</span><a id="line.80">            File pomFile = bndRepository.get(pomArchive).getValue();</a>
-<span class="sourceLineNo">081</span><a id="line.81">            if (pomFile == null) {</a>
-<span class="sourceLineNo">082</span><a id="line.82">                throw new UnresolvableModelException("Not found.",</a>
-<span class="sourceLineNo">083</span><a id="line.83">                    parent.getGroupId(), parent.getArtifactId(),</a>
-<span class="sourceLineNo">084</span><a id="line.84">                    parent.getVersion());</a>
-<span class="sourceLineNo">085</span><a id="line.85">            }</a>
-<span class="sourceLineNo">086</span><a id="line.86">            return new FileModelSource(pomFile);</a>
-<span class="sourceLineNo">087</span><a id="line.87">        } catch (Exception e) {</a>
-<span class="sourceLineNo">088</span><a id="line.88">            throw new UnresolvableModelException(e, parent.getGroupId(),</a>
-<span class="sourceLineNo">089</span><a id="line.89">                parent.getArtifactId(), parent.getVersion());</a>
-<span class="sourceLineNo">090</span><a id="line.90">        }</a>
-<span class="sourceLineNo">091</span><a id="line.91">    }</a>
-<span class="sourceLineNo">092</span><a id="line.92"></a>
-<span class="sourceLineNo">093</span><a id="line.93">    @Override</a>
-<span class="sourceLineNo">094</span><a id="line.94">    public ModelSource resolveModel(Dependency dependency)</a>
-<span class="sourceLineNo">095</span><a id="line.95">            throws UnresolvableModelException {</a>
-<span class="sourceLineNo">096</span><a id="line.96">        Revision revision</a>
-<span class="sourceLineNo">097</span><a id="line.97">            = Program.valueOf(dependency.getGroupId(),</a>
-<span class="sourceLineNo">098</span><a id="line.98">                dependency.getArtifactId()).version(dependency.getVersion());</a>
-<span class="sourceLineNo">099</span><a id="line.99">        try {</a>
-<span class="sourceLineNo">100</span><a id="line.100">            Archive pomArchive</a>
-<span class="sourceLineNo">101</span><a id="line.101">                = bndRepository.getResolvedArchive(revision, "pom", "");</a>
-<span class="sourceLineNo">102</span><a id="line.102">            dependency.setVersion(pomArchive.getRevision().version.toString());</a>
-<span class="sourceLineNo">103</span><a id="line.103">            File pomFile = bndRepository.get(pomArchive).getValue();</a>
-<span class="sourceLineNo">104</span><a id="line.104">            if (pomFile == null) {</a>
-<span class="sourceLineNo">105</span><a id="line.105">                throw new UnresolvableModelException("Not found.",</a>
-<span class="sourceLineNo">106</span><a id="line.106">                    dependency.getGroupId(), dependency.getArtifactId(),</a>
-<span class="sourceLineNo">107</span><a id="line.107">                    dependency.getVersion());</a>
-<span class="sourceLineNo">108</span><a id="line.108">            }</a>
-<span class="sourceLineNo">109</span><a id="line.109">            return new FileModelSource(pomFile);</a>
-<span class="sourceLineNo">110</span><a id="line.110">        } catch (Exception e) {</a>
-<span class="sourceLineNo">111</span><a id="line.111">            throw new UnresolvableModelException(e, dependency.getGroupId(),</a>
-<span class="sourceLineNo">112</span><a id="line.112">                dependency.getArtifactId(), dependency.getVersion());</a>
-<span class="sourceLineNo">113</span><a id="line.113">        }</a>
-<span class="sourceLineNo">114</span><a id="line.114">    }</a>
-<span class="sourceLineNo">115</span><a id="line.115"></a>
-<span class="sourceLineNo">116</span><a id="line.116">    @Override</a>
-<span class="sourceLineNo">117</span><a id="line.117">    public void addRepository(Repository repository)</a>
-<span class="sourceLineNo">118</span><a id="line.118">            throws InvalidRepositoryException {</a>
-<span class="sourceLineNo">119</span><a id="line.119">        reporter.warning("Attempt to add repository %s (not supported).",</a>
-<span class="sourceLineNo">120</span><a id="line.120">            repository);</a>
-<span class="sourceLineNo">121</span><a id="line.121">    }</a>
-<span class="sourceLineNo">122</span><a id="line.122"></a>
-<span class="sourceLineNo">123</span><a id="line.123">    @Override</a>
-<span class="sourceLineNo">124</span><a id="line.124">    public void addRepository(Repository repository, boolean replace)</a>
-<span class="sourceLineNo">125</span><a id="line.125">            throws InvalidRepositoryException {</a>
-<span class="sourceLineNo">126</span><a id="line.126">        reporter.warning(</a>
-<span class="sourceLineNo">127</span><a id="line.127">            "Attempt to add/replace repository %s (not supported).",</a>
-<span class="sourceLineNo">128</span><a id="line.128">            repository);</a>
-<span class="sourceLineNo">129</span><a id="line.129">    }</a>
-<span class="sourceLineNo">130</span><a id="line.130"></a>
-<span class="sourceLineNo">131</span><a id="line.131">    @Override</a>
-<span class="sourceLineNo">132</span><a id="line.132">    public ModelResolver newCopy() {</a>
-<span class="sourceLineNo">133</span><a id="line.133">        try {</a>
-<span class="sourceLineNo">134</span><a id="line.134">            return (BndModelResolver) clone();</a>
-<span class="sourceLineNo">135</span><a id="line.135">        } catch (CloneNotSupportedException e) {</a>
-<span class="sourceLineNo">136</span><a id="line.136">            // Doesn't happen</a>
-<span class="sourceLineNo">137</span><a id="line.137">            return null;</a>
-<span class="sourceLineNo">138</span><a id="line.138">        }</a>
-<span class="sourceLineNo">139</span><a id="line.139">    }</a>
-<span class="sourceLineNo">140</span><a id="line.140"></a>
-<span class="sourceLineNo">141</span><a id="line.141">    public static class FileModelSource extends FileSource</a>
-<span class="sourceLineNo">142</span><a id="line.142">            implements ModelSource {</a>
-<span class="sourceLineNo">143</span><a id="line.143">        public FileModelSource(File file) {</a>
-<span class="sourceLineNo">144</span><a id="line.144">            super(file);</a>
-<span class="sourceLineNo">145</span><a id="line.145">        }</a>
-<span class="sourceLineNo">146</span><a id="line.146">    }</a>
-<span class="sourceLineNo">147</span><a id="line.147">}</a>
+<span class="sourceLineNo">046</span><a id="line.46">    /**</a>
+<span class="sourceLineNo">047</span><a id="line.47">     * Instantiates a new bnd model resolver.</a>
+<span class="sourceLineNo">048</span><a id="line.48">     *</a>
+<span class="sourceLineNo">049</span><a id="line.49">     * @param bndRepository the backing repository</a>
+<span class="sourceLineNo">050</span><a id="line.50">     * @param reporter the reporter</a>
+<span class="sourceLineNo">051</span><a id="line.51">     */</a>
+<span class="sourceLineNo">052</span><a id="line.52">    public BndModelResolver(MavenRepository bndRepository, Reporter reporter) {</a>
+<span class="sourceLineNo">053</span><a id="line.53">        this.bndRepository = bndRepository;</a>
+<span class="sourceLineNo">054</span><a id="line.54">        this.reporter = reporter;</a>
+<span class="sourceLineNo">055</span><a id="line.55">    }</a>
+<span class="sourceLineNo">056</span><a id="line.56"></a>
+<span class="sourceLineNo">057</span><a id="line.57">    @Override</a>
+<span class="sourceLineNo">058</span><a id="line.58">    @SuppressWarnings("PMD.AvoidCatchingGenericException")</a>
+<span class="sourceLineNo">059</span><a id="line.59">    public ModelSource resolveModel(String groupId, String artifactId,</a>
+<span class="sourceLineNo">060</span><a id="line.60">            String version) throws UnresolvableModelException {</a>
+<span class="sourceLineNo">061</span><a id="line.61">        Revision revision</a>
+<span class="sourceLineNo">062</span><a id="line.62">            = Program.valueOf(groupId, artifactId).version(version);</a>
+<span class="sourceLineNo">063</span><a id="line.63">        Archive pomArchive = revision.getPomArchive();</a>
+<span class="sourceLineNo">064</span><a id="line.64">        try {</a>
+<span class="sourceLineNo">065</span><a id="line.65">            File pomFile = bndRepository.get(pomArchive).getValue();</a>
+<span class="sourceLineNo">066</span><a id="line.66">            if (pomFile == null) {</a>
+<span class="sourceLineNo">067</span><a id="line.67">                throw new UnresolvableModelException("Not found.", groupId,</a>
+<span class="sourceLineNo">068</span><a id="line.68">                    artifactId, version);</a>
+<span class="sourceLineNo">069</span><a id="line.69">            }</a>
+<span class="sourceLineNo">070</span><a id="line.70">            return new FileModelSource(pomFile);</a>
+<span class="sourceLineNo">071</span><a id="line.71">        } catch (Exception e) {</a>
+<span class="sourceLineNo">072</span><a id="line.72">            throw new UnresolvableModelException(e, groupId, artifactId,</a>
+<span class="sourceLineNo">073</span><a id="line.73">                version);</a>
+<span class="sourceLineNo">074</span><a id="line.74">        }</a>
+<span class="sourceLineNo">075</span><a id="line.75">    }</a>
+<span class="sourceLineNo">076</span><a id="line.76"></a>
+<span class="sourceLineNo">077</span><a id="line.77">    @Override</a>
+<span class="sourceLineNo">078</span><a id="line.78">    @SuppressWarnings("PMD.AvoidCatchingGenericException")</a>
+<span class="sourceLineNo">079</span><a id="line.79">    public ModelSource resolveModel(Parent parent)</a>
+<span class="sourceLineNo">080</span><a id="line.80">            throws UnresolvableModelException {</a>
+<span class="sourceLineNo">081</span><a id="line.81">        Revision revision</a>
+<span class="sourceLineNo">082</span><a id="line.82">            = Program.valueOf(parent.getGroupId(), parent.getArtifactId())</a>
+<span class="sourceLineNo">083</span><a id="line.83">                .version(parent.getVersion());</a>
+<span class="sourceLineNo">084</span><a id="line.84">        try {</a>
+<span class="sourceLineNo">085</span><a id="line.85">            Archive pomArchive</a>
+<span class="sourceLineNo">086</span><a id="line.86">                = bndRepository.getResolvedArchive(revision, "pom", "");</a>
+<span class="sourceLineNo">087</span><a id="line.87">            parent.setVersion(pomArchive.getRevision().version.toString());</a>
+<span class="sourceLineNo">088</span><a id="line.88">            File pomFile = bndRepository.get(pomArchive).getValue();</a>
+<span class="sourceLineNo">089</span><a id="line.89">            if (pomFile == null) {</a>
+<span class="sourceLineNo">090</span><a id="line.90">                throw new UnresolvableModelException("Not found.",</a>
+<span class="sourceLineNo">091</span><a id="line.91">                    parent.getGroupId(), parent.getArtifactId(),</a>
+<span class="sourceLineNo">092</span><a id="line.92">                    parent.getVersion());</a>
+<span class="sourceLineNo">093</span><a id="line.93">            }</a>
+<span class="sourceLineNo">094</span><a id="line.94">            return new FileModelSource(pomFile);</a>
+<span class="sourceLineNo">095</span><a id="line.95">        } catch (Exception e) {</a>
+<span class="sourceLineNo">096</span><a id="line.96">            throw new UnresolvableModelException(e, parent.getGroupId(),</a>
+<span class="sourceLineNo">097</span><a id="line.97">                parent.getArtifactId(), parent.getVersion());</a>
+<span class="sourceLineNo">098</span><a id="line.98">        }</a>
+<span class="sourceLineNo">099</span><a id="line.99">    }</a>
+<span class="sourceLineNo">100</span><a id="line.100"></a>
+<span class="sourceLineNo">101</span><a id="line.101">    @Override</a>
+<span class="sourceLineNo">102</span><a id="line.102">    @SuppressWarnings("PMD.AvoidCatchingGenericException")</a>
+<span class="sourceLineNo">103</span><a id="line.103">    public ModelSource resolveModel(Dependency dependency)</a>
+<span class="sourceLineNo">104</span><a id="line.104">            throws UnresolvableModelException {</a>
+<span class="sourceLineNo">105</span><a id="line.105">        Revision revision</a>
+<span class="sourceLineNo">106</span><a id="line.106">            = Program.valueOf(dependency.getGroupId(),</a>
+<span class="sourceLineNo">107</span><a id="line.107">                dependency.getArtifactId()).version(dependency.getVersion());</a>
+<span class="sourceLineNo">108</span><a id="line.108">        try {</a>
+<span class="sourceLineNo">109</span><a id="line.109">            Archive pomArchive</a>
+<span class="sourceLineNo">110</span><a id="line.110">                = bndRepository.getResolvedArchive(revision, "pom", "");</a>
+<span class="sourceLineNo">111</span><a id="line.111">            dependency.setVersion(pomArchive.getRevision().version.toString());</a>
+<span class="sourceLineNo">112</span><a id="line.112">            File pomFile = bndRepository.get(pomArchive).getValue();</a>
+<span class="sourceLineNo">113</span><a id="line.113">            if (pomFile == null) {</a>
+<span class="sourceLineNo">114</span><a id="line.114">                throw new UnresolvableModelException("Not found.",</a>
+<span class="sourceLineNo">115</span><a id="line.115">                    dependency.getGroupId(), dependency.getArtifactId(),</a>
+<span class="sourceLineNo">116</span><a id="line.116">                    dependency.getVersion());</a>
+<span class="sourceLineNo">117</span><a id="line.117">            }</a>
+<span class="sourceLineNo">118</span><a id="line.118">            return new FileModelSource(pomFile);</a>
+<span class="sourceLineNo">119</span><a id="line.119">        } catch (Exception e) {</a>
+<span class="sourceLineNo">120</span><a id="line.120">            throw new UnresolvableModelException(e, dependency.getGroupId(),</a>
+<span class="sourceLineNo">121</span><a id="line.121">                dependency.getArtifactId(), dependency.getVersion());</a>
+<span class="sourceLineNo">122</span><a id="line.122">        }</a>
+<span class="sourceLineNo">123</span><a id="line.123">    }</a>
+<span class="sourceLineNo">124</span><a id="line.124"></a>
+<span class="sourceLineNo">125</span><a id="line.125">    @Override</a>
+<span class="sourceLineNo">126</span><a id="line.126">    public void addRepository(Repository repository)</a>
+<span class="sourceLineNo">127</span><a id="line.127">            throws InvalidRepositoryException {</a>
+<span class="sourceLineNo">128</span><a id="line.128">        reporter.warning("Attempt to add repository %s (not supported).",</a>
+<span class="sourceLineNo">129</span><a id="line.129">            repository);</a>
+<span class="sourceLineNo">130</span><a id="line.130">    }</a>
+<span class="sourceLineNo">131</span><a id="line.131"></a>
+<span class="sourceLineNo">132</span><a id="line.132">    @Override</a>
+<span class="sourceLineNo">133</span><a id="line.133">    public void addRepository(Repository repository, boolean replace)</a>
+<span class="sourceLineNo">134</span><a id="line.134">            throws InvalidRepositoryException {</a>
+<span class="sourceLineNo">135</span><a id="line.135">        reporter.warning(</a>
+<span class="sourceLineNo">136</span><a id="line.136">            "Attempt to add/replace repository %s (not supported).",</a>
+<span class="sourceLineNo">137</span><a id="line.137">            repository);</a>
+<span class="sourceLineNo">138</span><a id="line.138">    }</a>
+<span class="sourceLineNo">139</span><a id="line.139"></a>
+<span class="sourceLineNo">140</span><a id="line.140">    @Override</a>
+<span class="sourceLineNo">141</span><a id="line.141">    public ModelResolver newCopy() {</a>
+<span class="sourceLineNo">142</span><a id="line.142">        try {</a>
+<span class="sourceLineNo">143</span><a id="line.143">            return (BndModelResolver) clone();</a>
+<span class="sourceLineNo">144</span><a id="line.144">        } catch (CloneNotSupportedException e) {</a>
+<span class="sourceLineNo">145</span><a id="line.145">            // Doesn't happen</a>
+<span class="sourceLineNo">146</span><a id="line.146">            return null;</a>
+<span class="sourceLineNo">147</span><a id="line.147">        }</a>
+<span class="sourceLineNo">148</span><a id="line.148">    }</a>
+<span class="sourceLineNo">149</span><a id="line.149"></a>
+<span class="sourceLineNo">150</span><a id="line.150">    /**</a>
+<span class="sourceLineNo">151</span><a id="line.151">     * The Class FileModelSource.</a>
+<span class="sourceLineNo">152</span><a id="line.152">     */</a>
+<span class="sourceLineNo">153</span><a id="line.153">    public static class FileModelSource extends FileSource</a>
+<span class="sourceLineNo">154</span><a id="line.154">            implements ModelSource {</a>
+<span class="sourceLineNo">155</span><a id="line.155"></a>
+<span class="sourceLineNo">156</span><a id="line.156">        /**</a>
+<span class="sourceLineNo">157</span><a id="line.157">         * Instantiates a new file model source.</a>
+<span class="sourceLineNo">158</span><a id="line.158">         *</a>
+<span class="sourceLineNo">159</span><a id="line.159">         * @param file the file</a>
+<span class="sourceLineNo">160</span><a id="line.160">         */</a>
+<span class="sourceLineNo">161</span><a id="line.161">        public FileModelSource(File file) {</a>
+<span class="sourceLineNo">162</span><a id="line.162">            super(file);</a>
+<span class="sourceLineNo">163</span><a id="line.163">        }</a>
+<span class="sourceLineNo">164</span><a id="line.164">    }</a>
+<span class="sourceLineNo">165</span><a id="line.165">}</a>
 
 
 

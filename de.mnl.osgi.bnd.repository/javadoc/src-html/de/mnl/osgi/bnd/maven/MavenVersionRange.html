@@ -113,7 +113,7 @@
 <span class="sourceLineNo">104</span><a id="line.104">     *</a>
 <span class="sourceLineNo">105</span><a id="line.105">     * @return the maven version range</a>
 <span class="sourceLineNo">106</span><a id="line.106">     */</a>
-<span class="sourceLineNo">107</span><a id="line.107">    @SuppressWarnings("PMD.CyclomaticComplexity")</a>
+<span class="sourceLineNo">107</span><a id="line.107">    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.CognitiveComplexity" })</a>
 <span class="sourceLineNo">108</span><a id="line.108">    public MavenVersionRange complement() {</a>
 <span class="sourceLineNo">109</span><a id="line.109">        List&lt;Restriction&gt; restrictions = range.getRestrictions();</a>
 <span class="sourceLineNo">110</span><a id="line.110">        restrictions.sort(Comparator.comparing(Restriction::getLowerBound));</a>
