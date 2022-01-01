@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,7 @@ import org.osgi.resource.Resource;
 /**
  * Wraps the artifacts from a maven repository as {@link Resource}s.
  */
+@SuppressWarnings("PMD.UseLocaleWithCaseConversions")
 public class MavenResourceRepository extends CompositeMavenRepository {
 
     /** The namespace used to store the maven dependencies information. */
@@ -64,6 +66,18 @@ public class MavenResourceRepository extends CompositeMavenRepository {
     private final Map<Archive, MavenResource> resourceCache
         = new ConcurrentHashMap<>();
 
+    /**
+     * Instantiates a new maven resource repository.
+     *
+     * @param base the base
+     * @param repoId the repo id
+     * @param releaseRepos the release repos
+     * @param snapshotRepos the snapshot repos
+     * @param executor the executor
+     * @param reporter the reporter
+     * @throws Exception the exception
+     */
+    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
     public MavenResourceRepository(File base, String repoId,
             List<MavenBackingRepository> releaseRepos,
             List<MavenBackingRepository> snapshotRepos, Executor executor,
@@ -161,6 +175,7 @@ public class MavenResourceRepository extends CompositeMavenRepository {
      * A maven resource that obtains its information
      * lazily from a {@link CompositeMavenRepository}.
      */
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
     public class MavenResourceImpl implements MavenResource {
 
         private final Archive archive;
@@ -257,12 +272,14 @@ public class MavenResourceRepository extends CompositeMavenRepository {
          */
         @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
             "PMD.AvoidInstanceofChecksInCatchClause",
-            "PMD.CyclomaticComplexity", "PMD.NcssCount" })
+            "PMD.CyclomaticComplexity", "PMD.NcssCount",
+            "PMD.AvoidInstantiatingObjectsInLoops",
+            "PMD.AvoidLiteralsInIfCondition", "PMD.CognitiveComplexity" })
         private void createResource() throws MavenResourceException {
             Model model = model(archive.revision);
             String extension = model.getPackaging();
-            if (extension.equals("bundle")
-                || extension.equals("eclipse-plugin")) {
+            if ("bundle".equals(extension)
+                || "eclipse-plugin".equals(extension)) {
                 extension = Archive.JAR_EXTENSION;
             }
             ResourceBuilder builder = new ResourceBuilder();
@@ -288,8 +305,8 @@ public class MavenResourceRepository extends CompositeMavenRepository {
             }
             List<Capability> caps = builder.getCapabilities();
             Map<String, Object> idAttrs = caps.stream()
-                .filter(cap -> cap.getNamespace()
-                    .equals(IdentityNamespace.IDENTITY_NAMESPACE))
+                .filter(cap -> IdentityNamespace.IDENTITY_NAMESPACE
+                    .equals(cap.getNamespace()))
                 .findFirst().map(Capability::getAttributes)
                 .orElse(Collections.emptyMap());
             String bsn = (String) idAttrs.getOrDefault(
@@ -305,22 +322,18 @@ public class MavenResourceRepository extends CompositeMavenRepository {
             if (!dependencies().isEmpty()) {
                 CapabilityBuilder cap
                     = new CapabilityBuilder(MAVEN_DEPENDENCIES_NS);
-                Set<Dependency> cpDeps = new HashSet<>();
-                Set<Dependency> rtDeps = new HashSet<>();
+                @SuppressWarnings("PMD.UseConcurrentHashMap")
+                Map<String, Set<Dependency>> depsByScope = new HashMap<>();
                 for (Dependency dep : dependencies()) {
-                    if (dep.getScope() == null
-                        || dep.getScope().equalsIgnoreCase("compile")) {
-                        cpDeps.add(dep);
-                    } else if (dep.getScope().equalsIgnoreCase("runtime")) {
-                        rtDeps.add(dep);
-                    }
+                    String scope = Optional.ofNullable(dep.getScope())
+                        .orElse("compile").toLowerCase();
+                    depsByScope.computeIfAbsent(scope, key -> new HashSet<>())
+                        .add(dep);
                 }
                 try {
-                    if (!cpDeps.isEmpty()) {
-                        cap.addAttribute("compile", toVersionList(cpDeps));
-                    }
-                    if (!rtDeps.isEmpty()) {
-                        cap.addAttribute("runtime", toVersionList(rtDeps));
+                    for (var deps : depsByScope.entrySet()) {
+                        cap.addAttribute(deps.getKey(),
+                            toVersionList(deps.getValue()));
                     }
                 } catch (Exception e) {
                     throw new IllegalArgumentException(e);
@@ -385,8 +398,14 @@ public class MavenResourceRepository extends CompositeMavenRepository {
             return archive.toString();
         }
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see de.mnl.osgi.bnd.maven.MavenResource#dependencies()
+         */
         @Override
-        @SuppressWarnings("PMD.ConfusingTernary")
+        @SuppressWarnings({ "PMD.ConfusingTernary",
+            "PMD.AvoidSynchronizedAtMethodLevel" })
         public final synchronized List<Dependency> dependencies()
                 throws MavenResourceException {
             if (cachedDependencies == null) {
