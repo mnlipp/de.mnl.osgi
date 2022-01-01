@@ -584,6 +584,9 @@ public class MavenGroupRepository extends ResourcesRepository {
         try {
             deps = resource.dependencies();
         } catch (Exception e) {
+            logIndexing(resource.archive().revision,
+                () -> String.format("Failed to get dependencies of %s: %s",
+                    resource.archive(), e.getMessage()));
             // Failing to get the dependencies is no reason to fail.
             return Collections.emptyList();
         }
