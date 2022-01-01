@@ -67,12 +67,13 @@ import org.w3c.dom.Element;
  * Provide an OSGi repository (a collection of {@link Resource}s, see 
  * {@link Repository}), filled with resolved artifacts from given groupIds.
  */
-@SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+@SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.TooManyFields",
+    "PMD.FieldNamingConventions" })
 public class IndexedMavenRepository extends ResourcesRepository {
 
-    /* default */ static ExecutorService programLoaders
+    /* default */ static final ExecutorService programLoaders
         = Executors.newFixedThreadPool(4);
-    /* default */ static ExecutorService revisionLoaders
+    /* default */ static final ExecutorService revisionLoaders
         = Executors.newFixedThreadPool(8);
 
     private static final Logger LOG = LoggerFactory.getLogger(
@@ -252,7 +253,8 @@ public class IndexedMavenRepository extends ResourcesRepository {
     }
 
     @SuppressWarnings({ "PMD.AvoidInstantiatingObjectsInLoops",
-        "PMD.AvoidDuplicateLiterals", "PMD.SignatureDeclareThrowsException" })
+        "PMD.AvoidDuplicateLiterals", "PMD.SignatureDeclareThrowsException",
+        "PMD.CognitiveComplexity", "PMD.NPathComplexity" })
     private boolean doRefresh() throws Exception {
         mavenRepository.reset();
 
@@ -270,6 +272,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
         scanDependencies(backupGroups).get();
 
         // Refresh them all.
+        @SuppressWarnings("PMD.GuardLogStatement")
         CompletableFuture<?>[] repoLoaders
             = new ArrayList<>(groups.values()).stream()
                 .map(repo -> CompletableFuture.runAsync(() -> {
@@ -359,8 +362,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
                                 .map(Path::toFile)
                                 .forEach(File::delete);
                         } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
+                            throw new IllegalStateException(e);
                         }
                         return false;
                     }

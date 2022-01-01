@@ -99,7 +99,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         = new ConcurrentHashMap<>();
     private ResourcesRepository backupRepo;
     private Writer indexingLog;
-    private Map<Revision, List<String>> loggedMessages
+    private final Map<Revision, List<String>> loggedMessages
         = new ConcurrentHashMap<>();
 
     @SuppressWarnings("PMD.FieldNamingConventions")
@@ -120,7 +120,8 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @SuppressWarnings({ "PMD.ConfusingTernary",
-        "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals" })
+        "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals",
+        "PMD.GuardLogStatement" })
     public MavenGroupRepository(String groupId, Path directory,
             boolean requested, IndexedMavenRepository indexedRepository,
             HttpClient client, Reporter reporter) throws IOException {
@@ -259,6 +260,7 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @param directory this group's directory
      * @param requested whether this is a requested group
      */
+    @SuppressWarnings({ "PMD.ConfusingTernary", "PMD.GuardLogStatement" })
     public void reset(Path directory, boolean requested) {
         synchronized (this) {
             // Update basic properties
@@ -293,7 +295,7 @@ public class MavenGroupRepository extends ResourcesRepository {
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    void reset() throws IOException {
+    /* package */ void reset() throws IOException {
         if (indexedRepository.logIndexing()) {
             indexingLog = Files.newBufferedWriter(
                 groupDir.resolve("indexing.log"), Charset.defaultCharset());
@@ -328,7 +330,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         "PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals",
         "PMD.AvoidInstantiatingObjectsInLoops",
         "PMD.AvoidThrowingRawExceptionTypes", "PMD.PreserveStackTrace" })
-    void reload() throws IOException {
+    /* package */ void reload() throws IOException {
         if (!isRequested()) {
             // Will be filled with dependencies only
             return;
@@ -350,6 +352,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         }
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingThrowable")
     private CompletableFuture<Void> loadProgram(Program program) {
         // Get revisions of program and process.
         CompletableFuture<Void> result = new CompletableFuture<>();
@@ -433,7 +436,7 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
-        "PMD.AvoidInstantiatingObjectsInLoops" })
+        "PMD.AvoidInstantiatingObjectsInLoops", "PMD.GuardLogStatement" })
     private Collection<String> findArtifactIds() {
         Set<String> result = new HashSet<>();
         for (MavenBackingRepository repo : indexedRepository.mavenRepository()
@@ -467,6 +470,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         return result;
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     private void addResourceAndDependencies(MavenResource resource,
             Set<MavenResource> allDeps) {
         addResource(resource);
@@ -497,7 +501,9 @@ public class MavenGroupRepository extends ResourcesRepository {
      * @return true, if the revision can be added to the index
      */
     @SuppressWarnings({ "PMD.LongVariable", "PMD.NPathComplexity",
-        "PMD.AvoidCatchingGenericException" })
+        "PMD.AvoidCatchingGenericException", "PMD.CognitiveComplexity",
+        "PMD.CyclomaticComplexity", "PMD.NcssCount",
+        "PMD.CollapsibleIfStatements", "PMD.ConfusingTernary" })
     private boolean isIndexable(MavenResource resource,
             Set<MavenResource> dependencies) {
         Archive archive = resource.archive();
@@ -551,6 +557,7 @@ public class MavenGroupRepository extends ResourcesRepository {
                     depResource.archive(), archive));
             depRepo.indexingState.putIfAbsent(depResource.archive(),
                 IndexingState.INDEXING);
+            @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
             Set<MavenResource> collectedDeps = new HashSet<>();
             if (!depRepo.isIndexable(depResource, collectedDeps)) {
                 // Note that the revision which was checked is not indexable
@@ -579,6 +586,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         return true;
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     private List<Dependency> evaluateDependencies(MavenResource resource) {
         List<Dependency> deps;
         try {
@@ -601,6 +609,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         return deps;
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     private Optional<MavenResource> dependencyToResource(Dependency dep) {
         Program depPgm = Program.valueOf(dep.getGroupId(), dep.getArtifactId());
         try {

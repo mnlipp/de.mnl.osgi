@@ -37,6 +37,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Class VersionSpecification.
+ */
+@SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class VersionSpecification {
 
     private Type type;
@@ -45,30 +49,57 @@ public class VersionSpecification {
     private String classifier;
     private MavenVersionRange range;
 
-    public static enum Type {
+    /**
+     * The Enum Type.
+     */
+    @SuppressWarnings("PMD.FieldNamingConventions")
+    public enum Type {
         VERSIONS("versions"), FORCED_VERSIONS("forcedVersions"),
         EXCLUDE("exclude");
 
+        @SuppressWarnings("PMD.UseConcurrentHashMap")
         private static final Map<String, Type> types = new HashMap<>();
         static {
             Stream.of(values()).forEach(v -> types.put(v.keyword, v));
         }
 
+        /** The keyword. */
         public final String keyword;
 
-        private Type(String keyword) {
+        Type(String keyword) {
             this.keyword = keyword;
         }
 
+        /**
+         * Checks if is keyword.
+         *
+         * @param value the value
+         * @return true, if is keyword
+         */
         public static boolean isKeyword(String value) {
             return types.containsKey(value);
         }
 
+        /**
+         * Of.
+         *
+         * @param value the value
+         * @return the type
+         */
+        @SuppressWarnings("PMD.ShortMethodName")
         public static Type of(String value) {
             return Optional.ofNullable(types.get(value)).orElseThrow();
         }
     }
 
+    /**
+     * Parses the.
+     *
+     * @param props the props
+     * @return the version specification[]
+     */
+    @SuppressWarnings({ "PMD.AvoidInstantiatingObjectsInLoops",
+        "PMD.ImplicitSwitchFallThrough" })
     public static VersionSpecification[] parse(Properties props) {
         List<VersionSpecification> result = new ArrayList<>();
         for (var key : props.keySet()) {
@@ -90,13 +121,15 @@ public class VersionSpecification {
                 // fallthrough
             case 1:
                 spec.artifactSpec = nameParts[0];
+                break;
+            default:
+                break;
             }
             spec.range
                 = MavenVersionRange.parseRange(props.getProperty(entry));
             result.add(spec);
         }
-        return result.toArray(new VersionSpecification[result.size()]);
-
+        return result.toArray(new VersionSpecification[0]);
     }
 
     /**
@@ -155,6 +188,13 @@ public class VersionSpecification {
             .collect(Collectors.toSet());
     }
 
+    /**
+     * Checks if is forced.
+     *
+     * @param specs the specs
+     * @param archive the archive
+     * @return true, if is forced
+     */
     public static boolean isForced(VersionSpecification[] specs,
             Archive archive) {
         return Arrays.stream(specs)
@@ -206,6 +246,11 @@ public class VersionSpecification {
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -213,17 +258,15 @@ public class VersionSpecification {
             result.append(artifactSpec);
         }
         if (extension != null) {
-            result.append(":" + extension);
+            result.append(':').append(extension);
         }
         if (classifier != null) {
-            result.append(":" + classifier);
+            result.append(':').append(classifier);
         }
         if (result.length() > 0) {
-            result.append(";");
+            result.append(';');
         }
-        result.append(type);
-        result.append("=");
-        result.append(range);
+        result.append(type).append('=').append(range);
         return result.toString();
     }
 }

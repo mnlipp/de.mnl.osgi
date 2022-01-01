@@ -43,12 +43,19 @@ public class BndModelResolver implements ModelResolver, Cloneable {
     private final MavenRepository bndRepository;
     private final Reporter reporter;
 
+    /**
+     * Instantiates a new bnd model resolver.
+     *
+     * @param bndRepository the backing repository
+     * @param reporter the reporter
+     */
     public BndModelResolver(MavenRepository bndRepository, Reporter reporter) {
         this.bndRepository = bndRepository;
         this.reporter = reporter;
     }
 
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public ModelSource resolveModel(String groupId, String artifactId,
             String version) throws UnresolvableModelException {
         Revision revision
@@ -68,6 +75,7 @@ public class BndModelResolver implements ModelResolver, Cloneable {
     }
 
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public ModelSource resolveModel(Parent parent)
             throws UnresolvableModelException {
         Revision revision
@@ -91,6 +99,7 @@ public class BndModelResolver implements ModelResolver, Cloneable {
     }
 
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public ModelSource resolveModel(Dependency dependency)
             throws UnresolvableModelException {
         Revision revision
@@ -138,8 +147,17 @@ public class BndModelResolver implements ModelResolver, Cloneable {
         }
     }
 
+    /**
+     * The Class FileModelSource.
+     */
     public static class FileModelSource extends FileSource
             implements ModelSource {
+
+        /**
+         * Instantiates a new file model source.
+         *
+         * @param file the file
+         */
         public FileModelSource(File file) {
             super(file);
         }

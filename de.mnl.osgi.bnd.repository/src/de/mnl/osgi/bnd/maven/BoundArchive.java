@@ -45,6 +45,15 @@ public class BoundArchive extends Archive {
         this.mavenBackingRepository = mavenBackingRepository;
     }
 
+    /**
+     * Instantiates a new bound archive.
+     *
+     * @param mavenBackingRepository the maven backing repository
+     * @param revision the revision
+     * @param snapshot the snapshot
+     * @param extension the extension
+     * @param classifier the classifier
+     */
     public BoundArchive(MavenBackingRepository mavenBackingRepository,
             Revision revision, MavenVersion snapshot, String extension,
             String classifier) {

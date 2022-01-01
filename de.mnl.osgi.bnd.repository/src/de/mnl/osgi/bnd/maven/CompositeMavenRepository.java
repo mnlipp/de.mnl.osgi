@@ -85,7 +85,8 @@ import org.osgi.util.promise.Promise;
  * should therefore be consistent with the model information
  * used in other maven repository based tools.
  */
-@SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "deprecation" })
+@SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "deprecation",
+    "PMD.ExcessiveImports" })
 public class CompositeMavenRepository implements Closeable {
 
     public static final Pattern COORDS_SPLITTER = Pattern.compile("\\s*;\\s*");
@@ -117,7 +118,7 @@ public class CompositeMavenRepository implements Closeable {
      * @throws Exception the exception
      */
     @SuppressWarnings({ "PMD.SignatureDeclareThrowsException",
-        "PMD.AvoidDuplicateLiterals" })
+        "PMD.AvoidDuplicateLiterals", "PMD.NcssCount" })
     public CompositeMavenRepository(File base, String repoId,
             List<MavenBackingRepository> releaseRepos,
             List<MavenBackingRepository> snapshotRepos, Executor executor,
@@ -443,6 +444,11 @@ public class CompositeMavenRepository implements Closeable {
         }
     }
 
+    /**
+     * Refresh a snapshot.
+     *
+     * @param archive the archive
+     */
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     protected void refreshSnapshot(BoundArchive archive) {
         File metaFile = bndMavenRepo.toLocalFile(

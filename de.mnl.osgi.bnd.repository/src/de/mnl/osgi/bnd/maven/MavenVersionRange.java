@@ -104,7 +104,7 @@ public class MavenVersionRange extends MavenVersionSpecification {
      *
      * @return the maven version range
      */
-    @SuppressWarnings("PMD.CyclomaticComplexity")
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.CognitiveComplexity" })
     public MavenVersionRange complement() {
         List<Restriction> restrictions = range.getRestrictions();
         restrictions.sort(Comparator.comparing(Restriction::getLowerBound));

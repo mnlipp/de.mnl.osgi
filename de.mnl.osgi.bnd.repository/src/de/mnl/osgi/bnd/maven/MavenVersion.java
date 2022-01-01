@@ -56,7 +56,7 @@ import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
  * implementation inherits from {@link ArtifactVersion}, i.e. from the
  * version as implemented by maven.
  */
-@SuppressWarnings("PMD.GodClass")
+@SuppressWarnings({ "PMD.GodClass" })
 public class MavenVersion extends MavenVersionSpecification
         implements ArtifactVersion {
 
@@ -69,7 +69,9 @@ public class MavenVersion extends MavenVersionSpecification
         = new SimpleDateFormat("yyyyMMdd.HHmmss", Locale.ROOT);
 
     static {
-        SNAPSHOT_TIMESTAMP.setTimeZone(TimeZone.getTimeZone("UTC"));
+        synchronized (SNAPSHOT_TIMESTAMP) {
+            SNAPSHOT_TIMESTAMP.setTimeZone(TimeZone.getTimeZone("UTC"));
+        }
     }
 
     private static final Pattern VERSION = Pattern.compile(VERSION_STRING);

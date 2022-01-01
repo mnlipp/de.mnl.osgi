@@ -25,21 +25,49 @@ public class MavenResourceException extends Exception {
 
     private static final long serialVersionUID = 1112064683351913549L;
 
+    /**
+     * Instantiates a new maven resource exception.
+     */
     public MavenResourceException() {
+        // Empty constructor
     }
 
+    /**
+     * Instantiates a new maven resource exception.
+     *
+     * @param message the message
+     */
     public MavenResourceException(String message) {
         super(message);
     }
 
+    /**
+     * Instantiates a new maven resource exception.
+     *
+     * @param cause the cause
+     */
     public MavenResourceException(Throwable cause) {
         super(cause);
     }
 
+    /**
+     * Instantiates a new maven resource exception.
+     *
+     * @param message the message
+     * @param cause the cause
+     */
     public MavenResourceException(String message, Throwable cause) {
         super(message, cause);
     }
 
+    /**
+     * Instantiates a new maven resource exception.
+     *
+     * @param message the message
+     * @param cause the cause
+     * @param enableSuppression the enable suppression
+     * @param writableStackTrace the writable stack trace
+     */
     public MavenResourceException(String message, Throwable cause,
             boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
