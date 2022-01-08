@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Michael N. Lipp (http://www.mnl.de)
+ * Copyright (C) 2019,2022 Michael N. Lipp (http://www.mnl.de)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,15 +88,20 @@ import org.osgi.framework.ServiceReference;
  * for optional service dependencies compared to the underlying
  * {@link ServiceCollector}s.
  */
+@SuppressWarnings({ "PMD.GodClass", "PMD.TooManyMethods" })
 public class ServiceResolver implements AutoCloseable, BundleActivator {
 
     /**
      * The bundle context. Made available for derived classes.
      */
     protected BundleContext context;
+    @SuppressWarnings("PMD.AvoidUsingVolatile")
     private volatile boolean isOpen;
-    private Map<String, ServiceCollector<?, ?>> dependencies = new HashMap<>();
-    private Map<String, ServiceCollector<?, ?>> optDependencies
+    @SuppressWarnings("PMD.UseConcurrentHashMap")
+    private final Map<String, ServiceCollector<?, ?>> dependencies
+        = new HashMap<>();
+    @SuppressWarnings("PMD.UseConcurrentHashMap")
+    private final Map<String, ServiceCollector<?, ?>> optDependencies
         = new HashMap<>();
     private int resolvedCount;
     private Runnable onResolved;
@@ -116,6 +121,7 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
      * Constructor for using the {@code ServiceResolver} as base
      * class for a {@link BundleActivator}.
      */
+    @SuppressWarnings("PMD.UncommentedEmptyConstructor")
     protected ServiceResolver() {
     }
 
@@ -146,6 +152,7 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
      * The default implementation does nothing.
      */
     protected void configure() {
+        // Default does nothing.
     }
 
     /**
@@ -154,6 +161,7 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
      * {@link #setOnResolved(Runnable)}.
      */
     protected void onResolved() {
+        // Default does nothing.
     }
 
     /**
@@ -163,6 +171,7 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
      * {@link #setOnDissolving(Runnable)}.
      */
     protected void onDissolving() {
+        // Default does nothing.
     }
 
     /**
@@ -176,6 +185,7 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
      * @param dependency the dependency that has been rebound
      */
     protected void onRebound(String dependency) {
+        // Default does nothing.
     }
 
     /**
@@ -251,6 +261,7 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
      * @param filter the filter
      * @return the service resolver
      */
+    @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     public ServiceResolver addDependency(String name, Filter filter) {
         synchronized (this) {
             if (isOpen) {
@@ -332,7 +343,7 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
         synchronized (this) {
             if (isOpen) {
                 throw new IllegalStateException(
-                    "Cannot add dependencies to open reolver.");
+                    "Cannot add dependencies to open resolver.");
             }
             optDependencies.put(name, new ServiceCollector<>(context, filter)
                 .setOnModfied((ref, svc) -> modifiedCb(name)));
@@ -384,6 +395,7 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
         }
     }
 
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     private void boundCb(ServiceReference<?> reference, Object service) {
         synchronized (this) {
             resolvedCount += 1;
@@ -394,6 +406,7 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
         }
     }
 
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     private void unbindingCb(ServiceReference<?> reference, Object service) {
         synchronized (this) {
             if (resolvedCount == dependencies.size()) {

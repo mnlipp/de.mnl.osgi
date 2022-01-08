@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Michael N. Lipp (http://www.mnl.de)
+ * Copyright (C) 2019, 2022 Michael N. Lipp (http://www.mnl.de)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,26 +77,28 @@ import org.osgi.framework.ServiceReference;
  *      usually the same type as the type of the service
  *      (see {@link #setServiceGetter(BiFunction)})
  */
+@SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.GodClass",
+    "PMD.TooManyFields", "PMD.DataflowAnomalyAnalysis" })
 public class ServiceCollector<S, T> implements AutoCloseable {
     /**
      * The Bundle Context used by this {@code ServiceCollector}.
      */
-    protected final BundleContext context;
+    private final BundleContext context;
     /**
-     * The Filter used by this {@code ServiceCollector} which s
-     * pecifies the search criteria for the services to collect.
+     * The Filter used by this {@code ServiceCollector} which 
+     * specifies the search criteria for the services to collect.
      */
-    protected final Filter filter;
+    private final Filter filter;
     /**
      * Filter string for use when adding the ServiceListener. If this field is
      * set, then certain optimizations can be taken since we don't have a user
      * supplied filter.
      */
-    final String listenerFilter;
+    private final String listenerFilter;
     /**
      * The registered listener.
      */
-    ServiceListener listener;
+    private ServiceListener listener;
     /**
      * Class name to be collected. If this field is set, then we are 
      * collecting by class name.
@@ -120,7 +122,8 @@ public class ServiceCollector<S, T> implements AutoCloseable {
     /**
      * Can be used for waiting on.
      */
-    private volatile int[] modificationCount = new int[] { -1 };
+    @SuppressWarnings("PMD.AvoidUsingVolatile")
+    private volatile int[] modificationCount = { -1 };
     // The callbacks.
     private BiConsumer<ServiceReference<S>, T> onBound;
     private BiConsumer<ServiceReference<S>, T> onAdded;
@@ -129,6 +132,7 @@ public class ServiceCollector<S, T> implements AutoCloseable {
     private BiConsumer<ServiceReference<S>, T> onModified;
     private BiFunction<BundleContext, ServiceReference<S>, T> svcGetter;
     // Speed up getService.
+    @SuppressWarnings("PMD.AvoidUsingVolatile")
     private volatile T cachedService;
 
     /**
@@ -149,13 +153,14 @@ public class ServiceCollector<S, T> implements AutoCloseable {
      * @param context the bundle context used to interact with the framework
      * @param filter the filter
      */
+    @SuppressWarnings("PMD.AvoidThrowingNullPointerException")
     public ServiceCollector(BundleContext context, Filter filter) {
         this.context = context;
         this.filter = filter;
         collectReference = null;
         collectClass = null;
         listenerFilter = filter.toString();
-        if ((context == null) || (filter == null)) {
+        if (context == null || filter == null) {
             /*
              * we throw a NPE here to be consistent with the other constructors
              */
@@ -326,6 +331,15 @@ public class ServiceCollector<S, T> implements AutoCloseable {
         return this;
     }
 
+    /**
+     * Returns the context passed to the constructor.
+     * 
+     * @return the context
+     */
+    public BundleContext getContext() {
+        return context;
+    }
+
     private void modified() {
         synchronized (modificationCount) {
             modificationCount[0] = modificationCount[0] + 1;
@@ -342,6 +356,7 @@ public class ServiceCollector<S, T> implements AutoCloseable {
      *     with which this {@code ServiceCollector} was created is 
      *     no longer valid.
      */
+    @SuppressWarnings("PMD.AvoidUncheckedExceptionsInSignatures")
     public void open() throws IllegalStateException {
         open(false);
     }
@@ -361,6 +376,8 @@ public class ServiceCollector<S, T> implements AutoCloseable {
      *     with which this {@code ServiceCollector} was created is no 
      *     longer valid.
      */
+    @SuppressWarnings({ "PMD.AvoidUncheckedExceptionsInSignatures",
+        "PMD.ConfusingTernary", "PMD.AvoidThrowingRawExceptionTypes" })
     public void open(boolean collectAllServices) throws IllegalStateException {
         synchronized (this) {
             if (isOpen()) {
@@ -430,7 +447,7 @@ public class ServiceCollector<S, T> implements AutoCloseable {
             throws InvalidSyntaxException {
         @SuppressWarnings("unchecked")
         ServiceReference<S>[] result
-            = (ServiceReference<S>[]) ((collectAllServices)
+            = (ServiceReference<S>[]) (collectAllServices
                 ? context.getAllServiceReferences(className, filterString)
                 : context.getServiceReferences(className, filterString));
         if (result == null) {
@@ -443,7 +460,7 @@ public class ServiceCollector<S, T> implements AutoCloseable {
         while (true) {
             // Process one by one so that we do not keep holding the lock.
             synchronized (this) {
-                if (!isOpen() || (initialReferences.size() == 0)) {
+                if (!isOpen() || initialReferences.isEmpty()) {
                     return; /* we are done */
                 }
                 // Get one...
@@ -498,8 +515,9 @@ public class ServiceCollector<S, T> implements AutoCloseable {
                 removeFromCollected(reference);
             }
             break;
+        default:
+            break;
         }
-
     }
 
     /**
@@ -551,6 +569,7 @@ public class ServiceCollector<S, T> implements AutoCloseable {
      *
      * @param reference the reference
      */
+    @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
     private void removeFromCollected(ServiceReference<S> reference) {
         synchronized (this) {
             // Only proceed if collected
@@ -625,6 +644,7 @@ public class ServiceCollector<S, T> implements AutoCloseable {
             return Optional.of(service);
         }
 
+        @SuppressWarnings("PMD.UselessParentheses")
         final long endTime
             = (timeout == 0) ? 0 : (System.currentTimeMillis() + timeout);
         while (true) {
