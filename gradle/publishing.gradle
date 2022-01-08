@@ -69,7 +69,7 @@ task releaseTag {
 
 build.mustRunAfter "releaseTag"
 
-task releaseToOss {
+task stageOnOssrh {
     group = "publishing"
     
     dependsOn "releaseTag"
