@@ -1,12 +1,15 @@
 # Configure Repositories
 -plugin.1.IndexedMaven: \
     de.mnl.osgi.bnd.repository.maven.provider.IndexedMavenRepositoryProvider; \
-        path:="${workspace}/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-4.1.0.jar,\
-            ${workspace}/cnf/plugins/biz.aQute.repository-6.0.0.jar"; \
         name=IndexedMaven; \
         location=cnf/indexed-maven; \
         releaseUrls="https://repo.maven.apache.org/maven2/"; \
         logIndexing=true
+
+-pluginpath.IndexedMaved: \
+    ${workspace}/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-4.1.0.jar,\
+    ${workspace}/cnf/cache/biz.aQute.repository-6.0.0.jar;\
+        url=https://repo1.maven.org/maven2/biz/aQute/bnd/biz.aQute.repository/6.0.0/biz.aQute.repository-6.0.0.jar
 
 -plugin.3.Local: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
