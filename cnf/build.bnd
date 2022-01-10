@@ -11,18 +11,6 @@
     ${workspace}/cnf/cache/biz.aQute.repository-6.0.0.jar;\
         url=https://repo1.maven.org/maven2/biz/aQute/bnd/biz.aQute.repository/6.0.0/biz.aQute.repository-6.0.0.jar
 
--plugin.3.Local: \
-	aQute.bnd.deployer.repository.LocalIndexedRepo; \
-		name = Local; \
-		pretty = true; \
-		local = ${build}/local
-
--plugin.4.Templates: \
-	aQute.bnd.deployer.repository.LocalIndexedRepo; \
-		name = Templates; \
-		pretty = true; \
-		local = ${build}/templates
-
 -plugin.5.Release: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
 		name = Release; \
