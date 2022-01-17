@@ -91,13 +91,15 @@ public class LoggerCatalogue<T> {
      * @param providingClass the providing class
      * @return the optional
      */
+    @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition",
+        "PMD.AvoidReassigningLoopVariables" })
     private static Optional<Class<?>>
             findRequestingClass(String providingClass) {
         StackTraceElement[] stackTrace = new Throwable().getStackTrace();
         for (int i = 2; i < stackTrace.length; i++) {
             StackTraceElement ste = stackTrace[i];
             if (ste.getClassName().equals(providingClass)
-                && ste.getMethodName().equals("getLogger")) {
+                && "getLogger".equals(ste.getMethodName())) {
                 Class<?>[] classes = CTX_HLPR.getClassContext();
                 // getClassContext() adds one level, so the
                 // call of getLogger (in classes) should be at i+1.

@@ -117,7 +117,7 @@ public class BufferedEvent {
 
     }
 
-    @SuppressWarnings("PMD.NcssCount")
+    @SuppressWarnings({ "PMD.NcssCount", "PMD.CognitiveComplexity" })
     private void doForward(LoggerFactory factory) {
         Logger logger;
         if ((bundle.getState() & (Bundle.RESOLVED | Bundle.STARTING
