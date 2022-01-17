@@ -25,11 +25,21 @@ import org.apache.logging.log4j.message.MessageFactory;
 import org.apache.logging.log4j.spi.AbstractLogger;
 import org.osgi.service.log.LoggerFactory;
 
+/**
+ * The OsgiLogger.
+ */
 public class OsgiLogger extends AbstractLogger implements LoggerFacade {
     private static final long serialVersionUID = 1L;
-    private OsgiLoggerContext context;
+    private final OsgiLoggerContext context;
     private org.osgi.service.log.Logger delegee;
 
+    /**
+     * Instantiates a new OSGi logger.
+     *
+     * @param context the context
+     * @param name the name
+     * @param messageFactory the message factory
+     */
     public OsgiLogger(OsgiLoggerContext context, final String name,
             final MessageFactory messageFactory) {
         super(name, messageFactory);
@@ -37,6 +47,12 @@ public class OsgiLogger extends AbstractLogger implements LoggerFacade {
         LoggerFacadeManager.registerFacade(this);
     }
 
+    /**
+     * Instantiates a new OSGi logger.
+     *
+     * @param context the context
+     * @param name the name
+     */
     public OsgiLogger(OsgiLoggerContext context, final String name) {
         super(name);
         this.context = context;
@@ -97,85 +113,88 @@ public class OsgiLogger extends AbstractLogger implements LoggerFacade {
 
     @Override
     public boolean isEnabled(final Level level, final Marker marker,
-            final String data, final Object... p1) {
+            final String data, final Object... params) {
         return isEnabledFor(level, marker);
     }
 
     @Override
     public boolean isEnabled(final Level level, final Marker marker,
-            final String message, final Object p0) {
+            final String message, final Object param) {
         return isEnabledFor(level, marker);
     }
 
     @Override
     public boolean isEnabled(final Level level, final Marker marker,
-            final String message, final Object p0,
-            final Object p1) {
+            final String message, final Object param1,
+            final Object param2) {
         return isEnabledFor(level, marker);
     }
 
     @Override
     public boolean isEnabled(final Level level, final Marker marker,
-            final String message, final Object p0,
-            final Object p1, final Object p2) {
+            final String message, final Object param1,
+            final Object param2, final Object param3) {
         return isEnabledFor(level, marker);
     }
 
     @Override
     public boolean isEnabled(final Level level, final Marker marker,
-            final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3) {
+            final String message, final Object param1, final Object param2,
+            final Object param3, final Object param4) {
         return isEnabledFor(level, marker);
     }
 
     @Override
     public boolean isEnabled(final Level level, final Marker marker,
-            final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4) {
+            final String message, final Object param1, final Object param2,
+            final Object param3, final Object param4, final Object param5) {
         return isEnabledFor(level, marker);
     }
 
     @Override
     public boolean isEnabled(final Level level, final Marker marker,
-            final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5) {
+            final String message, final Object param1, final Object param2,
+            final Object param3, final Object param4, final Object param5,
+            final Object param6) {
         return isEnabledFor(level, marker);
     }
 
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveParameterList",
+        "PMD.AvoidDuplicateLiterals" })
     public boolean isEnabled(final Level level, final Marker marker,
-            final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6) {
+            final String message, final Object param1, final Object param2,
+            final Object param3, final Object param4, final Object param5,
+            final Object param6, final Object param7) {
         return isEnabledFor(level, marker);
     }
 
     @Override
+    @SuppressWarnings("PMD.ExcessiveParameterList")
     public boolean isEnabled(final Level level, final Marker marker,
-            final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6,
-            final Object p7) {
+            final String message, final Object param1, final Object param2,
+            final Object param3, final Object param4, final Object param5,
+            final Object param6, final Object param7, final Object param8) {
         return isEnabledFor(level, marker);
     }
 
     @Override
+    @SuppressWarnings("PMD.ExcessiveParameterList")
     public boolean isEnabled(final Level level, final Marker marker,
-            final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6,
-            final Object p7, final Object p8) {
+            final String message, final Object param1, final Object param2,
+            final Object param3, final Object param4, final Object param5,
+            final Object param6, final Object param7, final Object param8,
+            final Object param9) {
         return isEnabledFor(level, marker);
     }
 
     @Override
+    @SuppressWarnings("PMD.ExcessiveParameterList")
     public boolean isEnabled(final Level level, final Marker marker,
-            final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6,
-            final Object p7, final Object p8, final Object p9) {
+            final String message, final Object param1, final Object param2,
+            final Object param3, final Object param4, final Object param5,
+            final Object param6, final Object param7, final Object param8,
+            final Object param9, final Object param10) {
         return isEnabledFor(level, marker);
     }
 
@@ -185,6 +204,7 @@ public class OsgiLogger extends AbstractLogger implements LoggerFacade {
         return isEnabledFor(level, marker);
     }
 
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     private boolean isEnabledFor(final Level level, final Marker marker) {
         switch (level.getStandardLevel()) {
         case DEBUG:
@@ -203,6 +223,7 @@ public class OsgiLogger extends AbstractLogger implements LoggerFacade {
     }
 
     @Override
+    @SuppressWarnings("PMD.GuardLogStatement")
     public void logMessage(final String fqcn, final Level level,
             final Marker marker, final Message message, final Throwable thr) {
         switch (level.getStandardLevel()) {

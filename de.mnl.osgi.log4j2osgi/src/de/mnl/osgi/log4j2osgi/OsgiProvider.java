@@ -18,8 +18,14 @@ package de.mnl.osgi.log4j2osgi;
 
 import org.apache.logging.log4j.spi.Provider;
 
+/**
+ * The OsgiProvider.
+ */
 public class OsgiProvider extends Provider {
 
+    /**
+     * Instantiates a new osgi provider.
+     */
     public OsgiProvider() {
         super(15, "2.6.0", OsgiLoggerContextFactory.class);
     }

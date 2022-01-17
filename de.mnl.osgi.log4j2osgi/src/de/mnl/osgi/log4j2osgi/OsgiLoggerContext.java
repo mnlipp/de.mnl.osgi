@@ -23,11 +23,19 @@ import org.apache.logging.log4j.spi.LoggerContext;
 import org.apache.logging.log4j.spi.LoggerRegistry;
 import org.osgi.framework.Bundle;
 
+/**
+ * The OsgiLoggerContext.
+ */
 public class OsgiLoggerContext implements LoggerGroup, LoggerContext {
 
     private final Bundle bundle;
     private final LoggerRegistry<OsgiLogger> loggerRegistry;
 
+    /**
+     * Instantiates a new OSGi logger context.
+     *
+     * @param bundle the bundle
+     */
     public OsgiLoggerContext(Bundle bundle) {
         this.bundle = bundle;
         loggerRegistry = new LoggerRegistry<>();

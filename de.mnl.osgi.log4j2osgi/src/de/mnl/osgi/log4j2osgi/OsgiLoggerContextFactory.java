@@ -22,9 +22,15 @@ import org.apache.logging.log4j.spi.LoggerContext;
 import org.apache.logging.log4j.spi.LoggerContextFactory;
 import org.osgi.framework.Bundle;
 
+/**
+ * A factory for creating OsgiLoggerContext objects.
+ */
 public class OsgiLoggerContextFactory extends LoggerCatalogue<OsgiLoggerContext>
         implements LoggerContextFactory {
 
+    /**
+     * Instantiates a new OSGi logger context factory.
+     */
     public OsgiLoggerContextFactory() {
         super(b -> new OsgiLoggerContext(b));
     }
@@ -47,5 +53,6 @@ public class OsgiLoggerContextFactory extends LoggerCatalogue<OsgiLoggerContext>
 
     @Override
     public void removeContext(final LoggerContext ignored) {
+        // Empty
     }
 }
