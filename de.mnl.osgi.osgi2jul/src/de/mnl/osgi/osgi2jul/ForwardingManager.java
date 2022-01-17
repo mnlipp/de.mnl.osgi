@@ -129,7 +129,7 @@ public class ForwardingManager extends ServiceResolver {
                         + name + "\" is invalid.");
                     return;
                 }
-                Handler handler = null;
+                Handler handler;
                 try {
                     if (parts.group("bundle") == null) {
                         // Only class name
@@ -147,6 +147,7 @@ public class ForwardingManager extends ServiceResolver {
             });
     }
 
+    @SuppressWarnings("PMD.AvoidUncheckedExceptionsInSignatures")
     private Handler handlerFromBundledClass(BundleContext context,
             String bundleName, String className)
             throws InstantiationException, IllegalAccessException,
