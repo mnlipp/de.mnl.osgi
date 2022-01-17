@@ -124,6 +124,7 @@ public class Forwarder extends ServiceResolver implements LogRecordHandler {
         return true;
     }
 
+    @SuppressWarnings("PMD.CognitiveComplexity")
     private void doProcess(LogInfo logInfo, LogService service) {
         final LogRecord record = logInfo.getLogRecord();
         final String loggerName = Optional.ofNullable(record.getLoggerName())
