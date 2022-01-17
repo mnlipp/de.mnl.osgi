@@ -31,33 +31,40 @@
 <span class="sourceLineNo">022</span><a id="line.22">import org.apache.logging.log4j.spi.LoggerContextFactory;</a>
 <span class="sourceLineNo">023</span><a id="line.23">import org.osgi.framework.Bundle;</a>
 <span class="sourceLineNo">024</span><a id="line.24"></a>
-<span class="sourceLineNo">025</span><a id="line.25">public class OsgiLoggerContextFactory extends LoggerCatalogue&lt;OsgiLoggerContext&gt;</a>
-<span class="sourceLineNo">026</span><a id="line.26">        implements LoggerContextFactory {</a>
-<span class="sourceLineNo">027</span><a id="line.27"></a>
-<span class="sourceLineNo">028</span><a id="line.28">    public OsgiLoggerContextFactory() {</a>
-<span class="sourceLineNo">029</span><a id="line.29">        super(b -&gt; new OsgiLoggerContext(b));</a>
-<span class="sourceLineNo">030</span><a id="line.30">    }</a>
-<span class="sourceLineNo">031</span><a id="line.31"></a>
-<span class="sourceLineNo">032</span><a id="line.32">    @Override</a>
-<span class="sourceLineNo">033</span><a id="line.33">    public OsgiLoggerContext getContext(final String fqcn,</a>
-<span class="sourceLineNo">034</span><a id="line.34">            final ClassLoader loader, final Object externalContext,</a>
-<span class="sourceLineNo">035</span><a id="line.35">            final boolean currentContext) {</a>
-<span class="sourceLineNo">036</span><a id="line.36">        Bundle bundle = LoggerCatalogue.findBundle(fqcn).get();</a>
-<span class="sourceLineNo">037</span><a id="line.37">        return getLoggerGoup(bundle);</a>
-<span class="sourceLineNo">038</span><a id="line.38">    }</a>
-<span class="sourceLineNo">039</span><a id="line.39"></a>
-<span class="sourceLineNo">040</span><a id="line.40">    @Override</a>
-<span class="sourceLineNo">041</span><a id="line.41">    public OsgiLoggerContext getContext(final String fqcn,</a>
-<span class="sourceLineNo">042</span><a id="line.42">            final ClassLoader loader,</a>
-<span class="sourceLineNo">043</span><a id="line.43">            final Object externalContext, final boolean currentContext,</a>
-<span class="sourceLineNo">044</span><a id="line.44">            final URI configLocation, final String name) {</a>
-<span class="sourceLineNo">045</span><a id="line.45">        return getContext(fqcn, loader, externalContext, currentContext);</a>
-<span class="sourceLineNo">046</span><a id="line.46">    }</a>
-<span class="sourceLineNo">047</span><a id="line.47"></a>
-<span class="sourceLineNo">048</span><a id="line.48">    @Override</a>
-<span class="sourceLineNo">049</span><a id="line.49">    public void removeContext(final LoggerContext ignored) {</a>
-<span class="sourceLineNo">050</span><a id="line.50">    }</a>
-<span class="sourceLineNo">051</span><a id="line.51">}</a>
+<span class="sourceLineNo">025</span><a id="line.25">/**</a>
+<span class="sourceLineNo">026</span><a id="line.26"> * A factory for creating OsgiLoggerContext objects.</a>
+<span class="sourceLineNo">027</span><a id="line.27"> */</a>
+<span class="sourceLineNo">028</span><a id="line.28">public class OsgiLoggerContextFactory extends LoggerCatalogue&lt;OsgiLoggerContext&gt;</a>
+<span class="sourceLineNo">029</span><a id="line.29">        implements LoggerContextFactory {</a>
+<span class="sourceLineNo">030</span><a id="line.30"></a>
+<span class="sourceLineNo">031</span><a id="line.31">    /**</a>
+<span class="sourceLineNo">032</span><a id="line.32">     * Instantiates a new OSGi logger context factory.</a>
+<span class="sourceLineNo">033</span><a id="line.33">     */</a>
+<span class="sourceLineNo">034</span><a id="line.34">    public OsgiLoggerContextFactory() {</a>
+<span class="sourceLineNo">035</span><a id="line.35">        super(b -&gt; new OsgiLoggerContext(b));</a>
+<span class="sourceLineNo">036</span><a id="line.36">    }</a>
+<span class="sourceLineNo">037</span><a id="line.37"></a>
+<span class="sourceLineNo">038</span><a id="line.38">    @Override</a>
+<span class="sourceLineNo">039</span><a id="line.39">    public OsgiLoggerContext getContext(final String fqcn,</a>
+<span class="sourceLineNo">040</span><a id="line.40">            final ClassLoader loader, final Object externalContext,</a>
+<span class="sourceLineNo">041</span><a id="line.41">            final boolean currentContext) {</a>
+<span class="sourceLineNo">042</span><a id="line.42">        Bundle bundle = LoggerCatalogue.findBundle(fqcn).get();</a>
+<span class="sourceLineNo">043</span><a id="line.43">        return getLoggerGoup(bundle);</a>
+<span class="sourceLineNo">044</span><a id="line.44">    }</a>
+<span class="sourceLineNo">045</span><a id="line.45"></a>
+<span class="sourceLineNo">046</span><a id="line.46">    @Override</a>
+<span class="sourceLineNo">047</span><a id="line.47">    public OsgiLoggerContext getContext(final String fqcn,</a>
+<span class="sourceLineNo">048</span><a id="line.48">            final ClassLoader loader,</a>
+<span class="sourceLineNo">049</span><a id="line.49">            final Object externalContext, final boolean currentContext,</a>
+<span class="sourceLineNo">050</span><a id="line.50">            final URI configLocation, final String name) {</a>
+<span class="sourceLineNo">051</span><a id="line.51">        return getContext(fqcn, loader, externalContext, currentContext);</a>
+<span class="sourceLineNo">052</span><a id="line.52">    }</a>
+<span class="sourceLineNo">053</span><a id="line.53"></a>
+<span class="sourceLineNo">054</span><a id="line.54">    @Override</a>
+<span class="sourceLineNo">055</span><a id="line.55">    public void removeContext(final LoggerContext ignored) {</a>
+<span class="sourceLineNo">056</span><a id="line.56">        // Empty</a>
+<span class="sourceLineNo">057</span><a id="line.57">    }</a>
+<span class="sourceLineNo">058</span><a id="line.58">}</a>
 
 
 

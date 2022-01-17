@@ -138,7 +138,7 @@
 <span class="sourceLineNo">129</span><a id="line.129">                        + name + "\" is invalid.");</a>
 <span class="sourceLineNo">130</span><a id="line.130">                    return;</a>
 <span class="sourceLineNo">131</span><a id="line.131">                }</a>
-<span class="sourceLineNo">132</span><a id="line.132">                Handler handler = null;</a>
+<span class="sourceLineNo">132</span><a id="line.132">                Handler handler;</a>
 <span class="sourceLineNo">133</span><a id="line.133">                try {</a>
 <span class="sourceLineNo">134</span><a id="line.134">                    if (parts.group("bundle") == null) {</a>
 <span class="sourceLineNo">135</span><a id="line.135">                        // Only class name</a>
@@ -156,106 +156,107 @@
 <span class="sourceLineNo">147</span><a id="line.147">            });</a>
 <span class="sourceLineNo">148</span><a id="line.148">    }</a>
 <span class="sourceLineNo">149</span><a id="line.149"></a>
-<span class="sourceLineNo">150</span><a id="line.150">    private Handler handlerFromBundledClass(BundleContext context,</a>
-<span class="sourceLineNo">151</span><a id="line.151">            String bundleName, String className)</a>
-<span class="sourceLineNo">152</span><a id="line.152">            throws InstantiationException, IllegalAccessException,</a>
-<span class="sourceLineNo">153</span><a id="line.153">            ClassNotFoundException, IllegalArgumentException,</a>
-<span class="sourceLineNo">154</span><a id="line.154">            InvocationTargetException, NoSuchMethodException,</a>
-<span class="sourceLineNo">155</span><a id="line.155">            SecurityException {</a>
-<span class="sourceLineNo">156</span><a id="line.156">        for (Bundle bundle : context.getBundles()) {</a>
-<span class="sourceLineNo">157</span><a id="line.157">            if (bundle.getSymbolicName().equals(bundleName)) {</a>
-<span class="sourceLineNo">158</span><a id="line.158">                return (Handler) bundle.loadClass(className)</a>
-<span class="sourceLineNo">159</span><a id="line.159">                    .getDeclaredConstructor().newInstance();</a>
-<span class="sourceLineNo">160</span><a id="line.160">            }</a>
-<span class="sourceLineNo">161</span><a id="line.161">        }</a>
-<span class="sourceLineNo">162</span><a id="line.162">        throw new ClassNotFoundException("Class " + className + " not found "</a>
-<span class="sourceLineNo">163</span><a id="line.163">            + "in bundle " + bundleName);</a>
-<span class="sourceLineNo">164</span><a id="line.164">    }</a>
-<span class="sourceLineNo">165</span><a id="line.165"></a>
-<span class="sourceLineNo">166</span><a id="line.166">    private Handler handlerFromClassName(String name)</a>
-<span class="sourceLineNo">167</span><a id="line.167">            throws PrivilegedActionException {</a>
-<span class="sourceLineNo">168</span><a id="line.168">        Handler handler;</a>
-<span class="sourceLineNo">169</span><a id="line.169">        handler = AccessController</a>
-<span class="sourceLineNo">170</span><a id="line.170">            .doPrivileged(new PrivilegedExceptionAction&lt;Handler&gt;() {</a>
-<span class="sourceLineNo">171</span><a id="line.171">                @Override</a>
-<span class="sourceLineNo">172</span><a id="line.172">                public Handler run() throws Exception {</a>
-<span class="sourceLineNo">173</span><a id="line.173">                    Class&lt;?&gt; hdlrCls;</a>
-<span class="sourceLineNo">174</span><a id="line.174">                    hdlrCls = ClassLoader.getSystemClassLoader()</a>
-<span class="sourceLineNo">175</span><a id="line.175">                        .loadClass(name);</a>
-<span class="sourceLineNo">176</span><a id="line.176">                    return (Handler) hdlrCls.getDeclaredConstructor()</a>
-<span class="sourceLineNo">177</span><a id="line.177">                        .newInstance();</a>
-<span class="sourceLineNo">178</span><a id="line.178">                }</a>
-<span class="sourceLineNo">179</span><a id="line.179">            });</a>
-<span class="sourceLineNo">180</span><a id="line.180">        return handler;</a>
-<span class="sourceLineNo">181</span><a id="line.181">    }</a>
-<span class="sourceLineNo">182</span><a id="line.182"></a>
-<span class="sourceLineNo">183</span><a id="line.183">    @SuppressWarnings("PMD.SystemPrintln")</a>
-<span class="sourceLineNo">184</span><a id="line.184">    private HandlerConfig createHandlerConfig(BundleContext context,</a>
-<span class="sourceLineNo">185</span><a id="line.185">            Matcher parts, Handler handler) {</a>
-<span class="sourceLineNo">186</span><a id="line.186">        String levelName = null;</a>
-<span class="sourceLineNo">187</span><a id="line.187">        MessageFormat outputFormat = null;</a>
-<span class="sourceLineNo">188</span><a id="line.188">        if (parts.group("id") != null) {</a>
-<span class="sourceLineNo">189</span><a id="line.189">            String handlerPrefix</a>
-<span class="sourceLineNo">190</span><a id="line.190">                = ForwardingManager.class.getPackage().getName()</a>
-<span class="sourceLineNo">191</span><a id="line.191">                    + ".handler" + (parts.group("id") == null ? ""</a>
-<span class="sourceLineNo">192</span><a id="line.192">                        : "." + parts.group("id"));</a>
-<span class="sourceLineNo">193</span><a id="line.193">            levelName = context.getProperty(handlerPrefix + ".level");</a>
-<span class="sourceLineNo">194</span><a id="line.194">            String format = context.getProperty(handlerPrefix + ".format");</a>
-<span class="sourceLineNo">195</span><a id="line.195">            if (format != null) {</a>
-<span class="sourceLineNo">196</span><a id="line.196">                try {</a>
-<span class="sourceLineNo">197</span><a id="line.197">                    outputFormat = new MessageFormat(format);</a>
-<span class="sourceLineNo">198</span><a id="line.198">                } catch (IllegalArgumentException e) {</a>
-<span class="sourceLineNo">199</span><a id="line.199">                    System.err.println("Illegal format: \"" + format + "\"");</a>
-<span class="sourceLineNo">200</span><a id="line.200">                }</a>
-<span class="sourceLineNo">201</span><a id="line.201">            }</a>
-<span class="sourceLineNo">202</span><a id="line.202">        }</a>
-<span class="sourceLineNo">203</span><a id="line.203">        if (levelName != null) {</a>
-<span class="sourceLineNo">204</span><a id="line.204">            Level level = Level.parse(levelName);</a>
-<span class="sourceLineNo">205</span><a id="line.205">            handler.setLevel(level);</a>
-<span class="sourceLineNo">206</span><a id="line.206">        }</a>
-<span class="sourceLineNo">207</span><a id="line.207">        return new HandlerConfig(handler, outputFormat);</a>
-<span class="sourceLineNo">208</span><a id="line.208">    }</a>
-<span class="sourceLineNo">209</span><a id="line.209"></a>
-<span class="sourceLineNo">210</span><a id="line.210">    @Override</a>
-<span class="sourceLineNo">211</span><a id="line.211">    public void stop(BundleContext context) throws Exception {</a>
-<span class="sourceLineNo">212</span><a id="line.212">        handlers.clear();</a>
-<span class="sourceLineNo">213</span><a id="line.213">        super.stop(context);</a>
-<span class="sourceLineNo">214</span><a id="line.214">    }</a>
-<span class="sourceLineNo">215</span><a id="line.215"></a>
-<span class="sourceLineNo">216</span><a id="line.216">    /**</a>
-<span class="sourceLineNo">217</span><a id="line.217">     * Send the record to all handlers. </a>
-<span class="sourceLineNo">218</span><a id="line.218">     *</a>
-<span class="sourceLineNo">219</span><a id="line.219">     * @param entry the original OSGi log entry</a>
-<span class="sourceLineNo">220</span><a id="line.220">     * @param record the prepared JUL record</a>
-<span class="sourceLineNo">221</span><a id="line.221">     */</a>
-<span class="sourceLineNo">222</span><a id="line.222">    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")</a>
-<span class="sourceLineNo">223</span><a id="line.223">    public void publish(LogEntry entry, LogRecord record) {</a>
-<span class="sourceLineNo">224</span><a id="line.224">        Object[] xtraArgs = null;</a>
-<span class="sourceLineNo">225</span><a id="line.225">        for (HandlerConfig cfg : handlers) {</a>
-<span class="sourceLineNo">226</span><a id="line.226">            if (cfg.getOutputFormat() == null) {</a>
-<span class="sourceLineNo">227</span><a id="line.227">                cfg.getHandler().publish(record);</a>
-<span class="sourceLineNo">228</span><a id="line.228">                continue;</a>
-<span class="sourceLineNo">229</span><a id="line.229">            }</a>
-<span class="sourceLineNo">230</span><a id="line.230">            String oldMessage = record.getMessage();</a>
-<span class="sourceLineNo">231</span><a id="line.231">            try {</a>
-<span class="sourceLineNo">232</span><a id="line.232">                if (xtraArgs == null) {</a>
-<span class="sourceLineNo">233</span><a id="line.233">                    xtraArgs = new Object[] {</a>
-<span class="sourceLineNo">234</span><a id="line.234">                        oldMessage,</a>
-<span class="sourceLineNo">235</span><a id="line.235">                        entry.getBundle().getSymbolicName(),</a>
-<span class="sourceLineNo">236</span><a id="line.236">                        entry.getBundle().getHeaders().get("Bundle-Name"),</a>
-<span class="sourceLineNo">237</span><a id="line.237">                        entry.getBundle().getVersion().toString(),</a>
-<span class="sourceLineNo">238</span><a id="line.238">                        entry.getThreadInfo() };</a>
-<span class="sourceLineNo">239</span><a id="line.239">                }</a>
-<span class="sourceLineNo">240</span><a id="line.240">                record.setMessage(cfg.getOutputFormat().format(xtraArgs,</a>
-<span class="sourceLineNo">241</span><a id="line.241">                    new StringBuffer(), null).toString());</a>
-<span class="sourceLineNo">242</span><a id="line.242">                cfg.getHandler().publish(record);</a>
-<span class="sourceLineNo">243</span><a id="line.243">            } finally {</a>
-<span class="sourceLineNo">244</span><a id="line.244">                record.setMessage(oldMessage);</a>
-<span class="sourceLineNo">245</span><a id="line.245">            }</a>
-<span class="sourceLineNo">246</span><a id="line.246">        }</a>
-<span class="sourceLineNo">247</span><a id="line.247">    }</a>
-<span class="sourceLineNo">248</span><a id="line.248"></a>
-<span class="sourceLineNo">249</span><a id="line.249">}</a>
+<span class="sourceLineNo">150</span><a id="line.150">    @SuppressWarnings("PMD.AvoidUncheckedExceptionsInSignatures")</a>
+<span class="sourceLineNo">151</span><a id="line.151">    private Handler handlerFromBundledClass(BundleContext context,</a>
+<span class="sourceLineNo">152</span><a id="line.152">            String bundleName, String className)</a>
+<span class="sourceLineNo">153</span><a id="line.153">            throws InstantiationException, IllegalAccessException,</a>
+<span class="sourceLineNo">154</span><a id="line.154">            ClassNotFoundException, IllegalArgumentException,</a>
+<span class="sourceLineNo">155</span><a id="line.155">            InvocationTargetException, NoSuchMethodException,</a>
+<span class="sourceLineNo">156</span><a id="line.156">            SecurityException {</a>
+<span class="sourceLineNo">157</span><a id="line.157">        for (Bundle bundle : context.getBundles()) {</a>
+<span class="sourceLineNo">158</span><a id="line.158">            if (bundle.getSymbolicName().equals(bundleName)) {</a>
+<span class="sourceLineNo">159</span><a id="line.159">                return (Handler) bundle.loadClass(className)</a>
+<span class="sourceLineNo">160</span><a id="line.160">                    .getDeclaredConstructor().newInstance();</a>
+<span class="sourceLineNo">161</span><a id="line.161">            }</a>
+<span class="sourceLineNo">162</span><a id="line.162">        }</a>
+<span class="sourceLineNo">163</span><a id="line.163">        throw new ClassNotFoundException("Class " + className + " not found "</a>
+<span class="sourceLineNo">164</span><a id="line.164">            + "in bundle " + bundleName);</a>
+<span class="sourceLineNo">165</span><a id="line.165">    }</a>
+<span class="sourceLineNo">166</span><a id="line.166"></a>
+<span class="sourceLineNo">167</span><a id="line.167">    private Handler handlerFromClassName(String name)</a>
+<span class="sourceLineNo">168</span><a id="line.168">            throws PrivilegedActionException {</a>
+<span class="sourceLineNo">169</span><a id="line.169">        Handler handler;</a>
+<span class="sourceLineNo">170</span><a id="line.170">        handler = AccessController</a>
+<span class="sourceLineNo">171</span><a id="line.171">            .doPrivileged(new PrivilegedExceptionAction&lt;Handler&gt;() {</a>
+<span class="sourceLineNo">172</span><a id="line.172">                @Override</a>
+<span class="sourceLineNo">173</span><a id="line.173">                public Handler run() throws Exception {</a>
+<span class="sourceLineNo">174</span><a id="line.174">                    Class&lt;?&gt; hdlrCls;</a>
+<span class="sourceLineNo">175</span><a id="line.175">                    hdlrCls = ClassLoader.getSystemClassLoader()</a>
+<span class="sourceLineNo">176</span><a id="line.176">                        .loadClass(name);</a>
+<span class="sourceLineNo">177</span><a id="line.177">                    return (Handler) hdlrCls.getDeclaredConstructor()</a>
+<span class="sourceLineNo">178</span><a id="line.178">                        .newInstance();</a>
+<span class="sourceLineNo">179</span><a id="line.179">                }</a>
+<span class="sourceLineNo">180</span><a id="line.180">            });</a>
+<span class="sourceLineNo">181</span><a id="line.181">        return handler;</a>
+<span class="sourceLineNo">182</span><a id="line.182">    }</a>
+<span class="sourceLineNo">183</span><a id="line.183"></a>
+<span class="sourceLineNo">184</span><a id="line.184">    @SuppressWarnings("PMD.SystemPrintln")</a>
+<span class="sourceLineNo">185</span><a id="line.185">    private HandlerConfig createHandlerConfig(BundleContext context,</a>
+<span class="sourceLineNo">186</span><a id="line.186">            Matcher parts, Handler handler) {</a>
+<span class="sourceLineNo">187</span><a id="line.187">        String levelName = null;</a>
+<span class="sourceLineNo">188</span><a id="line.188">        MessageFormat outputFormat = null;</a>
+<span class="sourceLineNo">189</span><a id="line.189">        if (parts.group("id") != null) {</a>
+<span class="sourceLineNo">190</span><a id="line.190">            String handlerPrefix</a>
+<span class="sourceLineNo">191</span><a id="line.191">                = ForwardingManager.class.getPackage().getName()</a>
+<span class="sourceLineNo">192</span><a id="line.192">                    + ".handler" + (parts.group("id") == null ? ""</a>
+<span class="sourceLineNo">193</span><a id="line.193">                        : "." + parts.group("id"));</a>
+<span class="sourceLineNo">194</span><a id="line.194">            levelName = context.getProperty(handlerPrefix + ".level");</a>
+<span class="sourceLineNo">195</span><a id="line.195">            String format = context.getProperty(handlerPrefix + ".format");</a>
+<span class="sourceLineNo">196</span><a id="line.196">            if (format != null) {</a>
+<span class="sourceLineNo">197</span><a id="line.197">                try {</a>
+<span class="sourceLineNo">198</span><a id="line.198">                    outputFormat = new MessageFormat(format);</a>
+<span class="sourceLineNo">199</span><a id="line.199">                } catch (IllegalArgumentException e) {</a>
+<span class="sourceLineNo">200</span><a id="line.200">                    System.err.println("Illegal format: \"" + format + "\"");</a>
+<span class="sourceLineNo">201</span><a id="line.201">                }</a>
+<span class="sourceLineNo">202</span><a id="line.202">            }</a>
+<span class="sourceLineNo">203</span><a id="line.203">        }</a>
+<span class="sourceLineNo">204</span><a id="line.204">        if (levelName != null) {</a>
+<span class="sourceLineNo">205</span><a id="line.205">            Level level = Level.parse(levelName);</a>
+<span class="sourceLineNo">206</span><a id="line.206">            handler.setLevel(level);</a>
+<span class="sourceLineNo">207</span><a id="line.207">        }</a>
+<span class="sourceLineNo">208</span><a id="line.208">        return new HandlerConfig(handler, outputFormat);</a>
+<span class="sourceLineNo">209</span><a id="line.209">    }</a>
+<span class="sourceLineNo">210</span><a id="line.210"></a>
+<span class="sourceLineNo">211</span><a id="line.211">    @Override</a>
+<span class="sourceLineNo">212</span><a id="line.212">    public void stop(BundleContext context) throws Exception {</a>
+<span class="sourceLineNo">213</span><a id="line.213">        handlers.clear();</a>
+<span class="sourceLineNo">214</span><a id="line.214">        super.stop(context);</a>
+<span class="sourceLineNo">215</span><a id="line.215">    }</a>
+<span class="sourceLineNo">216</span><a id="line.216"></a>
+<span class="sourceLineNo">217</span><a id="line.217">    /**</a>
+<span class="sourceLineNo">218</span><a id="line.218">     * Send the record to all handlers. </a>
+<span class="sourceLineNo">219</span><a id="line.219">     *</a>
+<span class="sourceLineNo">220</span><a id="line.220">     * @param entry the original OSGi log entry</a>
+<span class="sourceLineNo">221</span><a id="line.221">     * @param record the prepared JUL record</a>
+<span class="sourceLineNo">222</span><a id="line.222">     */</a>
+<span class="sourceLineNo">223</span><a id="line.223">    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")</a>
+<span class="sourceLineNo">224</span><a id="line.224">    public void publish(LogEntry entry, LogRecord record) {</a>
+<span class="sourceLineNo">225</span><a id="line.225">        Object[] xtraArgs = null;</a>
+<span class="sourceLineNo">226</span><a id="line.226">        for (HandlerConfig cfg : handlers) {</a>
+<span class="sourceLineNo">227</span><a id="line.227">            if (cfg.getOutputFormat() == null) {</a>
+<span class="sourceLineNo">228</span><a id="line.228">                cfg.getHandler().publish(record);</a>
+<span class="sourceLineNo">229</span><a id="line.229">                continue;</a>
+<span class="sourceLineNo">230</span><a id="line.230">            }</a>
+<span class="sourceLineNo">231</span><a id="line.231">            String oldMessage = record.getMessage();</a>
+<span class="sourceLineNo">232</span><a id="line.232">            try {</a>
+<span class="sourceLineNo">233</span><a id="line.233">                if (xtraArgs == null) {</a>
+<span class="sourceLineNo">234</span><a id="line.234">                    xtraArgs = new Object[] {</a>
+<span class="sourceLineNo">235</span><a id="line.235">                        oldMessage,</a>
+<span class="sourceLineNo">236</span><a id="line.236">                        entry.getBundle().getSymbolicName(),</a>
+<span class="sourceLineNo">237</span><a id="line.237">                        entry.getBundle().getHeaders().get("Bundle-Name"),</a>
+<span class="sourceLineNo">238</span><a id="line.238">                        entry.getBundle().getVersion().toString(),</a>
+<span class="sourceLineNo">239</span><a id="line.239">                        entry.getThreadInfo() };</a>
+<span class="sourceLineNo">240</span><a id="line.240">                }</a>
+<span class="sourceLineNo">241</span><a id="line.241">                record.setMessage(cfg.getOutputFormat().format(xtraArgs,</a>
+<span class="sourceLineNo">242</span><a id="line.242">                    new StringBuffer(), null).toString());</a>
+<span class="sourceLineNo">243</span><a id="line.243">                cfg.getHandler().publish(record);</a>
+<span class="sourceLineNo">244</span><a id="line.244">            } finally {</a>
+<span class="sourceLineNo">245</span><a id="line.245">                record.setMessage(oldMessage);</a>
+<span class="sourceLineNo">246</span><a id="line.246">            }</a>
+<span class="sourceLineNo">247</span><a id="line.247">        }</a>
+<span class="sourceLineNo">248</span><a id="line.248">    }</a>
+<span class="sourceLineNo">249</span><a id="line.249"></a>
+<span class="sourceLineNo">250</span><a id="line.250">}</a>
 
 
 

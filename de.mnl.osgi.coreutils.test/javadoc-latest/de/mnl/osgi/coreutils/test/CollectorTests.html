@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -131,7 +131,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <hr>
 <pre>@ExtendWith(org.mockito.junit.jupiter.MockitoExtension.class)
-public class <a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.41">CollectorTests</a>
+public class <a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.42">CollectorTests</a>
 extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a></pre>
 </li>
 </ul>
@@ -188,23 +188,37 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#testDelayedRemoval()">testDelayedRemoval</a></span>()</code></th>
+<td class="colLast">
+<div class="block">A service in use cannot be unregistered</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#testDynamic()">testDynamic</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Adding and removing must have effects.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#testFindAvailable()">testFindAvailable</a></span>()</code></th>
+<td class="colLast">
+<div class="block">An available service must be found.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#testRanking()">testRanking</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Two services must be found and rankings must be observed.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#testUseAvailable()">testUseAvailable</a></span>()</code></th>
 <td class="colLast">
-<div class="block">An available service must be found.</div>
+<div class="block">A found service must be usable.</div>
 </td>
 </tr>
 </table>
@@ -237,7 +251,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <ul class="blockListLast">
 <li class="blockList">
 <h4>CollectorTests</h4>
-<pre>public&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.42">CollectorTests</a>()</pre>
+<pre>public&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.43">CollectorTests</a>()</pre>
 </li>
 </ul>
 </li>
@@ -257,7 +271,23 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <li class="blockList">
 <h4>tearDown</h4>
 <pre class="methodSignature">@AfterEach
-public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.49">tearDown</a>()</pre>
+public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.50">tearDown</a>()</pre>
+</li>
+</ul>
+<a id="testFindAvailable()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>testFindAvailable</h4>
+<pre class="methodSignature">@Test
+public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.94">testFindAvailable</a>()
+                       throws <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang" class="externalLink">InterruptedException</a></pre>
+<div class="block">An available service must be found.</div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang" class="externalLink">InterruptedException</a></code> - the interrupted exception</dd>
+</dl>
 </li>
 </ul>
 <a id="testUseAvailable()">
@@ -267,9 +297,25 @@ public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/tes
 <li class="blockList">
 <h4>testUseAvailable</h4>
 <pre class="methodSignature">@Test
-public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.93">testUseAvailable</a>()
+public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.122">testUseAvailable</a>()
                       throws <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang" class="externalLink">InterruptedException</a></pre>
-<div class="block">An available service must be found.</div>
+<div class="block">A found service must be usable.</div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang" class="externalLink">InterruptedException</a></code> - the interrupted exception</dd>
+</dl>
+</li>
+</ul>
+<a id="testDelayedRemoval()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>testDelayedRemoval</h4>
+<pre class="methodSignature">@Test
+public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.141">testDelayedRemoval</a>()
+                        throws <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang" class="externalLink">InterruptedException</a></pre>
+<div class="block">A service in use cannot be unregistered</div>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang" class="externalLink">InterruptedException</a></code> - the interrupted exception</dd>
@@ -283,7 +329,7 @@ public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/tes
 <li class="blockList">
 <h4>testRanking</h4>
 <pre class="methodSignature">@Test
-public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.120">testRanking</a>()
+public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.190">testRanking</a>()
                  throws <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang" class="externalLink">InterruptedException</a></pre>
 <div class="block">Two services must be found and rankings must be observed.</div>
 <dl>
@@ -299,7 +345,7 @@ public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/tes
 <li class="blockList">
 <h4>testDynamic</h4>
 <pre class="methodSignature">@Test
-public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.158">testDynamic</a>()
+public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.228">testDynamic</a>()
                  throws <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang" class="externalLink">InterruptedException</a></pre>
 <div class="block">Adding and removing must have effects.</div>
 <dl>
@@ -315,7 +361,7 @@ public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/tes
 <li class="blockList">
 <h4>testConcurrent</h4>
 <pre class="methodSignature">@Test
-public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.214">testConcurrent</a>()
+public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/coreutils/test/CollectorTests.html#line.284">testConcurrent</a>()
                     throws <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/TimeoutException.html?is-external=true" title="class or interface in java.util.concurrent" class="externalLink">TimeoutException</a>,
                            <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang" class="externalLink">InterruptedException</a></pre>
 <div class="block">Attempt to test concurrency.</div>
