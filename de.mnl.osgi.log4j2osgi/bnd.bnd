@@ -1,7 +1,7 @@
 Bundle-Name: Log4j to OSGi Logging Forwarder
 # Choose either depending on whether we build a snapshot or a release:
 #Bundle-Version: 1.1.0.-${tstamp}-SNAPSHOT
-Bundle-Version: 1.1.3.ga
+Bundle-Version: 1.1.4.ga
 Bundle-Activator: de.mnl.osgi.log4j2osgi.Activator
 
 -buildpath: \
