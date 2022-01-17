@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
@@ -489,8 +490,20 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
     /**
      * Returns the service found for the mandatory dependency with the
      * given name. This method should only be called when the resolver
-     * is in state resolved. 
-     *
+     * is in state resolved.
+     * 
+     * Note that due to the threaded nature of the environment, 
+     * this method can return {@code null}, even if the resolver
+     * was in state resolved before its invocation, because the service
+     * can go away between the check and the invocation of this method.
+     * 
+     * If you want to be sure that services haven't been unregistered
+     * concurrently, the check for resolved and the invocation of this
+     * method must be in a block synchronized on this resolver.
+     * 
+     * Consider using {@link ServiceResolver#with(String, Function)}
+     * or {@link #with(Class, Function)} as an alternative.
+     * 
      * @param <T> the type of the service
      * @param name the name of the dependency
      * @param clazz the class of the service
@@ -507,21 +520,20 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
     /**
      * Returns the service found for the mandatory dependency
      * using the name of the class as name of the dependency. 
-     * This method should only be called when 
-     * the resolver is in state resolved. 
      *
      * @param <T> the type of the service
      * @param clazz the class of the service
      * @return the service or {@code null} if called in unresolved
      *     state and the dependency is not resolved
+     * @see #get(String, Class)
      */
     public <T> T get(Class<T> clazz) {
         return get(clazz.getName(), clazz);
     }
 
     /**
-     * Returns the (optional) service found for the optional dependency 
-     * with the given name. 
+     * Returns the service found for the optional dependency 
+     * with the given name, if it exists. 
      * 
      * @param <T> the type of the service
      * @param name the name of the dependency
@@ -530,14 +542,15 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
      */
     @SuppressWarnings("unchecked")
     public <T> Optional<T> optional(String name, Class<T> clazz) {
-        return Optional.ofNullable(dependencies.get(name))
+        return Optional.ofNullable(optDependencies.get(name))
             .map(coll -> ((ServiceCollector<?, T>) coll).service())
             .orElse(Optional.empty());
     }
 
     /**
-     * Returns the (optional) service found for the optional dependency, 
-     * using the name of the class as name of the dependency. 
+     * Returns the service found for the optional dependency
+     * using the name of the class as name of the dependency,
+     * if it exists. 
      *
      * @param <T> the type of the service
      * @param clazz the class of the service
@@ -546,4 +559,43 @@ public class ServiceResolver implements AutoCloseable, BundleActivator {
     public <T> Optional<T> optional(Class<T> clazz) {
         return optional(clazz.getName(), clazz);
     }
+
+    /**
+     * Convenience method to invoke the a function with the
+     * service registered as mandatory or optional dependency
+     * while holding a lock on the underlying service collector. 
+     *
+     * @param <T> the type of the service
+     * @param <R> the result type
+     * @param name the name of the dependency
+     * @param function the function to invoke with the service as argument
+     * @return the result or {@link Optional#empty()} of the service
+     * was not available.
+     */
+    @SuppressWarnings("unchecked")
+    public <T, R> Optional<R> with(String name,
+            Function<T, ? extends R> function) {
+        return Optional.ofNullable(
+            dependencies.getOrDefault(name, optDependencies.get(name)))
+            .flatMap(
+                coll -> ((ServiceCollector<?, T>) coll).withService(function));
+    }
+
+    /**
+     * Convenience method to invoke the a function with the
+     * service registered as mandatory or optional dependency
+     * while holding a lock on the underlying service collector. 
+     *
+     * @param <T> the type of the service
+     * @param <R> the result type
+     * @param clazz the class of the service
+     * @param function the function to invoke with the service as argument
+     * @return the result or {@link Optional#empty()} of the service
+     * was not available.
+     */
+    public <T, R> Optional<R> with(Class<T> clazz,
+            Function<T, ? extends R> function) {
+        return with(clazz.getName(), function);
+    }
+
 }

@@ -21,4 +21,14 @@ public class SampleService1 {
     public SampleService1() {
     }
 
+    /**
+     * Adds the parameter values.
+     *
+     * @param valueA the a
+     * @param valueB the b
+     * @return the int
+     */
+    public int add(int valueA, int valueB) {
+        return valueA + valueB;
+    }
 }

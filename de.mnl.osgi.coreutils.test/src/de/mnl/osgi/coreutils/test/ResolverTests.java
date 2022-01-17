@@ -17,11 +17,13 @@
 package de.mnl.osgi.coreutils.test;
 
 import de.mnl.osgi.coreutils.ServiceResolver;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -93,6 +95,11 @@ public class ResolverTests {
             resolver.get(SampleService1.class).equals(service1);
             resolver.get(SampleService2.class).equals(service2);
 
+            // Invoke service
+            assertEquals(42,
+                resolver.with(SampleService1.class, s -> s.add(20, 22)).get()
+                    .intValue());
+
             // Unregister one
             reg1.unregister();
             assertFalse(resolver.isResolved());
@@ -134,6 +141,62 @@ public class ResolverTests {
             assertEquals(0, results.size());
         }
         assertTrue(!resolverBck.isOpen());
+    }
+
+    /**
+     * A service in use cannot be unregistered
+     *
+     * @throws InterruptedException the interrupted exception
+     */
+    @Test
+    public void testDelayedRemoval() throws InterruptedException {
+        try (ServiceResolver resolver = new ServiceResolver(context)) {
+            // Add dependencies
+            resolver.addDependency(SampleService1.class);
+            resolver.open();
+            assertTrue(resolver.isOpen());
+            // Change services
+            Hashtable<String, Object> props = new Hashtable<>();
+            props.put(Constants.SERVICE_RANKING, 1);
+            SampleService1 service1 = new SampleService1();
+
+            // Register service
+            final ServiceRegistration<SampleService1> reg1 = context
+                .registerService(SampleService1.class, service1, props);
+            assertTrue(resolver.isResolved());
+
+            CountDownLatch toBeStarted = new CountDownLatch(1);
+            Instant[] calcTimes = new Instant[2];
+            new Thread() {
+                public void run() {
+                    resolver.with(SampleService1.class, (s -> {
+                        toBeStarted.countDown();
+                        try {
+                            Thread.sleep(250);
+                        } catch (InterruptedException e) {
+                            // Empty
+                        }
+                        calcTimes[0] = Instant.now();
+                        int result = s.add(20, 22);
+                        calcTimes[1] = Instant.now();
+                        return result;
+                    }));
+                }
+            }.start();
+            // Wait for execution start
+            toBeStarted.await();
+            Instant unregStart = Instant.now();
+            reg1.unregister();
+            Instant unregEnd = Instant.now();
+
+            // Calculation must start after unreg start (else it's not a test)
+            assertTrue(calcTimes[0].isAfter(unregStart));
+            // Removal must finish after calc end (else locking doesn't work)
+            assertTrue(unregEnd.isAfter(calcTimes[1]));
+            // Make sure
+            assertTrue(
+                unregEnd.toEpochMilli() - unregStart.toEpochMilli() > 100);
+        }
     }
 
 }

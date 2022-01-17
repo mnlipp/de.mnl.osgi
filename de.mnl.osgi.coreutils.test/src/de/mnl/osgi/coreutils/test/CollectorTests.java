@@ -17,6 +17,7 @@
 package de.mnl.osgi.coreutils.test;
 
 import de.mnl.osgi.coreutils.ServiceCollector;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -92,24 +93,93 @@ public class CollectorTests {
      */
     @Test
     @SuppressWarnings("resource")
-    public void testUseAvailable() throws InterruptedException {
+    public void testFindAvailable() throws InterruptedException {
         cleanup.add(context.registerService(SampleService1.class,
             new SampleService1(), null));
-        TestCollector<SampleService1> coll1bck;
+        // Keep reference to auto closed object for checks
+        TestCollector<SampleService1> coll1alias;
         try (TestCollector<SampleService1> coll1
             = new TestCollector<SampleService1>(
                 context, SampleService1.class)) {
-            coll1bck = coll1;
+            coll1alias = coll1;
             coll1.open();
             coll1.waitForService(1000);
             assertEquals(1, coll1.callbacks.get("firstBound").intValue());
             assertEquals(1, coll1.callbacks.get("bound").intValue());
             assertNull(coll1.callbacks.get("modified"));
         }
-        assertFalse(coll1bck.service().isPresent());
-        assertEquals(1, coll1bck.callbacks.get("unbinding").intValue());
-        assertEquals(1, coll1bck.callbacks.get("lastUnbinding").intValue());
-        assertNull(coll1bck.callbacks.get("modified"));
+        assertFalse(coll1alias.service().isPresent());
+        assertEquals(1, coll1alias.callbacks.get("unbinding").intValue());
+        assertEquals(1, coll1alias.callbacks.get("lastUnbinding").intValue());
+        assertNull(coll1alias.callbacks.get("modified"));
+    }
+
+    /**
+     * A found service must be usable.
+     *
+     * @throws InterruptedException the interrupted exception
+     */
+    @Test
+    public void testUseAvailable() throws InterruptedException {
+        cleanup.add(context.registerService(SampleService1.class,
+            new SampleService1(), null));
+        try (TestCollector<SampleService1> coll1
+            = new TestCollector<SampleService1>(
+                context, SampleService1.class)) {
+            coll1.open();
+            coll1.waitForService(1000);
+            assertEquals(42,
+                coll1.withService(s -> s.add(20, 22)).get().intValue());
+        }
+    }
+
+    /**
+     * A service in use cannot be unregistered
+     *
+     * @throws InterruptedException the interrupted exception
+     */
+    @Test
+    public void testDelayedRemoval() throws InterruptedException {
+        var serviceRef = context.registerService(SampleService1.class,
+            new SampleService1(), null);
+        CountDownLatch toBeStarted = new CountDownLatch(1);
+        Instant[] calcTimes = new Instant[2];
+        new Thread() {
+            public void run() {
+                try (TestCollector<SampleService1> coll1
+                    = new TestCollector<SampleService1>(
+                        context, SampleService1.class)) {
+                    coll1.open();
+                    coll1.waitForService(1000);
+                    coll1.withService(s -> {
+                        toBeStarted.countDown();
+                        try {
+                            Thread.sleep(250);
+                        } catch (InterruptedException e) {
+                            // Empty
+                        }
+                        calcTimes[0] = Instant.now();
+                        int result = s.add(20, 22);
+                        calcTimes[1] = Instant.now();
+                        return result;
+                    });
+                } catch (InterruptedException e) {
+                    // Empty
+                }
+            }
+        }.start();
+        // Wait for execution start
+        toBeStarted.await();
+        Instant unregStart = Instant.now();
+        serviceRef.unregister();
+        Instant unregEnd = Instant.now();
+
+        // Calculation must start after unreg start (else it's not a test)
+        assertTrue(calcTimes[0].isAfter(unregStart));
+        // Removal must finish after calc end (else locking doesn't work)
+        assertTrue(unregEnd.isAfter(calcTimes[1]));
+        // Make sure
+        assertTrue(unregEnd.toEpochMilli() - unregStart.toEpochMilli() > 100);
     }
 
     /**

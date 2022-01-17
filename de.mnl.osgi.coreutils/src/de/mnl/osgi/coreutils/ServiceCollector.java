@@ -35,6 +35,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import org.osgi.framework.AllServiceListener;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
@@ -78,7 +79,7 @@ import org.osgi.framework.ServiceReference;
  *      (see {@link #setServiceGetter(BiFunction)})
  */
 @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.GodClass",
-    "PMD.TooManyFields", "PMD.DataflowAnomalyAnalysis" })
+    "PMD.TooManyFields", "PMD.DataflowAnomalyAnalysis", "PMD.TooManyMethods" })
 public class ServiceCollector<S, T> implements AutoCloseable {
     /**
      * The Bundle Context used by this {@code ServiceCollector}.
@@ -740,6 +741,22 @@ public class ServiceCollector<S, T> implements AutoCloseable {
             }
         }
         return Optional.empty();
+    }
+
+    /**
+     * Convenience method to invoke the a function with the
+     * result from {@link #service()} (if it is available)
+     * while holding a lock on this service collector. 
+     *
+     * @param <R> the result type
+     * @param function the function to invoke with the service as argument
+     * @return the result or {@link Optional#empty()} of the service
+     * was not available.
+     */
+    public <R> Optional<R> withService(Function<T, ? extends R> function) {
+        synchronized (this) {
+            return service().map(function);
+        }
     }
 
     /**
