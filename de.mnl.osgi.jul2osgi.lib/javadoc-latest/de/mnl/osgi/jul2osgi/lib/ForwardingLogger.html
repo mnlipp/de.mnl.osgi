@@ -177,7 +177,9 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(de.mnl.osgi.jul2osgi.lib.LogManager,java.util.logging.Logger)">ForwardingLogger</a></span>&#8203;(<a href="LogManager.html" title="class in de.mnl.osgi.jul2osgi.lib">LogManager</a>&nbsp;manager,
                 <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html?is-external=true" title="class or interface in java.util.logging" class="externalLink">Logger</a>&nbsp;orig)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Instantiates a new forwarding logger.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -239,8 +241,14 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging
 <ul class="blockListLast">
 <li class="blockList">
 <h4>ForwardingLogger</h4>
-<pre>public&nbsp;<a href="../../../../../src-html/de/mnl/osgi/jul2osgi/lib/ForwardingLogger.html#line.34">ForwardingLogger</a>&#8203;(<a href="LogManager.html" title="class in de.mnl.osgi.jul2osgi.lib">LogManager</a>&nbsp;manager,
+<pre>public&nbsp;<a href="../../../../../src-html/de/mnl/osgi/jul2osgi/lib/ForwardingLogger.html#line.40">ForwardingLogger</a>&#8203;(<a href="LogManager.html" title="class in de.mnl.osgi.jul2osgi.lib">LogManager</a>&nbsp;manager,
                         <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html?is-external=true" title="class or interface in java.util.logging" class="externalLink">Logger</a>&nbsp;orig)</pre>
+<div class="block">Instantiates a new forwarding logger.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>manager</code> - the manager</dd>
+<dd><code>orig</code> - the original logger</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -259,7 +267,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging
 <ul class="blockListLast">
 <li class="blockList">
 <h4>log</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/jul2osgi/lib/ForwardingLogger.html#line.58">log</a>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/LogRecord.html?is-external=true" title="class or interface in java.util.logging" class="externalLink">LogRecord</a>&nbsp;record)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;<a href="../../../../../src-html/de/mnl/osgi/jul2osgi/lib/ForwardingLogger.html#line.66">log</a>&#8203;(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/LogRecord.html?is-external=true" title="class or interface in java.util.logging" class="externalLink">LogRecord</a>&nbsp;record)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html?is-external=true#log(java.util.logging.LogRecord)" title="class or interface in java.util.logging" class="externalLink">log</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html?is-external=true" title="class or interface in java.util.logging" class="externalLink">Logger</a></code></dd>
