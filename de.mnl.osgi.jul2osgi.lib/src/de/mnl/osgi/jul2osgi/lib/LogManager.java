@@ -34,13 +34,14 @@ import java.util.logging.Logger;
  */
 public class LogManager extends java.util.logging.LogManager {
 
-    private Deque<LogInfo> buffered = new LinkedList<>();
+    private final Deque<LogInfo> buffered = new LinkedList<>();
     private int bufferSize = 100;
     private LogRecordHandler forwarder;
 
     /**
      * Instantiates a new log manager.
      */
+    @SuppressWarnings("PMD.EmptyCatchBlock")
     public LogManager() {
         try {
             bufferSize = Integer.parseInt(System.getProperty(
@@ -56,9 +57,9 @@ public class LogManager extends java.util.logging.LogManager {
      * @see java.util.logging.LogManager#getLogger(java.lang.String)
      */
     @Override
+    @SuppressWarnings("PMD.UselessOverridingMethod")
     public Logger getLogger(final String name) {
-        Logger logger = super.getLogger(name);
-        return logger;
+        return super.getLogger(name);
     }
 
     /*
@@ -128,9 +129,10 @@ public class LogManager extends java.util.logging.LogManager {
     /**
      * Holds the information from a logger invocation.
      */
+    @SuppressWarnings("PMD.DataClass")
     public static class LogInfo {
-        private Class<?> callingClass;
-        private LogRecord logRecord;
+        private final Class<?> callingClass;
+        private final LogRecord logRecord;
         private String threadName;
 
         /**

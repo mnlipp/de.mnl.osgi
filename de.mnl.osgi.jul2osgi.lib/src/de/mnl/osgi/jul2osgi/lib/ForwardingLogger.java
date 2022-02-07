@@ -27,26 +27,34 @@ import java.util.logging.Logger;
  */
 public class ForwardingLogger extends Logger {
 
-    private LogManager manager;
+    private final LogManager manager;
     private Class<?> definingClass;
     private static final ContextHelper CTX_HLPR = new ContextHelper();
 
+    /**
+     * Instantiates a new forwarding logger.
+     *
+     * @param manager the manager
+     * @param orig the original logger
+     */
+    @SuppressWarnings({ "PMD.AvoidReassigningLoopVariables",
+        "PMD.AvoidLiteralsInIfCondition" })
     public ForwardingLogger(LogManager manager, Logger orig) {
         super(orig.getName(), orig.getResourceBundleName());
         this.manager = manager;
 
         // Find class that invoked getLogger
-        if (getName().length() == 0 || getName().equals("global")) {
+        if (getName().length() == 0 || "global".equals(getName())) {
             return;
         }
         StackTraceElement[] stackTrace = new Throwable().getStackTrace();
         for (int i = 2; i < stackTrace.length; i++) {
             StackTraceElement ste = stackTrace[i];
-            if (ste.getMethodName().equals("getLogger")) {
+            if ("getLogger".equals(ste.getMethodName())) {
                 Class<?>[] classes = CTX_HLPR.getClassContext();
                 // Skip all calls within logging package
-                while (classes[i].getPackageName()
-                    .equals("java.util.logging")) {
+                while ("java.util.logging"
+                    .equals(classes[i].getPackageName())) {
                     i += 1;
                 }
                 definingClass = classes[i];
@@ -86,8 +94,12 @@ public class ForwardingLogger extends Logger {
         }
     }
 
+    /**
+     * Helper for accessing the class context.
+     */
     private static class ContextHelper extends SecurityManager {
         @Override
+        @SuppressWarnings("PMD.UselessOverridingMethod")
         public Class<?>[] getClassContext() {
             return super.getClassContext();
         }

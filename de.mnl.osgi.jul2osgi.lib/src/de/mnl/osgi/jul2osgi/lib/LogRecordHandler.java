@@ -35,7 +35,7 @@ public interface LogRecordHandler {
      * @param logInfo the log record
      * @return the result
      */
-    public boolean process(LogInfo logInfo);
+    boolean process(LogInfo logInfo);
 
     /**
      * Process the events from the buffer. In this case, the 
@@ -43,5 +43,6 @@ public interface LogRecordHandler {
      *
      * @param logInfos the log infos
      */
-    public void processBuffered(LogInfo[] logInfos);
+    @SuppressWarnings("PMD.UseVarargs")
+    void processBuffered(LogInfo[] logInfos);
 }
