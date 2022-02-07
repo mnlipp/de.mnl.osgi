@@ -27,7 +27,7 @@ Private-Package: de.mnl.osgi.jul2osgi.test
 	bnd.identity;id='de.mnl.osgi.osgi2jul',\
 	osgi.service;filter:="(objectClass=org.osgi.service.log.LogReaderService)"
 -runsystemcapabilities: \
-	bnd.identity;id='de.mnl.osgi.jul2osgi.lib';version=1.5.0
+	bnd.identity;id='de.mnl.osgi.jul2osgi.lib';version=1.6.0
 
 # Let the resolver create this.
 -runbundles: \
@@ -45,7 +45,7 @@ Private-Package: de.mnl.osgi.jul2osgi.test
 	org.mockito.junit-jupiter;version='[4.1.0,4.1.1)',\
 	org.mockito.mockito-core;version='[4.1.0,4.1.1)',\
 	org.objenesis;version='[3.2.0,3.2.1)',\
-	org.apache.felix.log;version='[1.2.4,1.2.5)',\
+	org.apache.felix.log;version='[1.2.6,1.2.7)',\
 	de.mnl.osgi.osgi2jul;version=snapshot
 
 -runvm.coverage: \
@@ -59,7 +59,7 @@ Private-Package: de.mnl.osgi.jul2osgi.test
 -runvm: -ea, -Xbootclasspath/a:${repo;de.mnl.osgi.jul2osgi.lib;snapshot}, \
 	-Djava.util.logging.manager=de.mnl.osgi.jul2osgi.lib.LogManager
 -runsystempackages: \
-	de.mnl.osgi.jul2osgi.lib;version=1.5.0
+	de.mnl.osgi.jul2osgi.lib;version=1.6.0
 
 -runproperties: \
 	de.mnl.osgi.jul2osgi.adaptOSGiLevel=true, \
