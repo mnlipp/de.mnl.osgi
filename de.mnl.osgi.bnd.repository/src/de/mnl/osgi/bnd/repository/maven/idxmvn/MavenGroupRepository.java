@@ -738,8 +738,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             return;
         }
         try {
-            // The ResourcesRepoitory that we inherit from isn't thread safe,
-            // but synchronizing on this leads to deadlocks, use
+            // The ResourcesRepoitory that we inherit from isn't thread safe
             synchronized (this) {
                 add(resource.asResource());
             }
