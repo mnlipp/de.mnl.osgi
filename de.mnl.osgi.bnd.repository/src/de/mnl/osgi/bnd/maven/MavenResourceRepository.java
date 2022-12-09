@@ -300,7 +300,7 @@ public class MavenResourceRepository extends CompositeMavenRepository {
                     }
                 } catch (Exception e) {
                     // That's what the exceptions thrown here come down to.
-                    throw new IllegalArgumentException(e);
+                    throw new MavenResourceException(e);
                 }
             }
             List<Capability> caps = builder.getCapabilities();
