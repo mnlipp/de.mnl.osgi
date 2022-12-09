@@ -24,6 +24,7 @@ import aQute.maven.api.Revision;
 import aQute.maven.provider.MavenRepository;
 import aQute.service.reporter.Reporter;
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import org.apache.maven.building.FileSource;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Parent;
@@ -41,6 +42,7 @@ import org.apache.maven.model.resolution.UnresolvableModelException;
 public class BndModelResolver implements ModelResolver, Cloneable {
 
     private final MavenRepository bndRepository;
+    @SuppressWarnings({ "PMD.SingularField", "unused" })
     private final Reporter reporter;
 
     /**
@@ -55,7 +57,8 @@ public class BndModelResolver implements ModelResolver, Cloneable {
     }
 
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
+        "PMD.PreserveStackTrace" })
     public ModelSource resolveModel(String groupId, String artifactId,
             String version) throws UnresolvableModelException {
         Revision revision
@@ -68,6 +71,9 @@ public class BndModelResolver implements ModelResolver, Cloneable {
                     artifactId, version);
             }
             return new FileModelSource(pomFile);
+        } catch (InvocationTargetException e) {
+            throw new UnresolvableModelException(e.getCause(), groupId,
+                artifactId, version);
         } catch (Exception e) {
             throw new UnresolvableModelException(e, groupId, artifactId,
                 version);
@@ -75,7 +81,8 @@ public class BndModelResolver implements ModelResolver, Cloneable {
     }
 
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
+        "PMD.PreserveStackTrace" })
     public ModelSource resolveModel(Parent parent)
             throws UnresolvableModelException {
         Revision revision
@@ -92,6 +99,10 @@ public class BndModelResolver implements ModelResolver, Cloneable {
                     parent.getVersion());
             }
             return new FileModelSource(pomFile);
+        } catch (InvocationTargetException e) {
+            throw new UnresolvableModelException(e.getCause(),
+                parent.getGroupId(), parent.getArtifactId(),
+                parent.getVersion());
         } catch (Exception e) {
             throw new UnresolvableModelException(e, parent.getGroupId(),
                 parent.getArtifactId(), parent.getVersion());
@@ -99,7 +110,8 @@ public class BndModelResolver implements ModelResolver, Cloneable {
     }
 
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
+        "PMD.PreserveStackTrace" })
     public ModelSource resolveModel(Dependency dependency)
             throws UnresolvableModelException {
         Revision revision
@@ -116,6 +128,10 @@ public class BndModelResolver implements ModelResolver, Cloneable {
                     dependency.getVersion());
             }
             return new FileModelSource(pomFile);
+        } catch (InvocationTargetException e) {
+            throw new UnresolvableModelException(e.getCause(),
+                dependency.getGroupId(), dependency.getArtifactId(),
+                dependency.getVersion());
         } catch (Exception e) {
             throw new UnresolvableModelException(e, dependency.getGroupId(),
                 dependency.getArtifactId(), dependency.getVersion());
@@ -125,16 +141,13 @@ public class BndModelResolver implements ModelResolver, Cloneable {
     @Override
     public void addRepository(Repository repository)
             throws InvalidRepositoryException {
-        reporter.warning("Attempt to add repository %s (not supported).",
-            repository);
+        // Ignored, repository is defined by constructor.
     }
 
     @Override
     public void addRepository(Repository repository, boolean replace)
             throws InvalidRepositoryException {
-        reporter.warning(
-            "Attempt to add/replace repository %s (not supported).",
-            repository);
+        // Ignored, repository is defined by constructor.
     }
 
     @Override
