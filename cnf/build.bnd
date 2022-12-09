@@ -7,9 +7,9 @@
         logIndexing=true
 
 -pluginpath.IndexedMaved: \
-    ${workspace}/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-4.1.0.jar,\
-    ${workspace}/cnf/cache/biz.aQute.repository-6.0.0.jar;\
-        url=https://repo1.maven.org/maven2/biz/aQute/bnd/biz.aQute.repository/6.0.0/biz.aQute.repository-6.0.0.jar
+    ${workspace}/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-5.1.0.jar,\
+    ${workspace}/cnf/cache/biz.aQute.repository-6.4.0.jar;\
+        url=https://repo1.maven.org/maven2/biz/aQute/bnd/biz.aQute.repository/6.4.0/biz.aQute.repository-6.4.0.jar
 
 -plugin.5.Release: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
