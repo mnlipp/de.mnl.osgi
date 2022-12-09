@@ -59,6 +59,7 @@ public class VersionSpecification {
 
         @SuppressWarnings("PMD.UseConcurrentHashMap")
         private static final Map<String, Type> types = new HashMap<>();
+
         static {
             Stream.of(values()).forEach(v -> types.put(v.keyword, v));
         }
@@ -151,11 +152,11 @@ public class VersionSpecification {
      */
     public static Set<Archive> toSelected(VersionSpecification[] specs,
             Revision revision) {
+        var mvnVer = MavenVersion.from(revision.version);
         return Arrays.stream(specs)
             // find applicable versions specifications
             .filter(s -> Set
-                .of(VersionSpecification.Type.VERSIONS,
-                    VersionSpecification.Type.FORCED_VERSIONS)
+                .of(Type.VERSIONS, Type.FORCED_VERSIONS)
                 .contains(s.getType()) && s.matches(revision.artifact))
             // sort by artifact spec's length descending
             .sorted(Comparator.comparingInt(
@@ -163,13 +164,23 @@ public class VersionSpecification {
                     .ofNullable(vs.artifactSpec).orElse("").length())
                 .reversed())
             .findFirst().map(s -> {
-                // check if best match includes the revision
-                if (s.range.includes(MavenVersion.from(revision.version))) {
+                // Check if best match includes the given revision
+                // and the revision is forced or not excluded
+                if (s.range.includes(mvnVer)
+                    && (s.getType() == Type.FORCED_VERSIONS
+                        || !excluded(specs, revision.artifact)
+                            .includes(mvnVer))) {
                     return Set.of(
                         new Archive(revision, null, s.extension, s.classifier));
                 }
                 return Collections.<Archive> emptySet();
-            }).orElse(Set.of(new Archive(revision, null, null, null)));
+            }).orElseGet(() -> {
+                // Check if revision is not excluded
+                if (!excluded(specs, revision.artifact).includes(mvnVer)) {
+                    return Set.of(new Archive(revision, null, null, null));
+                }
+                return Collections.<Archive> emptySet();
+            });
     }
 
     /**
@@ -206,8 +217,9 @@ public class VersionSpecification {
     }
 
     /**
-     * Match a revision against the version specifications and return
-     * the archives that are matches by any specification.
+     * Find the exclude version range for the artifact with the given
+     * name. Return {@code MavenVersionRange.NONE} if there is no
+     * exclude defined.
      *
      * @param specs the specs
      * @param artifact the artifact name
