@@ -171,10 +171,6 @@ public class MavenGroupRepository extends ResourcesRepository {
         groupIndexPath = groupDir.resolve("index.xml");
     }
 
-    private IndexingState indexingState(Archive archive) {
-        return indexingState.getOrDefault(archive, IndexingState.NONE);
-    }
-
     /**
      * Checks if is requested.
      *
@@ -397,46 +393,29 @@ public class MavenGroupRepository extends ResourcesRepository {
             String threadName = Thread.currentThread().getName();
             try {
                 Thread.currentThread().setName("RevisionQuerier " + program);
-                var resources = listIndexable(program);
+                var resources = listRevisions(program);
                 if (resources.isEmpty()) {
                     return;
                 }
+                removeOutOfOrderVersions(resources);
 
-                // Remove resources with versions that are inconsistent
-                // with OSGi version order.
-                var resourcesIter = resources.iterator();
-                Version lastVersion = null;
-                while (resourcesIter.hasNext()) {
-                    var next = resourcesIter.next();
-                    var nextVersion = osgiVersion(next);
-                    if (nextVersion.isEmpty()) {
-                        continue;
-                    }
-                    if (lastVersion != null
-                        && nextVersion.get().compareTo(lastVersion) >= 0) {
-                        resourcesIter.remove();
-                        if (indexingState.replace(next.archive(),
-                            IndexingState.CHECKING, IndexingState.EXCLUDED)) {
-                            logIndexing(next, () -> String.format(
-                                "%s skipped, violates OSGi version order.",
-                                next));
-                        }
-                        continue;
-                    }
-                    lastVersion = nextVersion.get();
-                }
-
-                // Now complete indexing for remaining
+                // Now start indexing for remaining
                 for (var resource : resources) {
                     var archive = resource.archive();
-                    if (indexingState(archive) != IndexingState.CHECKING) {
-                        // Already handled (as dependency)
-                        logIndexing(archive, () -> String.format(
-                            "%s already handled as dependency.",
-                            archive));
-                        return;
+                    // Indexing may have been started for this as dependency
+                    // but as we don't know yet if that will be successful,
+                    // we start it nevertheless (concurrently).
+                    if (Optional.ofNullable(indexingState.putIfAbsent(
+                        resource.archive(), IndexingState.CHECKING))
+                        .orElse(
+                            IndexingState.CHECKING) != IndexingState.CHECKING) {
+                        logIndexing(resource, () -> String.format(
+                            "%s from revision list already handled as dependency.",
+                            resource));
+                        continue;
                     }
-
+                    logIndexing(resource, () -> String.format(
+                        "%s in revision list, indexing...", resource));
                     var deps = indexableDependencies(resource, true);
                     if (deps == null) {
                         if (indexingState.replace(archive,
@@ -459,7 +438,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         return result;
     }
 
-    private List<MavenResource> listIndexable(Program program) {
+    private List<MavenResource> listRevisions(Program program) {
         return indexedRepository.mavenRepository().findRevisions(program)
             .flatMap(revision -> {
                 var boundArchives
@@ -474,21 +453,6 @@ public class MavenGroupRepository extends ResourcesRepository {
                 LOG.debug("Loading archive {}.", boundArchive);
                 return indexedRepository.mavenRepository()
                     .resource(boundArchive, BinaryLocation.REMOTE);
-            }).filter(resource -> {
-                // Indexing may have been started for this as dependency
-                // but as we don't know yet if that will be successful,
-                // we even then start it (concurrently).
-                if (Optional.ofNullable(indexingState.putIfAbsent(
-                    resource.archive(), IndexingState.CHECKING))
-                    .orElse(IndexingState.CHECKING) == IndexingState.CHECKING) {
-                    logIndexing(resource, () -> String.format(
-                        "%s in revision list, indexing...", resource));
-                    return true;
-                }
-                logIndexing(resource, () -> String.format(
-                    "%s from revision list already handled as dependency.",
-                    resource));
-                return false;
             }).sorted(new Comparator<>() {
                 @Override
                 public int compare(MavenResource res1, MavenResource res2) {
@@ -496,6 +460,28 @@ public class MavenGroupRepository extends ResourcesRepository {
                     return res2.archive().compareTo(res1.archive());
                 }
             }).collect(Collectors.toList());
+    }
+
+    private void removeOutOfOrderVersions(List<MavenResource> resources) {
+        // Remove resources with versions that are inconsistent
+        // with OSGi version order.
+        var resourcesIter = resources.iterator();
+        Version lastVersion = null;
+        while (resourcesIter.hasNext()) {
+            var next = resourcesIter.next();
+            var nextVersion = osgiVersion(next);
+            if (nextVersion.isEmpty()) {
+                continue;
+            }
+            if (lastVersion != null
+                && nextVersion.get().compareTo(lastVersion) >= 0) {
+                resourcesIter.remove();
+                logIndexing(next, () -> String.format(
+                    "%s skipped, violates OSGi version order.", next));
+                continue;
+            }
+            lastVersion = nextVersion.get();
+        }
     }
 
     /**
