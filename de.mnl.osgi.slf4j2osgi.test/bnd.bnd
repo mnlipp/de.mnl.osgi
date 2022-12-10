@@ -33,24 +33,24 @@ Export-Package: \
 
 # Let the resolver create this.
 -runbundles: \
-	biz.aQute.tester.junit-platform;version='[6.1.0,6.1.1)',\
-	junit-jupiter-api;version='[5.8.1,5.8.2)',\
-	junit-jupiter-engine;version='[5.8.1,5.8.2)',\
-	junit-platform-commons;version='[1.8.1,1.8.2)',\
-	junit-platform-engine;version='[1.8.1,1.8.2)',\
+	biz.aQute.tester.junit-platform;version='[6.4.0,6.4.1)',\
+	junit-jupiter-api;version='[5.9.1,5.9.2)',\
+	junit-jupiter-engine;version='[5.9.1,5.9.2)',\
+	junit-platform-commons;version='[1.9.1,1.9.2)',\
+	junit-platform-engine;version='[1.9.1,1.9.2)',\
 	junit-platform-launcher;version='[1.8.1,1.8.2)',\
-	net.bytebuddy.byte-buddy;version='[1.12.1,1.12.2)',\
+	net.bytebuddy.byte-buddy;version='[1.12.13,1.12.14)',\
 	net.bytebuddy.byte-buddy-agent;version='[1.12.1,1.12.2)',\
-	org.apache.felix.log;version='[1.2.4,1.2.5)',\
+	org.apache.felix.log;version='[1.2.6,1.2.7)',\
 	org.mockito.junit-jupiter;version='[4.1.0,4.1.1)',\
 	org.mockito.mockito-core;version='[4.1.0,4.1.1)',\
 	org.objenesis;version='[3.2.0,3.2.1)',\
 	org.opentest4j;version='[1.2.0,1.2.1)',\
+	de.mnl.osgi.coreutils;version='[2.1.0,2.1.1)',\
 	de.mnl.osgi.lf4osgi;version=snapshot,\
-	de.mnl.osgi.slf4j2osgi;version=snapshot,\
-	de.mnl.osgi.osgi2jul;version=snapshot,\
 	slf4j.api;version='[1.7.25,1.7.26)',\
-	de.mnl.osgi.coreutils;version='[1.0.4,1.0.5)'
+	de.mnl.osgi.slf4j2osgi;version=snapshot,\
+	de.mnl.osgi.osgi2jul;version=snapshot
 
 -runvm.coverage: \
 	"-javaagent:${repo;org.jacoco:org.jacoco.agent:jar:runtime;latest}=destfile=${basedir}/generated/jacoco.exec,append=false,includes=de.mnl.osgi.*"
