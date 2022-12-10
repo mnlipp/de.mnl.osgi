@@ -201,6 +201,7 @@ public class MavenVersionRange extends MavenVersionSpecification {
      * @return true, if is range
      * @deprecated Use {@link MavenVersionSpecification#isRange(String)} instead
      */
+    @Deprecated
     public static boolean isRange(String version) {
         return MavenVersionSpecification.isRange(version);
     }

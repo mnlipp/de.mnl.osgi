@@ -29,6 +29,7 @@ import org.osgi.service.log.LogService;
  *
  * @deprecated Replaced by {@code de.mnl.osgi.osgi2jul}.
  */
+@Deprecated
 public class LogWriter implements LogListener {
 
     /*

@@ -33,6 +33,7 @@ import org.osgi.util.tracker.ServiceTracker;
  *
  * @deprecated Replaced by {@code de.mnl.osgi.osgi2jul}.
  */
+@Deprecated
 public class Activator implements BundleActivator {
 
     /** This tracker holds all log reader services. */
