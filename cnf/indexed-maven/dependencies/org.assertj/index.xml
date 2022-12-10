@@ -1,288 +1,288 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637656195199">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1670672523119">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="org.assertj.core"/>
+      <attribute name="documentation" value="joel-costigliola.github.io/assertj/index.html"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="3.11.1" type="Version"/>
-      <attribute name="documentation" value="joel-costigliola.github.io/assertj/index.html"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.api.filter,org.assertj.core.api.iterable,org.assertj.core.condition,org.assertj.core.data,org.assertj.core.description,org.assertj.core.error,org.assertj.core.groups,org.assertj.core.internal,org.assertj.core.internal.bytebuddy.implementation.bind.annotation,org.assertj.core.presentation,org.hamcrest,org.junit.jupiter.api.extension,org.junit.rules,org.junit.runner,org.junit.runners.model"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.api"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.api.exception"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.api"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.api.filter"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.api.iterable"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.api"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.condition"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.presentation"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.configuration"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.data"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.description"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.api,org.assertj.core.data,org.assertj.core.description,org.assertj.core.internal,org.assertj.core.presentation,org.assertj.core.util.diff"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.error"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.error"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.error.future"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.error"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.error.uri"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.api.iterable,org.assertj.core.groups"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.extractor"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.api.iterable"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.groups"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.api,org.assertj.core.data,org.assertj.core.error,org.assertj.core.presentation,org.assertj.core.util.diff"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline,org.assertj.core.internal.bytebuddy.dynamic.scaffold.subclass,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.attribute,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.matcher"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.asm,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.loading,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.pool,org.assertj.core.internal.bytebuddy.utility"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.agent.builder"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.enumeration,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.pool,org.assertj.core.internal.bytebuddy.utility.visitor"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.asm"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.matcher"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.build"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.matcher"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.enumeration,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.matcher"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description.annotation"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.type"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description.enumeration"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.matcher"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description.field"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.matcher"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description.method"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description.modifier"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm.signature,org.assertj.core.internal.bytebuddy.matcher"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.description.type"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.asm,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic.loading,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.attribute,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.pool,org.assertj.core.internal.bytebuddy.utility"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.dynamic"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.utility"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.dynamic.loading"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.asm,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.attribute,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.jar.asm.commons,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.pool,org.assertj.core.internal.bytebuddy.utility.visitor"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.dynamic.scaffold"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.asm,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.attribute,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.pool"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.asm,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.attribute,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.pool"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.dynamic.scaffold.subclass"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.enumeration,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation.attribute,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.implementation.bind,org.assertj.core.internal.bytebuddy.implementation.bind.annotation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.matcher,org.assertj.core.internal.bytebuddy.utility"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.jar.asm"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.attribute"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.modifier,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.auxiliary"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bind"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy,org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.dynamic.scaffold,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.auxiliary,org.assertj.core.internal.bytebuddy.implementation.bind,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bind.annotation"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.jar.asm"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode.assign"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign,org.assertj.core.internal.bytebuddy.jar.asm"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode.assign.primitive"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.implementation.bytecode.assign"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode.assign.reference"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode.collection"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.utility"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode.constant"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description.enumeration,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.implementation,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.utility"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.implementation.bytecode.member"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.jar.asm"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.jar.asm.signature"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.jar.asm.commons"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.jar.asm.signature"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.utility"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.matcher"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.annotation,org.assertj.core.internal.bytebuddy.description.enumeration,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.dynamic,org.assertj.core.internal.bytebuddy.jar.asm,org.assertj.core.internal.bytebuddy.jar.asm.signature"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.pool"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build,org.assertj.core.internal.bytebuddy.description,org.assertj.core.internal.bytebuddy.description.enumeration,org.assertj.core.internal.bytebuddy.description.field,org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.description.type,org.assertj.core.internal.bytebuddy.jar.asm"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.utility"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.build"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.utility.privilege"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.internal.bytebuddy.description.method,org.assertj.core.internal.bytebuddy.implementation.bytecode,org.assertj.core.internal.bytebuddy.jar.asm"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.internal.bytebuddy.utility.visitor"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.matcher"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.data,org.assertj.core.groups,org.assertj.core.internal"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.presentation"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.api.filter,org.assertj.core.presentation"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.util"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.util.diff"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.assertj.core.util.diff"/>
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.util.diff.myers"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.util.introspection"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="3.11.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.assertj.core.util.xml"/>
+      <attribute name="version" value="3.11.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="bundle-version" value="3.11.1" type="Version"/>
@@ -299,8 +299,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="4085398" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.11.1/assertj-core-3.11.1.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.11.1/assertj-core-3.11.1.jar"/>
       <attribute name="osgi.content" value="2EE2BD3E81FC818D423D442B658F28ACF938D9078D6BA016A64B362FDD7779E8"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -349,6 +349,648 @@
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.testng))"/>
       <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="&quot;Apache License, Version 2.0&quot;;link=&quot;http://www.apache.org/licenses/LICENSE-2.0.txt&quot;"/>
+      <attribute name="osgi.identity" value="assertj-core"/>
+      <attribute name="documentation" value="https://assertj.github.io/doc/#assertj-core"/>
+      <attribute name="description" value="Rich and fluent assertions for testing for Java"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.annotations"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="2066960" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="net.bytebuddy.implementation.bind.annotation,org.assertj.core.api.filter,org.assertj.core.api.iterable,org.assertj.core.api.recursive.comparison,org.assertj.core.condition,org.assertj.core.configuration,org.assertj.core.data,org.assertj.core.description,org.assertj.core.error,org.assertj.core.groups,org.assertj.core.presentation,org.hamcrest,org.junit.jupiter.api.extension,org.junit.rules,org.junit.runner,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-514724789,-1404804771,610662952,1906576002,1979431332,2099091769,1097229085,-532340378,-259276391,1314546796,-445131723,-1319362480,-270219993,1754879807,-1846579411,1413055804,1842672614,1632678178,-1934661779,-1283155338,686617164,2054442969,-629165348,751096208,-13529660,-1298323931,-43879579,364299040,-2092587957,1841238958,-186699931,376800370,-1571172094,-1855059142,-1361971045,-443391434,-1450186906,2018254269,-1452852374,-2015466084,-1020784330,229719617,1813225156,-2139093600,1978945537,-1542319626,97155614,-273568569,-1292159594,-1065460280,-1530189912,1184980313,-945790861,-1289352124,-978806355,966333897,1336195899,1309345586,-519013051,-1172173504,1731228253,-396872543,1088816153,-67769878,-421797884,1170744073,-1773413968,889097075,393298807,1842374759,-1157883535,1668741436,1970626406,-1852668804,-2106758460,233013619,1911096183,1010250471,-699216208,-209934895,799469881,-737349096,1765509702,-1196060839,-344939672,9161987,224534668,1418410393,1841372264,-114631400,1728697741,1561422428,-1329933569,1786595743,854159526,-231987211,-1267572070,1811541626,2132944542,-1328082257,154385299,-1935915546,-1234166179,-246621330,1364592887,-28042721,-1266839260,1344310853,-1738065449,2108177774,1313444133,2025026743,1973073550,1899892119,-2095028823,276090749,623579055,399357630,-824516136,-1698906876,1525081041,-549901628,1234761907,1108173732,898179296,-1796292812,-989108753,-1808614382,1142656251,2009280692,788688806,-1757250554,699239676,-608011698,694570647,-275057748,-1796408806,16597326,-1009799291,272937442,797950570,2114762390,2181950,-1016060926,1829399907,185537681,-778378461,-649399134,-275671527,842507017,268858519,-624232552,-1273941826,546610096,143289206,1671655640,606931047,1476333022,-790443088,-812661746,-777541116,1272664696,1454207193,-1610634892,-1134018769,1319887342,-455211094,-1098147319,-991617275,367281631,-2013617495,-429632582,310413923,1468414805,-1426163505,-213811459,-982116568,1842249124,193445439,-50672916,454692382,1305520177,1449374136,-1595089213,810693890,-1755048543,-1894338654,-1522390781,-748688648,-217722367,703607823,1162373198,-1197473248,-1633440891,-1223291451,-177327443,-774269356,-1799959162,1597533926,1702870551,2054547573,1526826114,-1981337621,-393538425,-488612931,699514649,661898465,-1151195535,-1253511933,2109095618,1078904592,563984795,-27902311,927094956,1120436023,1432563220,-1474699294,1619533585,369366998,-1691501405,180201417,-271056169,-1029563340,2048360582,1390665543,-1179875232,-1425084558,-685864693,-1528659022,1133852021,-2097061065,1283691202,410285818,-1600016656,1795478265" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.exception"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="2065418017" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.filter"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1704121252,810105819,-678364899,-1388521461,1343867088" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.iterable"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1751117316,-1059794392" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api,org.junit.jupiter.api.extension"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.junit.jupiter"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1204091508,-1095929562,-1389813532,807568040" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.presentation"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.recursive.comparison"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="999946822,2121643859,-1534560715,-1431305877,-1866917597,1707204390,-1932772689,-943034,1895597947,385429243,-1124155928,-126535046" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api,org.assertj.core.description"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.condition"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="63352632,63424707,-2083302910,2314570,-1038495736,985755733,78515,-78255655" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.description,org.assertj.core.presentation"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.configuration"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1563253546,1109514471,2116574243,1443853438" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.data"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="70793394,219533462,-1935912781,1071632058,-846585227,-1383473773,-2141195239,2034660" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.description"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-56677412,166747042,-1853013953,122226770,2009722459,-553086865" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api,org.assertj.core.api.recursive.comparison,org.assertj.core.data,org.assertj.core.description,org.assertj.core.presentation,org.assertj.core.util.diff,org.opentest4j"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-656081233,-1863622110,-787486741,-272911098,1901618660,-2086762213,-249980509,1102769362,-1386508227,-759731515,1467735730,1926609344,-288670642,-1641873523,1394305449,-370624445,783221887,-1587279310,345836388,-820088024,-265247174,-1956402629,-1955063060,-1914713647,2122996569,1808022283,961674243,920253280,-22532957,1159366279,-785749318,1839396888,-856726463,843213640,1694346743,1780162277,-1388767231,-332041171,-1675970373,-275324554,501417682,-506110024,497921542,-1502412282,329594723,1943556054,-1463956155,-1832391383,2122586633,1966590610,-1720321435,-1717003115,-1075182505,609764978,-1674333774,499005822,1287307619,-591163331,-1652383337,501820791,760170166,501944158,787007145,1623733757,-402357155,416867202,1141827730,421984434,-744506641,-550804500,2047022642,308474534,-1536882198,-1822158106,56084209,-440163863,-1303080831,-1912970931,1443823452,-1650917149,-1646371920,-2143983518,630351456,824459891,502382925,-1646354414,-1598559803,-1174097500,257500365,1701078331,470782875,1709499845,-1384020459,-2005720651,-720433659,1459498687,-1837973483,313943141,1709996062,-393687399,1550705256,-2065835606,-1683880917,2062122794,-187174813,-1646179281,943630306,-1205259013,-1405423294,289900789,-1163959027,-1047135667,1193826265,442520080,-1315843369,1188799366,1973468130,1564819879,-1645974788,-1220710445,-5583057,-159256197,274902114,515721067,-1645928412,659276019,-467228132,209371958,1713674113,1544206818,-1947561570,872377176,-546376763,1470513615,1547897201,1738822155,-1961447102,506808690,2084295454,188649749,188754088,-708304391,188777165,1538657811,-1633946015,890515711,789499017,-2023970609,-3591426,1784963682,-155948112,-1027277888,1210468494,1563202160,1214626819,-799438977,-845006098,-385427475,1798630451,1197188324,1701254619,-1239292538,1440310857,-1750590972,629125314,802366237,844193614,-827386797,139274755,-931702883,-84379106,650890833,435785599,-1032201208,254524559,1197632648,310611108,492990580,359785222,-898893344,-80984660,-2924129,-218379266,-80375465,-1912103162,-1912098962,1047964877,-935853405,-1780034859,117544252,-1500750650,1148032249,-1969268140,-1080203889,-1842972181,772274789,775972732,-1986913817,1649456676,-1986640,29765900,690015957,220945857,1683601687,-1163536296,-630622112,1333508062,-994868196,798554487,1108070484,-83733682,859010095,-1911946116,-1630913556,1122360991,-1521128051,1196694390,483963542,859516584,1133726488,1557734080,-1911916728,469614951,861731926,1203901362,-17480834,-1262150360,1205240931,-118466011,442524337,445339306,445462673,-1230940443,-2117371632,-1088394147,-1175894378,-271191025,1554015254,435969301,945481458,-1404632856,-1078575209,-696620520,888456541,-1232284534,982821315,-1232154775,1657192628,-1444626978,924072203,-842637301,-1223411445,728950984,729055323,1724167926,847663164,611297429,-389864275,1132671261,-901487583,-2100441952,-590577961,-1404456568,1124880391,22714480,1222045706,1276183625,1880526320,39084052,-583864923,-448011733,1705970728,-787373529,-1760801084,-230984768,-1661713648,150102965,-1925902796,-1121625734,374506844,-1858293526,-1889136378,1321985451" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.error"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error.array2d"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="876059361" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.error"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error.future"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-213209989,-2092729995,1884571730,1588682304,-1646408168,485721592,-789005181,327091246,-1552428760,-1841738881,-1232588155,1472981989,-1505867908" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.error"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error.uri"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1683376458,354399344,-1896187992,596267339,-1912268253,726704324,-1417337842,-1912043360,-1912029956,1257373075,857703341,859711328,1979733524" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.groups"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.extractor"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-685576590,733255354,-1549937937,954162576,-888810248" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.groups"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-141389323,1067411795,81172392" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.matcher"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-863123472" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.data,org.assertj.core.groups"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.presentation"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1583820978,1223358228,652355960,-1558098036,-81310235,-1673059091,520995385,-125968118,1008347370" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api.filter,org.assertj.core.presentation"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1420503077,-1149509672,1969669466,-2049400313,2088127412,-1696144609,621294617,2116517177,-66777215,1857433840,-1425205337,1983980758,67881559,-322322382,-1170115064,1798566836,73429877,2390711,265567099,-2110180918,5004532,249979392,76886222,2093771131,2573425,-217237293,-414732090,720699207,-217105822,843485756,1721084755,-906336637,2613508,1362665209" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.diff"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-11981368,65090125,520667309,2590522,65915800,-978364786,-1343246902,-1003032692,1539341407,76886056" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.util.diff"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.diff.myers"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-32569401,-1447469390,1507229503,1298878439,80025888" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.introspection"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1693941305,-1562796651,-1733892105,1149353374,1553424283,313330477,-1252274665,1313007502,-1002247091,904374298" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.xml"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1263826708" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="assertj-core"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.23.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="assertj-core"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="assertj-core"/>
+      <attribute name="from" value="org.assertj:assertj-core:3.23.1"/>
+      <attribute name="version" value="3.23.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="net.bytebuddy:byte-buddy:1.12.10"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1244287" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.23.1/assertj-core-3.23.1.jar"/>
+      <attribute name="osgi.content" value="36AF798AF9FC20537669E02618BD39F2C797F4813824EF222108CB686FA4C88E"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.bytebuddy)(version&gt;=1.12.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="net.bytebuddy"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.bytebuddy.description.method)(version&gt;=1.12.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="net.bytebuddy.description.method"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.bytebuddy.description.modifier)(version&gt;=1.12.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="net.bytebuddy.description.modifier"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.bytebuddy.description.type)(version&gt;=1.12.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="net.bytebuddy.description.type"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.bytebuddy.dynamic)(version&gt;=1.12.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="net.bytebuddy.dynamic"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.bytebuddy.dynamic.loading)(version&gt;=1.12.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="net.bytebuddy.dynamic.loading"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.bytebuddy.dynamic.scaffold)(version&gt;=1.12.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="net.bytebuddy.dynamic.scaffold"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.bytebuddy.implementation)(version&gt;=1.12.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="net.bytebuddy.implementation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.bytebuddy.implementation.auxiliary)(version&gt;=1.12.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="net.bytebuddy.implementation.auxiliary"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.bytebuddy.implementation.bind.annotation)(version&gt;=1.12.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="net.bytebuddy.implementation.bind.annotation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.bytebuddy.matcher)(version&gt;=1.12.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="net.bytebuddy.matcher"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.parsers"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest)(version&gt;=2.2.0)(!(version&gt;=3.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.extension)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.parallel)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.parallel"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.annotation)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.annotation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.support)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.junit.rules)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.rules"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.junit.runner)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runner"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.junit.runners.model)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runners.model"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.opentest4j)(version&gt;=1.2.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.opentest4j"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.w3c.dom"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom.bootstrap)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.w3c.dom.bootstrap"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom.ls)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.w3c.dom.ls"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.xml.sax"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="&quot;Apache License, Version 2.0&quot;;link=&quot;http://www.apache.org/licenses/LICENSE-2.0.txt&quot;"/>
+      <attribute name="osgi.identity" value="assertj-core"/>
+      <attribute name="documentation" value="https://assertj.github.io/doc/assertj-core/"/>
+      <attribute name="description" value="Rich and fluent assertions for testing for Java"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.annotations"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2066960" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api.filter,org.assertj.core.api.iterable,org.assertj.core.api.recursive.comparison,org.assertj.core.condition,org.assertj.core.configuration,org.assertj.core.data,org.assertj.core.description,org.assertj.core.error,org.assertj.core.groups,org.assertj.core.presentation,org.hamcrest,org.junit.jupiter.api.extension,org.junit.rules,org.junit.runner,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-514724789,-1404804771,610662952,1906576002,1979431332,2099091769,-532340378,-259276391,1314546796,-445131723,-1319362480,-270219993,1754879807,-1846579411,1413055804,1842672614,1632678178,-1934661779,-1283155338,686617164,2054442969,-629165348,751096208,-13529660,-1298323931,-43879579,364299040,-2092587957,1841238958,-186699931,376800370,-1571172094,-1855059142,-1361971045,-443391434,-1450186906,2018254269,-1452852374,-2015466084,-1020784330,229719617,1813225156,-2139093600,1978945537,97155614,-273568569,-1292159594,-1065460280,-1530189912,1184980313,-945790861,-1289352124,-978806355,966333897,1336195899,1309345586,-519013051,-1172173504,1731228253,-396872543,1088816153,-67769878,-421797884,-1773413968,889097075,393298807,1842374759,-1157883535,1668741436,1970626406,-1852668804,-2106758460,233013619,1911096183,1010250471,-699216208,-209934895,799469881,-737349096,1765509702,-1196060839,-344939672,9161987,224534668,1418410393,1841372264,-114631400,1728697741,1561422428,-1329933569,1786595743,854159526,-231987211,-1267572070,1811541626,2132944542,-1328082257,154385299,-1935915546,-1234166179,-246621330,1364592887,-1266839260,1344310853,-1738065449,2108177774,1313444133,2025026743,1973073550,1899892119,-2095028823,276090749,623579055,399357630,-824516136,-1698906876,1525081041,-549901628,1234761907,1108173732,898179296,-1796292812,-989108753,-1808614382,1142656251,2009280692,788688806,-1757250554,699239676,-608011698,694570647,-275057748,-1796408806,16597326,-1009799291,272937442,797950570,2114762390,2181950,-1016060926,1829399907,185537681,-778378461,-649399134,-275671527,842507017,268858519,-624232552,-1273941826,546610096,143289206,1671655640,606931047,1476333022,-790443088,-812661746,-777541116,1272664696,1454207193,-1610634892,-1134018769,1319887342,-455211094,-1098147319,-991617275,367281631,-2013617495,-429632582,310413923,1468414805,-1426163505,-213811459,-982116568,1842249124,193445439,-50672916,454692382,1305520177,1449374136,-1595089213,810693890,-1755048543,-1894338654,-1522390781,-217722367,703607823,1162373198,-1197473248,-1633440891,-1223291451,-177327443,-774269356,-1799959162,1597533926,1702870551,2054547573,1526826114,-1981337621,-393538425,-488612931,699514649,661898465,-1151195535,-1253511933,2109095618,1078904592,563984795,-27902311,927094956,1120436023,1432563220,-1474699294,-1691501405,180201417,-271056169,-1029563340,2048360582,1390665543,-1179875232,-1425084558,-1528659022,1133852021,-2097061065,1283691202,410285818,-1600016656,1795478265" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.exception"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2065418017" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.filter"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1704121252,810105819,-678364899,-1388521461,1343867088" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.iterable"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1751117316,-1059794392" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api,org.junit.jupiter.api.extension"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.junit.jupiter"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1204091508,-1095929562,-1389813532,807568040" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.presentation"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.recursive.comparison"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="999946822,2121643859,-1534560715,-1431305877,-1866917597,1707204390,-1932772689,-943034,1895597947,385429243,-1124155928,-126535046" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api,org.assertj.core.description"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.condition"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="63352632,63424707,-2083302910,2314570,-1038495736,985755733,78515,-78255655" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.description,org.assertj.core.presentation"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.configuration"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1563253546,1109514471,2116574243,1443853438" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.data"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="70793394,219533462,-1935912781,1071632058,-846585227,-1383473773,-2141195239,2034660" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.description"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-56677412,166747042,-1853013953,122226770,2009722459,-553086865" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api,org.assertj.core.api.recursive.comparison,org.assertj.core.data,org.assertj.core.description,org.assertj.core.presentation,org.assertj.core.util.diff,org.opentest4j"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-656081233,-1863622110,-787486741,-272911098,1901618660,-2086762213,-249980509,1102769362,-1386508227,-759731515,1467735730,1926609344,-288670642,-1641873523,1394305449,-370624445,783221887,-1587279310,345836388,-820088024,-265247174,-1956402629,-1955063060,-1914713647,2122996569,1808022283,961674243,-22532957,1159366279,-785749318,1839396888,-856726463,843213640,1694346743,1780162277,-1388767231,-332041171,-1675970373,-275324554,501417682,-506110024,497921542,-1502412282,329594723,1943556054,-1463956155,-1832391383,2122586633,1966590610,-1720321435,-1717003115,-1075182505,609764978,-1674333774,499005822,1287307619,-591163331,-1652383337,501820791,760170166,501944158,787007145,1623733757,-402357155,416867202,1141827730,421984434,-744506641,-550804500,2047022642,308474534,-1536882198,-1822158106,56084209,-440163863,-1303080831,-1912970931,1443823452,-1650917149,-1646371920,-2143983518,630351456,824459891,502382925,-1646354414,-1598559803,-1174097500,257500365,1701078331,470782875,1709499845,-1384020459,-2005720651,-720433659,1459498687,-1837973483,313943141,1709996062,-393687399,1550705256,-2065835606,-1683880917,2062122794,-187174813,-1646179281,943630306,-1205259013,-1405423294,289900789,-1163959027,-1047135667,1193826265,442520080,-1315843369,1188799366,1973468130,1564819879,-1645974788,-1220710445,-5583057,-159256197,274902114,515721067,-1645928412,659276019,-467228132,209371958,1713674113,1544206818,-1947561570,872377176,-546376763,1470513615,1547897201,1738822155,-1961447102,506808690,2084295454,188649749,188754088,-708304391,188777165,1538657811,-1633946015,890515711,789499017,-2023970609,-3591426,1784963682,-155948112,-1027277888,1210468494,1563202160,1214626819,-799438977,-845006098,1798630451,1197188324,1701254619,-1239292538,1440310857,-1750590972,629125314,802366237,844193614,-827386797,139274755,-931702883,-84379106,650890833,435785599,-1032201208,254524559,1197632648,310611108,492990580,-898893344,-80984660,-2924129,-218379266,-80375465,-1912103162,-1912098962,1047964877,-935853405,-1780034859,117544252,-1500750650,1148032249,-1969268140,-1080203889,-1842972181,772274789,775972732,-1986913817,1649456676,-1986640,29765900,690015957,220945857,1683601687,-1163536296,-630622112,-994868196,798554487,1108070484,-83733682,859010095,-1911946116,-1630913556,1122360991,-1521128051,1196694390,483963542,859516584,1133726488,1557734080,-1911916728,469614951,861731926,1203901362,-17480834,-1262150360,1205240931,-118466011,442524337,445339306,445462673,-1230940443,-2117371632,-1088394147,-1175894378,-271191025,1554015254,435969301,945481458,-1404632856,-1078575209,-696620520,888456541,-1232284534,982821315,-1232154775,1657192628,-1444626978,924072203,-842637301,-1223411445,728950984,729055323,1724167926,847663164,611297429,-389864275,1132671261,-901487583,-590577961,-1404456568,1124880391,22714480,1222045706,1276183625,1880526320,39084052,-583864923,-448011733,1705970728,-1760801084,-230984768,-1661713648,150102965,-1121625734,374506844,-1858293526,-1889136378,1321985451" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.error"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error.array2d"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="876059361" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.error"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error.future"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-213209989,-2092729995,1884571730,1588682304,-1646408168,485721592,-789005181,327091246,-1552428760,-1841738881,-1232588155,1472981989,-1505867908" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.error"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error.uri"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1683376458,354399344,-1896187992,596267339,-1912268253,726704324,-1417337842,-1912043360,-1912029956,1257373075,857703341,859711328,1979733524" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.groups"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.extractor"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-685576590,733255354,-1549937937,954162576,-888810248" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.groups"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-141389323,1067411795,81172392" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.matcher"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-863123472" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.data,org.assertj.core.groups"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.presentation"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1583820978,1223358228,652355960,-1558098036,-81310235,-1673059091,520995385,-125968118,1008347370" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.api.filter,org.assertj.core.presentation"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1420503077,-1149509672,1969669466,-2049400313,2088127412,-1696144609,621294617,2116517177,-66777215,1857433840,-1425205337,1983980758,67881559,-322322382,-1170115064,1798566836,73429877,2390711,265567099,-2110180918,5004532,249979392,2093771131,2573425,-217237293,-414732090,720699207,-217105822,843485756,1721084755,-906336637,2613508,1362665209" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.diff"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-11981368,65090125,520667309,2590522,65915800,-978364786,-1343246902,-1003032692,1539341407,76886056" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.assertj.core.util.diff"/>
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.diff.myers"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-32569401,-1447469390,1507229503,1298878439,80025888" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.introspection"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1693941305,-1562796651,-1733892105,1149353374,1553424283,313330477,-1252274665,1313007502,-1002247091,904374298" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="assertj-core"/>
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.xml"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1263826708" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="assertj-core"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.22.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="assertj-core"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="assertj-core"/>
+      <attribute name="from" value="org.assertj:assertj-core:3.22.0"/>
+      <attribute name="version" value="3.22.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="5197862" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.22.0/assertj-core-3.22.0.jar"/>
+      <attribute name="osgi.content" value="419B7594A869147EE9578F5AF2297FDD2C03C07C835927DBF4A7B32AD22CB411"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.sun.jna)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.annotation)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="javax.annotation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.annotation.meta)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="javax.annotation.meta"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.parsers"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.hamcrest)(version&gt;=2.2.0)(!(version&gt;=3.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.extension)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.parallel)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.parallel"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.annotation)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.annotation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.support)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.junit.rules)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.rules"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.junit.runner)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runner"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.junit.runners.model)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runners.model"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.opentest4j)(version&gt;=1.2.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.opentest4j"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.w3c.dom"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom.bootstrap)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.w3c.dom.bootstrap"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom.ls)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.w3c.dom.ls"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.xml.sax"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>

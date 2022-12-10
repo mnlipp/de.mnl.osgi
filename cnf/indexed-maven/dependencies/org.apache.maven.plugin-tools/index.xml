@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1670672523322">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.plugin-tools:maven-plugin-annotations"/>
+      <attribute name="from" value="org.apache.maven.plugin-tools:maven-plugin-annotations:3.7.0"/>
+      <attribute name="version" value="3.7.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="13747" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-annotations/3.7.0/maven-plugin-annotations-3.7.0.jar"/>
+      <attribute name="osgi.content" value="6F154C4EB3BC50DD609E794B364FD18661A4B0B91C7E4A0810127A7620E30603"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.plugin-tools:maven-plugin-annotations"/>
+      <attribute name="from" value="org.apache.maven.plugin-tools:maven-plugin-annotations:3.6.4"/>
+      <attribute name="version" value="3.6.4" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="13741" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-annotations/3.6.4/maven-plugin-annotations-3.6.4.jar"/>
+      <attribute name="osgi.content" value="0FE41F2FFA4FC6F3B8E65C0B16D9E5F00DD256113A4114E7A9466F9C1952EFF1"/>
+    </capability>
+  </resource>
+</repository>

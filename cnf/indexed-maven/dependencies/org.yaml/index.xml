@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1670672523417">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="LICENSE.txt"/>
+      <attribute name="osgi.identity" value="org.yaml.snakeyaml"/>
+      <attribute name="description" value="YAML 1.1 parser and emitter for Java"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="492951811,181055819,-1845049083,2016261304,-24851043,-1663341502,72651020,491784372,2001294649,-236691367,2748103" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.composer"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-534698688,880194287" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.constructor"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1337448885,-1961767210,-230067127,1582203831,-1627135721,536324739,-2041464680,-6318115,79462362,-735140459,1559821376,1214659417,-371916641,446545672,961618430,430053393,430056830,446908837,-17313817,446930603,970520699,430062721,430062724,430063187,-1994553416,-852218355" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.emitter"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1064658893,-169704091,-91541531,133156599,-1111714776,560914311,208863158,-2114117618,1894255719,-1921228118,-681803888,-643507178,-1169948007,-2095559848,-383692072,516678698,-728192677,-1270817516,1670655625,34362190,-1723632479,-1852743197,-1888037112" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.error"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2390765,928507036,-33453720" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.events"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="39664202,1877908317,335527094,-801212198,-1613877517,2331,67338874,-161013565,1832833357,-31836506,-1849137768,-1857937938,-1364452992,-1722401255,-1814345153,-277071080" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.extensions.compactnotation"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1430826549,434093303,839449933,-320009315" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.introspector"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="96144724,-531990321,752106668,-1576374794,-1104366277,-928497163,-229650500" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.nodes"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="696213111,-691200544,486919120,2433570,-1956304163,-1835304250,-475314130,971842947,83834" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.parser"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1911543745,-1418617136,1405150051,551386123,1611117597,1362494172,-1535127145,1760926109,-872657973,-838133459,2020706356,509656881,-1241002020,1529931762,1395638852,374966352,-1170940515,-1170935007,22920627,74329732,2073700687,759592153,271607855,1029097215,-548483879,-1220393641" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.reader"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1669104980,-1309587325,1479251424" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.representer"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-925623772,1724496648,237496346,-616094283,-384756699,-1702663119,922439680,1858917385,637885142,637927465,2002296726,638131142,-1919077068,638202031,-868148111,-802814246,-1919071174,-725769927,-1547775000" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.resolver"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-276684762,1384161090" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.scanner"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-503167036,-719352354,-1736369135,1897218325,-51624674,-120430803" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.serializer"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1395478962,-686790979" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.tokens"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="53313961,113317924,653987179,357303540,519401784,2071591077,1410230026,-787562439,-1600227758,-279854955,1822858654,-1246458249,-2083161555,-1130462394,555463418,-1844288179,-1800695394,-263421321,-709484897,-709301138,2331,80988633,-268479704" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.yaml.snakeyaml"/>
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.yaml.snakeyaml.util"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+      <attribute name="bnd.hashes" value="769903567,-1046379984" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.yaml.snakeyaml"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.15.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.yaml.snakeyaml"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.yaml.snakeyaml"/>
+      <attribute name="from" value="org.yaml:snakeyaml:1.15"/>
+      <attribute name="version" value="1.15.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="269295" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/yaml/snakeyaml/1.15/snakeyaml-1.15.jar"/>
+      <attribute name="osgi.content" value="79EA8AAC6590F49EE8390C2F17ED9343079E85B44158A097B301DFEE42AF86EC"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>
+    </requirement>
+  </resource>
+</repository>

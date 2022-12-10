@@ -1,5 +1,1267 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637656195310">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1670672523526">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-jupiter-engine"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.engine.execution,org.junit.platform.engine,org.junit.platform.engine.support.hierarchical"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1581691183,-1936236975" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api,org.junit.jupiter.api.extension,org.junit.jupiter.api.io,org.junit.jupiter.api.parallel,org.junit.platform.engine"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.config"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="1788741912,1692833434,164179500,-797213306,-362446087" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api,org.junit.jupiter.api.extension,org.junit.jupiter.api.parallel,org.junit.jupiter.engine.config,org.junit.jupiter.engine.execution,org.junit.jupiter.engine.extension,org.junit.platform.engine,org.junit.platform.engine.support.descriptor,org.junit.platform.engine.support.hierarchical"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.descriptor"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="1957761234,860598204,-996242968,1890857241,154720335,-640974995,1987218020,534885731,2403779,-2011997312,-1550323436,610884271,-692830526,-958129838,-956260398,440778994,-1887383954,-30229457,-488119713,400922622,619627174,-1470279309,-140239983,-1853700173,-528873822,954770361,-648710482,548573909,361399476,-270303268,-2094856771,-521792499" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.engine.descriptor,org.junit.platform.engine"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.discovery"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="1619913294,648799703,-1547168084,1887782744,1931039618,-939847043,-809826650,-1105714069,1582558065,-657740874,673287861,767401095,1404463289,1270503387,-83844058" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.discovery.predicates"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="-1161870932,-836495835,-408977797,-1021753729,-1656579345,-417194755,664876567,1611950295" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension,org.junit.jupiter.engine.config,org.junit.jupiter.engine.extension,org.junit.platform.engine,org.junit.platform.engine.support.hierarchical"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.execution"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="-5665711,-78210866,1896232824,2055660916,1738427402,1553239855,-1676498425,1068719467,-72669576,578079082,1128031971,297988974,-1505672384,883500462,-615673976,-1471964368,1842398257,1027084803,726451555,-1034113585,300034156,1895597947,80204913,-1343350986,-402946959,1353424062,-142576484,-1526871043" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension,org.junit.jupiter.engine.config"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.extension"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="-525492769,-780866674,-856473220,973561654,-677807543,-1683901869,-1069099757,2136338752,-95157328,1710104168,1384042625,1046632740,-791099785,178309800,79711796,-811058983,-146037343,221413935,-1635178660,-1141436107,-1481521675,-1192172940,1229609244,-477004206,-1967214594,570417697,-754976077,-111570565,83948313" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.engine.support.hierarchical"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.support"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="-688950624,-1836046944" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-jupiter-engine"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-jupiter-engine"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-jupiter-engine"/>
+      <attribute name="from" value="org.junit.jupiter:junit-jupiter-engine:5.9.1"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.junit.jupiter:junit-jupiter-api:5.9.1;org.apiguardian:apiguardian-api:1.1.2;org.junit.platform:junit-platform-engine:1.9.1"/>
+    </capability>
+    <capability namespace="org.junit.platform.engine">
+      <attribute name="org.junit.platform.engine" value="junit-jupiter"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="246530" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.9.1/junit-jupiter-engine-5.9.1.jar"/>
+      <attribute name="osgi.content" value="8BBC506B4F603EDE1F6BAFD8EEE69A9CC43DE0C26A0EE8D40D583D3FEEEDC2E9"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apiguardian.api)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.apiguardian.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.9.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.extension)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.function)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.io)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.parallel)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.parallel"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.function)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.support)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.discovery)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.discovery"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.reporting)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.reporting"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.support.config)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.config"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.support.descriptor)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.descriptor"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.support.discovery)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.discovery"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.support.hierarchical)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.hierarchical"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.opentest4j)(version&gt;=1.2.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.opentest4j"/>
+    </requirement>
+    <requirement namespace="org.junit.platform.launcher">
+      <directive name="filter" value="(&amp;(org.junit.platform.launcher=junit-platform-launcher)(version&gt;=1.9.1)(!(version&gt;=2)))"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-jupiter-api"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="kotlin,kotlin.jvm.functions,kotlin.jvm.internal,org.junit.jupiter.api.function,org.junit.jupiter.api.parallel,org.junit.platform.commons.annotation,org.opentest4j"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1067336261,-1272205859,-976641957,1931592754,-1932091406,-912578875,2049210717,-786246697,-1194863092,543498156,1113685172,1113814931,-210733555,-210603796,-491528877,1966180123,-210557420,-189602065,-209934895,116031258,-344939672,219561346,-1783424448,335584924,-912949683,1965311813,-479785531,1377272541,1448870662,3221282,1409020609,1409190225,1404952400,-979691505,-340280067,-1854418717,1960665146,1581946901,-1965077225,76453678,-1695940788,-1743171361,83834,2598969,2603186,183387128,-1082464128,1701644106,1433788263,1696667355,451620787,-442886324,350741825" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.jupiter.api.extension"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.condition"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-2021145131,-1345069363,9503950,-1115966442,584716709,-235221219,-1803087941,1620468317,138511166,410159234,-1655867719,-818052897,-838363396,-692271832,-261745453,-934763343,1074962282,1087107554,-1812308736,1620458722,194948697,-1070461155,-1776537986,242563812,-565161321,73725,2532" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.jupiter.api,org.junit.platform.commons"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1447342506,-1864825534,-311308113,702554087,816537253,-90548564,-582493804,-909821693,169648928,1391410207,-56088840,-1038781125,869444960,80218305,1223262352,-1630006881,184043572,-562801488,-1169585323,1818442920,-1854104090,-1263581510,-1416668497,254804772,460199100,134515361,-1598154845,-1462146932,-1397336149,678675715,1497763308,-160957228,-657867501,1338991652,-1893733206" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.jupiter.api.extension"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension.support"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="-1219865770" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.function"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-1762238358,-1425084558,1774347592" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.io"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="236511225" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.parallel"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="912993016,1720818875,1875457013,-220292487,1760867610,20897285" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-jupiter-api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-jupiter-api"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-jupiter-api"/>
+      <attribute name="from" value="org.junit.jupiter:junit-jupiter-api:5.6.0"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.opentest4j:opentest4j:1.2.0;org.apiguardian:apiguardian-api:1.1.0;org.junit.platform:junit-platform-commons:1.6.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="154033" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.6.0/junit-jupiter-api-5.6.0.jar"/>
+      <attribute name="osgi.content" value="128A9828798F978FADFCDA255BA365F908E58F6C37275C9E5F671CBD660A9A33"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.6.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin.collections)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin.collections"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin.jvm.functions)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin.jvm.functions"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin.jvm.internal)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin.jvm.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api)(version&gt;=5.6.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.extension)(version&gt;=5.6.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.function)(version&gt;=5.6.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.parallel)(version&gt;=5.6.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.parallel"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.annotation)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.annotation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.support)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.opentest4j)(version&gt;=1.2.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.opentest4j"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-jupiter-params"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.jupiter.api,org.junit.jupiter.api.extension"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="1059273931,1475097524,1013867892,-1165977623,1654237568,-276684762,598843520,-1117470077,132077428,1199172932" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="kotlin,org.junit.jupiter.api.extension,org.junit.platform.commons"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.aggregator"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="2046188293,-1987097938,-1328586339,-1166182426,-1263862301,1110549919,-117778020" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.jupiter.api.extension,org.junit.platform.commons"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.converter"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="571136444,-188690621,583981305,1677429728,545475187,-207137499,22379765,-1744113627,1022117698,-2130908294,-1812099743,402796467,360832756,-2145400533,890032049" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.jupiter.api.extension,org.junit.platform.commons"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.provider"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="-31549130,-169644729,-980570895,-332926558,-1811502047,-759913165,81473797,1685224253,-461805659,-835395195,1847908769,101005242,-1448504408,-1817990586,894184242,2403779,555303068,511455846,1145343100,1423635192,1524749952,-1842145464,-373525342,829978646,238744780" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.support"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="1049358437,229350717" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-jupiter-params"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.6.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-jupiter-params"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-jupiter-params"/>
+      <attribute name="from" value="org.junit.jupiter:junit-jupiter-params:5.6.0"/>
+      <attribute name="version" value="5.6.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apiguardian:apiguardian-api:1.1.0;org.junit.jupiter:junit-jupiter-api:5.6.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="562272" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-params/5.6.0/junit-jupiter-params-5.6.0.jar"/>
+      <attribute name="osgi.content" value="DADEA8429E8C44774A85F67A511D3D13DAB58E694B576F7FCA73262484AE02C0"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin.jvm.internal)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin.jvm.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api)(version&gt;=5.6.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.extension)(version&gt;=5.6.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.params.aggregator)(version&gt;=5.6.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.aggregator"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.params.converter)(version&gt;=5.6.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.converter"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.params.support)(version&gt;=5.6.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.function)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.support)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.6.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-jupiter-api"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="kotlin,kotlin.jvm.functions,kotlin.jvm.internal,org.apiguardian.api,org.junit.jupiter.api.function,org.junit.jupiter.api.parallel,org.junit.platform.commons.annotation,org.opentest4j"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1067336261,-1272205859,-976641957,1931592754,-1932091406,-912578875,2049210717,-985693870,2479866,-1808614382,-786246697,278337875,-1194863092,543498156,1113685172,1113814931,-210733555,-210603796,-491528877,1677999097,1966180123,184000262,254171103,886074033,-210557420,-1410877901,-189602065,-267349055,-209934895,116031258,-344939672,219561346,-1783424448,-815555865,1994079235,-912949683,-340280067,-1854418717,-1007148029,-756371412,335584924,1965311813,1252008324,-479785531,-1818419758,1377272541,1448870662,3221282,1409020609,1409190225,1285657020,1404952400,-979691505,1270301484,1960665146,1581946901,75032345,-1965077225,76453678,-1695940788,-1743171361,83834,2598969,2603186,-2021132536,183387128,-1082464128,1701644106,1433788263,1696667355,451620787,-442886324,808289005,350741825" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.condition"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-1281554096,-2021145131,716393227,-1345069363,9503950,374567129,-823721918,-1115966442,584716709,-235221219,-1803087941,1620468317,138511166,232353763,410159234,-1655867719,-818052897,-838363396,-692271832,-261745453,1372317726,-170924387,-934763343,1074962282,1087107554,-1812308736,1620458722,194948697,505555838,-1070461155,-1776537986,242563812,-565161321,73725,228484617,2532" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api,org.junit.jupiter.api.function,org.junit.jupiter.api.parallel,org.junit.platform.commons"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1447342506,-1864825534,-311308113,702554087,816537253,-90548564,-582493804,1282471342,342431536,-909821693,169648928,1391410207,-56088840,-1038781125,869444960,80218305,1223262352,-1630006881,184043572,-562801488,-1169585323,1818442920,-1854104090,-1263581510,-1416668497,254804772,460199100,134515361,-1598154845,-1462146932,-1397336149,167330528,678675715,1497763308,-160957228,-657867501,1338991652,-1893733206" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension.support"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="-1219865770" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.function"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-1762238358,-1425084558,1774347592" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.io"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="1795930695,236511225" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.parallel"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="912993016,1720818875,640424249,1875457013,-220292487,1760867610,20897285" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-jupiter-api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-jupiter-api"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-jupiter-api"/>
+      <attribute name="from" value="org.junit.jupiter:junit-jupiter-api:5.9.1"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.junit.platform:junit-platform-commons:1.9.1;org.opentest4j:opentest4j:1.2.0;org.apiguardian:apiguardian-api:1.1.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="207720" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.9.1/junit-jupiter-api-5.9.1.jar"/>
+      <attribute name="osgi.content" value="5D2FE4D719DFFB25A95D77E9C7A34893CBBB1B4CC6C86F2726AF7E0FB7035B2F"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apiguardian.api)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.apiguardian.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.9.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin.collections)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin.collections"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin.jvm.functions)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin.jvm.functions"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin.jvm.internal)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin.jvm.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.extension)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.function)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.parallel)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.parallel"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.annotation)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.annotation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.function)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.support)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.opentest4j)(version&gt;=1.2.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.opentest4j"/>
+    </requirement>
+    <requirement namespace="org.junit.platform.engine">
+      <directive name="filter" value="(&amp;(org.junit.platform.engine=junit-jupiter)(version&gt;=5.9.1)(!(version&gt;=6)))"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-jupiter-params"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api,org.junit.jupiter.api.extension"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1059273931,1475097524,1013867892,-1165977623,1654237568,-276684762,598843520,-1117470077,132077428,-379172849,1199172932" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="kotlin,org.apiguardian.api,org.junit.jupiter.api.extension,org.junit.platform.commons"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.aggregator"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="2046188293,-1987097938,-1328586339,-1166182426,-1263862301,1110549919,-117778020" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension,org.junit.platform.commons"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.converter"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="571136444,-188690621,583981305,-17890166,1677429728,545475187,-207137499,32163130,22379765,1022117698,-2130908294,-1812099743,402796467,360832756,-2145400533,890032049,1357956153" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension,org.junit.platform.commons"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.provider"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-31549130,-169644729,-980570895,-332926558,-1811502047,-759913165,342700058,692042715,-1812638661,81473797,1685224253,-461805659,-835395195,1847908769,101005242,-1448504408,-1817990586,894184242,2403779,555303068,511455846,1145343100,1423635192,1524749952,-1842145464,-373525342,829978646,238744780" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.support"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1049358437,229350717" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-jupiter-params"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.9.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-jupiter-params"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-jupiter-params"/>
+      <attribute name="from" value="org.junit.jupiter:junit-jupiter-params:5.9.1"/>
+      <attribute name="version" value="5.9.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.junit.jupiter:junit-jupiter-api:5.9.1;org.apiguardian:apiguardian-api:1.1.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="578947" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-params/5.9.1/junit-jupiter-params-5.9.1.jar"/>
+      <attribute name="osgi.content" value="30157F26D857BA4F84C0D84D156F55F056E80DC09B4281AFFA8B1ED4D3205C08"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apiguardian.api)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.apiguardian.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin.jvm.internal)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin.jvm.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.extension)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.params.aggregator)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.aggregator"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.params.converter)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.converter"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.params.support)(version&gt;=5.9.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.function)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.support)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.9.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-jupiter-engine"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.engine.execution,org.junit.platform.engine,org.junit.platform.engine.support.hierarchical"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1581691183,-1936236975" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api,org.junit.jupiter.api.extension,org.junit.jupiter.api.parallel,org.junit.platform.engine"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.config"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="1788741912,1692833434,164179500,-797213306,-362446087" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api,org.junit.jupiter.api.extension,org.junit.jupiter.api.parallel,org.junit.jupiter.engine.config,org.junit.jupiter.engine.execution,org.junit.jupiter.engine.extension,org.junit.platform.engine,org.junit.platform.engine.support.descriptor,org.junit.platform.engine.support.hierarchical"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.descriptor"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="1957761234,860598204,-996242968,1890857241,154720335,-640974995,1987218020,534885731,2403779,-1550323436,610884271,-692830526,-958129838,-956260398,440778994,-1887383954,-30229457,-488119713,400922622,619627174,-1470279309,-140239983,-1853700173,-528873822,954770361,-648710482,548573909,361399476,-270303268,-2094856771,-521792499" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.engine.descriptor,org.junit.platform.engine"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.discovery"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="1619913294,648799703,-1547168084,1887782744,1931039618,-939847043,-809826650,-1105714069,1582558065,-657740874,673287861,767401095,1404463289,1270503387,-83844058" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.discovery.predicates"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="-1161870932,-836495835,-408977797,-1021753729,-1656579345,-417194755,664876567,1611950295" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension,org.junit.jupiter.engine.config,org.junit.jupiter.engine.extension,org.junit.platform.engine,org.junit.platform.engine.support.hierarchical"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.execution"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="-5665711,-78210866,1896232824,2055660916,1738427402,-1676498425,1068719467,883500462,-615673976,342431536,-72669576,578079082,1128031971,297988974,-1505672384,1842398257,1027084803,726451555,-1034113585,300034156,1895597947,80204913,-1343350986,-402946959,1353424062,-1526871043" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension,org.junit.jupiter.engine.config"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.extension"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="-525492769,-780866674,-856473220,973561654,-677807543,-1683901869,-1069099757,2136338752,-95157328,-791099785,79711796,-811058983,-146037343,221413935,-1635178660,-1141436107,-1481521675,-1192172940,570417697,-477004206,-1967214594,1710104168,-1600955215" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.engine.support.hierarchical"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.support"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="-688950624,-1836046944" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-jupiter-engine"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-jupiter-engine"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-jupiter-engine"/>
+      <attribute name="from" value="org.junit.jupiter:junit-jupiter-engine:5.8.2"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apiguardian:apiguardian-api:1.1.2;org.junit.jupiter:junit-jupiter-api:5.8.2;org.junit.platform:junit-platform-engine:1.8.2"/>
+    </capability>
+    <capability namespace="org.junit.platform.engine">
+      <attribute name="org.junit.platform.engine" value="junit-jupiter"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="229678" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar"/>
+      <attribute name="osgi.content" value="753B7726CDD158BB34CEDB94C161E2291896F47832A1E9EDA53D970020A8184E"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apiguardian.api)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.apiguardian.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.8.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.extension)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.function)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.io)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.parallel)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.parallel"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.function)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.support)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.discovery)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.discovery"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.reporting)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.reporting"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.support.config)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.config"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.support.descriptor)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.descriptor"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.support.discovery)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.discovery"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.support.hierarchical)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.hierarchical"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.opentest4j)(version&gt;=1.2.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.opentest4j"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-jupiter-api"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="kotlin,kotlin.jvm.functions,kotlin.jvm.internal,org.apiguardian.api,org.junit.jupiter.api.function,org.junit.jupiter.api.parallel,org.junit.platform.commons.annotation,org.opentest4j"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1067336261,-1272205859,-976641957,1931592754,-1932091406,-912578875,2049210717,-985693870,-786246697,278337875,-1194863092,543498156,1113685172,1113814931,-210733555,-210603796,-491528877,1677999097,184000262,254171103,1966180123,-210557420,-189602065,-209934895,116031258,-344939672,219561346,-1783424448,-815555865,1994079235,-912949683,-340280067,-1854418717,-1007148029,-756371412,335584924,1965311813,1252008324,-479785531,-1818419758,1377272541,1448870662,3221282,1409020609,1409190225,1285657020,1404952400,-979691505,1270301484,1960665146,1581946901,75032345,-1965077225,76453678,-1695940788,-1743171361,83834,2598969,2603186,-2021132536,183387128,-1082464128,1701644106,1433788263,1696667355,451620787,-442886324,350741825" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.condition"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-2021145131,716393227,-1345069363,9503950,374567129,-823721918,-1115966442,584716709,-235221219,-1803087941,1620468317,138511166,410159234,-1655867719,-818052897,-838363396,-692271832,-261745453,1372317726,-170924387,-934763343,1074962282,1087107554,-1812308736,1620458722,194948697,-1070461155,-1776537986,242563812,-565161321,73725,228484617,2532" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api,org.junit.jupiter.api.function,org.junit.jupiter.api.parallel,org.junit.platform.commons"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1447342506,-1864825534,-311308113,702554087,816537253,-90548564,-582493804,1282471342,-909821693,169648928,1391410207,-56088840,-1038781125,869444960,80218305,1223262352,-1630006881,184043572,-562801488,-1169585323,1818442920,-1854104090,-1263581510,-1416668497,254804772,460199100,134515361,-1598154845,-1462146932,-1397336149,678675715,1497763308,-160957228,-657867501,1338991652,-1893733206" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension.support"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="-1219865770" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.function"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-1762238358,-1425084558,1774347592" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.io"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="236511225" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-api"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.parallel"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="912993016,1720818875,640424249,1875457013,-220292487,1760867610,20897285" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-jupiter-api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-jupiter-api"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-jupiter-api"/>
+      <attribute name="from" value="org.junit.jupiter:junit-jupiter-api:5.8.2"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.junit.platform:junit-platform-commons:1.8.2;org.opentest4j:opentest4j:1.2.0;org.apiguardian:apiguardian-api:1.1.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="193500" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar"/>
+      <attribute name="osgi.content" value="1808EE87E0F718CD6E25F3B75AFC17956AC8A3EDC48C7E9BAB9F19F9A79E3801"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apiguardian.api)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.apiguardian.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.8.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin.collections)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin.collections"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin.jvm.functions)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin.jvm.functions"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin.jvm.internal)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin.jvm.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.extension)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.function)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.parallel)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.parallel"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.annotation)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.annotation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.function)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.support)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.opentest4j)(version&gt;=1.2.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.opentest4j"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-jupiter-params"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api,org.junit.jupiter.api.extension"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1059273931,1475097524,1013867892,-1165977623,1654237568,-276684762,598843520,-1117470077,132077428,-379172849,1199172932" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="kotlin,org.apiguardian.api,org.junit.jupiter.api.extension,org.junit.platform.commons"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.aggregator"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="2046188293,-1987097938,-1328586339,-1166182426,-1263862301,1110549919,-117778020" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension,org.junit.platform.commons"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.converter"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="571136444,-188690621,583981305,-17890166,1677429728,545475187,-207137499,32163130,22379765,1022117698,-2130908294,-1812099743,402796467,360832756,-2145400533,890032049,1357956153" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension,org.junit.platform.commons"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.provider"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-31549130,-169644729,-980570895,-332926558,-1811502047,-759913165,342700058,692042715,-1812638661,81473797,1685224253,-461805659,-835395195,1847908769,101005242,-1448504408,-1817990586,894184242,2403779,555303068,511455846,1145343100,1423635192,1524749952,-1842145464,-373525342,829978646,238744780" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-jupiter-params"/>
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.support"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1049358437,229350717" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-jupiter-params"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.8.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-jupiter-params"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-jupiter-params"/>
+      <attribute name="from" value="org.junit.jupiter:junit-jupiter-params:5.8.2"/>
+      <attribute name="version" value="5.8.2" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apiguardian:apiguardian-api:1.1.2;org.junit.jupiter:junit-jupiter-api:5.8.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="577338" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-params/5.8.2/junit-jupiter-params-5.8.2.jar"/>
+      <attribute name="osgi.content" value="D1C22D6FE5483568C08C8913F34ABD2303490C3480CE6C18A2EA31C65E44102A"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apiguardian.api)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.apiguardian.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kotlin.jvm.internal)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="kotlin.jvm.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.api.extension)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.api.extension"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.params.aggregator)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.aggregator"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.params.converter)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.converter"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.jupiter.params.support)(version&gt;=5.8.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.jupiter.params.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.function)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.support)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.8.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="junit-jupiter-api"/>
@@ -87,8 +1349,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="193501" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.8.1/junit-jupiter-api-5.8.1.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.8.1/junit-jupiter-api-5.8.1.jar"/>
       <attribute name="osgi.content" value="CE3374A7EFBA605E2D2B69A3FEF90134032BAB3ECC3ED8579A4871B1C2C4729C"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -180,8 +1442,8 @@
       <attribute name="bnd.hashes" value="1581691183,-1936236975" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api,org.junit.jupiter.api.extension,org.junit.jupiter.api.parallel,org.junit.platform.engine"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
       <attribute name="bundle-version" value="5.8.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.config"/>
@@ -190,8 +1452,8 @@
       <attribute name="bnd.hashes" value="1788741912,1692833434,164179500,-797213306,-362446087" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api,org.junit.jupiter.api.extension,org.junit.jupiter.api.parallel,org.junit.jupiter.engine.config,org.junit.jupiter.engine.execution,org.junit.jupiter.engine.extension,org.junit.platform.engine,org.junit.platform.engine.support.descriptor,org.junit.platform.engine.support.hierarchical"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
       <attribute name="bundle-version" value="5.8.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.descriptor"/>
@@ -200,8 +1462,8 @@
       <attribute name="bnd.hashes" value="1957761234,860598204,-996242968,1890857241,154720335,-640974995,1987218020,534885731,2403779,-1550323436,610884271,-692830526,-958129838,-956260398,440778994,-1887383954,-30229457,-488119713,400922622,619627174,-1470279309,-140239983,-1853700173,-528873822,954770361,-648710482,548573909,361399476,-270303268,-2094856771,-521792499" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.engine.descriptor,org.junit.platform.engine"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
       <attribute name="bundle-version" value="5.8.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.discovery"/>
@@ -210,8 +1472,8 @@
       <attribute name="bnd.hashes" value="1619913294,648799703,-1547168084,1887782744,1931039618,-939847043,-809826650,-1105714069,1582558065,-657740874,673287861,767401095,1404463289,1270503387,-83844058" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.apiguardian.api"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
       <attribute name="bundle-version" value="5.8.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.discovery.predicates"/>
@@ -220,8 +1482,8 @@
       <attribute name="bnd.hashes" value="-1161870932,-836495835,-408977797,-1021753729,-1656579345,-417194755,664876567,1611950295" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension,org.junit.jupiter.engine.config,org.junit.jupiter.engine.extension,org.junit.platform.engine,org.junit.platform.engine.support.hierarchical"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
       <attribute name="bundle-version" value="5.8.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.execution"/>
@@ -230,8 +1492,8 @@
       <attribute name="bnd.hashes" value="-5665711,-78210866,1896232824,2055660916,1738427402,-1676498425,1068719467,883500462,-615673976,342431536,-72669576,578079082,1128031971,297988974,-1505672384,1842398257,1027084803,726451555,-1034113585,300034156,1895597947,80204913,-1343350986,-402946959,1353424062,-1526871043" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.apiguardian.api,org.junit.jupiter.api.extension,org.junit.jupiter.engine.config"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
       <attribute name="bundle-version" value="5.8.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.extension"/>
@@ -240,8 +1502,8 @@
       <attribute name="bnd.hashes" value="-525492769,-780866674,-856473220,973561654,-677807543,-1683901869,-1069099757,2136338752,-95157328,-791099785,79711796,-811058983,-146037343,221413935,-1635178660,-1141436107,-1481521675,-1192172940,570417697,-477004206,-1967214594,1710104168,-1600955215" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.apiguardian.api,org.junit.platform.engine.support.hierarchical"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="junit-jupiter-engine"/>
       <attribute name="bundle-version" value="5.8.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.jupiter.engine.support"/>
@@ -266,13 +1528,13 @@
       <attribute name="compile" value="org.junit.jupiter:junit-jupiter-api:5.8.1;org.apiguardian:apiguardian-api:1.1.2;org.junit.platform:junit-platform-engine:1.8.1"/>
     </capability>
     <capability namespace="org.junit.platform.engine">
-      <attribute name="version" value="5.8.1" type="Version"/>
       <attribute name="org.junit.platform.engine" value="junit-jupiter"/>
+      <attribute name="version" value="5.8.1" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="229680" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.8.1/junit-jupiter-engine-5.8.1.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.8.1/junit-jupiter-engine-5.8.1.jar"/>
       <attribute name="osgi.content" value="4689BC902255A19FE98277683BA3231C094D107C54C8D35F2B6F9C97D226418E"/>
     </capability>
     <requirement namespace="osgi.wiring.package">

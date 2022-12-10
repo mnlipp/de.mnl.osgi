@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1670672523284">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.gnu.org/licenses/lgpl.html"/>
+      <attribute name="osgi.identity" value="edu.umd.cs.findbugs.annotations"/>
+      <attribute name="description" value="Annotation defined by the FindBugs tool"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.0.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="edu.umd.cs.findbugs.annotations"/>
+      <attribute name="bundle-version" value="3.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="edu.umd.cs.findbugs.annotations"/>
+      <attribute name="version" value="3.0.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-574683160,621294617,-759259358,-1472251222,-154158155,-1598570448,-1055976814,-853724423,-1622032061,-737325423,558765330,-412756881,2019271907,-574976389,-507294252,-1841323135,1684176109,-385831732,-1100816956,121780472,-972981816,42602060,1194988200,2695002" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.0.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="edu.umd.cs.findbugs.annotations"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.0.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="edu.umd.cs.findbugs.annotations"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="edu.umd.cs.findbugs.annotations"/>
+      <attribute name="from" value="com.google.code.findbugs:findbugs-annotations:3.0.1"/>
+      <attribute name="version" value="3.0.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="17871" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/code/findbugs/findbugs-annotations/3.0.1/findbugs-annotations-3.0.1.jar"/>
+      <attribute name="osgi.content" value="8DE57CEC5C240788A4D5301F67D51921D584FB25BFF3899695A53E7E46205A71"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.jsr-305"/>
+      <attribute name="description" value="JSR305 Annotations for Findbugs"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="3.0.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation.meta"/>
+      <attribute name="bundle-symbolic-name" value="org.jsr-305"/>
+      <attribute name="bundle-version" value="3.0.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.annotation"/>
+      <attribute name="version" value="3.0.2" type="Version"/>
+      <attribute name="bnd.hashes" value="-574683160,1912184125,621294617,30966464,-1888000107,-78014723,903168482,-506340940,-1841323135,-1462442223,-1236586880,800481471,-1269521366,78838855,-1818600644,-1803610109,118286945,-2125564504,200044838,-1849214196,-1421114121" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.jsr-305"/>
+      <attribute name="bundle-version" value="3.0.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.annotation.concurrent"/>
+      <attribute name="version" value="3.0.2" type="Version"/>
+      <attribute name="bnd.hashes" value="1817824603,-694011550,-1446791222,808454359" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.annotation"/>
+      <attribute name="bundle-symbolic-name" value="org.jsr-305"/>
+      <attribute name="bundle-version" value="3.0.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.annotation.meta"/>
+      <attribute name="version" value="3.0.2" type="Version"/>
+      <attribute name="bnd.hashes" value="-604381570,1690834830,-1743965584,-605643343,2126302974,-1810319678,2695002" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.0.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.jsr-305"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.0.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.jsr-305"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.jsr-305"/>
+      <attribute name="from" value="com.google.code.findbugs:jsr305:3.0.2"/>
+      <attribute name="version" value="3.0.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="19936" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"/>
+      <attribute name="osgi.content" value="766AD2A0783F2687962C8AD74CEECC38A28B9F72A2D085EE438B7813E928D0C7"/>
+    </capability>
+  </resource>
+</repository>

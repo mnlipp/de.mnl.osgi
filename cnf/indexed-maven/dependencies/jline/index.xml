@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1670672523413">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.opensource.org/licenses/bsd-license.php"/>
+      <attribute name="osgi.identity" value="jline"/>
+      <attribute name="description" value="Sonatype helps open source projects to set up Maven repositories on https://oss.sonatype.org/"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.14.6" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="jline.internal"/>
+      <attribute name="bundle-symbolic-name" value="jline"/>
+      <attribute name="bundle-version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="jline"/>
+      <attribute name="version" value="2.14.6" type="Version"/>
+      <attribute name="bnd.hashes" value="-1865690052,-1290550251,422689478,996145070,-1116604772,-255009514,2106787518,2622298,1105750734,342866323,-135914428,-1913332815,-250300550,548871679" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="jline,jline.console.completer,jline.console.history"/>
+      <attribute name="bundle-symbolic-name" value="jline"/>
+      <attribute name="bundle-version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="jline.console"/>
+      <attribute name="version" value="2.14.6" type="Version"/>
+      <attribute name="bnd.hashes" value="-250369077,80204913,113163482,-2082500778,-2050823523,-540369202,-628296377,-1602529161,635062501,1905136218" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="jline.console"/>
+      <attribute name="bundle-symbolic-name" value="jline"/>
+      <attribute name="bundle-version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="jline.console.completer"/>
+      <attribute name="version" value="2.14.6" type="Version"/>
+      <attribute name="bnd.hashes" value="1452261372,482204538,-337347718,1205150632,-89478230,716648731,-1353095507,-1241891844,-397449876,1114390829,601036345,-919110738,-884751816,415271890,862374002,1499621911" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="jline"/>
+      <attribute name="bundle-version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="jline.console.history"/>
+      <attribute name="version" value="2.14.6" type="Version"/>
+      <attribute name="bnd.hashes" value="198593368,67115090,-1703379852,499521790,1524266386,-770212813,822535645" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="jline"/>
+      <attribute name="bundle-version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="jline.console.internal"/>
+      <attribute name="version" value="2.14.6" type="Version"/>
+      <attribute name="bnd.hashes" value="199203984,-7827169,1248285360,128336711" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="jline"/>
+      <attribute name="bundle-version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="jline.internal"/>
+      <attribute name="version" value="2.14.6" type="Version"/>
+      <attribute name="bnd.hashes" value="2045795,-1563253546,2029715009,-684927592,1019838765,73313124,76580,1002717320,-1841323135,2093771131,2599333,2125885146,-2038506253,1437563400,2645252" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="jline"/>
+      <attribute name="bundle-version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.fusesource.jansi"/>
+      <attribute name="version" value="1.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2017053308,65290051,67216006,-1957336892,2045795,-1750548364,783703780,1768315052,2105869,1640679750,-1394791084,1060496559,1079735111" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="jline"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.14.6" type="Version"/>
+      <attribute name="osgi.wiring.host" value="jline"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="jline"/>
+      <attribute name="from" value="jline:jline:2.14.6"/>
+      <attribute name="version" value="2.14.6" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="268780" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/jline/jline/2.14.6/jline-2.14.6.jar"/>
+      <attribute name="osgi.content" value="97D1ACAAC82409BE42E622D7A54D3AE9D08517E8AEFDEA3D2BA9791150C2F02D"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>
+    </requirement>
+  </resource>
+</repository>

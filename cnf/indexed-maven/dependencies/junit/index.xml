@@ -1,5 +1,63 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1639573925264">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1670672523422">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit:junit"/>
+      <attribute name="from" value="junit:junit:3.8.1"/>
+      <attribute name="version" value="3.8.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="121070" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/junit/junit/3.8.1/junit-3.8.1.jar"/>
+      <attribute name="osgi.content" value="B58E459509E190BED737F3592BC1950485322846CF10E78DED1D065153012D70"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit:junit"/>
+      <attribute name="from" value="junit:junit:4.10"/>
+      <attribute name="version" value="4.10.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.1"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="253160" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/junit/junit/4.10/junit-4.10.jar"/>
+      <attribute name="osgi.content" value="36A747CA1E0B86F6EA88055B8723BB87030D627766DA6288BF077AFDEEB0F75A"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit:junit"/>
+      <attribute name="from" value="junit:junit:4.0"/>
+      <attribute name="version" value="4.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="105601" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/junit/junit/4.0/junit-4.0.jar"/>
+      <attribute name="osgi.content" value="4CCEEDCB83824DB0862039D3E0CF35F958E8DBEFB106D0A30A933DB7CB889856"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit:junit"/>
+      <attribute name="from" value="junit:junit:4.13.2"/>
+      <attribute name="version" value="4.13.2" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="384581" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar"/>
+      <attribute name="osgi.content" value="8E495B634469D64FB8ACFA3495A065CBACC8A0FFF55CE1E31007BE4C16DC57D3"/>
+    </capability>
+  </resource>
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="junit:junit:4.11"/>
@@ -11,8 +69,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="245039" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/junit/junit/4.11/junit-4.11.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/junit/junit/4.11/junit-4.11.jar"/>
       <attribute name="osgi.content" value="90A8E1603EECA48E7E879F3AFBC9560715322985F39A274F6F6070B43F9D06FE"/>
     </capability>
   </resource>

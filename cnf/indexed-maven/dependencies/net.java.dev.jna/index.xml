@@ -1,0 +1,375 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1670672523304">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="com.sun.jna.platform"/>
+      <attribute name="description" value="JNA Platform Library"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1512178444,168449407,-2058312688,663730782,242431600,-2127840820,507978782,-357089420,678451317,-276550629,1885129235,1582704564,-1437374606,-1313065750,-849391721,-174577250,1739031974,-945034689,504099314,1490876143,904113642,1410803924,1488426317,-146372763,-1674969141,836930040,960634215,-1722804471,-721558911" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.dnd"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-612440234,-1641575109,812454891,800226521" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.linux"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="67231206,67705193,-232470321,-73036581,2368126,73412455,2401773,-648424977,-555484650,288064164,-1207589196,2631584,-901910602,-1918202391,83321449,476473867" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.mac"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="39464,1992248122,-1419150329,-1786209617,2011228557,1974601355,817454333,206145550,-289856858,1360732282,1408038447,1556624282,-1648784537,427366118,806973855,1024954392,1708824854,-1376017966,-1993020807,-1289692550,-1827132926,-236089116,-1268387916,2124915717,-369411409,796712623,69845968,-1892958222,770967289,67201158,106919537,1542295590,69076575,-480949868,385302684,-2137316793,-967068859,-693192942,-14144672,-1911513410,858346795,-1419307180,-485660311,-16742119,-1808614847,350747924,-2011583463,1294584594,-811212998,2108358520,-140094101,916177387,1221085765,-72717357,83321449,476473867" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.unix"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2368126,-901910602,-1918202391,1829429948,878385056,-1851071547,-1844400471,-276420562,2051441,-190677373,-564167879,2029715318,-958549854,-761862978,2195567,2268,-2050817016,-1903982723,-1823822708,-1732349088,1659839611,-1703884784,-573146492,-451024762,-1641116912,2139337314,1221732819,221517198,20427735,2122698,19903670,848982409,-1624157748,-1750608423,448555126,1855479456,1055988392,1822922502,-697918710,92799978,1055773850,-1708263134,-1518425666,758984010,1643844853,209916780,931505526,-171993221,448120255,1242114611,-1162747548,86899,-1704841245,-676195328,399610867,-1571474507,439909313,-1029560699,-2015034933,77554454,-712270513,-2143139100,1147847207,-744708852,-1499607235,-1698309096,454928460,-1783857075,-1283018761,1314977413,-1085953385,1740438401,662928102,203692927,1070049905,1970536568,-1929118253,83873034,-1146709350,161909423,-817809616,-1839853946,926071358,-1849308705,84395493,2722505,-919537439,-597006226,-951563409,-143679506,86136" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.unix.aix"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1822572133,933834272,-643045356,-1998288750,1147918525,492900595,1846065966,1697257890,-1930624577,95657087,-1396420823,-1930610839,-339367975,-85486364,366399580,284894229,-1895435232,-1443549288,284894230,-1007931551,-556045607,284894231,-120427870,331458074,-339363837,207707534,854762477,1169279630,659593478,269865845,217353222,-339362305,-339361313,-1177319252,-745511601,100432804,495927517,-182427305" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.unix.solaris"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="72804639,-35415940,1245783685,-1097720798,82449,80895663,334616922,340396390,886666714" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.win32"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1793337907,486022764,-654129850,1529690835,487334413,73825662,1583104248,1863270235,1414307012,-684920143,426579601,1679496808,-1835529123,-1290500469,-1848580202,-1200218711,-305307168,-2061066572,1332025620,-107083597,-490274596,1969019733,-1582843859,-1716634161,-1582841758,1770045467,203544591,1918255760,-1151709330,-1151703531,-1151702577,-1343001879,-1963017342,67478,-796502053,217270754,-1242920691,1912994602,68567932,-1070346726,-1133370457,71855,1937540105,-1107295264,698115061,1914446830,1039955928,11679803,909917450,65879076,-513613363,-525300321,486904987,-317180299,-2143312940,645023520,-1352612254,-390506550,1299203056,1661154435,228810689,2001476747,-1313919250,1105434690,-1465424331,-161380921,-884886822,456972952,-669827352,-2073746256,-196808367,-450213113,2129631707,-1977767637,-710172850,-2002092694,-577962185,-1793921466,435809428,94911990,-1949219514,891822662,-713214234,66490803,1678104237,67667563,643939597,2277,64222117,1992248122,2199177,72484,-1881496111,2230953,1626255338,1591352303,-64472761,1122075448,248829073,698901927,-1258176177,-1321578050,-1562410628,-2072732999,316048628,1507229959,-2123850716,-898982271,-1216843476,-1519554144,-1182901166,1096469335,1034234694,-26014822,-374067956,933868928,-185883534,-568183945,1390472038,-686463479,315529705,-1473573227,378772348,608821662,-264750814,162847423,162847424,162847425,162847426,-554474250,1154034058,1154034059,-1817825407,46089171,46089172,1428764414,883279429,-2045934510,72551460,-491486744,-2045726133,94057825,195261030,1015095006,1117272032,-444337817,1745001454,77583,77667,2043257604,-634629851,1200435944,80895663,-1021149963,-313816296,813996856,-2086722907,847910760,-1786338961,-1772496552,101287559,1357813404,719860640,1761967060,69076575,-1020006924,2645995,-202159303,1953647806,75559198,175085120,2083388489,705522921,467735024,794167542,1098797108,75594576,1362144330,609768817,610450066,1448546672,1358028817,2090926,1258540913,1438677119,-548913550,1438677120,-2034720975,1800632741,2016751165,-1615829449,864766975,774249120,-27070007,-1434217642,-2131882155,-2131669928,-1563168539,-231150961,-1912643422,-1838714868,1629357858,133187893,-67551169,446044286,-848168527,1657369292,-617501166,-1933245880,-1019652159,-433816202,1250883330,106703915,197296682,106778827,106991054,-982119207,954623512,-36944252,1333734288,954835739,-2140426141,-736939951,75921247,-472509439,3959880,76274279,-857558263,-315117144,285623255,-440418450,2013183120,469959043,249311674,-977618635,80084,-1909107187,926701708,-1636735525,947458806,-748226094,-2033010282,59441559,934213555,-384442086,1611101021,77404439,-808117831,455443573,1562835500,1264363031,672154149,-660036243,-83532602,1609992975,918980535,1758395112,1500364413,-1838648112,-587882748,-572575633,-2129935087,-380623620,-983147149,-2069642937,-569960982,-389152383,-1819405088,-565791910,467615030,1216488405,1516916585,-1431106695,1963842335,-132250262,-95413295,-630440446,58127801,-1763039300,-2100236382,-202897679,-1660520668,1117665161,283104212,-1751098937,701339018,591081257,2029541590,2586745,-359072541,914159643,861825714,-1226884862,-14694169,507363832,-1752164470,-1937510614,-531876587,-1687312724,859088659,-891456379,-981974234,954768485,-552057935,1901439077,-1889774212,2015287893,2016261304,-69694803,-1937965862,-430991359,-671214486,-445431448,632766527,-1307660065,1664290254,2048655,962120357,-370521715,72653325,-2042595874,955119297,2093212467,-1722939806,1793407067,1489485413,86816,-1387486098,881926544,337372020,-1282340080,-1147262402,150769927,583724952,67491,-1401151136,376915599,-334054161,-1065243746,48044617,2147123289,-124979998,263725162,942347449,-2056774346,665247119,97135469,-143704355,-996624346,-1467932824,-1045490916,1102085046,1256240267,1128923516,2553,647050430,468482098,-378942421,-1551775156,-1281847123,-399713514,1280885859,890898361,-1970444076,586769382,-80771468,-517715004,1130704143,1410157033,-1011792983,340532950,2087960724,-762160113,-488184025,-831615435,1357610260,-1741747635,4525588,-1184976948,734290189,1852864336,-1464132112,348020759,390071530,1504948427,1461841792,-2064186221,440825128,-1400068151,1391278797,341263179,1043517710,310875250,1058424381,1954414890,-1842728174,1273394743,135333333,1901786011,-1419624551,-1081118958,-464880887,2103835188,2019665,2044650,-618093718,2054408,2067286,720572286,65469774,-1293733242,-1836096310,1435275127,2124778450,1474933150,71367,68657303,68684318,-299301962,68735169,50052317,71593,68856231,1755268276,847364371,2224049,2226033,69018746,2231045,-1618148770,2330834,2342524,1220511896,-1291067656,596607644,-2043252831,-2042629864,1144673129,76307824,76521956,2511332,78726336,-506318892,78875740,80566571,2604890,-1974931206,491841641,80841809,774779811,-305874355,206286887,-1782613721,-367721203,2670346,-937147574,-1728332170,-1703915863,-1079278676,1959519535,-1257631139,740290346,-1823584312,45329575,-607866612,1856976756,1867653091,1911373872,-1703914032,-1229802677,-1951152431,223607674,-193482263,64618,1037311335,1339509868,438083573,-403289285,252271801,-1663944154,-1991112952,1596873752,2123719208,1364533612,1889625701,-172004112,2020786934,1461922810,820549115,2348132,486722074,-1191542463,-1567597923,-309130319,-1032353534,45701429,-1829198472,1021517370,-1345256752,1791871361,1665648020,-1533414428,-280340357,-1304783323,-1226525467,2465374,2013284214,-51927602,-1829102051,245679842,391178988,-2058747760,2032501284,768851343,-82492705,-1051112465,-1177319252,1287038681,996387801,1294051552,-296973662,-1023373958,-1536364068,-1016482169,-961547526,1577085823,1916180653,-1442353700,-2027295224,616152544,616176241,-1318083539,-1532225192,83582594,-1214730892,-1103704916,1776180910,894573799,1467616228,-1281426235,1700479280,-1481481950,-126578600,-1248999215,434943112,1812112378,1214948702,1177073358,-2049647972,-2030344326,-2028497284,1187287539,-1254781183,-1416472444,1672381626,-1703902520,2219255,-2118312131,-1703902408,967592713,-2111629004,902451505,-687815755,-2361069,-858981694,1702418486,68716907,-1412372494,360070905,-1187497510,69820330,-66795899,-1060316791,1025496450,2128506029,-1599013173,116010769,-561809176,1267263387,1501963845,76641,1458680030,-921688554,2545665,-1946700642,-1318436651,659288862,495743780,537586868,-439068794,-1281264217,471124482,64307925,67338874,1747905158,-1172231242,-758355152,1744594492,614287743,-1703885754,-1648364093,-267431136,-956475645,194203259,-1964120317,578313746,-1035253930,558723588,-1475447332,-336432445,-592388060,1332056166,-672939858,698522579,1761575732,-1241105516,934822706,22565322,-1676699782,-733650733,1654296571,393512412,-250692458,1332115227,2143464881,1832207111,-1640178199,-1723814960,-1703883609,-1749095754,-1280673200,-1972554126,-1385008530,-1046135559,-1031504741,-903540906,-163572597,1133660457,865985038,-181146906,1933870152,-178836941,-1681780530,-1041799435,-1036900686,1221883842,743643771,439401184,-1395936855,297210053,297210054,297210056,-1363625185,415563978,-857058707,1645963724,-1036859181,1733593973,-1991042055,-144544806,-151633174,2068108669,1448160005,1646533367,-820538376,1096585522,60231006,2005683629,-1672449164,-1437578020,1519002347,-1157889556,35468759,-1703870172,-1907805500,-2029139543,-1676164407,-80850608,-545851701,1158589792,262261411" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.win32.COM"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1498421644,-1598717246,1072326638,-1894426858,-954188199,-907826755,1668302255,189026256,-279168718,127888239,435809428,349415578,-1206418,-1527187785,-1950943500,1350985411,-585929034,-1830839043,-1749736234,761359692,1803771442,-1002253830,-2001778652,1077712186,1106542025,-1184538440,1549225955,-1512226488,1654237568,-2100359741,-169149935,-1168674757,1277099474,-637657781,199357611,399608264,1380665529,-695872843,-1444863703,587632850,587810417,-812319646,-244052031,19088166,-1394003397,-1566928705,-1397397328,-612177527,-611999960,1153548893,-1522768370,-2099826536,45432048,1408905034,811544779,-614743036,-2096413963,359670893,-1734592659,1379812394,151757566,-1731260990,1795866074,-500993893,-1521620621,-2134732710,2020922650,881756253,-1489280147,406735920,-1956217771,-498936272,184174863" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.win32.COM.tlb"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1787385182" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.win32.COM.tlb.imp"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1063286541,425414331,-625320191,314132546,304278713,1044690189,425516267,1870806975,283968144,-1928778150,1883932559,-88505247,1650641431,-2124848283,1650650576,2025783966" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.win32.COM.util"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="89342516,-2066592503,-878636766,-203901237,-1678723693,-1002253830,360141897,989982373,572770538,990004633,-205142869,-1975711429,1106542025,-1184538440,1549225955,1973597249,1380665529,-244052031,515834027,-660801747,-1397397328" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.win32.COM.util.annotation"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-564926178,726958296,-407012958,-352826368,-847357354" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.wince"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1675568987" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.sun.jna.platform"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.sun.jna.platform"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.sun.jna.platform"/>
+      <attribute name="from" value="net.java.dev.jna:jna-platform:5.8.0"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="net.java.dev.jna:jna:5.8.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1338206" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/net/java/dev/jna/jna-platform/5.8.0/jna-platform-5.8.0.jar"/>
+      <attribute name="osgi.content" value="FFD93FE1BC07DE6F33EABF3D051C3636E01A01C17CB0DA8448C53A2AC5E3BF7A"/>
+    </capability>
+    <requirement namespace="osgi.wiring.bundle">
+      <directive name="filter" value="(&amp;(osgi.wiring.bundle=com.sun.jna)(bundle-version&gt;=5.8.0))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="com.sun.jna"/>
+      <attribute name="description" value="JNA Library"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1734937804,1011645072,-107576219,143636555,-2066592503,-1243039623,1881618617,1799330952,-35807461,-289080218,1959973485,-1266259821,67115090,-1655620836,419555939,34313915,-324246369,-1104118976,-118311938,-767090194,1617781279,-1757733073,-1788611012,-600008204,1445582840,1999022169,1135052254,-103209542,-1828168328,-1440826607,-2102130904,72578400,-1552235651,-47188794,-1937510614,1830861979,-786761100,-1061418522,-1993889503,1077360871,-50301103,65246,1892650003,-1859660773,-1968751561,29221591,8299652,802456403,-1917738678,2036849526,59395218,-1728363736,1939328147,-1926827967,1264047645,-1858239753,129772712,58277816,435809428,1992248122,1609606768,-901910602,-225171869,-1739497836,-1960178920,-783409665,-1227429371,1958253071,-2146480813,-1913292826,-2095191613,-1703477571,-602323154,-845755546,381370939,81880751,-708542798,1338293199,623891089,2016261304,-1904709816,-2117159483" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.ptr"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="435809428,584371820,-2048666621,2075933912,2063869285,1259223160,-471980191,-2120215977,1600800440" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.win32"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="276072745,-231179519,-314094182,-1452773786,-1537667462,618538653,-1080859462,794067583" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.sun.jna"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.sun.jna"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.sun.jna"/>
+      <attribute name="from" value="net.java.dev.jna:jna:5.12.1"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+    </capability>
+    <capability namespace="bnd.mainclass">
+      <attribute name="bnd.mainclass" value="com.sun.jna.Native"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1866196" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.12.1/jna-5.12.1.jar"/>
+      <attribute name="osgi.content" value="91A814AC4F40D60DEE91D842E1A8AD874C62197984403D0E3C30D39E55CF53B3"/>
+    </capability>
+    <requirement namespace="osgi.native">
+      <directive name="filter" value="(|(&amp;(osgi.native.osname~=win32)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=win32)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=win)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=win)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=win)(osgi.native.processor~=aarch64))(&amp;(osgi.native.osname~=wince)(osgi.native.processor~=arm))(&amp;(osgi.native.osname~=sunos)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=sunos)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=sunos)(osgi.native.processor~=sparc))(&amp;(osgi.native.osname~=sunos)(osgi.native.processor~=sparcv9))(&amp;(osgi.native.osname~=aix)(osgi.native.processor~=ppc))(&amp;(osgi.native.osname~=aix)(osgi.native.processor~=ppc64))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=ppc))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=ppc64))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=ppc64le))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=arm))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=arm_le))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=armel))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=aarch64))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=ia64))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=sparcv9))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=mips64el))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=S390x))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=loongarch64))(&amp;(osgi.native.osname~=freebsd)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=freebsd)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=openbsd)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=openbsd)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=macosx)(osgi.native.processor~=ppc))(&amp;(osgi.native.osname~=macosx)(osgi.native.processor~=ppc64))(&amp;(osgi.native.osname~=macosx)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=macosx)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=macosx)(osgi.native.processor~=aarch64)))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="com.sun.jna"/>
+      <attribute name="description" value="JNA Library"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1734937804,1011645072,-107576219,143636555,-2066592503,-1243039623,1799330952,-35807461,-289080218,1959973485,-1266259821,67115090,-1655620836,419555939,34313915,-324246369,-1104118976,-118311938,-767090194,1617781279,-1757733073,-1788611012,-600008204,1445582840,1999022169,1135052254,-103209542,-1828168328,-1440826607,-2102130904,72578400,-1552235651,-47188794,-1937510614,1830861979,1876966674,-1061418522,-1993889503,1077360871,-50301103,65246,1892650003,-1859660773,-1968751561,8299652,802456403,-1917738678,2036849526,59395218,-1728363736,1939328147,-1926827967,1264047645,-1858239753,129772712,58277816,435809428,1992248122,1609606768,-901910602,-225171869,-1739497836,-1960178920,-783409665,-1227429371,1958253071,-2146480813,-1913292826,-2095191613,-1703477571,-602323154,-845755546,381370939,81880751,-708542798,1338293199,623891089,2016261304,-1904709816,-2117159483" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.ptr"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="435809428,584371820,-2048666621,2075933912,2063869285,1259223160,-471980191,-2120215977,1600800440" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna"/>
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.win32"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+      <attribute name="bnd.hashes" value="276072745,-231179519,-314094182,-1452773786,-1537667462,618538653,-1080859462,794067583" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.sun.jna"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.8.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.sun.jna"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.sun.jna"/>
+      <attribute name="from" value="net.java.dev.jna:jna:5.8.0"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+    </capability>
+    <capability namespace="bnd.mainclass">
+      <attribute name="bnd.mainclass" value="com.sun.jna.Native"/>
+      <attribute name="version" value="5.8.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1729586" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.8.0/jna-5.8.0.jar"/>
+      <attribute name="osgi.content" value="930273CC1C492F25661EA62413A6DA3FD7F6E01BF1C4DCC0817FC8696A7B07AC"/>
+    </capability>
+    <requirement namespace="osgi.native">
+      <directive name="filter" value="(|(&amp;(osgi.native.osname~=win32)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=win32)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=win)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=win)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=win)(osgi.native.processor~=aarch64))(&amp;(osgi.native.osname~=wince)(osgi.native.processor~=arm))(&amp;(osgi.native.osname~=sunos)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=sunos)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=sunos)(osgi.native.processor~=sparc))(&amp;(osgi.native.osname~=sunos)(osgi.native.processor~=sparcv9))(&amp;(osgi.native.osname~=aix)(osgi.native.processor~=ppc))(&amp;(osgi.native.osname~=aix)(osgi.native.processor~=ppc64))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=ppc))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=ppc64))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=ppc64le))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=arm))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=arm_le))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=armel))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=aarch64))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=ia64))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=sparcv9))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=mips64el))(&amp;(osgi.native.osname~=linux)(osgi.native.processor~=S390x))(&amp;(osgi.native.osname~=freebsd)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=freebsd)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=openbsd)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=openbsd)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=macosx)(osgi.native.processor~=ppc))(&amp;(osgi.native.osname~=macosx)(osgi.native.processor~=ppc64))(&amp;(osgi.native.osname~=macosx)(osgi.native.processor~=x86))(&amp;(osgi.native.osname~=macosx)(osgi.native.processor~=x86-64))(&amp;(osgi.native.osname~=macosx)(osgi.native.processor~=aarch64)))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="com.sun.jna.platform"/>
+      <attribute name="description" value="JNA Platform Library"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1512178444,168449407,-2058312688,663730782,242431600,-2127840820,507978782,-357089420,678451317,-276550629,1885129235,1582704564,-1437374606,-1313065750,-849391721,-174577250,1739031974,-945034689,504099314,1490876143,904113642,1410803924,1488426317,-146372763,-1674969141,836930040,960634215,-1722804471,-721558911" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.dnd"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-612440234,-1641575109,812454891,800226521" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.linux"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="67231206,67705193,-232470321,-73036581,2368126,73412455,2401773,-648424977,-555484650,288064164,-1207589196,2631584,-901910602,-1918202391,83321449,476473867" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.mac"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="39464,1992248122,-1419150329,-1786209617,2011228557,1974601355,817454333,206145550,-289856858,435809428,1360732282,1408038447,1556624282,-1648784537,427366118,806973855,1024954392,1708824854,-1376017966,-1993020807,-1289692550,-1827132926,-236089116,-1268387916,2124915717,-369411409,796712623,69845968,-1892958222,770967289,67201158,106919537,1542295590,69076575,-480949868,385302684,-2137316793,-967068859,-693192942,-14144672,-1911513410,858346795,-1419307180,-485660311,-16742119,-1808614847,350747924,-2011583463,1294584594,-811212998,2108358520,-140094101,916177387,1221085765,-72717357,83321449,476473867" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.unix"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="2368126,435809428,-901910602,-1918202391,1829429948,878385056,-1851071547,-1844400471,-276420562,2051441,-190677373,-564167879,2029715318,-958549854,-761862978,2195567,2268,-2050817016,-1903982723,-1823822708,-1732349088,1659839611,-1703884784,-573146492,-451024762,-1641116912,2139337314,1221732819,221517198,20427735,2122698,19903670,848982409,-1624157748,-1750608423,448555126,1855479456,1055988392,1822922502,-697918710,92799978,1055773850,-1708263134,-1518425666,758984010,1643844853,209916780,931505526,-171993221,448120255,1242114611,-1162747548,86899,-1704841245,-676195328,399610867,-1571474507,439909313,-1029560699,-2015034933,77554454,-712270513,-2143139100,1147847207,-744708852,-1499607235,-1698309096,454928460,-1783857075,-1283018761,1314977413,-1085953385,1740438401,662928102,203692927,1070049905,1970536568,-1929118253,83873034,-1146709350,161909423,-817809616,-1839853946,926071358,-1849308705,84395493,2722505,-919537439,-597006226,-951563409,-143679506,86136" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.unix.aix"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1822572133,933834272,-643045356,-1998288750,1147918525,492900595,1846065966,1697257890,-1930624577,95657087,-1396420823,-1930610839,-339367975,-85486364,366399580,284894229,-1895435232,-1443549288,284894230,-1007931551,-556045607,284894231,-120427870,331458074,-339363837,207707534,854762477,1169279630,659593478,269865845,217353222,-339362305,-339361313,-1177319252,-745511601,100432804,495927517,-182427305" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.unix.solaris"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-362523909,-1098438295,-1160647683,-1827298548,421270687,80895663,-35433477,-2038023437,-159332086,72804639,-35415940,1245783685,-1097720798,82449,334616922,340396390,886666714" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.win32"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1793337907,486022764,-654129850,1529690835,487334413,73825662,1583104248,1863270235,1414307012,-684920143,426579601,1679496808,-1835529123,-1290500469,-1848580202,-1200218711,-305307168,-2061066572,1332025620,-107083597,-490274596,1969019733,-1582843859,-1716634161,-1582841758,1770045467,203544591,1918255760,-1151709330,-1151703531,-1151702577,-1343001879,-1963017342,67478,-796502053,217270754,-1242920691,1912994602,68567932,-1070346726,-1133370457,71855,1937540105,-1107295264,698115061,1914446830,1039955928,11679803,909917450,65879076,-513613363,-525300321,486904987,-317180299,-2143312940,645023520,-1352612254,-390506550,1299203056,1661154435,228810689,2001476747,-1313919250,1105434690,-1465424331,-161380921,-884886822,456972952,-669827352,-2073746256,-196808367,-450213113,2129631707,-1977767637,-710172850,-2002092694,-577962185,-1793921466,435809428,94911990,-1949219514,891822662,-713214234,66490803,1678104237,67667563,643939597,2277,64222117,1992248122,2199177,72484,-1881496111,2230953,1626255338,1591352303,-64472761,1122075448,248829073,698901927,-1258176177,-1321578050,-1562410628,-2072732999,316048628,1507229959,-2123850716,-898982271,-1216843476,-1519554144,-1182901166,1096469335,1034234694,-26014822,-374067956,933868928,-185883534,-568183945,1390472038,-686463479,315529705,-1473573227,378772348,608821662,-264750814,162847423,162847424,162847425,162847426,-554474250,1154034058,1154034059,-1817825407,46089171,46089172,1428764414,883279429,-2045934510,72551460,-491486744,-2045726133,94057825,195261030,1015095006,1117272032,-444337817,1745001454,77583,77667,2043257604,-634629851,1200435944,80895663,-1021149963,-313816296,813996856,-2086722907,847910760,-1786338961,-1772496552,101287559,1357813404,719860640,1761967060,69076575,-1020006924,2645995,-202159303,1953647806,75559198,175085120,2083388489,705522921,467735024,794167542,1098797108,75594576,1362144330,609768817,610450066,1448546672,1358028817,2090926,1258540913,1438677119,-548913550,1438677120,-2034720975,1800632741,2016751165,-1615829449,864766975,774249120,-27070007,-1434217642,-2131882155,-2131669928,-1563168539,-231150961,-1912643422,-1838714868,1629357858,133187893,-67551169,446044286,-848168527,1657369292,-617501166,-1933245880,-1019652159,-433816202,1250883330,106703915,197296682,106778827,106991054,-982119207,954623512,-36944252,1333734288,954835739,-2140426141,-736939951,75921247,-472509439,3959880,76274279,-857558263,-315117144,285623255,-440418450,2013183120,469959043,249311674,-977618635,80084,-1909107187,926701708,-1636735525,947458806,-748226094,-2033010282,59441559,934213555,-384442086,1611101021,77404439,-808117831,455443573,1562835500,1264363031,672154149,-660036243,-83532602,1609992975,918980535,1758395112,1500364413,-1838648112,-587882748,-572575633,-2129935087,-380623620,-983147149,-2069642937,-569960982,-389152383,-1819405088,-565791910,467615030,1216488405,1516916585,-1431106695,1963842335,-132250262,-95413295,-630440446,58127801,-1763039300,-2100236382,-202897679,-1660520668,1117665161,283104212,-1751098937,701339018,591081257,2029541590,2586745,-359072541,914159643,861825714,-1226884862,-14694169,507363832,-1752164470,-1937510614,-531876587,-1687312724,859088659,-891456379,-981974234,954768485,-552057935,1901439077,-1889774212,2015287893,2016261304,-69694803,-1937965862,-430991359,-671214486,-445431448,632766527,-1307660065,1664290254,2048655,962120357,-370521715,72653325,-2042595874,955119297,2093212467,-1722939806,1793407067,1489485413,86816,-1387486098,881926544,337372020,-1282340080,-1147262402,150769927,583724952,67491,-1401151136,376915599,-334054161,-1065243746,48044617,2147123289,-124979998,263725162,942347449,-2056774346,665247119,97135469,-143704355,-996624346,-1467932824,-1045490916,1102085046,1256240267,1128923516,2553,647050430,468482098,-378942421,-1551775156,-1281847123,-399713514,1280885859,890898361,-1970444076,586769382,-80771468,-517715004,1130704143,1410157033,-1011792983,340532950,2087960724,-762160113,-488184025,-831615435,1357610260,-1741747635,4525588,-1184976948,734290189,1852864336,-1464132112,348020759,390071530,1504948427,1461841792,-2064186221,440825128,-1400068151,1391278797,341263179,1043517710,310875250,1058424381,1231923641,1954414890,-1842728174,1273394743,135333333,1901786011,-1419624551,-1081118958,-464880887,2103835188,2019665,2044650,-618093718,2054408,2067286,720572286,65469774,-1293733242,-1836096310,1435275127,2124778450,1474933150,71367,68657303,68684318,-299301962,68735169,50052317,71593,68856231,1755268276,847364371,2224049,2226033,69018746,2231045,-1618148770,2330834,2342524,1220511896,-1291067656,596607644,-2043252831,-2042629864,1144673129,76307824,76521956,2511332,78726336,-506318892,78875740,80566571,2604890,-1974931206,491841641,80841809,774779811,-305874355,206286887,-1782613721,-367721203,2670346,-937147574,-1728332170,-1703915863,-1079278676,1959519535,-1257631139,740290346,-1823584312,45329575,-607866612,1856976756,1867653091,1911373872,-1703914032,-1229802677,-1951152431,223607674,-193482263,64618,1037311335,1339509868,438083573,-403289285,252271801,-1663944154,-1991112952,1596873752,2123719208,1364533612,1889625701,-172004112,2020786934,1461922810,820549115,2348132,486722074,-1191542463,-1567597923,-309130319,-1032353534,45701429,-1829198472,1021517370,-1345256752,1791871361,1665648020,-1533414428,-280340357,-1304783323,-1226525467,2465374,2013284214,-51927602,-1829102051,245679842,391178988,-2058747760,2032501284,768851343,-82492705,-1051112465,-1177319252,1287038681,996387801,1294051552,-296973662,-1023373958,-1536364068,-1016482169,-961547526,1577085823,1916180653,-1442353700,-2027295224,616152544,616176241,-1318083539,-1532225192,83582594,-1214730892,-1103704916,1776180910,894573799,1467616228,-1281426235,1700479280,-1481481950,-126578600,-1248999215,434943112,1812112378,1214948702,1177073358,-2049647972,-2030344326,-2028497284,1187287539,-1254781183,-1416472444,1672381626,-1703902520,2219255,-2118312131,-1703902408,967592713,-2111629004,902451505,-687815755,-2361069,-858981694,1702418486,68716907,-1412372494,360070905,-1187497510,69820330,-66795899,-1060316791,1025496450,2128506029,-1599013173,116010769,-561809176,1267263387,1501963845,76641,1458680030,-921688554,2545665,-1946700642,-1318436651,659288862,495743780,537586868,-439068794,-1281264217,471124482,64307925,67338874,1747905158,-1172231242,-758355152,1744594492,614287743,-1703885754,-1648364093,-267431136,-956475645,194203259,-1964120317,578313746,-1035253930,558723588,-1475447332,-336432445,-592388060,1332056166,-672939858,698522579,1761575732,-1241105516,934822706,22565322,-1676699782,-733650733,1654296571,393512412,-250692458,1332115227,2143464881,1832207111,-1640178199,-1723814960,-1703883609,-1749095754,-1280673200,-1972554126,-1385008530,-1046135559,-1031504741,-903540906,-163572597,1133660457,865985038,-181146906,1933870152,-178836941,-1681780530,-1041799435,-1036900686,1221883842,743643771,439401184,-1395936855,297210053,297210054,297210056,-1363625185,415563978,-857058707,1645963724,-1036859181,1733593973,-1991042055,-144544806,-151633174,2068108669,1448160005,1646533367,-820538376,1096585522,60231006,2005683629,-1672449164,-1437578020,1519002347,-1157889556,35468759,-1703870172,-1907805500,-2029139543,-1676164407,-80850608,-545851701,1158589792,262261411" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.win32.COM"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1498421644,-1598717246,1072326638,-1894426858,-954188199,-907826755,1668302255,189026256,-279168718,127888239,435809428,349415578,-1206418,-1527187785,-1950943500,1350985411,-585929034,-1830839043,-1749736234,761359692,1803771442,-1002253830,-2001778652,1077712186,1106542025,-1184538440,1549225955,-1512226488,1654237568,-2100359741,-169149935,-1168674757,1277099474,-637657781,199357611,399608264,1380665529,-695872843,-1444863703,587632850,587810417,-812319646,-244052031,19088166,-1394003397,-1566928705,-1397397328,-612177527,-611999960,1153548893,-1522768370,-2099826536,45432048,1408905034,811544779,-614743036,-2096413963,359670893,-1734592659,1379812394,151757566,-1731260990,1795866074,-500993893,-1521620621,-2134732710,2020922650,881756253,-1489280147,406735920,-1956217771,-498936272,184174863" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.win32.COM.tlb"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1787385182" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.win32.COM.tlb.imp"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1063286541,425414331,-625320191,314132546,304278713,1044690189,425516267,1870806975,283968144,-1928778150,1883932559,-88505247,1650641431,-2124848283,1650650576,2025783966" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.win32.COM.util"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="89342516,-2066592503,-878636766,-203901237,-1678723693,-1002253830,360141897,989982373,572770538,990004633,-205142869,-1975711429,1106542025,-1184538440,1549225955,1973597249,1380665529,-244052031,515834027,-660801747,-1397397328" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.win32.COM.util.annotation"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-564926178,726958296,-407012958,-352826368,-847357354" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.sun.jna.platform"/>
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.jna.platform.wince"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1675568987" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.sun.jna.platform"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.12.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.sun.jna.platform"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.sun.jna.platform"/>
+      <attribute name="from" value="net.java.dev.jna:jna-platform:5.12.1"/>
+      <attribute name="version" value="5.12.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="net.java.dev.jna:jna:5.12.1"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1356627" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/net/java/dev/jna/jna-platform/5.12.1/jna-platform-5.12.1.jar"/>
+      <attribute name="osgi.content" value="8CE969116CAC95BD61B07A8D5E07174B352E63301473CAAC72C395E3C08488D2"/>
+    </capability>
+    <requirement namespace="osgi.wiring.bundle">
+      <directive name="filter" value="(&amp;(osgi.wiring.bundle=com.sun.jna)(bundle-version&gt;=5.12.1))"/>
+    </requirement>
+  </resource>
+</repository>

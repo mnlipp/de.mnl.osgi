@@ -1,111 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1639573925214">
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.plexus:plexus-utils:3.0.15"/>
-      <attribute name="from" value="org.codehaus.plexus:plexus-utils:3.0.15"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="238952" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.15/plexus-utils-3.0.15.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="D0BE76C5CE910134A7E07FD2AA48D9B677800AB0E95873F314B445C6F177C973"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.plexus:plexus-utils:1.5.5"/>
-      <attribute name="from" value="org.codehaus.plexus:plexus-utils:1.5.5"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info"/>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="251275" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="92F38B0AF28629847E461060EAE84BCD7441995A5ECBA785400754164FBBD1DC"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.plexus:plexus-interpolation:1.19"/>
-      <attribute name="from" value="org.codehaus.plexus:plexus-interpolation:1.19"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="61697" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.19/plexus-interpolation-1.19.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="C1E1D54F37B270D2391A0A8B104AB7340DCD39F9382078B5B1640528A06FCAF9"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.plexus:plexus-component-annotations:1.5.5"/>
-      <attribute name="from" value="org.codehaus.plexus:plexus-component-annotations:1.5.5"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="4211" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="4DF7A6A7BE64B35BBCCF60B5C115697F9EA3421D22674AE67135DDE375FCCA1F"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.plexus:plexus-utils:1.5.8"/>
-      <attribute name="from" value="org.codehaus.plexus:plexus-utils:1.5.8"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info"/>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="267853" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.5.8/plexus-utils-1.5.8.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="B7554A41499282E3B2226A22AFF3EBE984F7E159798C461D917C1B829B130CD1"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.plexus:plexus-utils:3.0.22"/>
-      <attribute name="from" value="org.codehaus.plexus:plexus-utils:3.0.22"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="244897" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.22/plexus-utils-3.0.22.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="0F31C44B275F87E56D46A582CE96D03B9E2AB344CF87C4E268B34D3AD046BEAB"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.plexus:plexus-utils:2.0.4"/>
-      <attribute name="from" value="org.codehaus.plexus:plexus-utils:2.0.4"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="222137" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/2.0.4/plexus-utils-2.0.4.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="6A17CFBFFFE6BB87215AD38BCAAC716383E552EC2BA7B204E2673EE66A2AFAAA"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.plexus:plexus-interpolation:1.14"/>
-      <attribute name="from" value="org.codehaus.plexus:plexus-interpolation:1.14"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="61072" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="7FC63378D3E84663619B9BEDACE9F9FE78B276C2BE3C62CA2245449294C84176"/>
-    </capability>
-  </resource>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1670672523283">
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.codehaus.plexus:plexus-utils:3.0.17"/>
@@ -114,8 +8,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="251792" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.17/plexus-utils-3.0.17.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.17/plexus-utils-3.0.17.jar"/>
       <attribute name="osgi.content" value="547B70A47D468958703C42706B77C9E892F0E862E3AFBAC81A94C724CD69022A"/>
     </capability>
   </resource>
@@ -123,29 +17,29 @@
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="org.codehaus.plexus.classworlds"/>
+      <attribute name="documentation" value="http://www.codehaus.org/"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="2.5.2" type="Version"/>
-      <attribute name="documentation" value="http://www.codehaus.org/"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.0.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.classworlds"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.0.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.plexus.classworlds.realm"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.0.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.plexus.classworlds.strategy"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.0.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.plexus.classworlds"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.0.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.plexus.classworlds.launcher"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="bundle-version" value="2.5.2" type="Version"/>
@@ -162,9 +56,75 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="52684" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-classworlds/2.5.2/plexus-classworlds-2.5.2.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-classworlds/2.5.2/plexus-classworlds-2.5.2.jar"/>
       <attribute name="osgi.content" value="B2931D41740490A8D931CBE0CFE9AC20DEB66CCA606E679F52522F7F534C9FD7"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.plexus:plexus-component-annotations:1.5.5"/>
+      <attribute name="from" value="org.codehaus.plexus:plexus-component-annotations:1.5.5"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="4211" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar"/>
+      <attribute name="osgi.content" value="4DF7A6A7BE64B35BBCCF60B5C115697F9EA3421D22674AE67135DDE375FCCA1F"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.plexus:plexus-utils:1.5.5"/>
+      <attribute name="from" value="org.codehaus.plexus:plexus-utils:1.5.5"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info"/>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="251275" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5.jar"/>
+      <attribute name="osgi.content" value="92F38B0AF28629847E461060EAE84BCD7441995A5ECBA785400754164FBBD1DC"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.plexus:plexus-interpolation:1.21"/>
+      <attribute name="from" value="org.codehaus.plexus:plexus-interpolation:1.21"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="62458" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.21/plexus-interpolation-1.21.jar"/>
+      <attribute name="osgi.content" value="ABA7980581027AD5FC74A27EE4D64AAD74932FDB32694967242D03FC50290D1F"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.plexus:plexus-utils:3.0.22"/>
+      <attribute name="from" value="org.codehaus.plexus:plexus-utils:3.0.22"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="244897" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.22/plexus-utils-3.0.22.jar"/>
+      <attribute name="osgi.content" value="0F31C44B275F87E56D46A582CE96D03B9E2AB344CF87C4E268B34D3AD046BEAB"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.plexus:plexus-component-annotations:1.6"/>
+      <attribute name="from" value="org.codehaus.plexus:plexus-component-annotations:1.6"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="4265" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.6/plexus-component-annotations-1.6.jar"/>
+      <attribute name="osgi.content" value="2B3A6CA5F19A9AD490BC233F45E68D3093C8C01B4ACC3C1D14BAD4CA7C7FF438"/>
     </capability>
   </resource>
   <resource>
@@ -175,8 +135,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="4208" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.5.4/plexus-component-annotations-1.5.4.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.5.4/plexus-component-annotations-1.5.4.jar"/>
       <attribute name="osgi.content" value="F4077FF4AFBDDBB6F63BCD61D706745806EBC7B55626B90686948BF284502C3C"/>
     </capability>
   </resource>
@@ -188,9 +148,35 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="223171" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.jar"/>
       <attribute name="osgi.content" value="B4C51A337078B934AD656EE78A2D3A805A507129DC034692C67DB0F94B659D3E"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.plexus:plexus-utils:2.0.4"/>
+      <attribute name="from" value="org.codehaus.plexus:plexus-utils:2.0.4"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="222137" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/2.0.4/plexus-utils-2.0.4.jar"/>
+      <attribute name="osgi.content" value="6A17CFBFFFE6BB87215AD38BCAAC716383E552EC2BA7B204E2673EE66A2AFAAA"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.plexus:plexus-interpolation:1.14"/>
+      <attribute name="from" value="org.codehaus.plexus:plexus-interpolation:1.14"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="61072" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.jar"/>
+      <attribute name="osgi.content" value="7FC63378D3E84663619B9BEDACE9F9FE78B276C2BE3C62CA2245449294C84176"/>
     </capability>
   </resource>
   <resource>
@@ -201,102 +187,64 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="46099" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-classworlds/2.2.3/plexus-classworlds-2.2.3.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-classworlds/2.2.3/plexus-classworlds-2.2.3.jar"/>
       <attribute name="osgi.content" value="7D95AD21733B060BFDA2142B62439A196BDE7644F9F127C299AE86D92179B518"/>
     </capability>
   </resource>
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.plexus:plexus-interpolation:1.21"/>
-      <attribute name="from" value="org.codehaus.plexus:plexus-interpolation:1.21"/>
+      <attribute name="name" value="org.codehaus.plexus:plexus-utils:1.5.8"/>
+      <attribute name="from" value="org.codehaus.plexus:plexus-utils:1.5.8"/>
       <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
+    <capability namespace="maven.dependencies.info"/>
     <capability namespace="osgi.content">
-      <attribute name="size" value="62458" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.21/plexus-interpolation-1.21.jar"/>
+      <attribute name="size" value="267853" type="Long"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="ABA7980581027AD5FC74A27EE4D64AAD74932FDB32694967242D03FC50290D1F"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.plexus:plexus-component-annotations:1.6"/>
-      <attribute name="from" value="org.codehaus.plexus:plexus-component-annotations:1.6"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="4265" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.6/plexus-component-annotations-1.6.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="2B3A6CA5F19A9AD490BC233F45E68D3093C8C01B4ACC3C1D14BAD4CA7C7FF438"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.plexus:plexus-utils:3.1.0"/>
-      <attribute name="from" value="org.codehaus.plexus:plexus-utils:3.1.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="261617" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.1.0/plexus-utils-3.1.0.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="0FFA0AD084EBFF5712540A7B7EA0ABDA487C53D3A18F78C98D1A3675DAB9BF61"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.plexus:plexus-component-annotations:1.7.1"/>
-      <attribute name="from" value="org.codehaus.plexus:plexus-component-annotations:1.7.1"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="4288" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.7.1/plexus-component-annotations-1.7.1.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="A7FEE9435DB716BFF593E9FB5622BCF9F25E527196485929B0CD4065C43E61DF"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.5.8/plexus-utils-1.5.8.jar"/>
+      <attribute name="osgi.content" value="B7554A41499282E3B2226A22AFF3EBE984F7E159798C461D917C1B829B130CD1"/>
     </capability>
   </resource>
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="org.codehaus.plexus.interpolation"/>
+      <attribute name="documentation" value="http://codehaus-plexus.github.io/"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="1.24.0" type="Version"/>
-      <attribute name="documentation" value="http://codehaus-plexus.github.io/"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.codehaus.plexus.interpolation.fixed"/>
-      <attribute name="version" value="1.24.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation"/>
+      <attribute name="version" value="1.24.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.codehaus.plexus.interpolation"/>
-      <attribute name="version" value="1.24.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.fixed"/>
+      <attribute name="version" value="1.24.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.codehaus.plexus.interpolation"/>
-      <attribute name="version" value="1.24.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.multi"/>
+      <attribute name="version" value="1.24.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.codehaus.plexus.interpolation"/>
-      <attribute name="version" value="1.24.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.object"/>
+      <attribute name="version" value="1.24.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.24.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.os"/>
+      <attribute name="version" value="1.24.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.24.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.reflection"/>
+      <attribute name="version" value="1.24.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="1.24.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.util"/>
+      <attribute name="version" value="1.24.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="bundle-version" value="1.24.0" type="Version"/>
@@ -313,8 +261,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="78876" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.24/plexus-interpolation-1.24.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.24/plexus-interpolation-1.24.jar"/>
       <attribute name="osgi.content" value="8FE2BE04B067A75D02FB8A1A9CAF6C1C8615F0D5577CCED02E90B520763D2F77"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -335,5 +283,31 @@
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>
     </requirement>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.plexus:plexus-utils:3.1.0"/>
+      <attribute name="from" value="org.codehaus.plexus:plexus-utils:3.1.0"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="261617" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.1.0/plexus-utils-3.1.0.jar"/>
+      <attribute name="osgi.content" value="0FFA0AD084EBFF5712540A7B7EA0ABDA487C53D3A18F78C98D1A3675DAB9BF61"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.codehaus.plexus:plexus-component-annotations:1.7.1"/>
+      <attribute name="from" value="org.codehaus.plexus:plexus-component-annotations:1.7.1"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="4288" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.7.1/plexus-component-annotations-1.7.1.jar"/>
+      <attribute name="osgi.content" value="A7FEE9435DB716BFF593E9FB5622BCF9F25E527196485929B0CD4065C43E61DF"/>
+    </capability>
   </resource>
 </repository>

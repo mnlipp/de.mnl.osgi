@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637656195241">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1670672523209">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="junit-platform-launcher"/>
@@ -43,8 +43,8 @@
       <attribute name="bnd.hashes" value="-229949047,-1431117283,1442567166,171610703,777991237" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.apiguardian.api,org.junit.platform.launcher"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="junit-platform-launcher"/>
       <attribute name="bundle-version" value="1.8.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.platform.launcher.listeners.session"/>
@@ -53,8 +53,8 @@
       <attribute name="bnd.hashes" value="589474627,2060857385" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.apiguardian.api,org.junit.platform.engine"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="junit-platform-launcher"/>
       <attribute name="bundle-version" value="1.8.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.platform.launcher.tagexpression"/>
@@ -80,8 +80,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="159560" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.8.1/junit-platform-launcher-1.8.1.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.8.1/junit-platform-launcher-1.8.1.jar"/>
       <attribute name="osgi.content" value="83A9ED68ADCB76E60316A4D682FC48507865DF2F0AB35F82695CC9995410E05E"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -163,8 +163,8 @@
       <attribute name="bnd.hashes" value="578079082,-202516509,-331680519,84379" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.apiguardian.api"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
       <attribute name="bundle-version" value="1.8.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
@@ -208,8 +208,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="100451" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.8.1/junit-platform-commons-1.8.1.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.8.1/junit-platform-commons-1.8.1.jar"/>
       <attribute name="osgi.content" value="FA4FA68C8BD54DD0CB49C3FCBE9B2E42F4DA6BEDBE7E7CCF2A05F1A1E609B593"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -333,9 +333,663 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="185778" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.8.1/junit-platform-engine-1.8.1.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.8.1/junit-platform-engine-1.8.1.jar"/>
       <attribute name="osgi.content" value="702868ED7E86B9B4672EDE0F1E185E905BACA9AFAB57746A7C650BE3C7BCA047"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apiguardian.api)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.apiguardian.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.8.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.function)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.support)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.discovery)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.discovery"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.reporting)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.reporting"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.opentest4j)(version&gt;=1.2.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.opentest4j"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.junit.platform:junit-platform-launcher"/>
+      <attribute name="from" value="org.junit.platform:junit-platform-launcher:1.3.1"/>
+      <attribute name="version" value="1.3.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apiguardian:apiguardian-api:1.0.0;org.junit.platform:junit-platform-engine:1.3.1"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="94645" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.3.1/junit-platform-launcher-1.3.1.jar"/>
+      <attribute name="osgi.content" value="6F698076C33CF27D2B80DE11506031B625733AAB7F18E2D4C5D15803F27231DD"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.junit.platform:junit-platform-commons"/>
+      <attribute name="from" value="org.junit.platform:junit-platform-commons:1.3.1"/>
+      <attribute name="version" value="1.3.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apiguardian:apiguardian-api:1.0.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="77857" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.jar"/>
+      <attribute name="osgi.content" value="457D8E1C0C80D1E320A792EC35E7C180694BA05182D7ECF7DABDB4E5A8A12FE2"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.junit.platform:junit-platform-engine"/>
+      <attribute name="from" value="org.junit.platform:junit-platform-engine:1.3.1"/>
+      <attribute name="version" value="1.3.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apiguardian:apiguardian-api:1.0.0;org.opentest4j:opentest4j:1.1.1;org.junit.platform:junit-platform-commons:1.3.1"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="135012" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.jar"/>
+      <attribute name="osgi.content" value="303D0546C3E950CC3BEACA00DFCBF2632D4ECA530E4E446391BF193CBC2A71A3"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-platform-commons"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.commons.util"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1556677377,725552322" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.annotation"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-1081760500" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="MAINTAINED"/>
+      <attribute name="bnd.hashes" value="578079082,-202516509,-331680519,84379" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="-350987159,-2013470288,963414354,971415866" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.commons,org.junit.platform.commons.function"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="MAINTAINED"/>
+      <attribute name="bnd.hashes" value="2076723584,-1654805673,-1018638484,-2073805608,-1976535804,166482013" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.commons,org.junit.platform.commons.function"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="DEPRECATED"/>
+      <attribute name="bnd.hashes" value="848663202,-1977623168,282663642,533073648,-1470944282,-1468284980,1693941305,200189377,-129124438,-791099785,54238355,-1056180798,-1451588711,820278579,463816069,-1721893845,725552322,2093771131,-1018638484,-581251290,2090716121,148294400,-1374184593,1819427913" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-platform-commons"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-platform-commons"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-platform-commons"/>
+      <attribute name="from" value="org.junit.platform:junit-platform-commons:1.9.1"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apiguardian:apiguardian-api:1.1.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="102986" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.9.1/junit-platform-commons-1.9.1.jar"/>
+      <attribute name="osgi.content" value="A8E82D510BBBCE5FE1777B2ECF7BC68401E9AE8327009E029B2DB5798403D25E"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apiguardian.api)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.apiguardian.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.function)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.9.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-platform-engine"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.commons,org.junit.platform.engine.reporting"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-375545665,1345105760,156758312,-2061341297,1524475970,408708417,-1735899734,54302839,2104342424,-2039588395,-1808614382,1481947656,2622298,2131414094,1830597057,-980430444,-1937943997,-578273427,242186632,-656591085,-229816084,1195035651" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.commons,org.junit.platform.engine"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.discovery"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="627246297,-1197562533,-1199556265,-496727638,-517043970,-2106984116,522929348,-1855470495,162563119,-355923227,87844251,763697107,331793185,418339260,608338944,1095474827,278079904,-829580073,1051922089,-1684365787,-1904478997,1402313035" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.reporting"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1397132158" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.engine"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.config"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="1567018351" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.engine"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.descriptor"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-1297126781,911059859,1805644966,1874935060,-2052497530,673244360,1935180657,-355923227,-504358697,-861381914,1145343100,-1900614687,1769334051,-1016956793" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.engine,org.junit.platform.engine.discovery"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.discovery"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="224562478,1953654862,1969675469,1895597947,1126043982,1836888271,-1861634969,-1678783089,2622298,74115493,393434316,1279658277" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.commons.util,org.junit.platform.engine"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.filter"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="DEPRECATED"/>
+      <attribute name="bnd.hashes" value="1634304673" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.engine,org.opentest4j"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.hierarchical"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+      <attribute name="status" value="MAINTAINED"/>
+      <attribute name="bnd.hashes" value="443561517,2042249266,1714566694,-198264903,2099035641,1973766542,342927532,1995577635,226134856,1377533090,1605592223,2106058237,1214898638,-1082148521,2023061767,1985180642,2091713860,1720818875,-562801488,2117212828,2433570,-626023478,1742371203,584000685,-1837524615,-1399436810,-1623179978,-1834417233,-505512838,1399924761,-1143441467,-1165694376,-220292487,-2042494761,-1002899986,-1388104269,-1762238358,-162179059,572770538,383956813" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-platform-engine"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.9.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-platform-engine"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-platform-engine"/>
+      <attribute name="from" value="org.junit.platform:junit-platform-engine:1.9.1"/>
+      <attribute name="version" value="1.9.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.opentest4j:opentest4j:1.2.0;org.junit.platform:junit-platform-commons:1.9.1;org.apiguardian:apiguardian-api:1.1.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="188204" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.9.1/junit-platform-engine-1.9.1.jar"/>
+      <attribute name="osgi.content" value="F59C3A67087F2B9BBB17A9C06DD416697989B2C53B38843874EBBBBCB0AFC23F"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apiguardian.api)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.apiguardian.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.9.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.function)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.support)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.discovery)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.discovery"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.engine.reporting)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.reporting"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.opentest4j)(version&gt;=1.2.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.opentest4j"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-platform-commons"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.platform.commons.util"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1556677377,725552322" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.annotation"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-1081760500" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="status" value="MAINTAINED"/>
+      <attribute name="bnd.hashes" value="578079082,-202516509,-331680519,84379" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="-350987159,-2013470288,963414354,971415866" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.platform.commons,org.junit.platform.commons.function"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="status" value="MAINTAINED"/>
+      <attribute name="bnd.hashes" value="2076723584,-1654805673,-1018638484,-2073805608,-1976535804" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.platform.commons,org.junit.platform.commons.function"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+      <attribute name="status" value="DEPRECATED"/>
+      <attribute name="bnd.hashes" value="848663202,-1977623168,282663642,533073648,-1470944282,1693941305,200189377,-791099785,54238355,-1056180798,-1451588711,820278579,463816069,-841060156,-1721893845,725552322,2093771131,-1018638484,-581251290,2090716121,148294400,-1374184593" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-platform-commons"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.6.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-platform-commons"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-platform-commons"/>
+      <attribute name="from" value="org.junit.platform:junit-platform-commons:1.6.0"/>
+      <attribute name="version" value="1.6.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apiguardian:apiguardian-api:1.1.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="96648" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.6.0/junit-platform-commons-1.6.0.jar"/>
+      <attribute name="osgi.content" value="18ACCFFAF3F1FE66DAF9F13DAA7D59B2AC6D06396F816A73B4D733D82D28ACE6"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.function)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.6.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-platform-commons"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.commons.util"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1556677377,725552322" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.annotation"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-1081760500" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="MAINTAINED"/>
+      <attribute name="bnd.hashes" value="578079082,-202516509,-331680519,84379" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <directive name="mandatory" value="status"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="INTERNAL"/>
+      <attribute name="bnd.hashes" value="-350987159,-2013470288,963414354,971415866" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.commons,org.junit.platform.commons.function"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.support"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="MAINTAINED"/>
+      <attribute name="bnd.hashes" value="2076723584,-1654805673,-1018638484,-2073805608,-1976535804,166482013" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.commons,org.junit.platform.commons.function"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-commons"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="DEPRECATED"/>
+      <attribute name="bnd.hashes" value="848663202,-1977623168,282663642,533073648,-1470944282,-1468284980,1693941305,200189377,-791099785,54238355,-1056180798,-1451588711,820278579,463816069,-1721893845,725552322,2093771131,-1018638484,-581251290,2090716121,148294400,-1374184593,1819427913" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-platform-commons"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-platform-commons"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-platform-commons"/>
+      <attribute name="from" value="org.junit.platform:junit-platform-commons:1.8.2"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.apiguardian:apiguardian-api:1.1.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="100450" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar"/>
+      <attribute name="osgi.content" value="D2E015FCA7130E79AF2F4608DC54415E4B10B592D77333DECB4B1A274C185050"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apiguardian.api)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.apiguardian.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.function)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.util)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.junit.platform.commons.logging)(version&gt;=1.8.0)(!(version&gt;=2.0.0))(status=INTERNAL))"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.commons.logging"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="junit-platform-engine"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.commons,org.junit.platform.engine.reporting"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-375545665,1345105760,156758312,-2061341297,1524475970,408708417,-1735899734,54302839,2104342424,-2039588395,-1808614382,1481947656,2622298,2131414094,1830597057,-980430444,-1937943997,-578273427,242186632,-656591085,-229816084,1195035651" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.commons,org.junit.platform.engine"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.discovery"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="627246297,-1197562533,-1199556265,-496727638,-517043970,-2106984116,522929348,-1855470495,162563119,-355923227,87844251,763697107,331793185,608338944,1095474827,278079904,-829580073,1051922089,-1684365787,-1904478997,1402313035" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.reporting"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="1397132158" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.engine"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.config"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="1567018351" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.engine"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.descriptor"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="STABLE"/>
+      <attribute name="bnd.hashes" value="-1297126781,911059859,1805644966,1874935060,-2052497530,673244360,1935180657,-355923227,-504358697,-861381914,1145343100,-1900614687,1769334051,-1016956793" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.engine,org.junit.platform.engine.discovery"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.discovery"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="EXPERIMENTAL"/>
+      <attribute name="bnd.hashes" value="224562478,1953654862,1969675469,1895597947,1126043982,1836888271,-1861634969,-1678783089,2622298,74115493,393434316,1279658277" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.commons.util,org.junit.platform.engine"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.filter"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="DEPRECATED"/>
+      <attribute name="bnd.hashes" value="1634304673" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apiguardian.api,org.junit.platform.engine,org.opentest4j"/>
+      <attribute name="bundle-symbolic-name" value="junit-platform-engine"/>
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.platform.engine.support.hierarchical"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="status" value="MAINTAINED"/>
+      <attribute name="bnd.hashes" value="443561517,2042249266,1714566694,-198264903,2099035641,1973766542,342927532,1995577635,226134856,1377533090,1605592223,2106058237,1214898638,-1082148521,2023061767,1985180642,2091713860,1720818875,-562801488,2117212828,2433570,-626023478,1742371203,584000685,-1837524615,-1399436810,-1623179978,-1834417233,-505512838,1399924761,-1143441467,-1165694376,-220292487,-2042494761,-1002899986,-1388104269,-1762238358,-162179059,572770538,383956813" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="junit-platform-engine"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="junit-platform-engine"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="junit-platform-engine"/>
+      <attribute name="from" value="org.junit.platform:junit-platform-engine:1.8.2"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.opentest4j:opentest4j:1.2.0;org.apiguardian:apiguardian-api:1.1.2;org.junit.platform:junit-platform-commons:1.8.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="185762" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar"/>
+      <attribute name="osgi.content" value="0B7D000F8C3E8E5F7D6B819649936E7B9938314E87C8F983805218EA57567E59"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.apiguardian.api)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
