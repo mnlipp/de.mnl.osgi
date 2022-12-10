@@ -210,42 +210,43 @@
 <span class="sourceLineNo">201</span><a id="line.201">     * @return true, if is range</a>
 <span class="sourceLineNo">202</span><a id="line.202">     * @deprecated Use {@link MavenVersionSpecification#isRange(String)} instead</a>
 <span class="sourceLineNo">203</span><a id="line.203">     */</a>
-<span class="sourceLineNo">204</span><a id="line.204">    public static boolean isRange(String version) {</a>
-<span class="sourceLineNo">205</span><a id="line.205">        return MavenVersionSpecification.isRange(version);</a>
-<span class="sourceLineNo">206</span><a id="line.206">    }</a>
-<span class="sourceLineNo">207</span><a id="line.207"></a>
-<span class="sourceLineNo">208</span><a id="line.208">    @Override</a>
-<span class="sourceLineNo">209</span><a id="line.209">    public String toString() {</a>
-<span class="sourceLineNo">210</span><a id="line.210">        return range.toString();</a>
-<span class="sourceLineNo">211</span><a id="line.211">    }</a>
-<span class="sourceLineNo">212</span><a id="line.212"></a>
-<span class="sourceLineNo">213</span><a id="line.213">    /*</a>
-<span class="sourceLineNo">214</span><a id="line.214">     * (non-Javadoc)</a>
-<span class="sourceLineNo">215</span><a id="line.215">     * </a>
-<span class="sourceLineNo">216</span><a id="line.216">     * @see java.lang.Object#hashCode()</a>
-<span class="sourceLineNo">217</span><a id="line.217">     */</a>
-<span class="sourceLineNo">218</span><a id="line.218">    @Override</a>
-<span class="sourceLineNo">219</span><a id="line.219">    public int hashCode() {</a>
-<span class="sourceLineNo">220</span><a id="line.220">        return range.hashCode();</a>
-<span class="sourceLineNo">221</span><a id="line.221">    }</a>
-<span class="sourceLineNo">222</span><a id="line.222"></a>
-<span class="sourceLineNo">223</span><a id="line.223">    /*</a>
-<span class="sourceLineNo">224</span><a id="line.224">     * (non-Javadoc)</a>
-<span class="sourceLineNo">225</span><a id="line.225">     * </a>
-<span class="sourceLineNo">226</span><a id="line.226">     * @see java.lang.Object#equals(java.lang.Object)</a>
-<span class="sourceLineNo">227</span><a id="line.227">     */</a>
-<span class="sourceLineNo">228</span><a id="line.228">    @Override</a>
-<span class="sourceLineNo">229</span><a id="line.229">    public boolean equals(Object obj) {</a>
-<span class="sourceLineNo">230</span><a id="line.230">        if (obj instanceof MavenVersionRange) {</a>
-<span class="sourceLineNo">231</span><a id="line.231">            return range.equals(((MavenVersionRange) obj).range);</a>
-<span class="sourceLineNo">232</span><a id="line.232">        }</a>
-<span class="sourceLineNo">233</span><a id="line.233">        if (obj instanceof VersionRange) {</a>
-<span class="sourceLineNo">234</span><a id="line.234">            return range.equals((VersionRange) obj);</a>
-<span class="sourceLineNo">235</span><a id="line.235">        }</a>
-<span class="sourceLineNo">236</span><a id="line.236">        return false;</a>
-<span class="sourceLineNo">237</span><a id="line.237">    }</a>
-<span class="sourceLineNo">238</span><a id="line.238"></a>
-<span class="sourceLineNo">239</span><a id="line.239">}</a>
+<span class="sourceLineNo">204</span><a id="line.204">    @Deprecated</a>
+<span class="sourceLineNo">205</span><a id="line.205">    public static boolean isRange(String version) {</a>
+<span class="sourceLineNo">206</span><a id="line.206">        return MavenVersionSpecification.isRange(version);</a>
+<span class="sourceLineNo">207</span><a id="line.207">    }</a>
+<span class="sourceLineNo">208</span><a id="line.208"></a>
+<span class="sourceLineNo">209</span><a id="line.209">    @Override</a>
+<span class="sourceLineNo">210</span><a id="line.210">    public String toString() {</a>
+<span class="sourceLineNo">211</span><a id="line.211">        return range.toString();</a>
+<span class="sourceLineNo">212</span><a id="line.212">    }</a>
+<span class="sourceLineNo">213</span><a id="line.213"></a>
+<span class="sourceLineNo">214</span><a id="line.214">    /*</a>
+<span class="sourceLineNo">215</span><a id="line.215">     * (non-Javadoc)</a>
+<span class="sourceLineNo">216</span><a id="line.216">     * </a>
+<span class="sourceLineNo">217</span><a id="line.217">     * @see java.lang.Object#hashCode()</a>
+<span class="sourceLineNo">218</span><a id="line.218">     */</a>
+<span class="sourceLineNo">219</span><a id="line.219">    @Override</a>
+<span class="sourceLineNo">220</span><a id="line.220">    public int hashCode() {</a>
+<span class="sourceLineNo">221</span><a id="line.221">        return range.hashCode();</a>
+<span class="sourceLineNo">222</span><a id="line.222">    }</a>
+<span class="sourceLineNo">223</span><a id="line.223"></a>
+<span class="sourceLineNo">224</span><a id="line.224">    /*</a>
+<span class="sourceLineNo">225</span><a id="line.225">     * (non-Javadoc)</a>
+<span class="sourceLineNo">226</span><a id="line.226">     * </a>
+<span class="sourceLineNo">227</span><a id="line.227">     * @see java.lang.Object#equals(java.lang.Object)</a>
+<span class="sourceLineNo">228</span><a id="line.228">     */</a>
+<span class="sourceLineNo">229</span><a id="line.229">    @Override</a>
+<span class="sourceLineNo">230</span><a id="line.230">    public boolean equals(Object obj) {</a>
+<span class="sourceLineNo">231</span><a id="line.231">        if (obj instanceof MavenVersionRange) {</a>
+<span class="sourceLineNo">232</span><a id="line.232">            return range.equals(((MavenVersionRange) obj).range);</a>
+<span class="sourceLineNo">233</span><a id="line.233">        }</a>
+<span class="sourceLineNo">234</span><a id="line.234">        if (obj instanceof VersionRange) {</a>
+<span class="sourceLineNo">235</span><a id="line.235">            return range.equals((VersionRange) obj);</a>
+<span class="sourceLineNo">236</span><a id="line.236">        }</a>
+<span class="sourceLineNo">237</span><a id="line.237">        return false;</a>
+<span class="sourceLineNo">238</span><a id="line.238">    }</a>
+<span class="sourceLineNo">239</span><a id="line.239"></a>
+<span class="sourceLineNo">240</span><a id="line.240">}</a>
 
 
 
