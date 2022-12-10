@@ -149,6 +149,25 @@ a complete old version of this OSGi framework implementation.
 Excluding may prune a complete branch from the
 dependency tree.
 
+### Automatically excluded artifacts
+
+Starting with version 5 of the plugin, artifacts are automatically
+excluded if they violate the OSGi version order. Maven and OSGi
+interpret extensions in versions differently (details can be found
+[here](https://mnlipp.github.io/osgi-getting-started/Versions.html)).
+
+If there are two maven versions 1.0.0-M1 (translates to OSGi version 
+1.0.0.M1) and 1.0.0, the former is considered to be higher by OSGi
+version comparison rules. The plugin therefore automatically
+excludes artifacts with lower maven versions if they are interpreted
+by OSGi as resources with a higher version.
+
+Note that this mechanism only works if an OSGi identity is provided
+in the `MANIFEST.MF` of the artifact. Maven artifacts such as "group:all"
+usually only contain a POM with references to other artifacts. They
+must be excluded explicitly. But once this is done, the mechanism 
+works for all (future) versions.
+
 ### Forcing inclusion of artifacts
 
 In some cases, there may be a good old library
