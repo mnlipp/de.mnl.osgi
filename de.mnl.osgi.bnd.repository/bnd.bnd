@@ -1,6 +1,6 @@
 # Choose either depending on whether we build a snapshot or a release:
-bundleVersionQualifier: -${tstamp}-SNAPSHOT
-#bundleVersionQualifier: ga
+#bundleVersionQualifier: -${tstamp}-SNAPSHOT
+bundleVersionQualifier: ga
 
 Bundle-Name: MNL's repository plugins
 Bundle-Category: util
