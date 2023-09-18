@@ -1,16 +1,22 @@
 Bundle-Name: Logging Facade for OSGi Logging
 # Choose either depending on whether we build a snapshot or a release:
-#Bundle-Version: 2.1.1.-${tstamp}-SNAPSHOT
-Bundle-Version: 2.2.0.ga
+#Bundle-Version: 2.2.0.-${tstamp}-SNAPSHOT
+Bundle-Version: 2.3.0.ga
 
 -buildpath: \
 	osgi.annotation;version=6.0.1,\
 	osgi.core;version=6.0,\
-	org.osgi.service.log; version=1.4.0,\
+	org.osgi.service.log;version=1.4,\
 	de.mnl.osgi.coreutils;version=latest
 
 -testpath: \
 	${junit}
+
+# Force range. For the other bundles this happens automatically,
+# for some reason it has to be forced here.
+Import-Package: \
+    org.osgi.service.log;version='[1.4,2)',\
+    *
 
 Export-Package: \
 	de.mnl.osgi.lf4osgi.core,\
