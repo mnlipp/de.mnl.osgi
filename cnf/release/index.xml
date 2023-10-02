@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Release" increment="1670683458129">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Release" increment="1696260399581">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.gnu.org/licenses/gpl-3.0.txt"/>
@@ -8888,6 +8888,1483 @@
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.gnu.org/licenses/agpl-3.0.txt"/>
+      <attribute name="copyright" value="Michael N. Lipp (C) 2018-2021"/>
+      <attribute name="osgi.identity" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.1.1.ga" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.inject,javax.inject,org.apache.maven.artifact,org.apache.maven.artifact.handler,org.apache.maven.artifact.handler.manager,org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver,org.apache.maven.artifact.resolver.filter,org.apache.maven.execution,org.apache.maven.extension.internal,org.apache.maven.model,org.apache.maven.plugin,org.apache.maven.project,org.codehaus.plexus,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging,org.codehaus.plexus.util.dag,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.graph,org.eclipse.aether.repository"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-409295502,368673859,1489949416,1494818178,-415852461,-342170430,-503107606,1737656871,1643088961,504305508,74117483,798173410,-1015681763,1245805306,1088651618,2051130600,-1410189595,-187385196,1149729639,641098406" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact.handler,org.apache.maven.artifact.metadata,org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver.filter,org.apache.maven.artifact.versioning,org.codehaus.plexus.component.repository.exception"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1164154382,1435901407,-227727597,-1573254727,-1755415612,-2054434610" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.versioning,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.factory"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="239839928,245569143" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.handler"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2024526072,2030255287" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact.handler,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.handler.manager"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1399894123,-1961230602" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.repository,org.apache.maven.artifact.versioning,org.apache.maven.repository.legacy.metadata"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.metadata"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1381775485,-2116274367,-1398994788,637621948,1337708819" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.metadata,org.apache.maven.artifact.repository.layout,org.apache.maven.execution,org.apache.maven.project,org.apache.maven.repository,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.metadata,org.eclipse.aether.repository"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1607017764,853071662,-571560296,-789905468,-837187378,-77090605,-1010634719,2053007239,1132534328,-2000713787" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.metadata,org.apache.maven.artifact.repository,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository.layout"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="726019366,1031763916,1184756565" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.metadata,org.apache.maven.artifact.repository,org.apache.maven.repository.legacy.metadata,org.codehaus.plexus.util.xml.pull"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository.metadata"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-470543237,-1533796821,-1949332295,1037117841,-230222852,680921268,-28041334,1176208775" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact.repository.metadata,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository.metadata.io"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="559402323,1653826571,974859506" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver.filter,org.apache.maven.artifact.versioning,org.apache.maven.settings,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.resolver"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1748242385,-95163186,757128625,2020077681,-1458797061,1993650091,-1309881745,-888911857,-748545266,-478219872,-787926802" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.resolver.filter"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1088866372,-998270591,1123771402,1872390987,2035629635,-2139035540,359829941,313313086" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.versioning"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1683330694,-1828501167,2289459,1409975537,420068068,-1164828034,1689059909,1419698925,1257341241,106806188,49268581" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.repository,org.apache.maven.artifact.repository.layout,org.apache.maven.execution,org.apache.maven.model,org.apache.maven.settings,org.codehaus.plexus.component.annotations,org.eclipse.aether"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.bridge"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-625862236" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.building"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="692581694,-1319437073,-504358697,1542944541,1355111039,-1497042738,-937233316,-1812638661,240646060,1645554250" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.apache.maven.extension.internal,org.apache.maven.model,org.codehaus.plexus,org.codehaus.plexus.classworlds.realm,org.codehaus.plexus.logging,org.eclipse.aether.artifact"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.classrealm"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-483985957,-1605544819,257255318,-2016955589,1131552329,517687928,1468063637,1728496247" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.configuration"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="969036105,2047420393,-1064064827,1221421225,-2082323718,-65700059,-1352023094" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.configuration,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.configuration.internal"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="832958087,111905606" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.eventspy"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-912069852,-1678783089,342751458" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.eventspy,org.apache.maven.execution,org.codehaus.plexus.component.annotations,org.eclipse.aether"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.eventspy.internal"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1573502249,1527677738,1227430560" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.exception"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-392083396,-569689061,1174834295" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.apache.maven.artifact.repository,org.apache.maven.bridge,org.apache.maven.eventspy.internal,org.apache.maven.lifecycle,org.apache.maven.model,org.apache.maven.monitor.event,org.apache.maven.plugin,org.apache.maven.plugin.descriptor,org.apache.maven.project,org.apache.maven.settings,org.apache.maven.toolchain.model,org.codehaus.plexus,org.codehaus.plexus.component.repository.exception,org.codehaus.plexus.util.dag,org.eclipse.aether,org.eclipse.aether.repository,org.eclipse.aether.transfer"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.execution"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="422466506,2109398876,1328803285,1338332536,1783018593,1247641245,2135786507,2622298,1798599298,-872162356,-1801104414,-26855360,-1610366916,80506986,1346030251,-515528503,1761553445,1619048586,-667669061,532687347,-1011354165,1211292044" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.inject,org.apache.maven.execution,org.apache.maven.plugin"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.execution.scope"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1582046273,414631821" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.inject,javax.inject,org.apache.maven.execution,org.apache.maven.plugin,org.codehaus.plexus,org.codehaus.plexus.component.repository.exception"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.execution.scope.internal"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1791248061,-503155581,2100926414,-958637873" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.codehaus.plexus,org.codehaus.plexus.classworlds.realm,org.eclipse.sisu"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.extension.internal"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-80416128,593026193,410501394" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.model.building,org.apache.maven.project,org.codehaus.plexus.component.annotations,org.codehaus.plexus.util.dag"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.graph"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1152193746,1057712107,312763265,-2108184947" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.apache.maven.execution,org.eclipse.aether"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.internal.aether"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-6987122,-445020227" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.lifecycle.internal,org.apache.maven.lifecycle.mapping,org.apache.maven.model,org.apache.maven.plugin,org.apache.maven.plugin.descriptor,org.apache.maven.plugin.prefix,org.apache.maven.plugin.version,org.apache.maven.project,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="688517692,-825631926,1976651459,1701644106,897918209,-522290627,-589914167,1398188662,-1839861681,-1863654730,-883023204,-550034906,-732857293" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.apache.maven.artifact,org.apache.maven.artifact.factory,org.apache.maven.execution,org.apache.maven.lifecycle,org.apache.maven.model,org.apache.maven.plugin,org.apache.maven.plugin.descriptor,org.apache.maven.plugin.prefix,org.apache.maven.plugin.version,org.apache.maven.project,org.apache.maven.project.artifact,org.apache.maven.session.scope.internal,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging,org.codehaus.plexus.util.xml"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.internal"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="914213934,692601842,1018652350,1383142115,-1600753637,-1518721094,1131608810,1793494414,501793698,1674068167,1277569829,533595648,393871300,-1039417158,-350038796,1793510232,-205112295,162841157,-984105637,714505625,-900013979,1406465603,929556965,1305213935,-1183939994,520153590,-850553734,603560761,1094932127,-1519285965,1083394393,1790360058,469901086,-895083571,1234655694" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.execution,org.apache.maven.lifecycle,org.apache.maven.lifecycle.internal,org.apache.maven.plugin,org.apache.maven.plugin.prefix,org.apache.maven.plugin.version,org.apache.maven.project,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.internal.builder"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1895597947,276682054,-2002554267" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.lifecycle.internal,org.apache.maven.lifecycle.internal.builder,org.apache.maven.project,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.internal.builder.multithreaded"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1676910384,-2102012711,2112939747,-1354148231,-846725262" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.lifecycle.internal,org.apache.maven.lifecycle.internal.builder,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.internal.builder.singlethreaded"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1810391466" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.codehaus.plexus.util.xml"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.mapping"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-453063099,1701644106,-630668764,1305018577,1803423825" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.messages"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-260285130,1948269522,-1025904230,-1612248789,64542286,602438207,550759785,171825227,-227407685,1967173483,-2104428018,-271207409,1923286954,-1225000441,-604381778,1391410207,809641254,-1082318465,-50696007,1357370469,-1996342820,1831410721,1872826857,74517257,-7218822,1650007494,1343242579,-1911556918,1108331218,-1901307053,1564117091,-523428242,-1203446523,-991632394,-1119017891,1355227529,802531080,674516391,1650627182,1650648590,-350701718,-1210421925,1134203196,-276420562,82941,2577255" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.building,org.apache.maven.model,org.apache.maven.model.composition,org.apache.maven.model.inheritance,org.apache.maven.model.interpolation,org.apache.maven.model.io,org.apache.maven.model.locator,org.apache.maven.model.management,org.apache.maven.model.normalization,org.apache.maven.model.path,org.apache.maven.model.plugin,org.apache.maven.model.profile,org.apache.maven.model.profile.activation,org.apache.maven.model.resolution,org.apache.maven.model.superpom,org.apache.maven.model.validation,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.building"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-360206929,1212085491,-1564864962,-240653161,-931880034,288682643,1533392793,671598583,-1587926442,1183734762,1587409256,-302916982,256094290,187767741,-15401227,-399822862,-1485478735,-1766596878,1882735450,-222875143,346138337,-7159213,1542944541,2016261304,-284392618,-877082153,1426678986,-1004056392,-1158528261,1599191945,-2142620540,-1996727250,-1850559427,434704307,-197603371" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.composition"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1976926751,-849175744" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.merge,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.inheritance"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1388380999,-1535554825,704132950" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.path,org.codehaus.plexus.component.annotations,org.codehaus.plexus.interpolation"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.interpolation"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="22517232,-679200412,1031423123,1838244464,611990636,211329580,1999126200,1450061205,756470492,220293406,367256795,134110025,-490869290,-606902697,456994775" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.io"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-903329685,-747924453,-159350203,2113873196,-2025688868" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.codehaus.plexus.util.xml.pull"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.io.xpp3"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="292955904,-184316119,-1034128964,-28910887" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.locator"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1319559662,363568461" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.merge,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.management"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1460875424,-1270879741,1148445803,-143128734,-573077174" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.merge"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-557630120,1971236771" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.merge,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.normalization"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-485253115,658792109,653062894" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.path"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1789990855,1275332908,-439894880,-2121734861,2139333512,-1899986613,-24437697,-1692691020" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.merge,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.plugin"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1649318226,-1530122165,-1304409207,636280872,-1553908973,937240396,-990935478,949754601,-434261198" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.merge,org.apache.maven.model.profile.activation,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.profile"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-72506287,-1229296006,-640684132,267209799,-1794029264,-646413347,261480584" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.path,org.apache.maven.model.profile,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.profile.activation"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-951114456,169509460,-1102017837,1034504764,1436316556,573844353" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.resolution"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-2054434610,438309423,1135344690,1353100250" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.superpom"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-210793435,-388399100" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model,org.apache.maven.model.building,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.validation"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1168710314,1584167497" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.monitor.event"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1653745857,-1986071168" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver,org.apache.maven.artifact.versioning,org.apache.maven.execution,org.apache.maven.model,org.apache.maven.plugin.descriptor,org.apache.maven.plugin.version,org.apache.maven.project,org.apache.maven.project.artifact,org.apache.maven.project.path,org.apache.maven.settings,org.codehaus.plexus,org.codehaus.plexus.classworlds.realm,org.codehaus.plexus.component.annotations,org.codehaus.plexus.component.composition,org.codehaus.plexus.component.configurator,org.codehaus.plexus.component.configurator.expression,org.codehaus.plexus.component.repository.exception,org.codehaus.plexus.configuration,org.codehaus.plexus.logging,org.codehaus.plexus.personality.plexus.lifecycle.phase,org.codehaus.plexus.util.xml,org.eclipse.aether,org.eclipse.aether.graph,org.eclipse.aether.repository"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1494274380,2013310575,-984147142,-1214229247,-216735913,374626605,-368864355,1791645681,-1698800395,-719321601,-305553913,-2111797677,75327,2140988338,1109327190,-372158587,-1268502618,1344433487,-1420654476,-1812638661,-597367727,540887380,809969452,409283969,-8477312,-2138235199,1343547594,-762304253,335942057,634026202,13159573,-1219835507,-1878699175,398696193,-483159578,-2016180560" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver,org.apache.maven.artifact.versioning,org.apache.maven.execution,org.apache.maven.model,org.apache.maven.plugin,org.apache.maven.plugin.descriptor,org.apache.maven.plugin.version,org.apache.maven.project,org.apache.maven.project.artifact,org.apache.maven.settings,org.codehaus.plexus.component.annotations,org.codehaus.plexus.component.repository.exception,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.graph,org.eclipse.aether.repository"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.internal"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1697546459,224785712,-1172793250,980525859,204982361,-933124776,159353922,-678056674,-1561147113,-53490860" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.model,org.eclipse.aether,org.eclipse.aether.repository"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.prefix"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-716785847,1036056034,-367443190,1546091243,-150340542" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.plugin.prefix,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.prefix.internal"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-693596532,-1269988317" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.model,org.eclipse.aether,org.eclipse.aether.repository"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.version"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="439695467,1992890651,-1615584054,1627138750,1508430123,363586178" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.plugin.version,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.version.internal"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1920408901,797585834,14243521" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.factory,org.apache.maven.artifact.repository,org.apache.maven.artifact.resolver.filter,org.apache.maven.artifact.versioning,org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.resolution,org.apache.maven.plugin,org.apache.maven.plugin.version,org.apache.maven.project.artifact,org.codehaus.plexus.classworlds.realm,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging,org.codehaus.plexus.personality.plexus.lifecycle.phase,org.codehaus.plexus.util.dag,org.codehaus.plexus.util.xml,org.eclipse.aether,org.eclipse.aether.graph,org.eclipse.aether.impl,org.eclipse.aether.repository"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.project"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="41611607,-1245523883,-1220445091,2098644272,-472166627,-1015529345,-367875389,550313818,169728099,836818889,-1172793250,1737656871,-368864355,554351115,-1572680808,355085336,-2066695820,-2009699505,1643088961,-1610837778,1511370445,-1203621959,-948268242,-100797316,47581794,-1033882110,1261158107,-2142754773,731064578,1547663178,2051130600,-888173610,-2111797677,75327,-656457204,-486866140,-472755461,1509171587,100287951" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.factory,org.apache.maven.artifact.handler,org.apache.maven.artifact.metadata,org.apache.maven.artifact.repository,org.apache.maven.artifact.repository.metadata,org.apache.maven.artifact.resolver.filter,org.apache.maven.artifact.versioning,org.apache.maven.lifecycle,org.apache.maven.model,org.apache.maven.project,org.apache.maven.repository.legacy.metadata,org.codehaus.plexus.component.annotations,org.eclipse.aether,org.eclipse.aether.repository"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.project.artifact"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="675440645,-665087199,847726518,-368864355,-2111797677,-1638689335,597875883,-800467207,547282681,-519041560,-555882815,1561122421,950601029,1122878021,-351980278,1676887019,-1378219974,75327,-89622918" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.model"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.project.path"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-24437697" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.properties.internal"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-282950018,-753504030" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.metadata,org.apache.maven.artifact.repository,org.apache.maven.artifact.repository.layout,org.apache.maven.artifact.resolver,org.apache.maven.model,org.apache.maven.settings,org.eclipse.aether"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.repository"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-810965888,-1805253475,-1336870187,-1952624687,655118123,1804271109,1648799079,-373077317,77388366,1229545017" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.artifact,org.apache.maven.artifact.repository,org.apache.maven.artifact.repository.metadata,org.apache.maven.artifact.resolver,org.apache.maven.artifact.versioning"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.repository.legacy.metadata"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1381775485,-2116274367,-1398994788,637621948,262359475,-1565245260,1337708819" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.rtinfo"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1945226668" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.rtinfo,org.codehaus.plexus.component.annotations"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.rtinfo.internal"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1230092853" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.inject,javax.inject,org.codehaus.plexus,org.codehaus.plexus.component.repository.exception"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.session.scope.internal"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1681334247,1791248061,-533508738,-2134423158" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.model,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging,org.codehaus.plexus.util.xml.pull"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.settings"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="154657966,-1900621555,1590466588,185578030" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.execution,org.apache.maven.toolchain.model,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="555791112,-1588921467,1189786174,-1744512336,-900396357,1928413071,1807719763,-34656934,518371963,1591331849,601297089,-1766527132,1411347839,1378682170,1339646641" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.apache.maven.building,org.apache.maven.toolchain.model"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.building"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1744512336,2043398992,-765308100,1339646641,2007545745,215794257,1808136219" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.inject,org.apache.maven.toolchain.model"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.io"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1633695502,-233949434,1456089837" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.toolchain,org.apache.maven.toolchain.model,org.codehaus.plexus.component.annotations,org.codehaus.plexus.logging"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.java"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1358034790,1816631303,835283715,1329664711" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.toolchain.model"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.merge"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-390112296" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.model"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="650324765,825384096,-432965258" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.maven.toolchain.model,org.codehaus.plexus.util.xml.pull"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.model.io.xpp3"/>
+      <attribute name="version" value="3.6.0" type="Version"/>
+      <attribute name="bnd.hashes" value="292955904,452724339,608129571" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.interpolation.fixed"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation"/>
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="bnd.hashes" value="989793128,-1096361503,1252442954,151116789,-202766057,-723463312,-496952399,-588203859,-1874822357,-1590270802,-2034393881,-371956510,1971870869,-937289544,1641339471,1769208156,715186024,-1060274504,-932083028,1043829171,982969731,-101437773,-2030244267,-2035692445,2070185120,238744780" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.interpolation"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.fixed"/>
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="bnd.hashes" value="989793128,-202766057,-929775628,-1842814728,-588203859,2136685933,1971870869,-937289544,1769208156,715186024,-1060274504,-932083028" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.interpolation"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.multi"/>
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1254554204,291850192,-1560975474" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.interpolation"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.object"/>
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-490869290,1824330805,496587903,1332120407,1457788358" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.os"/>
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="bnd.hashes" value="768003190,-187988011,1585092577,2564" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.reflection"/>
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1450170238,1270164815,757060836,1201517507,1149355163,2146092791,-1159454498" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.util"/>
+      <attribute name="version" value="1.25.0" type="Version"/>
+      <attribute name="bnd.hashes" value="148294400,-2055320763" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.util.io,org.codehaus.plexus.util.xml"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="bnd.hashes" value="71453532,1982630255,1450827962,54238355,-966390031,-1883084662,-1085952233,774556899,-1056180798,2089667258,1524266386,-2029030736,-2050817629,-1739945662,587513664,1695230427,678451317,-2129434040,1280683519,712450331,1052919017,710960683,564944808,444575971,2564,1299057533,-229650500,701484711,-581251290,-719352354,-1362759694,-355756295,-1673351502,148294400,-143341447,648015925,193952753,572587255" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.util.cli.shell"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.cli"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1171228296,66102,-2120944745,1201596752,-1297324051,165422631,363123250,-1525038371,-1997438886,207329695,433300791,-1619080304,1281295224,211256246,-1653017973,-1351700267,-1987635447" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.cli.shell"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1067174993,1700594998,2109127109,79851024" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.dag"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="bnd.hashes" value="29394887,1946418860,67434,745776282,-1736073788" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.introspection"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1450170238,1270164815,757060836,1201517507,1149355163,2146092791,-1159454498" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.io"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="bnd.hashes" value="672651524,-1488082436,1287026581" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.reflection"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1267157312,-1883697425" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.plexus.util.xml.pull"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.xml"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="bnd.hashes" value="966897575,-429936269,-1932114472,-2054697142,355567514,-1333373483,1611884026,1583915893,1767289258,-281089895,1712226924,-192567193,1247643932,-572330700,2037031050,-1221128262" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.xml.pull"/>
+      <attribute name="version" value="3.2.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1612654797,-68221526,-767983203,-527222245,1273947252,1733714153" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="aQute.bnd.version,aQute.maven.api,aQute.maven.provider,aQute.service.reporter,org.apache.maven.artifact.versioning,org.apache.maven.building,org.apache.maven.model,org.apache.maven.model.building,org.apache.maven.model.resolution,org.osgi.resource,org.osgi.util.promise"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.bnd.maven"/>
+      <attribute name="version" value="5.1.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1587409256,413511607,-1333425788,-1225971879,438258422,1656197582,1326087833,-242627146,-1305845671,38570691,-287349523,-1036193712,-1373620970,-27902311,1149729639,-1923478059" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="aQute.bnd.osgi.repository,aQute.bnd.service,aQute.bnd.version,aQute.service.reporter,org.osgi.resource,org.osgi.service.repository"/>
+      <attribute name="bundle-symbolic-name" value="de.mnl.osgi.bnd.repository"/>
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.bnd.repository.maven.provider"/>
+      <attribute name="bnd-plugins" value="true"/>
+      <attribute name="version" value="5.1.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1537894453,-867926494" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="de.mnl.osgi.bnd.repository"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.1.1.ga" type="Version"/>
+      <attribute name="osgi.wiring.host" value="de.mnl.osgi.bnd.repository"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1514118" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-5.1.1.jar"/>
+      <attribute name="osgi.content" value="43A9996464617AC5FD03D366648EEE93C6A68E3783F322560ECE7D5D20664E19"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.build)(version&gt;=4.4.0)(!(version&gt;=5.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="aQute.bnd.build"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.http)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="aQute.bnd.http"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.osgi)(version&gt;=5.6.0)(!(version&gt;=6.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="aQute.bnd.osgi"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.osgi.repository)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="aQute.bnd.osgi.repository"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.osgi.resource)(version&gt;=4.3.0)(!(version&gt;=5.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="aQute.bnd.osgi.resource"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.service)(version&gt;=4.7.0)(!(version&gt;=5.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="aQute.bnd.service"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.util.repository)(version&gt;=2.1.0)(!(version&gt;=3.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="aQute.bnd.util.repository"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.bnd.version)(version&gt;=2.2.0)(!(version&gt;=3.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="aQute.bnd.version"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=aQute.lib.converter)"/>
+      <attribute name="osgi.wiring.package" value="aQute.lib.converter"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=aQute.lib.io)"/>
+      <attribute name="osgi.wiring.package" value="aQute.lib.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=aQute.lib.strings)"/>
+      <attribute name="osgi.wiring.package" value="aQute.lib.strings"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=aQute.libg.reporter.slf4j)"/>
+      <attribute name="osgi.wiring.package" value="aQute.libg.reporter.slf4j"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.maven.api)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="aQute.maven.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.maven.provider)(version&gt;=2.5.0)(!(version&gt;=3.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="aQute.maven.provider"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=aQute.service.reporter)(version&gt;=1.2.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="aQute.service.reporter"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.google.inject)"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.google.inject.binder)"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.binder"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.google.inject.util)"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=de.mnl.osgi.bnd.maven)"/>
+      <attribute name="osgi.wiring.package" value="de.mnl.osgi.bnd.maven"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.io)"/>
+      <attribute name="osgi.wiring.package" value="java.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang)"/>
+      <attribute name="osgi.wiring.package" value="java.lang"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang.annotation)"/>
+      <attribute name="osgi.wiring.package" value="java.lang.annotation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang.invoke)"/>
+      <attribute name="osgi.wiring.package" value="java.lang.invoke"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang.ref)"/>
+      <attribute name="osgi.wiring.package" value="java.lang.ref"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang.reflect)"/>
+      <attribute name="osgi.wiring.package" value="java.lang.reflect"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.math)"/>
+      <attribute name="osgi.wiring.package" value="java.math"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.net)"/>
+      <attribute name="osgi.wiring.package" value="java.net"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.nio.channels)"/>
+      <attribute name="osgi.wiring.package" value="java.nio.channels"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.nio.charset)"/>
+      <attribute name="osgi.wiring.package" value="java.nio.charset"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.nio.file)"/>
+      <attribute name="osgi.wiring.package" value="java.nio.file"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.nio.file.attribute)"/>
+      <attribute name="osgi.wiring.package" value="java.nio.file.attribute"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.security)"/>
+      <attribute name="osgi.wiring.package" value="java.security"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.sql)"/>
+      <attribute name="osgi.wiring.package" value="java.sql"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.text)"/>
+      <attribute name="osgi.wiring.package" value="java.text"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util)"/>
+      <attribute name="osgi.wiring.package" value="java.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.concurrent)"/>
+      <attribute name="osgi.wiring.package" value="java.util.concurrent"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.concurrent.atomic)"/>
+      <attribute name="osgi.wiring.package" value="java.util.concurrent.atomic"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.function)"/>
+      <attribute name="osgi.wiring.package" value="java.util.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.jar)"/>
+      <attribute name="osgi.wiring.package" value="java.util.jar"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.regex)"/>
+      <attribute name="osgi.wiring.package" value="java.util.regex"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.stream)"/>
+      <attribute name="osgi.wiring.package" value="java.util.stream"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.zip)"/>
+      <attribute name="osgi.wiring.package" value="java.util.zip"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.inject)"/>
+      <attribute name="osgi.wiring.package" value="javax.inject"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.namespace)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.namespace"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.parsers"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.stream)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.stream"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.stream.events)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.stream.events"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.dom)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform.dom"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.stream)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform.stream"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.commons.lang3)"/>
+      <attribute name="osgi.wiring.package" value="org.apache.commons.lang3"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.factory)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.factory"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.handler)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.handler"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.handler.manager)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.handler.manager"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.metadata)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.metadata"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.repository)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.repository.layout)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository.layout"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.repository.metadata)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository.metadata"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.repository.metadata.io)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository.metadata.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.maven.artifact.repository.metadata.io.xpp3)"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.repository.metadata.io.xpp3"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.resolver)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.resolver"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.resolver.filter)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.resolver.filter"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.artifact.versioning)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.artifact.versioning"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.bridge)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.bridge"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.building)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.building"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.classrealm)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.classrealm"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.configuration)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.configuration"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.eventspy)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.eventspy"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.eventspy.internal)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.eventspy.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.execution)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.execution"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.execution.scope)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.execution.scope"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.execution.scope.internal)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.execution.scope.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.extension.internal)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.extension.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.graph)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.graph"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.internal.aether)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.internal.aether"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.lifecycle)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.lifecycle.internal)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.lifecycle.internal.builder)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.internal.builder"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.lifecycle.mapping)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.lifecycle.mapping"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.building)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.building"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.composition)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.composition"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.inheritance)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.inheritance"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.interpolation)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.interpolation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.io)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.io.xpp3)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.io.xpp3"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.locator)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.locator"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.management)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.management"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.merge)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.merge"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.normalization)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.normalization"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.path)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.path"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.plugin)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.plugin"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.profile)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.profile"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.profile.activation)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.profile.activation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.resolution)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.resolution"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.superpom)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.superpom"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.model.validation)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.model.validation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.monitor.event)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.monitor.event"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.maven.monitor.logging)"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.monitor.logging"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.plugin)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.maven.plugin.descriptor)"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.descriptor"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.maven.plugin.lifecycle)"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.lifecycle"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.maven.plugin.logging)"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.logging"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.plugin.prefix)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.prefix"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.plugin.version)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.plugin.version"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.project)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.project"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.project.artifact)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.project.artifact"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.project.path)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.project.path"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.properties.internal)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.properties.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.repository)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.repository"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.maven.repository.internal)"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.repository.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.repository.legacy.metadata)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.repository.legacy.metadata"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.rtinfo)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.rtinfo"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.session.scope.internal)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.session.scope.internal"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.settings)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.settings"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.maven.settings.building)"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.settings.building"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.maven.settings.crypto)"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.settings.crypto"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.maven.settings.merge)"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.settings.merge"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.maven.shared.utils.logging)"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.shared.utils.logging"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.toolchain)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.toolchain.io)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.toolchain.merge)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.merge"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.toolchain.model)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.model"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.maven.toolchain.model.io.xpp3)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.apache.maven.toolchain.model.io.xpp3"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.classworlds)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.classworlds"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.classworlds.realm)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.classworlds.realm"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.component.annotations)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.annotations"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.component.composition)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.composition"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.component.configurator)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.configurator"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.component.configurator.converters.composite)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.configurator.converters.composite"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.component.configurator.converters.lookup)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.configurator.converters.lookup"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.component.configurator.expression)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.configurator.expression"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.component.repository)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.repository"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.component.repository.exception)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.repository.exception"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.configuration)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.configuration"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.configuration.xml)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.configuration.xml"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.interpolation)(version&gt;=1.25.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.interpolation.fixed)(version&gt;=1.25.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.fixed"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.interpolation.os)(version&gt;=1.25.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.os"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.interpolation.reflection)(version&gt;=1.25.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.reflection"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.interpolation.util)(version&gt;=1.25.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.interpolation.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.logging)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.logging"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.personality.plexus.lifecycle.phase)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.personality.plexus.lifecycle.phase"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util)(version&gt;=3.2.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.cli.shell)(version&gt;=3.2.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.cli.shell"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.dag)(version&gt;=3.2.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.dag"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.introspection)(version&gt;=3.2.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.introspection"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.io)(version&gt;=3.2.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.reflection)(version&gt;=3.2.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.reflection"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.xml)(version&gt;=3.2.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.xml"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.plexus.util.xml.pull)(version&gt;=3.2.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.xml.pull"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.artifact)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.artifact"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.collection)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.collection"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.graph)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.graph"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.impl)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.impl"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.metadata)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.metadata"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.repository)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.repository"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.resolution)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.resolution"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.spi.localrepo)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.localrepo"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.transfer)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.transfer"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.util.artifact)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.artifact"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.util.filter)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.filter"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.util.graph.manager)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.manager"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.util.graph.selector)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.selector"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.util.graph.transformer)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.transformer"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.util.graph.visitor)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.visitor"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.util.repository)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.repository"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.util.version)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.version"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.aether.version)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.version"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.sisu)"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.sisu"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.resource)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.osgi.resource"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.repository)(version&gt;=1.1.0)(!(version&gt;=1.2.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.osgi.service.repository"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.util.promise)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.osgi.util.promise"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+      <attribute name="osgi.wiring.package" value="org.w3c.dom"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=11))"/>
     </requirement>
   </resource>
   <resource>
