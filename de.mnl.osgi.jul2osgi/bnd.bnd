@@ -1,7 +1,7 @@
 Bundle-Name: JUL to OSGi Logging Forwarder
 # Choose either depending on whether we build a snapshot or a release:
 #Bundle-Version: 1.4.1.-${tstamp}-SNAPSHOT
-Bundle-Version: 1.6.0.ga
+Bundle-Version: 1.6.1.ga
 
 -buildpath: \
 	osgi.core; version=6.0,\
