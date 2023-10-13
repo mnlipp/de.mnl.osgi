@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923558">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.maven.wagon:wagon-provider-api"/>
+      <attribute name="from" value="org.apache.maven.wagon:wagon-provider-api:2.10"/>
+      <attribute name="version" value="2.10.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.plexus:plexus-utils:3.0.15"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="53529" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/2.10/wagon-provider-api-2.10.jar"/>
+      <attribute name="osgi.content" value="930B2E409513BE03864D7A66E22DFDF5C086725E22BA3CF57AD45ED8AF02996D"/>
+    </capability>
+  </resource>
+</repository>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923187">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="classworlds:classworlds"/>
+      <attribute name="from" value="classworlds:classworlds:1.1-alpha-2"/>
+      <attribute name="version" value="1.1.0.alpha-2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="37516" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.jar"/>
+      <attribute name="osgi.content" value="2BF4E59F3ACD106FEA6145A9A88FE8956509F8B9C0FDD11EB96FEE757269E3F3"/>
+    </capability>
+  </resource>
+</repository>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191922898">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="commons-logging:commons-logging-api"/>
+      <attribute name="from" value="commons-logging:commons-logging-api:1.1"/>
+      <attribute name="version" value="1.1.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="44598" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar"/>
+      <attribute name="osgi.content" value="33A4DD47BB4764E4EB3692D86386D17A0D9827F4F4BB0F70121EFAB6BC03BA35"/>
+    </capability>
+  </resource>
+</repository>

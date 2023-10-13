@@ -1,15 +1,199 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1572785220478">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923168">
   <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="com.github.javaparser:javaparser-core:3.13.10"/>
-      <attribute name="from" value="com.github.javaparser:javaparser-core:3.13.10"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="com.github.javaparser.javaparser-core"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="3.13.10" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.comments,com.github.javaparser.ast.expr,com.github.javaparser.ast.modules,com.github.javaparser.ast.observer,com.github.javaparser.ast.stmt,com.github.javaparser.ast.type,com.github.javaparser.javadoc,com.github.javaparser.resolution"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="739137370,-860774283,190999361,1680017328,118958753,-434548865,-1110587580,124780597,1243573222,1178602753,-699547155,115155230,2338740,1150502103,98873205,-1634415741,1971845884,-111371997,-1456621646,947152016,1001737615,368680684,-1411900681,812449097,1355111039,-922850799,1283872079,1456396418,78727453,181810213,693096936,-2069008881,-208468559,893777218,80988633,2144907338,1046988176,2082389732,2084953632,-1493736350" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser.ast.comments,com.github.javaparser.javadoc.description"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.javadoc"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-155211850,2622298,-1324543581" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.javadoc.description"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="61650534,1015947702,2622298,-1175275733,1796401287" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser.ast"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.metamodel"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1252221369,1186577056,1339383859,2024265650,1866889303,923942744,-1868706490,-1219570607,993185654,-2087621408,-2129016623,-1801588978,-2082374894,-915800625,1701351596,-1300856472,704361117,-1479896894,1389964432,-1606975654,-2112060970,-832692425,-2040745208,-1491796852,-1545527131,-1188317667,-274548503,-1413519676,2063442869,247866098,-339075503,-270084399,-1693551345,1738801210,908202831,1727104651,-775306586,1156427852,196457828,2121448305,881596356,-495906030,1461780243,-1136190721,-1718803665,1931850156,-381358173,-744935554,-1379123246,890277345,-1484909533,1698077787,-1165191799,-220989176,209886393,-725298848,-645435042,-2129246225,-1346525700,-1633389306,-1721026349,-142361360,184191595,-2131403131,-1128624403,-1303303050,581579841,822665480,-403779662,697479635,-721395569,465849133,1929537732,-1823772231,-1023921118,2861205,-28649031,-1763987065,1652440817,1306882421,99325200,-61856101,332218499,454046127,1765453546,1150881951,1109258700,-292234969,-1855087810,228118421,-634905839,1495496212,1910338630,-472559941,-98705848,686568552,1957563281,-899124202,-406985887,1439050308,-1975736203,-1582091798,-1887189131,860557536,392454043,1546027520,-1473202377,161138243,-1995837167,331460791,-1633398602,986898859,1614487088" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.comments,com.github.javaparser.ast.expr,com.github.javaparser.ast.modules,com.github.javaparser.ast.stmt,com.github.javaparser.ast.type,com.github.javaparser.ast.visitor,com.github.javaparser.printer.concretesyntaxmodel"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.printer"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1867948767,-1884495183,1368859831,-25799004,-1822189018,-2014496590,207374695,578806623,1037530147,-1745972397" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser.ast,com.github.javaparser.ast.observer,com.github.javaparser.printer"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.printer.concretesyntaxmodel"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1639549247,-1566647597,1622481346,1142656251,871850089,-990754209,-2132390679,-1566377957,2027682623,-1566312779,-1139676064,709277886,-2042870714,-1840137138,-136823934,-1305517540,-938006142,-618369469" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser.ast,com.github.javaparser.ast.expr,com.github.javaparser.ast.type,com.github.javaparser.resolution.declarations,com.github.javaparser.resolution.types,com.github.javaparser.resolution.types.parametrization"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.resolution"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="684172867,731629856,393784979,-1522578978,-1466366535" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.expr,com.github.javaparser.resolution,com.github.javaparser.resolution.types"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.resolution.declarations"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2100924473,1330811616,-491102829,-338526247,-2111795942,812027736,-2095940030,-83668675,-1239584127,-1480773544,-1095648583,-2138113887,-821612278,427363913,-2091926707,-932967768,64375134,-1100475229,-732262509,-1990385791" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser.resolution,com.github.javaparser.resolution.declarations,com.github.javaparser.resolution.types.parametrization,com.github.javaparser.utils"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.resolution.types"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1706542085,1738470811,387166870,678968201,1221106669,585914226,-904011193,2021522446,-884148879,1343969062,853437880,2143035922" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser.resolution.declarations,com.github.javaparser.resolution.types"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.resolution.types.parametrization"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1046770539,1895597947,166472896,-1922547432" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.expr,com.github.javaparser.ast.visitor"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.utils"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1693941305,1978925228,1964110929,514145071,-1813889766,-575640491,76580,2479866,-615109936,1855916264,727954299,-964624778,-1850559427,-107576219,1723762348,1283512524,881963965,305552614,882702617,1060807377,1171059540,1819071085,-925014757,16862143,82059409,-1084305251,691280396,160847406,160853300" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast.body,com.github.javaparser.ast.comments,com.github.javaparser.ast.expr,com.github.javaparser.ast.modules,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.observer,com.github.javaparser.ast.visitor,com.github.javaparser.metamodel,com.github.javaparser.printer,com.github.javaparser.resolution,com.github.javaparser.resolution.types"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="560410778,1990530048,-1219132884,-219620773,904358343,-1187137995,-2004043409,-401760139,850245065,-550869257,-438068910,1064433078,-786898670,1879932741,1017262600,-1676762884,-2139805671,-1838844256,2433570,1187472864,1198153076" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.expr,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.nodeTypes.modifiers,com.github.javaparser.ast.stmt,com.github.javaparser.ast.type,com.github.javaparser.ast.visitor,com.github.javaparser.metamodel,com.github.javaparser.resolution,com.github.javaparser.resolution.declarations"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.body"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1495203499,-938479887,-765287848,-1217415016,-1778773630,-575068036,-2036985536,1791233109,2021049753,814628928,1110204760,299886009,-336538743,-2083527078,-1967301184,1398946285" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.visitor,com.github.javaparser.javadoc,com.github.javaparser.metamodel"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.comments"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="361975090,-1679915457,-1066581038,513467849,-1289657429" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.expr,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.nodeTypes.modifiers,com.github.javaparser.ast.visitor,com.github.javaparser.metamodel"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.modules"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-129516722,353350435,771832444,662062226,132270417,1918752533,372236983" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.comments,com.github.javaparser.ast.expr,com.github.javaparser.ast.stmt,com.github.javaparser.ast.type,com.github.javaparser.javadoc,com.github.javaparser.metamodel"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.nodeTypes"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-247715844,-2110751698,797193421,-1631989814,-936546317,-1336994335,-1314512302,167242432,-939262607,344261841,1047310296,-1453463378,1315283441,-1976280236,-1631645517,-1120502451,-399428020,-392890964,-1873536494,962291733,963276076,530927493,1747606796,-1653101420,2051619564,-136871089,-1631443614,-82615788,869134572,-1599057089,-157712305,1646001014" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser.ast,com.github.javaparser.ast.nodeTypes"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.nodeTypes.modifiers"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-152129727,130225232,-406181563,1974983250,-1678971011,1852548232,-990516339,679074674" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.nodeTypes.modifiers,com.github.javaparser.ast.stmt,com.github.javaparser.ast.type,com.github.javaparser.ast.visitor,com.github.javaparser.metamodel,com.github.javaparser.printer,com.github.javaparser.resolution,com.github.javaparser.resolution.declarations,com.github.javaparser.resolution.types"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.expr"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="442545636,418659474,-1424990643,-861147010,-435909436,-1276413020,1112616374,-208949732,99374580,-565913106,1993833325,-174599813,921104019,-1837704438,198012600,-358001165,-1381219967,-1840861370,-556064132,-889387228,-582168218,-65973496,-170553154,1946542673,-756295276,1507011679,2420395,1904791360,481330859,1147997981,947118707,561697661,743836550,1687937619,1670678512,1645741929,1292722643,-612109201,-1308010588,372329555" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.expr,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.type,com.github.javaparser.ast.visitor,com.github.javaparser.metamodel,com.github.javaparser.resolution,com.github.javaparser.resolution.declarations"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.stmt"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-210585522,-1418571307,105995591,-658384918,-589344465,2051880723,583971477,873754398,1974390432,1654175026,986453009,-2108252507,-2065350437,1283728309,-964330184,-81180337,2622298,-521901698,1646155068,2001771292,747855790,618954755,20570989,120350329" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.expr,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.visitor,com.github.javaparser.metamodel,com.github.javaparser.resolution,com.github.javaparser.resolution.types,com.github.javaparser.utils"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.type"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="904439721,-1924752570,579059987,221469304,-261094013,169159879,1857778849,-1895049979,2622298,1458435439,1401453193,-1007410556,1900836577,-1907437810,-1469706156" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.comments,com.github.javaparser.ast.expr,com.github.javaparser.ast.modules,com.github.javaparser.ast.stmt,com.github.javaparser.ast.type"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.visitor"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-266669967,19208079,1142807894,245964471,-1793757032,-99092081,1763054515,247722359,1043742481,-1501863243,1837739378,1319943382,-1650437424,-410884859,-742525926,938169813,37802610" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.expr,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.visitor"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.validator"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-335389583,-531903088,-728416593,2032019730,1835506225,1638992720,1442479215,1245965710,1758218847,1561705342,1365191837,1168678332,972164827,1126478976,-689682735,408844704,1622449870,-309067166,-1767672280,894184242,1949907841,-167291228" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.github.javaparser.ast"/>
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.observer"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-977048984,-760006824,-2103602985,1997394275,2622298,399245400,979358226" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="bundle-version" value="3.13.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.imports"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="bundle-version" value="3.13.10" type="Version"/>
@@ -19,192 +203,100 @@
       <attribute name="bundle-version" value="3.13.10" type="Version"/>
       <attribute name="osgi.wiring.host" value="com.github.javaparser.javaparser-core"/>
     </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.comments,com.github.javaparser.ast.expr,com.github.javaparser.ast.modules,com.github.javaparser.ast.observer,com.github.javaparser.ast.stmt,com.github.javaparser.ast.type,com.github.javaparser.javadoc,com.github.javaparser.resolution"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser.ast.comments,com.github.javaparser.javadoc.description"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.javadoc"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.javadoc.description"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser.ast"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.metamodel"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.comments,com.github.javaparser.ast.expr,com.github.javaparser.ast.modules,com.github.javaparser.ast.stmt,com.github.javaparser.ast.type,com.github.javaparser.ast.visitor,com.github.javaparser.printer.concretesyntaxmodel"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.printer"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser.ast,com.github.javaparser.ast.observer,com.github.javaparser.printer"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.printer.concretesyntaxmodel"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser.ast,com.github.javaparser.ast.expr,com.github.javaparser.ast.type,com.github.javaparser.resolution.declarations,com.github.javaparser.resolution.types,com.github.javaparser.resolution.types.parametrization"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.resolution"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.expr,com.github.javaparser.resolution,com.github.javaparser.resolution.types"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.resolution.declarations"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser.resolution,com.github.javaparser.resolution.declarations,com.github.javaparser.resolution.types.parametrization,com.github.javaparser.utils"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.resolution.types"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser.resolution.declarations,com.github.javaparser.resolution.types"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.resolution.types.parametrization"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.expr,com.github.javaparser.ast.visitor"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.utils"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast.body,com.github.javaparser.ast.comments,com.github.javaparser.ast.expr,com.github.javaparser.ast.modules,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.observer,com.github.javaparser.ast.visitor,com.github.javaparser.metamodel,com.github.javaparser.printer,com.github.javaparser.resolution,com.github.javaparser.resolution.types"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.expr,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.nodeTypes.modifiers,com.github.javaparser.ast.stmt,com.github.javaparser.ast.type,com.github.javaparser.ast.visitor,com.github.javaparser.metamodel,com.github.javaparser.resolution,com.github.javaparser.resolution.declarations"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.body"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.visitor,com.github.javaparser.javadoc,com.github.javaparser.metamodel"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.comments"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.expr,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.nodeTypes.modifiers,com.github.javaparser.ast.visitor,com.github.javaparser.metamodel"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.modules"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.comments,com.github.javaparser.ast.expr,com.github.javaparser.ast.stmt,com.github.javaparser.ast.type,com.github.javaparser.javadoc,com.github.javaparser.metamodel"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.nodeTypes"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser.ast,com.github.javaparser.ast.nodeTypes"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.nodeTypes.modifiers"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.nodeTypes.modifiers,com.github.javaparser.ast.stmt,com.github.javaparser.ast.type,com.github.javaparser.ast.visitor,com.github.javaparser.metamodel,com.github.javaparser.printer,com.github.javaparser.resolution,com.github.javaparser.resolution.declarations,com.github.javaparser.resolution.types"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.expr"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.expr,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.type,com.github.javaparser.ast.visitor,com.github.javaparser.metamodel,com.github.javaparser.resolution,com.github.javaparser.resolution.declarations"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.stmt"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.expr,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.visitor,com.github.javaparser.metamodel,com.github.javaparser.resolution,com.github.javaparser.resolution.types,com.github.javaparser.utils"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.type"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser.ast,com.github.javaparser.ast.body,com.github.javaparser.ast.comments,com.github.javaparser.ast.expr,com.github.javaparser.ast.modules,com.github.javaparser.ast.stmt,com.github.javaparser.ast.type"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.visitor"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser,com.github.javaparser.ast,com.github.javaparser.ast.expr,com.github.javaparser.ast.nodeTypes,com.github.javaparser.ast.visitor"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.validator"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.github.javaparser.ast"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.observer"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.imports"/>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.github.javaparser.javaparser-core"/>
+      <attribute name="from" value="com.github.javaparser:javaparser-core:3.13.10"/>
+      <attribute name="version" value="3.13.10" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1161174" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/github/javaparser/javaparser-core/3.13.10/javaparser-core-3.13.10.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/github/javaparser/javaparser-core/3.13.10/javaparser-core-3.13.10.jar"/>
       <attribute name="osgi.content" value="366E5AE3B434CE1786304FA22B2D67DF46332C34E6CDC2FBB57E5DD21011285C"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.ast))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.ast)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.ast.body))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.ast.body)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.body"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.ast.comments))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.ast.comments)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.comments"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.ast.expr))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.ast.expr)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.expr"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.ast.modules))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.ast.modules)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.modules"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.ast.nodeTypes))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.ast.nodeTypes)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.nodeTypes"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.ast.nodeTypes.modifiers))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.ast.nodeTypes.modifiers)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.nodeTypes.modifiers"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.ast.observer))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.ast.observer)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.observer"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.ast.stmt))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.ast.stmt)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.stmt"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.ast.type))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.ast.type)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.type"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.ast.visitor))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.ast.visitor)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.ast.visitor"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.javadoc))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.javadoc)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.javadoc"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.javadoc.description))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.javadoc.description)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.javadoc.description"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.metamodel))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.metamodel)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.metamodel"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.printer))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.printer)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.printer"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.printer.concretesyntaxmodel))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.printer.concretesyntaxmodel)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.printer.concretesyntaxmodel"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.resolution))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.resolution)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.resolution"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.resolution.declarations))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.resolution.declarations)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.resolution.declarations"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.resolution.types))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.resolution.types)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.resolution.types"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.resolution.types.parametrization))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.resolution.types.parametrization)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.resolution.types.parametrization"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.github.javaparser.utils))"/>
+      <directive name="filter" value="(osgi.wiring.package=com.github.javaparser.utils)"/>
+      <attribute name="osgi.wiring.package" value="com.github.javaparser.utils"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>

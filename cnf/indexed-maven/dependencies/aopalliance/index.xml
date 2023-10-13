@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710895365">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191922911">
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="aopalliance:aopalliance:1.0"/>
+      <attribute name="name" value="aopalliance:aopalliance"/>
       <attribute name="from" value="aopalliance:aopalliance:1.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="4467" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="0ADDEC670FEDCD3F113C5C8091D783280D23F75E3ACB841B61A9CDB079376A08"/>
     </capability>
   </resource>

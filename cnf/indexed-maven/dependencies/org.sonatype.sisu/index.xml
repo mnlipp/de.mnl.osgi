@@ -1,33 +1,367 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637101901965">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923284">
   <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.sonatype.sisu:sisu-guice:pom:2.1.7"/>
-      <attribute name="from" value="org.sonatype.sisu:sisu-guice:2.1.7"/>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.sonatype.inject.plexus"/>
+      <attribute name="documentation" value="http://www.sonatype.com"/>
+      <attribute name="type" value="osgi.fragment"/>
+      <attribute name="version" value="1.4.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.configurator.expression"/>
       <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1681384298,-1046873445,-1332041641,867884723" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.configurator"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1506365872,1338890596,-452336330,381094066,-851798102,1308089266" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.repository"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1867856904,1145781292,-1047557338,185445604,1019239316" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.logging.console"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-49194585,-11635706" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.factory"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1253202351,518703469,-891601217" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.logging"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-635678401,921533554,2104927963,1793463436,-1638209667,-2013470288,-1396408355" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.composition"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="195185041" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.personality.plexus.lifecycle.phase"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1335028569,-799514436,1180744064,1281140271,1906508655,-260136593,-124946276,1289852879,-1189496293,-1724817546" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.configurator.converters"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="756739116,1445635123,233051498" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="799444957" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.repository.exception"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-720888894,529716568,-1656536056" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.configuration"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-669531256,-320188599,485606150" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.configurator.converters.special"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1761768631" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.configuration.xml"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1078554098" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.configurator.converters.lookup"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1142234906,1147964121" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.configurator.converters.basic"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1107373556,2048241272,1542660440,577480394,-1460276440,1654237568,-2142130830,1432658095,168449407,-205566108,914045636,1070457489,-883450268,-673039196,314785999,2135131247,1888260532,1298720017" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-2061439188,652040237,-708327673,-291638392,-1931993579,1801637238,-784258018,1676131566,-586584004,-1449747519,-25828567,1005040659,-1666937714,987991330,999311444,1713096283,306845104,145119407" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.configurator.converters.composite"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1086101351,820991106,-36593724,1875358562,-1345749929,-1727001203" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject.plexus"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.context"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1678783089,1968108416,1161910594,1953654862" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.sonatype.inject.plexus"/>
+      <attribute name="from" value="org.sonatype.sisu:sisu-inject-plexus:1.4.2"/>
+      <attribute name="version" value="1.4.2" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="javax.inject:javax.inject:1;aopalliance:aopalliance:1.0"/>
+      <attribute name="compile" value="org.sonatype.sisu:sisu-inject-bean:1.4.2;org.codehaus.plexus:plexus-classworlds:2.2.3;org.codehaus.plexus:plexus-component-annotations:1.5.4;org.codehaus.plexus:plexus-utils:2.0.5"/>
     </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="201716" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-inject-plexus/1.4.2/sisu-inject-plexus-1.4.2.jar"/>
+      <attribute name="osgi.content" value="A65E27AEFBE74102D73CD7E3C5C7637021D294A9E7F33132F3C782A76714D0A3"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.binder)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.binder"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.matcher)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.matcher"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.name)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.name"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.spi)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.spi"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.util)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.enterprise.inject)"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise.inject"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.inject)"/>
+      <attribute name="osgi.wiring.package" value="javax.inject"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=junit.framework)"/>
+      <attribute name="osgi.wiring.package" value="junit.framework"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.classworlds)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.classworlds"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.classworlds)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.classworlds"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.classworlds.realm)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.classworlds.realm"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.component.annotations)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.component.annotations"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.util)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.util.xml)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.xml"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.codehaus.plexus.util.xml.pull)"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.plexus.util.xml.pull"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.osgi.framework)"/>
+      <attribute name="osgi.wiring.package" value="org.osgi.framework"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.slf4j)"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.sonatype.inject)"/>
+      <attribute name="osgi.wiring.package" value="org.sonatype.inject"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(osgi.wiring.host=org.sonatype.inject)"/>
+      <directive name="cardinality" value="multiple"/>
+    </requirement>
   </resource>
   <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.sonatype.inject"/>
+      <attribute name="documentation" value="http://www.sonatype.com"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.4.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.sonatype.inject"/>
+      <attribute name="version" value="1.4.2" type="Version"/>
+      <attribute name="bnd.hashes" value="-56677412,-30222893,-836109549,-1841323135,-1842766326" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise.inject"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="81291338" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.inject"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-2100193871,75032345,-922850799,756027530,79711796,509450219" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.aopalliance.intercept"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1894621675,1738427402,-723997179,-562801488,1525432966,-63474076,-402946959" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.sonatype.inject"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.aopalliance.aop"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1956866328,-1086654793" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.sonatype.inject"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.sonatype.inject"/>
+    </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.sonatype.sisu:sisu-inject-bean:bundle:1.4.2"/>
+      <attribute name="name" value="org.sonatype.inject"/>
       <attribute name="from" value="org.sonatype.sisu:sisu-inject-bean:1.4.2"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="version" value="1.4.2" type="Version"/>
+    </capability>
+    <capability namespace="bnd.mainclass">
+      <attribute name="bnd.mainclass" value="org.sonatype.guice.bean.containers.Main"/>
+      <attribute name="version" value="1.4.2" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.sonatype.sisu:sisu-guice:2.1.7"/>
     </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="152989" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-inject-bean/1.4.2/sisu-inject-bean-1.4.2.jar"/>
+      <attribute name="osgi.content" value="FB3160E1E3A7852B441016DBCC97A34E3CF4EEB8CEB9E82EDF2729439858F080"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.binder)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.binder"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.matcher)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.matcher"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.name)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.name"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.spi)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.spi"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.util)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.enterprise.inject)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise.inject"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.inject)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="javax.inject"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.aopalliance.aop)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.aopalliance.aop"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.aopalliance.intercept)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.aopalliance.intercept"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.osgi.framework)"/>
+      <attribute name="osgi.wiring.package" value="org.osgi.framework"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.osgi.util.tracker)"/>
+      <attribute name="osgi.wiring.package" value="org.osgi.util.tracker"/>
+    </requirement>
   </resource>
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.sonatype.sisu:sisu-inject-plexus:bundle:1.4.2"/>
-      <attribute name="from" value="org.sonatype.sisu:sisu-inject-plexus:1.4.2"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="name" value="org.sonatype.sisu:sisu-guice:jar:noaop"/>
+      <attribute name="from" value="org.sonatype.sisu:sisu-guice:jar:noaop:2.1.7"/>
+      <attribute name="version" value="2.1.7" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.codehaus.plexus:plexus-component-annotations:1.5.4;org.sonatype.sisu:sisu-inject-bean:1.4.2;org.codehaus.plexus:plexus-utils:2.0.5;org.codehaus.plexus:plexus-classworlds:2.2.3"/>
+      <attribute name="compile" value="javax.inject:javax.inject:1;aopalliance:aopalliance:1.0"/>
     </capability>
   </resource>
 </repository>

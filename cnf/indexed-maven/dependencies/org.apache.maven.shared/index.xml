@@ -1,35 +1,36 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1639573925262">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923286">
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.maven.shared:maven-mapping:3.0.0"/>
-      <attribute name="from" value="org.apache.maven.shared:maven-mapping:3.0.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="name" value="org.apache.maven.shared:maven-shared-utils"/>
+      <attribute name="from" value="org.apache.maven.shared:maven-shared-utils:3.2.1"/>
+      <attribute name="version" value="3.2.1" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.apache.maven:maven-core:3.0;org.codehaus.plexus:plexus-interpolation:1.21"/>
+      <attribute name="compile" value="commons-io:commons-io:2.5"/>
+      <attribute name="provided" value="org.codehaus.plexus:plexus-container-default:1.7.1;com.google.code.findbugs:jsr305:3.0.0"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="10617" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-mapping/3.0.0/maven-mapping-3.0.0.jar"/>
+      <attribute name="size" value="166562" type="Long"/>
       <attribute name="mime" value="application/java-archive"/>
-      <attribute name="osgi.content" value="6E3FFCF4A4C3DDF82C61F169E8F75F6FFCCFF086F4F3C7A3065EBC548C85B97D"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-utils/3.2.1/maven-shared-utils-3.2.1.jar"/>
+      <attribute name="osgi.content" value="3BA9C619893C767DB0F9C3E826D5118B57C35229301BCD16D865A89CEC16A7E5"/>
     </capability>
   </resource>
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.maven.shared:maven-shared-utils:3.2.1"/>
-      <attribute name="from" value="org.apache.maven.shared:maven-shared-utils:3.2.1"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="name" value="org.apache.maven.shared:maven-mapping"/>
+      <attribute name="from" value="org.apache.maven.shared:maven-mapping:3.0.0"/>
+      <attribute name="version" value="3.0.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="commons-io:commons-io:2.5"/>
+      <attribute name="compile" value="org.codehaus.plexus:plexus-interpolation:1.21;org.apache.maven:maven-core:3.0"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="166562" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-utils/3.2.1/maven-shared-utils-3.2.1.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="3BA9C619893C767DB0F9C3E826D5118B57C35229301BCD16D865A89CEC16A7E5"/>
+      <attribute name="size" value="10617" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-mapping/3.0.0/maven-mapping-3.0.0.jar"/>
+      <attribute name="osgi.content" value="6E3FFCF4A4C3DDF82C61F169E8F75F6FFCCFF086F4F3C7A3065EBC548C85B97D"/>
     </capability>
   </resource>
 </repository>

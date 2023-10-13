@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1670672523108">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191922659">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
@@ -264,173 +264,273 @@
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="org.apache.servicemix.bundles.junit"/>
       <attribute name="documentation" value="http://www.apache.org/"/>
+      <attribute name="description" value="This OSGi bundle wraps junit 4.12 jar file."/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="4.12.0.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest.internal,org.hamcrest.core"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest"/>
       <attribute name="version" value="1.1.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-366206901,515220737,-1789452028,1600917233,2587372,1142656251,-269945248,-1637731231,-1106348678,1980707797,-56677412,-606507625,572770538,2071941500,-1789452014,-748688648,819664212,-1774319861,977265264,447226155" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest.internal"/>
       <attribute name="version" value="1.1.0" type="Version"/>
+      <attribute name="bnd.hashes" value="951756231,-271425669,-1979006851,-485793781" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.hamcrest.core"/>
       <attribute name="version" value="1.1.0" type="Version"/>
+      <attribute name="bnd.hashes" value="63352632,63424707,16449521,103005741,-756275534,-70059797,67339003,2378,869720556,-2135792586,-572150774,-1057350090,70921513,-2096394767,-2096265008,-1050048887,1313826160,-670536913,-1834239032,-500995647" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.experimental.theories"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.experimental.theories.suppliers"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1081640304,-324908932" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.validator"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1776561347,1677413063,-221839969,2074637530,300994456,-2010153135,1353854126,1766485923,-629273076,1245648668" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.experimental.theories.internal,org.junit.internal,org.junit.runners.model,org.junit.runners,org.junit"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.experimental.theories"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1626591206,-1115280051,1911227543,2097794863,1556322421,-155090849,-1445164091,1129438571,1712869402,1175837795,-1790953211" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.experimental.theories,org.junit.runners.model,org.junit"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.experimental.theories.internal"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1773927767,2146132548,-877724890,1739184628,1955640845,1804378399,1623739147" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runner,org.junit.internal,org.junit.runner.notification,org.junit.runners.model,junit.framework,org.junit.runner.manipulation,junit.extensions,org.junit"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.internal.runners"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="881821620,-614957066,1616785980,-1645308632,-1740986829,580777205,1327947234,1116104861,-2010153135,902865369,797745126,-759322573" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest,org.junit,org.junit.runners,org.junit.runner,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.internal"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1765623816,1894243170,-1776693242,-1235299672,1328272327,-1882172158,68521149,1145255724,8021389,1242252577,1721084755" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.internal,org.junit.runner,org.junit.runners.model,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.internal.runners.model"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1454264039,-413087691,-1940483341" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runner.manipulation,org.junit.runner,org.junit.runners,org.junit.runners.model,org.junit.validator,org.junit.internal,org.junit"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.experimental.categories"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="187238966,-1832239912,663618982,-1004985796,115155230,-1675954700,-1354798124,-1423355597,154023798,1943908609,2082669764" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runner"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.runner.manipulation"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2104342424,440778994,-43258269,1726869528,-1812726037" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runner,org.junit.runners.model,org.hamcrest,org.junit,org.junit.internal.matchers,org.junit.matchers,org.junit.internal,org.junit.internal.runners.statements"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.rules"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-778168372,-1009799291,2029437656,-1702954921,1323401792,-789261031,1270439837,-114266875,868802892,65203182,-1241791457,-639267347,-894992897,-1082327459,-1082189106,-1893733206,1423820029,1895597947,350741825,-1929739530" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runners.model,org.junit.runners,org.junit.runner.manipulation,org.junit.internal,junit.framework,org.junit.internal.runners,junit.runner,org.junit.runner.notification,org.junit.internal.requests,org.junit.internal.builders"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.runner"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-534518981,-70179564,-56677412,16800368,1411356802,-992160174,-1523370376,1640971754,594357215,-836168275,-1534621073,1410803924,1933926536,-1850559427,-1080215087,-1835938992" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.internal.runners,org.junit.runners.model,org.junit.internal.runners.model,org.junit.runner.notification,org.junit,org.junit.internal.runners.rules,org.junit.rules,org.junit.runner,org.junit.internal.runners.statements,org.junit.internal,org.junit.runners.parameterized,org.junit.runner.manipulation,org.junit.validator,org.junit.internal.builders"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.runners"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1852319008,1865535765,-2094529274,1143189191,-336538743,-1842766326,-663800695,420182169,1199931546,2117109294,80242392" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.internal.matchers,org.hamcrest.core,org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.matchers"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-254849905" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runner"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.runner.notification"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="578079082,808454359,1615908927,534533235,1855112497,-1785159616,-1758204277" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runner,org.junit.runner.notification,org.junit.internal,org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.experimental.results"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-555603672,-661253020,1201285342" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runner,org.junit.runners,org.junit.runners.model,org.junit.internal.runners,org.junit.internal.requests,junit.framework,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.experimental.max"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1592709848,-1786704125,169735657,1734290216,-200631632" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runner,org.junit.runners.model,org.junit,org.junit.runner.notification,junit.framework,org.junit.internal.runners,org.junit.runners"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.internal.builders"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1599646314,1993160707,-1994725751,1233537718,-31800618,1711009717,-736529420,-1136406654" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runners,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.experimental.runners"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1773432693" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.internal,org.hamcrest,org.junit.runners"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="63182268,-785196772,1970626406,1970641612,1894243170,1985948575,546896153,1994217588,-1821587585,-1436646883,-1466486495,1559176120,-2106529294,2558748,2433880,2603186" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runners.model,org.junit,org.junit.rules"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.internal.runners.rules"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1895597947,-553983354,-1264743177,1859860265,633285621,903040399,987982228,-1779486096,1534818338,1357504406,486244124,-1091259153" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest,org.junit.internal"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.internal.matchers"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="889669568,221196745,-956684181,447226155" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runner,org.junit.internal.builders,org.junit.runner.manipulation,org.junit.internal.runners"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.internal.requests"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1295654423,1195415511,-501447541" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runner,org.junit.runners.model,org.junit.runners"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.experimental"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1535860322" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.internal.runners.model,org.junit.internal,org.junit.internal.runners,org.junit.runner,org.junit"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.runners.model"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="705908467,-381544004,1253976600,1254191199,-1645308632,-413087691,1429986648,238969387,-1038889141,-81180337,-60223152,1308645559,797745126,1857788646" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runners,org.junit.runners.model,org.junit.runner.notification,org.junit.runner"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.runners.parameterized"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="668869573,-1108357755,1828103632,-2138835806" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.internal,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.junit.internal.runners.statements"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1879207978,2181950,1895597947,1159800695,-1145837340,-493806695,662775906,-82540567" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="junit.framework"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="junit.runner"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1442842573,-1708452787,2016261304" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="junit.framework,junit.runner"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="junit.textui"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-424092387,-601573758" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="junit.framework"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="junit.extensions"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1752363776,-1695940788,1996703657,812331243" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.runner.manipulation,org.junit.runner,org.junit.runner.notification,org.junit,org.junit.internal"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="junit.framework"/>
       <attribute name="version" value="4.12.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1970626406,1385503625,-1436646883,-1466486495,564949367,-1402953653,-2023648062,976622729,2603186,-1082654974,188695672,-2070147194,-616194193,812797286" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="bundle-version" value="4.12.0.1" type="Version"/>
@@ -441,9 +541,9 @@
       <attribute name="osgi.wiring.host" value="org.apache.servicemix.bundles.junit"/>
     </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.12_1"/>
+      <attribute name="name" value="org.apache.servicemix.bundles.junit"/>
       <attribute name="from" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.12_1"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="version" value="4.12.0.1" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
@@ -763,6 +863,632 @@
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/servicemix/bundles/org.apache.servicemix.bundles.junit/4.13.2_1/org.apache.servicemix.bundles.junit-4.13.2_1.jar"/>
       <attribute name="osgi.content" value="086CB52D0E23F442C0542253276951ECD4EC27E291EA60DD8A520E897C519FE3"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="documentation" value="http://www.apache.org/"/>
+      <attribute name="description" value="This OSGi bundle wraps junit 4.13.1 jar file."/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="4.13.1.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.core,org.hamcrest.internal"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-366206901,515220737,-1789452028,1600917233,2587372,1142656251,-269945248,-1637731231,-1106348678,1980707797,-56677412,-606507625,572770538,2071941500,-1789452014,-748688648,819664212,-1774319861,977265264,447226155" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.core"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="bnd.hashes" value="63352632,63424707,16449521,103005741,-756275534,-70059797,67339003,2378,869720556,-2135792586,-572150774,-1057350090,70921513,-2096394767,-2096265008,-1050048887,1313826160,-670536913,-1834239032,-500995647" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.internal"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="bnd.hashes" value="951756231,-271425669,-1979006851,-485793781" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,org.junit.function,org.junit.internal,org.junit.runners"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="63182268,-785196772,1970626406,1970641612,1894243170,1985948575,546896153,1994217588,-1821587585,-1436646883,-1466486495,1559176120,-2106529294,2558748,2433880,2603186,2093821350" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1535860322" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runner.manipulation,org.junit.runners,org.junit.runners.model,org.junit.validator"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.categories"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="187238966,-1832239912,663618982,-1004985796,115155230,-1675954700,-1354798124,-1423355597,154023798,1943908609,2082669764" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.max"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1592709848,-1786704125,169735657,1734290216,-200631632" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,org.junit.runner,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.results"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-555603672,-661253020,1201285342" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runners,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.runners"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1773432693" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.experimental.theories.internal,org.junit.internal,org.junit.runners,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.theories"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1626591206,-1115280051,1911227543,2097794863,1556322421,-155090849,-1445164091,1129438571,1712869402,1175837795,-1790953211" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.experimental.theories,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.theories.internal"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1773927767,2146132548,-877724890,1739184628,1955640845,1804378399,1623739147" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.experimental.theories"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.theories.suppliers"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1081640304,-324908932" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.function"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-27902311" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,org.junit.runner,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1765623816,1894243170,2017306763,-1776693242,-1235299672,1328272327,-1882172158,68521149,1145255724,8021389,1242252577,80204913,1721084755" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runner.notification,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.builders"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1599646314,1993160707,-1994725751,1233537718,-31800618,1711009717,-736529420,-1136406654" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.management"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="969292894,351255194,1976281910,10975108,-766251914,-1670820057,-2127840820,1573493880,-44896448,131629491,-645597531" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.matchers"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="889669568,221196745,-956684181,447226155" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runner.manipulation"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.requests"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1006849595,-1116674861,1295654423,1195415511,1462830744,691906043,-501447541" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="junit.framework,org.junit.runner,org.junit.runner.manipulation,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.runners"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="881821620,-614957066,1616785980,-1645308632,-1740986829,580777205,1327947234,1116104861,-2010153135,902865369,797745126,-759322573" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.internal,org.junit.runner,org.junit.runner.notification,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.runners.model"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1454264039,-413087691,-1940483341" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.runners.rules"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1895597947,-553983354,-1264743177,1859860265,633285621,903040399,987982228,-1779486096,1534818338,1357504406,486244124,-1091259153" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.runners.statements"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1879207978,2181950,1895597947,1159800695,-1145837340,-493806695,662775906,-82540567" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,org.hamcrest.core"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.matchers"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-254849905" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,org.junit,org.junit.function,org.junit.internal,org.junit.runner,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.rules"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-778168372,-1009799291,2029437656,-1702954921,1323401792,-789261031,1270439837,-114266875,868802892,65203182,-1241791457,-639267347,1895597947,-894992897,-1082327459,-1082189106,-1893733206,1423820029,350741825,-1929739530" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="junit.framework,org.junit.runner.manipulation,org.junit.runner.notification,org.junit.runners.model,org.junit.validator"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runner"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-534518981,-70179564,-56677412,16800368,1411356802,-992160174,-1523370376,1640971754,594357215,-836168275,1612477716,-618648418,-1534621073,1410803924,1933926536,-1850559427,-1080215087,-1835938992" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runner.manipulation"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-979691505,2104342424,440778994,1625216964,-43258269,1612768648,457543771,-1678783089,572770538,1298958836,1726869528,-1812726037" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runner.notification"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="578079082,808454359,1615908927,534533235,1855112497,-1785159616,-1758204277" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.internal.runners,org.junit.rules,org.junit.runner,org.junit.runner.manipulation,org.junit.runner.notification,org.junit.runners.model,org.junit.runners.parameterized"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runners"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1852319008,55812305,1865535765,-2094529274,1143189191,-773502927,-1053096246,558589998,-336538743,-1842766326,-683381657,-663800695,420182169,-912075143,1199931546,-112222538,2056331461,2117109294,80242392" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runners.model"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="705908467,-381544004,1253976600,1254191199,-1645308632,-1809430695,95383533,-413087691,1429986648,238969387,-1038889141,-81180337,-60223152,1308645559,797745126,1857788646" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runner.notification,org.junit.runners,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runners.parameterized"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="938158225,335895319,-2028759056,668869573,-1108357755,1828103632,-2138835806" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.validator"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1776561347,1677413063,-221839969,2074637530,300994456,-2010153135,1353854126,1766485923,-629273076,1245648668" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="junit.framework"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="junit.extensions"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1752363776,-1695940788,1996703657,812331243" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runner.manipulation,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="junit.framework"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1970626406,1385503625,-1436646883,-1466486495,564949367,-1402953653,-2023648062,976622729,2603186,-1082654974,188695672,-2070147194,-616194193,812797286" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="junit.framework"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="junit.runner"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1442842573,-1708452787,2016261304" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="junit.framework,junit.runner"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="junit.textui"/>
+      <attribute name="version" value="4.13.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-424092387,-601573758" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.servicemix.bundles.junit"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="4.13.1.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.servicemix.bundles.junit"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="from" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.13.1_1"/>
+      <attribute name="version" value="4.13.1.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="654756" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/servicemix/bundles/org.apache.servicemix.bundles.junit/4.13.1_1/org.apache.servicemix.bundles.junit-4.13.1_1.jar"/>
+      <attribute name="osgi.content" value="C364B4777E88268633C404EBBEF3F80AC73B87726F05559BFDDCA5EC319B90AF"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="documentation" value="http://www.apache.org/"/>
+      <attribute name="description" value="This OSGi bundle wraps junit 4.13 jar file."/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="4.13.0.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest.core,org.hamcrest.internal"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-366206901,515220737,-1789452028,1600917233,2587372,1142656251,-269945248,-1637731231,-1106348678,1980707797,-56677412,-606507625,572770538,2071941500,-1789452014,-748688648,819664212,-1774319861,977265264,447226155" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.core"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="bnd.hashes" value="63352632,63424707,16449521,103005741,-756275534,-70059797,67339003,2378,869720556,-2135792586,-572150774,-1057350090,70921513,-2096394767,-2096265008,-1050048887,1313826160,-670536913,-1834239032,-500995647" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.hamcrest.internal"/>
+      <attribute name="version" value="1.3.0" type="Version"/>
+      <attribute name="bnd.hashes" value="951756231,-271425669,-1979006851,-485793781" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,org.junit.function,org.junit.internal,org.junit.runners"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="63182268,-785196772,1970626406,1970641612,1894243170,1985948575,546896153,1994217588,-1821587585,-1436646883,-1466486495,1559176120,-2106529294,2558748,2433880,2603186,2093821350" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1535860322" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runner.manipulation,org.junit.runners,org.junit.runners.model,org.junit.validator"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.categories"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="187238966,-1832239912,663618982,-1004985796,115155230,-1675954700,-1354798124,-1423355597,154023798,1943908609,2082669764" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.max"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1592709848,-1786704125,169735657,1734290216,-200631632" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,org.junit.runner,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.results"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-555603672,-661253020,1201285342" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runners,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.runners"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1773432693" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.experimental.theories.internal,org.junit.internal,org.junit.runners,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.theories"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1626591206,-1115280051,1911227543,2097794863,1556322421,-155090849,-1445164091,1129438571,1712869402,1175837795,-1790953211" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.experimental.theories,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.theories.internal"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1773927767,2146132548,-877724890,1739184628,1955640845,1804378399,1623739147" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.experimental.theories"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.experimental.theories.suppliers"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1081640304,-324908932" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.function"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-27902311" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,org.junit.runner,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1765623816,1894243170,2017306763,-1776693242,-1235299672,1328272327,-1882172158,68521149,1145255724,8021389,1242252577,80204913,1721084755" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runner.notification,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.builders"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1599646314,1993160707,-1994725751,1233537718,-31800618,1711009717,-736529420,-1136406654" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.management"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="969292894,351255194,1976281910,10975108,-766251914,-1670820057,-2127840820,1573493880,-44896448,131629491,-645597531" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.matchers"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="889669568,221196745,-956684181,447226155" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runner.manipulation"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.requests"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1006849595,-1116674861,1295654423,1195415511,1462830744,691906043,-501447541" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="junit.framework,org.junit.runner,org.junit.runner.manipulation,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.runners"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="881821620,-614957066,1616785980,-1645308632,-1740986829,580777205,1327947234,1116104861,-2010153135,902865369,797745126,-759322573" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.internal,org.junit.runner,org.junit.runner.notification,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.runners.model"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1454264039,-413087691,-1940483341" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.runners.rules"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1895597947,-553983354,-1264743177,1859860265,633285621,903040399,987982228,-1779486096,1534818338,1357504406,486244124,-1091259153" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.internal.runners.statements"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1879207978,2181950,1895597947,1159800695,-1145837340,-493806695,662775906,-82540567" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,org.hamcrest.core"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.matchers"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-254849905" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.hamcrest,org.junit,org.junit.function,org.junit.internal,org.junit.runner,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.rules"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-778168372,-1009799291,2029437656,-1702954921,1323401792,-789261031,1270439837,-114266875,868802892,65203182,-1241791457,-639267347,1895597947,-894992897,-1082327459,-1082189106,-1893733206,1423820029,350741825,-1929739530" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="junit.framework,org.junit.runner.manipulation,org.junit.runner.notification,org.junit.runners.model,org.junit.validator"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runner"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-534518981,-70179564,-56677412,16800368,1411356802,-992160174,-1523370376,1640971754,594357215,-836168275,1612477716,-618648418,-1534621073,1410803924,1933926536,-1850559427,-1080215087,-1835938992" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runner.manipulation"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-979691505,2104342424,440778994,1625216964,-43258269,1612768648,457543771,-1678783089,572770538,1298958836,1726869528,-1812726037" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runner.notification"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="578079082,808454359,1615908927,534533235,1855112497,-1785159616,-1758204277" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.internal.runners,org.junit.rules,org.junit.runner,org.junit.runner.manipulation,org.junit.runner.notification,org.junit.runners.model,org.junit.runners.parameterized"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runners"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1852319008,55812305,1865535765,-2094529274,1143189191,-773502927,-1053096246,558589998,-336538743,-1842766326,-683381657,-663800695,420182169,-912075143,1199931546,-112222538,2056331461,2117109294,80242392" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runners.model"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="705908467,-381544004,1253976600,1254191199,-1645308632,-1809430695,95383533,-413087691,1429986648,238969387,-1038889141,-81180337,-60223152,1308645559,797745126,1857788646" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runner.notification,org.junit.runners,org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.runners.parameterized"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="938158225,335895319,-2028759056,668869573,-1108357755,1828103632,-2138835806" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runners.model"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.junit.validator"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1776561347,1677413063,-221839969,2074637530,300994456,-2010153135,1353854126,1766485923,-629273076,1245648668" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="junit.framework"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="junit.extensions"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1752363776,-1695940788,1996703657,812331243" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.junit.runner,org.junit.runner.manipulation,org.junit.runner.notification"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="junit.framework"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1970626406,1385503625,-1436646883,-1466486495,564949367,-1402953653,-2023648062,976622729,2603186,-1082654974,188695672,-2070147194,-616194193,812797286" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="junit.framework"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="junit.runner"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1442842573,-1708452787,2016261304" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="junit.framework,junit.runner"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="junit.textui"/>
+      <attribute name="version" value="4.13.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-424092387,-601573758" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.servicemix.bundles.junit"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="4.13.0.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.servicemix.bundles.junit"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.servicemix.bundles.junit"/>
+      <attribute name="from" value="org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.13_1"/>
+      <attribute name="version" value="4.13.0.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.hamcrest:hamcrest-core:1.3"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="653031" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/servicemix/bundles/org.apache.servicemix.bundles.junit/4.13_1/org.apache.servicemix.bundles.junit-4.13_1.jar"/>
+      <attribute name="osgi.content" value="71AB39BFC0662522DCBC10076B7CCE2D6802555CF6B7B54D490AC80A30E4C22F"/>
     </capability>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>

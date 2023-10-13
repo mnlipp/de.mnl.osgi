@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923463">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="log4j:log4j"/>
+      <attribute name="from" value="log4j:log4j:1.2.12"/>
+      <attribute name="version" value="1.2.12" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="358085" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/log4j/log4j/1.2.12/log4j-1.2.12.jar"/>
+      <attribute name="osgi.content" value="DC67378CF428C06408E7959E83BDC1518DD22CCD313E7C28A986612D65C276C7"/>
+    </capability>
+  </resource>
+</repository>

@@ -1,266 +1,151 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961480">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697143893831">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.opensource.org/licenses/bsd-license.php"/>
       <attribute name="osgi.identity" value="stax2-api"/>
+      <attribute name="documentation" value="http://github.com/FasterXML/stax2-api"/>
+      <attribute name="description" value="tax2 API is an extension to basic Stax 1.0 API that adds significant new functionality, such as full-featured bi-direction validation interface and high-performance Typed Access API."/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="3.0.1" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="3.0.1" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="stax2-api"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="3.0.1" type="Version"/>
-      <attribute name="osgi.wiring.host" value="stax2-api"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="javax.xml.namespace,javax.xml.stream"/>
-      <attribute name="version" value="3.0.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.validation"/>
+      <directive name="uses" value="javax.xml.namespace,javax.xml.stream,org.codehaus.stax2.typed,org.codehaus.stax2.validation"/>
+      <attribute name="bundle-symbolic-name" value="stax2-api"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-650443446,-1604327294,105703971,576459116,195266459,-1926217632,1443563834,614510214,-597941526,724753784,1247348680" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.codehaus.stax2.validation,org.codehaus.stax2,javax.xml.namespace,org.w3c.dom,org.codehaus.stax2.ri.typed,javax.xml.transform.dom,org.codehaus.stax2.typed,org.codehaus.stax2.ri,javax.xml.stream"/>
-      <attribute name="version" value="3.0.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.ri.dom"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.codehaus.stax2.validation,org.codehaus.stax2,org.codehaus.stax2.typed,javax.xml.namespace,javax.xml.stream,javax.xml.stream.util"/>
-      <attribute name="version" value="3.0.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.util"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="javax.xml.stream.events,org.codehaus.stax2,javax.xml.stream"/>
-      <attribute name="version" value="3.0.1" type="Version"/>
+      <directive name="uses" value="javax.xml.stream,javax.xml.stream.events,org.codehaus.stax2"/>
+      <attribute name="bundle-symbolic-name" value="stax2-api"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.stax2.evt"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="bnd.hashes" value="2108670,1155017530,1728514991,2068763243" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="javax.xml.transform"/>
-      <attribute name="version" value="3.0.1" type="Version"/>
+      <attribute name="bundle-symbolic-name" value="stax2-api"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.stax2.io"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-454960999,1383962096,1421882862,994331026,1169242756,1776692499,1814613265,-1670517268,-1632596502,-1114466953,-1076546187,-315325082,-2092236080" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.stax2,org.codehaus.stax2.validation"/>
+      <attribute name="bundle-symbolic-name" value="stax2-api"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.osgi"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1124723659,597877056,-2116966873" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.namespace,javax.xml.stream,javax.xml.stream.events,javax.xml.stream.util,org.codehaus.stax2,org.codehaus.stax2.evt,org.codehaus.stax2.ri.typed,org.codehaus.stax2.typed,org.codehaus.stax2.util,org.codehaus.stax2.validation"/>
+      <attribute name="bundle-symbolic-name" value="stax2-api"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.ri"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1007123269,1421060897,872343929,-1831909334,1335952291,704051027,-717152268,472714688,587623026,29533661,-329901295,-935769107,-14464036,458725570,-602367603" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.namespace,javax.xml.stream,javax.xml.transform.dom,org.codehaus.stax2,org.codehaus.stax2.ri,org.codehaus.stax2.ri.typed,org.codehaus.stax2.typed,org.codehaus.stax2.validation,org.w3c.dom"/>
+      <attribute name="bundle-symbolic-name" value="stax2-api"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.ri.dom"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1148720737,1304125969" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.namespace,javax.xml.stream,javax.xml.stream.events,javax.xml.stream.util,org.codehaus.stax2,org.codehaus.stax2.evt"/>
+      <attribute name="bundle-symbolic-name" value="stax2-api"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.ri.evt"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="bnd.hashes" value="2013842622,622448617,-1213415312,-428368805,1124674694,-2011224700,-183433447,-674003933,-1596063182,271412798,477612255,-2031276350,-95465628,-1337655075,-1685726048,-1640984405,-888606996,365656652" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.namespace,org.codehaus.stax2.ri,org.codehaus.stax2.typed"/>
+      <attribute name="bundle-symbolic-name" value="stax2-api"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.ri.typed"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-653259716,1230739526,-1911355342,1601326859,1630372189,2021055300,-717416132,-1118755044,-411709485,-1417605867,578717244,-1990903021,-407685113,-704293272,-781688550,797543797,-381727418,44085351,1608917512,953803304,385471447,1433229475,258205869,1723883284,-845736981,737480927,440872768,363477490,1942709837,1189251391,-1540883744,997174128,-715397205,1431387395,966560614,1534253055" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="javax.xml.namespace,javax.xml.stream"/>
-      <attribute name="version" value="3.0.1" type="Version"/>
+      <attribute name="bundle-symbolic-name" value="stax2-api"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.codehaus.stax2.typed"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="bnd.hashes" value="2102359062,748621597,-1098397419,989003517,-300232318,2054036592,-2085525472" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.codehaus.stax2.validation,org.codehaus.stax2"/>
-      <attribute name="version" value="3.0.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.osgi"/>
+      <directive name="uses" value="javax.xml.namespace,javax.xml.stream,javax.xml.stream.util,org.codehaus.stax2,org.codehaus.stax2.typed,org.codehaus.stax2.validation"/>
+      <attribute name="bundle-symbolic-name" value="stax2-api"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.util"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="bnd.hashes" value="-1063089484,-379493116,-1783434536" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.codehaus.stax2.validation,org.codehaus.stax2.typed,javax.xml.namespace,javax.xml.stream"/>
-      <attribute name="version" value="3.0.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.codehaus.stax2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="javax.xml.stream.events,org.codehaus.stax2.evt,org.codehaus.stax2,org.codehaus.stax2.ri,javax.xml.namespace,javax.xml.stream.util,javax.xml.stream"/>
-      <attribute name="version" value="3.0.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.ri.evt"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.codehaus.stax2.validation,javax.xml.stream.events,org.codehaus.stax2.evt,org.codehaus.stax2.util,org.codehaus.stax2,javax.xml.namespace,org.codehaus.stax2.ri.typed,org.codehaus.stax2.typed,org.codehaus.stax2.ri.evt,javax.xml.stream,javax.xml.stream.util"/>
-      <attribute name="version" value="3.0.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.ri"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.codehaus.stax2.typed,javax.xml.namespace,org.codehaus.stax2.ri"/>
-      <attribute name="version" value="3.0.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.ri.typed"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="179977" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/woodstox/stax2-api/3.0.1/stax2-api-3.0.1.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="68ED11B72B138356063B8BAF8551B9D67F46717B3C0001890949195C5B153199"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.woodstox:stax2-api:3.0.1"/>
-      <attribute name="from" value="org.codehaus.woodstox:stax2-api:3.0.1"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="stax:stax-api:1.0.1"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.namespace))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream.events))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream.util))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform.dom))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.evt)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.io)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.osgi)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.ri)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.ri.dom)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.ri.evt)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.ri.typed)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.typed)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.util)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.validation)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-      <attribute name="osgi.identity" value="woodstox-core-asl"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="4.0.7" type="Version"/>
+      <directive name="uses" value="javax.xml.namespace,javax.xml.stream"/>
+      <attribute name="bundle-symbolic-name" value="stax2-api"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.validation"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="bnd.hashes" value="1571794277,-991112882,317168361,1702492886,572996772,270866732,729516639,-243285841,-74566255,531258937,687103259" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="4.0.7" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="woodstox-core-asl"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="stax2-api"/>
     </capability>
     <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="4.0.7" type="Version"/>
-      <attribute name="osgi.wiring.host" value="woodstox-core-asl"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.xml.sax,javax.xml.namespace,javax.xml.stream,javax.xml.parsers,org.codehaus.stax2.validation,com.ctc.wstx.api"/>
-      <attribute name="version" value="4.0.7" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.ctc.wstx.msv"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.codehaus.stax2,com.ctc.wstx.msv,org.osgi.framework,com.ctc.wstx.api,org.codehaus.stax2.validation,org.codehaus.stax2.osgi,com.ctc.wstx.stax"/>
-      <attribute name="version" value="4.0.7" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.ctc.wstx.osgi"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.codehaus.stax2,org.codehaus.stax2.io,org.codehaus.stax2.validation,javax.xml.stream"/>
-      <attribute name="version" value="4.0.7" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.ctc.wstx.api"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="javax.xml.transform.dom,org.codehaus.stax2.io,javax.xml.namespace,org.xml.sax,javax.xml.stream,org.codehaus.stax2.ri.evt,javax.xml.transform.sax,org.codehaus.stax2,org.codehaus.stax2.ri,javax.xml.stream.events,javax.xml.stream.util,javax.xml.transform,javax.xml.transform.stream,com.ctc.wstx.api"/>
-      <attribute name="version" value="4.0.7" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.ctc.wstx.stax"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.codehaus.stax2,javax.xml.parsers,org.xml.sax,com.ctc.wstx.stax,javax.xml.stream,org.xml.sax.ext,com.ctc.wstx.api,org.xml.sax.helpers"/>
-      <attribute name="version" value="4.0.7" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.ctc.wstx.sax"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="482350" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/woodstox/woodstox-core-asl/4.0.7/woodstox-core-asl-4.0.7.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="8D2BD6DCC3BFCF1477AB1FCFC1E3FD3D7799D86555EDC8FFCE312718342DF8A9"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="stax2-api"/>
     </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.codehaus.woodstox:woodstox-core-asl:4.0.7"/>
-      <attribute name="from" value="org.codehaus.woodstox:woodstox-core-asl:4.0.7"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="name" value="stax2-api"/>
+      <attribute name="from" value="org.codehaus.woodstox:stax2-api:4.2.1"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
     </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.codehaus.woodstox:stax2-api:3.0.1;stax:stax-api:1.0.1"/>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="195909" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/codehaus/woodstox/stax2-api/4.2.1/stax2-api-4.2.1.jar"/>
+      <attribute name="osgi.content" value="678567E48B51A42C65C699F266539AD3D676D4B1A5B0AD7D89ECE8B9D5772579"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.namespace))"/>
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.namespace)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.namespace"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.parsers))"/>
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.stream)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.stream"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream))"/>
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.stream.events)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.stream.events"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream.events))"/>
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.stream.util)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.stream.util"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream.util))"/>
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform))"/>
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.dom)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform.dom"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform.dom))"/>
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+      <attribute name="osgi.wiring.package" value="org.w3c.dom"/>
     </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform.sax))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform.stream))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.io)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.osgi)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.ri)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.ri.dom)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.ri.evt)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.ri.typed)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.typed)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.validation)(version&gt;=3.0.1))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax.ext))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax.helpers))"/>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
     </requirement>
   </resource>
 </repository>

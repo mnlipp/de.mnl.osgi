@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1639573925260">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923127">
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.easymock:easymock:2.4"/>
+      <attribute name="name" value="org.easymock:easymock"/>
       <attribute name="from" value="org.easymock:easymock:2.4"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="version" value="2.4.0" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="81133" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/easymock/easymock/2.4/easymock-2.4.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="7C48D8BA6E070409F65A45AFC4904824B7702598AB0BEC273CDD0CE6F4C2C64F"/>
     </capability>
   </resource>

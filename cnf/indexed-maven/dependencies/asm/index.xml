@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923552">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="asm:asm"/>
+      <attribute name="from" value="asm:asm:3.1"/>
+      <attribute name="version" value="3.1.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="43033" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/asm/asm/3.1/asm-3.1.jar"/>
+      <attribute name="osgi.content" value="333FF5369043975B7E031B8B27206937441854738E038C1F47F98D072A20437A"/>
+    </capability>
+  </resource>
+</repository>

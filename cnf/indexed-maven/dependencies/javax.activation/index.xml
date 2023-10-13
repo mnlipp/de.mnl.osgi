@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1696261920961">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="https://github.com/javaee/activation/blob/master/LICENSE.txt"/>
+      <attribute name="osgi.identity" value="javax.activation-api"/>
+      <attribute name="documentation" value="http://www.oracle.com"/>
+      <attribute name="description" value="JavaBeans Activation Framework API jar"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.2.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.activation.registries"/>
+      <attribute name="bundle-symbolic-name" value="javax.activation-api"/>
+      <attribute name="bundle-version" value="1.2.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.activation"/>
+      <attribute name="version" value="1.2.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1359889218,64058019,206291577,-1517362639,838515274,202913531,608817551,879465504,-2126306139,-1029031803,1462319168,1446596385,-1581448570,-796606708,-1327476306,-2052561703,-1641495510,1002652865,-1475195750,-1131237297,-1627952364,-896685802" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.2.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="javax.activation-api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.2.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="javax.activation-api"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="javax.activation-api"/>
+      <attribute name="from" value="javax.activation:javax.activation-api:1.2.0"/>
+      <attribute name="version" value="1.2.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="56674" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0.jar"/>
+      <attribute name="osgi.content" value="43FDEF0B5B6CEB31B0424B208B930C74AB58FAC2CEEB7B3F6FD3AEB8B5CA4393"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.sun.activation.registries)"/>
+      <attribute name="osgi.wiring.package" value="com.sun.activation.registries"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.activation)(version&gt;=1.2.0))"/>
+      <attribute name="osgi.wiring.package" value="javax.activation"/>
+    </requirement>
+  </resource>
+</repository>

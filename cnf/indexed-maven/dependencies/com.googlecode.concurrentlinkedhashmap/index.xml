@@ -1,16 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1555710961428">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923169">
   <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2"/>
-      <attribute name="from" value="com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
       <attribute name="osgi.identity" value="com.googlecode.concurrentlinkedhashmap.lru"/>
+      <attribute name="description" value="A high performance version of java.util.LinkedHashMap for use as a software cache."/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="1.4.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.googlecode.concurrentlinkedhashmap.lru"/>
+      <attribute name="bundle-version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.googlecode.concurrentlinkedhashmap"/>
+      <attribute name="version" value="1.4.2" type="Version"/>
+      <attribute name="bnd.hashes" value="1955883606,-322410881,-284145283,64151448,-690967933,-266343674,-187851426,-1349885417,644713317,917115616,-1210103435,-1811271829,1863744191,71007,-41730197,1588126669,58468072,-498787490,-1647401562,219533462,2433570,-1415581631,1813182847,374183660,383685291,380338005,-1094333482,-1334945842,-656591085,-1021867744,600972393,1450638048,1236675807,558850316,-240597241,220598393,516063654,-137917068,1895597947,848266104,-912363315,1843233770,-2029030736,-2050817629,1270846321,935698558,1697526286,-1739945662,1328567930,-1217030644,-829480834,-1964709257,-1682299629,-2018799047,1193242249,334612455,-1399872759,286537688,1928865419,1628800444,-1561849289,-1084601205,-954705331,1902604423,1088354786,1220435134,-446382454" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="bundle-version" value="1.4.2" type="Version"/>
@@ -20,20 +23,24 @@
       <attribute name="bundle-version" value="1.4.2" type="Version"/>
       <attribute name="osgi.wiring.host" value="com.googlecode.concurrentlinkedhashmap.lru"/>
     </capability>
-    <capability namespace="osgi.wiring.package">
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.googlecode.concurrentlinkedhashmap.lru"/>
+      <attribute name="from" value="com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2"/>
       <attribute name="version" value="1.4.2" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.googlecode.concurrentlinkedhashmap"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="provided" value="com.google.code.findbugs:jsr305:2.0.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="116565" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/googlecode/concurrentlinkedhashmap/concurrentlinkedhashmap-lru/1.4.2/concurrentlinkedhashmap-lru-1.4.2.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/googlecode/concurrentlinkedhashmap/concurrentlinkedhashmap-lru/1.4.2/concurrentlinkedhashmap-lru-1.4.2.jar"/>
       <attribute name="osgi.content" value="56A95FB5B54C661A7EFDE073B8792F63A8C317E389102673D8D976C7C8F36945"/>
     </capability>
-    <capability namespace="maven.dependencies.info"/>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=sun.misc))"/>
+      <directive name="filter" value="(osgi.wiring.package=sun.misc)"/>
       <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="sun.misc"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>

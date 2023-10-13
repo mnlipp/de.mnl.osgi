@@ -1,0 +1,418 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1696261920965">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="documentation" value="https://github.com/FasterXML/woodstox"/>
+      <attribute name="description" value="Woodstox is a high-performance XML processor that implements Stax (JSR-173),SAX2 and Stax2 APIs"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.ctc.wstx.cfg,com.ctc.wstx.dtd,com.ctc.wstx.ent,com.ctc.wstx.util,javax.xml.stream,org.codehaus.stax2.io,org.codehaus.stax2.validation"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.api"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-180055763,-1517474416,1218710457,-1113945285,1514597062,-486682695,219312317,-1296941563,-2049184492,1331299765,1004524627,-1117115907,-1747811404" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.stream"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.cfg"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="44004728,-1587943845,1711016068,974773898,-64232377" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.namespace"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.compat"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-2137064498,439924240" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.ctc.wstx.api,com.ctc.wstx.sw,javax.xml.namespace,javax.xml.stream,javax.xml.transform.dom,org.codehaus.stax2.ri.dom,org.w3c.dom"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.dom"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-520668999,-272819231,-117413999" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.ctc.wstx.api,com.ctc.wstx.ent,com.ctc.wstx.io,com.ctc.wstx.sr,com.ctc.wstx.util,javax.xml.stream,javax.xml.stream.events,org.codehaus.stax2.validation"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.dtd"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="894184242,-339007661,1082896872,-1697740715,1278698420,-2106133550,-39144941,1106668360,37750474,568466088,1537162534,-1942233784,-1620380570,1941761050,65369583,124400768,1225452597,-621018272,769901111,-1858212450,-1536603929,827373269,427373814,-1620271050,1042167536,-16200706,1975916527,539329351,1481570230,963927263,-269674331,-1302481464,2000631306,-229660341,1813099318,-6848341,1447955337,1155100102,104550933,-1671987713,-160544809,-1338976547,368126011,2078179536" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.ctc.wstx.api,com.ctc.wstx.evt,com.ctc.wstx.io,javax.xml.stream"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.ent"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="509970253,475307332,1587189906,-1677714381,-1937674118" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.ctc.wstx.dtd,com.ctc.wstx.sr,com.ctc.wstx.util,javax.xml.namespace,javax.xml.stream,javax.xml.stream.events,javax.xml.stream.util,org.codehaus.stax2,org.codehaus.stax2.ri.evt"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.evt"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1656524235,770661085,-107593454,271412798,771745580,2659837,1950684672,1474513233,-1586352575,370387293" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.stream,org.codehaus.stax2.validation"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.exc"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-849795757,1294235055,1450833737,1246688411,1870759342,2081205791,2140686888,1301253430" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.ctc.wstx.api,com.ctc.wstx.exc,com.ctc.wstx.util,javax.xml.stream,org.codehaus.stax2"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.io"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1057350828,1047840980,1132726036,1270344126,-584620865,-1583326594,1780205948,-630488756,541232463,237766558,-147194046,-1690914631,-1000593179,-1235850449,-1192861204,-1091469198,-838655266,1643922351,2040729546,-636695036,-1153656183,1315994548,1471399780,1519086580,354477823,-4261403" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.ctc.wstx.api,com.sun.msv.grammar,com.sun.msv.grammar.trex,com.sun.msv.grammar.xmlschema,com.sun.msv.reader,com.sun.msv.verifier,com.sun.msv.verifier.regexp,javax.xml.parsers,javax.xml.stream,javax.xml.transform,org.codehaus.stax2.validation,org.relaxng.datatype,org.xml.sax"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.msv"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1317682514,832047671,-1983188808,637739257,892198698,1633576576,-133112987,-1897201449,-2136650360,2013114978" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.codehaus.stax2,org.codehaus.stax2.osgi,org.codehaus.stax2.validation,org.osgi.framework"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.osgi"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1496834607,2132674298,68020,-1539817431,-2136650360,945844193,327043603" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.ctc.wstx.api,com.ctc.wstx.dtd,com.ctc.wstx.sr,com.ctc.wstx.stax,javax.xml.parsers,javax.xml.stream,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.sax"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1217242164,217716671,-2128020342,1819202332,-344134367,1380377064,-1393332727,-167563583" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.ctc.wstx.api,com.ctc.wstx.cfg,com.ctc.wstx.dtd,com.ctc.wstx.ent,com.ctc.wstx.exc,com.ctc.wstx.io,com.ctc.wstx.sw,com.ctc.wstx.util,javax.xml.namespace,javax.xml.stream,javax.xml.stream.events,org.codehaus.stax2,org.codehaus.stax2.ri.typed,org.codehaus.stax2.typed,org.codehaus.stax2.validation,org.xml.sax,org.xml.sax.ext"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.sr"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2017053308,-428724879,875923345,655009895,1712384563,1594909972,1816284,1909472694,-1022442602,-384338259,-1473045047,1332094275,-1111949762,1598919117,712005750" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.ctc.wstx.api,com.ctc.wstx.cfg,com.ctc.wstx.dtd,com.ctc.wstx.io,com.ctc.wstx.sr,com.ctc.wstx.sw,com.ctc.wstx.util,javax.xml.namespace,javax.xml.stream,javax.xml.stream.events,javax.xml.stream.util,javax.xml.transform,org.codehaus.stax2,org.codehaus.stax2.ri"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.stax"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="719778736,797890688,-1015500247" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.ctc.wstx.api,com.ctc.wstx.cfg,com.ctc.wstx.sr,com.ctc.wstx.util,javax.xml.namespace,javax.xml.stream,javax.xml.stream.events,org.codehaus.stax2,org.codehaus.stax2.ri,org.codehaus.stax2.ri.typed,org.codehaus.stax2.typed,org.codehaus.stax2.validation"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.sw"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-633300167,-1212878903,2135305636,365292040,248263479,685829400,-1343459707,-1904766964,-587122963,-1081641750,618449980,-1491713527,1754324349,510972746,2037531499,-1871527290,-663690775" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.ctc.wstx.api,com.ctc.wstx.dtd,com.ctc.wstx.sr,javax.xml.namespace,javax.xml.stream,javax.xml.stream.events,org.codehaus.stax2.ri.typed,org.codehaus.stax2.typed,org.codehaus.stax2.validation,org.xml.sax,org.xml.sax.ext"/>
+      <attribute name="bundle-symbolic-name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.util"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+      <attribute name="bnd.hashes" value="919690072,515771449,1383234610,2212,1853739756,-1487620864,1745451287,-429684539,1421060897,1074308305,-440939664,1121969404,1229285313,222590160,420425683,316764372,2000631306,1327447286,1292891385,-1931412157,-935769107,1058876814,548826609,1895597947,-814050992,-1105379112,-140840410" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.fasterxml.woodstox.woodstox-core"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="6.5.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.fasterxml.woodstox.woodstox-core"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.fasterxml.woodstox.woodstox-core"/>
+      <attribute name="from" value="com.fasterxml.woodstox:woodstox-core:6.5.0"/>
+      <attribute name="version" value="6.5.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.codehaus.woodstox:stax2-api:4.2.1"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="1585859" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/fasterxml/woodstox/woodstox-core/6.5.0/woodstox-core-6.5.0.jar"/>
+      <attribute name="osgi.content" value="21AD5F842F5332E0E2B56631178DF45A8D205921D8370E2D5F557DC7F76CF4E2"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <directive name="effective" value="active"/>
+      <attribute name="objectClass" value="javax.xml.stream.XMLEventFactory" type="List&lt;String&gt;"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <directive name="effective" value="active"/>
+      <attribute name="objectClass" value="javax.xml.stream.XMLInputFactory" type="List&lt;String&gt;"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <directive name="effective" value="active"/>
+      <attribute name="objectClass" value="javax.xml.stream.XMLOutputFactory" type="List&lt;String&gt;"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <directive name="effective" value="active"/>
+      <attribute name="objectClass" value="org.codehaus.stax2.validation.XMLValidationSchemaFactory" type="List&lt;String&gt;"/>
+    </capability>
+    <capability namespace="osgi.serviceloader">
+      <directive name="register" value="com.ctc.wstx.stax.WstxEventFactory"/>
+      <attribute name="osgi.serviceloader" value="javax.xml.stream.XMLEventFactory"/>
+    </capability>
+    <capability namespace="osgi.serviceloader">
+      <directive name="register" value="com.ctc.wstx.stax.WstxInputFactory"/>
+      <attribute name="osgi.serviceloader" value="javax.xml.stream.XMLInputFactory"/>
+    </capability>
+    <capability namespace="osgi.serviceloader">
+      <directive name="register" value="com.ctc.wstx.stax.WstxOutputFactory"/>
+      <attribute name="osgi.serviceloader" value="javax.xml.stream.XMLOutputFactory"/>
+    </capability>
+    <capability namespace="osgi.serviceloader">
+      <directive name="register" value="com.ctc.wstx.dtd.DTDSchemaFactory"/>
+      <attribute name="osgi.serviceloader" value="org.codehaus.stax2.validation.XMLValidationSchemaFactory"/>
+    </capability>
+    <capability namespace="osgi.serviceloader">
+      <directive name="register" value="com.ctc.wstx.msv.RelaxNGSchemaFactory"/>
+      <attribute name="osgi.serviceloader" value="org.codehaus.stax2.validation.XMLValidationSchemaFactory"/>
+    </capability>
+    <capability namespace="osgi.serviceloader">
+      <directive name="register" value="com.ctc.wstx.msv.W3CSchemaFactory"/>
+      <attribute name="osgi.serviceloader" value="org.codehaus.stax2.validation.XMLValidationSchemaFactory"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.api)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.api"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.cfg)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.cfg"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.compat)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.compat"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.dom)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.dom"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.dtd)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.dtd"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.ent)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.ent"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.evt)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.evt"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.exc)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.exc"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.io)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.msv)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.msv"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.sr)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.sr"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.stax)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.stax"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.sw)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.sw"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.ctc.wstx.util)(version&gt;=6.5.0)(!(version&gt;=7.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.ctc.wstx.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.msv.grammar)(version&gt;=2013.6.0)(!(version&gt;=2014.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.sun.msv.grammar"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.msv.grammar.trex)(version&gt;=2013.6.0)(!(version&gt;=2014.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.sun.msv.grammar.trex"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.msv.grammar.xmlschema)(version&gt;=2013.6.0)(!(version&gt;=2014.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.sun.msv.grammar.xmlschema"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.msv.reader)(version&gt;=2013.6.0)(!(version&gt;=2014.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.sun.msv.reader"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.msv.reader.trex.ng)(version&gt;=2013.6.0)(!(version&gt;=2014.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.sun.msv.reader.trex.ng"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.msv.reader.util)(version&gt;=2013.6.0)(!(version&gt;=2014.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.sun.msv.reader.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.msv.reader.xmlschema)(version&gt;=2013.6.0)(!(version&gt;=2014.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.sun.msv.reader.xmlschema"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.msv.util)(version&gt;=2013.6.0)(!(version&gt;=2014.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.sun.msv.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.msv.verifier)(version&gt;=2013.6.0)(!(version&gt;=2014.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.sun.msv.verifier"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.msv.verifier.regexp)(version&gt;=2013.6.0)(!(version&gt;=2014.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.sun.msv.verifier.regexp"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.msv.verifier.regexp.xmlschema)(version&gt;=2013.6.0)(!(version&gt;=2014.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.sun.msv.verifier.regexp.xmlschema"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.namespace)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.namespace"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.parsers"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.stream)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.stream"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.stream.events)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.stream.events"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.stream.util)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.stream.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.dom)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform.dom"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.sax)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform.sax"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.stream)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform.stream"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2)(version&gt;=4.2.0)(!(version&gt;=5.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.io)(version&gt;=4.2.0)(!(version&gt;=5.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.osgi)(version&gt;=4.2.0)(!(version&gt;=5.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.osgi"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.ri)(version&gt;=4.2.0)(!(version&gt;=5.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.ri"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.ri.dom)(version&gt;=4.2.0)(!(version&gt;=5.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.ri.dom"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.ri.evt)(version&gt;=4.2.0)(!(version&gt;=5.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.ri.evt"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.ri.typed)(version&gt;=4.2.0)(!(version&gt;=5.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.ri.typed"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.typed)(version&gt;=4.2.0)(!(version&gt;=5.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.typed"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.stax2.validation)(version&gt;=4.2.0)(!(version&gt;=5.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.codehaus.stax2.validation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.7.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.osgi.framework"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.relaxng.datatype)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.relaxng.datatype"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+      <attribute name="osgi.wiring.package" value="org.w3c.dom"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax)"/>
+      <attribute name="osgi.wiring.package" value="org.xml.sax"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax.ext)"/>
+      <attribute name="osgi.wiring.package" value="org.xml.sax.ext"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax.helpers)"/>
+      <attribute name="osgi.wiring.package" value="org.xml.sax.helpers"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
+    </requirement>
+    <requirement namespace="osgi.extender">
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.serviceloader.registrar)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+  </resource>
+</repository>

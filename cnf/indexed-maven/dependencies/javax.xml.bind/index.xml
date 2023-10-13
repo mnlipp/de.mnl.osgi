@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1696261921038">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="https://oss.oracle.com/licenses/CDDL+GPL-1.1, https://oss.oracle.com/licenses/CDDL+GPL-1.1"/>
+      <attribute name="osgi.identity" value="jaxb-api"/>
+      <attribute name="documentation" value="http://www.oracle.com/"/>
+      <attribute name="description" value="JAXB (JSR 222) API"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="2.3.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.bind.annotation.adapters,javax.xml.bind.attachment,javax.xml.namespace,javax.xml.stream,javax.xml.transform,javax.xml.validation,org.w3c.dom,org.xml.sax"/>
+      <attribute name="bundle-symbolic-name" value="jaxb-api"/>
+      <attribute name="bundle-version" value="2.3.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind"/>
+      <attribute name="version" value="2.3.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1989870026,338397845,-1920427212,-808374276,776329996,597927996,-188311395,1816284,1236525377,64864098,2269793,1816456206,1695404316,814792785,-797911717,-548836626,-1652645679,962559760,137578097,1410803924,1689866715,-397449876,1123340462,615271281,-61951983,1605952727,-1273228838,-2116489144,-569689061,1505629994,782067000,668760842,1982344500,133971830,-1091152511,1227593353,873208789,1601562550,894184242,698853013" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.bind,javax.xml.parsers,javax.xml.transform,javax.xml.transform.dom,org.w3c.dom"/>
+      <attribute name="bundle-symbolic-name" value="jaxb-api"/>
+      <attribute name="bundle-version" value="2.3.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.annotation"/>
+      <attribute name="version" value="2.3.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-191744056,-2091374577,-1778966573,1189696021,-1873562992,1602286520,-1955451993,-373266745,-336596551,-1851361179,-2032180703,-310588667,2105276323,-58314417,-1387340978,-57897243,-2024746546,-1038313970,-281571944,-1631399239,84623186,-136387615,-949540645,-281368267,1872872101,-131553724,84623388,253186816,-1720187564,1776440131,382559352,1883139026,-1752232223,-972147005,-811700141,-281114671,-123491398" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="jaxb-api"/>
+      <attribute name="bundle-version" value="2.3.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.annotation.adapters"/>
+      <attribute name="version" value="2.3.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-530373369,853008595,976430119,201740120,-2032180703,-950321604,604801463" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.activation"/>
+      <attribute name="bundle-symbolic-name" value="jaxb-api"/>
+      <attribute name="bundle-version" value="2.3.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.attachment"/>
+      <attribute name="version" value="2.3.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-803270818,-1626040841" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.bind,javax.xml.bind.annotation.adapters,javax.xml.bind.attachment,javax.xml.stream,javax.xml.transform,javax.xml.validation,org.w3c.dom,org.xml.sax"/>
+      <attribute name="bundle-symbolic-name" value="jaxb-api"/>
+      <attribute name="bundle-version" value="2.3.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.helpers"/>
+      <attribute name="version" value="2.3.0" type="Version"/>
+      <attribute name="bnd.hashes" value="661420893,-888088138,666256874,-397449876,367657265,-695659055,1553954711,151028545,-698155115" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.bind,javax.xml.transform.sax"/>
+      <attribute name="bundle-symbolic-name" value="jaxb-api"/>
+      <attribute name="bundle-version" value="2.3.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.util"/>
+      <attribute name="version" value="2.3.0" type="Version"/>
+      <attribute name="bnd.hashes" value="756042206,793962972,-397449876,420558860" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="2.3.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="jaxb-api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="2.3.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="jaxb-api"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="jaxb-api"/>
+      <attribute name="from" value="javax.xml.bind:jaxb-api:2.3.1"/>
+      <attribute name="version" value="2.3.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="javax.activation:javax.activation-api:1.2.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="128076" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1.jar"/>
+      <attribute name="osgi.content" value="88B955A0DF57880A26A74708BC34F74DCAF8EBF4E78843A28B50EAE945732B06"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.activation)"/>
+      <attribute name="osgi.wiring.package" value="javax.activation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind.annotation)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.annotation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind.annotation.adapters)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.annotation.adapters"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind.attachment)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.attachment"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.datatype)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.datatype"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.namespace)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.namespace"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.parsers"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.stream)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.stream"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.dom)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform.dom"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.sax)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform.sax"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.stream)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.transform.stream"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.validation)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.validation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+      <attribute name="osgi.wiring.package" value="org.w3c.dom"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax)"/>
+      <attribute name="osgi.wiring.package" value="org.xml.sax"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax.ext)"/>
+      <attribute name="osgi.wiring.package" value="org.xml.sax.ext"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax.helpers)"/>
+      <attribute name="osgi.wiring.package" value="org.xml.sax.helpers"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind.helpers)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.helpers"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind.util)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.util"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version&gt;=1.8))"/>
+    </requirement>
+  </resource>
+</repository>

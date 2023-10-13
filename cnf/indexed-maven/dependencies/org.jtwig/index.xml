@@ -1,35 +1,35 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1572785221550">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923461">
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.jtwig:jtwig-reflection:5.86.1.RELEASE"/>
+      <attribute name="name" value="org.jtwig:jtwig-reflection"/>
       <attribute name="from" value="org.jtwig:jtwig-reflection:5.86.1.RELEASE"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="36142" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/jtwig/jtwig-reflection/5.86.1.RELEASE/jtwig-reflection-5.86.1.RELEASE.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="F277D1DB04ECABC6592ACF5632A3240CE8AD3EA887F1B85F45E78DAD1B70BE40"/>
+      <attribute name="version" value="5.86.1.RELEASE" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.slf4j:slf4j-api:1.7.12;org.apache.commons:commons-lang3:3.1;com.google.guava:guava:18.0"/>
     </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="36142" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/jtwig/jtwig-reflection/5.86.1.RELEASE/jtwig-reflection-5.86.1.RELEASE.jar"/>
+      <attribute name="osgi.content" value="F277D1DB04ECABC6592ACF5632A3240CE8AD3EA887F1B85F45E78DAD1B70BE40"/>
+    </capability>
   </resource>
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.jtwig:jtwig-core:5.86.1.RELEASE"/>
+      <attribute name="name" value="org.jtwig:jtwig-core"/>
       <attribute name="from" value="org.jtwig:jtwig-core:5.86.1.RELEASE"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="version" value="5.86.1.RELEASE" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.jtwig:jtwig-reflection:5.86.1.RELEASE;org.apache.commons:commons-lang3:3.6;org.slf4j:slf4j-api:1.7.12;org.parboiled:parboiled-java:1.1.7;com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2;com.google.guava:guava:18.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="507752" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/jtwig/jtwig-core/5.86.1.RELEASE/jtwig-core-5.86.1.RELEASE.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="CABDA848C1CE08A145FDE21B9DFA182FDD889BB9EA77049908DF7F1FD34BB543"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.jtwig:jtwig-reflection:5.86.1.RELEASE;org.apache.commons:commons-lang3:3.6;com.google.guava:guava:18.0;org.parboiled:parboiled-java:1.1.7;com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2;org.slf4j:slf4j-api:1.7.12"/>
     </capability>
   </resource>
 </repository>

@@ -1,64 +1,65 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637101901981">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191922462">
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.sonatype.aether:aether-api:1.7"/>
+      <attribute name="name" value="org.sonatype.aether:aether-api"/>
       <attribute name="from" value="org.sonatype.aether:aether-api:1.7"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="version" value="1.7.0" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="74176" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-api/1.7/aether-api-1.7.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="1C5C5AC5E8F29AEFC8FAA051FFA14ECCD85B9E20F4BB35DC82FBA7D5DA50D326"/>
     </capability>
   </resource>
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.sonatype.aether:aether-util:1.7"/>
-      <attribute name="from" value="org.sonatype.aether:aether-util:1.7"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.sonatype.aether:aether-api:1.7"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="107949" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-util/1.7/aether-util-1.7.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="FF690FFC550B7ADA3A4B79EF4CA89BF002B24F43A13A35D10195C3BBA63D7654"/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.sonatype.aether:aether-spi:1.7"/>
+      <attribute name="name" value="org.sonatype.aether:aether-spi"/>
       <attribute name="from" value="org.sonatype.aether:aether-spi:1.7"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="version" value="1.7.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.sonatype.aether:aether-api:1.7"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="13549" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-spi/1.7/aether-spi-1.7.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="F54A0A28CE3D62AF0E1CFE41DDE616F645C28E452E77F77B78BC36E74D5E1A69"/>
     </capability>
   </resource>
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.sonatype.aether:aether-impl:1.7"/>
+      <attribute name="name" value="org.sonatype.aether:aether-impl"/>
       <attribute name="from" value="org.sonatype.aether:aether-impl:1.7"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="version" value="1.7.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.sonatype.aether:aether-util:1.7;org.sonatype.aether:aether-api:1.7;org.sonatype.aether:aether-spi:1.7"/>
+      <attribute name="compile" value="org.sonatype.aether:aether-spi:1.7;org.sonatype.aether:aether-util:1.7;org.sonatype.aether:aether-api:1.7"/>
+      <attribute name="provided" value="org.codehaus.plexus:plexus-component-annotations:1.5.5;org.codehaus.plexus:plexus-container-default:1.5.5;org.slf4j:slf4j-api:1.6.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="106275" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-impl/1.7/aether-impl-1.7.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="288149850D8D131763DF4151F7E443FD2739E48510A6E4CFE49CA082C76130FA"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.sonatype.aether:aether-util"/>
+      <attribute name="from" value="org.sonatype.aether:aether-util:1.7"/>
+      <attribute name="version" value="1.7.0" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.sonatype.aether:aether-api:1.7"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="107949" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-util/1.7/aether-util-1.7.jar"/>
+      <attribute name="osgi.content" value="FF690FFC550B7ADA3A4B79EF4CA89BF002B24F43A13A35D10195C3BBA63D7654"/>
     </capability>
   </resource>
 </repository>
