@@ -7,10 +7,18 @@
         logIndexing=true
 
 -pluginpath.IndexedMaved: \
-    ${workspace}/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-5.0.0.jar,\
-    ${workspace}/cnf/cache/biz.aQute.repository-6.4.0.jar;\
-        url=https://repo1.maven.org/maven2/biz/aQute/bnd/biz.aQute.repository/6.4.0/biz.aQute.repository-6.4.0.jar
+    ${workspace}/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-6.0.0.jar,\
+    ${workspace}/cnf/cache/biz.aQute.repository-7.0.0.jar;\
+        url=https://repo1.maven.org/maven2/biz/aQute/bnd/biz.aQute.repository/7.0.0/biz.aQute.repository-7.0.0.jar
 
+# Fallback if IndexedMaven is not working
+#-plugin.4.MavenCentral: \
+#    aQute.bnd.repository.maven.provider.MavenBndRepository; \
+#		releaseUrl=https://repo.maven.apache.org/maven2/; \
+#        index=${.}/central.mvn; \
+#		readOnly=true; \
+#        name="Maven Central"
+		
 -plugin.5.Release: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
 		name = Release; \
