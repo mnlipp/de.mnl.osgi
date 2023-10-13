@@ -21,6 +21,7 @@ package de.mnl.osgi.bnd.repository.maven.idxmvn;
 import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.Processor;
 import aQute.bnd.osgi.repository.ResourcesRepository;
+import aQute.bnd.version.MavenVersion;
 import aQute.maven.api.Archive;
 import aQute.maven.provider.MavenBackingRepository;
 import aQute.service.reporter.Reporter;
@@ -42,6 +43,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.ConcurrentHashMap;
@@ -110,7 +112,8 @@ public class IndexedMavenRepository extends ResourcesRepository {
      * @throws Exception the exception
      */
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException",
-        "PMD.SignatureDeclareThrowsException", "PMD.AvoidDuplicateLiterals" })
+        "PMD.SignatureDeclareThrowsException", "PMD.AvoidDuplicateLiterals",
+        "PMD.UseProperClassLoader", "PMD.GuardLogStatement" })
     public IndexedMavenRepository(String name, List<URL> releaseUrls,
             List<URL> snapshotUrls, File localRepo, File indexDbDir,
             Reporter reporter, HttpClient client, boolean logIndexing)
@@ -124,6 +127,17 @@ public class IndexedMavenRepository extends ResourcesRepository {
         this.reporter = reporter;
         this.client = client;
         this.logIndexing = logIndexing;
+
+        // Check environment
+        Properties manifest = new Properties();
+        manifest.load(MavenVersion.class.getClassLoader()
+            .getResourceAsStream("/META-INF/MANIFEST.MF"));
+        LOG.info("Using " + manifest.getOrDefault("Bundle-SymbolicName", "")
+            + ":" + manifest.getOrDefault("Bundle-Version", ""));
+        manifest.load(MavenBackingRepository.class.getClassLoader()
+            .getResourceAsStream("/META-INF/MANIFEST.MF"));
+        LOG.info("Using " + manifest.getOrDefault("Bundle-SymbolicName", "")
+            + ":" + manifest.getOrDefault("Bundle-Version", ""));
 
         // Check prerequisites
         if (indexDbDir.exists() && !indexDbDir.isDirectory()) {
