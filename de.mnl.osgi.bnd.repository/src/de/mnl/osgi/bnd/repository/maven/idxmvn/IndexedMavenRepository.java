@@ -128,17 +128,6 @@ public class IndexedMavenRepository extends ResourcesRepository {
         this.client = client;
         this.logIndexing = logIndexing;
 
-        // Check environment
-        Properties manifest = new Properties();
-        manifest.load(MavenVersion.class.getClassLoader()
-            .getResourceAsStream("/META-INF/MANIFEST.MF"));
-        LOG.info("Using " + manifest.getOrDefault("Bundle-SymbolicName", "")
-            + ":" + manifest.getOrDefault("Bundle-Version", ""));
-        manifest.load(MavenBackingRepository.class.getClassLoader()
-            .getResourceAsStream("/META-INF/MANIFEST.MF"));
-        LOG.info("Using " + manifest.getOrDefault("Bundle-SymbolicName", "")
-            + ":" + manifest.getOrDefault("Bundle-Version", ""));
-
         // Check prerequisites
         if (indexDbDir.exists() && !indexDbDir.isDirectory()) {
             reporter.error("%s must be a directory.", indexDbDir);
