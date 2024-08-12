@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324192">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723487898389">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="https://www.apache.org/licenses/LICENSE-2.0.txt"/>
@@ -79,7 +79,7 @@
       <attribute name="version" value="2.16.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:org.osgi.core:4.3.1;org.apache.logging.log4j:log4j-api-java9:2.16.0"/>
+      <attribute name="provided" value="org.apache.logging.log4j:log4j-api-java9:2.16.0;org.osgi:org.osgi.core:4.3.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="301892" type="Long"/>
@@ -259,7 +259,7 @@
       <attribute name="version" value="2.9.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:org.osgi.core:6.0.0;org.apache.logging.log4j:log4j-api-java9:2.9.0"/>
+      <attribute name="provided" value="org.apache.logging.log4j:log4j-api-java9:2.9.0;org.osgi:org.osgi.core:6.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="238875" type="Long"/>
@@ -635,7 +635,7 @@
       <attribute name="version" value="3.0.0.beta2" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;org.jspecify:jspecify:0.3.0;com.github.spotbugs:spotbugs-annotations:4.8.3;com.google.errorprone:error_prone_annotations:2.24.1;org.osgi:org.osgi.annotation.bundle:2.0.0;org.osgi:osgi.annotation:8.1.0"/>
+      <attribute name="provided" value="org.osgi:osgi.annotation:8.1.0;org.osgi:org.osgi.annotation.bundle:2.0.0;org.jspecify:jspecify:0.3.0;com.github.spotbugs:spotbugs-annotations:4.8.3;biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;com.google.errorprone:error_prone_annotations:2.24.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="354770" type="Long"/>
@@ -897,7 +897,7 @@
       <attribute name="version" value="3.0.0.beta1" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:org.osgi.annotation.bundle:2.0.0;org.osgi:osgi.annotation:8.1.0;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;com.github.spotbugs:spotbugs-annotations:4.8.1;com.google.errorprone:error_prone_annotations:2.23.0"/>
+      <attribute name="provided" value="com.google.errorprone:error_prone_annotations:2.23.0;com.github.spotbugs:spotbugs-annotations:4.8.1;org.osgi:org.osgi.annotation.bundle:2.0.0;org.osgi:osgi.annotation:8.1.0;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="366128" type="Long"/>
@@ -1160,7 +1160,7 @@
       <attribute name="version" value="3.0.0.alpha1" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:org.osgi.framework:1.10.0;org.osgi:org.osgi.resource:1.0.1"/>
+      <attribute name="provided" value="org.osgi:org.osgi.resource:1.0.1;org.osgi:org.osgi.framework:1.10.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="347638" type="Long"/>
@@ -1367,7 +1367,7 @@
       <attribute name="version" value="2.23.1" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;org.osgi:osgi.annotation:8.1.0;org.osgi:org.osgi.core:6.0.0;com.google.errorprone:error_prone_annotations:2.24.1;com.github.spotbugs:spotbugs-annotations:4.8.3;org.osgi:org.osgi.annotation.bundle:2.0.0"/>
+      <attribute name="provided" value="org.osgi:org.osgi.core:6.0.0;com.google.errorprone:error_prone_annotations:2.24.1;org.osgi:osgi.annotation:8.1.0;com.github.spotbugs:spotbugs-annotations:4.8.3;biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;org.osgi:org.osgi.annotation.bundle:2.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="342535" type="Long"/>
@@ -1559,7 +1559,7 @@
       <attribute name="version" value="2.23.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="com.github.spotbugs:spotbugs-annotations:4.8.3;org.osgi:org.osgi.core:6.0.0;com.google.errorprone:error_prone_annotations:2.24.1;org.osgi:org.osgi.annotation.bundle:2.0.0;biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;org.osgi:osgi.annotation:8.1.0"/>
+      <attribute name="provided" value="org.osgi:osgi.annotation:8.1.0;org.osgi:org.osgi.core:6.0.0;biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;com.google.errorprone:error_prone_annotations:2.24.1;com.github.spotbugs:spotbugs-annotations:4.8.3;org.osgi:org.osgi.annotation.bundle:2.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="338576" type="Long"/>
@@ -1751,7 +1751,7 @@
       <attribute name="version" value="2.22.1" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:org.osgi.annotation.bundle:2.0.0;com.github.spotbugs:spotbugs-annotations:4.8.3;org.osgi:org.osgi.core:6.0.0;org.osgi:osgi.annotation:8.1.0;biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;com.google.errorprone:error_prone_annotations:2.23.0"/>
+      <attribute name="provided" value="org.osgi:org.osgi.annotation.bundle:2.0.0;org.osgi:org.osgi.core:6.0.0;org.osgi:osgi.annotation:8.1.0;biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;com.google.errorprone:error_prone_annotations:2.23.0;com.github.spotbugs:spotbugs-annotations:4.8.3"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="335001" type="Long"/>
@@ -1943,7 +1943,7 @@
       <attribute name="version" value="2.22.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:org.osgi.core:6.0.0;org.osgi:org.osgi.annotation.bundle:2.0.0;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;org.osgi:osgi.annotation:8.1.0;com.google.errorprone:error_prone_annotations:2.23.0;com.github.spotbugs:spotbugs-annotations:4.8.1"/>
+      <attribute name="provided" value="org.osgi:org.osgi.annotation.bundle:2.0.0;com.github.spotbugs:spotbugs-annotations:4.8.1;org.osgi:org.osgi.core:6.0.0;org.osgi:osgi.annotation:8.1.0;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;com.google.errorprone:error_prone_annotations:2.23.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="332709" type="Long"/>
@@ -2135,7 +2135,7 @@
       <attribute name="version" value="2.21.1" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:osgi.annotation:8.1.0;org.osgi:org.osgi.annotation.bundle:2.0.0;com.github.spotbugs:spotbugs-annotations:4.7.3;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;org.osgi:org.osgi.core:6.0.0"/>
+      <attribute name="provided" value="com.github.spotbugs:spotbugs-annotations:4.7.3;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;org.osgi:org.osgi.core:6.0.0;org.osgi:osgi.annotation:8.1.0;org.osgi:org.osgi.annotation.bundle:2.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="317479" type="Long"/>
@@ -2335,7 +2335,7 @@
       <attribute name="version" value="2.21.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:osgi.annotation:8.1.0;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;org.osgi:org.osgi.core:6.0.0;org.osgi:org.osgi.annotation.bundle:2.0.0;com.github.spotbugs:spotbugs-annotations:4.7.3"/>
+      <attribute name="provided" value="biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;com.github.spotbugs:spotbugs-annotations:4.7.3;org.osgi:org.osgi.annotation.bundle:2.0.0;org.osgi:org.osgi.core:6.0.0;org.osgi:osgi.annotation:8.1.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="317471" type="Long"/>
@@ -3652,7 +3652,7 @@
       <attribute name="version" value="2.15.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.apache.logging.log4j:log4j-api-java9:2.15.0;org.osgi:org.osgi.core:4.3.1"/>
+      <attribute name="provided" value="org.osgi:org.osgi.core:4.3.1;org.apache.logging.log4j:log4j-api-java9:2.15.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="301804" type="Long"/>
@@ -4404,7 +4404,7 @@
       <attribute name="version" value="2.13.2" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:org.osgi.core:4.3.1;org.apache.logging.log4j:log4j-api-java9:2.13.2"/>
+      <attribute name="provided" value="org.apache.logging.log4j:log4j-api-java9:2.13.2;org.osgi:org.osgi.core:4.3.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="292301" type="Long"/>
@@ -4780,7 +4780,7 @@
       <attribute name="version" value="2.13.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:org.osgi.core:4.3.1;org.apache.logging.log4j:log4j-api-java9:2.13.0"/>
+      <attribute name="provided" value="org.apache.logging.log4j:log4j-api-java9:2.13.0;org.osgi:org.osgi.core:4.3.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="286261" type="Long"/>
@@ -5664,7 +5664,7 @@
       <attribute name="version" value="2.12.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:org.osgi.core:4.3.1;org.apache.logging.log4j:log4j-api-java9:2.12.0"/>
+      <attribute name="provided" value="org.apache.logging.log4j:log4j-api-java9:2.12.0;org.osgi:org.osgi.core:4.3.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="273454" type="Long"/>
@@ -5840,7 +5840,7 @@
       <attribute name="version" value="2.11.1" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:org.osgi.core:4.3.1;org.apache.logging.log4j:log4j-api-java9:2.11.1"/>
+      <attribute name="provided" value="org.apache.logging.log4j:log4j-api-java9:2.11.1;org.osgi:org.osgi.core:4.3.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="264060" type="Long"/>
@@ -6832,8 +6832,8 @@
       <attribute name="version" value="3.0.0.beta2" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.apache.logging.log4j:log4j-api:3.0.0-beta2;org.apache.logging.log4j:log4j-plugins:3.0.0-beta2"/>
-      <attribute name="provided" value="org.jspecify:jspecify:0.3.0;org.osgi:osgi.annotation:8.1.0;com.google.errorprone:error_prone_annotations:2.24.1;org.osgi:org.osgi.annotation.bundle:2.0.0;com.github.spotbugs:spotbugs-annotations:4.8.3;biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0"/>
+      <attribute name="compile" value="org.apache.logging.log4j:log4j-plugins:3.0.0-beta2;org.apache.logging.log4j:log4j-api:3.0.0-beta2"/>
+      <attribute name="provided" value="biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;org.jspecify:jspecify:0.3.0;com.github.spotbugs:spotbugs-annotations:4.8.3;org.osgi:osgi.annotation:8.1.0;com.google.errorprone:error_prone_annotations:2.24.1;org.osgi:org.osgi.annotation.bundle:2.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1468065" type="Long"/>
@@ -7377,7 +7377,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:3.0.0-beta2"/>
-      <attribute name="provided" value="biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;org.jspecify:jspecify:0.3.0;com.google.errorprone:error_prone_annotations:2.24.1;com.github.spotbugs:spotbugs-annotations:4.8.3;org.osgi:org.osgi.annotation.bundle:2.0.0;org.osgi:osgi.annotation:8.1.0"/>
+      <attribute name="provided" value="org.jspecify:jspecify:0.3.0;com.github.spotbugs:spotbugs-annotations:4.8.3;org.osgi:osgi.annotation:8.1.0;org.osgi:org.osgi.annotation.bundle:2.0.0;com.google.errorprone:error_prone_annotations:2.24.1;biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="205869" type="Long"/>
@@ -7874,7 +7874,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:3.0.0-beta1;org.apache.logging.log4j:log4j-plugins:3.0.0-beta1"/>
-      <attribute name="provided" value="biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;com.google.errorprone:error_prone_annotations:2.23.0;org.osgi:osgi.annotation:8.1.0;com.github.spotbugs:spotbugs-annotations:4.8.1;org.osgi:org.osgi.annotation.bundle:2.0.0"/>
+      <attribute name="provided" value="org.osgi:org.osgi.annotation.bundle:2.0.0;org.osgi:osgi.annotation:8.1.0;com.google.errorprone:error_prone_annotations:2.23.0;com.github.spotbugs:spotbugs-annotations:4.8.1;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1590696" type="Long"/>
@@ -8469,7 +8469,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:3.0.0-beta1"/>
-      <attribute name="provided" value="com.google.errorprone:error_prone_annotations:2.23.0;org.osgi:osgi.annotation:8.1.0;com.github.spotbugs:spotbugs-annotations:4.8.1;org.osgi:org.osgi.annotation.bundle:2.0.0;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1"/>
+      <attribute name="provided" value="com.github.spotbugs:spotbugs-annotations:4.8.1;org.osgi:osgi.annotation:8.1.0;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;com.google.errorprone:error_prone_annotations:2.23.0;org.osgi:org.osgi.annotation.bundle:2.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="201262" type="Long"/>
@@ -9036,9 +9036,9 @@
       <attribute name="version" value="3.0.0.alpha1" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.apache.logging.log4j:log4j-plugins:3.0.0-alpha1;org.apache.logging.log4j:log4j-api:3.0.0-alpha1"/>
+      <attribute name="compile" value="org.apache.logging.log4j:log4j-api:3.0.0-alpha1;org.apache.logging.log4j:log4j-plugins:3.0.0-alpha1"/>
       <attribute name="provided" value="org.osgi:org.osgi.framework:1.10.0;org.osgi:org.osgi.resource:1.0.1"/>
-      <attribute name="runtime" value="com.fasterxml.woodstox:woodstox-core:6.5.0;javax.activation:javax.activation-api:1.2.0;javax.xml.bind:jaxb-api:2.3.1"/>
+      <attribute name="runtime" value="javax.activation:javax.activation-api:1.2.0;javax.xml.bind:jaxb-api:2.3.1;com.fasterxml.woodstox:woodstox-core:6.5.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1579487" type="Long"/>
@@ -9642,7 +9642,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:3.0.0-alpha1"/>
-      <attribute name="provided" value="org.osgi:org.osgi.framework:1.10.0;org.osgi:org.osgi.resource:1.0.1"/>
+      <attribute name="provided" value="org.osgi:org.osgi.resource:1.0.1;org.osgi:org.osgi.framework:1.10.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="162505" type="Long"/>
@@ -10086,7 +10086,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:2.23.1"/>
-      <attribute name="provided" value="biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;org.osgi:org.osgi.annotation.bundle:2.0.0;org.osgi:org.osgi.core:6.0.0;com.google.errorprone:error_prone_annotations:2.24.1;com.github.spotbugs:spotbugs-annotations:4.8.3;org.osgi:osgi.annotation:8.1.0"/>
+      <attribute name="provided" value="biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;org.osgi:osgi.annotation:8.1.0;com.google.errorprone:error_prone_annotations:2.24.1;org.osgi:org.osgi.core:6.0.0;org.osgi:org.osgi.annotation.bundle:2.0.0;com.github.spotbugs:spotbugs-annotations:4.8.3"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1901886" type="Long"/>
@@ -11034,7 +11034,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:2.23.0"/>
-      <attribute name="provided" value="com.github.spotbugs:spotbugs-annotations:4.8.3;biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;org.osgi:osgi.annotation:8.1.0;org.osgi:org.osgi.annotation.bundle:2.0.0;org.osgi:org.osgi.core:6.0.0;com.google.errorprone:error_prone_annotations:2.24.1"/>
+      <attribute name="provided" value="org.osgi:osgi.annotation:8.1.0;com.github.spotbugs:spotbugs-annotations:4.8.3;org.osgi:org.osgi.core:6.0.0;biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;com.google.errorprone:error_prone_annotations:2.24.1;org.osgi:org.osgi.annotation.bundle:2.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1901639" type="Long"/>
@@ -11982,7 +11982,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:2.22.1"/>
-      <attribute name="provided" value="com.google.errorprone:error_prone_annotations:2.23.0;org.osgi:org.osgi.core:6.0.0;biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;org.osgi:org.osgi.annotation.bundle:2.0.0;org.osgi:osgi.annotation:8.1.0;com.github.spotbugs:spotbugs-annotations:4.8.3"/>
+      <attribute name="provided" value="org.osgi:org.osgi.core:6.0.0;biz.aQute.bnd:biz.aQute.bnd.annotation:7.0.0;com.github.spotbugs:spotbugs-annotations:4.8.3;org.osgi:osgi.annotation:8.1.0;com.google.errorprone:error_prone_annotations:2.23.0;org.osgi:org.osgi.annotation.bundle:2.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1900022" type="Long"/>
@@ -12930,7 +12930,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:2.22.0"/>
-      <attribute name="provided" value="com.google.errorprone:error_prone_annotations:2.23.0;org.osgi:org.osgi.core:6.0.0;com.github.spotbugs:spotbugs-annotations:4.8.1;org.osgi:osgi.annotation:8.1.0;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;org.osgi:org.osgi.annotation.bundle:2.0.0"/>
+      <attribute name="provided" value="biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;org.osgi:osgi.annotation:8.1.0;org.osgi:org.osgi.core:6.0.0;com.google.errorprone:error_prone_annotations:2.23.0;org.osgi:org.osgi.annotation.bundle:2.0.0;com.github.spotbugs:spotbugs-annotations:4.8.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1883043" type="Long"/>
@@ -13878,7 +13878,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:2.21.1"/>
-      <attribute name="provided" value="biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;org.osgi:org.osgi.annotation.bundle:2.0.0;org.osgi:org.osgi.core:6.0.0;com.github.spotbugs:spotbugs-annotations:4.7.3;org.osgi:osgi.annotation:8.1.0"/>
+      <attribute name="provided" value="com.github.spotbugs:spotbugs-annotations:4.7.3;org.osgi:org.osgi.core:6.0.0;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;org.osgi:osgi.annotation:8.1.0;org.osgi:org.osgi.annotation.bundle:2.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1895892" type="Long"/>
@@ -14822,7 +14822,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:2.21.0"/>
-      <attribute name="provided" value="org.osgi:org.osgi.core:6.0.0;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;org.osgi:org.osgi.annotation.bundle:2.0.0;com.github.spotbugs:spotbugs-annotations:4.7.3;org.osgi:osgi.annotation:8.1.0"/>
+      <attribute name="provided" value="org.osgi:org.osgi.annotation.bundle:2.0.0;biz.aQute.bnd:biz.aQute.bnd.annotation:6.4.1;org.osgi:org.osgi.core:6.0.0;com.github.spotbugs:spotbugs-annotations:4.7.3;org.osgi:osgi.annotation:8.1.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1895888" type="Long"/>
@@ -24193,7 +24193,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:2.14.0"/>
-      <attribute name="provided" value="org.apache.logging.log4j:log4j-core-java9:2.14.0;org.osgi:org.osgi.core:4.3.1"/>
+      <attribute name="provided" value="org.osgi:org.osgi.core:4.3.1;org.apache.logging.log4j:log4j-core-java9:2.14.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1762731" type="Long"/>
@@ -25106,7 +25106,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:2.13.3"/>
-      <attribute name="provided" value="org.apache.logging.log4j:log4j-core-java9:2.13.3;org.osgi:org.osgi.core:4.3.1"/>
+      <attribute name="provided" value="org.osgi:org.osgi.core:4.3.1;org.apache.logging.log4j:log4j-core-java9:2.13.3"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1714164" type="Long"/>
@@ -30555,7 +30555,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:2.12.2"/>
-      <attribute name="provided" value="org.apache.logging.log4j:log4j-core-java9:2.12.2;org.osgi:org.osgi.core:4.3.1"/>
+      <attribute name="provided" value="org.osgi:org.osgi.core:4.3.1;org.apache.logging.log4j:log4j-core-java9:2.12.2"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1673938" type="Long"/>
@@ -32359,7 +32359,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:2.12.0"/>
-      <attribute name="provided" value="org.osgi:org.osgi.core:4.3.1;org.apache.logging.log4j:log4j-core-java9:2.12.0"/>
+      <attribute name="provided" value="org.apache.logging.log4j:log4j-core-java9:2.12.0;org.osgi:org.osgi.core:4.3.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1667269" type="Long"/>
@@ -35065,7 +35065,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.apache.logging.log4j:log4j-api:2.11.0"/>
-      <attribute name="provided" value="org.osgi:org.osgi.core:4.3.1;org.apache.logging.log4j:log4j-core-java9:2.11.0"/>
+      <attribute name="provided" value="org.apache.logging.log4j:log4j-core-java9:2.11.0;org.osgi:org.osgi.core:4.3.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="1600782" type="Long"/>

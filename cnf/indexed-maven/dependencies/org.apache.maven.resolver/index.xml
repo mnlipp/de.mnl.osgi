@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476323944">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723487898046">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="&quot;Apache License, Version 2.0&quot;;link=&quot;https://www.apache.org/licenses/LICENSE-2.0.txt&quot;"/>
@@ -225,7 +225,7 @@
       <attribute name="version" value="1.6.2" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.apache.maven.resolver:maven-resolver-util:1.6.2;org.apache.maven.resolver:maven-resolver-spi:1.6.2;org.apache.commons:commons-lang3:3.8.1;org.apache.maven.resolver:maven-resolver-api:1.6.2;org.slf4j:slf4j-api:1.7.30"/>
+      <attribute name="compile" value="org.apache.maven.resolver:maven-resolver-api:1.6.2;org.slf4j:slf4j-api:1.7.30;org.apache.maven.resolver:maven-resolver-spi:1.6.2;org.apache.maven.resolver:maven-resolver-util:1.6.2;org.apache.commons:commons-lang3:3.8.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="179729" type="Long"/>

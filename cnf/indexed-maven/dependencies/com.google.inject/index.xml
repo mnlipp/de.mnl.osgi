@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476323938">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723487918219">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
@@ -8,94 +8,83 @@
       <attribute name="documentation" value="https://github.com/google/guice"/>
       <attribute name="description" value="Guice is a lightweight dependency injection framework for Java 6 and above"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="version" value="4.0.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.2.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.google.inject"/>
-      <attribute name="version" value="1.4.0" type="Version"/>
-      <attribute name="bnd.hashes" value="950086990,1989870026,1556432485,1271010164,2064407577,700058640,355597568,69159613,-670655271,-2100193871,348322644,1801766039,-890040350,420239804,96587209,75327,-642100403,-1984916852,1728922976,924575981,1244756399,-2096366150,-922850799,-922850798,-641191142,79711796,466412675,-1823901505,509450219,80204510,-1717494795" type="List&lt;Long&gt;"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.2.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.google.inject.binder"/>
-      <attribute name="version" value="1.4.0" type="Version"/>
-      <attribute name="bnd.hashes" value="2036095982,1172423858,1452525463,-2018863558,261222383,-354174426" type="List&lt;Long&gt;"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.2.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.google.inject.matcher"/>
-      <attribute name="version" value="1.4.0" type="Version"/>
-      <attribute name="bnd.hashes" value="-447081605,-1732551249,-998646128,-1789452014,-111050402,-2146589256,65996,-1261912592,493009729,-1222917845,78515,2462668,-1531838173,246378109,361562529" type="List&lt;Long&gt;"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.2.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.google.inject.multibindings"/>
-      <attribute name="version" value="1.4.0" type="Version"/>
-      <attribute name="bnd.hashes" value="726169307,-1875095034,-525352545,-1997529213,1827013635,2104903938,1639396695,-2053816778,1616777546,1907953115,530432106,2622298,1743448338,530438000,55755508" type="List&lt;Long&gt;"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="bundle-version" value="4.0.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="com.google.inject.name"/>
       <attribute name="version" value="1.4.0" type="Version"/>
       <attribute name="bnd.hashes" value="75032345,-1053783847,75032360" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.2.1" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.google.inject.spi"/>
+      <attribute name="bundle-version" value="4.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.binder"/>
       <attribute name="version" value="1.4.0" type="Version"/>
-      <attribute name="bnd.hashes" value="-1233686814,-507389128,-141812405,1192197743,-1944531103,1547890393,2100659795,1967173483,1204578727,-253093670,1816284,-137660905,-1778850318,1540731765,1122977114,1678917339,56304919,-942888603,661488835,-20522357,-1315658449,-1933767419,182752270,-1933552820,-1449800634,812449097,-1217415016,-985864423,-1026603560,1602357264,1233144383,1018198823,-1675388953,-37066287,1375231860,1431883207,-1489055878,1016043316,458365407,1063859223,-229544213,-1487964864,-1613705274,-1322051214,-705074486,355888933,169303177,-1636864580,-1771041930,-2045400178,-171700324,896423345,-595123098,-918563054,-845755546,750517311,1028107001,-1717882322,1946412151,1558037500" type="List&lt;Long&gt;"/>
+      <attribute name="bnd.hashes" value="2036095982,1172423858,1452525463,-2018863558,261222383,-354174426" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="bundle-version" value="4.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.spi"/>
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1233686814,-507389128,-141812405,1192197743,-1944531103,1547890393,2100659795,1967173483,1204578727,-253093670,1816284,-137660905,-1778850318,1540731765,1122977114,1678917339,56304919,-942888603,661488835,-20522357,-1315658449,-1933767419,182752270,-1933552820,-1449800634,812449097,-1217415016,-985864423,-1026603560,1602357264,-120407872,1233144383,1018198823,-1675388953,-37066287,1375231860,1431883207,-1489055878,1016043316,458365407,1063859223,-229544213,-1487964864,-1613705274,-1322051214,-705074486,355888933,169303177,-1636864580,-1771041930,-2045400178,-171700324,896423345,-595123098,-918563054,-845755546,750517311,1028107001,-1717882322,1946412151,1558037500" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.google.inject"/>
+      <attribute name="bundle-version" value="4.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.matcher"/>
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-447081605,-1732551249,-998646128,-1789452014,-111050402,-2146589256,65996,-1261912592,493009729,-1222917845,78515,2462668,-1531838173,246378109,361562529" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.google.inject"/>
+      <attribute name="bundle-version" value="4.0.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="com.google.inject.util"/>
       <attribute name="version" value="1.4.0" type="Version"/>
       <attribute name="bnd.hashes" value="-452398607,-1620782599,1548814879,927799835,-1878691464,-1258834275,-1402880153,137276885,-1248801292,1734062883,1456396418,81291353" type="List&lt;Long&gt;"/>
     </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.google.inject"/>
+      <attribute name="bundle-version" value="4.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject"/>
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="bnd.hashes" value="950086990,1989870026,1556432485,1271010164,2064407577,700058640,355597568,69159613,-670655271,-2100193871,348322644,1801766039,-890040350,420239804,96587209,75327,-642100403,-1984916852,1728922976,924575981,1244756399,-2096366150,-922850799,-922850798,-641191142,79711796,466412675,-1823901505,509450219,80204510,-1717494795" type="List&lt;Long&gt;"/>
+    </capability>
     <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="bundle-version" value="4.0.0" type="Version"/>
       <attribute name="osgi.wiring.bundle" value="com.google.inject"/>
     </capability>
     <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="bundle-version" value="4.0.0" type="Version"/>
       <attribute name="osgi.wiring.host" value="com.google.inject"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="com.google.inject"/>
-      <attribute name="from" value="com.google.inject:guice:jar:no_aop:4.2.1"/>
-      <attribute name="version" value="4.2.1" type="Version"/>
+      <attribute name="from" value="com.google.inject:guice:4.0"/>
+      <attribute name="version" value="4.0.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="aopalliance:aopalliance:1.0;com.google.guava:guava:25.1-android;javax.inject:javax.inject:1"/>
+      <attribute name="compile" value="javax.inject:javax.inject:1;com.google.guava:guava:16.0.1;aopalliance:aopalliance:1.0"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="520662" type="Long"/>
+      <attribute name="size" value="668235" type="Long"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/inject/guice/4.2.1/guice-4.2.1-no_aop.jar"/>
-      <attribute name="osgi.content" value="158FD8F52D2A4B4CE4293AC2B833BB2427F5DDFE30DF4AE0FD4675A1038A3B79"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/inject/guice/4.0/guice-4.0.jar"/>
+      <attribute name="osgi.content" value="B378FFC35E7F7125B3C5F3A461D4591AE1685E3C781392F0C854ED7B7581D6D2"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.base)(version&gt;=25.1.0)(!(version&gt;=26.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.base)(version&gt;=16.0.0))"/>
       <attribute name="osgi.wiring.package" value="com.google.common.base"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.cache)(version&gt;=25.1.0)(!(version&gt;=26.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.cache)(version&gt;=16.0.0))"/>
       <attribute name="osgi.wiring.package" value="com.google.common.cache"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.collect)(version&gt;=25.1.0)(!(version&gt;=26.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.collect)(version&gt;=16.0.0))"/>
       <attribute name="osgi.wiring.package" value="com.google.common.collect"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.primitives)(version&gt;=25.1.0)(!(version&gt;=26.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="com.google.common.primitives"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(osgi.wiring.package=javax.inject)"/>
@@ -104,9 +93,6 @@
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(osgi.wiring.package=org.aopalliance.intercept)"/>
       <attribute name="osgi.wiring.package" value="org.aopalliance.intercept"/>
-    </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
     </requirement>
   </resource>
   <resource>
@@ -175,7 +161,7 @@
       <attribute name="version" value="3.0.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.sonatype.sisu.inject:cglib:2.2.1-v20090111;javax.inject:javax.inject:1;aopalliance:aopalliance:1.0"/>
+      <attribute name="compile" value="aopalliance:aopalliance:1.0;org.sonatype.sisu.inject:cglib:2.2.1-v20090111;javax.inject:javax.inject:1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="710492" type="Long"/>
@@ -200,87 +186,105 @@
       <attribute name="documentation" value="https://github.com/google/guice"/>
       <attribute name="description" value="Guice is a lightweight dependency injection framework for Java 6 and above"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="4.0.0" type="Version"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.google.inject.name"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject"/>
       <attribute name="version" value="1.4.0" type="Version"/>
-      <attribute name="bnd.hashes" value="75032345,-1053783847,75032360" type="List&lt;Long&gt;"/>
+      <attribute name="bnd.hashes" value="950086990,1989870026,1556432485,1271010164,2064407577,700058640,355597568,69159613,-670655271,-2100193871,348322644,1801766039,-890040350,420239804,96587209,75327,-642100403,-1984916852,1728922976,924575981,1244756399,-2096366150,-922850799,-922850798,-641191142,79711796,466412675,-1823901505,509450219,80204510,-1717494795" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.0.0" type="Version"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="com.google.inject.binder"/>
       <attribute name="version" value="1.4.0" type="Version"/>
       <attribute name="bnd.hashes" value="2036095982,1172423858,1452525463,-2018863558,261222383,-354174426" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.google.inject.spi"/>
-      <attribute name="version" value="1.4.0" type="Version"/>
-      <attribute name="bnd.hashes" value="-1233686814,-507389128,-141812405,1192197743,-1944531103,1547890393,2100659795,1967173483,1204578727,-253093670,1816284,-137660905,-1778850318,1540731765,1122977114,1678917339,56304919,-942888603,661488835,-20522357,-1315658449,-1933767419,182752270,-1933552820,-1449800634,812449097,-1217415016,-985864423,-1026603560,1602357264,1233144383,1018198823,-1675388953,-37066287,1375231860,1431883207,-1489055878,1016043316,458365407,1063859223,-229544213,-1487964864,-1613705274,-1322051214,-705074486,355888933,169303177,-1636864580,-1771041930,-2045400178,-171700324,896423345,-595123098,-918563054,-845755546,750517311,1028107001,-1717882322,1946412151,1558037500" type="List&lt;Long&gt;"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.0.0" type="Version"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="com.google.inject.matcher"/>
       <attribute name="version" value="1.4.0" type="Version"/>
       <attribute name="bnd.hashes" value="-447081605,-1732551249,-998646128,-1789452014,-111050402,-2146589256,65996,-1261912592,493009729,-1222917845,78515,2462668,-1531838173,246378109,361562529" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.0.0" type="Version"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.multibindings"/>
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="bnd.hashes" value="726169307,-1875095034,-525352545,-1997529213,1827013635,2104903938,1639396695,-2053816778,1616777546,1907953115,530432106,2622298,1743448338,530438000,55755508" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.google.inject"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.name"/>
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="bnd.hashes" value="75032345,-1053783847,75032360" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.google.inject"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.spi"/>
+      <attribute name="version" value="1.4.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1233686814,-507389128,-141812405,1192197743,-1944531103,1547890393,2100659795,1967173483,1204578727,-253093670,1816284,-137660905,-1778850318,1540731765,1122977114,1678917339,56304919,-942888603,661488835,-20522357,-1315658449,-1933767419,182752270,-1933552820,-1449800634,812449097,-1217415016,-985864423,-1026603560,1602357264,-120407872,1233144383,1018198823,-1675388953,-37066287,1375231860,1431883207,-1489055878,1016043316,458365407,1063859223,-229544213,-1487964864,-1613705274,-1322051214,-705074486,355888933,169303177,-1636864580,-1771041930,-2045400178,-171700324,896423345,-595123098,-918563054,-845755546,750517311,1028107001,-1717882322,1946412151,1558037500" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="com.google.inject"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
       <attribute name="osgi.wiring.package" value="com.google.inject.util"/>
       <attribute name="version" value="1.4.0" type="Version"/>
       <attribute name="bnd.hashes" value="-452398607,-1620782599,1548814879,927799835,-1878691464,-1258834275,-1402880153,137276885,-1248801292,1734062883,1456396418,81291353" type="List&lt;Long&gt;"/>
     </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="bundle-symbolic-name" value="com.google.inject"/>
-      <attribute name="bundle-version" value="4.0.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.google.inject"/>
-      <attribute name="version" value="1.4.0" type="Version"/>
-      <attribute name="bnd.hashes" value="950086990,1989870026,1556432485,1271010164,2064407577,700058640,355597568,69159613,-670655271,-2100193871,348322644,1801766039,-890040350,420239804,96587209,75327,-642100403,-1984916852,1728922976,924575981,1244756399,-2096366150,-922850799,-922850798,-641191142,79711796,466412675,-1823901505,509450219,80204510,-1717494795" type="List&lt;Long&gt;"/>
-    </capability>
     <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="4.0.0" type="Version"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
       <attribute name="osgi.wiring.bundle" value="com.google.inject"/>
     </capability>
     <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="4.0.0" type="Version"/>
+      <attribute name="bundle-version" value="4.2.1" type="Version"/>
       <attribute name="osgi.wiring.host" value="com.google.inject"/>
     </capability>
     <capability namespace="bnd.info">
       <attribute name="name" value="com.google.inject"/>
-      <attribute name="from" value="com.google.inject:guice:jar:no_aop:4.0"/>
-      <attribute name="version" value="4.0.0" type="Version"/>
+      <attribute name="from" value="com.google.inject:guice:4.2.1"/>
+      <attribute name="version" value="4.2.1" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="aopalliance:aopalliance:1.0;com.google.guava:guava:16.0.1;javax.inject:javax.inject:1"/>
+      <attribute name="compile" value="aopalliance:aopalliance:1.0;javax.inject:javax.inject:1;com.google.guava:guava:25.1-android"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="423560" type="Long"/>
+      <attribute name="size" value="846871" type="Long"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/inject/guice/4.0/guice-4.0-no_aop.jar"/>
-      <attribute name="osgi.content" value="19393891BE59B6FEAF7E308BD8A3843B4E552C10CDB687EBFFD7695634A250A8"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/google/inject/guice/4.2.1/guice-4.2.1.jar"/>
+      <attribute name="osgi.content" value="CB4A9A054A20F5B9FCDD9734E97804779714FA5D62B30A0F5B5E99084F9954B0"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.base)(version&gt;=16.0.0))"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.base)(version&gt;=25.1.0)(!(version&gt;=26.0.0)))"/>
       <attribute name="osgi.wiring.package" value="com.google.common.base"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.cache)(version&gt;=16.0.0))"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.cache)(version&gt;=25.1.0)(!(version&gt;=26.0.0)))"/>
       <attribute name="osgi.wiring.package" value="com.google.common.cache"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.collect)(version&gt;=16.0.0))"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.collect)(version&gt;=25.1.0)(!(version&gt;=26.0.0)))"/>
       <attribute name="osgi.wiring.package" value="com.google.common.collect"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.common.primitives)(version&gt;=25.1.0)(!(version&gt;=26.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.google.common.primitives"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(osgi.wiring.package=javax.inject)"/>
       <attribute name="osgi.wiring.package" value="javax.inject"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.aopalliance.intercept)"/>
+      <attribute name="osgi.wiring.package" value="org.aopalliance.intercept"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
     </requirement>
   </resource>
 </repository>

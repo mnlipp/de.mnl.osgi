@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324057">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723487898207">
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.apache.maven.shared:maven-shared-utils"/>
@@ -24,7 +24,7 @@
       <attribute name="version" value="3.0.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.codehaus.plexus:plexus-interpolation:1.21;org.apache.maven:maven-core:3.0"/>
+      <attribute name="compile" value="org.apache.maven:maven-core:3.0;org.codehaus.plexus:plexus-interpolation:1.21"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="10617" type="Long"/>

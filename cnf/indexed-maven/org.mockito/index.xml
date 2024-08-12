@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476323990">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723487898114">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="org.mockito.junit-jupiter"/>
@@ -697,7 +697,7 @@
       <attribute name="version" value="4.1.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="net.bytebuddy:byte-buddy:1.12.1;net.bytebuddy:byte-buddy-agent:1.12.1"/>
+      <attribute name="compile" value="net.bytebuddy:byte-buddy-agent:1.12.1;net.bytebuddy:byte-buddy:1.12.1"/>
       <attribute name="runtime" value="org.objenesis:objenesis:3.2"/>
     </capability>
     <capability namespace="osgi.content">

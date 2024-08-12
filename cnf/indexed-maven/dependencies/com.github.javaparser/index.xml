@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324007">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723487898138">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="com.github.javaparser.javaparser-core"/>

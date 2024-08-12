@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324103">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723487898248">
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.apache.felix:org.osgi.foundation"/>
@@ -74,7 +74,7 @@
       <attribute name="version" value="1.1.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:osgi.cmpn:6.0.0;org.osgi:osgi.core:6.0.0"/>
+      <attribute name="provided" value="org.osgi:osgi.core:6.0.0;org.osgi:osgi.cmpn:6.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="189194" type="Long"/>
@@ -302,7 +302,7 @@
       <attribute name="version" value="5.6.10" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.apache.felix:org.apache.felix.resolver:1.14.0;org.osgi:org.osgi.annotation:6.0.0"/>
+      <attribute name="provided" value="org.osgi:org.osgi.annotation:6.0.0;org.apache.felix:org.apache.felix.resolver:1.14.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="692174" type="Long"/>
@@ -408,7 +408,7 @@
       <attribute name="version" value="2.0.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.osgi:osgi.annotation:6.0.1;org.osgi:org.osgi.core:5.0.0"/>
+      <attribute name="compile" value="org.osgi:org.osgi.core:5.0.0;org.osgi:osgi.annotation:6.0.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="201242" type="Long"/>
@@ -467,7 +467,7 @@
       <attribute name="version" value="1.0.2" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.osgi:org.osgi.compendium:4.3.1;org.apache.felix:org.apache.felix.gogo.runtime:1.0.0;org.osgi:org.osgi.core:4.3.1"/>
+      <attribute name="compile" value="org.osgi:org.osgi.core:4.3.1;org.apache.felix:org.apache.felix.gogo.runtime:1.0.0;org.osgi:org.osgi.compendium:4.3.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="46575" type="Long"/>
@@ -697,7 +697,7 @@
       <attribute name="version" value="0.10.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.osgi:org.osgi.compendium:4.0.0;org.apache.felix:org.apache.felix.bundlerepository:1.6.0;org.osgi:org.osgi.core:4.2.0;org.apache.felix:org.apache.felix.gogo.runtime:0.10.0"/>
+      <attribute name="compile" value="org.apache.felix:org.apache.felix.gogo.runtime:0.10.0;org.osgi:org.osgi.compendium:4.0.0;org.apache.felix:org.apache.felix.bundlerepository:1.6.0;org.osgi:org.osgi.core:4.2.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="45533" type="Long"/>
@@ -828,7 +828,7 @@
       <attribute name="version" value="0.10.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="provided" value="org.osgi:org.osgi.compendium:4.0.0;org.osgi:org.osgi.core:4.0.0"/>
+      <attribute name="provided" value="org.osgi:org.osgi.core:4.0.0;org.osgi:org.osgi.compendium:4.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="66965" type="Long"/>
@@ -1148,7 +1148,7 @@
       <attribute name="version" value="1.2.4" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.osgi:org.osgi.service.log:1.4.0;org.osgi:osgi.core:6.0.0"/>
+      <attribute name="compile" value="org.osgi:osgi.core:6.0.0;org.osgi:org.osgi.service.log:1.4.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="53175" type="Long"/>
@@ -1322,7 +1322,7 @@
       <attribute name="version" value="1.2.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.osgi:org.osgi.service.log:1.4.0;org.osgi:osgi.core:6.0.0"/>
+      <attribute name="compile" value="org.osgi:osgi.core:6.0.0;org.osgi:org.osgi.service.log:1.4.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="53514" type="Long"/>
@@ -1622,7 +1622,7 @@
       <attribute name="version" value="2.0.4" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.osgi:osgi.annotation:6.0.1;org.osgi:org.osgi.core:5.0.0"/>
+      <attribute name="compile" value="org.osgi:org.osgi.core:5.0.0;org.osgi:osgi.annotation:6.0.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="202294" type="Long"/>
@@ -1845,7 +1845,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.codehaus.mojo:animal-sniffer-annotations:1.9"/>
-      <attribute name="provided" value="org.osgi:org.osgi.annotation:6.0.0;org.apache.felix:org.apache.felix.resolver:2.0.4"/>
+      <attribute name="provided" value="org.apache.felix:org.apache.felix.resolver:2.0.4;org.osgi:org.osgi.annotation:6.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="775967" type="Long"/>
@@ -2484,7 +2484,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.codehaus.mojo:animal-sniffer-annotations:1.9"/>
-      <attribute name="provided" value="org.osgi:org.osgi.annotation:6.0.0;org.apache.felix:org.apache.felix.resolver:2.0.2"/>
+      <attribute name="provided" value="org.apache.felix:org.apache.felix.resolver:2.0.2;org.osgi:org.osgi.annotation:6.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="765081" type="Long"/>
@@ -2541,7 +2541,7 @@
       <attribute name="version" value="2.0.2" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.osgi:osgi.annotation:6.0.1;org.osgi:org.osgi.core:5.0.0"/>
+      <attribute name="compile" value="org.osgi:org.osgi.core:5.0.0;org.osgi:osgi.annotation:6.0.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="202379" type="Long"/>
@@ -2947,7 +2947,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.codehaus.mojo:animal-sniffer-annotations:1.9"/>
-      <attribute name="provided" value="org.osgi:org.osgi.annotation:6.0.0;org.apache.felix:org.apache.felix.resolver:2.0.2"/>
+      <attribute name="provided" value="org.apache.felix:org.apache.felix.resolver:2.0.2;org.osgi:org.osgi.annotation:6.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="727491" type="Long"/>
@@ -3343,7 +3343,7 @@
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.codehaus.mojo:animal-sniffer-annotations:1.9"/>
-      <attribute name="provided" value="org.apache.felix:org.apache.felix.resolver:2.0.0;org.osgi:org.osgi.annotation:6.0.0"/>
+      <attribute name="provided" value="org.osgi:org.osgi.annotation:6.0.0;org.apache.felix:org.apache.felix.resolver:2.0.0"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="726279" type="Long"/>
