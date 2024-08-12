@@ -18,10 +18,12 @@
 
 package de.mnl.osgi.bnd.repository.maven.idxmvn;
 
+import aQute.bnd.deployer.repository.RepoResourceUtils;
 import aQute.bnd.http.HttpClient;
 import aQute.bnd.osgi.repository.ResourcesRepository;
 import aQute.bnd.osgi.repository.XMLResourceGenerator;
 import aQute.bnd.osgi.repository.XMLResourceParser;
+import aQute.bnd.osgi.resource.ResourceBuilder;
 import aQute.bnd.osgi.resource.ResourceUtils;
 import aQute.bnd.version.Version;
 import aQute.maven.api.Archive;
@@ -64,6 +66,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.maven.model.Dependency;
+import org.osgi.framework.namespace.IdentityNamespace;
 import org.osgi.resource.Capability;
 import org.osgi.resource.Resource;
 import org.slf4j.Logger;
@@ -741,12 +744,47 @@ public class MavenGroupRepository extends ResourcesRepository {
         if (backupRepo == null) {
             return Optional.empty();
         }
-        return backupRepo.findProvider(
+        var optResource = backupRepo.findProvider(
             backupRepo.newRequirementBuilder("bnd.info")
                 .addDirective("filter",
                     String.format("(from=%s)", archive.toString()))
                 .build())
             .stream().findFirst().map(Capability::getResource);
+        if (optResource.isEmpty()) {
+            return optResource;
+        }
+
+        // Restore supporting resources, see
+        // https://github.com/bndtools/bnd/issues/6211 and
+        // https://github.com/bndtools/bnd/issues/6212
+        ResourceBuilder builder = new ResourceBuilder();
+        builder.addResource(optResource.get());
+        var ident = RepoResourceUtils.getIdentityCapability(optResource.get());
+        var name
+            = ident.getAttributes().get(IdentityNamespace.IDENTITY_NAMESPACE);
+        var version = ident.getAttributes()
+            .get(IdentityNamespace.CAPABILITY_VERSION_ATTRIBUTE);
+        Set<String> known = new HashSet<>();
+        backupRepo.findProvider(
+            backupRepo.newRequirementBuilder("bnd.multirelease")
+                .addDirective("filter",
+                    String.format("(&(bnd.multirelease=%s)(version=%s))", name,
+                        version.toString()))
+                .build())
+            .stream().map(Capability::getResource)
+            .filter(r -> {
+                var forRel = RepoResourceUtils.getIdentityCapability(r)
+                    .getAttributes().get(IdentityNamespace.IDENTITY_NAMESPACE)
+                    .toString();
+                if (known.contains(forRel)) {
+                    return false;
+                }
+                known.add(forRel);
+                return true;
+            })
+            .forEach(builder::addSupportingResource);
+
+        return Optional.of(builder.build());
     }
 
     private void logIndexing(Revision revision, Supplier<String> msgSupplier) {
