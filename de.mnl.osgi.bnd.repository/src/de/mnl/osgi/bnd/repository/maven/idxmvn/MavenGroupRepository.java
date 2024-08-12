@@ -148,7 +148,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         if (groupIndexPath.toFile().canRead()) {
             try (XMLResourceParser parser
                 = new XMLResourceParser(groupIndexPath.toFile())) {
-                addAll(parser.parse());
+                addAll(fixResources(parser.parse()));
             } catch (Exception e) { // NOPMD
                 reporter.warning("Cannot parse %s, ignored: %s", groupIndexPath,
                     e.getMessage());
@@ -163,6 +163,60 @@ public class MavenGroupRepository extends ResourcesRepository {
                 IndexingState.INDEXED);
         }
         LOG.debug("Created group repository for {}.", groupId);
+    }
+
+    /**
+     * Restore supporting resources, see 
+     * https://github.com/bndtools/bnd/issues/6211 and
+     * https://github.com/bndtools/bnd/issues/6212.
+     */
+    private List<Resource> fixResources(List<Resource> resources) {
+        // Temporary repo for fixing
+        ResourcesRepository repo = new ResourcesRepository();
+        repo.addAll(resources);
+        List<Resource> result = new ArrayList<>();
+
+        // Fix resources with bnd.multirelease
+        for (var resource : repo.getResources()) {
+            if (resource.getRequirements("bnd.multirelease").isEmpty()) {
+                result.add(resource);
+                continue;
+            }
+
+            // Build new resource from existing resource
+            ResourceBuilder builder = new ResourceBuilder();
+            builder.addResource(resource);
+            var ident = RepoResourceUtils.getIdentityCapability(resource);
+            var name = ident.getAttributes()
+                .get(IdentityNamespace.IDENTITY_NAMESPACE);
+            var version = ident.getAttributes()
+                .get(IdentityNamespace.CAPABILITY_VERSION_ATTRIBUTE);
+
+            // bnd duplicates multirelease resources when reading from XML
+            Set<String> known = new HashSet<>();
+            repo.findProvider(
+                repo.newRequirementBuilder("bnd.multirelease")
+                    .addDirective("filter",
+                        String.format("(&(bnd.multirelease=%s)(version=%s))",
+                            name,
+                            version.toString()))
+                    .build())
+                .stream().map(Capability::getResource)
+                .filter(r -> {
+                    var forRel = RepoResourceUtils.getIdentityCapability(r)
+                        .getAttributes()
+                        .get(IdentityNamespace.IDENTITY_NAMESPACE)
+                        .toString();
+                    if (known.contains(forRel)) {
+                        return false;
+                    }
+                    known.add(forRel);
+                    return true;
+                }).forEach(builder::addSupportingResource);
+            result.add(builder.build());
+        }
+
+        return result;
     }
 
     private void updatePaths(Path directory) {
@@ -744,47 +798,12 @@ public class MavenGroupRepository extends ResourcesRepository {
         if (backupRepo == null) {
             return Optional.empty();
         }
-        var optResource = backupRepo.findProvider(
+        return backupRepo.findProvider(
             backupRepo.newRequirementBuilder("bnd.info")
                 .addDirective("filter",
                     String.format("(from=%s)", archive.toString()))
                 .build())
             .stream().findFirst().map(Capability::getResource);
-        if (optResource.isEmpty()) {
-            return optResource;
-        }
-
-        // Restore supporting resources, see
-        // https://github.com/bndtools/bnd/issues/6211 and
-        // https://github.com/bndtools/bnd/issues/6212
-        ResourceBuilder builder = new ResourceBuilder();
-        builder.addResource(optResource.get());
-        var ident = RepoResourceUtils.getIdentityCapability(optResource.get());
-        var name
-            = ident.getAttributes().get(IdentityNamespace.IDENTITY_NAMESPACE);
-        var version = ident.getAttributes()
-            .get(IdentityNamespace.CAPABILITY_VERSION_ATTRIBUTE);
-        Set<String> known = new HashSet<>();
-        backupRepo.findProvider(
-            backupRepo.newRequirementBuilder("bnd.multirelease")
-                .addDirective("filter",
-                    String.format("(&(bnd.multirelease=%s)(version=%s))", name,
-                        version.toString()))
-                .build())
-            .stream().map(Capability::getResource)
-            .filter(r -> {
-                var forRel = RepoResourceUtils.getIdentityCapability(r)
-                    .getAttributes().get(IdentityNamespace.IDENTITY_NAMESPACE)
-                    .toString();
-                if (known.contains(forRel)) {
-                    return false;
-                }
-                known.add(forRel);
-                return true;
-            })
-            .forEach(builder::addSupportingResource);
-
-        return Optional.of(builder.build());
     }
 
     private void logIndexing(Revision revision, Supplier<String> msgSupplier) {
