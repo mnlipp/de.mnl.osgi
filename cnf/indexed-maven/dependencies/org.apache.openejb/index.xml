@@ -1,0 +1,536 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324090">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="org.apache.openejb.javaee-api"/>
+      <attribute name="documentation" value="http://openejb.apache.org"/>
+      <attribute name="description" value="Apache OpenEJB is an open source, modular, configurable and extendable EJB Container System and EJB Server."/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="5.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1374610200" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.ws"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1148338866,1556432485,-971146378,1382649663,349415578,1805746613,-2127840820,-1201284130,-921269129,-922850799,-1262631132,-275679135,1190896882,2403779,-646160747,-260720168,679895273,-677456050,734051340,1371698574,1535808622,1162053008,-847199758,657309682,-1098236223" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.ws.handler"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1937510614,2145469776,-1463405791,1318222833,79711796,806605768,792702191" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.ws.handler.soap"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1360134463,711340051" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.ws.spi"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1671245102,1913542064,-922850799,1052982074" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.ws.http"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-2113725219,-1662777177" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.ws.soap"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="559110266,-229497672" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.soap"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-469978154,2043610225,-406375807,1913542064,-1236807901,-461907967,-1785458773,-1434244974,2420395,2433570,458068942,362550772,1954536397,527460975,-1719626551,-1772031999,932745732,-995505935,862207705,1458611323,-1458319100,-424551681,464379223,-1995343451,1571202552,-540743196,1622256124,1954940446,2603341" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.namespace"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="581046260,77225596" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.registry"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-8787053,-1819512573,-1490663995,-1952853679,1217813246,1610527788,1054941455,1266832068,1915504610,-1771599242,-206198063,1148038775,601914590,1848056274,-468644573,78391464,-1851919899,-706743182,-1866164328,284212018,69640991,1432771010" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.registry.infomodel"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1580368993,323652613,-619642874,1526498635,-1679289784,-906611496,-1057446342,1456580340,-1221853563,-646420554,-1985290209,75327,-1467941044,1343242579,-1623018592,-1833337719,-1762085355,1484827132,-362412759,-646160747,1146242608,2579998,-940283011,-104783795,494573414,2645995,-1937625582" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.rpc"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2092670,-1671245102,1913542064,220234891,24243796,419337420,-646160747,135145786,162580661,2587854" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.rpc.encoding"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1343816128,-1513756429,270956695,-1476409409,1395478962,-870675720,-1062398956,-1939319695,-1226800175" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.rpc.handler"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="472007059,-1937510614,-282730057,-1117314312,1796585863,806605768" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.rpc.handler.soap"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="711340051" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.rpc.holders"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1561092957,-1070339190,-1990289452,-278512393,-2073440483,-2125393676,-309379113,-936666454,891070717,-923583570,-452899064,-1437285565,-2127840820,1673757275,-882533471,1007193960,-317303069,-1436940821,1401703240,-1989371608,1520948515,-74556099" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.rpc.server"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1648803755,1912032629" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.rpc.soap"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-229497672" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.stream"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1392506514,-1243482820,381857868,1965687765,-1649099976,-1595833689,295690118,451095350,-1517721737,214958610,-1754548744,-1668838115,1389422776,-1001642056,1408852474,1564257706" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.stream.events"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2017053308,-1056078198,-1679915457,68020,992303862,558132673,-1498333833,-1353653624,-1038781125,-378383368,2053479259,1787799421,-1632963494,609947875" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.stream.util"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1546807166,-2082580696,1388394600,989619705" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1989870026,338397845,-808374276,-188311395,1816284,1236525377,1816456206,814792785,-797911717,-548836626,-1652645679,137578097,1410803924,1689866715,-397449876,615271281,-61951983,1605952727,-1273228838,-2116489144,782067000,668760842,1982344500,133971830,-1091152511,1227593353,873208789,1601562550,894184242" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.annotation"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-191744056,-2091374577,-1778966573,1189696021,-1873562992,1602286520,-1955451993,-373266745,-336596551,-1851361179,-2032180703,-310588667,2105276323,-58314417,-1387340978,-57897243,-2024746546,-1038313970,-281571944,-1631399239,84623186,-136387615,-949540645,-281368267,1872872101,-131553724,84623388,253186816,-1720187564,1776440131,382559352,1883139026,-1752232223,-811700141,-281114671,-123491398" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.annotation.adapters"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-530373369,853008595,976430119,201740120,-2032180703,-950321604,604801463" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.attachment"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-803270818,-1626040841" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.helpers"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="661420893,-888088138,666256874,-397449876,367657265,-695659055,1553954711,151028545,-698155115" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.bind.util"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="756042206,793962972,-397449876,420558860" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.mail"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="516961236,270522074,-1681005229,1767167189,-1330044233,2289459,1691175343,2192268,67960423,2109868174,1545447893,407099826,-2137403731,1064561702,1342173395,-1675388953,-1149384009,806605768,-1032556074,1814960587,-1563728653,797840524,-1547629039,738861686,2480147,84732435,2622298,-922850799,-276420562,78401112,-1993378405,607583391,908623818,-646160747,-255077793,-645326218,80218305,409394498,-1238034679,1153812834,1691905214,548599930" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.mail.event"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1551902321,-289122756,-778459694,-1427040543,1754702508,1363592034,1671730947,527235533,1246497953,520205511,-2082373102,1598677564,-1403532711,-68231019,-725428218,901802257,1638737629" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.mail.internet"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1229769435,418306693,175865529,-44618477,-1475232556,-1419081314,1278737203,80988633,-904254742,-1097750189,2133220166,304360782,845249765,-943321476,1305860393,1342173395,-1274627821,1289273089,-617768264,-1327618457,1351928364,1950435960,1936657793,122461032,419302343,1971845884,1389588948,-679539163" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.mail.search"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-790692079,290579040,802358979,1767290190,-1421720523,1857389914,1678542360,-848077945,-1180020906,-323983175,-3731245,-1089631538,-1415461220,-501589569,-1925379825,-1435352485,290632438,1342154245,-1385291929,1282991700,-770076398,911610925,420381757,1064648600" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.mail.util"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="592133462,-688818914,-2094231780,-983816823" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.activation"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1359889218,206291577,-1517362639,838515274,202913531,608817551,-712549084,879465504,-1029031803,1446596385,-1581448570,-796606708,-1327476306,-1760917491,-2052561703,-1641495510,1002652865,-1627952364,-896685802" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.annotation"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-2004043409,-783626505,424653815,-747788814,-276420562,20897285" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.annotation.security"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1788444563,-1077456939,-1614978202,1796849739,79322109" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.ejb"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1639862328,-587319795,1032591615,-1920059276,-980524397,852870459,68669,1388320078,395375282,-408004462,-1004990788,1199776557,2122348045,-511913300,759806428,741457679,112258731,2128854,-49090863,509910611,633766956,173603497,-2140710328,-1737439225,2283824,73592651,798407370,-1189653781,-433230533,1191996484,928685146,-563529020,-1101283797,-1686720767,-2083289645,1437747601,-1850743706,-1260541339,-1850743644,-1698757621,1644853062,1721770585,-1589078774,1382848364,-81209974,1618524470,350741825,80811813,957465005,907994064,-1361410690,187144664,-1459684959,-1210104709,-10726655,168087973" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.ejb.spi"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="542954477" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.interceptor"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1063715643,2128215532,11436981,-969075954,-1601973537" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.resource"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1402452140,-1894684923,1440422849" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.resource.cci"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1217813246,1610527788,1719390317,268179417,-1819895678,-782993934,-2054448947,-942170477,-1332103036,1148447163,-1851041679,-1410711719,928949680,762392462,184404709,1875290419,799080698" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.resource.spi"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1948663313,-1929059905,298568577,-88564093,-289122756,-63995120,-757296433,1543572991,-2002539488,882993841,1467328436,362516707,-1717594694,935113242,-1018687736,-942170477,-2084043012,1583869885,-67167603,1250440748,-1512561855,1594982016,792351953,-1315061695,1009115343,-1363896698,-516446721,-1044457984,-1678694608" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.resource.spi.endpoint"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1543389852,1194237646" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.resource.spi.security"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1462627694,-42273422" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.resource.spi.work"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-89859177,2702129,365770462,-345322667,-1224434199,-1663452130,1106158341,-1943428292,1344779840" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise.deploy"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise.deploy.model"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2011648080,-1739743918,352205184,1669477831,-514863075,110482513" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise.deploy.model.exceptions"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1246599101" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise.deploy.shared"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-449621328,206630149,-2131409700,1123315686,-81905845" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise.deploy.shared.factories"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1666450824" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise.deploy.spi"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="890827126,870202232,124725777,902657288,-1797038671,1096631640" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise.deploy.spi.exceptions"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="139495088,531397221,2064407577,1846127420,2020886536,1056254060,227031425,-1625396834" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise.deploy.spi.factories"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1024485787" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.enterprise.deploy.spi.status"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1828010699,910807863,1556169805,1045803553,1264584684" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.management"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.management.j2ee"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1603549267,193483875,-1395403806" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.management.j2ee.statistics"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1911586778,170727536,-1292053215,-1079646622,1882731020,1048629597,607286553,1393250135,1281324458,1853966310,-1911566748,655801041,-1812856647,-2116185478,-42363235,500714297,-2101290225,-699056472,1419500702,1909896454,1470395428,1265057971,-643761798,-517801735,355154021,1569946243,-77293264,80204927,748244195,-168098672" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.security"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.security.jacc"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1005909397,1270464604,1851900909,1398420271,584759012,830359748,-1008018522,-311919619,759734482,338979981,-1522994367,-1388128612,1046237263,-82684207,-537929448,953332950,-2034472936" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.jms"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-763957956,1217813246,1602577684,1610527788,1719390317,846070743,238021614,863599107,1467328436,-1069284430,-1049507752,1828365849,95760063,-931557537,-1230221525,-1675388953,-765482755,-1577086918,-1211010255,1148447163,73085491,-2024906462,-1201474407,-1732325464,78391537,134863095,1300023983,-1585616037,-1307118080,-1871507775,756086406,1968910437,-1315061695,-535692877,778957935,-645326218,-2067986361,1366933856,1369535870,1782857210,80993551,-916426419,-1337149699,1027220909,273751139,-884719993,-1360544041,-258606497,-1993057522,-1145530713,-73746333,1307209894,413036932,-1461901874,825993069,-909240508,661503270,-20565008" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.persistence"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1496444083,854873798,593956456,1232781067,63955982,169424878,2023997302,-328563917,-519411470,1810029526,277469269,1279963301,850493098,1280083301,2080559107,1304339664,-1647217284,517496362,-642316416,-1619637539,856438272,-1623549221,-2006084613,1072804512,829397720,-2083086392,766590196,1984485783,1526742657,1641182530,1232940178,2363,-1003602691,-324205398,269394692,-1244434112,77248307,1499150500,76575,668063208,-516940071,-2094883156,-1997529213,1382525328,1270972598,-669067752,1665600013,1700055343,1096452241,1385456628,-666064544,2056726341,-237091369,457542693,374336127,-92674512,-1042067062,1422057539,-1272421232,996228468,1064362147,-1364511696,821421510,1524526324,-724999836,-629235287,-1811165743,137228519,232993068,768577053,-1943915018,78391464,196732751,-1910001237,2111860442,1043164377,-271275022,-1213664297,1031112572,80563118,678343365,-1256797374,1786994076,-1326366638,-1238252950,459796654,2016261304" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.persistence.spi"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="212563105,1001874832,1696378865,1148081173" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.transaction"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-533571442,-1406780386,-1689026559,-96279672,-1402452140,-1910001237,-1808614382,338471488,378813120,-485852482,2067348239,-1326366638,1502948142,-1633071585,-1236039181" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.transaction.xa"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="84220774,-1910162921,87923" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.servlet"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2104342424,751709705,1835013370,1763359886,-304577930,-646157787,1055910343,-1626103862,-1109124152,333931718,-2079444752,-1357160802,-1724244054,-1655244667,992181926,-1481941846,876597416,-1914371098,-1893105648,773340030,468651145,1357376902,-973927379,-1505060425,-516446721" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.servlet.http"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2024076932,211542141,63083346,-214660895,2008517598,-681764139,212373710,-1273681576,1761221698,-340574461,-272878677,-1028171519,-1178910100,104926114,-2120397591,-194025820,938706052" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.servlet.resources"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.jws"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-282730057,-1928550679,677763381,2403779,-668224071,820891761,564447457" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.jws.soap"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1731890493,120268712,80227729,85351,559110266,452612526,1146086533" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.geronimo"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.geronimo.mail"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.geronimo.mail.handlers"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="306161919,547878243,-941890274,1520735549,-181303469" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.geronimo.mail.util"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1402856749,1982630255,2128893877,258205869,-1297731955,57285884,72443,-392248927,-950041377,1957261893,-1686884547,-1469363939,-830114129,1645433752,973411922,-1040314844,-1976517418,-1142497700,-171973380,83873189,1989909431" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.apache.openejb.javaee-api"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="5.0.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.apache.openejb.javaee-api"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.apache.openejb.javaee-api"/>
+      <attribute name="from" value="org.apache.openejb:javaee-api:5.0-2"/>
+      <attribute name="version" value="5.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="753070" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/apache/openejb/javaee-api/5.0-2/javaee-api-5.0-2.jar"/>
+      <attribute name="osgi.content" value="A76A5097D08F0E1DEF016CC84326C34CC5845414A05DDF446F19A0DC91F76D9C"/>
+    </capability>
+  </resource>
+</repository>

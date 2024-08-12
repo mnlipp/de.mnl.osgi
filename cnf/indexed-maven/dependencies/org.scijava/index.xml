@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476323886">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.scijava:native-lib-loader"/>
+      <attribute name="from" value="org.scijava:native-lib-loader:2.0.2"/>
+      <attribute name="version" value="2.0.2" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="17052" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/scijava/native-lib-loader/2.0.2/native-lib-loader-2.0.2.jar"/>
+      <attribute name="osgi.content" value="E567C71E9F3FF53F78BD58FD6BA6D471CE31E1263F5E87D1E1FCC5D3EDA1E248"/>
+    </capability>
+  </resource>
+</repository>

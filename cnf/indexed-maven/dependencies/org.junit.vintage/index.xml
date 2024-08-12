@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191922011">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476323878">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="junit-vintage-engine"/>
@@ -70,7 +70,7 @@
       <attribute name="version" value="5.9.2" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="junit:junit:4.13.2;org.junit.platform:junit-platform-engine:1.9.2;org.apiguardian:apiguardian-api:1.1.2"/>
+      <attribute name="compile" value="org.junit.platform:junit-platform-engine:1.9.2;org.apiguardian:apiguardian-api:1.1.2;junit:junit:4.13.2"/>
     </capability>
     <capability namespace="org.junit.platform.engine">
       <attribute name="org.junit.platform.engine" value="junit-vintage"/>
@@ -404,7 +404,7 @@
       <attribute name="version" value="5.8.2" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.junit.platform:junit-platform-engine:1.8.2;junit:junit:4.13.2;org.apiguardian:apiguardian-api:1.1.2"/>
+      <attribute name="compile" value="org.apiguardian:apiguardian-api:1.1.2;org.junit.platform:junit-platform-engine:1.8.2;junit:junit:4.13.2"/>
     </capability>
     <capability namespace="org.junit.platform.engine">
       <attribute name="org.junit.platform.engine" value="junit-vintage"/>
@@ -567,7 +567,7 @@
       <attribute name="version" value="5.8.1" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="junit:junit:4.13.2;org.junit.platform:junit-platform-engine:1.8.1;org.apiguardian:apiguardian-api:1.1.2"/>
+      <attribute name="compile" value="org.junit.platform:junit-platform-engine:1.8.1;junit:junit:4.13.2;org.apiguardian:apiguardian-api:1.1.2"/>
     </capability>
     <capability namespace="org.junit.platform.engine">
       <attribute name="org.junit.platform.engine" value="junit-vintage"/>
@@ -730,7 +730,7 @@
       <attribute name="version" value="5.8.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="junit:junit:4.13.2;org.apiguardian:apiguardian-api:1.1.2;org.junit.platform:junit-platform-engine:1.8.0"/>
+      <attribute name="compile" value="org.junit.platform:junit-platform-engine:1.8.0;junit:junit:4.13.2;org.apiguardian:apiguardian-api:1.1.2"/>
     </capability>
     <capability namespace="org.junit.platform.engine">
       <attribute name="org.junit.platform.engine" value="junit-vintage"/>
@@ -893,7 +893,7 @@
       <attribute name="version" value="5.7.1" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="junit:junit:4.13;org.apiguardian:apiguardian-api:1.1.0;org.junit.platform:junit-platform-engine:1.7.1"/>
+      <attribute name="compile" value="org.apiguardian:apiguardian-api:1.1.0;org.junit.platform:junit-platform-engine:1.7.1;junit:junit:4.13"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="64313" type="Long"/>
@@ -1047,7 +1047,7 @@
       <attribute name="version" value="5.6.2" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.junit.platform:junit-platform-engine:1.6.2;junit:junit:4.13;org.apiguardian:apiguardian-api:1.1.0"/>
+      <attribute name="compile" value="org.apiguardian:apiguardian-api:1.1.0;org.junit.platform:junit-platform-engine:1.6.2;junit:junit:4.13"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="63769" type="Long"/>

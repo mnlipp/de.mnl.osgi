@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324016">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.jspecify:jspecify"/>
+      <attribute name="from" value="org.jspecify:jspecify:0.3.0"/>
+      <attribute name="version" value="0.3.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="2850" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/jspecify/jspecify/0.3.0/jspecify-0.3.0.jar"/>
+      <attribute name="osgi.content" value="E1C7E1832B6095FCFCBE57485700C7330D53D4E57E2C5BBF9C71819B02E978BE"/>
+    </capability>
+  </resource>
+</repository>

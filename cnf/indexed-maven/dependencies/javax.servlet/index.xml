@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1639573925201">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324118">
   <resource>
     <capability namespace="bnd.info">
-      <attribute name="name" value="javax.servlet:servlet-api:2.5"/>
+      <attribute name="name" value="javax.servlet:servlet-api"/>
       <attribute name="from" value="javax.servlet:servlet-api:2.5"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="version" value="2.5.0" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="105112" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
       <attribute name="url" value="https://repo.maven.apache.org/maven2/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
       <attribute name="osgi.content" value="C658EA360A70FAEEADB66FB3C90A702E4142A0AB7768F9AE9828678E0D9AD4DC"/>
     </capability>
   </resource>

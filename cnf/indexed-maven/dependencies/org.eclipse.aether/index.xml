@@ -1,202 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923550">
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="license" value="http://www.eclipse.org/legal/epl-v10.html"/>
-      <attribute name="osgi.identity" value="org.eclipse.aether.impl"/>
-      <attribute name="documentation" value="http://www.eclipse.org/aether/aether-impl/"/>
-      <attribute name="description" value="An implementation of the repository system."/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="1.0.2.v20150114" type="Version"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="x-internal" value="true"/>
-      <directive name="uses" value="javax.inject,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.collection,org.eclipse.aether.deployment,org.eclipse.aether.impl,org.eclipse.aether.installation,org.eclipse.aether.metadata,org.eclipse.aether.repository,org.eclipse.aether.resolution,org.eclipse.aether.spi.connector,org.eclipse.aether.spi.connector.checksum,org.eclipse.aether.spi.connector.layout,org.eclipse.aether.spi.connector.transport,org.eclipse.aether.spi.io,org.eclipse.aether.spi.localrepo,org.eclipse.aether.spi.locator,org.eclipse.aether.spi.log,org.eclipse.aether.transfer"/>
-      <attribute name="bundle-symbolic-name" value="org.eclipse.aether.impl"/>
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.internal.impl"/>
-      <attribute name="version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="bnd.hashes" value="697562167,1292061854,2013310575,-2036976952,-610019020,-1938069430,1803088381,-1349937374,1245097871,-656018388,165322321,1853586182,1337708819,-788070913,-1829993415,-2090463257,-453653947,2049277,642695207,-1532767274,-1800808031,766201850,1792489252,-564949913,-1062774606,-507258108,1941635349,-1379638827,997473895,547432133,-674300559,1240419478,-1596963394,-131860479,-843475460,484610131,-43419370,1387411558,1407150682,-2039387725,-1469276201,464358854,524973295,87211234,-188749498,-79059744,461199374,-1513888484,-1582890445,1580544331,-1729890981,-272886930,-1059248337,-1836272250,-1234775013,95728152,-1327394469,-930397300,-1653505482,416868682,-549865376,-1636329670,82059409,1362012059" type="List&lt;Long&gt;"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="x-internal" value="true"/>
-      <directive name="uses" value="javax.inject,org.eclipse.aether.spi.locator,org.eclipse.aether.spi.log,org.slf4j"/>
-      <attribute name="bundle-symbolic-name" value="org.eclipse.aether.impl"/>
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.internal.impl.slf4j"/>
-      <attribute name="version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="bnd.hashes" value="-244027405,1712867334,-1553854057" type="List&lt;Long&gt;"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.collection,org.eclipse.aether.deployment,org.eclipse.aether.impl.guice,org.eclipse.aether.installation,org.eclipse.aether.metadata,org.eclipse.aether.repository,org.eclipse.aether.resolution,org.eclipse.aether.spi.connector,org.eclipse.aether.spi.locator,org.eclipse.aether.transfer"/>
-      <attribute name="bundle-symbolic-name" value="org.eclipse.aether.impl"/>
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.impl"/>
-      <attribute name="version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="bnd.hashes" value="-1284012239,-1178922204,-2007599080,67115090,1105434690,1177425058,-1451465374,1005208564,2033014632,768993798,865707076,955879462,1062813813,1487195583,-621913795,798083860,-1871024105,-349628426,1068202399,1644621070,-1968068287,1153086091,-1712612130" type="List&lt;Long&gt;"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <directive name="uses" value="com.google.inject"/>
-      <attribute name="bundle-symbolic-name" value="org.eclipse.aether.impl"/>
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.impl.guice"/>
-      <attribute name="version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="bnd.hashes" value="-215473969,-1284012239" type="List&lt;Long&gt;"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="org.eclipse.aether.impl"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
-      <attribute name="osgi.wiring.host" value="org.eclipse.aether.impl"/>
-    </capability>
-    <capability namespace="bnd.info">
-      <attribute name="name" value="org.eclipse.aether.impl"/>
-      <attribute name="from" value="org.eclipse.aether:aether-impl:1.0.2.v20150114"/>
-      <attribute name="version" value="1.0.2.v20150114" type="Version"/>
-    </capability>
-    <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.eclipse.aether:aether-spi:1.0.2.v20150114;org.eclipse.aether:aether-api:1.0.2.v20150114;org.eclipse.aether:aether-util:1.0.2.v20150114"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="size" value="172998" type="Long"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-impl/1.0.2.v20150114/aether-impl-1.0.2.v20150114.jar"/>
-      <attribute name="osgi.content" value="9A84F5863407ACF2BF9CF280CD02F5A518952A386DE61DF3B8C5DB8CFDEC725D"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
-      <directive name="resolution" value="optional"/>
-      <attribute name="osgi.wiring.package" value="com.google.inject"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.binder)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
-      <directive name="resolution" value="optional"/>
-      <attribute name="osgi.wiring.package" value="com.google.inject.binder"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.name)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
-      <directive name="resolution" value="optional"/>
-      <attribute name="osgi.wiring.package" value="com.google.inject.name"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=javax.inject)"/>
-      <directive name="resolution" value="optional"/>
-      <attribute name="osgi.wiring.package" value="javax.inject"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.artifact)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.artifact"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.collection)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.collection"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.deployment)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.deployment"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.graph)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.graph"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.installation)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.installation"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.metadata)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.metadata"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.repository)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.repository"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.resolution)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.resolution"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.connector)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.connector"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.connector.checksum)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.connector.checksum"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.connector.layout)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.connector.layout"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.connector.transport)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.connector.transport"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.io)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.io"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.localrepo)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.localrepo"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.locator)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.locator"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.log)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.log"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.transfer)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.transfer"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.artifact)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.artifact"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.concurrency)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.concurrency"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.graph.transformer)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.transformer"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.graph.visitor)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.visitor"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.version)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.aether.version"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.eclipse.sisu)"/>
-      <directive name="resolution" value="optional"/>
-      <attribute name="osgi.wiring.package" value="org.eclipse.sisu"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
-      <directive name="resolution" value="optional"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.spi)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
-      <directive name="resolution" value="optional"/>
-      <attribute name="osgi.wiring.package" value="org.slf4j.spi"/>
-    </requirement>
-  </resource>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324082">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.eclipse.org/legal/epl-v10.html"/>
@@ -483,6 +286,203 @@
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.version)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <attribute name="osgi.wiring.package" value="org.eclipse.aether.version"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.eclipse.org/legal/epl-v10.html"/>
+      <attribute name="osgi.identity" value="org.eclipse.aether.impl"/>
+      <attribute name="documentation" value="http://www.eclipse.org/aether/aether-impl/"/>
+      <attribute name="description" value="An implementation of the repository system."/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.0.2.v20150114" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="x-internal" value="true"/>
+      <directive name="uses" value="javax.inject,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.collection,org.eclipse.aether.deployment,org.eclipse.aether.impl,org.eclipse.aether.installation,org.eclipse.aether.metadata,org.eclipse.aether.repository,org.eclipse.aether.resolution,org.eclipse.aether.spi.connector,org.eclipse.aether.spi.connector.checksum,org.eclipse.aether.spi.connector.layout,org.eclipse.aether.spi.connector.transport,org.eclipse.aether.spi.io,org.eclipse.aether.spi.localrepo,org.eclipse.aether.spi.locator,org.eclipse.aether.spi.log,org.eclipse.aether.transfer"/>
+      <attribute name="bundle-symbolic-name" value="org.eclipse.aether.impl"/>
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.internal.impl"/>
+      <attribute name="version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="bnd.hashes" value="697562167,1292061854,2013310575,-2036976952,-610019020,-1938069430,1803088381,-1349937374,1245097871,-656018388,165322321,1853586182,1337708819,-788070913,-1829993415,-2090463257,-453653947,2049277,642695207,-1532767274,-1800808031,766201850,1792489252,-564949913,-1062774606,-507258108,1941635349,-1379638827,997473895,547432133,-674300559,1240419478,-1596963394,-131860479,-843475460,484610131,-43419370,1387411558,1407150682,-2039387725,-1469276201,464358854,524973295,87211234,-188749498,-79059744,461199374,-1513888484,-1582890445,1580544331,-1729890981,-272886930,-1059248337,-1836272250,-1234775013,95728152,-1327394469,-930397300,-1653505482,416868682,-549865376,-1636329670,82059409,1362012059" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="x-internal" value="true"/>
+      <directive name="uses" value="javax.inject,org.eclipse.aether.spi.locator,org.eclipse.aether.spi.log,org.slf4j"/>
+      <attribute name="bundle-symbolic-name" value="org.eclipse.aether.impl"/>
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.internal.impl.slf4j"/>
+      <attribute name="version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="bnd.hashes" value="-244027405,1712867334,-1553854057" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.collection,org.eclipse.aether.deployment,org.eclipse.aether.impl.guice,org.eclipse.aether.installation,org.eclipse.aether.metadata,org.eclipse.aether.repository,org.eclipse.aether.resolution,org.eclipse.aether.spi.connector,org.eclipse.aether.spi.locator,org.eclipse.aether.transfer"/>
+      <attribute name="bundle-symbolic-name" value="org.eclipse.aether.impl"/>
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.impl"/>
+      <attribute name="version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="bnd.hashes" value="-1284012239,-1178922204,-2007599080,67115090,1105434690,1177425058,-1451465374,1005208564,2033014632,768993798,865707076,955879462,1062813813,1487195583,-621913795,798083860,-1871024105,-349628426,1068202399,1644621070,-1968068287,1153086091,-1712612130" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.google.inject"/>
+      <attribute name="bundle-symbolic-name" value="org.eclipse.aether.impl"/>
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.impl.guice"/>
+      <attribute name="version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="bnd.hashes" value="-215473969,-1284012239" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.eclipse.aether.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.2.v20150114" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.eclipse.aether.impl"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="org.eclipse.aether.impl"/>
+      <attribute name="from" value="org.eclipse.aether:aether-impl:1.0.2.v20150114"/>
+      <attribute name="version" value="1.0.2.v20150114" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.eclipse.aether:aether-api:1.0.2.v20150114;org.eclipse.aether:aether-util:1.0.2.v20150114;org.eclipse.aether:aether-spi:1.0.2.v20150114"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="172998" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-impl/1.0.2.v20150114/aether-impl-1.0.2.v20150114.jar"/>
+      <attribute name="osgi.content" value="9A84F5863407ACF2BF9CF280CD02F5A518952A386DE61DF3B8C5DB8CFDEC725D"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.binder)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.binder"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.inject.name)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="com.google.inject.name"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.inject)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="javax.inject"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.artifact)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.artifact"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.collection)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.collection"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.deployment)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.deployment"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.graph)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.graph"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.installation)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.installation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.metadata)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.metadata"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.repository)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.repository"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.resolution)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.resolution"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.connector)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.connector"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.connector.checksum)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.connector.checksum"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.connector.layout)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.connector.layout"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.connector.transport)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.connector.transport"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.io)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.localrepo)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.localrepo"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.locator)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.locator"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.spi.log)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.spi.log"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.transfer)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.transfer"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.artifact)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.artifact"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.concurrency)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.concurrency"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.graph.transformer)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.transformer"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.util.graph.visitor)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.util.graph.visitor"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.aether.version)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.aether.version"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.eclipse.sisu)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.sisu"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.spi)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j.spi"/>
     </requirement>
   </resource>
   <resource>

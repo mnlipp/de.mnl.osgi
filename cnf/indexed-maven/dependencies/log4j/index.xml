@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923463">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324100">
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="log4j:log4j"/>
@@ -12,5 +12,201 @@
       <attribute name="url" value="https://repo.maven.apache.org/maven2/log4j/log4j/1.2.12/log4j-1.2.12.jar"/>
       <attribute name="osgi.content" value="DC67378CF428C06408E7959E83BDC1518DD22CCD313E7C28A986612D65C276C7"/>
     </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+      <attribute name="osgi.identity" value="log4j"/>
+      <attribute name="documentation" value="http://logging.apache.org/log4j/1.2"/>
+      <attribute name="description" value="Apache Log4j 1.2"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j,org.apache.log4j.spi,javax.naming,org.apache.log4j.helpers,javax.jms,org.apache.log4j.xml,javax.mail,javax.mail.internet,org.w3c.dom,javax.jmdns"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.net"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="1688858382,-534081321,-760530397,245764541,-1784094840,1424757805,-1262114310,-1284361097,1156408265,2024549429,106163382,424131550,1999718455,1232214825,830537763" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j,javax.management,org.apache.log4j.helpers,org.apache.log4j.spi"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.jmx"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="2087575072,63197925,571857861,-1507256461,-119724760,-1138248050,731488846" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j,org.apache.log4j.spi"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.jdbc"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="-658939550" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j.helpers,org.apache.log4j,org.apache.log4j.spi"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.config"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="-538181286,1056443232,-1850544027,1399993044,-512119845" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j,org.apache.log4j.spi,org.apache.log4j.pattern"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.helpers"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="526505321,-2085767898,281074889,-362249932,-259970439,-1987200872,-432333984,-558576695,1153491411,113274825,-2013651917,-2013495936,408821941,934591008,-727597777,-1337226101,-1498610672,-545321954,-1391449810,-913450477,5770206,188268191,-1564033563,-702442084,-485582551,-1502783569,555083687,-1089713666,277210576,381656266,487335483,-1238332596,-1283475289" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j.spi,org.apache.log4j.helpers,org.apache.log4j.pattern,org.apache.log4j.or,org.apache.log4j.config"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="1237836135,-594090284,-89672376,780924615,-67643453,-774410653,115155230,-1089337247,-1572155466,241640159,-878823522,910350095,1277834699,-1826261502,662282980,1006658861,69463811,-714065227,-175853035,-2025855158,73313124,73595837,806644713,73596023,73596178,-2013470288,76172,-591456280,77133,-1065998970,-1617094982,-1100816956,-465098294,179190562,257259607,1070132355,808346024,-1431314532,460437157,1576907306,1232154362" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j.helpers,javax.jms,org.apache.log4j.or"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.or.jms"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="-692558390" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j.helpers,org.apache.log4j,org.apache.log4j.spi"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.nt"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="-1174572137" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j.or,org.xml.sax"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.or.sax"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="2144715610" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j.helpers,org.apache.log4j.spi,org.apache.log4j,org.apache.log4j.or"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.pattern"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="854204857,-1413463386,97433639,-913450477,1185390226,5770206,266375034,-320072831,1153491411,973797268,-315547346,682649460,-1786452487,2061678401,188268191,2054401494,2005960128,-1674199893,-1744179721,-84228122,-1546913955,526919344,1413508517,-665583698,-1854613427,-718306883,-1852724686,-1397932869,-1498610672,-385224838,-1502783569,-1687328925,468903412,-1094647319,2116363930,815622714,-1477616644" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j,org.apache.log4j.helpers,org.apache.log4j.or"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.spi"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="-404078106,1335045973,-1427403446,-1961963531,1105434690,2104342424,-327964327,105703971,971415866,107691290,-754233701,1262883103,-1905316407,-256593670,450435317,-1621508756,-307755671,667415584,337939762,-270159892,1257897475,-1313152948,706529439,795314102" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j,org.apache.log4j.spi,org.apache.log4j.helpers,org.apache.log4j.xml,org.w3c.dom"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.rewrite"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="1943981570,-1080103447,-1886330029,-1129808173,-1110206018" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j.helpers,org.apache.log4j.spi,org.apache.log4j"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.or"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="506225156,2099733826,45758841,345781848" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.parsers,org.w3c.dom,org.xml.sax,org.apache.log4j.config,org.apache.log4j.helpers,org.apache.log4j,org.apache.log4j.spi,org.apache.log4j.or"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.xml"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="458627753,-1632266889,1697362051,-1168017140,-1039711331,1910121985,-782357724" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.log4j.spi,org.apache.log4j,org.apache.log4j.helpers"/>
+      <attribute name="bundle-symbolic-name" value="log4j"/>
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.apache.log4j.varia"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="bnd.hashes" value="466424749,1664183223,-362074044,71907,1985548677,-1905844327,-32111343,1246266382,-234475821,-1841541622,1212738732" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="log4j"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.host" value="log4j"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="log4j"/>
+      <attribute name="from" value="log4j:log4j:1.2.17"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="provided" value="org.apache.openejb:javaee-api:5.0-2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="489884" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17.jar"/>
+      <attribute name="osgi.content" value="1D31696445697720527091754369082A6651BD49781B6005DEB94E56753406F9"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.jmdns)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="javax.jmdns"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.jms)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="javax.jms"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.mail)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="javax.mail"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.mail.internet)"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="javax.mail.internet"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.management)"/>
+      <attribute name="osgi.wiring.package" value="javax.management"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.naming)"/>
+      <attribute name="osgi.wiring.package" value="javax.naming"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+      <attribute name="osgi.wiring.package" value="javax.xml.parsers"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+      <attribute name="osgi.wiring.package" value="org.w3c.dom"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax)"/>
+      <attribute name="osgi.wiring.package" value="org.xml.sax"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax.helpers)"/>
+      <attribute name="osgi.wiring.package" value="org.xml.sax.helpers"/>
+    </requirement>
   </resource>
 </repository>

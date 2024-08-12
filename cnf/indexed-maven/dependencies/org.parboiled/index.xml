@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923342">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324076">
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.parboiled:parboiled-core"/>
@@ -20,7 +20,7 @@
       <attribute name="version" value="1.1.7" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.ow2.asm:asm-tree:5.0.3;org.parboiled:parboiled-core:1.1.7;org.ow2.asm:asm:5.0.3;org.ow2.asm:asm-analysis:5.0.3;org.ow2.asm:asm-util:5.0.3"/>
+      <attribute name="compile" value="org.ow2.asm:asm:5.0.3;org.parboiled:parboiled-core:1.1.7;org.ow2.asm:asm-util:5.0.3;org.ow2.asm:asm-tree:5.0.3;org.ow2.asm:asm-analysis:5.0.3"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="73350" type="Long"/>

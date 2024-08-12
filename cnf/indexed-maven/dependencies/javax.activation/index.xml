@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1696261920961">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476323987">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="https://github.com/javaee/activation/blob/master/LICENSE.txt"/>

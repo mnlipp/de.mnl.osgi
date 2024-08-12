@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1697191923461">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324096">
   <resource>
     <capability namespace="bnd.info">
       <attribute name="name" value="org.jtwig:jtwig-reflection"/>
@@ -7,7 +7,7 @@
       <attribute name="version" value="5.86.1.RELEASE" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.slf4j:slf4j-api:1.7.12;org.apache.commons:commons-lang3:3.1;com.google.guava:guava:18.0"/>
+      <attribute name="compile" value="org.slf4j:slf4j-api:1.7.12;com.google.guava:guava:18.0;org.apache.commons:commons-lang3:3.1"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="36142" type="Long"/>
@@ -23,7 +23,7 @@
       <attribute name="version" value="5.86.1.RELEASE" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
-      <attribute name="compile" value="org.jtwig:jtwig-reflection:5.86.1.RELEASE;org.apache.commons:commons-lang3:3.6;org.slf4j:slf4j-api:1.7.12;org.parboiled:parboiled-java:1.1.7;com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2;com.google.guava:guava:18.0"/>
+      <attribute name="compile" value="org.apache.commons:commons-lang3:3.6;org.jtwig:jtwig-reflection:5.86.1.RELEASE;com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2;com.google.guava:guava:18.0;org.parboiled:parboiled-java:1.1.7;org.slf4j:slf4j-api:1.7.12"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="507752" type="Long"/>

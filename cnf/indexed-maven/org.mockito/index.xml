@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1639573925128">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476323990">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="org.mockito.junit-jupiter"/>
@@ -10,8 +10,8 @@
       <directive name="uses" value="org.junit.jupiter.api.extension,org.mockito.quality"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.junit-jupiter"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.junit.jupiter"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="-1227842907,-801974019" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
@@ -23,9 +23,9 @@
       <attribute name="osgi.wiring.host" value="org.mockito.junit-jupiter"/>
     </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.mockito:mockito-junit-jupiter:4.1.0"/>
+      <attribute name="name" value="org.mockito.junit-jupiter"/>
       <attribute name="from" value="org.mockito:mockito-junit-jupiter:4.1.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="org.mockito:mockito-core:4.1.0"/>
@@ -33,8 +33,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="5427" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/mockito/mockito-junit-jupiter/4.1.0/mockito-junit-jupiter-4.1.0.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/mockito/mockito-junit-jupiter/4.1.0/mockito-junit-jupiter-4.1.0.jar"/>
       <attribute name="osgi.content" value="B49255CE960558B3B08FCBBB3C30D1D6EAA45E84824FC113EBD8E3936F9D1D26"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -88,8 +88,8 @@
       <attribute name="version" value="4.1.0" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito,org.mockito.internal.verification.api,org.mockito.invocation,org.mockito.plugins,org.mockito.quality,org.mockito.stubbing,org.mockito.verification"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal"/>
@@ -98,8 +98,8 @@
       <attribute name="bnd.hashes" value="-858015031,103391354,2066819671,-187479687,1469304165" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito,org.mockito.configuration,org.mockito.internal.util,org.mockito.plugins,org.mockito.stubbing"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.configuration"/>
@@ -135,8 +135,8 @@
       <attribute name="bnd.hashes" value="-862867994,1263930612" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.plugins"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.configuration.plugins"/>
@@ -145,8 +145,8 @@
       <attribute name="bnd.hashes" value="699332583,-1463994104,-1727948526,1490007385,523022735,1666936134,1661463728,1189023616" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito,org.mockito.internal.creation.settings,org.mockito.internal.invocation,org.mockito.listeners,org.mockito.mock,org.mockito.stubbing"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.creation"/>
@@ -155,8 +155,8 @@
       <attribute name="bnd.hashes" value="983196835,36412333,-261853155" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="net.bytebuddy.dynamic.loading,net.bytebuddy.implementation.bind.annotation,org.mockito,org.mockito.creation.instance,org.mockito.internal.creation.bytebuddy.inject,org.mockito.internal.util.concurrent,org.mockito.invocation,org.mockito.mock,org.mockito.plugins"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.creation.bytebuddy"/>
@@ -168,13 +168,13 @@
       <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.creation.bytebuddy.inject"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="status" value="INTERNAL"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.creation.instance,org.mockito.mock,org.mockito.plugins"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.creation.instance"/>
@@ -183,8 +183,8 @@
       <attribute name="bnd.hashes" value="-509757192,526954448,239401526" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.invocation,org.mockito.mock,org.mockito.plugins"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.creation.proxy"/>
@@ -193,8 +193,8 @@
       <attribute name="bnd.hashes" value="851890056,160441701,937872559,1454342024,-486967963,1007073440,2082672656,920318508,78025997" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.listeners,org.mockito.mock,org.mockito.stubbing"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.creation.settings"/>
@@ -212,8 +212,8 @@
       <attribute name="bnd.hashes" value="475589363" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.internal.exceptions.stacktrace,org.mockito.internal.invocation,org.mockito.invocation,org.mockito.listeners"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.debugging"/>
@@ -222,8 +222,8 @@
       <attribute name="bnd.hashes" value="467638526,-2004210473,799400795,105703317,-1334125293,556046444,2103482237,-94052253" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.exceptions.base,org.mockito.exceptions.misusing,org.mockito.exceptions.verification,org.mockito.internal.matchers,org.mockito.internal.reporting,org.mockito.invocation,org.mockito.listeners,org.mockito.mock"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.exceptions"/>
@@ -232,8 +232,8 @@
       <attribute name="bnd.hashes" value="1413044859,-362395391,-2049809965" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.exceptions.stacktrace,org.mockito.plugins"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.exceptions.stacktrace"/>
@@ -242,8 +242,8 @@
       <attribute name="bnd.hashes" value="645881851,126891576,519104585,1018209685" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.internal.exceptions"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.exceptions.util"/>
@@ -252,8 +252,8 @@
       <attribute name="bnd.hashes" value="1098220106" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito,org.mockito.invocation,org.mockito.listeners,org.mockito.plugins,org.mockito.quality"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.framework"/>
@@ -262,8 +262,8 @@
       <attribute name="bnd.hashes" value="108493957,-1135017251" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.hamcrest,org.mockito"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.hamcrest"/>
@@ -272,8 +272,8 @@
       <attribute name="bnd.hashes" value="1621957746,1143083941" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.invocation,org.mockito.listeners,org.mockito.mock"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.handler"/>
@@ -282,8 +282,8 @@
       <attribute name="bnd.hashes" value="980065268,868012714,662447232,2100654269,-1360720299" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito,org.mockito.internal.exceptions,org.mockito.internal.invocation.mockref,org.mockito.internal.progress,org.mockito.internal.verification.api,org.mockito.invocation,org.mockito.mock"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.invocation"/>
@@ -292,8 +292,8 @@
       <attribute name="bnd.hashes" value="1893003069,222790187,-1511206916,1860388409,1842398257,164585894,-1440771830,-1712642462,-1910674260,102057284,1164904393,1440739640,681301617,-1720809813,497769531,-749782980,1862022818,-977372468,-182205377,-1166813472,1819109084,979112740" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.invocation,org.mockito.stubbing"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.invocation.finder"/>
@@ -311,8 +311,8 @@
       <attribute name="bnd.hashes" value="48263361,474620778,371797289" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.junit.runner,org.junit.runner.notification,org.junit.runners.model,org.mockito.exceptions.base,org.mockito.internal.listeners,org.mockito.invocation,org.mockito.junit,org.mockito.listeners,org.mockito.mock,org.mockito.plugins,org.mockito.quality"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.junit"/>
@@ -321,8 +321,8 @@
       <attribute name="bnd.hashes" value="-1730176150,347934045,1548704181,-632715621,1940592091,-835715830,1784818681,-1698601540,-2126840986,-1273832640,1106562088,605573106,919941764,-1776212555,337895862,149570865,-1055112656,-2096915729,1422381045,102959576,881021394" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito,org.mockito.internal.creation.settings,org.mockito.invocation,org.mockito.listeners,org.mockito.stubbing"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.listeners"/>
@@ -331,8 +331,8 @@
       <attribute name="bnd.hashes" value="320289512,67338874,1148474094,-1163477620" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito,org.mockito.invocation"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.matchers"/>
@@ -341,8 +341,8 @@
       <attribute name="bnd.hashes" value="65975,65996,1989189464,629969353,339145039,252761455,591249952,-502801857,-2097260743,1807802366,646043930,2083351519,285885811,2189785,-625145385,-1701951333,1029886415,-1399477908,-212209896,-2140646662,166121815,-1789452013,78515,-501753126,2439591,2563,2569350,437926103,1332276291" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.matchers.apachecommons"/>
@@ -351,8 +351,8 @@
       <attribute name="bnd.hashes" value="-216608068,-1299410966" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito,org.mockito.internal.reporting"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.matchers.text"/>
@@ -361,8 +361,8 @@
       <attribute name="bnd.hashes" value="-918365207,661038494,-2011990215,518312329" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito,org.mockito.internal.matchers,org.mockito.listeners,org.mockito.mock,org.mockito.stubbing,org.mockito.verification"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.progress"/>
@@ -371,8 +371,8 @@
       <attribute name="bnd.hashes" value="1889058086,-835940250,-483868603,-1531450363,1938978442,1298730638" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito,org.mockito.invocation"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.reporting"/>
@@ -381,8 +381,8 @@
       <attribute name="bnd.hashes" value="-957809621,-1746164926,-2016868912,-591087055" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.junit.runner,org.junit.runner.manipulation,org.junit.runner.notification,org.junit.runners.model,org.mockito.internal.junit,org.mockito.internal.util"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.runners"/>
@@ -391,8 +391,8 @@
       <attribute name="bnd.hashes" value="-996000562,-580543379,-1083858022,1173914489" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.junit.runner.notification,org.mockito.internal.runners"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.runners.util"/>
@@ -401,8 +401,8 @@
       <attribute name="bnd.hashes" value="-800638128,-738728607,-959690010" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito,org.mockito.plugins,org.mockito.quality,org.mockito.session"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.session"/>
@@ -411,8 +411,8 @@
       <attribute name="bnd.hashes" value="1044447742,-171262203,-580347261" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.internal.invocation,org.mockito.invocation,org.mockito.mock,org.mockito.quality,org.mockito.stubbing"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.stubbing"/>
@@ -421,8 +421,8 @@
       <attribute name="bnd.hashes" value="369132543,-179746920,-1970783701,-926069514,-242879631,-1509992407,-1316499265,-742709809,1909232321,-1956316796,777143434" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.internal.invocation,org.mockito.invocation,org.mockito.stubbing"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.stubbing.answers"/>
@@ -431,8 +431,8 @@
       <attribute name="bnd.hashes" value="-95709216,-235708997,-132381816,575287103,7974688,1392829651,-2082342156,771577214,-1531838173,-203572909,-951093583,-1920518046,1542135691" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.internal.util.reflection,org.mockito.invocation,org.mockito.stubbing"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.stubbing.defaultanswers"/>
@@ -441,8 +441,8 @@
       <attribute name="bnd.hashes" value="1866720917,-643875764,-507317693,1383773445,-1697676392,-1224162720,1583847036,868878870,1157350316,1871791302,1836352151,-1943875142,946383110,-486163568" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito,org.mockito.internal.stubbing,org.mockito.invocation,org.mockito.mock,org.mockito.plugins,org.mockito.stubbing"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.util"/>
@@ -478,8 +478,8 @@
       <attribute name="bnd.hashes" value="-2129434040" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.internal.util.collections,org.mockito.plugins"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.util.reflection"/>
@@ -488,8 +488,8 @@
       <attribute name="bnd.hashes" value="-392180060,-1460685330,1230193117,-509757192,-708502365,605660223,-217812568,1983932989,-1635170354,2104126169,712725241,281539415,99817527,-1564913902,2046733580,178162849,2118799875,-2120947766,560613664,190640381,664079081,635711379,-606936763,780924615,-1518960145,944460580,1463527597,-1595907028,-884625025" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.internal,org.mockito.internal.invocation,org.mockito.internal.stubbing,org.mockito.internal.util,org.mockito.internal.verification.api,org.mockito.invocation,org.mockito.listeners,org.mockito.verification"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.verification"/>
@@ -498,8 +498,8 @@
       <attribute name="bnd.hashes" value="952472022,1970427510,64872885,-78399696,650448480,-56677412,1963123622,-2105737398,250802514,-1784837854,-1261660009,2462668,1361292769,-1631381190,80811814,-1530592187,211268575,-1434886996,-1480096420,102959576,389934882" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.invocation"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.verification.api"/>
@@ -508,8 +508,8 @@
       <attribute name="bnd.hashes" value="1545252966,-200542075,1794369764,-1955615452,-1174452943" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.verification.argumentmatching"/>
@@ -518,8 +518,8 @@
       <attribute name="bnd.hashes" value="1676211890" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <directive name="mandatory" value="status"/>
       <directive name="uses" value="org.mockito.internal.reporting,org.mockito.internal.verification.api,org.mockito.invocation"/>
+      <directive name="mandatory" value="status"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.internal.verification.checkers"/>
@@ -531,156 +531,156 @@
       <directive name="uses" value="org.mockito.exceptions.misusing,org.mockito.invocation,org.mockito.listeners,org.mockito.mock,org.mockito.plugins,org.mockito.quality,org.mockito.session,org.mockito.stubbing,org.mockito.verification"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="1231056430,304520936,817254485,1239526786,58907541,1826133886,-1443311845,873962663,-400378241,318256447,2605629,1173697021,-1589926856,2011186277,621294617,1323778002,-706047735,1684966116,207509752,2403754,-1443462163,-1678783089,386683608,-1104611526,-1320080837,-1970145385,50385194,-1404104006,454752266,-69111708,-719560068,-2071214578,1805799002,83356" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.codegen"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="937599016" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.mockito.stubbing"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.configuration"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="-592026627,-103591387" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.mockito.exceptions.base"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.creation.instance"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="1625142690,-82563042" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.exceptions.base"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="549678464,866340533,-1851687051,1990006563" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.mockito.exceptions.base"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.exceptions.misusing"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="-670366283,-1282800704,-875537251,8606322,-1288950217,-1865103257,-262562728,-689223853,85078167,586276915,1566730483,-220981074,-794158618,133500694,-785010935,196742123,1884560547" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.exceptions.stacktrace"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="-1083916743" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.mockito.exceptions.base"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.exceptions.verification"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="-945282917,-1090910333,793440198,36105841,-796267134,870245905,1031742978,657511228,154440555" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="junit.framework"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.exceptions.verification.junit"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="-945282917" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.opentest4j"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.exceptions.verification.opentest4j"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="-945282917" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.hamcrest"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="2031057277" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.mockito,org.mockito.mock"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.invocation"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="-1388471223,-562801488,-1902420559,1642081201,649580090,-1372606247,1965687765,1608328815,45772352,1937981084" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.junit.rules,org.junit.runner,org.junit.runner.manipulation,org.junit.runner.notification,org.mockito.exceptions.base,org.mockito.quality"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.junit"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="-1511216524,-1818460043,-1808119063,-653968356,-215363900,-187027242,911528840,2063668370" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.mockito.invocation,org.mockito.mock,org.mockito.stubbing,org.mockito.verification"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.listeners"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="-503067260,1637477637,-1599887747,-890445426,1534107218,909270524,-1973164017,-484349836,-1402681190" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.mockito,org.mockito.listeners,org.mockito.stubbing"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.mock"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="-1511416340,-578373803,-296176798" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.mockito,org.mockito.creation.instance,org.mockito.exceptions.stacktrace,org.mockito.invocation,org.mockito.mock"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.plugins"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="184797047,75085425,1582935746,-1568537055,-133436957,381592184,-1030657936,989100833,810108610,-1587200763,-823888730,-750644038,1075545040,477987050,1114789766,1874981991,-1308500150" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.quality"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="-187336607,118241472" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.mockito,org.mockito.exceptions.misusing,org.mockito.quality"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.session"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="1755292031,-632522964" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.mockito,org.mockito.invocation,org.mockito.quality"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.stubbing"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="1966025694,817254419,817254420,817254421,817254422,817254423,817254424,2090117360,-1555326518,959700585,-214555391,1938721294,776098452,-2056685601,-2056685600,-2056685599,-2056685598,-2056685597,-2056685596" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.mockito.internal.verification,org.mockito.internal.verification.api"/>
       <attribute name="bundle-symbolic-name" value="org.mockito.mockito-core"/>
       <attribute name="bundle-version" value="4.1.0" type="Version"/>
-      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.mockito.verification"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
       <attribute name="bnd.hashes" value="63182268,350741825,-1487419998,-1920301793,-200260994,-1531525426,811484288" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
@@ -692,9 +692,9 @@
       <attribute name="osgi.wiring.host" value="org.mockito.mockito-core"/>
     </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="org.mockito:mockito-core:4.1.0"/>
+      <attribute name="name" value="org.mockito.mockito-core"/>
       <attribute name="from" value="org.mockito:mockito-core:4.1.0"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="version" value="4.1.0" type="Version"/>
     </capability>
     <capability namespace="maven.dependencies.info">
       <attribute name="compile" value="net.bytebuddy:byte-buddy:1.12.1;net.bytebuddy:byte-buddy-agent:1.12.1"/>
@@ -702,8 +702,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="670719" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/mockito/mockito-core/4.1.0/mockito-core-4.1.0.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/org/mockito/mockito-core/4.1.0/mockito-core-4.1.0.jar"/>
       <attribute name="osgi.content" value="9A924658EC795777CCE66DA7ECBEFDE57B079408B838992A624DB33D52DA9359"/>
     </capability>
     <requirement namespace="osgi.wiring.package">

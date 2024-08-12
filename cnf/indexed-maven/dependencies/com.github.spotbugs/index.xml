@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324125">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="spotbugs-annotations"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="4.8.3" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="spotbugs-annotations"/>
+      <attribute name="bundle-version" value="4.8.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="edu.umd.cs.findbugs.annotations"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-574683160,621294617,-759259358,-1472251222,-154158155,-1598570448,-1055976814,-853724423,-1622032061,-737325423,558765330,-412756881,2019271907,-574976389,-507294252,-1841323135,1684176109,-385831732,-1100816956,121780472,-972981816,42602060,1194988200,2695002" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="4.8.3" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="spotbugs-annotations"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="4.8.3" type="Version"/>
+      <attribute name="osgi.wiring.host" value="spotbugs-annotations"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="spotbugs-annotations"/>
+      <attribute name="from" value="com.github.spotbugs:spotbugs-annotations:4.8.3"/>
+      <attribute name="version" value="4.8.3" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="com.google.code.findbugs:jsr305:3.0.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="15204" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs-annotations/4.8.3/spotbugs-annotations-4.8.3.jar"/>
+      <attribute name="osgi.content" value="E5D4F60BE8E57595766BA7F1D4535DC46AEBF98DAE05E16372A4D4120D3EBB6B"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="spotbugs-annotations"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="4.8.1" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="spotbugs-annotations"/>
+      <attribute name="bundle-version" value="4.8.1" type="Version"/>
+      <attribute name="osgi.wiring.package" value="edu.umd.cs.findbugs.annotations"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-574683160,621294617,-759259358,-1472251222,-154158155,-1598570448,-1055976814,-853724423,-1622032061,-737325423,558765330,-412756881,2019271907,-574976389,-507294252,-1841323135,1684176109,-385831732,-1100816956,121780472,-972981816,42602060,1194988200,2695002" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="4.8.1" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="spotbugs-annotations"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="4.8.1" type="Version"/>
+      <attribute name="osgi.wiring.host" value="spotbugs-annotations"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="spotbugs-annotations"/>
+      <attribute name="from" value="com.github.spotbugs:spotbugs-annotations:4.8.1"/>
+      <attribute name="version" value="4.8.1" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="com.google.code.findbugs:jsr305:3.0.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="15204" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs-annotations/4.8.1/spotbugs-annotations-4.8.1.jar"/>
+      <attribute name="osgi.content" value="06EBA41A81AACCB011C3F75AFA019E509CDA7F1EB7A4E057BB860C60845F915E"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="spotbugs-annotations"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="4.7.3" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="spotbugs-annotations"/>
+      <attribute name="bundle-version" value="4.7.3" type="Version"/>
+      <attribute name="osgi.wiring.package" value="edu.umd.cs.findbugs.annotations"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-574683160,621294617,-759259358,-1472251222,-154158155,-1598570448,-1055976814,-853724423,-1622032061,-737325423,558765330,-412756881,2019271907,-574976389,-507294252,-1841323135,1684176109,-385831732,-1100816956,121780472,-972981816,42602060,1194988200,2695002" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="4.7.3" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="spotbugs-annotations"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="4.7.3" type="Version"/>
+      <attribute name="osgi.wiring.host" value="spotbugs-annotations"/>
+    </capability>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="spotbugs-annotations"/>
+      <attribute name="from" value="com.github.spotbugs:spotbugs-annotations:4.7.3"/>
+      <attribute name="version" value="4.7.3" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="com.google.code.findbugs:jsr305:3.0.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="15204" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs-annotations/4.7.3/spotbugs-annotations-4.7.3.jar"/>
+      <attribute name="osgi.content" value="C0FD1AC2E22ACDD46913A2FF74551B71F124457199688698204AF4BF3D43165D"/>
+    </capability>
+  </resource>
+</repository>

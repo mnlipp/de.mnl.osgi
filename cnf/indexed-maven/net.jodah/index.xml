@@ -1,46 +1,46 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1637576005887">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476323893">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://apache.org/licenses/LICENSE-2.0"/>
-      <attribute name="description" value="Toolkit for testing multi-threaded and asynchronous applications"/>
       <attribute name="osgi.identity" value="net.jodah.concurrentunit"/>
+      <attribute name="description" value="Toolkit for testing multi-threaded and asynchronous applications"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="0.4.4" type="Version"/>
+      <attribute name="version" value="0.4.6" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
       <attribute name="bundle-symbolic-name" value="net.jodah.concurrentunit"/>
-      <attribute name="bundle-version" value="0.4.4" type="Version"/>
-      <attribute name="version" value="0.4.4" type="Version"/>
+      <attribute name="bundle-version" value="0.4.6" type="Version"/>
       <attribute name="osgi.wiring.package" value="net.jodah.concurrentunit"/>
+      <attribute name="version" value="0.4.6" type="Version"/>
       <attribute name="bnd.hashes" value="-1703806503,-1711406846" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="net.jodah.concurrentunit"/>
-      <attribute name="bundle-version" value="0.4.4" type="Version"/>
-      <attribute name="version" value="0.4.4" type="Version"/>
+      <attribute name="bundle-version" value="0.4.6" type="Version"/>
       <attribute name="osgi.wiring.package" value="net.jodah.concurrentunit.internal"/>
+      <attribute name="version" value="0.4.6" type="Version"/>
       <attribute name="bnd.hashes" value="2592443,9787708" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="0.4.4" type="Version"/>
+      <attribute name="bundle-version" value="0.4.6" type="Version"/>
       <attribute name="osgi.wiring.bundle" value="net.jodah.concurrentunit"/>
     </capability>
     <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.4.4" type="Version"/>
+      <attribute name="bundle-version" value="0.4.6" type="Version"/>
       <attribute name="osgi.wiring.host" value="net.jodah.concurrentunit"/>
     </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="net.jodah:concurrentunit:0.4.4"/>
-      <attribute name="from" value="net.jodah:concurrentunit:0.4.4"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="name" value="net.jodah.concurrentunit"/>
+      <attribute name="from" value="net.jodah:concurrentunit:0.4.6"/>
+      <attribute name="version" value="0.4.6" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="9660" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/net/jodah/concurrentunit/0.4.4/concurrentunit-0.4.4.jar"/>
+      <attribute name="size" value="10023" type="Long"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="9165CD62683C4BC144548732B8A0AB105240DA808E5604B9BE5C699971CAC1FF"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/net/jodah/concurrentunit/0.4.6/concurrentunit-0.4.6.jar"/>
+      <attribute name="osgi.content" value="760E6D4AB7801484DE09DA621B61141F3B2C2432949DA9EB13F076E5D9A5E0A5"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(osgi.wiring.package=net.jodah.concurrentunit.internal)"/>
@@ -57,8 +57,8 @@
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://apache.org/licenses/LICENSE-2.0"/>
-      <attribute name="description" value="Toolkit for testing multi-threaded and asynchronous applications"/>
       <attribute name="osgi.identity" value="net.jodah.concurrentunit"/>
+      <attribute name="description" value="Toolkit for testing multi-threaded and asynchronous applications"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" value="0.4.5" type="Version"/>
     </capability>
@@ -66,15 +66,15 @@
       <directive name="uses" value="org.hamcrest"/>
       <attribute name="bundle-symbolic-name" value="net.jodah.concurrentunit"/>
       <attribute name="bundle-version" value="0.4.5" type="Version"/>
-      <attribute name="version" value="0.4.5" type="Version"/>
       <attribute name="osgi.wiring.package" value="net.jodah.concurrentunit"/>
+      <attribute name="version" value="0.4.5" type="Version"/>
       <attribute name="bnd.hashes" value="-1703806503,-1711406846" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="net.jodah.concurrentunit"/>
       <attribute name="bundle-version" value="0.4.5" type="Version"/>
-      <attribute name="version" value="0.4.5" type="Version"/>
       <attribute name="osgi.wiring.package" value="net.jodah.concurrentunit.internal"/>
+      <attribute name="version" value="0.4.5" type="Version"/>
       <attribute name="bnd.hashes" value="2592443,9787708" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
@@ -86,14 +86,14 @@
       <attribute name="osgi.wiring.host" value="net.jodah.concurrentunit"/>
     </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="net.jodah:concurrentunit:0.4.5"/>
+      <attribute name="name" value="net.jodah.concurrentunit"/>
       <attribute name="from" value="net.jodah:concurrentunit:0.4.5"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="version" value="0.4.5" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="10125" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/net/jodah/concurrentunit/0.4.5/concurrentunit-0.4.5.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/net/jodah/concurrentunit/0.4.5/concurrentunit-0.4.5.jar"/>
       <attribute name="osgi.content" value="23E61A07ADF80761ED1EDA8160234C739787A4090D9D61E2248AE13A73225815"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -111,44 +111,44 @@
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://apache.org/licenses/LICENSE-2.0"/>
-      <attribute name="description" value="Toolkit for testing multi-threaded and asynchronous applications"/>
       <attribute name="osgi.identity" value="net.jodah.concurrentunit"/>
+      <attribute name="description" value="Toolkit for testing multi-threaded and asynchronous applications"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="0.4.6" type="Version"/>
+      <attribute name="version" value="0.4.4" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <directive name="uses" value="org.hamcrest"/>
       <attribute name="bundle-symbolic-name" value="net.jodah.concurrentunit"/>
-      <attribute name="bundle-version" value="0.4.6" type="Version"/>
-      <attribute name="version" value="0.4.6" type="Version"/>
+      <attribute name="bundle-version" value="0.4.4" type="Version"/>
       <attribute name="osgi.wiring.package" value="net.jodah.concurrentunit"/>
+      <attribute name="version" value="0.4.4" type="Version"/>
       <attribute name="bnd.hashes" value="-1703806503,-1711406846" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="bundle-symbolic-name" value="net.jodah.concurrentunit"/>
-      <attribute name="bundle-version" value="0.4.6" type="Version"/>
-      <attribute name="version" value="0.4.6" type="Version"/>
+      <attribute name="bundle-version" value="0.4.4" type="Version"/>
       <attribute name="osgi.wiring.package" value="net.jodah.concurrentunit.internal"/>
+      <attribute name="version" value="0.4.4" type="Version"/>
       <attribute name="bnd.hashes" value="2592443,9787708" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="0.4.6" type="Version"/>
+      <attribute name="bundle-version" value="0.4.4" type="Version"/>
       <attribute name="osgi.wiring.bundle" value="net.jodah.concurrentunit"/>
     </capability>
     <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.4.6" type="Version"/>
+      <attribute name="bundle-version" value="0.4.4" type="Version"/>
       <attribute name="osgi.wiring.host" value="net.jodah.concurrentunit"/>
     </capability>
     <capability namespace="bnd.info">
-      <attribute name="name" value="net.jodah:concurrentunit:0.4.6"/>
-      <attribute name="from" value="net.jodah:concurrentunit:0.4.6"/>
-      <attribute name="version" value="0.0.0" type="Version"/>
+      <attribute name="name" value="net.jodah.concurrentunit"/>
+      <attribute name="from" value="net.jodah:concurrentunit:0.4.4"/>
+      <attribute name="version" value="0.4.4" type="Version"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="10023" type="Long"/>
-      <attribute name="url" value="https://repo.maven.apache.org/maven2/net/jodah/concurrentunit/0.4.6/concurrentunit-0.4.6.jar"/>
+      <attribute name="size" value="9660" type="Long"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="760E6D4AB7801484DE09DA621B61141F3B2C2432949DA9EB13F076E5D9A5E0A5"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/net/jodah/concurrentunit/0.4.4/concurrentunit-0.4.4.jar"/>
+      <attribute name="osgi.content" value="9165CD62683C4BC144548732B8A0AB105240DA808E5604B9BE5C699971CAC1FF"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(osgi.wiring.package=net.jodah.concurrentunit.internal)"/>

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="IndexedMaven" increment="1723476324024">
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.kohlschutter.junixsocket:junixsocket-native-common"/>
+      <attribute name="from" value="com.kohlschutter.junixsocket:junixsocket-native-common:2.0.4"/>
+      <attribute name="version" value="2.0.4" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="org.scijava:native-lib-loader:2.0.2;com.kohlschutter.junixsocket:junixsocket-common:2.0.4;log4j:log4j:1.2.17"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="27805" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/kohlschutter/junixsocket/junixsocket-native-common/2.0.4/junixsocket-native-common-2.0.4.jar"/>
+      <attribute name="osgi.content" value="F763B85EC153D9530907474E7F206CA52B287037D704BACEDDA38DD5C4D0F60C"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="bnd.info">
+      <attribute name="name" value="com.kohlschutter.junixsocket:junixsocket-common"/>
+      <attribute name="from" value="com.kohlschutter.junixsocket:junixsocket-common:2.0.4"/>
+      <attribute name="version" value="2.0.4" type="Version"/>
+    </capability>
+    <capability namespace="maven.dependencies.info">
+      <attribute name="compile" value="log4j:log4j:1.2.17"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="18216" type="Long"/>
+      <attribute name="mime" value="application/java-archive"/>
+      <attribute name="url" value="https://repo.maven.apache.org/maven2/com/kohlschutter/junixsocket/junixsocket-common/2.0.4/junixsocket-common-2.0.4.jar"/>
+      <attribute name="osgi.content" value="AFC37615ECF7FADFF74D29AFB443FE4F633D396646D89D825E8224A277839F60"/>
+    </capability>
+  </resource>
+</repository>
