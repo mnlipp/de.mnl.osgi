@@ -6,7 +6,7 @@ Bundle-Name: MNL's repository plugins
 Bundle-Category: util
 Bundle-Copyright: Michael N. Lipp (C) 2018-2023
 Bundle-License: http://www.gnu.org/licenses/agpl-3.0.txt
-Bundle-Version: 6.1.0.${bundleVersionQualifier}
+Bundle-Version: 6.2.0.${bundleVersionQualifier}
 Export-Package: \
 	org.apache.maven.*;-split-package:=merge-first;version=3.6.0,\
 	org.codehaus.plexus.interpolation.*,\
@@ -43,4 +43,4 @@ testbin=bin/test
 
 	
 -runfw: org.apache.felix.framework;version='[7.0.5,7.0.5]'
--runee: JavaSE-11
+-runee: JavaSE-17
