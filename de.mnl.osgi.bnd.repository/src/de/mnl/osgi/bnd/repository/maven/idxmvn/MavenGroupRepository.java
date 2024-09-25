@@ -162,6 +162,7 @@ public class MavenGroupRepository extends ResourcesRepository {
                 Archive.valueOf((String) cap.getAttributes().get("from")),
                 IndexingState.INDEXED);
         }
+        reset();
         LOG.debug("Created group repository for {}.", groupId);
     }
 
