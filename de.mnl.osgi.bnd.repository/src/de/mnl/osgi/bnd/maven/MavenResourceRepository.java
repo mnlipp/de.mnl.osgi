@@ -344,18 +344,11 @@ public class MavenResourceRepository extends CompositeMavenRepository {
         }
 
         private String toVersionList(Collection<Dependency> deps) {
-            StringBuilder depsList = new StringBuilder("");
-            for (Dependency dep : deps) {
-                if (depsList.length() > 0) {
-                    depsList.append(';');
-                }
-                depsList.append(dep.getGroupId());
-                depsList.append(':');
-                depsList.append(dep.getArtifactId());
-                depsList.append(':');
-                depsList.append(dep.getVersion());
-            }
-            return depsList.toString();
+            // Sort dependencies to get reproducible results.
+            return deps.stream()
+                .map(d -> d.getGroupId() + ":" + d.getArtifactId()
+                    + ":" + d.getVersion())
+                .sorted().collect(Collectors.joining(";"));
         }
 
         @Override
