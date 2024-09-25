@@ -312,11 +312,12 @@ public class IndexedMavenRepository extends ResourcesRepository {
                 .toArray(CompletableFuture[]::new)),
             // Write federated index.
             CompletableFuture.runAsync(() -> {
-                if (groups.keySet().equals(backupGroups.keySet())) {
+                var indexPath = indexDbDir.resolve("index.xml");
+                if (groups.keySet().equals(backupGroups.keySet())
+                    && indexPath.toFile().exists()) {
                     return;
                 }
-                try (OutputStream fos
-                    = Files.newOutputStream(indexDbDir.resolve("index.xml"))) {
+                try (OutputStream fos = Files.newOutputStream(indexPath)) {
                     writeFederatedIndex(fos);
                 } catch (IOException e) {
                     throw new CompletionException(e);
