@@ -96,7 +96,7 @@ public class MavenGroupRepository extends ResourcesRepository {
     private Path groupDir;
     private Path groupPropsPath;
     private Path groupIndexPath;
-    private final Properties groupProps;
+    private final Properties groupProps = new Properties();
     private VersionSpecification[] versionSpecs = new VersionSpecification[0];
     private final ConcurrentMap<Archive, IndexingState> indexingState
         = new ConcurrentHashMap<>();
@@ -133,18 +133,9 @@ public class MavenGroupRepository extends ResourcesRepository {
         this.indexedRepository = indexedRepository;
         this.client = client;
         this.reporter = reporter;
-
-        // Prepare directory and files
         updatePaths(directory);
-        groupProps = new Properties();
-        if (groupPropsPath.toFile().canRead()) {
-            try (InputStream input = Files.newInputStream(groupPropsPath)) {
-                groupProps.load(input);
-                versionSpecs = VersionSpecification.parse(groupProps);
-            }
-        }
 
-        // Prepare OSGi repository
+        // Restore persisted resources and "reuse" (loads properties).
         if (groupIndexPath.toFile().canRead()) {
             try (XMLResourceParser parser
                 = new XMLResourceParser(groupIndexPath.toFile())) {
@@ -154,15 +145,17 @@ public class MavenGroupRepository extends ResourcesRepository {
                     e.getMessage());
             }
         }
+        reuse(directory, requested);
 
-        // Re-use exiting resources for faster checks.
-        for (Capability cap : findProvider(
+        // Restore indexing state for restored archives (assumed to be
+        // up to date, no refresh).
+        for (Capability cap : backupRepo.findProvider(
             newRequirementBuilder("bnd.info").build())) {
+            add(retrieveSupporting(cap.getResource()));
             indexingState.put(
                 Archive.valueOf((String) cap.getAttributes().get("from")),
                 IndexingState.INDEXED);
         }
-        reset();
         LOG.debug("Created group repository for {}.", groupId);
     }
 
@@ -185,16 +178,57 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
+     * Add the specified resource to this repository if it is not in
+     * the repository yet.
+     */
+    @Override
+    public void add(Resource resource) {
+        // Until the fix for https://github.com/bndtools/bnd/issues/6212
+        // is generally available, we need to check if the resource is
+        // already known, because the base class does not really implement
+        // the set characteristics for resources.
+        if (isKnown(resource)) {
+            return;
+        }
+        super.add(resource);
+    }
+
+    private boolean isKnown(Resource resource) {
+        var ident = ResourceUtils.getIdentityCapability(resource);
+        if (ident == null) {
+            // Fallback with unclear reliability.
+            return getResources().contains(resource);
+        }
+        return findProvider(
+            newRequirementBuilder(IdentityNamespace.IDENTITY_NAMESPACE)
+                .addDirective("filter",
+                    String.format("(&(osgi.identity=%s)(version=%s))",
+                        ident.osgi_identity(),
+                        ident.version()))
+                .build()).stream().findAny().isPresent();
+    }
+
+    /**
      * Writes all changes to persistent storage and removes
-     * any backup information prepared by {@link #reset(Path, boolean)}.
+     * any backup information prepared by {@link #reuse(Path, boolean)}.
      *
+     * @return true, if the index has changed
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public void flush() throws IOException {
+    public boolean flush() throws IOException {
         boolean indexChanged = true;
         if (backupRepo != null) {
-            Set<Resource> oldSet = new HashSet<>(backupRepo.getResources());
-            Set<Resource> newSet = new HashSet<>(getResources());
+            // See #add, we cannot rely on Resource's hasCode/equals.
+            var oldSet = backupRepo.getResources().stream()
+                .map(ResourceUtils::getIdentityCapability)
+                .filter(ident -> ident != null)
+                .map(ident -> ident.osgi_identity() + ":" + ident.version())
+                .collect(Collectors.toSet());
+            var newSet = getResources().stream()
+                .map(ResourceUtils::getIdentityCapability)
+                .filter(ident -> ident != null)
+                .map(ident -> ident.osgi_identity() + ":" + ident.version())
+                .collect(Collectors.toSet());
             if (newSet.equals(oldSet)) {
                 indexChanged = false;
             }
@@ -221,6 +255,7 @@ public class MavenGroupRepository extends ResourcesRepository {
         }
         loggedMessages.clear();
         indexingState.clear();
+        return indexChanged;
     }
 
     /**
@@ -253,15 +288,16 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
-     * Clears this repository and updates the path and the requested 
-     * flag. Keeps the current content as backup for reuse in a 
-     * subsequent call to {@link #reload()}.
+     * Reuse the repository for the given directory as either requested or
+     * dependency repository. Updates the path and the requested flag. Keeps
+     * the current content as backup for reuse in a subsequent call to 
+     * {@link #reload()}.
      *
      * @param directory this group's directory
      * @param requested whether this is a requested group
      */
     @SuppressWarnings({ "PMD.ConfusingTernary", "PMD.GuardLogStatement" })
-    public void reset(Path directory, boolean requested) {
+    public void reuse(Path directory, boolean requested) {
         synchronized (this) {
             // Update basic properties
             this.requested = requested;
@@ -290,12 +326,15 @@ public class MavenGroupRepository extends ResourcesRepository {
     }
 
     /**
-     * Reset the repository group. Must be called for all groups before
-     * reloading. 
+     * Prepares the refresh for this group. Opens the log file if
+     * logging is requested and creates a backup of the known
+     * resources.
+     * 
+     * Must be called for all groups before reloading. 
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    /* package */ void reset() throws IOException {
+    /* package */ void prepareRefresh() throws IOException {
         if (indexedRepository.logIndexing()) {
             indexingLog = Files.newBufferedWriter(
                 groupDir.resolve("indexing.log"), Charset.defaultCharset());
@@ -309,7 +348,7 @@ public class MavenGroupRepository extends ResourcesRepository {
             // Will be filled with dependencies only
             return;
         }
-        // Actively filled.
+        // Will be actively filled.
         synchronized (this) {
             if (backupRepo == null) {
                 backupRepo = new ResourcesRepository(getResources());
@@ -319,10 +358,10 @@ public class MavenGroupRepository extends ResourcesRepository {
 
     /**
      * Reload the repository. May be called concurrently for different
-     * group repositories after resetting all. Requested repositories 
-     * retrieve the list of known artifactIds from the remote repository 
-     * and add the versions. For versions already in the repository, 
-     * the backup information is re-used.
+     * group repositories. Requested repositories retrieve the list
+     * of known artifactIds from the remote repository and add the
+     * versions. For versions already in the repository, the backup
+     * information is re-used.
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -769,13 +808,24 @@ public class MavenGroupRepository extends ResourcesRepository {
                     String.format("(from=%s)", archive.toString()))
                 .build())
             .stream().findFirst().map(Capability::getResource)
-            .map(this::addSupporting);
+            .map(this::retrieveSupporting);
     }
 
-    private Resource addSupporting(Resource archiveResource) {
+    /**
+     * Retrieve the supporting resources for the given resource from the 
+     * backup repository and created a new Resource with added supporting
+     * resources.
+     *
+     * @param resource the resource
+     * @return the resource
+     */
+    private Resource retrieveSupporting(Resource resource) {
         ResourceBuilder builder = new ResourceBuilder();
-        builder.addResource(archiveResource);
-        var ident = RepoResourceUtils.getIdentityCapability(archiveResource);
+        builder.addResource(resource);
+        var ident = ResourceUtils.getIdentityCapability(resource);
+        if (ident == null) {
+            return resource;
+        }
         var name
             = ident.getAttributes().get(IdentityNamespace.IDENTITY_NAMESPACE);
         var version = ident.getAttributes()

@@ -45,6 +45,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -92,20 +93,23 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private final MavenResourceRepository mavenRepository;
     private final Map<String, MavenGroupRepository> groups
         = new ConcurrentHashMap<>();
-    private Map<String, MavenGroupRepository> backupGroups;
+    private Map<String, MavenGroupRepository> backupGroups
+        = Collections.emptyMap();
     private final AtomicBoolean refreshing = new AtomicBoolean();
 
     /**
-     * Create a new instance that uses the provided information/resources to perform
-     * its work.
+     * Create a new instance that uses the provided information/resources 
+     * to perform its work.
      *
      * @param name the name
      * @param releaseUrls the release urls
      * @param snapshotUrls the snapshot urls
      * @param localRepo the local Maven repository (cache)
-     * @param indexDbDir the persistent representation of this repository's content
+     * @param indexDbDir the persistent representation of this repository's 
+     * content
      * @param reporter a reporter for reporting the progress
-     * @param client an HTTP client for obtaining information from the Nexus server
+     * @param client an HTTP client for obtaining information from the Nexus
+     * server
      * @param logIndexing the log indexing
      * @throws Exception the exception
      */
@@ -138,18 +142,11 @@ public class IndexedMavenRepository extends ResourcesRepository {
             depsDir.toFile().mkdir();
         }
 
-        // Our repository
+        // Our backing repository
         mavenRepository = createMavenRepository();
 
-        // Restore
-        @SuppressWarnings("PMD.UseConcurrentHashMap")
-        Map<String, MavenGroupRepository> oldGroups = new HashMap<>();
-        CompletableFuture
-            .allOf(scanRequested(oldGroups), scanDependencies(oldGroups)).get();
-        for (MavenGroupRepository groupRepo : groups.values()) {
-            addAll(groupRepo.getResources());
-        }
-        backupGroups = groups;
+        // The remainder of the initialization is done in restore.
+        restore();
     }
 
     @SuppressWarnings({ "PMD.SignatureDeclareThrowsException", "resource" })
@@ -174,6 +171,65 @@ public class IndexedMavenRepository extends ResourcesRepository {
     private Optional<Resource> restoreResource(Archive archive) {
         return Optional.ofNullable(backupGroups.get(archive.revision.group))
             .flatMap(group -> group.searchInBackup(archive));
+    }
+
+    /**
+     * Initialize the repository. This restores the information from the
+     * persisted index files if they exist. If no persisted information
+     * is found, the group is refreshed.
+     * 
+     * Synchronizes on {@code this}, to avoid parallel execution with
+     * {@link #refresh()}.
+     */
+    private void restore() throws Exception {
+        groups.clear();
+
+        // Create all group repositories with content from
+        // index file (if such a file exists).
+        Map<String, MavenGroupRepository> knownGroups
+            = new ConcurrentHashMap<>();
+        CompletableFuture.allOf(scanRequested(knownGroups),
+            scanDependencies(knownGroups)).get();
+
+        // Refresh all repositories without an index file (empty)
+        CompletableFuture.allOf(groups.values().stream()
+            .filter(r -> r.isRequested() && r.getResources().isEmpty())
+            .map(r -> CompletableFuture.runAsync(() -> {
+                try {
+                    r.reload();
+                } catch (IOException e) {
+                    throw new CompletionException(e);
+                }
+            }, groupLoaders)).toArray(CompletableFuture[]::new)).get();
+
+        // Update index files (may have changed)
+        if (new ArrayList<>(groups.values()).stream()
+            .map(repo -> CompletableFuture.supplyAsync(() -> {
+                try {
+                    return repo.flush();
+                } catch (IOException e) {
+                    throw new CompletionException(e);
+                }
+            }, groupLoaders)).map(r -> {
+                try {
+                    return r.get();
+                } catch (InterruptedException | ExecutionException e) {
+                    return false;
+                }
+            }).filter(Boolean::booleanValue).count() > 0) {
+            // Write federated index.
+            var indexPath = indexDbDir.resolve("index.xml");
+            try (OutputStream fos = Files.newOutputStream(indexPath)) {
+                writeFederatedIndex(fos);
+            } catch (IOException e) {
+                throw new CompletionException(e);
+            }
+        }
+
+        // This repository knows everything from the group repositories.
+        for (MavenGroupRepository groupRepo : groups.values()) {
+            addAll(groupRepo.getResources());
+        }
     }
 
     /**
@@ -234,6 +290,9 @@ public class IndexedMavenRepository extends ResourcesRepository {
     /**
      * Refresh this repository's content.
      * 
+     * Synchronizes on {@code this}, to avoid parallel execution with
+     * {@link #sync()}.
+     * 
      * @return true if refreshed, false if not refreshed possibly due to error
      * @throws Exception if a problem occurs
      */
@@ -264,7 +323,7 @@ public class IndexedMavenRepository extends ResourcesRepository {
         backupGroups = new HashMap<>(groups);
         groups.clear();
         for (var group : backupGroups.values()) {
-            group.reset();
+            group.prepareRefresh();
         }
 
         // Scan requested first to avoid problems if a group is moved from
@@ -334,21 +393,35 @@ public class IndexedMavenRepository extends ResourcesRepository {
         return true;
     }
 
+    /**
+     * Iterates through all requested groups and makes sure that
+     * a {@link MavenGroupRepository} exists for each of them.
+     *
+     * @param knownGroups the known groups, passed to {@link #restoreGroup}
+     * @return the completable future
+     */
     private CompletableFuture<Void>
-            scanRequested(Map<String, MavenGroupRepository> oldGroups) {
+            scanRequested(Map<String, MavenGroupRepository> knownGroups) {
         return CompletableFuture.allOf(
             Arrays.stream(indexDbDir.toFile().list()).parallel()
                 .filter(dir -> dir.matches("^[A-Za-z].*")
                     && !"index.xml".equals(dir)
                     && !"dependencies".equals(dir))
                 .map(groupId -> CompletableFuture
-                    .runAsync(() -> restoreGroup(oldGroups, groupId, true),
+                    .runAsync(() -> restoreGroup(knownGroups, groupId, true),
                         groupLoaders))
                 .toArray(CompletableFuture[]::new));
     }
 
+    /**
+     * Iterates through all dependency groups and makes sure that
+     * a {@link MavenGroupRepository} exists for each of them.
+     *
+     * @param knownGroups the known groups, passed to {@link #restoreGroup}
+     * @return the completable future
+     */
     private CompletableFuture<Void>
-            scanDependencies(Map<String, MavenGroupRepository> oldGroups) {
+            scanDependencies(Map<String, MavenGroupRepository> knownGroups) {
         if (!depsDir.toFile().canRead() || !depsDir.toFile().isDirectory()) {
             return CompletableFuture.completedFuture(null);
         }
@@ -371,17 +444,28 @@ public class IndexedMavenRepository extends ResourcesRepository {
                     return true;
                 })
                 .map(groupId -> CompletableFuture
-                    .runAsync(() -> restoreGroup(oldGroups, groupId, false),
+                    .runAsync(() -> restoreGroup(knownGroups, groupId, false),
                         groupLoaders))
                 .toArray(CompletableFuture[]::new));
     }
 
-    private void restoreGroup(Map<String, MavenGroupRepository> oldGroups,
+    /**
+     * Restores the information about a group (represented as
+     * {@link MavenGroupRepository}) in the {@code groups} attribute.
+     * If knownGroups already has a {@link MavenGroupRepository} for
+     * the given groupId, it is reused. Else, a new
+     * {@link MavenGroupRepository} is created.
+     *
+     * @param knownGroups the known groups
+     * @param groupId the group id
+     * @param requested the requested
+     */
+    private void restoreGroup(Map<String, MavenGroupRepository> knownGroups,
             String groupId, boolean requested) {
-        if (oldGroups.containsKey(groupId)) {
+        if (knownGroups.containsKey(groupId)) {
             // Reuse existing.
-            MavenGroupRepository groupRepo = oldGroups.get(groupId);
-            groupRepo.reset((requested ? indexDbDir : depsDir).resolve(groupId),
+            MavenGroupRepository groupRepo = knownGroups.get(groupId);
+            groupRepo.reuse((requested ? indexDbDir : depsDir).resolve(groupId),
                 requested);
             groups.put(groupId, groupRepo);
             return;
