@@ -12,7 +12,7 @@
         logIndexing=true
 
 -pluginpath.IndexedMaved: \
-    ${workspace}/cnf/cache/de.mnl.osgi.bnd.repository-6.2.0.jar;\
-        url=https://github.com/mnlipp/de.mnl.osgi/raw/master/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-6.2.0.jar,\
+    ${workspace}/cnf/cache/de.mnl.osgi.bnd.repository-6.3.0.jar;\
+        url=https://github.com/mnlipp/de.mnl.osgi/raw/master/cnf/release/de.mnl.osgi.bnd.repository/de.mnl.osgi.bnd.repository-6.3.0.jar,\
     ${workspace}/cnf/cache/biz.aQute.repository-7.0.0.jar;\
         url=https://repo1.maven.org/maven2/biz/aQute/bnd/biz.aQute.repository/7.0.0/biz.aQute.repository-7.0.0.jar
